@@ -1,0 +1,11 @@
+@font-face { font-family: "Geist"; src: url("../fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("../fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+:root { color-scheme: dark; }
+body { margin: 0; background: #060709; color: #b9bfc8; font: 16px/1.7 "Geist", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+main { max-width: 680px; margin: 0 auto; padding: 48px 20px 96px; }
+.doc-back { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 64px; color: #8b9199; text-decoration: none; font-size: 14px; }
+.doc-back:hover { color: #f1f3f6; }
+h1 { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; font-size: clamp(40px, 7vw, 64px); line-height: 1; letter-spacing: -0.02em; color: #f1f3f6; margin: 0 0 16px; }
+h2 { font-size: 18px; font-weight: 560; color: #f1f3f6; margin: 40px 0 8px; letter-spacing: -0.01em; }
+p { margin: 0 0 14px; }
+a { color: #f1f3f6; }
