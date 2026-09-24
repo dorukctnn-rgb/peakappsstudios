@@ -1,13 +1,347 @@
-<!DOCTYPE html>
-<html>
-<head><meta charset="UTF-8"><title>Peak Apps Studios</title>
-<style>body{font-family:sans-serif;max-width:600px;margin:50px auto;padding:20px;color:#333}h1{color:#f97316}a{color:#f97316}</style></head>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Peak Apps Studio: independent software studio</title>
+<meta name="description" content="Peak Apps is an independent studio that designs, builds and runs its own software: BodyArcade, GetInvoiceMaker, MileageLogMaker, ClientGuard and iOS apps including Travio and Leano.">
+<meta name="theme-color" content="#07080a">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Peak Apps Studio">
+<meta property="og:title" content="Peak Apps Studio: independent software studio">
+<meta property="og:description" content="We design, build and run our own products: web tools for freelancers and small businesses, iOS apps, and a browser game you play with your body.">
+<meta property="og:image" content="https://dorukctnn-rgb.github.io/peakappsstudios/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://dorukctnn-rgb.github.io/peakappsstudios/assets/og.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/work/ba-sunset.webp" as="image" type="image/webp" fetchpriority="high">
+<link rel="stylesheet" href="assets/css/studio.css">
+<script>document.documentElement.classList.add('js')</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://dorukctnn-rgb.github.io/peakappsstudios/#org",
+      "name": "Peak Apps Studio",
+      "url": "https://dorukctnn-rgb.github.io/peakappsstudios/",
+      "email": "peakappsstudios@gmail.com",
+      "logo": "https://dorukctnn-rgb.github.io/peakappsstudios/assets/favicon.svg"
+    },
+    {
+      "@type": "ItemList",
+      "name": "Products by Peak Apps Studio",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "item": {"@type": "SoftwareApplication", "name": "BodyArcade", "url": "https://bodyarcade.com/", "applicationCategory": "GameApplication", "operatingSystem": "Web browser"}},
+        {"@type": "ListItem", "position": 2, "item": {"@type": "SoftwareApplication", "name": "GetInvoiceMaker", "url": "https://getinvoicemaker.com/", "applicationCategory": "BusinessApplication", "operatingSystem": "Web browser"}},
+        {"@type": "ListItem", "position": 3, "item": {"@type": "SoftwareApplication", "name": "MileageLogMaker", "url": "https://mileagelogmaker.com/", "applicationCategory": "FinanceApplication", "operatingSystem": "Web browser"}},
+        {"@type": "ListItem", "position": 4, "item": {"@type": "SoftwareApplication", "name": "ClientGuard", "url": "https://www.clientguard.app/", "applicationCategory": "BusinessApplication", "operatingSystem": "Web browser"}},
+        {"@type": "ListItem", "position": 5, "item": {"@type": "MobileApplication", "name": "Travio: Travel Safety & Scams", "url": "https://apps.apple.com/us/app/travio-travel-scam/id6760786122", "applicationCategory": "TravelApplication", "operatingSystem": "iOS"}}
+      ]
+    }
+  ]
+}
+</script>
+</head>
 <body>
-<h1>Peak Apps Studios</h1>
-<p>We create smart mobile apps for travelers.</p>
-<h2>Our Apps</h2>
-<p><strong>Travio: Travel Scam</strong> — AI-powered scam protection for travelers</p>
-<h2>Contact</h2>
-<p>Email: <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
-<p><a href="/peakappsstudios/privacy">Privacy Policy</a> | <a href="/peakappsstudios/terms">Terms of Use</a></p>
-</body></html>
+<a class="skip" href="#work">Skip to work</a>
+
+<header class="nav" data-nav>
+  <a class="brand" href="./" aria-label="Peak Apps Studio, home">
+    <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12.2 11.4 L14 8 L15.8 11.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" opacity=".55"/></svg>
+    <span class="brand-word">Peak Apps</span><span class="brand-sub">Studio</span>
+  </a>
+  <nav aria-label="Primary">
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#apps">Apps</a></li>
+      <li><a href="#index">Index</a></li>
+      <li><a href="#studio">Studio</a></li>
+    </ul>
+  </nav>
+  <a class="nav-cta" href="mailto:peakappsstudios@gmail.com">Contact</a>
+</header>
+
+<main>
+  <!-- HERO: real product screens arranged in depth. Optional video layer loads only if media/hero files exist. -->
+  <section class="hero" data-hero aria-labelledby="hero-title">
+    <div class="hero-light" aria-hidden="true"></div>
+    <div class="hero-video" data-video="media/hero/hero" data-poster="media/hero/poster.webp" data-video-enabled="false" aria-hidden="true"></div>
+
+    <div class="stage-wrap" aria-hidden="true">
+      <div class="stage" data-stage>
+        <figure class="win win--main" data-depth="0" style="--d:0">
+          <div class="win-bar"><i></i><i></i><i></i><span>bodyarcade.com</span></div>
+          <img src="assets/work/ba-sunset.webp" srcset="assets/work/ba-sunset-sm.webp 800w, assets/work/ba-sunset.webp 1600w" sizes="(max-width: 760px) 90vw, 46vw" width="1600" height="680" alt="" fetchpriority="high" decoding="async">
+        </figure>
+        <figure class="win win--invoice" data-depth="1" style="--d:1">
+          <div class="win-bar"><i></i><i></i><i></i><span>getinvoicemaker.com</span></div>
+          <img src="assets/work/invoice-tool.webp" width="1600" height="1000" alt="" decoding="async">
+        </figure>
+        <figure class="win win--mileage" data-depth="2" style="--d:2">
+          <div class="win-bar"><i></i><i></i><i></i><span>mileagelogmaker.com</span></div>
+          <img src="assets/work/mileage-rate.webp" width="1600" height="1000" alt="" decoding="async">
+        </figure>
+        <figure class="win win--report" data-depth="1" style="--d:3">
+          <div class="win-bar"><i></i><i></i><i></i><span>clientguard.app</span></div>
+          <img src="assets/work/clientguard-report.webp" width="1600" height="1000" alt="" decoding="async">
+        </figure>
+        <figure class="phone" data-depth="-1" style="--d:4">
+          <img src="assets/work/invoice-mobile.webp" width="780" height="1688" alt="" decoding="async">
+        </figure>
+      </div>
+      <div class="stage-floor"></div>
+    </div>
+
+    <div class="hero-copy">
+      <p class="eyebrow"><span class="dot"></span>Independent software studio</p>
+      <h1 id="hero-title" class="hero-title">
+        <span class="line"><span>Useful software,</span></span>
+        <span class="line"><span><em>finished</em> properly.</span></span>
+      </h1>
+      <p class="hero-sub">We design, build and run our own products: invoicing and tax tools for freelancers, iOS apps, and a browser game you play with your whole body.</p>
+      <div class="hero-actions">
+        <a class="btn btn--light" href="#work">See the work</a>
+        <a class="btn btn--ghost" href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a>
+      </div>
+    </div>
+    <div class="hero-foot" aria-hidden="true"><span>Scroll</span><span class="hero-foot-line"></span></div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="manifesto" aria-label="About the studio">
+    <p class="manifesto-text" data-words>We don't take client work. Every product on this page is ours: designed, built and operated in-house, and live right now. Each one does a single job, keeps accounts optional where it can, and stays maintained after launch.</p>
+  </section>
+
+  <!-- SELECTED WORK -->
+  <section id="work" class="work" aria-labelledby="work-title">
+    <header class="section-head">
+      <p class="kicker">Selected work</p>
+      <h2 id="work-title" class="section-title">Four products, <em>four</em> very different problems.</h2>
+    </header>
+
+    <!-- 01 BodyArcade: full-bleed cinematic chapter -->
+    <article class="chapter chapter--film" aria-labelledby="w1">
+      <div class="film">
+        <div class="film-main reveal-img" data-video="media/work/bodyarcade-gameplay" data-video-enabled="false">
+          <img src="assets/work/ba-volcano.webp" srcset="assets/work/ba-volcano-sm.webp 800w, assets/work/ba-volcano.webp 1600w" sizes="100vw" width="1600" height="680" alt="BodyArcade gameplay in the Volcano world: a low-poly road runs between dark red rocks toward the horizon, with the run progress bar and score overlay." loading="lazy" decoding="async">
+        </div>
+        <div class="film-copy">
+          <p class="chapter-num">01 · Game · Web</p>
+          <h3 id="w1" class="chapter-title">BodyArcade</h3>
+          <p class="chapter-lede">A running game you steer with your body. Your webcam tracks squats, jumps and arm raises in the browser, and the road responds.</p>
+          <dl class="facts">
+            <div><dt>Platform</dt><dd>Any modern browser with a camera</dd></div>
+            <div><dt>Built with</dt><dd>Three.js, MediaPipe Pose, Supabase Realtime</dd></div>
+            <div><dt>Worlds</dt><dd>10, from Alps to Volcano</dd></div>
+          </dl>
+          <a class="link-arrow" href="https://bodyarcade.com/">Play BodyArcade <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <div class="strip" aria-label="More BodyArcade worlds">
+        <figure class="strip-item reveal-img"><img src="assets/work/ba-city-sm.webp" width="800" height="340" alt="City world: dark towers with lit windows line both sides of the road." loading="lazy" decoding="async"><figcaption>City</figcaption></figure>
+        <figure class="strip-item reveal-img"><img src="assets/work/ba-storm-sm.webp" width="800" height="340" alt="Storm world: a grey coastal road with street lamps under an overcast sky." loading="lazy" decoding="async"><figcaption>Storm</figcaption></figure>
+        <figure class="strip-item reveal-img"><img src="assets/work/ba-desert-sm.webp" width="800" height="340" alt="Desert world: a road through sand dunes and cacti under a pale sky." loading="lazy" decoding="async"><figcaption>Desert</figcaption></figure>
+        <figure class="strip-item reveal-img"><img src="assets/work/ba-sunset-sm.webp" width="800" height="340" alt="Sunset world: pine trees and street lamps under a pink evening sky." loading="lazy" decoding="async"><figcaption>Sunset</figcaption></figure>
+      </div>
+    </article>
+
+    <!-- 02 GetInvoiceMaker: sticky copy + stacked media -->
+    <article class="chapter chapter--split" aria-labelledby="w2">
+      <div class="chapter-copy sticky">
+        <p class="chapter-num">02 · Finance · Web</p>
+        <h3 id="w2" class="chapter-title">GetInvoiceMaker</h3>
+        <p class="chapter-lede">Invoices with the tax already right. Pick a country or province and the VAT, GST/HST or BTW line fills itself in, with a PDF ready in about a minute and no account.</p>
+        <dl class="facts">
+          <div><dt>For</dt><dd>Freelancers and small businesses</dd></div>
+          <div><dt>Covers</dt><dd>18 currencies, UK VAT, Dutch BTW, every Canadian province</dd></div>
+          <div><dt>Pricing</dt><dd>Free; Pro removes branding and adds your logo</dd></div>
+        </dl>
+        <a class="link-arrow" href="https://getinvoicemaker.com/">Open GetInvoiceMaker <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="chapter-media">
+        <figure class="frame frame--browser reveal-img">
+          <div class="win-bar"><i></i><i></i><i></i><span>getinvoicemaker.com</span></div>
+          <img src="assets/work/invoice-tool.webp" width="1600" height="1000" alt="GetInvoiceMaker: the invoice form on the left and a live invoice preview on the right." loading="lazy" decoding="async">
+        </figure>
+        <div class="media-pair">
+          <figure class="frame frame--paper reveal-img">
+            <img src="assets/work/invoice-preview.webp" width="900" height="1150" alt="Close-up of the live invoice preview with line items, subtotal and total due." loading="lazy" decoding="async">
+          </figure>
+          <figure class="frame frame--browser reveal-img">
+            <div class="win-bar"><i></i><i></i><i></i><span>Canadian GST calculator</span></div>
+            <img src="assets/work/invoice-gst.webp" width="1600" height="1000" alt="The Canadian GST calculator with a province selector and the tax breakdown." loading="lazy" decoding="async">
+          </figure>
+        </div>
+      </div>
+    </article>
+
+    <!-- 03 MileageLogMaker: media left, copy right -->
+    <article class="chapter chapter--split chapter--flip" aria-labelledby="w3">
+      <div class="chapter-copy sticky">
+        <p class="chapter-num">03 · Tax · Web</p>
+        <h3 id="w3" class="chapter-title">MileageLogMaker</h3>
+        <p class="chapter-lede">An IRS mileage log that knew the rate changed in July. Each trip is priced at the rate for its date (72.5¢ before July 1, 2026, 76¢ after), and the PDF shows the split.</p>
+        <dl class="facts">
+          <div><dt>For</dt><dd>Self-employed drivers, gig workers, realtors</dd></div>
+          <div><dt>Records</dt><dd>Date, destination, purpose and miles, as the IRS asks</dd></div>
+          <div><dt>Pricing</dt><dd>Free with a watermark; $9 once to remove it</dd></div>
+        </dl>
+        <a class="link-arrow" href="https://mileagelogmaker.com/">Open MileageLogMaker <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="chapter-media">
+        <figure class="frame frame--browser reveal-img">
+          <div class="win-bar"><i></i><i></i><i></i><span>mileagelogmaker.com</span></div>
+          <img src="assets/work/mileage-tool.webp" width="1600" height="1000" alt="MileageLogMaker: trip entry form, trip list and tax deduction summary." loading="lazy" decoding="async">
+        </figure>
+        <figure class="frame frame--browser frame--offset reveal-img">
+          <div class="win-bar"><i></i><i></i><i></i><span>2026 IRS mileage rate</span></div>
+          <img src="assets/work/mileage-rate.webp" width="1600" height="1000" alt="The 2026 IRS mileage rate page explaining the July 1 change from 72.5 to 76 cents." loading="lazy" decoding="async">
+        </figure>
+      </div>
+    </article>
+
+    <!-- 04 ClientGuard -->
+    <article class="chapter chapter--split" aria-labelledby="w4">
+      <div class="chapter-copy sticky">
+        <p class="chapter-num">04 · Business · Web</p>
+        <h3 id="w4" class="chapter-title">ClientGuard</h3>
+        <p class="chapter-lede">How exposed is your business to its biggest client? Upload a revenue export and ClientGuard scores your concentration risk against the 20% rule.</p>
+        <dl class="facts">
+          <div><dt>For</dt><dd>Agencies, consultancies, freelancers with retainers</dd></div>
+          <div><dt>Input</dt><dd>CSV or Excel from QuickBooks, Xero or a spreadsheet</dd></div>
+          <div><dt>Pricing</dt><dd>Free risk score; full audit $39 once</dd></div>
+        </dl>
+        <a class="link-arrow" href="https://www.clientguard.app/">Open ClientGuard <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="chapter-media">
+        <figure class="frame frame--browser reveal-img">
+          <div class="win-bar"><i></i><i></i><i></i><span>clientguard.app/sample-report</span></div>
+          <img src="assets/work/clientguard-report.webp" width="1600" height="1000" alt="ClientGuard sample report showing a concentration risk score and client revenue breakdown." loading="lazy" decoding="async">
+        </figure>
+        <figure class="frame frame--browser frame--offset reveal-img">
+          <div class="win-bar"><i></i><i></i><i></i><span>clientguard.app</span></div>
+          <img src="assets/work/clientguard-home.webp" width="1600" height="1000" alt="ClientGuard homepage with the revenue file upload form." loading="lazy" decoding="async">
+        </figure>
+      </div>
+    </article>
+  </section>
+
+  <!-- APPS -->
+  <section id="apps" class="apps" aria-labelledby="apps-title">
+    <header class="section-head">
+      <p class="kicker">On the App Store</p>
+      <h2 id="apps-title" class="section-title">Small iOS apps, <em>built for one moment.</em></h2>
+    </header>
+    <ul class="apps-list">
+      <li class="app">
+        <div class="app-glyph" aria-hidden="true"><span>T</span></div>
+        <div class="app-body">
+          <h3 class="app-name">Travio</h3>
+          <p class="app-desc">A travel companion that checks whether a taxi fare, a bill or a street offer looks like a known tourist scam.</p>
+          <p class="app-meta">iOS · Travel</p>
+          <div class="app-links"><a class="link-arrow" href="https://apps.apple.com/us/app/travio-travel-scam/id6760786122">App Store <span aria-hidden="true">↗</span></a><a class="link-quiet" href="privacy.html">Privacy</a></div>
+        </div>
+      </li>
+      <li class="app">
+        <div class="app-glyph" aria-hidden="true"><span>L</span></div>
+        <div class="app-body">
+          <h3 class="app-name">Leano</h3>
+          <p class="app-desc">A body measurement tracker with an interactive body map and progress photos that stay on your device.</p>
+          <p class="app-meta">iOS · Health &amp; fitness</p>
+          <div class="app-links"><a class="link-arrow" href="https://dorukctnn-rgb.github.io/leano/">About Leano <span aria-hidden="true">↗</span></a></div>
+        </div>
+      </li>
+      <li class="app">
+        <div class="app-glyph" aria-hidden="true"><span>O</span></div>
+        <div class="app-body">
+          <h3 class="app-name">OBBB Saver</h3>
+          <p class="app-desc">Logs tips, overtime, car loan interest and senior deductions under the 2025 tax law, and exports them for Schedule 1-A.</p>
+          <p class="app-meta">iOS · Finance</p>
+          <div class="app-links"><a class="link-arrow" href="https://dorukctnn-rgb.github.io/obbbtaxsaver/">About OBBB Saver <span aria-hidden="true">↗</span></a></div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- INDEX -->
+  <section id="index" class="index" aria-labelledby="index-title">
+    <header class="section-head section-head--row">
+      <h2 id="index-title" class="section-title">Index</h2>
+      <p class="section-note">Everything we currently run.</p>
+    </header>
+    <ol class="index-list">
+      <li><a href="https://bodyarcade.com/"><span class="i-name">BodyArcade</span><span class="i-what">Browser fitness game with pose tracking</span><span class="i-kind">Game</span><span class="i-go" aria-hidden="true">↗</span></a></li>
+      <li><a href="https://getinvoicemaker.com/"><span class="i-name">GetInvoiceMaker</span><span class="i-what">Invoices with VAT, GST/HST and BTW built in</span><span class="i-kind">Web</span><span class="i-go" aria-hidden="true">↗</span></a></li>
+      <li><a href="https://www.getquotationmaker.com/"><span class="i-name">GetQuotationMaker</span><span class="i-what">Quotes with validity dates and discounts</span><span class="i-kind">Web</span><span class="i-go" aria-hidden="true">↗</span></a></li>
+      <li><a href="https://mileagelogmaker.com/"><span class="i-name">MileageLogMaker</span><span class="i-what">IRS mileage logs priced by trip date</span><span class="i-kind">Web</span><span class="i-go" aria-hidden="true">↗</span></a></li>
+      <li><a href="https://www.clientguard.app/"><span class="i-name">ClientGuard</span><span class="i-what">Customer concentration risk audit</span><span class="i-kind">Web</span><span class="i-go" aria-hidden="true">↗</span></a></li>
+      <li><a href="https://saidbyai.com/"><span class="i-name">Said by AI</span><span class="i-what">Does ChatGPT recommend your brand?</span><span class="i-kind">Web</span><span class="i-go" aria-hidden="true">↗</span></a></li>
+      <li><a href="https://www.getbriefbase.com/"><span class="i-name">Briefbase</span><span class="i-what">Briefs and approvals for UGC agencies</span><span class="i-kind">Web · Beta</span><span class="i-go" aria-hidden="true">↗</span></a></li>
+      <li><a href="https://coloringpagemaker.app/"><span class="i-name">ColoringPageMaker</span><span class="i-what">Printable coloring pages from a sentence</span><span class="i-kind">Web</span><span class="i-go" aria-hidden="true">↗</span></a></li>
+      <li><a href="https://www.reviewreply.store/"><span class="i-name">ReviewReply</span><span class="i-what">Drafts replies to Google reviews</span><span class="i-kind">Web</span><span class="i-go" aria-hidden="true">↗</span></a></li>
+      <li><a href="https://apps.apple.com/us/app/travio-travel-scam/id6760786122"><span class="i-name">Travio</span><span class="i-what">Tourist scam checks while you travel</span><span class="i-kind">iOS</span><span class="i-go" aria-hidden="true">↗</span></a></li>
+      <li><a href="https://dorukctnn-rgb.github.io/leano/"><span class="i-name">Leano</span><span class="i-what">Body measurement tracker</span><span class="i-kind">iOS</span><span class="i-go" aria-hidden="true">↗</span></a></li>
+      <li><a href="https://dorukctnn-rgb.github.io/obbbtaxsaver/"><span class="i-name">OBBB Saver</span><span class="i-what">Tracks the new 2025 tax deductions</span><span class="i-kind">iOS</span><span class="i-go" aria-hidden="true">↗</span></a></li>
+    </ol>
+  </section>
+
+  <!-- STUDIO / PRINCIPLES -->
+  <section id="studio" class="principles" aria-labelledby="studio-title">
+    <header class="section-head">
+      <p class="kicker">How we work</p>
+      <h2 id="studio-title" class="section-title">A few rules we <em>actually</em> keep.</h2>
+    </header>
+    <ol class="rules">
+      <li class="rule">
+        <span class="rule-n">I</span>
+        <h3>One job per product.</h3>
+        <p>An invoice tool makes invoices. A mileage log logs miles. If a feature doesn't serve that job, it doesn't ship.</p>
+      </li>
+      <li class="rule">
+        <span class="rule-n">II</span>
+        <h3>Accounts are optional.</h3>
+        <p>Most of our tools work the moment the page loads. You sign up only when there's something worth keeping.</p>
+      </li>
+      <li class="rule">
+        <span class="rule-n">III</span>
+        <h3>Numbers you can check.</h3>
+        <p>Tax rates and rules name their source, such as the CRA or the IRS, so you can verify them before you rely on them.</p>
+      </li>
+      <li class="rule">
+        <span class="rule-n">IV</span>
+        <h3>Launch is the start.</h3>
+        <p>When the IRS raised the mileage rate in July 2026, MileageLogMaker changed with it. Products stay maintained after launch.</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" aria-labelledby="contact-title">
+    <p class="kicker">Contact</p>
+    <h2 id="contact-title" class="contact-title"><a href="mailto:peakappsstudios@gmail.com">peakappsstudios<wbr>@gmail.com</a></h2>
+    <p class="contact-note">Product support, partnerships and press. One inbox, read by the people who build the products.</p>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-row">
+    <span>© 2026 Peak Apps Studio</span>
+    <ul class="footer-links">
+      <li><a href="privacy.html">Travio privacy</a></li>
+      <li><a href="terms.html">Travio terms</a></li>
+      <li><a href="https://dorukctnn-rgb.github.io/leano/support.html">Leano support</a></li>
+      <li><a href="https://dorukctnn-rgb.github.io/obbbtaxsaver/support.html">OBBB Saver support</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="assets/js/studio.js" defer></script>
+</body>
+</html>
