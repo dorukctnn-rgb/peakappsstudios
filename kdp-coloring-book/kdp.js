@@ -17,7 +17,7 @@
    * OWNER: create the Gumroad product with permalink "kdp-interior-pro" ($19, license keys on),
    * then paste its product id here (Gumroad → product → Content/Advanced → "product_id").
    * Gumroad requires product_id for products created after Jan 2023; until then the permalink is sent. */
-  const GUMROAD_PRODUCT_ID = '';
+  const GUMROAD_PRODUCT_ID = 'S3hGaz5J76g-UgyGSYPtjw==';
   const LICENSE = {
     tool: 'kdp-interior', productId: GUMROAD_PRODUCT_ID, permalink: 'kdp-interior-pro',
     buyUrl: 'https://dorukctn.gumroad.com/l/kdp-interior-pro',

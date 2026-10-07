@@ -8,7 +8,7 @@
   // ---- Owner: paste the Gumroad product id of "tumbler-studio-pro" here once the product exists. ----
   // Gumroad needs product_id to verify keys of products created after January 2023; until it is set,
   // license.js falls back to the permalink below.
-  const GUMROAD_PRODUCT_ID = '';
+  const GUMROAD_PRODUCT_ID = 'ziPUmvexgGIr0nPuMvUOPg==';
   const PRO_PERMALINK = 'tumbler-studio-pro';
   const BUY_URL = 'https://dorukctn.gumroad.com/l/tumbler-studio-pro';
 
