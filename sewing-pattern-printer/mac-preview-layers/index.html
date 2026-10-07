@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mac Preview Shows All Sizes? Print PDF Pattern Layers on Mac</title>
+<meta name="description" content="Mac Preview has no layers panel, so a layered sewing pattern prints every size at once. Three ways to print only your size on a Mac, one free in the browser.">
+<link rel="canonical" href="https://peakappsstudio.com/sewing-pattern-printer/mac-preview-layers/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Mac Preview shows all the sizes of a layered PDF pattern? Here's the fix">
+<meta property="og:description" content="Why Preview prints every size of a layered sewing pattern, and how to print only yours on a Mac.">
+<meta property="og:url" content="https://peakappsstudio.com/sewing-pattern-printer/mac-preview-layers/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="stylesheet" href="/sewing-pattern-printer/tool.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Peak Apps Studio","item":"https://peakappsstudio.com/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":3,"name":"Print only your size","item":"https://peakappsstudio.com/sewing-pattern-printer/"},{"@type":"ListItem","position":4,"name":"Mac Preview and pattern layers","item":"https://peakappsstudio.com/sewing-pattern-printer/mac-preview-layers/"}]}
+]}
+</script>
+</head>
+<body style="--accent:#a8402c">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a href="/tumbler-template/" class="hide-sm">Tumbler templates</a>
+      <a href="/kdp-coloring-book/" class="hide-sm">KDP coloring books</a>
+      <a href="/sewing-pattern-printer/" aria-current="page">Sewing pattern printer</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="https://peakappsstudio.com/">Peak Apps Studio</a></li><li><a href="/tools/">Tools</a></li><li><a href="/sewing-pattern-printer/">Print only your size</a></li><li aria-current="page">Mac Preview and layers</li></ol></nav>
+  <div class="sp-guide">
+    <article class="prose">
+      <header class="tool-hero" style="padding-bottom:0">
+        <p class="eyebrow">Guide · Mac</p>
+        <h1>Mac Preview shows all the sizes? <em>Print just yours</em></h1>
+      </header>
+      <div class="sp-answer">
+        <p><strong>Short answer:</strong> Preview can't switch PDF layers off. It draws every layer, so a layered pattern prints all the sizes on top of each other, even if the designer set the extra sizes to hidden.</p>
+        <p>Either save a copy that contains only your size (works in Preview, Safari, Chrome and on any printer), or open the pattern in the free Adobe Acrobat Reader and use its Layers panel.</p>
+      </div>
+
+      <h2 id="why">Why Preview prints every size</h2>
+      <p>A layered PDF pattern keeps all its sizes in one file and puts each size on its own optional layer, the PDF feature behind the "Layers" list in Acrobat. Turning a layer off is a job for the app showing the file. Acrobat does it; Preview has no layers panel and simply draws everything on the page. An Adobe community expert put it plainly: Acrobat hides layers that are set to hidden, while "other PDF viewers, like Preview on the Mac, will ignore that and show the hidden layers".</p>
+      <p>So nothing is wrong with your pattern or your Mac. The sizes are there, stacked, and Preview has no way to leave some out.</p>
+
+      <figure>
+        <svg viewBox="0 0 640 230" role="img" aria-labelledby="fig1" style="width:100%;height:auto;background:var(--card);border:1px solid var(--line-2);border-radius:12px">
+          <title id="fig1">Left: the original pattern in Preview with five nested size outlines. Right: a single-size copy with one outline.</title>
+          <g font-family="Geist, sans-serif" font-size="13" fill="var(--ink-2)">
+            <text x="40" y="30">The original file in Preview</text>
+            <text x="360" y="30">A copy with only Size 10</text>
+          </g>
+          <g fill="none" stroke-width="1.4" stroke-linejoin="round" transform="translate(40 44)">
+            <path d="M0 0 L0 160 L176 168 L150 70 C140 42 116 22 96 0 Z" stroke="#2563eb"/>
+            <path d="M0 8 L0 152 L164 159 L140 72 C131 47 110 29 92 8 Z" stroke="#dc2626" stroke-dasharray="6 3"/>
+            <path d="M0 16 L0 144 L152 150 L130 74 C122 52 104 36 88 16 Z" stroke="#16a34a"/>
+            <path d="M0 24 L0 136 L140 141 L120 76 C113 57 98 43 84 24 Z" stroke="#9333ea" stroke-dasharray="8 2.5 1.5 2.5"/>
+            <path d="M0 32 L0 128 L128 132 L110 78 C104 62 92 50 80 32 Z" stroke="#ea580c" stroke-dasharray="12 4"/>
+          </g>
+          <g fill="none" stroke-width="1.8" stroke-linejoin="round" transform="translate(360 44)">
+            <path d="M0 16 L0 144 L152 150 L130 74 C122 52 104 36 88 16 Z" stroke="#16a34a"/>
+          </g>
+          <path d="M268 120 h52 m-10 -8 l10 8 l-10 8" fill="none" stroke="var(--muted)" stroke-width="1.4"/>
+        </svg>
+        <figcaption>Five sizes stacked in one file. Preview draws all of them; a single-size copy has only the outline you kept.</figcaption>
+      </figure>
+
+      <h2 id="apps">What each Mac app does with pattern layers</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>App</th><th>Can you switch sizes off?</th><th>What gets printed</th></tr></thead>
+          <tbody>
+            <tr><td>Preview</td><td>No layers panel</td><td>Every layer, so every size</td></tr>
+            <tr><td>Safari's built-in PDF view</td><td>No layer controls</td><td>Not a good place to print patterns from</td></tr>
+            <tr><td>Chrome's built-in PDF viewer</td><td>No layer controls</td><td>The layers the designer left switched on</td></tr>
+            <tr><td>Firefox's built-in PDF viewer</td><td>Yes, a Layers list in the sidebar</td><td>Sizes you hide disappear on screen, but its print code starts again from the file's default layers, so check the print preview</td></tr>
+            <tr><td>Adobe Acrobat Reader (free)</td><td>Yes, the Layers panel</td><td>Only the layers that are visible</td></tr>
+            <tr><td>A single-size copy made with this tool</td><td>Not needed</td><td>Only your size, in any of the apps above</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sp-inline-cta"><p>Make a copy of your pattern with only your size in it.</p><a class="btn btn-primary" href="/sewing-pattern-printer/">Open the tool</a></div>
+
+      <h2 id="fix-copy">Fix 1: save a copy with only your size</h2>
+      <p>This works on any Mac without installing anything, and the copy behaves in Preview like any ordinary PDF.</p>
+      <ol class="steps">
+        <li><div>Open <a href="/sewing-pattern-printer/">Print only your size</a> in Safari, Chrome or Firefox and choose your pattern PDF. The file is read by the browser on your Mac; it isn't uploaded.</div></li>
+        <li><div>The layers appear by name with each size's line style. Click <strong>only</strong> next to your size, or tick two sizes if you grade between them. Leave layers such as notes, labels or the test square on.</div></li>
+        <li><div>Check the preview, then <strong>Download PDF</strong>. The other sizes are removed from the page drawing, and every page keeps its original size.</div></li>
+        <li><div>Open the copy in Preview and print it at 100% (see below).</div></li>
+      </ol>
+
+      <h2 id="fix-acrobat">Fix 2: use the Layers panel in Adobe Acrobat Reader</h2>
+      <ol class="steps">
+        <li><div>Install the free Adobe Acrobat Reader. Double-clicking a PDF opens it in Preview unless you've changed the default, so Control-click the pattern and choose <strong>Open With &gt; Adobe Acrobat Reader</strong>. To make it the default, choose <strong>File &gt; Get Info</strong>, pick Acrobat Reader under "Open with" and click <strong>Change All</strong>.</div></li>
+        <li><div>Open the Layers panel from the right-side panel. If you can't see it, Adobe's help says to use <strong>Menu &gt; View &gt; Show/Hide &gt; Side panels &gt; Layers</strong>.</div></li>
+        <li><div>Click the eye icon next to each size you don't need. A layer with a lock icon can't be hidden in Reader.</div></li>
+        <li><div>Print with <strong>Actual size</strong> selected under Page Sizing &amp; Handling.</div></li>
+      </ol>
+      <p>Acrobat prints only the visible layers, but the choice lives in Acrobat. If you later open the same file in Preview, all the sizes come back. A single-size copy keeps the choice in the file.</p>
+
+      <h2 id="fix-designer">Fix 3: ask the designer for single-size files</h2>
+      <p>Some designers include separate files per size or a "print only your size" note in the instructions. It is worth checking your download folder for files named by size before printing a layered one.</p>
+
+      <h2 id="scale">Printing from Preview at 100%</h2>
+      <p>Once your copy has only your size, Preview prints it like any PDF. In the print dialog, open the details if they're hidden and set <strong>Scale</strong> to 100%. Don't use <strong>Scale to Fit</strong>, which enlarges or shrinks the page to the paper. Choose the paper size that's in your printer, print the page with the test square first and measure it. The <a href="/sewing-pattern-printer/print-to-scale/">print-to-scale guide</a> explains what a wrong measurement tells you.</p>
+
+      <section class="sp-sources" aria-labelledby="src">
+        <h2 id="src">Sources, last checked 7 October 2026</h2>
+        <ol>
+          <li>Adobe Community, Illustrator discussions, "PDF created with Illustrator is showing hidden layers sometimes", reply by a Community Expert, 6 April 2017: <a href="https://community.adobe.com/t5/illustrator-discussions/pdf-created-with-illustrator-is-showing-hidden-layers-sometimes/m-p/8977459/highlight/true" rel="noopener">community.adobe.com</a></li>
+          <li>Adobe Help, PDF layers (Layers panel, eye icon, locked layers): <a href="https://helpx.adobe.com/acrobat/using/pdf-layers.html" rel="noopener">helpx.adobe.com</a></li>
+          <li>Apple Support, Preview User Guide, print PDFs and images (Scale and Scale to Fit): <a href="https://support.apple.com/guide/preview/prvw15175" rel="noopener">support.apple.com</a></li>
+          <li>Apryse, "Peeling back the layers: a comparison of PDF tools" (Chrome shows the default layers with no way to change them; Firefox has rudimentary layer support), updated 18 May 2026: <a href="https://apryse.com/blog/pdf-layers-for-customized-views" rel="noopener">apryse.com</a></li>
+          <li>Mozilla pdf.js source, Firefox print service (reads the document's print layer configuration rather than the sidebar's): <a href="https://github.com/mozilla/pdf.js/blob/master/web/firefox_print_service.js" rel="noopener">github.com/mozilla/pdf.js</a></li>
+        </ol>
+      </section>
+    </article>
+
+    <aside class="sp-aside" aria-label="Tool and related guides">
+      <div class="sp-cta">
+        <h2>Print only your size</h2>
+        <p>Open a layered pattern, keep your size and save a copy that Preview prints correctly. Free, and the file stays on your Mac.</p>
+        <a class="btn btn-primary" href="/sewing-pattern-printer/">Open the tool</a>
+      </div>
+      <nav class="sp-toc" aria-label="On this page">
+        <p>On this page</p>
+        <ol><li><a href="#why">Why Preview prints every size</a></li><li><a href="#apps">What each Mac app does</a></li><li><a href="#fix-copy">Save a single-size copy</a></li><li><a href="#fix-acrobat">Acrobat Reader's Layers panel</a></li><li><a href="#scale">Printing from Preview at 100%</a></li></ol>
+      </nav>
+      <nav class="sp-toc" aria-label="Related guides">
+        <p>Related guides</p>
+        <ol><li><a href="/sewing-pattern-printer/ipad/">Printing patterns from an iPad</a></li><li><a href="/sewing-pattern-printer/print-to-scale/">Print a PDF pattern to scale</a></li><li><a href="/sewing-pattern-printer/a0-to-a4/">A0 pattern to A4 or Letter</a></li><li><a href="/tools/">All tools</a></li></ol>
+      </nav>
+    </aside>
+  </div>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools for makers and independent publishers. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a> · <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
+        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
+        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

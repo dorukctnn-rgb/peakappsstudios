@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KDP spine width calculator for white, cream and color paper</title>
+<meta name="description" content="Free KDP spine width and full cover size calculator: page count times 0.002252 in for white paper, 0.0025 in for cream, 0.002347 in for premium color.">
+<link rel="canonical" href="https://peakappsstudio.com/kdp-coloring-book/spine-width-calculator/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="KDP spine width calculator">
+<meta property="og:description" content="Spine width and full-wrap cover size for any KDP paperback, from page count, paper and trim size.">
+<meta property="og:url" content="https://peakappsstudio.com/kdp-coloring-book/spine-width-calculator/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="stylesheet" href="/kdp-coloring-book/tool.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"KDP coloring book interior maker","item":"https://peakappsstudio.com/kdp-coloring-book/"},{"@type":"ListItem","position":3,"name":"Spine width calculator","item":"https://peakappsstudio.com/kdp-coloring-book/spine-width-calculator/"}]}
+</script>
+</head>
+<body style="--accent:#2f3f8f">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a href="/tumbler-template/" class="hide-sm">Tumbler templates</a>
+      <a href="/kdp-coloring-book/" aria-current="page">KDP coloring books</a>
+      <a href="/sewing-pattern-printer/" class="hide-sm">Sewing pattern printer</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/kdp-coloring-book/">KDP coloring book interior maker</a></li><li aria-current="page">Spine width calculator</li></ol></nav>
+
+  <section class="tool-hero">
+    <p class="eyebrow">KDP paperback cover</p>
+    <h1>KDP spine width <em>calculator</em></h1>
+    <p class="lede">Spine width is the page count times the thickness of one page. KDP publishes the factors: 0.002252 in per page for white paper, 0.0025 in for cream, 0.00235 in for groundwood, 0.002347 in for premium color and 0.002252 in for standard color. The full cover is the back, spine and front side by side, plus 0.125 in of bleed all round.</p>
+  </section>
+
+  <section class="kdp-cover" data-cover aria-label="Spine width and cover size calculator">
+    <div class="kdp-cover-form">
+      <div class="row">
+        <label class="field"><span>Trim size</span><select class="select" data-c="trim"></select></label>
+        <label class="field"><span>Page count</span><span class="input-unit"><input class="input" data-c="pages" type="number" min="24" max="828" step="2" value="100" inputmode="numeric"><i>pp</i></span></label>
+      </div>
+      <label class="field"><span>Ink and paper</span><select class="select" data-c="ink"></select></label>
+      <dl class="kdp-cover-out" data-c="out" aria-live="polite"></dl>
+      <div class="kdp-cover-actions">
+        <button type="button" class="btn btn-ink" data-c="pdf">Download PDF template</button>
+        <button type="button" class="btn" data-c="png">Download PNG (300 dpi)</button>
+        <span class="pro-tag">Pro</span>
+      </div>
+      <p class="hint">The numbers and the preview are free. The downloadable template, with bleed, spine, safe areas and barcode space marked at full size, is part of <a href="/kdp-coloring-book/#pro">Pro</a>.</p>
+    </div>
+    <div class="kdp-cover-figure" data-c="figure"></div>
+  </section>
+  <p class="source">Factors from Amazon KDP Help: <a href="https://kdp.amazon.com/en_US/help/topic/G201953020" rel="noopener">Create a Paperback Cover</a> and <a href="https://kdp.amazon.com/en_US/help/topic/G201857950" rel="noopener">Paperback Submission Guidelines</a> (groundwood). Last checked 7 October 2026.</p>
+
+  <section class="section two-col">
+    <div class="prose">
+      <h2>Spine width by page count and paper</h2>
+      <p>In inches, rounded to three decimals. Use the exact page count of your interior: KDP counts every page in the file, blank pages included, and rounds an odd count up to the next even number.</p>
+      <p>Standard color uses the same factor as white paper, and its minimum is 72 pages, so the first two rows don't apply to it.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col" class="num">Pages</th><th scope="col" class="num">White</th><th scope="col" class="num">Cream</th><th scope="col" class="num">Groundwood</th><th scope="col" class="num">Standard color</th><th scope="col" class="num">Premium color</th></tr></thead>
+        <tbody>
+        <tr><td class="num">24</td><td class="num">0.054</td><td class="num">0.060</td><td class="num">0.056</td><td class="num">0.054</td><td class="num">0.056</td></tr>
+        <tr><td class="num">48</td><td class="num">0.108</td><td class="num">0.120</td><td class="num">0.113</td><td class="num">0.108</td><td class="num">0.113</td></tr>
+        <tr><td class="num">80</td><td class="num">0.180</td><td class="num">0.200</td><td class="num">0.188</td><td class="num">0.180</td><td class="num">0.188</td></tr>
+        <tr><td class="num">100</td><td class="num">0.225</td><td class="num">0.250</td><td class="num">0.235</td><td class="num">0.225</td><td class="num">0.235</td></tr>
+        <tr><td class="num">150</td><td class="num">0.338</td><td class="num">0.375</td><td class="num">0.352</td><td class="num">0.338</td><td class="num">0.352</td></tr>
+        <tr><td class="num">200</td><td class="num">0.450</td><td class="num">0.500</td><td class="num">0.470</td><td class="num">0.450</td><td class="num">0.469</td></tr>
+        <tr><td class="num">300</td><td class="num">0.676</td><td class="num">0.750</td><td class="num">0.705</td><td class="num">0.676</td><td class="num">0.704</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section two-col">
+    <div class="prose">
+      <h2>Full cover size</h2>
+      <p>KDP's formulas:</p>
+      <p><code>Cover width = 0.125 + back width + spine + front width + 0.125</code><br><code>Cover height = 0.125 + trim height + 0.125</code></p>
+      <p>Worked example: an 8.5 × 11 in coloring book with 50 designs on blank backs has 100 pages. On white paper the spine is 100 × 0.002252 = 0.2252 in, so the cover is 0.125 + 8.5 + 0.2252 + 8.5 + 0.125 = <strong>17.475 × 11.25 in</strong>, or 5243 × 3375 pixels at 300 dpi.</p>
+      <p>The cover is always one PDF with back, spine and front together, and every cover has bleed, even when the interior doesn't.</p>
+    </div>
+    <div class="prose">
+      <h2>The 79-page rule for spine text</h2>
+      <p>KDP only allows text on the spine from 79 pages. Below that, a cover with spine text is rejected; keep the spine to a color or a pattern. KDP's wording differs slightly between pages: the cover guide says “at least 79 pages”, the submission guidelines say “more than 79”, and its Cover Creator needs 80. A book of 80 pages or more is safe under all three.</p>
+      <p>When text is allowed, keep 0.0625 in between the text and each spine fold. KDP also allows for 0.0625 in of variance either side of the fold lines, so avoid hard edges or thin borders right on a fold.</p>
+      <p>With blank backs, a coloring book reaches 80 pages at 40 designs.</p>
+    </div>
+  </section>
+
+  <section class="section two-col">
+    <div class="prose">
+      <h2>Barcode and safe areas</h2>
+      <p>KDP adds a barcode to the back cover if you don't supply one. Leave room for it: KDP's suggested barcode size is 2 × 1.2 in on a white background, at least 0.25 in from the spine and the trim. Keep front and back cover text at least 0.125 in inside the trim lines, and out of the spine area.</p>
+      <p class="source">Barcode rules: <a href="https://kdp.amazon.com/en_US/help/topic/G5HDYGP4BXLX4RUW" rel="noopener">KDP Barcodes</a>, checked 7 October 2026.</p>
+    </div>
+    <div class="prose">
+      <h2>Groundwood paper</h2>
+      <p>Groundwood is a lighter (45 lb), lower-cost paper for black-and-white interiors; KDP puts its per-page printing cost about 5% below white and cream. Per page it is slightly thicker than white and thinner than cream: KDP's submission guidelines give 0.00235 in. If you switch an existing book to groundwood, KDP warns that books over 350 pages (from cream) or 525 pages (from white) need a new spine size on the cover.</p>
+      <p class="source">Source: <a href="https://kdp.amazon.com/en_US/help/topic/G99WKT9FARBGHBJF" rel="noopener">KDP Groundwood Paper</a>.</p>
+    </div>
+  </section>
+
+  <section class="section prose">
+    <h2>Get the page count right first</h2>
+    <p>The spine is only as accurate as the page count. The <a href="/kdp-coloring-book/" data-go-cover>KDP coloring book interior maker</a> counts your designs, blank backs, front pages and the final even page, and fills the cover calculator for you. For the interior side of the same book, see the <a href="/kdp-coloring-book/bleed-and-margins/">bleed and margins calculator</a>.</p>
+  </section>
+
+  <section class="section">
+    <h2>Related</h2>
+    <nav class="related" aria-label="Related pages">
+      <a href="/kdp-coloring-book/"><strong>Interior maker</strong><span>Turn your coloring pages into a KDP-ready PDF.</span></a>
+      <a href="/kdp-coloring-book/blank-back-pages/"><strong>Blank back pages</strong><span>How single-sided pages change spine and cost.</span></a>
+      <a href="/kdp-coloring-book/requirements/"><strong>Requirements checklist</strong><span>Interior and cover rules in one list.</span></a>
+      <a href="/kdp-coloring-book/sizes/"><strong>Coloring book sizes</strong><span>Every KDP trim with page limits and print cost.</span></a>
+      <a href="/tools/"><strong>All tools</strong><span>Every Peak Apps tool.</span></a>
+    </nav>
+    <p class="source kdp-disclaimer">Not affiliated with or endorsed by Amazon. Amazon and Kindle Direct Publishing are trademarks of Amazon.com, Inc. or its affiliates.</p>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools for makers and independent publishers. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a> · <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
+        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
+        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/site.js" defer></script>
+<script src="/assets/license.js" defer></script>
+<script src="/kdp-coloring-book/kdp.js" defer></script>
+<script src="/kdp-coloring-book/cover.js" defer></script>
+<script src="/kdp-coloring-book/guides.js" defer></script>
+</body>
+</html>

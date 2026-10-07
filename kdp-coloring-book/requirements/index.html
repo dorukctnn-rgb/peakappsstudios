@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KDP coloring book requirements checklist for interior and cover</title>
+<meta name="description" content="Every rule KDP checks in a coloring book: page size and bleed, margins by page count, 300 DPI images, page counts, blank page limits, spine text and ISBN.">
+<link rel="canonical" href="https://peakappsstudio.com/kdp-coloring-book/requirements/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="KDP coloring book requirements checklist">
+<meta property="og:description" content="Interior and cover rules for a KDP coloring book, each with its source on KDP's help pages.">
+<meta property="og:url" content="https://peakappsstudio.com/kdp-coloring-book/requirements/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="stylesheet" href="/kdp-coloring-book/tool.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"KDP coloring book interior maker","item":"https://peakappsstudio.com/kdp-coloring-book/"},{"@type":"ListItem","position":3,"name":"Requirements checklist","item":"https://peakappsstudio.com/kdp-coloring-book/requirements/"}]}
+</script>
+<style>
+  .req-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: clamp(24px, 4vw, 56px); align-items: start; }
+  .req-aside { position: sticky; top: 84px; border: 1px solid var(--line-2); border-radius: 12px; background: var(--card); padding: 18px; display: grid; gap: 10px; font-size: 14.5px; }
+  .req-aside ol { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+  .req-aside .count { font-family: var(--mono); font-size: 13px; color: var(--muted); margin: 0; }
+  .src { font-family: var(--mono); font-size: 11.5px; color: var(--muted); white-space: nowrap; }
+  .src a { color: inherit; }
+  @media (max-width: 900px) { .req-wrap { grid-template-columns: 1fr; } .req-aside { position: static; } }
+</style>
+</head>
+<body style="--accent:#2f3f8f">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a href="/tumbler-template/" class="hide-sm">Tumbler templates</a>
+      <a href="/kdp-coloring-book/" aria-current="page">KDP coloring books</a>
+      <a href="/sewing-pattern-printer/" class="hide-sm">Sewing pattern printer</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/kdp-coloring-book/">KDP coloring book interior maker</a></li><li aria-current="page">Requirements</li></ol></nav>
+
+  <section class="tool-hero">
+    <p class="eyebrow">Checklist</p>
+    <h1>KDP coloring book <em>requirements</em></h1>
+    <p class="lede">A coloring book on KDP is two PDFs: an interior with one page per PDF page, and a single cover with back, spine and front. These are the rules KDP publishes for both, in the order you'll meet them. Tick them off as you go; each links to the KDP help page it comes from.</p>
+  </section>
+
+  <div class="req-wrap">
+    <div>
+      <section>
+        <h2>Interior PDF</h2>
+        <ul class="kdp-checklist" data-list>
+          <li><input type="checkbox" id="r1" aria-labelledby="r1-t"><div><strong id="r1-t">Page size is the trim size, or trim + bleed</strong><p>Without bleed, every page is exactly the trim size. With bleed, every page is 0.125 in wider and 0.25 in taller (8.5 × 11 in becomes 8.625 × 11.25 in). If one page bleeds, the whole file uses the bleed size. <span class="src"><a href="https://kdp.amazon.com/en_US/help/topic/GVBQ3CMEQW3W2VL6#bleed" rel="noopener">[A]</a></span></p><p class="tool-does">The maker sets every page to the exact size.</p></div></li>
+          <li><input type="checkbox" id="r2" aria-labelledby="r2-t"><div><strong id="r2-t">Margins meet the minimum for your page count</strong><p>Top, bottom and outside: at least 0.25 in without bleed, 0.375 in with bleed. Inside (gutter): 0.375 in up to 150 pages, 0.5 in to 300, 0.625 in to 500, 0.75 in to 700, 0.875 in to 828. <span class="src"><a href="https://kdp.amazon.com/en_US/help/topic/GVBQ3CMEQW3W2VL6#margins" rel="noopener">[A]</a></span></p><p class="tool-does">The maker reads the gutter from the final page count. Check yours in the <a href="/kdp-coloring-book/bleed-and-margins/">bleed and margins calculator</a>.</p></div></li>
+          <li><input type="checkbox" id="r3" aria-labelledby="r3-t"><div><strong id="r3-t">Single pages, not spreads</strong><p>KDP wants one page per PDF page, not two-page spreads or 2-up files. <span class="src"><a href="https://kdp.amazon.com/en_US/help/topic/G201857950" rel="noopener">[B]</a></span></p></div></li>
+          <li><input type="checkbox" id="r4" aria-labelledby="r4-t"><div><strong id="r4-t">At least 24 pages, within the maximum, even count</strong><p>The minimum is 24 pages (72 for standard color). The maximum depends on trim and paper: 590 for 8.5 × 11 in on white paper, 828 for 6 × 9 in. KDP rounds an odd count up to even. <span class="src"><a href="https://kdp.amazon.com/en_US/help/topic/G201857950" rel="noopener">[B]</a></span></p><p class="tool-does">See every size's limits on the <a href="/kdp-coloring-book/sizes/">sizes page</a>.</p></div></li>
+          <li><input type="checkbox" id="r5" aria-labelledby="r5-t"><div><strong id="r5-t">Odd pages on the right</strong><p>Page numbers run in order with even numbers on left-hand pages and odd numbers on the right, so page 1 is a right-hand page. <span class="src"><a href="https://kdp.amazon.com/en_US/help/topic/G201857950" rel="noopener">[B]</a></span></p><p class="tool-does">With blank backs on, the maker puts every design on an odd page. Why it matters: <a href="/kdp-coloring-book/blank-back-pages/">single-sided coloring pages</a>.</p></div></li>
+          <li><input type="checkbox" id="r6" aria-labelledby="r6-t"><div><strong id="r6-t">No long runs of blank pages</strong><p>No more than 4 blank pages in a row at the beginning or in the middle, and no more than 10 in a row at the end. “Excessive blank pages” is one of KDP's common points of failure. <span class="src"><a href="https://kdp.amazon.com/en_US/help/topic/G201834260" rel="noopener">[C]</a> <a href="https://kdp.amazon.com/en_US/help/topic/G201857950" rel="noopener">[B]</a></span></p></div></li>
+          <li><input type="checkbox" id="r7" aria-labelledby="r7-t"><div><strong id="r7-t">Images at 300 DPI or more at their printed size</strong><p>All images at least 300 DPI; KDP recommends no more than 600 DPI to keep files under its 650 MB limit. Insert images at their original size; enlarging them lowers the DPI. <span class="src"><a href="https://kdp.amazon.com/en_US/help/topic/G201857950" rel="noopener">[B]</a> <a href="https://kdp.amazon.com/en_US/help/topic/G202169030" rel="noopener">[D]</a></span></p><p class="tool-does">The maker shows each page's printed DPI and warns under 300.</p></div></li>
+          <li><input type="checkbox" id="r8" aria-labelledby="r8-t"><div><strong id="r8-t">Lines at least 0.75 pt</strong><p>KDP's minimum line weight for charts and graphic lines is 0.75 pt (0.01 in). Very fine coloring-page lines can print faint or break up. <span class="src"><a href="https://kdp.amazon.com/en_US/help/topic/G201857950" rel="noopener">[B]</a></span></p></div></li>
+          <li><input type="checkbox" id="r9" aria-labelledby="r9-t"><div><strong id="r9-t">Flattened, with fonts embedded</strong><p>Flatten transparent objects and layers, and embed all fonts. Text must be at least 7 pt. <span class="src"><a href="https://kdp.amazon.com/en_US/help/topic/G201857950" rel="noopener">[B]</a></span></p><p class="tool-does">The maker flattens each image onto white; its front pages and page numbers are drawn as images and vector lines, so no fonts need embedding.</p></div></li>
+          <li><input type="checkbox" id="r10" aria-labelledby="r10-t"><div><strong id="r10-t">No marks, metadata, logos or watermarks</strong><p>No crop marks, trim marks, bookmarks, comments, annotations or metadata, and no “PDF creation logos or watermarks”. No encryption or password. File names without emoji or special characters. <span class="src"><a href="https://kdp.amazon.com/en_US/help/topic/G201857950" rel="noopener">[B]</a></span></p><p class="tool-does">The maker adds none of these, free or Pro.</p></div></li>
+          <li><input type="checkbox" id="r11" aria-labelledby="r11-t"><div><strong id="r11-t">The file is a PDF if anything bleeds</strong><p>Books with bleed must be uploaded as PDF; others can also be DOC, DOCX, RTF, HTML or TXT. Files up to 650 MB. <span class="src"><a href="https://kdp.amazon.com/en_US/help/topic/G201857950" rel="noopener">[B]</a></span></p></div></li>
+        </ul>
+      </section>
+
+      <section class="section" style="padding-top:48px">
+        <h2>Cover PDF</h2>
+        <ul class="kdp-checklist" data-list>
+          <li><input type="checkbox" id="c1" aria-labelledby="c1-t"><div><strong id="c1-t">One PDF: back, spine and front</strong><p>The cover is a single PDF with the back cover, spine and front cover as one image, with 0.125 in bleed on all outside edges. <span class="src"><a href="https://kdp.amazon.com/en_US/help/topic/G201953020" rel="noopener">[E]</a></span></p></div></li>
+          <li><input type="checkbox" id="c2" aria-labelledby="c2-t"><div><strong id="c2-t">Sized for your page count and paper</strong><p>Width = 0.125 + back + spine + front + 0.125 in; height = trim height + 0.25 in. Spine = pages × 0.002252 in (white), 0.0025 in (cream), 0.00235 in (groundwood), 0.002347 in (premium color) or 0.002252 in (standard color). <span class="src"><a href="https://kdp.amazon.com/en_US/help/topic/G201953020" rel="noopener">[E]</a></span></p><p class="tool-does">Work it out with the <a href="/kdp-coloring-book/spine-width-calculator/">spine width calculator</a>.</p></div></li>
+          <li><input type="checkbox" id="c3" aria-labelledby="c3-t"><div><strong id="c3-t">Spine text only from 79 pages</strong><p>Books under 79 pages can't have text on the spine; KDP rejects the cover. Keep spine text 0.0625 in from each fold. (KDP's submission guidelines say “more than 79” and Cover Creator needs 80, so 80+ is the safe number.) <span class="src"><a href="https://kdp.amazon.com/en_US/help/topic/G201953020" rel="noopener">[E]</a></span></p></div></li>
+          <li><input type="checkbox" id="c4" aria-labelledby="c4-t"><div><strong id="c4-t">Text inside the safe area, room for the barcode</strong><p>Front and back text at least 0.125 in inside the trim lines and out of the spine; at least 7 pt. Leave a white 2 × 1.2 in area on the back cover, at least 0.25 in from the spine and trim, unless you place your own barcode. <span class="src"><a href="https://kdp.amazon.com/en_US/help/topic/G201953020" rel="noopener">[E]</a> <a href="https://kdp.amazon.com/en_US/help/topic/G5HDYGP4BXLX4RUW" rel="noopener">[F]</a></span></p></div></li>
+          <li><input type="checkbox" id="c5" aria-labelledby="c5-t"><div><strong id="c5-t">Title and author match your book details</strong><p>Cover text must match the title, author and other details entered during title setup. <span class="src"><a href="https://kdp.amazon.com/en_US/help/topic/G201953020" rel="noopener">[E]</a></span></p></div></li>
+          <li><input type="checkbox" id="c6" aria-labelledby="c6-t"><div><strong id="c6-t">Template guides removed</strong><p>Remove crop marks, color bars, template text and PDF creation guides before export. <span class="src"><a href="https://kdp.amazon.com/en_US/help/topic/G201953020" rel="noopener">[E]</a></span></p></div></li>
+        </ul>
+      </section>
+
+      <section class="section" style="padding-top:48px">
+        <h2>Book setup</h2>
+        <ul class="kdp-checklist" data-list>
+          <li><input type="checkbox" id="s1" aria-labelledby="s1-t"><div><strong id="s1-t">ISBN: coloring books aren't “low-content”</strong><p>KDP lists coloring books under “not generally low-content”, next to puzzle books. The low-content option to publish without an ISBN is meant for notebooks, journals and planners, so use KDP's free ISBN or your own. <span class="src"><a href="https://kdp.amazon.com/en_US/help/topic/GGE5T76TWKA85DJM" rel="noopener">[G]</a></span></p></div></li>
+          <li><input type="checkbox" id="s2" aria-labelledby="s2-t"><div><strong id="s2-t">Ink and paper match your pages</strong><p>Black ink prints on white, cream or groundwood paper; color ink only on white. Choose a color option only if some pages should print in color. <span class="src"><a href="https://kdp.amazon.com/en_US/help/topic/G201834180" rel="noopener">[H]</a></span></p></div></li>
+          <li><input type="checkbox" id="s3" aria-labelledby="s3-t"><div><strong id="s3-t">Proof copy ordered</strong><p>KDP's online previewer shows size and margin problems; faint lines and marker bleed-through only show up on paper. Order a proof before you publish.</p></div></li>
+        </ul>
+      </section>
+
+      <section class="section prose" style="padding-top:48px">
+        <h2>Sources</h2>
+        <p class="small">Amazon KDP Help, each page checked on 7 October 2026:</p>
+        <ul class="small kdp-sources">
+          <li><span class="mono">[A]</span> <a href="https://kdp.amazon.com/en_US/help/topic/GVBQ3CMEQW3W2VL6" rel="noopener">Set Trim Size, Bleed, and Margins</a></li>
+          <li><span class="mono">[B]</span> <a href="https://kdp.amazon.com/en_US/help/topic/G201857950" rel="noopener">Paperback Submission Guidelines</a></li>
+          <li><span class="mono">[C]</span> <a href="https://kdp.amazon.com/en_US/help/topic/G201834260" rel="noopener">Fix Paperback and Hardcover Formatting Issues</a></li>
+          <li><span class="mono">[D]</span> <a href="https://kdp.amazon.com/en_US/help/topic/G202169030" rel="noopener">Format Images in Your Book</a></li>
+          <li><span class="mono">[E]</span> <a href="https://kdp.amazon.com/en_US/help/topic/G201953020" rel="noopener">Create a Paperback Cover</a></li>
+          <li><span class="mono">[F]</span> <a href="https://kdp.amazon.com/en_US/help/topic/G5HDYGP4BXLX4RUW" rel="noopener">Barcodes</a></li>
+          <li><span class="mono">[G]</span> <a href="https://kdp.amazon.com/en_US/help/topic/GGE5T76TWKA85DJM" rel="noopener">Low-Content Books</a></li>
+          <li><span class="mono">[H]</span> <a href="https://kdp.amazon.com/en_US/help/topic/G201834180" rel="noopener">Print Options</a></li>
+        </ul>
+      </section>
+    </div>
+
+    <aside class="req-aside" aria-label="Progress and shortcuts">
+      <p class="count" id="req-count" aria-live="polite">0 of 20 checked</p>
+      <p style="margin:0"><strong>Let the maker do the interior</strong></p>
+      <p style="margin:0" class="small muted">Page size, bleed, margins, page order, blank backs, the even page count and the DPI check are handled when you export from the <a href="/kdp-coloring-book/">interior maker</a>.</p>
+      <ol class="small">
+        <li><a href="/kdp-coloring-book/bleed-and-margins/">Bleed and margins</a></li>
+        <li><a href="/kdp-coloring-book/sizes/">Trim sizes</a></li>
+        <li><a href="/kdp-coloring-book/blank-back-pages/">Blank back pages</a></li>
+        <li><a href="/kdp-coloring-book/spine-width-calculator/">Spine width</a></li>
+      </ol>
+    </aside>
+  </div>
+
+  <section class="section">
+    <h2>Related</h2>
+    <nav class="related" aria-label="Related pages">
+      <a href="/kdp-coloring-book/"><strong>Interior maker</strong><span>Turn your coloring pages into a KDP-ready PDF.</span></a>
+      <a href="/kdp-coloring-book/spine-width-calculator/"><strong>Spine width calculator</strong><span>Spine and full cover size.</span></a>
+      <a href="/kdp-coloring-book/bleed-and-margins/"><strong>Bleed and margins calculator</strong><span>Page size, gutter and safe area.</span></a>
+      <a href="/tools/"><strong>All tools</strong><span>Every Peak Apps tool.</span></a>
+    </nav>
+    <p class="source kdp-disclaimer">Not affiliated with or endorsed by Amazon. Amazon and Kindle Direct Publishing are trademarks of Amazon.com, Inc. or its affiliates.</p>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools for makers and independent publishers. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a> · <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
+        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
+        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var boxes = document.querySelectorAll('[data-list] input[type=checkbox]'), out = document.getElementById('req-count');
+    function count() { var n = 0; boxes.forEach(function (b) { if (b.checked) n++; }); out.textContent = n + ' of ' + boxes.length + ' checked'; }
+    boxes.forEach(function (b) { b.addEventListener('change', count); }); count();
+  })();
+</script>
+</body>
+</html>

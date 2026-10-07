@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KDP bleed and margins calculator for paperback interiors</title>
+<meta name="description" content="Work out a KDP interior's page size, gutter and outside margins for any trim size and page count, with or without bleed, from KDP's own margin table.">
+<link rel="canonical" href="https://peakappsstudio.com/kdp-coloring-book/bleed-and-margins/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="KDP bleed and margins calculator">
+<meta property="og:description" content="Page size, gutter and outside margins for any KDP trim size and page count, with or without bleed.">
+<meta property="og:url" content="https://peakappsstudio.com/kdp-coloring-book/bleed-and-margins/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="stylesheet" href="/kdp-coloring-book/tool.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"KDP coloring book interior maker","item":"https://peakappsstudio.com/kdp-coloring-book/"},{"@type":"ListItem","position":3,"name":"Bleed and margins calculator","item":"https://peakappsstudio.com/kdp-coloring-book/bleed-and-margins/"}]}
+</script>
+</head>
+<body style="--accent:#2f3f8f">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a href="/tumbler-template/" class="hide-sm">Tumbler templates</a>
+      <a href="/kdp-coloring-book/" aria-current="page">KDP coloring books</a>
+      <a href="/sewing-pattern-printer/" class="hide-sm">Sewing pattern printer</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/kdp-coloring-book/">KDP coloring book interior maker</a></li><li aria-current="page">Bleed and margins</li></ol></nav>
+
+  <section class="tool-hero">
+    <p class="eyebrow">KDP paperback interior</p>
+    <h1>KDP bleed and margins <em>calculator</em></h1>
+    <p class="lede">With bleed, each PDF page must be 0.125 in wider and 0.25 in taller than the trim size, with at least 0.375 in for the top, bottom and outside margins. Without bleed, the page is the trim size and those margins are at least 0.25 in. The inside (gutter) margin grows with the page count, from 0.375 in to 0.875 in.</p>
+  </section>
+
+  <section class="kdp-calc" data-calc="margins" aria-label="Bleed and margins calculator">
+    <div class="kdp-calc-form">
+      <label class="field"><span>Trim size</span><select class="select" name="trim"></select></label>
+      <label class="field"><span>Final page count (blank pages included)</span><span class="input-unit"><input class="input" name="pages" type="number" min="24" max="828" value="100" inputmode="numeric"><i>pp</i></span></label>
+      <div class="field"><span id="mb-l">Bleed</span>
+        <div class="seg" data-seg="bleed" role="group" aria-labelledby="mb-l">
+          <button type="button" data-value="0" aria-pressed="true">No bleed</button>
+          <button type="button" data-value="1" aria-pressed="false">Bleed</button>
+        </div>
+      </div>
+      <p class="hint" data-note aria-live="polite"></p>
+      <div class="kdp-guide-cta">
+        <a class="btn btn-primary" data-go href="/kdp-coloring-book/">Lay out pages with these settings</a>
+      </div>
+    </div>
+    <div class="kdp-calc-out">
+      <dl class="kdp-results" data-out aria-live="polite"></dl>
+      <div data-fig></div>
+      <ul class="kdp-legend" aria-label="Legend"><li><i class="lg-trim"></i>Trim</li><li><i class="lg-bleed"></i>Bleed</li><li><i class="lg-safe"></i>KDP safe area</li></ul>
+    </div>
+  </section>
+  <p class="source">Rules from Amazon KDP Help: <a href="https://kdp.amazon.com/en_US/help/topic/GVBQ3CMEQW3W2VL6" rel="noopener">Set Trim Size, Bleed, and Margins</a>. Last checked 7 October 2026.</p>
+
+  <section class="section two-col">
+    <div class="prose">
+      <h2>KDP's minimum margins by page count</h2>
+      <p>Count every page in the final file, blank pages included, then read the inside margin from this table. The top, bottom and outside margins don't change with page count.</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">Page count</th><th scope="col" class="num">Inside (gutter)</th><th scope="col" class="num">Outside, no bleed</th><th scope="col" class="num">Outside, with bleed</th></tr></thead>
+        <tbody>
+          <tr><td>24 to 150</td><td class="num">0.375 in</td><td class="num">0.25 in</td><td class="num">0.375 in</td></tr>
+          <tr><td>151 to 300</td><td class="num">0.5 in</td><td class="num">0.25 in</td><td class="num">0.375 in</td></tr>
+          <tr><td>301 to 500</td><td class="num">0.625 in</td><td class="num">0.25 in</td><td class="num">0.375 in</td></tr>
+          <tr><td>501 to 700</td><td class="num">0.75 in</td><td class="num">0.25 in</td><td class="num">0.375 in</td></tr>
+          <tr><td>701 to 828</td><td class="num">0.875 in</td><td class="num">0.25 in</td><td class="num">0.375 in</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="prose">
+      <h2>Page size with bleed for every KDP trim size</h2>
+      <p>KDP's formula is trim width + 0.125 in and trim height + 0.25 in: bleed is added to the top, the bottom and the outside edge only, because the spine edge is never trimmed. Points are what PDF tools report (72 points per inch).</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">Trim size</th><th scope="col" class="num">Page with bleed</th><th scope="col" class="num">Millimeters</th><th scope="col" class="num">PDF points</th></tr></thead>
+        <tbody>
+        <tr><td>5 × 8 in</td><td class="num">5.125 × 8.25 in</td><td class="num">130.2 × 209.5 mm</td><td class="num">369 × 594</td></tr>
+        <tr><td>5.06 × 7.81 in</td><td class="num">5.185 × 8.06 in</td><td class="num">131.7 × 204.7 mm</td><td class="num">373.32 × 580.32</td></tr>
+        <tr><td>5.25 × 8 in</td><td class="num">5.375 × 8.25 in</td><td class="num">136.5 × 209.5 mm</td><td class="num">387 × 594</td></tr>
+        <tr><td>5.5 × 8.5 in</td><td class="num">5.625 × 8.75 in</td><td class="num">142.9 × 222.3 mm</td><td class="num">405 × 630</td></tr>
+        <tr><td>6 × 9 in</td><td class="num">6.125 × 9.25 in</td><td class="num">155.6 × 234.9 mm</td><td class="num">441 × 666</td></tr>
+        <tr><td>6.14 × 9.21 in</td><td class="num">6.265 × 9.46 in</td><td class="num">159.1 × 240.3 mm</td><td class="num">451.08 × 681.12</td></tr>
+        <tr><td>6.69 × 9.61 in</td><td class="num">6.815 × 9.86 in</td><td class="num">173.1 × 250.4 mm</td><td class="num">490.68 × 709.92</td></tr>
+        <tr><td>7 × 10 in</td><td class="num">7.125 × 10.25 in</td><td class="num">181.0 × 260.3 mm</td><td class="num">513 × 738</td></tr>
+        <tr><td>7.44 × 9.69 in</td><td class="num">7.565 × 9.94 in</td><td class="num">192.2 × 252.5 mm</td><td class="num">544.68 × 715.68</td></tr>
+        <tr><td>7.5 × 9.25 in</td><td class="num">7.625 × 9.5 in</td><td class="num">193.7 × 241.3 mm</td><td class="num">549 × 684</td></tr>
+        <tr><td>8 × 10 in</td><td class="num">8.125 × 10.25 in</td><td class="num">206.4 × 260.3 mm</td><td class="num">585 × 738</td></tr>
+        <tr><td>8.25 × 6 in</td><td class="num">8.375 × 6.25 in</td><td class="num">212.7 × 158.8 mm</td><td class="num">603 × 450</td></tr>
+        <tr><td>8.25 × 8.25 in</td><td class="num">8.375 × 8.5 in</td><td class="num">212.7 × 215.9 mm</td><td class="num">603 × 612</td></tr>
+        <tr><td>8.5 × 8.5 in</td><td class="num">8.625 × 8.75 in</td><td class="num">219.1 × 222.3 mm</td><td class="num">621 × 630</td></tr>
+        <tr><td>8.5 × 11 in</td><td class="num">8.625 × 11.25 in</td><td class="num">219.1 × 285.8 mm</td><td class="num">621 × 810</td></tr>
+        <tr><td>8.27 × 11.69 in (A4)</td><td class="num">8.395 × 11.94 in</td><td class="num">213.2 × 303.3 mm</td><td class="num">604.44 × 859.68</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="source">KDP's own table prints 5.626 in for 5.5 × 8.5 in; its formula gives 5.625 in, which is what this page and the maker use.</p>
+  </section>
+
+  <section class="section two-col">
+    <div class="prose">
+      <h2>Bleed or no bleed for a coloring book?</h2>
+      <p>Choose bleed only if something should print right to the edge of the paper: a full-page pattern, a frame that runs off the page, a dark background. Line art that sits on white with a margin around it doesn't need bleed.</p>
+      <p>Two KDP rules decide the rest. If even one page bleeds, the whole file has to be set up with bleed. And bleed doesn't change the printing cost; KDP's cost depends on trim size, page count, ink and paper only.</p>
+      <p>Bleed also needs a PDF. KDP converts Word and other formats for books without bleed, but a bleed interior has to be uploaded as a PDF.</p>
+    </div>
+    <div class="prose">
+      <h2>How the margins are measured</h2>
+      <p><strong>With bleed</strong>, the 0.375 in top, bottom and outside margins are measured from the edge of the PDF page, which is 0.125 in outside the trim line. KDP's layout diagram shows it as 0.125 in bleed plus 0.25 in margin. After trimming, the art sits at least 0.25 in from the edge.</p>
+      <p><strong>The gutter</strong> is measured from the spine edge, which has no bleed. On odd (right-hand) pages it is on the left; on even (left-hand) pages it is on the right.</p>
+      <p>One detail if you compare with KDP's diagram for a 6 × 9 in book at 333 pages: it labels the safe zone 5.375 in wide, which is the trim width minus the 0.625 in gutter only. Subtracting the 0.375 in outside margin it also shows gives 5.125 in, the width this calculator reports.</p>
+    </div>
+  </section>
+
+  <section class="section prose">
+    <h2>Mistakes that get coloring book files sent back</h2>
+    <ul>
+      <li><strong>Picking the gutter before adding blank pages.</strong> Seventy-six designs is 76 pages double-sided but 152 with blank backs, which moves the book into the 0.5 in gutter band. Work out the margins from the final page count.</li>
+      <li><strong>Adding bleed to both sides of the width.</strong> An 8.5 × 11 in bleed page is 8.625 in wide, not 8.75 in. The extra 0.125 in goes on the outside edge only.</li>
+      <li><strong>Bleed on only some pages.</strong> KDP asks for the whole file to be set up with bleed if any page bleeds, so one full-bleed design means bleed-sized pages throughout.</li>
+      <li><strong>Art running to the edge without bleed.</strong> Without bleed, KDP's minimum top, bottom and outside margin is 0.25 in, so art has to stop at least that far from the edge.</li>
+    </ul>
+    <p>The <a href="/kdp-coloring-book/">KDP coloring book interior maker</a> applies these rules to your own PNG or JPG pages and recalculates the gutter as the page count changes. For everything else KDP checks, see the <a href="/kdp-coloring-book/requirements/">requirements checklist</a>.</p>
+  </section>
+
+  <section class="section">
+    <h2>Related</h2>
+    <nav class="related" aria-label="Related pages">
+      <a href="/kdp-coloring-book/"><strong>Interior maker</strong><span>Turn your coloring pages into a KDP-ready PDF.</span></a>
+      <a href="/kdp-coloring-book/spine-width-calculator/"><strong>Spine width calculator</strong><span>Spine and full cover size by page count and paper.</span></a>
+      <a href="/kdp-coloring-book/sizes/"><strong>Coloring book sizes</strong><span>Every KDP trim with page limits and print cost.</span></a>
+      <a href="/kdp-coloring-book/blank-back-pages/"><strong>Blank back pages</strong><span>Single-sided pages and what they do to the page count.</span></a>
+      <a href="/tools/"><strong>All tools</strong><span>Every Peak Apps tool.</span></a>
+    </nav>
+    <p class="source kdp-disclaimer">Not affiliated with or endorsed by Amazon. Amazon and Kindle Direct Publishing are trademarks of Amazon.com, Inc. or its affiliates.</p>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools for makers and independent publishers. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a> · <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
+        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
+        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/site.js" defer></script>
+<script src="/kdp-coloring-book/kdp.js" defer></script>
+<script src="/kdp-coloring-book/guides.js" defer></script>
+</body>
+</html>

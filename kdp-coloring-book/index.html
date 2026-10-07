@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KDP coloring book interior maker with bleed and blank backs</title>
+<meta name="description" content="Turn PNG or JPG coloring pages into an Amazon KDP interior PDF with the right bleed, gutter margins and blank backs for your page count. Free, in your browser.">
+<link rel="canonical" href="https://peakappsstudio.com/kdp-coloring-book/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="KDP coloring book interior maker">
+<meta property="og:description" content="Turn coloring pages into a KDP-ready interior PDF: bleed, gutter margins from KDP's page-count table, blank backs and a 300 dpi check.">
+<meta property="og:url" content="https://peakappsstudio.com/kdp-coloring-book/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="stylesheet" href="/kdp-coloring-book/tool.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","@id":"https://peakappsstudio.com/kdp-coloring-book/#app","name":"KDP Coloring Book Interior Maker","url":"https://peakappsstudio.com/kdp-coloring-book/","description":"Turns PNG or JPG coloring pages into an Amazon KDP paperback interior PDF with bleed, gutter margins for the page count, blank backs and a 300 dpi check. Runs in the browser.","applicationCategory":"DesignApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD","description":"Up to 24 coloring pages at 8.5 x 11 in, bleed and margins, blank backs, 300 dpi check."},{"@type":"Offer","name":"Pro (one-time)","price":"19","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/kdp-interior-pro","description":"Unlimited pages, all KDP trim sizes, front pages, page numbers, cover template and saved setups."}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"KDP coloring book interior maker","item":"https://peakappsstudio.com/kdp-coloring-book/"}]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Will KDP accept the PDF?","acceptedAnswer":{"@type":"Answer","text":"The file follows KDP's published specifications: page size, bleed, minimum margins for your page count, an even page count and odd pages on the right. KDP still reviews every file and checks your artwork, so open the previewer after upload and order a proof copy before you publish."}},
+  {"@type":"Question","name":"Should a coloring book interior have bleed?","acceptedAnswer":{"@type":"Answer","text":"Only if some art should run off the edge of the page. Line art with a white border doesn't need bleed. If even one page bleeds, KDP asks for the whole file to be set up with bleed, which makes each page 0.125 in wider and 0.25 in taller than the trim size."}},
+  {"@type":"Question","name":"Why should each coloring page be on a right-hand page?","acceptedAnswer":{"@type":"Answer","text":"KDP prints page 1 on a right-hand page and puts odd page numbers on the right. Placing every design on an odd page with a blank page behind it means markers that bleed through the paper land on a blank page, and each design can be cut out without losing another."}},
+  {"@type":"Question","name":"What resolution do my coloring pages need?","acceptedAnswer":{"@type":"Answer","text":"KDP asks for at least 300 DPI at the printed size and recommends no more than 600 DPI. At 8.5 x 11 in without bleed, KDP's minimum margins leave a 7.875 x 10.5 in safe area for a book of 24 to 150 pages, so a design that fills it needs about 2363 x 3150 pixels. The maker shows the printed DPI of every page and warns below 300."}},
+  {"@type":"Question","name":"Does a coloring book need an ISBN on KDP?","acceptedAnswer":{"@type":"Answer","text":"KDP lists coloring books under 'not generally low-content', so the low-content option to publish without an ISBN isn't meant for them. You can use KDP's free ISBN or your own."}},
+  {"@type":"Question","name":"Are my images uploaded anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. The images are read and the PDF is built by JavaScript in your browser. Nothing is sent to a server, and closing the tab discards the pages."}}
+ ]}
+]}
+</script>
+</head>
+<body style="--accent:#2f3f8f">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a href="/tumbler-template/" class="hide-sm">Tumbler templates</a>
+      <a href="/kdp-coloring-book/" aria-current="page">KDP coloring books</a>
+      <a href="/sewing-pattern-printer/" class="hide-sm">Sewing pattern printer</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li aria-current="page">KDP coloring book interior maker</li></ol></nav>
+
+  <section class="tool-hero kdp-hero">
+    <div>
+      <p class="eyebrow">Amazon KDP paperback · interior PDF</p>
+      <h1>Turn your coloring pages into a <em>KDP-ready</em> interior PDF</h1>
+    </div>
+    <div>
+      <p class="lede">Drop in your pages. The maker sets the page size, bleed and gutter margin from KDP's own tables for your page count, adds blank backs so every design prints on a right-hand page, and flags images under 300 dpi.</p>
+      <ul class="facts">
+        <li>Free for up to 24 coloring pages</li>
+        <li>No watermark in your file</li>
+        <li>Your images never leave your browser</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="tool kdp" id="maker" aria-label="Interior maker">
+    <div class="kdp-add">
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Add coloring pages: PNG or JPG files">
+        <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="5" y="3" width="15" height="20" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M9 3v20" stroke="currentColor" stroke-width="1" opacity=".35"/><path d="M21 15v9M16.5 19.5h9" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <strong>Add coloring pages</strong>
+        <span class="small muted">PNG or JPG, as many as you like. Drop them here or choose files.</span>
+        <input type="file" id="file" accept="image/png,image/jpeg,image/webp" multiple tabindex="-1" aria-hidden="true">
+      </div>
+      <p class="hint kdp-hint">No pages yet? <a href="https://www.coloringpagemaker.app/" rel="noopener">coloringpagemaker.app</a>, also by Peak Apps, turns a short description into a black-and-white outline you can bring here.</p>
+    </div>
+
+    <div class="kdp-stage" id="stage">
+      <div class="kdp-stage-in">
+      <div class="kdp-stage-bar">
+        <p class="kdp-where mono" id="where" aria-live="polite">Sample spread</p>
+        <div class="seg" id="view" role="group" aria-label="Preview">
+          <button type="button" data-value="spread" aria-pressed="true">Spread</button>
+          <button type="button" data-value="page" aria-pressed="false">Page</button>
+        </div>
+      </div>
+      <div class="kdp-canvas" id="canvas" role="img" aria-label="Page preview"></div>
+      <div class="kdp-stage-nav">
+        <button type="button" class="btn btn-sm" id="prev" aria-label="Previous pages"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <ul class="kdp-legend" aria-label="Legend">
+          <li><i class="lg-trim"></i>Trim</li>
+          <li><i class="lg-bleed"></i>Bleed</li>
+          <li><i class="lg-safe"></i>KDP safe area</li>
+        </ul>
+        <button type="button" class="btn btn-sm" id="next" aria-label="Next pages"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      </div>
+    </div>
+
+    <div class="kdp-set">
+      <div class="group">
+        <p class="group-title">Book</p>
+        <label class="field"><span>Trim size</span>
+          <select class="select" id="trim"></select>
+        </label>
+        <label class="field"><span>Ink and paper</span>
+          <select class="select" id="ink"></select>
+        </label>
+        <div class="field"><span id="bleed-l">Bleed</span>
+          <div class="seg" id="bleed" role="group" aria-labelledby="bleed-l">
+            <button type="button" data-value="0" aria-pressed="true">No bleed</button>
+            <button type="button" data-value="1" aria-pressed="false">Bleed</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="group">
+        <p class="group-title">Layout</p>
+        <label class="check"><input type="checkbox" id="single" checked><span><strong>Blank backs</strong><br><span class="small muted">One design per sheet, always on a right-hand page.</span></span></label>
+        <div class="field"><span id="fit-l">Art placement</span>
+          <div class="seg" id="fit" role="group" aria-labelledby="fit-l">
+            <button type="button" data-value="fit" aria-pressed="true">Fit in margins</button>
+            <button type="button" data-value="fill" aria-pressed="false">Fill to bleed</button>
+          </div>
+        </div>
+        <div class="row">
+          <label class="field"><span>White space</span>
+            <select class="select" id="extra">
+              <option value="0">KDP minimum</option>
+              <option value="0.125">+ 0.125 in</option>
+              <option value="0.25" selected>+ 0.25 in</option>
+              <option value="0.5">+ 0.5 in</option>
+            </select>
+          </label>
+          <label class="check kdp-center"><input type="checkbox" id="center" checked><span>Center art on the page</span></label>
+        </div>
+        <label class="check"><input type="checkbox" id="pad" checked><span>Pad with blank pages to KDP's minimum <span class="small muted">(up to 10 at the end)</span></span></label>
+      </div>
+
+      <div class="group">
+        <p class="group-title">Extras <span class="pro-tag">Pro</span></p>
+        <label class="check"><input type="checkbox" id="belongs"><span>“This book belongs to” page</span></label>
+        <label class="check"><input type="checkbox" id="testpage"><span>Test-your-colors page</span></label>
+        <label class="check"><input type="checkbox" id="numbers"><span>Page numbers under each design</span></label>
+        <p class="hint">Try them in the preview. Exporting with them needs Pro.</p>
+      </div>
+
+      <div class="group" id="presets-group">
+        <p class="group-title">Saved setups <span class="pro-tag">Pro</span></p>
+        <div class="kdp-presets">
+          <select class="select" id="preset" aria-label="Saved setups"><option value="">No saved setups</option></select>
+          <button type="button" class="btn btn-sm" id="preset-save">Save setup</button>
+          <button type="button" class="btn btn-sm" id="preset-del" aria-label="Delete saved setup">Delete setup</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="kdp-strip" id="strip-wrap">
+      <div class="kdp-strip-head">
+        <h2 class="group-title" id="pages-h">Coloring pages</h2>
+        <p class="hint" id="strip-hint">Drag to reorder. Your pages appear here.</p>
+      </div>
+      <ol class="kdp-pages" id="pages" aria-labelledby="pages-h"></ol>
+    </div>
+
+    <div class="kdp-foot">
+      <dl class="kdp-stats" id="stats"></dl>
+      <ul class="kdp-notes" id="notes" aria-live="polite"></ul>
+      <div class="kdp-export">
+        <button type="button" class="btn btn-primary" id="export">Export interior PDF</button>
+        <span class="small muted" id="export-note">Free: up to 24 coloring pages at 8.5 × 11 in.</span>
+        <div class="kdp-progress" id="progress" hidden><span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="cover">
+    <div class="kdp-cover-head">
+      <div>
+        <p class="eyebrow">Same book, outside</p>
+        <h2>Cover template with the right <em>spine width</em></h2>
+      </div>
+      <p class="muted">The full-wrap cover size depends on the trim, the final page count and the paper. These numbers follow your interior above; change them here if you need to. The PDF and PNG guide are part of Pro.</p>
+    </div>
+    <div class="kdp-cover" data-cover>
+      <div class="kdp-cover-form">
+        <div class="row">
+          <label class="field"><span>Trim size</span><select class="select" data-c="trim"></select></label>
+          <label class="field"><span>Page count</span><span class="input-unit"><input class="input" data-c="pages" type="number" min="24" max="828" step="2" value="48" inputmode="numeric"><i>pp</i></span></label>
+        </div>
+        <label class="field"><span>Ink and paper</span><select class="select" data-c="ink"></select></label>
+        <dl class="kdp-cover-out" data-c="out"></dl>
+        <div class="kdp-cover-actions">
+          <button type="button" class="btn btn-ink" data-c="pdf">Download PDF guide</button>
+          <button type="button" class="btn" data-c="png">Download PNG (300 dpi)</button>
+          <span class="pro-tag">Pro</span>
+        </div>
+      </div>
+      <div class="kdp-cover-figure" data-c="figure"></div>
+    </div>
+  </section>
+
+  <section class="section prose">
+    <h2>What the maker sets for you</h2>
+    <p>Every number comes from Amazon KDP's paperback help pages. The table shows the rule and what happens to your file.</p>
+  </section>
+  <div class="table-wrap">
+    <table class="kdp-rules">
+      <thead><tr><th scope="col">Rule</th><th scope="col">What KDP asks for</th><th scope="col">What the maker does</th></tr></thead>
+      <tbody>
+        <tr><td>Page size</td><td>The trim size; with bleed, 0.125 in wider and 0.25 in taller (8.5 × 11 becomes 8.625 × 11.25 in).</td><td>Sets every PDF page to that size exactly.</td></tr>
+        <tr><td>Inside (gutter) margin</td><td>0.375 in for 24–150 pages, 0.5 in for 151–300, 0.625 in for 301–500, 0.75 in for 501–700, 0.875 in for 701–828.</td><td>Counts the final pages, blank backs included, and uses the matching gutter on the spine side of each page.</td></tr>
+        <tr><td>Top, bottom and outside margins</td><td>At least 0.25 in without bleed, 0.375 in with bleed (0.125 in bleed + 0.25 in).</td><td>Fits the art inside those lines, plus any extra white space you choose.</td></tr>
+        <tr><td>Page order</td><td>Odd page numbers on the right, even on the left.</td><td>Starts at page 1 on the right; with blank backs, every design lands on an odd page.</td></tr>
+        <tr><td>Page count</td><td>At least 24 pages (72 for standard color), up to 550–828 depending on trim and paper; rounded up to an even number.</td><td>Adds the final blank page to make the count even and warns outside KDP's range.</td></tr>
+        <tr><td>Blank pages</td><td>No more than 4 blank pages in a row at the beginning or middle, 10 at the end.</td><td>Never puts more than one blank page in a row; padding to the minimum stops at 10.</td></tr>
+        <tr><td>Image resolution</td><td>At least 300 DPI; 600 DPI recommended as a maximum.</td><td>Shows each page's printed DPI, warns under 300 and scales anything over 600 down to 600.</td></tr>
+        <tr><td>File hygiene</td><td>Flatten transparency; no crop marks, metadata or “PDF creation logos or watermarks”.</td><td>Flattens each image onto white and writes a plain PDF with no marks, logos or document metadata.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="source">Sources: Amazon KDP Help, <a href="https://kdp.amazon.com/en_US/help/topic/GVBQ3CMEQW3W2VL6" rel="noopener">Set Trim Size, Bleed, and Margins</a>, <a href="https://kdp.amazon.com/en_US/help/topic/G201857950" rel="noopener">Paperback Submission Guidelines</a> and <a href="https://kdp.amazon.com/en_US/help/topic/G201834260" rel="noopener">Fix Paperback and Hardcover Formatting Issues</a>. Last checked 7 October 2026.</p>
+
+  <section class="section two-col">
+    <div class="prose">
+      <h2>Which side does KDP print first?</h2>
+      <p>The right. KDP numbers pages with odd numbers on the right-hand side, so page 1 is the first right-hand page you see when you open the book. With <strong>blank backs</strong> on, the maker places your first design on page 1, leaves page 2 blank, places the next design on page 3, and so on. Each design gets its own sheet: markers that soak through land on a blank page, and a finished picture can be cut out without losing another.</p>
+      <p>Blank backs double the page count, which can move the book into a wider gutter band and a thicker spine. The maker recalculates both as you add pages. More in <a href="/kdp-coloring-book/blank-back-pages/">single-sided coloring pages on KDP</a>.</p>
+    </div>
+    <div class="prose">
+      <h2>Free and Pro</h2>
+      <p>KDP lists “PDF creation logos or watermarks” among the reasons files fail review, so the maker never puts our name or a watermark in your book, free or paid. The free version is limited instead: up to 24 coloring pages at 8.5 × 11 in, which is enough for a short book or a full test of your workflow.</p>
+      <p>Pro is for publishers with more than one book: any page count, every KDP paperback trim size, front pages, page numbers, the cover template and saved setups.</p>
+    </div>
+  </section>
+
+  <section class="section" id="pro">
+    <div class="pro">
+      <div class="pro-left">
+        <p class="eyebrow">Pro</p>
+        <h2>Everything for a <em>full</em> coloring book</h2>
+        <ul class="pro-list">
+          <li>Unlimited coloring pages and all 16 KDP paperback trim sizes, from 5 × 8 to 8.5 × 11 and A4</li>
+          <li>“This book belongs to” and test-your-colors pages, drawn as clean line art</li>
+          <li>Page numbers that follow KDP's odd-right, even-left order</li>
+          <li>Cover template: full-wrap size with spine, bleed, safe areas and barcode space, as a PDF and 300 dpi PNG</li>
+          <li>Saved setups for each series, kept in your browser</li>
+        </ul>
+      </div>
+      <div class="pro-right">
+        <p class="price">$19 <small>one-time, no subscription</small></p>
+        <a class="btn btn-primary" data-buy-pro href="https://dorukctn.gumroad.com/l/kdp-interior-pro">Buy Pro on Gumroad</a>
+        <button type="button" class="btn" data-enter-key style="background:transparent;color:var(--paper);border-color:color-mix(in oklab, var(--paper) 40%, transparent)">Enter license key</button>
+        <p class="fine">Gumroad handles payment and refunds. Your key turns on Pro in this browser; enter it again on another computer.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <h2>Questions</h2>
+    <div class="faq">
+      <details><summary>Will KDP accept the PDF?</summary><div class="answer"><p>The file follows KDP's published specifications: page size, bleed, minimum margins for your page count, an even page count and odd pages on the right. KDP still reviews every file and checks your artwork, so open the previewer after upload and order a proof copy before you publish.</p></div></details>
+      <details><summary>Should a coloring book interior have bleed?</summary><div class="answer"><p>Only if some art should run off the edge of the page. Line art with a white border doesn't need bleed. If even one page bleeds, KDP asks for the whole file to be set up with bleed, which makes each page 0.125 in wider and 0.25 in taller than the trim size. The <a href="/kdp-coloring-book/bleed-and-margins/">bleed and margins calculator</a> shows both layouts.</p></div></details>
+      <details><summary>Why should each coloring page be on a right-hand page?</summary><div class="answer"><p>KDP prints page 1 on a right-hand page and puts odd page numbers on the right. Placing every design on an odd page with a blank page behind it means markers that bleed through the paper land on a blank page, and each design can be cut out without losing another.</p></div></details>
+      <details><summary>What resolution do my coloring pages need?</summary><div class="answer"><p>KDP asks for at least 300 DPI at the printed size and recommends no more than 600 DPI. At 8.5 × 11 in without bleed, KDP's minimum margins leave a 7.875 × 10.5 in safe area for a book of 24 to 150 pages, so a design that fills it needs about 2363 × 3150 pixels. The maker shows the printed DPI of every page and warns below 300.</p></div></details>
+      <details><summary>Does a coloring book need an ISBN on KDP?</summary><div class="answer"><p>KDP lists coloring books under “not generally low-content”, so the low-content option to publish without an ISBN isn't meant for them. You can use KDP's free ISBN or your own. See the <a href="/kdp-coloring-book/requirements/">KDP coloring book requirements checklist</a>.</p></div></details>
+      <details><summary>Are my images uploaded anywhere?</summary><div class="answer"><p>No. The images are read and the PDF is built by JavaScript in your browser. Nothing is sent to a server, and closing the tab discards the pages.</p></div></details>
+    </div>
+  </section>
+
+  <section class="section" id="guides">
+    <h2>KDP coloring book guides</h2>
+    <nav class="related" aria-label="Guides">
+      <a href="/kdp-coloring-book/bleed-and-margins/"><strong>Bleed and margins calculator</strong><span>Page size, gutter and safe area for any trim and page count.</span></a>
+      <a href="/kdp-coloring-book/spine-width-calculator/"><strong>Spine width calculator</strong><span>Spine and full cover size for white, cream, groundwood and color paper.</span></a>
+      <a href="/kdp-coloring-book/sizes/"><strong>Coloring book trim sizes</strong><span>All 16 KDP paperback sizes with page limits and print cost.</span></a>
+      <a href="/kdp-coloring-book/requirements/"><strong>Requirements checklist</strong><span>Everything KDP checks in a coloring book interior and cover.</span></a>
+      <a href="/kdp-coloring-book/blank-back-pages/"><strong>Blank back pages</strong><span>Single-sided pages: page count, spine and cost.</span></a>
+      <a href="/tools/"><strong>All Peak Apps tools</strong><span>Tumbler templates, sewing patterns and more.</span></a>
+    </nav>
+    <p class="source kdp-disclaimer">Not affiliated with or endorsed by Amazon. Amazon and Kindle Direct Publishing are trademarks of Amazon.com, Inc. or its affiliates; we name them only to say what the files are for.</p>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools for makers and independent publishers. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a> · <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
+        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
+        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/site.js" defer></script>
+<script src="/assets/license.js" defer></script>
+<script src="/kdp-coloring-book/kdp.js" defer></script>
+<script src="/kdp-coloring-book/cover.js" defer></script>
+<script src="/kdp-coloring-book/tool.js" defer></script>
+</body>
+</html>
