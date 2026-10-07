@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cone Template Generator (Truncated Cone / Frustum)</title>
+<meta name="description" content="Flat pattern for any cone or truncated cone from its top and bottom diameter and height: lampshades, paper cones, party hats. True-size SVG, PDF or PNG, free.">
+<link rel="canonical" href="https://peakappsstudio.com/cone-template/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Cone template generator (truncated cone / frustum)">
+<meta property="og:description" content="Enter top diameter, bottom diameter and height; get the exact flat pattern at true size with a glue tab. Free, in your browser.">
+<meta property="og:url" content="https://peakappsstudio.com/cone-template/">
+<meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="stylesheet" href="/tumbler-template/tool.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","@id":"https://peakappsstudio.com/cone-template/#app","name":"Cone Template Generator","url":"https://peakappsstudio.com/cone-template/","description":"Makes the flat pattern of a cone or truncated cone (frustum) from its top diameter, bottom diameter and height, with an optional glue tab, and exports it at true size as SVG, PDF and 300 dpi PNG.","applicationCategory":"DesignApplication","operatingSystem":"Any (web browser)","browserRequirements":"Requires JavaScript","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/","email":"peakappsstudios@gmail.com"},
+  "offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD","description":"Cone and frustum templates in SVG, PDF and PNG at true size."},{"@type":"Offer","name":"Pro (one-time payment)","price":"19","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/tumbler-studio-pro","description":"Printing large templates across several sheets with alignment marks, plus the tumbler tools' batch warping and blank size library."}]},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Cone template generator","item":"https://peakappsstudio.com/cone-template/"}]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"How do I make a template for a full, pointed cone?","acceptedAnswer":{"@type":"Answer","text":"Enter 0 for the top diameter. The template becomes a sector of a circle whose radius is the cone's side length."}},
+  {"@type":"Question","name":"What if my cone is wider at the bottom, like a lampshade?","acceptedAnswer":{"@type":"Answer","text":"Enter the measurements as they are. The template flips so the short curved edge is at the top and the long one at the bottom."}},
+  {"@type":"Question","name":"What diameters do I use for card, felt or sheet metal?","acceptedAnswer":{"@type":"Answer","text":"For thin paper, the outside diameters are fine. For thick card, felt or sheet metal, use the diameters measured at the middle of the material's thickness, so the inside and outside surfaces both fit."}},
+  {"@type":"Question","name":"How do I print a cone template bigger than my paper?","acceptedAnswer":{"@type":"Answer","text":"Download the PDF at template size for a print shop or plotter, or with Pro print it across several Letter, Legal, A4, A3 or 13 x 19 in sheets with overlap and alignment marks."}}
+ ]}
+]}
+</script>
+</head>
+<body style="--accent:#1f5c4d">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a href="/tumbler-template/" class="hide-sm">Tumbler templates</a>
+      <a href="/kdp-coloring-book/" class="hide-sm">KDP coloring books</a>
+      <a href="/sewing-pattern-printer/" class="hide-sm">Sewing pattern printer</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li aria-current="page">Cone template generator</li></ol></nav>
+  <header class="tt-hero">
+    <h1>Cone template generator <em>(truncated cone)</em></h1>
+    <p class="lede">Enter the top and bottom diameter and the height of a cone or truncated cone. You get its exact flat pattern at true size, with a glue tab, for lampshades, paper cones, party hats and planters. Set the top to 0 for a pointed cone.</p>
+  </header>
+
+  <section class="studio" data-studio data-mode="cone" aria-labelledby="studio-title">
+    <h2 id="studio-title" class="sr-only">Cone template generator</h2>
+    <div class="st-card st-meas">
+      <div class="st-head">
+        <h3 class="st-title"><span class="n">01</span>Measure the cone</h3>
+        <div class="seg st-seg" data-seg="unit" role="group" aria-label="Units">
+          <button type="button" data-value="in" aria-pressed="true">in</button><button type="button" data-value="cm" aria-pressed="false">cm</button>
+        </div>
+      </div>
+      <div class="st-fields">
+        <label class="field"><span>Top <small data-dlabel>diameter</small></span><span class="input-unit"><input class="input" data-in="top" inputmode="decimal" autocomplete="off" spellcheck="false"><i data-u>in</i></span></label>
+        <label class="field"><span>Bottom <small data-dlabel>diameter</small></span><span class="input-unit"><input class="input" data-in="bottom" inputmode="decimal" autocomplete="off" spellcheck="false"><i data-u>in</i></span></label>
+        <label class="field"><span><span data-hlabel>Height</span> <small>top to bottom</small></span><span class="input-unit"><input class="input" data-in="height" inputmode="decimal" autocomplete="off" spellcheck="false"><i data-u>in</i></span></label>
+      </div>
+      <div class="st-switches">
+        <div class="st-switch"><span id="st-measure-l">Top &amp; bottom</span><div class="seg" data-seg="measure" role="group" aria-labelledby="st-measure-l"><button type="button" data-value="diameter" aria-pressed="true">Diameter</button><button type="button" data-value="circumference" aria-pressed="false">Circumference</button></div></div>
+        <div class="st-switch"><span id="st-hmode-l">Height</span><div class="seg" data-seg="heightMode" role="group" aria-labelledby="st-hmode-l"><button type="button" data-value="vertical" aria-pressed="true">Straight up</button><button type="button" data-value="slant" aria-pressed="false">Along side</button></div></div>
+      </div>
+      <p class="st-error" data-error role="alert" hidden></p>
+      <div class="st-linkrow"><span>Top 0 = pointed cone · fractions work: <span class="mono">5 1/2</span></span></div>
+    </div>
+
+    <div class="st-stage">
+      <div class="st-stage-in">
+        <div class="st-mat" data-mat>
+          <svg data-svg role="img" aria-label="Flat cone pattern preview"></svg>
+          <div class="st-bar"><span data-grid-label></span><span data-status role="status" aria-live="polite"></span></div>
+        </div>
+        <dl class="st-readout" data-readout aria-label="Pattern measurements"></dl>
+      </div>
+    </div>
+
+    <div class="st-card st-opts">
+      <div class="st-head"><h3 class="st-title"><span class="n">02</span>Options</h3></div>
+      <div class="st-optrow"><label for="st-tab">Glue tab <small>along one seam; 0 = none</small></label><span class="input-unit"><input class="input" id="st-tab" data-in="tab" inputmode="decimal" autocomplete="off"><i data-u>in</i></span></div>
+      <label class="check"><input type="checkbox" data-check="labels"><span>Print measurements on the pattern</span></label>
+    </div>
+
+    <div class="st-card st-export">
+      <div class="st-head"><h3 class="st-title"><span class="n">03</span>Download</h3></div>
+      <label class="field"><span>Paper for the PDF</span>
+        <select class="select" data-paper>
+          <option value="fit">Template size (page fits the shape)</option>
+          <option value="letter">Letter 8.5 × 11 in</option>
+          <option value="legal">Legal 8.5 × 14 in</option>
+          <option value="tabloid">Tabloid 11 × 17 in</option>
+          <option value="sb">13 × 19 in</option>
+          <option value="a4">A4 210 × 297 mm</option>
+          <option value="a3">A3 297 × 420 mm</option>
+        </select></label>
+      <div class="st-exgroup">
+        <div class="st-exlabel"><span>Flat pattern</span><span class="muted">true size</span></div>
+        <div class="st-btns"><button type="button" class="btn" data-action="svg" data-needs-template>SVG</button><button type="button" class="btn btn-primary" data-action="pdf" data-needs-template>PDF</button><button type="button" class="btn" data-action="png" data-needs-template>PNG <small>300 dpi</small></button></div>
+      </div>
+      <p class="st-export-msg" data-export-msg role="status" hidden></p>
+      <div class="st-pro-row" style="grid-template-columns:1fr"><button type="button" class="btn" data-action="tiles" data-needs-template>Print a big pattern across several sheets <span class="pro-tag">Pro</span></button></div>
+      <button type="button" class="st-textbtn" data-action="copy-link">Copy a link to these measurements</button>
+    </div>
+  </section>
+
+  <section class="section two-col" aria-labelledby="math">
+    <div class="prose">
+      <h2 id="math">How the pattern is worked out</h2>
+      <p>A truncated cone, or frustum, unrolls into part of a ring centred on the tip of the full cone. With top diameter <em>D1</em>, bottom diameter <em>D2</em> and height <em>h</em>:</p>
+      <div class="formula">
+        <span>s = √(h² + ((D2 − D1) ÷ 2)²) <span class="c"> side length</span></span>
+        <span>R = s × D2 ÷ (D2 − D1)    <span class="c"> tip to the wide edge</span></span>
+        <span>r = R − s                   <span class="c"> tip to the narrow edge</span></span>
+        <span>θ = 180° × (D2 − D1) ÷ s     <span class="c"> angle of the slice</span></span>
+      </div>
+      <p>The curved edges then measure exactly π × D1 and π × D2. For a lampshade 6 in across the top, 10 in across the bottom and 7 in tall, the side is 7.28 in, R is 18.20 in, r is 10.92 in and the angle 98.90°, so the pattern needs a piece about 27.66 × 11.10 in before the glue tab. <a href="/cone-template/?top=6&amp;bottom=10&amp;h=7">Open this example</a>.</p>
+    </div>
+    <figure class="figure" style="margin-top:0">
+      <svg viewBox="0 0 760 340" role="img" aria-labelledby="fct">
+        <title id="fct">A lampshade-shaped truncated cone and its flat pattern: a curved band with the short edge at the top, centred on the tip of the cone above it</title>
+        <path d="M95 70 H195 L245 280 H45 Z" class="fig-fill"/>
+        <path d="M95 70 H195 L245 280 H45 Z" class="fig-line"/>
+        <path d="M100 86 H190 M100 82 v8 M190 82 v8" class="fig-accent"/>
+        <text x="145" y="106" text-anchor="middle" class="fig-ta">D1</text>
+        <path d="M52 264 H238 M52 260 v8 M238 260 v8" class="fig-accent"/>
+        <text x="145" y="254" text-anchor="middle" class="fig-ta">D2</text>
+        <path d="M262 70 V280 M258 70 h8 M258 280 h8" class="fig-accent"/>
+        <text x="272" y="180" class="fig-ta">h</text>
+        <path d="M310 170 H360 M352 163 L361 170 L352 177" class="fig-thin"/>
+        <path d="M491.2 118.3 A120 120 0 0 0 628.8 118.3 L732.1 265.8 A300 300 0 0 1 387.9 265.8 Z" class="fig-fill"/>
+        <path d="M491.2 118.3 A120 120 0 0 0 628.8 118.3 L732.1 265.8 A300 300 0 0 1 387.9 265.8 Z" class="fig-line"/>
+        <path d="M560 20 L491.2 118.3 M560 20 L732.1 265.8" class="fig-guide"/>
+        <circle cx="560" cy="20" r="3.5" class="fig-t"/>
+        <text x="572" y="24" class="fig-t">tip</text>
+        <path d="M542.8 44.6 A30 30 0 0 0 577.2 44.6" class="fig-accent"/>
+        <text x="560" y="72" text-anchor="middle" class="fig-ta">θ</text>
+        <text x="510" y="78" class="fig-ta">r</text>
+        <text x="660" y="150" class="fig-ta">R</text>
+        <text x="560" y="160" text-anchor="middle" class="fig-t">top edge = π × D1</text>
+        <text x="560" y="300" text-anchor="middle" class="fig-t">bottom edge = π × D2</text>
+      </svg>
+      <figcaption>Wider at the bottom, so the pattern’s tip sits above it and the long edge is at the bottom. Drawing not to scale.</figcaption>
+    </figure>
+  </section>
+
+  <section class="section prose" aria-labelledby="uses">
+    <h2 id="uses">Making it</h2>
+    <ul>
+      <li><strong>Lampshades.</strong> Measure the top and bottom rings across and the height you want between them. Print the pattern on paper first, check it around the rings, then cut the shade material from it. Use the glue tab for the seam overlap.</li>
+      <li><strong>Paper cones and party hats.</strong> Set the top to 0 for a point. To size a hat to a head, measure around the head, choose <em>Circumference</em>, and enter that as the bottom.</li>
+      <li><strong>Thick card, felt or sheet metal.</strong> Use the diameters at the middle of the material’s thickness, so the inside and outside surfaces both fit.</li>
+      <li><strong>Bigger than your printer.</strong> Download the PDF at template size for a print shop or plotter, or print it across several sheets with Pro.</li>
+    </ul>
+  </section>
+
+  <section class="section prose" aria-labelledby="faq">
+    <h2 id="faq">Questions</h2>
+    <div class="faq">
+      <details><summary>How do I make a template for a full, pointed cone?</summary><div class="answer"><p>Enter 0 for the top diameter. The template becomes a sector of a circle whose radius is the cone’s side length.</p></div></details>
+      <details><summary>What if my cone is wider at the bottom, like a lampshade?</summary><div class="answer"><p>Enter the measurements as they are. The template flips so the short curved edge is at the top and the long one at the bottom.</p></div></details>
+      <details><summary>What diameters do I use for card, felt or sheet metal?</summary><div class="answer"><p>For thin paper, the outside diameters are fine. For thick card, felt or sheet metal, use the diameters measured at the middle of the material’s thickness, so the inside and outside surfaces both fit.</p></div></details>
+      <details><summary>How do I print a cone template bigger than my paper?</summary><div class="answer"><p>Download the PDF at template size for a print shop or plotter, or with <a href="/tumbler-template/#pro">Pro</a> print it across several Letter, Legal, A4, A3 or 13 × 19 in sheets with overlap and alignment marks.</p></div></details>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="related">
+    <h2 id="related">Related</h2>
+    <nav class="related" aria-labelledby="related">
+      <a href="/tumbler-template/"><strong>Tumbler template generator</strong><span>The same maths for cups, with design warp.</span></a>
+      <a href="/tumbler-template/how-to-measure/"><strong>How to measure a tapered shape</strong><span>Diameter, circumference and height.</span></a>
+      <a href="/tumbler-template/conical-warp/"><strong>Conical warp</strong><span>Bend a flat image to a cone.</span></a>
+      <a href="/tools/"><strong>All tools</strong><span>More Peak Apps tools for makers.</span></a>
+    </nav>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools for makers and independent publishers. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a> · <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
+        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
+        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/site.js" defer></script>
+<script src="/assets/license.js" defer></script>
+<script src="/tumbler-template/geometry.js" defer></script>
+<script src="/tumbler-template/minipdf.js" defer></script>
+<script src="/tumbler-template/studio.js" defer></script>
+</body>
+</html>

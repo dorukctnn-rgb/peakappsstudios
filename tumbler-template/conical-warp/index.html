@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Conical Warp Tool (No Photoshop, No Cricut Access)</title>
+<meta name="description" content="Bend a flat PNG or JPG into the curved shape a tapered tumbler needs, from your cup's measurements. 300 dpi PNG or PDF, no watermark, nothing uploaded.">
+<link rel="canonical" href="https://peakappsstudio.com/tumbler-template/conical-warp/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Free conical warp tool for tapered tumblers">
+<meta property="og:description" content="Bend a flat design to the exact curve of your tapered cup and download it at 300 dpi. Runs in your browser.">
+<meta property="og:url" content="https://peakappsstudio.com/tumbler-template/conical-warp/">
+<meta property="og:image" content="https://peakappsstudio.com/tumbler-template/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="stylesheet" href="/tumbler-template/tool.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Tumbler template generator","item":"https://peakappsstudio.com/tumbler-template/"},{"@type":"ListItem","position":3,"name":"Conical warp","item":"https://peakappsstudio.com/tumbler-template/conical-warp/"}]},
+ {"@type":"HowTo","name":"How to apply a conical warp to a design for a tapered tumbler","description":"Bend a flat image to the curved template of a tapered cup and download it at 300 dpi.","step":[
+   {"@type":"HowToStep","position":1,"name":"Enter the cup's measurements","text":"Enter the top diameter, bottom diameter and height of the area you print, or open a size from the size chart."},
+   {"@type":"HowToStep","position":2,"name":"Add the flat design","text":"Add a PNG or JPG. For the cleanest result, make it the size the tool suggests: the length of the top edge by the length of the side, at 300 dpi."},
+   {"@type":"HowToStep","position":3,"name":"Choose how it fits","text":"If the design's shape differs from the suggested size, choose Stretch, Fit or Fill."},
+   {"@type":"HowToStep","position":4,"name":"Set mirror and bleed","text":"Tick Mirror for sublimation, and add a bleed if you want the print to run past the cut line."},
+   {"@type":"HowToStep","position":5,"name":"Download and print","text":"Download the 300 dpi PNG or the PDF and print it at 100% (Actual size)."}
+ ]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Can Cricut Design Space warp an image for a tapered tumbler?","acceptedAnswer":{"@type":"Answer","text":"Cricut's help center says Warp is an exclusive feature for Cricut Access subscribers, and that the only thing you cannot warp is a printable image for Print Then Cut. A sublimation or print-then-cut design is a printable image, so it can't be warped there."}},
+  {"@type":"Question","name":"Is this conical warp tool free?","acceptedAnswer":{"@type":"Answer","text":"Yes. Warping one design at a time and downloading it as a 300 dpi PNG or PDF is free, with no watermark and no sign-up. Pro ($19, one-time) adds batch warping to a ZIP."}},
+  {"@type":"Question","name":"Why does my design get narrower at the bottom?","acceptedAnswer":{"@type":"Answer","text":"Because the bottom of a tapered cup is smaller around than the top. A design that wraps all the way round has to shrink sideways in the same proportion toward the bottom. On a cup 3.5 in across the top and 2.75 in across the bottom, the bottom row is 21% narrower."}}
+ ]}
+]}
+</script>
+</head>
+<body style="--accent:#1f5c4d">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a href="/tumbler-template/" aria-current="page">Tumbler templates</a>
+      <a href="/kdp-coloring-book/" class="hide-sm">KDP coloring books</a>
+      <a href="/sewing-pattern-printer/" class="hide-sm">Sewing pattern printer</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/tumbler-template/">Tumbler template generator</a></li><li aria-current="page">Conical warp</li></ol></nav>
+  <header class="tt-hero">
+    <h1>Free conical warp tool for tapered tumblers</h1>
+    <p class="lede">Add a flat design and your cup’s measurements. The design is bent into the exact curve of the cup’s template and saved at 300 dpi, ready to print. No Photoshop, no Cricut Access, no watermark, nothing uploaded.</p>
+  </header>
+
+  <section class="studio" data-studio data-mode="warp" aria-labelledby="studio-title">
+    <h2 id="studio-title" class="sr-only">Conical warp tool</h2>
+    <div class="st-card st-design" data-design-card>
+      <div class="st-head"><h3 class="st-title"><span class="n">01</span>Your flat design</h3></div>
+      <div class="drop" data-drop tabindex="0" role="button" aria-label="Add a design image: PNG, JPG or WebP"><input type="file" accept="image/png,image/jpeg,image/webp" tabindex="-1" aria-hidden="true"><strong>Add a PNG or JPG</strong><span class="hint drop-hint">Drop it here or tap to choose. It stays on your device.</span></div>
+      <div class="st-file" data-design-info hidden>
+        <div class="st-thumb" data-design-thumb></div>
+        <div style="min-width:0"><div class="st-file-name" data-design-name></div><div class="st-file-px" data-design-px></div></div>
+        <button type="button" class="btn btn-sm" data-design-clear>Remove</button>
+      </div>
+      <div class="st-fitrow"><span id="st-fit-l">If its shape differs</span><div class="seg" data-seg="fit" role="group" aria-labelledby="st-fit-l"><button type="button" data-value="stretch" aria-pressed="true">Stretch</button><button type="button" data-value="fit" aria-pressed="false">Fit</button><button type="button" data-value="fill" aria-pressed="false">Fill</button></div></div>
+      <label class="check"><input type="checkbox" data-check="mirror"><span>Mirror the bent design (for sublimation)</span></label>
+      <p class="st-hint" data-design-size>The best pixel size for your flat design shows here once the measurements are in.</p>
+    </div>
+
+    <div class="st-card st-meas">
+      <div class="st-head">
+        <h3 class="st-title"><span class="n">02</span>Measure the cup</h3>
+        <div class="seg st-seg" data-seg="unit" role="group" aria-label="Units">
+          <button type="button" data-value="in" aria-pressed="true">in</button><button type="button" data-value="cm" aria-pressed="false">cm</button>
+        </div>
+      </div>
+      <div class="st-fields">
+        <label class="field"><span>Top <small data-dlabel>diameter</small></span><span class="input-unit"><input class="input" data-in="top" inputmode="decimal" autocomplete="off" spellcheck="false"><i data-u>in</i></span></label>
+        <label class="field"><span>Bottom <small data-dlabel>diameter</small></span><span class="input-unit"><input class="input" data-in="bottom" inputmode="decimal" autocomplete="off" spellcheck="false"><i data-u>in</i></span></label>
+        <label class="field"><span><span data-hlabel>Height</span> <small>of the wrap</small></span><span class="input-unit"><input class="input" data-in="height" inputmode="decimal" autocomplete="off" spellcheck="false"><i data-u>in</i></span></label>
+      </div>
+      <div class="st-switches">
+        <div class="st-switch"><span id="st-measure-l">Top &amp; bottom</span><div class="seg" data-seg="measure" role="group" aria-labelledby="st-measure-l"><button type="button" data-value="diameter" aria-pressed="true">Diameter</button><button type="button" data-value="circumference" aria-pressed="false">Circumference</button></div></div>
+        <div class="st-switch"><span id="st-hmode-l">Height</span><div class="seg" data-seg="heightMode" role="group" aria-labelledby="st-hmode-l"><button type="button" data-value="vertical" aria-pressed="true">Straight up</button><button type="button" data-value="slant" aria-pressed="false">Along side</button></div></div>
+      </div>
+      <p class="st-error" data-error role="alert" hidden></p>
+      <div class="st-linkrow"><span>Fractions work: <span class="mono">3 1/2</span></span><a href="/tumbler-template/how-to-measure/">How to measure</a><button type="button" class="st-textbtn" data-action="presets">Blank sizes <span class="pro-tag">Pro</span></button></div>
+    </div>
+
+    <div class="st-stage">
+      <div class="st-stage-in">
+        <div class="st-mat" data-mat>
+          <svg data-svg role="img" aria-label="Flat template preview"></svg>
+          <div class="st-bar"><span data-grid-label></span><span data-status role="status" aria-live="polite"></span></div>
+        </div>
+        <dl class="st-readout" data-readout aria-label="Template measurements"></dl>
+      </div>
+    </div>
+
+    <div class="st-card st-opts">
+      <div class="st-head"><h3 class="st-title"><span class="n">03</span>Options</h3></div>
+      <div class="st-optrow"><label class="check"><input type="checkbox" data-check="bleedOn"><span>Bleed <small>print a little past the cut line</small></span></label><span class="input-unit" data-when-bleed><input class="input" data-in="bleed" inputmode="decimal" aria-label="Bleed width"><i data-u>in</i></span></div>
+      <div class="st-optrow"><label for="st-gap">Handle gap <small>measured at the rim; 0 = full wrap</small></label><span class="input-unit"><input class="input" id="st-gap" data-in="gap" inputmode="decimal" autocomplete="off"><i data-u>in</i></span></div>
+      <label class="check"><input type="checkbox" data-check="labels"><span>Print measurements on the template</span></label>
+    </div>
+
+    <div class="st-card st-export">
+      <div class="st-head"><h3 class="st-title"><span class="n">04</span>Download</h3></div>
+      <label class="field"><span>Paper for PDFs</span>
+        <select class="select" data-paper>
+          <option value="fit">Template size (page fits the shape)</option>
+          <option value="letter">Letter 8.5 × 11 in</option>
+          <option value="legal">Legal 8.5 × 14 in</option>
+          <option value="tabloid">Tabloid 11 × 17 in</option>
+          <option value="sb">13 × 19 in</option>
+          <option value="a4">A4 210 × 297 mm</option>
+          <option value="a3">A3 297 × 420 mm</option>
+        </select></label>
+      <div class="st-exgroup">
+        <div class="st-exlabel"><span>Template outline</span><span class="muted">true size</span></div>
+        <div class="st-btns"><button type="button" class="btn" data-action="svg" data-needs-template>SVG</button><button type="button" class="btn" data-action="pdf" data-needs-template>PDF</button><button type="button" class="btn" data-action="png" data-needs-template>PNG <small>300 dpi</small></button></div>
+      </div>
+      <div class="st-exgroup">
+        <div class="st-exlabel"><span>Bent design</span><span class="muted">no watermark</span></div>
+        <div class="st-btns two"><button type="button" class="btn btn-primary" data-action="design-png" data-needs-design disabled>PNG <small>300 dpi</small></button><button type="button" class="btn" data-action="design-pdf" data-needs-design disabled>PDF</button></div>
+        <label class="check"><input type="checkbox" data-check="cutOnDesign"><span>Draw the cut line on design files</span></label>
+      </div>
+      <p class="st-export-msg" data-export-msg role="status" hidden></p>
+      <div class="st-pro-row"><button type="button" class="btn" data-action="tiles" data-needs-template>Print across sheets <span class="pro-tag">Pro</span></button><button type="button" class="btn" data-action="batch" data-needs-template>Batch to ZIP <span class="pro-tag">Pro</span></button></div>
+      <button type="button" class="st-textbtn" data-action="copy-link">Copy a link to these measurements</button>
+    </div>
+  </section>
+
+  <section class="section two-col" aria-labelledby="what">
+    <div class="prose">
+      <h2 id="what">What a conical warp does</h2>
+      <p>A tapered cup is a slice of a cone, and unrolled flat its surface is a curved band. To look straight on the cup, a design has to be bent into that band: horizontal lines become arcs around the cone’s tip, vertical lines point at the tip, and the design narrows toward the bottom in step with the cup.</p>
+      <p>Skip the warp and a rectangle wrapped on a tapered cup tilts: text climbs toward the seam and the ends don’t meet. This tool does the bend from your measurements, so the top of the design follows the top edge exactly and the bottom follows the bottom edge.</p>
+    </div>
+    <figure class="figure" style="margin-top:0">
+      <svg viewBox="0 0 740 240" role="img" aria-labelledby="fwt">
+        <title id="fwt">A flat grid on the left becomes a curved, narrowing grid on the right after a conical warp</title>
+        <rect x="30" y="60" width="240" height="140" class="fig-fill"/>
+        <path d="M30 95 H270 M30 130 H270 M30 165 H270 M70 60 V200 M110 60 V200 M150 60 V200 M190 60 V200 M230 60 V200" class="fig-thin" style="opacity:.55"/>
+        <rect x="30" y="60" width="240" height="140" class="fig-line"/>
+        <text x="150" y="40" text-anchor="middle" class="fig-t">flat design</text>
+        <path d="M300 130 H360 M352 123 L361 130 L352 137" class="fig-thin"/>
+        <path d="M413.2 86.5 A420 420 0 0 1 706.8 86.5 L657.9 217.7 A280 280 0 0 0 462.1 217.7 Z" class="fig-fill"/>
+        <path d="M425.4 119.3 A385 385 0 0 1 694.6 119.3 M437.6 152.1 A350 350 0 0 1 682.4 152.1 M449.9 184.9 A315 315 0 0 1 670.1 184.9 M494.0 207.9 L460.9 71.8 M526.7 202.0 L510.1 63.0 M560.0 200.0 L560.0 60.0 M593.3 202.0 L609.9 63.0 M626.0 207.9 L659.1 71.8" class="fig-thin" style="opacity:.55"/>
+        <path d="M413.2 86.5 A420 420 0 0 1 706.8 86.5 L657.9 217.7 A280 280 0 0 0 462.1 217.7 Z" class="fig-line"/>
+        <text x="560" y="40" text-anchor="middle" class="fig-ta">after the conical warp</text>
+      </svg>
+      <figcaption>Rows become arcs, columns point at the cone’s tip, and the bottom narrows with the cup.</figcaption>
+    </figure>
+  </section>
+
+  <section class="section prose" aria-labelledby="others">
+    <h2 id="others">Why your usual app can’t do it</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>App</th><th>What its own help pages say</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Cricut Design Space</strong></td><td>“Warp is an exclusive feature for Cricut Access subscribers”, and “the only thing you cannot warp is a printable image for Print Then Cut.” A sublimation print or a print-then-cut design is a printable image. <a href="https://help.cricut.com/hc/en-us/articles/11736800185623-How-to-use-Warp-in-Design-Space" rel="noopener">Cricut Help</a></td></tr>
+        <tr><td><strong>Canva</strong></td><td>Curve is one of Canva’s text effects. We found no arc or cone warp for images in its help pages; the Liquify app distorts images freehand, which can’t follow a measured cup. <a href="https://www.canva.com/help/text-effects/" rel="noopener">Canva Help</a></td></tr>
+        <tr><td><strong>Silhouette Studio</strong></td><td>“Advanced warp (Conical, Perspective)” is listed for the Designer Plus and Business editions, not the free Basic edition. <a href="https://www.silhouetteamerica.com/silhouette-studio" rel="noopener">Silhouette America</a></td></tr>
+        <tr><td><strong>Photoshop</strong></td><td>Edit &gt; Transform &gt; Warp, then a style from the Warp menu, adjusted with Bend and distortion values. You match the bend to a template by eye. <a href="https://helpx.adobe.com/photoshop/desktop/effects-filters/artistic-stylize-filters/reshape-and-distort-images-with-transform-warp.html" rel="noopener">Adobe Help</a></td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">Quotes checked 7 October 2026. Peak Apps is not affiliated with Cricut, Canva, Silhouette America or Adobe; their names are used only to describe compatibility.</p>
+  </section>
+
+  <section class="section prose" aria-labelledby="how">
+    <h2 id="how">How to warp a design here</h2>
+    <ol class="steps">
+      <li><div><strong>Enter the cup’s measurements:</strong> top diameter, bottom diameter and the height of the area you print. Or open a size from the <a href="/tumbler-template/sizes/">size chart</a>.</div></li>
+      <li><div><strong>Add the flat design.</strong> The tool shows the best size for it: the length of the top edge by the length of the side, at 300 dpi. A design made at that size bends with no stretching along the rim.</div></li>
+      <li><div><strong>Choose how it fits</strong> if your design has a different shape: <em>Stretch</em> fills the template, <em>Fit</em> keeps all of it, <em>Fill</em> trims the edges.</div></li>
+      <li><div><strong>Tick Mirror</strong> for sublimation, and add a bleed if you want the print to run past the cut line.</div></li>
+      <li><div><strong>Download</strong> the 300 dpi PNG (clear outside the shape) or the PDF, and print at 100% (“Actual size”).</div></li>
+    </ol>
+  </section>
+
+  <section class="section prose" aria-labelledby="faq">
+    <h2 id="faq">Questions</h2>
+    <div class="faq">
+      <details><summary>Can Cricut Design Space warp an image for a tapered tumbler?</summary><div class="answer"><p>Cricut’s help center says Warp is an exclusive feature for Cricut Access subscribers, and that the only thing you cannot warp is a printable image for Print Then Cut. A sublimation or print-then-cut design is a printable image, so it can’t be warped there.</p></div></details>
+      <details><summary>Is this conical warp tool free?</summary><div class="answer"><p>Yes. Warping one design at a time and downloading it as a 300 dpi PNG or PDF is free, with no watermark and no sign-up. <a href="/tumbler-template/#pro">Pro</a> ($19, one-time) adds batch warping to a ZIP.</p></div></details>
+      <details><summary>Why does my design get narrower at the bottom?</summary><div class="answer"><p>Because the bottom of a tapered cup is smaller around than the top. A design that wraps all the way round has to shrink sideways in the same proportion toward the bottom. On a cup 3.5 in across the top and 2.75 in across the bottom, the bottom row is 21% narrower.</p></div></details>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="related">
+    <h2 id="related">Related</h2>
+    <nav class="related" aria-labelledby="related">
+      <a href="/tumbler-template/"><strong>Tumbler template generator</strong><span>The full tool, with template downloads first.</span></a>
+      <a href="/tumbler-template/how-to-measure/"><strong>How to measure a tapered tumbler</strong><span>Get the three numbers right.</span></a>
+      <a href="/tumbler-template/40-oz-tumbler-template/"><strong>40 oz tumbler template</strong><span>Two-piece wraps for handled tumblers.</span></a>
+      <a href="/cone-template/"><strong>Cone template generator</strong><span>Lampshades and paper cones.</span></a>
+    </nav>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools for makers and independent publishers. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a> · <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
+        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
+        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/site.js" defer></script>
+<script src="/assets/license.js" defer></script>
+<script src="/tumbler-template/geometry.js" defer></script>
+<script src="/tumbler-template/minipdf.js" defer></script>
+<script src="/tumbler-template/presets.js" defer></script>
+<script src="/tumbler-template/studio.js" defer></script>
+</body>
+</html>
