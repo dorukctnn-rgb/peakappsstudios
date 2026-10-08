@@ -43,6 +43,10 @@ body { --accent-soft: color-mix(in oklab, var(--accent) 11%, var(--paper)); }
 .nc-drop { position: relative; padding: 12px 14px; gap: 2px; font-size: 14px; }
 .nc-drop .hint { font-size: 12.5px; }
 .nc-drop-t { display: inline-flex; align-items: center; gap: 8px; }
+.nc-sample { justify-self: start; font: inherit; font-size: 13px; color: var(--muted); background: none; border: 0; padding: 0; cursor: pointer; text-align: left; }
+.nc-sample span { color: var(--ink-2); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.nc-sample:hover span { color: var(--accent); }
+.nc-sample[disabled] { opacity: .5; cursor: progress; }
 .nc-import { border: 1px solid var(--line-2); border-radius: 10px; padding: 14px; display: grid; gap: 10px; background: var(--paper); }
 .nc-import-sum { margin: 0; font-size: 14px; }
 .nc-import-opts { display: grid; gap: 6px; }

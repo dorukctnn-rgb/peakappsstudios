@@ -42,6 +42,10 @@
 .st-linkrow a { color: var(--ink-2); }
 .st-textbtn { font: inherit; font-size: 13px; color: var(--ink-2); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; display: inline-flex; align-items: center; gap: 6px; }
 .st-textbtn:hover { color: var(--accent); }
+.st-sample { justify-self: start; font: inherit; font-size: 13px; color: var(--muted); background: none; border: 0; padding: 0; cursor: pointer; text-align: left; }
+.st-sample span { color: var(--ink-2); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.st-sample:hover span { color: var(--accent); }
+.st-sample[disabled] { opacity: .5; cursor: progress; }
 .st-textbtn .pro-tag, .btn .pro-tag { font-size: 9.5px; padding: 2px 5px; text-decoration: none; }
 
 /* ---- stage ---- */

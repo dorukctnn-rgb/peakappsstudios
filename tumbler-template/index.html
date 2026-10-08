@@ -98,6 +98,7 @@
     <div class="st-card st-design" data-design-card>
       <div class="st-head"><h3 class="st-title"><span class="n">02</span>Bend a design <span class="muted">· optional</span></h3></div>
       <div class="drop" data-drop tabindex="0" role="button" aria-label="Add a design image: PNG, JPG or WebP"><input type="file" accept="image/png,image/jpeg,image/webp" tabindex="-1" aria-hidden="true"><strong>Add a PNG or JPG</strong><span class="hint drop-hint">Drop it here or tap to choose. It stays on your device.</span></div>
+      <button type="button" class="st-sample" data-sample-design>Nothing designed yet? <span>Bend a sample design</span></button>
       <div class="st-file" data-design-info hidden>
         <div class="st-thumb" data-design-thumb></div>
         <div style="min-width:0"><div class="st-file-name" data-design-name></div><div class="st-file-px" data-design-px></div></div>
@@ -191,12 +192,50 @@
     </nav>
   </section>
 
+  <section class="section" id="proof" aria-labelledby="proof-h">
+    <p class="eyebrow">What the $19 version writes</p>
+    <h2 id="proof-h">If you wrap <em>thirty cups a month</em></h2>
+    <p class="lede">One cup is a five-minute job and it stays free. Thirty cups is thirty warps, thirty exports and a template wider than your printer's paper. Both files below were made on this page with the sample design, so you can repeat them yourself.</p>
+
+    <figure class="shot">
+      <img src="/tumbler-template/pro-tiled.webp" width="1600" height="760" loading="lazy" decoding="async" alt="Three pages of a tiled PDF side by side: a map page showing the curved template split across two sheets labelled A1 and A2 next to a one-inch scale square, then sheets A1 and A2, each carrying its half of a patterned tumbler design with circled cross marks down the overlap strip.">
+      <figcaption>The tiled PDF for a cup 3.5 in across the top, 2.75 in across the bottom and 8 in tall. The template is 10.96 in wide, so it needs <strong>two Letter sheets with a 0.5 in overlap, plus the map page</strong>. The circled crosses print on both neighbours: lay one sheet over the other until they sit on top of each other, then tape. The 1 in square on the map is there to catch a printer that scaled the page.</figcaption>
+    </figure>
+
+    <figure class="shot">
+      <img src="/tumbler-template/pro-batch.webp" width="1600" height="660" loading="lazy" decoding="async" alt="Eight curved tumbler wraps in a grid, each with the same leaf pattern and centre panel but a different coloured band and order number, all bent to the same cone shape.">
+      <figcaption>Eight files out of one batch ZIP, opened. Each design went in flat at 2400 × 1800 px and came out bent to this cup at <strong>300 dpi, 3287 × 2498 px</strong>, with the same fit, mirror and bleed settings and a README holding the measurements. These eight are variations of the sample design this page draws.</figcaption>
+    </figure>
+
+    <div class="split">
+      <div>
+        <h3>Free finishes one cup</h3>
+        <p>Nothing is held back on a single wrap, and nothing is watermarked.</p>
+        <ul>
+          <li>The template as SVG, PDF and 300 dpi PNG, at true size</li>
+          <li>One design bent to the curve, mirrored for sublimation if you need it</li>
+          <li>Handle gap, bleed and a printed scale square</li>
+          <li>Any cup you can measure, in inches or centimetres</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Pro is the production run</h3>
+        <p>The parts you repeat once the orders stack up.</p>
+        <ul>
+          <li>A template wider than your paper, printed across sheets with alignment marks</li>
+          <li>A folder of designs bent in one pass, into one ZIP</li>
+          <li>Published blank sizes in one click, and your own measured blanks saved</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <section class="section" aria-labelledby="pro">
     <div class="pro">
       <div class="pro-left">
         <p class="eyebrow">Pro · one-time</p>
         <h2 id="pro">For when you print <em>a lot</em> of cups</h2>
-        <p class="muted" style="margin:10px 0 0">Everything above stays free. Pro adds the parts that save time on a production run.</p>
+        <p class="muted" style="margin:10px 0 0">Everything above stays free. Pro is for the shop filling thirty orders a month, and <a href="#proof" style="color:inherit">both of its files are shown above</a>.</p>
         <ul class="pro-list">
           <li><span><strong>Print across several sheets.</strong> Letter, Legal, A4, 13 × 19 in, Tabloid or A3, with overlap, alignment marks and a map page.</span></li>
           <li><span><strong>Batch bending.</strong> Drop in a folder of flat designs and get every one bent at 300 dpi in a single ZIP.</span></li>
@@ -260,6 +299,7 @@
 <script src="/tumbler-template/geometry.js" defer></script>
 <script src="/tumbler-template/minipdf.js" defer></script>
 <script src="/tumbler-template/presets.js" defer></script>
+<script src="/tumbler-template/sample-design.js" defer></script>
 <script src="/tumbler-template/studio.js" defer></script>
 </body>
 </html>
