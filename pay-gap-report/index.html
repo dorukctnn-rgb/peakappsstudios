@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gender Pay Gap Calculator and Report: UK, Ireland, EU</title>
+<meta name="description" content="Work out the statutory gender pay gap measures from a payroll export, for the UK, Ireland or the EU directive. Runs in your browser; nothing is uploaded.">
+<link rel="canonical" href="https://peakappsstudio.com/pay-gap-report/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Gender pay gap calculator and report: UK, Ireland, EU">
+<meta property="og:description" content="The statutory gender pay gap measures from your payroll export: mean and median gaps, bonus figures, quartile pay bands and the Irish and EU splits. Computed in your browser.">
+<meta property="og:url" content="https://peakappsstudio.com/pay-gap-report/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="stylesheet" href="/pay-gap-report/tool.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","@id":"https://peakappsstudio.com/pay-gap-report/#app","name":"Pay Gap Report","url":"https://peakappsstudio.com/pay-gap-report/","description":"Reads a payroll export (CSV or XLSX) in the browser and works out the statutory gender pay gap measures for the UK (SI 2017/172 and SI 2017/353), Ireland (S.I. No. 264 of 2022, as amended) and the EU Pay Transparency Directive (2023/970, Article 9), with data checks before any figure.","applicationCategory":"BusinessApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD","description":"Headcount by sex, data checks, and the mean and median hourly pay gaps with the working shown."},{"@type":"Offer","name":"Pro (one-time, per organisation)","price":"79","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/pay-gap-report-pro","description":"Every statutory measure for the chosen regime, quartile pay bands, bonus figures, the Irish part-time, temporary and benefits in kind figures, EU category gaps with the 5% flag, a PDF report, a figures CSV and an audit file of excluded rows."}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Pay gap report","item":"https://peakappsstudio.com/pay-gap-report/"}]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Is my payroll file uploaded anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. The file is read by JavaScript in this page, on your computer, and the figures are worked out there. Nothing about the file or its contents is sent to a server, and closing the tab discards it. If you buy Pro, only the licence key is sent to Gumroad to check it."}},
+  {"@type":"Question","name":"Which employers have to report?","acceptedAnswer":{"@type":"Answer","text":"In Great Britain, employers with 250 or more employees on the snapshot date: 5 April for private and voluntary employers, 31 March for most public authorities. In Ireland, employers with 50 or more employees on a snapshot date they choose in June. Under the EU Pay Transparency Directive, employers with 100 or more workers, starting with those of 150 or more by 7 June 2027."}},
+  {"@type":"Question","name":"What does the file need to contain?","acceptedAnswer":{"@type":"Answer","text":"One row per employee on the snapshot date, with their sex and either their hourly pay or their pay and hours for the period, plus bonus pay for the bonus figures. Ireland adds part-time, temporary contract and benefits in kind columns; the EU directive adds a category of workers. The CSV template lists every column."}},
+  {"@type":"Question","name":"How are employees who are not recorded as male or female handled?","acceptedAnswer":{"@type":"Answer","text":"They are counted and shown, and left out of the calculations. For the UK, the GOV.UK guidance updated on 21 May 2026 says reporting must be based on each employee's biological sex, so correct those records before you publish. For Ireland, the Department's FAQ says an employee who does not identify as male or female may be omitted from the calculations. The directive does not address it."}},
+  {"@type":"Question","name":"Why might my figures differ from my payroll software?","acceptedAnswer":{"@type":"Answer","text":"Usually because of what went into the file: which pay counts as ordinary pay, who is a full-pay relevant employee, which bonuses fall in the 12 months, or how weekly hours were set. The tool shows how each figure was worked out, lists every row it left out and why, and rounds only at the end."}},
+  {"@type":"Question","name":"Is this legal advice?","acceptedAnswer":{"@type":"Answer","text":"No. It calculates the measures from the data you give it, using the definitions in the Regulations and the directive. You still decide who is a relevant employee, what counts as ordinary pay and bonus pay, and what your report says. The employer is responsible for the accuracy of the published figures."}},
+  {"@type":"Question","name":"What does Pro include?","acceptedAnswer":{"@type":"Answer","text":"For $79, once, per organisation: every statutory measure for the regime you choose, the quartile pay bands with a chart, the bonus figures, the Irish part-time, temporary and benefits in kind figures, the EU category gaps with the 5% flag, a PDF report with methodology and a narrative to edit, a CSV of the figures for the government portal, and a CSV of every excluded row for your audit file."}}
+ ]}
+]}
+</script>
+</head>
+<body style="--accent:#1e4f6e">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a href="/tumbler-template/" class="hide-sm">Tumbler templates</a>
+      <a href="/name-cut-files/" class="hide-sm">Name cut files</a>
+      <a href="/kdp-coloring-book/" class="hide-sm">KDP coloring books</a>
+      <a href="/sewing-pattern-printer/" class="hide-sm">Sewing pattern printer</a>
+      <a href="/quilt-label-maker/" class="hide-sm">Quilt labels</a>
+      <a href="/etsy-tax-summary/" class="hide-sm">Etsy tax summary</a>
+      <a href="/pay-gap-report/" aria-current="page">Pay gap report</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li aria-current="page">Pay gap report</li></ol></nav>
+
+  <section class="tool-hero pg-hero">
+    <div>
+      <p class="eyebrow">Statutory gender pay gap reporting</p>
+      <h1>Gender pay gap calculator and report for the <em>UK, Ireland and EU</em></h1>
+    </div>
+    <div>
+      <p class="lede">Drop in a payroll export and get the measures the law asks for: mean and median hourly pay gaps, bonus gaps, quartile pay bands and, for Ireland and the EU directive, the extra splits. Each figure shows how it was worked out.</p>
+      <ul class="facts">
+        <li>Payroll data stays in your browser</li>
+        <li>UK, Ireland and Directive (EU) 2023/970</li>
+        <li>Rules checked against the official texts</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="pg" id="tool" aria-label="Pay gap calculator" data-state="empty">
+    <div class="pg-regime">
+      <div class="pg-regime-pick">
+        <span class="pg-label" id="regime-l">Reporting under</span>
+        <div class="seg pg-seg" id="regime" role="group" aria-labelledby="regime-l">
+          <button type="button" data-value="uk_private" aria-pressed="true">UK private</button>
+          <button type="button" data-value="uk_public" aria-pressed="false">UK public</button>
+          <button type="button" data-value="ireland" aria-pressed="false">Ireland</button>
+          <button type="button" data-value="eu" aria-pressed="false">EU directive</button>
+        </div>
+      </div>
+      <p class="pg-regime-note" id="regime-note"></p>
+    </div>
+
+    <!-- Before a file -->
+    <div class="pg-empty" id="empty">
+      <div class="pg-drop drop" id="drop" tabindex="0" role="button" aria-describedby="drop-help">
+        <svg class="pg-drop-art" width="72" height="56" viewBox="0 0 72 56" aria-hidden="true">
+          <rect x="6" y="6" width="44" height="44" rx="3" fill="var(--card)" stroke="currentColor" stroke-width="1.3"/>
+          <path d="M6 16h44M6 26h44M6 36h44M20 6v44M33 6v44" stroke="currentColor" stroke-width="1" opacity=".35"/>
+          <rect x="40" y="18" width="7" height="25" fill="var(--accent)" opacity=".85"/>
+          <rect x="49" y="26" width="7" height="17" fill="currentColor" opacity=".5"/>
+          <circle cx="58" cy="44" r="9" fill="var(--accent)"/>
+          <path d="M58 39.5v9M53.5 44h9" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <strong>Drop your payroll export here</strong>
+        <span id="drop-help" class="small muted">A CSV or XLSX file with one row per employee on the snapshot date.</span>
+        <span class="btn btn-primary btn-sm" aria-hidden="true">Choose a file</span>
+        <input type="file" id="file" accept=".csv,.tsv,.txt,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" tabindex="-1" aria-hidden="true">
+      </div>
+      <div class="pg-how">
+        <h2 class="group-title">What the file needs</h2>
+        <ol class="steps pg-steps" id="needs"></ol>
+        <p class="pg-private"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="2.5" y="6" width="9" height="6.5" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4.5 6V4.5a2.5 2.5 0 0 1 5 0V6" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>The file is read by this page on your computer. It is not uploaded, and nothing about its contents is sent anywhere.</span></p>
+        <div class="pg-start">
+          <a class="btn btn-sm" href="/pay-gap-report/pay-gap-template.csv" download>Download the CSV template</a>
+          <button type="button" class="btn btn-sm btn-ink" id="sample">Load a sample company</button>
+        </div>
+        <p class="hint">The sample is a synthetic company of 180 made-up employees. <a href="/pay-gap-report/template/">Every template column explained</a></p>
+      </div>
+    </div>
+
+    <!-- After a file -->
+    <div class="pg-ready" id="ready" hidden>
+      <div class="pg-filebar">
+        <div class="pg-file"><span class="pg-file-name" id="file-name"></span><span class="pg-file-meta" id="file-meta"></span></div>
+        <div class="pg-filebar-actions">
+          <button type="button" class="btn btn-sm" id="replace">Choose another file</button>
+          <button type="button" class="btn btn-sm pg-quiet" id="reset">Start over</button>
+          <input type="file" id="file2" accept=".csv,.tsv,.txt,.xlsx" hidden>
+        </div>
+      </div>
+      <p class="pg-sample-note" id="sample-note" hidden>Synthetic data: 180 made-up employees of a made-up company, so you can see every step work. <button type="button" class="linklike" id="sample-download">Download the sample file</button> or <button type="button" class="linklike" id="sample-clear">clear it</button> and drop your own.</p>
+
+      <section class="pg-step" aria-labelledby="map-h">
+        <div class="pg-step-head">
+          <span class="pg-step-n">1</span>
+          <div><h2 id="map-h">Match the columns</h2><p class="hint" id="map-hint">Matched from the header row. Change any that are wrong.</p></div>
+        </div>
+        <div class="pg-map">
+          <div class="table-wrap pg-map-wrap"><table class="pg-map-table"><caption class="sr-only">Columns in your file</caption><thead><tr><th scope="col">What the calculation needs</th><th scope="col">Column in your file</th><th scope="col" class="pg-map-ex">First value</th></tr></thead><tbody id="map-body"></tbody></table></div>
+          <div class="pg-basis" id="basis"></div>
+        </div>
+        <p class="warn pg-map-warn" id="map-warn" role="alert" hidden></p>
+      </section>
+
+      <section class="pg-step" id="checks-step" aria-labelledby="checks-h">
+        <div class="pg-step-head">
+          <span class="pg-step-n">2</span>
+          <div><h2 id="checks-h">Check the data</h2><p class="hint" id="checks-hint">Before any figure: what the file holds and what will be left out.</p></div>
+        </div>
+        <ul class="pg-checks" id="checks"></ul>
+        <div class="pg-confirm" id="confirm-row">
+          <button type="button" class="btn btn-primary" id="confirm">Show the figures</button>
+          <span class="hint" id="confirm-note"></span>
+        </div>
+      </section>
+
+      <section class="pg-step pg-results" id="results" aria-labelledby="res-h" hidden>
+        <div class="pg-step-head">
+          <span class="pg-step-n">3</span>
+          <div><h2 id="res-h">The figures</h2><p class="hint" id="res-sub"></p></div>
+        </div>
+
+        <div class="pg-settings" role="group" aria-label="Report details">
+          <label class="field pg-f-employer"><span>Employer name, for the report</span><input class="input" id="employer" maxlength="90" autocomplete="organization" placeholder="Your organisation"></label>
+          <label class="field pg-f-year" id="year-f"><span id="year-l">Snapshot year</span><select class="select" id="year"></select></label>
+          <label class="field pg-f-date" id="date-f" hidden><span>Snapshot date in June</span><input class="input" type="date" id="ie-date"></label>
+          <p class="pg-dates" id="dates"></p>
+        </div>
+
+        <div class="pg-headline">
+          <dl class="pg-count" id="headcount"></dl>
+          <div class="pg-gaps" id="gaps"></div>
+        </div>
+        <div class="pg-explain" id="explain"></div>
+        <p class="pg-sign hint" id="sign"></p>
+
+        <div class="pg-block">
+          <div class="pg-block-head"><h3 id="measures-h">Every measure for this regime</h3><p class="hint" id="measures-note"></p></div>
+          <div class="table-wrap pg-measures-wrap"><table class="pg-measures" id="measures" aria-labelledby="measures-h"></table></div>
+          <div class="pg-lock" id="lock">
+            <p><strong>The rows marked Pro are worked out once you activate Pro.</strong> The free figures above stay free. Pro is $79 once, per organisation, and adds the PDF report and the CSV files below.</p>
+            <div class="pg-lock-actions"><a class="btn btn-primary btn-sm" data-buy-pro href="https://dorukctn.gumroad.com/l/pay-gap-report-pro">Buy Pro on Gumroad</a><button type="button" class="btn btn-sm" data-enter-key>Enter licence key</button></div>
+          </div>
+        </div>
+
+        <div class="pg-block" id="q-block" hidden>
+          <div class="pg-block-head"><h3 id="q-h">Quartile pay bands</h3><p class="hint" id="q-note"></p></div>
+          <div class="pg-q" id="q-chart"></div>
+        </div>
+
+        <div class="pg-block" id="cat-block" hidden>
+          <div class="pg-block-head"><h3 id="cat-h">Categories of workers</h3><p class="hint" id="cat-note"></p></div>
+          <div class="table-wrap pg-cat-wrap" tabindex="0" role="region" aria-labelledby="cat-h"><table class="pg-cat" id="cat-table"></table></div>
+          <p class="pg-art10" id="art10"></p>
+        </div>
+
+        <div class="pg-block pg-export" id="export">
+          <div class="pg-block-head"><h3>The report <span class="pro-tag" id="export-tag">Pro</span></h3><p class="hint" id="export-note"></p></div>
+          <div class="pg-export-grid">
+            <div class="pg-narrative">
+              <label class="field"><span id="narr-l">Narrative for the report. Edit the text in square brackets.</span><textarea class="input pg-textarea" id="narrative" rows="11" spellcheck="true"></textarea></label>
+              <div class="pg-signer" id="signer">
+                <p class="hint">Written statement (regulation 14): signed by a director or equivalent, confirming the figures are accurate. Their name and job title also go on the GOV.UK service.</p>
+                <div class="row"><label class="field"><span>Name of the person signing</span><input class="input" id="signer-name" maxlength="80" autocomplete="name"></label><label class="field"><span>Job title</span><input class="input" id="signer-title" maxlength="80" autocomplete="organization-title"></label></div>
+              </div>
+            </div>
+            <div class="pg-export-btns">
+              <button type="button" class="btn btn-primary" id="x-pdf">Download the PDF report</button>
+              <button type="button" class="btn" id="x-csv">Download the figures CSV</button>
+              <button type="button" class="btn" id="x-excl">Download the excluded rows CSV</button>
+              <p class="hint" id="x-hint">The PDF holds the figures, the quartile chart, the methodology with legal references, your narrative and, for UK private employers, the signature block.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <p class="sr-only" id="status" aria-live="polite"></p>
+  </section>
+
+  <p class="pg-privacy small muted">The file never leaves this page: it is read with JavaScript on your computer, there are no analytics on this page, and the figures, the PDF and the CSV files are built here. Close the tab and it is gone.</p>
+
+  <section class="section two-col" id="method">
+    <div class="prose">
+      <h2>How the figures are worked out</h2>
+      <p><strong>Hourly pay.</strong> In the UK it is ordinary pay plus any bonus paid in the pay period that includes the snapshot date, turned into a weekly amount (multiplied by 7 over the days in the pay period, with a month counted as 30.44 days) and divided by weekly working hours. In Ireland it is ordinary pay plus bonus over the 12 months to the snapshot date, divided by the hours worked in those 12 months; Irish ordinary pay includes overtime, UK ordinary pay does not. For the EU directive it is gross pay for the year, basic and complementary or variable, over the hours paid.</p>
+      <p><strong>The gap.</strong> Every gap is (A minus B) divided by A, times 100, where A is the figure for men and B the figure for women. A positive gap means men are paid more; a negative gap means women are. Mean is the average; median is the middle value, or the average of the two middle values when the count is even.</p>
+      <p><strong>Bonus.</strong> Bonus gaps compare the mean and median bonus of the men and women who were paid one in the 12 months to the snapshot date. The share paid a bonus divides by all men or all women, including those not paid one.</p>
+    </div>
+    <div class="prose">
+      <h2>Quartiles, rounding and people left out</h2>
+      <p><strong>Quartile pay bands.</strong> Everyone with hourly pay is ranked from lowest to highest and split into four bands as equal as possible. As the GOV.UK guidance sets out, one person left over goes to the lower band, two go to the lower and upper middle bands, three to the lower, lower middle and upper middle. Where people on the same hourly pay fall either side of a dividing line, each band gets the same mix of men and women.</p>
+      <p><strong>Rounding.</strong> Figures are calculated unrounded and shown to one decimal place. An exact half goes to the even digit, so the two shares in each band still add up to 100.0.</p>
+      <p><strong>Who is left out.</strong> In the UK, employees on reduced or nil pay because of leave are left out of the hourly figures and kept in the bonus figures. Rows without a usable sex, pay or hours are listed in the checks before any figure, and Pro writes them to an audit file.</p>
+      <p class="source">Sources: <a href="https://www.legislation.gov.uk/uksi/2017/172/contents/made" rel="noopener">SI 2017/172</a>; <a href="https://www.legislation.gov.uk/uksi/2017/353/schedule/1" rel="noopener">SI 2017/353, Schedule 1</a>; GOV.UK, <a href="https://www.gov.uk/government/publications/gender-pay-gap-reporting-guidance-for-employers/making-your-calculations" rel="noopener">Making your calculations</a> (updated 21 May 2026); <a href="https://www.irishstatutebook.ie/eli/2022/si/264/made/en/print" rel="noopener">S.I. No. 264 of 2022</a> as amended by <a href="https://www.irishstatutebook.ie/eli/2024/si/259/made/en/print" rel="noopener">S.I. No. 259 of 2024</a> and <a href="https://www.irishstatutebook.ie/eli/2025/si/212/made/en/print" rel="noopener">S.I. No. 212 of 2025</a>; <a href="https://eur-lex.europa.eu/eli/dir/2023/970/oj" rel="noopener">Directive (EU) 2023/970</a>. Last checked 8 October 2026.</p>
+    </div>
+  </section>
+
+  <section class="section" id="proof" aria-labelledby="proof-h">
+    <p class="eyebrow">What the $79 version writes</p>
+    <h2 id="proof-h">A report you can <em>publish</em></h2>
+    <p class="lede">Load the sample company above and the free figures fill the page. The PDF below is what Pro made from that same synthetic company, in one click.</p>
+    <figure class="shot">
+      <img src="/pay-gap-report/pro-report.webp" width="1500" height="1060" loading="lazy" decoding="async" alt="Two pages of a printed gender pay gap report side by side. The first has the employer name, snapshot date and deadline, four headline gaps, a table of the statutory measures with their regulation references, and a bar chart of men and women in each quartile pay band. The second sets out how the figures were worked out, with legal references, and the data used.">
+      <figcaption>Pages 1 and 2 of the three-page PDF report for the sample company under the UK private sector rules. <strong>Every figure carries its regulation reference</strong>, the methodology says which definitions were used, and page 3 holds the narrative and the written statement for a director to sign. The company and its people are synthetic.</figcaption>
+    </figure>
+
+    <div class="split">
+      <div>
+        <h3>Free shows the headline</h3>
+        <p>Enough to see where you stand.</p>
+        <ul>
+          <li>Headcount of men and women, and anyone recorded as neither</li>
+          <li>The data checks, before any figure</li>
+          <li>Mean and median hourly pay gap, with the working shown</li>
+          <li>The name of every other measure your regime requires</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Pro finishes the report</h3>
+        <p>For the person who has to publish it.</p>
+        <ul>
+          <li>Every statutory measure: bonus gaps, bonus shares, quartile pay bands</li>
+          <li>Ireland: part-time, temporary contract and benefits in kind figures</li>
+          <li>EU: indicators (a) to (g), category gaps and the 5% flag</li>
+          <li>The PDF report, the figures CSV for the portal and the excluded rows CSV</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pro">
+    <div class="pro">
+      <div class="pro-left">
+        <p class="eyebrow">Pro</p>
+        <h2>The full statutory report for your <em>organisation</em></h2>
+        <ul class="pro-list">
+          <li>Every measure for the UK, Ireland or the EU directive, from the same file</li>
+          <li>Quartile pay bands with a chart, worked out with the GOV.UK rules for ties and remainders</li>
+          <li>A PDF report: cover, figures with legal references, methodology, your narrative and the signature block</li>
+          <li>A CSV of the figures, named with the GOV.UK service fields for UK reports, and a CSV of every excluded row</li>
+          <li>One payment, for this year’s report and the years after</li>
+        </ul>
+      </div>
+      <div class="pro-right">
+        <p class="price">$79 <small>one-time, per organisation</small></p>
+        <a class="btn btn-primary" data-buy-pro href="https://dorukctn.gumroad.com/l/pay-gap-report-pro">Buy Pro on Gumroad</a>
+        <button type="button" class="btn" data-enter-key style="background:transparent;color:var(--paper);border-color:color-mix(in oklab, var(--paper) 40%, transparent)">Enter licence key</button>
+        <p class="fine">Gumroad handles payment and refunds. Your key turns on Pro in this browser; enter it again on another computer. The free figures stay free.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <h2>Questions</h2>
+    <div class="faq">
+      <details><summary>Is my payroll file uploaded anywhere?</summary><div class="answer"><p>No. The file is read by JavaScript in this page, on your computer, and the figures are worked out there. Nothing about the file or its contents is sent to a server, and closing the tab discards it. If you buy Pro, only the licence key is sent to Gumroad to check it.</p></div></details>
+      <details><summary>Which employers have to report?</summary><div class="answer"><p>In Great Britain, employers with 250 or more employees on the snapshot date: 5 April for private and voluntary employers, 31 March for most public authorities. In Ireland, employers with 50 or more employees on a snapshot date they choose in June. Under the EU Pay Transparency Directive, employers with 100 or more workers, starting with those of 150 or more by 7 June 2027. The <a href="/pay-gap-report/uk/">UK</a>, <a href="/pay-gap-report/ireland/">Ireland</a> and <a href="/pay-gap-report/eu-pay-transparency-directive/">EU directive</a> guides have the details.</p></div></details>
+      <details><summary>What does the file need to contain?</summary><div class="answer"><p>One row per employee on the snapshot date, with their sex and either their hourly pay or their pay and hours for the period, plus bonus pay for the bonus figures. Ireland adds part-time, temporary contract and benefits in kind columns; the EU directive adds a category of workers. The <a href="/pay-gap-report/template/">CSV template</a> lists every column.</p></div></details>
+      <details><summary>How are employees who are not recorded as male or female handled?</summary><div class="answer"><p>They are counted and shown, and left out of the calculations. For the UK, the GOV.UK guidance updated on 21 May 2026 says reporting must be based on each employee’s biological sex, so correct those records before you publish. For Ireland, the Department’s FAQ says an employee who does not identify as male or female may be omitted from the calculations. The directive does not address it.</p></div></details>
+      <details><summary>Why might my figures differ from my payroll software?</summary><div class="answer"><p>Usually because of what went into the file: which pay counts as ordinary pay, who is a full-pay relevant employee, which bonuses fall in the 12 months, or how weekly hours were set. The tool shows how each figure was worked out, lists every row it left out and why, and rounds only at the end.</p></div></details>
+      <details><summary>Is this legal advice?</summary><div class="answer"><p>No. It calculates the measures from the data you give it, using the definitions in the Regulations and the directive. You still decide who is a relevant employee, what counts as ordinary pay and bonus pay, and what your report says. The employer is responsible for the accuracy of the published figures.</p></div></details>
+      <details><summary>What does Pro include?</summary><div class="answer"><p>For $79, once, per organisation: every statutory measure for the regime you choose, the quartile pay bands with a chart, the bonus figures, the Irish part-time, temporary and benefits in kind figures, the EU category gaps with the 5% flag, a PDF report with methodology and a narrative to edit, a CSV of the figures for the government portal, and a CSV of every excluded row for your audit file.</p></div></details>
+    </div>
+  </section>
+
+  <section class="section" id="guides">
+    <h2>Pay gap reporting guides</h2>
+    <nav class="related" aria-label="Guides">
+      <a href="/pay-gap-report/uk/"><strong>UK gender pay gap calculation</strong><span>The six measures step by step, and the deadlines.</span></a>
+      <a href="/pay-gap-report/ireland/"><strong>Gender pay gap reporting in Ireland</strong><span>Who reports in 2026, the June snapshot and the portal.</span></a>
+      <a href="/pay-gap-report/eu-pay-transparency-directive/"><strong>EU Pay Transparency Directive</strong><span>The seven indicators, the dates and the 5% assessment.</span></a>
+      <a href="/pay-gap-report/formula/"><strong>The gender pay gap formula</strong><span>Mean, median and quartiles, with a worked example.</span></a>
+      <a href="/pay-gap-report/template/"><strong>The CSV template</strong><span>Every column explained, and how to export it.</span></a>
+      <a href="/tools/"><strong>All Peak Apps tools</strong><span>Small browser tools that do one job well.</span></a>
+    </nav>
+    <p class="source pg-legal">Not legal advice. The tool calculates the measures from the data you provide, with the definitions shown on this page; the employer decides who is included and what counts as ordinary and bonus pay, and is responsible for what it publishes.</p>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools that each do one job well. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a> · <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
+        <li><a href="/name-cut-files/">Name Cut Files</a></li>
+        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
+        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
+        <li><a href="/quilt-label-maker/">Quilt Label Maker</a></li>
+        <li><a href="/etsy-tax-summary/">Etsy Tax Summary</a></li>
+        <li><a href="/pay-gap-report/">Pay Gap Report</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/site.js" defer></script>
+<script src="/assets/license.js" defer></script>
+<script src="/pay-gap-report/paygap.js" defer></script>
+<script src="/pay-gap-report/report.js" defer></script>
+<script src="/pay-gap-report/tool.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gender Pay Gap Calculation Template (CSV), Every Column Explained</title>
+<meta name="description" content="A gender pay gap calculation template in CSV, with every column explained for the UK, Ireland and the EU directive, and how to fill it from a payroll export.">
+<link rel="canonical" href="https://peakappsstudio.com/pay-gap-report/template/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Gender pay gap calculation template">
+<meta property="og:description" content="A CSV template with one row per employee and a column for everything the UK, Irish and EU calculations need, each explained, plus how to fill it from payroll.">
+<meta property="og:url" content="https://peakappsstudio.com/pay-gap-report/template/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="stylesheet" href="/pay-gap-report/tool.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"Article","headline":"Gender pay gap calculation template","description":"A CSV template for gender pay gap calculations with every column explained for the UK, Ireland and the EU Pay Transparency Directive, the values it accepts, and how to fill it from a payroll export.","url":"https://peakappsstudio.com/pay-gap-report/template/","dateModified":"2026-10-08","inLanguage":"en","author":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Pay gap report","item":"https://peakappsstudio.com/pay-gap-report/"},{"@type":"ListItem","position":3,"name":"Calculation template","item":"https://peakappsstudio.com/pay-gap-report/template/"}]}
+]}
+</script>
+</head>
+<body style="--accent:#1e4f6e">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a href="/tumbler-template/" class="hide-sm">Tumbler templates</a>
+      <a href="/name-cut-files/" class="hide-sm">Name cut files</a>
+      <a href="/kdp-coloring-book/" class="hide-sm">KDP coloring books</a>
+      <a href="/sewing-pattern-printer/" class="hide-sm">Sewing pattern printer</a>
+      <a href="/quilt-label-maker/" class="hide-sm">Quilt labels</a>
+      <a href="/etsy-tax-summary/" class="hide-sm">Etsy tax summary</a>
+      <a href="/pay-gap-report/" aria-current="page">Pay gap report</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/pay-gap-report/">Pay gap report</a></li><li aria-current="page">Template</li></ol></nav>
+
+  <section class="tool-hero">
+    <p class="eyebrow">CSV, one row per employee</p>
+    <h1>Gender pay gap calculation <em>template</em></h1>
+    <p class="lede">One file layout covers the UK, Ireland and the EU directive. Each regime reads the columns it needs and ignores the rest, and the same columns mean slightly different periods in each, as the table below sets out.</p>
+    <p><a class="btn btn-primary" href="/pay-gap-report/pay-gap-template.csv" download>Download pay-gap-template.csv</a></p>
+  </section>
+
+  <div class="g-wrap">
+    <div class="g-main">
+      <section id="columns">
+        <h2>Every column</h2>
+        <p>The template has thirteen columns and three example rows. Rows whose ID starts with EXAMPLE are left out by the calculator, so you can keep them as a guide or delete them. Your own column names do not have to match: the calculator recognises common payroll headings and lets you pick the rest.</p>
+        <div class="table-wrap">
+          <table class="g-stack">
+            <thead><tr><th scope="col">Column</th><th scope="col">UK</th><th scope="col">Ireland</th><th scope="col">EU directive</th></tr></thead>
+            <tbody>
+              <tr><td class="code-cell">employee_id</td><td colspan="3">Payroll or staff number. Used to find duplicates and to name rows in the audit file.</td></tr>
+              <tr><td class="code-cell">sex</td><td colspan="3">M or F. Other values are counted and left out of the figures, or you match them on screen.</td></tr>
+              <tr><td class="code-cell">ordinary_pay</td><td>Ordinary pay in the pay period that includes the snapshot date: basic pay, allowances, piecework, pay for leave, shift premium. No overtime.</td><td>Ordinary pay over the 12 months to the snapshot date, overtime included.</td><td>Ordinary basic wage or salary for the reference year.</td></tr>
+              <tr><td class="code-cell">bonus_in_period</td><td>Bonus paid in that pay period, prorated to it.</td><td>Not used</td><td>Not used</td></tr>
+              <tr><td class="code-cell">hours</td><td>Weekly working hours.</td><td>Hours worked in the 12 months, or weekly hours with the weekly setting.</td><td>Hours paid in the year, or weekly hours with the weekly setting.</td></tr>
+              <tr><td class="code-cell">pay_period</td><td>weekly, fortnightly, four-weekly or monthly, or a number of days.</td><td>Not used</td><td>Not used</td></tr>
+              <tr><td class="code-cell">hourly_pay</td><td colspan="3">Optional. If your payroll already works out the hourly figure, put it here and it is used instead of pay and hours.</td></tr>
+              <tr><td class="code-cell">bonus_pay</td><td>Bonus pay in the 12 months ending on the snapshot date.</td><td>Bonus remuneration in the 12 months.</td><td>Complementary or variable pay for the year: bonuses, allowances, overtime and other pay beyond basic.</td></tr>
+              <tr><td class="code-cell">full_pay</td><td>N for anyone paid at a reduced rate or nil in that pay period because of leave. Blank means Y.</td><td>Not used</td><td>Not used</td></tr>
+              <tr><td class="code-cell">part_time</td><td>Not used</td><td>Y for part-time employees.</td><td>Not used</td></tr>
+              <tr><td class="code-cell">temporary</td><td>Not used</td><td>Y for employees on temporary contracts.</td><td>Not used</td></tr>
+              <tr><td class="code-cell">benefit_in_kind</td><td>Not used</td><td>Y if they received benefits in kind in the 12 months.</td><td>Not used</td></tr>
+              <tr><td class="code-cell">category</td><td>Not used</td><td>Not used</td><td>Their category of workers: the group doing the same work or work of equal value.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="rows">
+        <h2>Who gets a row</h2>
+        <ul>
+          <li><strong>UK:</strong> every relevant employee on the snapshot date, including part-time staff, job-sharers and people on leave. Leave out partners and agency workers. Someone with two jobs can be one row or one per contract, if you are consistent.</li>
+          <li><strong>Ireland:</strong> everyone employed on your June snapshot date, including people on leave or not rostered that day. Someone not yet paid can stay in: the calculator leaves them out of the hourly figures and keeps them in the headcount.</li>
+          <li><strong>EU directive:</strong> the workers in the reference year, with pay for the year.</li>
+        </ul>
+        <p>If you run more than one payroll, put everyone in one file: the GOV.UK guidance asks for one set of figures across all payrolls.</p>
+      </section>
+
+      <section id="values">
+        <h2>Values the calculator accepts</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Kind</th><th scope="col">Accepted</th></tr></thead>
+            <tbody>
+              <tr><td>Amounts</td><td>1234.56, 1,234.56, 1.234,56, £1,234 or €1.234,56; negative amounts are flagged as errors</td></tr>
+              <tr><td>Sex</td><td>M, F, male, female, man, woman, and the common German, Dutch and French initials; anything else is listed for you to match or leave out</td></tr>
+              <tr><td>Flags</td><td>Y or N, yes or no, true or false, 1 or 0; PT and FT for part-time; temporary, fixed-term or permanent for contracts</td></tr>
+              <tr><td>Pay period</td><td>weekly, fortnightly, four-weekly, monthly, or the number of days</td></tr>
+              <tr><td>File</td><td>CSV with commas, semicolons or tabs, in UTF-8 or Windows encoding; or XLSX, first worksheet</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="payroll">
+        <h2>Filling it from a payroll export</h2>
+        <ol>
+          <li>Run a report of employees for the snapshot date from your payroll or HR system, with sex or gender, contracted or average weekly hours, and pay elements as separate columns.</li>
+          <li>Add up the pay elements that count as ordinary pay for your regime into <code>ordinary_pay</code>, and the bonus elements into <code>bonus_pay</code>. Leave out what the rules exclude, such as overtime in the UK.</li>
+          <li>For the UK, mark employees on reduced or nil pay because of leave with N in <code>full_pay</code>, and give the pay period. For Ireland, add the part-time, temporary and benefits in kind flags. For the EU directive, add each worker’s category.</li>
+          <li>Save as CSV or XLSX and drop it into the calculator. It shows the columns it matched, checks the data and lists anything it leaves out before any figure.</li>
+        </ol>
+        <p>If your payroll system already works out the hourly rate for gender pay gap reporting, export it as <code>hourly_pay</code> and you can skip the pay and hours columns.</p>
+        <p class="callout">The template is empty apart from three example rows. Once filled in, it holds payroll data: the calculator reads it in your browser and nothing is uploaded, but store and share the file as you would any payroll record.</p>
+      </section>
+
+      <p class="source">Sources for what each column holds: <a href="https://www.legislation.gov.uk/uksi/2017/172/contents/made" rel="noopener">SI 2017/172</a>, regulations 1 to 7, and GOV.UK, <a href="https://www.gov.uk/government/publications/gender-pay-gap-reporting-guidance-for-employers/preparing-your-data" rel="noopener">Preparing your data</a> (updated 21 May 2026); <a href="https://www.irishstatutebook.ie/eli/2022/si/264/made/en/print" rel="noopener">S.I. No. 264 of 2022</a> as amended, regulations 2 to 5; <a href="https://eur-lex.europa.eu/eli/dir/2023/970/oj" rel="noopener">Directive (EU) 2023/970</a>, Articles 3 and 9. Last checked 8 October 2026.</p>
+    </div>
+
+    <aside class="g-aside" aria-label="On this page">
+      <div class="g-box">
+        <h2>On this page</h2>
+        <ol>
+          <li><a href="#columns">Every column</a></li>
+          <li><a href="#rows">Who gets a row</a></li>
+          <li><a href="#values">Accepted values</a></li>
+          <li><a href="#payroll">From a payroll export</a></li>
+        </ol>
+      </div>
+      <div class="g-box g-cta">
+        <strong>See a filled-in file first</strong>
+        <p>The calculator has a sample company of 180 synthetic employees in this layout. Load it, then download it as a CSV.</p>
+        <a class="btn btn-primary" href="/pay-gap-report/">Open the calculator</a>
+      </div>
+    </aside>
+  </div>
+
+  <section class="section" id="guides">
+    <h2>More on pay gap reporting</h2>
+    <nav class="related" aria-label="Guides">
+      <a href="/pay-gap-report/uk/"><strong>UK gender pay gap calculation</strong><span>What ordinary pay and bonus pay include.</span></a>
+      <a href="/pay-gap-report/ireland/"><strong>Reporting in Ireland</strong><span>The 12-month pay period and the flags.</span></a>
+      <a href="/pay-gap-report/eu-pay-transparency-directive/"><strong>The EU directive</strong><span>Pay, pay level and categories of workers.</span></a>
+      <a href="/pay-gap-report/formula/"><strong>The gender pay gap formula</strong><span>What happens to the columns next.</span></a>
+      <a href="/pay-gap-report/"><strong>Pay gap calculator</strong><span>Run your file in the browser.</span></a>
+    </nav>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools that each do one job well. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a> · <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
+        <li><a href="/name-cut-files/">Name Cut Files</a></li>
+        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
+        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
+        <li><a href="/quilt-label-maker/">Quilt Label Maker</a></li>
+        <li><a href="/etsy-tax-summary/">Etsy Tax Summary</a></li>
+        <li><a href="/pay-gap-report/">Pay Gap Report</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
