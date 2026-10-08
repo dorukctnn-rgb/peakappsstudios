@@ -8,7 +8,7 @@
   // ---- Owner: paste the Gumroad product id of "name-cut-files-pro" here once the product exists. ----
   // Gumroad needs product_id to verify keys of products created after January 2023; until it is set,
   // license.js falls back to the permalink below.
-  const GUMROAD_PRODUCT_ID = '';
+  const GUMROAD_PRODUCT_ID = 'cLk68S6IaHYri7B8aIuv6A==';
   const PRO_PERMALINK = 'name-cut-files-pro';
   const BUY_URL = 'https://dorukctn.gumroad.com/l/name-cut-files-pro';
   const FREE_LIMIT = 10;

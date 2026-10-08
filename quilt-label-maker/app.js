@@ -7,7 +7,7 @@ import { buildSinglePdf, buildSheetPdf, buildPng, ensureFonts } from './export.j
 
 /* ---- Gumroad Pro product. The owner pastes the product id here once the product exists
  *      (Gumroad requires product_id for products created after 2023; until then the permalink is used). */
-const QUILT_PRO_PRODUCT_ID = '';
+const QUILT_PRO_PRODUCT_ID = 'Wl19CINWdJa42OOguS5fxw==';
 const QUILT_PRO_PERMALINK = 'quilt-label-pro';
 const QUILT_PRO_BUY_URL = 'https://dorukctn.gumroad.com/l/quilt-label-pro';
 /* The Quilt of Valor wording stays free on purpose: the QOVF manual (section 2.3 C) does not allow the

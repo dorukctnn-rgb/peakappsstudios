@@ -4,7 +4,7 @@
   'use strict';
 
   // ---- Gumroad Pro product. The owner creates it with this permalink, then pastes its product id here. ----
-  const GUMROAD_PRODUCT_ID = '';
+  const GUMROAD_PRODUCT_ID = 'Z6VzDOme3lJ5ogbqVj7DKA==';
   const LICENSE = {
     tool: 'etsy-tax',
     productId: GUMROAD_PRODUCT_ID,
