@@ -64,10 +64,10 @@ a:hover { color: var(--accent); }
 .brand svg { width: 22px; height: 22px; }
 .brand-sub { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 400; padding-left: 10px; border-left: 1px solid var(--line-2); }
 .head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
-.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
 .head-nav a:hover { background: var(--paper-2); color: var(--ink); }
 .head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
-@media (max-width: 1200px) { .head-nav .hide-sm { display: none; } }
+@media (max-width: 1400px) { .head-nav .hide-sm { display: none; } }
 @media (max-width: 640px) { .brand-sub { display: none; } }
 @media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
 

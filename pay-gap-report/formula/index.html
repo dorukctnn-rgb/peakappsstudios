@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gender Pay Gap Formula: Mean, Median and Quartiles Worked Out</title>
+<meta name="description" content="The gender pay gap formula worked through: mean and median gaps, quartiles with remainders and ties, and how the statutory gap differs from an adjusted one.">
+<link rel="canonical" href="https://peakappsstudio.com/pay-gap-report/formula/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="The gender pay gap formula, worked through">
+<meta property="og:description" content="(A − B) ÷ A × 100 on ten employees: the mean and median gaps, the quartile bands, bonus figures, spreadsheet formulas, and what an adjusted gap is.">
+<meta property="og:url" content="https://peakappsstudio.com/pay-gap-report/formula/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="stylesheet" href="/pay-gap-report/tool.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"Article","headline":"The gender pay gap formula, worked through","description":"The statutory gender pay gap formula, (A minus B) divided by A times 100, applied to ten employees for the mean and median gaps and the quartile pay bands, with bonus figures, spreadsheet formulas and the difference between unadjusted and adjusted gaps.","url":"https://peakappsstudio.com/pay-gap-report/formula/","dateModified":"2026-10-08","inLanguage":"en","author":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Pay gap report","item":"https://peakappsstudio.com/pay-gap-report/"},{"@type":"ListItem","position":3,"name":"Gender pay gap formula","item":"https://peakappsstudio.com/pay-gap-report/formula/"}]}
+]}
+</script>
+</head>
+<body style="--accent:#1e4f6e">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a href="/tumbler-template/" class="hide-sm">Tumbler templates</a>
+      <a href="/name-cut-files/" class="hide-sm">Name cut files</a>
+      <a href="/kdp-coloring-book/" class="hide-sm">KDP coloring books</a>
+      <a href="/sewing-pattern-printer/" class="hide-sm">Sewing pattern printer</a>
+      <a href="/quilt-label-maker/" class="hide-sm">Quilt labels</a>
+      <a href="/etsy-tax-summary/" class="hide-sm">Etsy tax summary</a>
+      <a href="/pay-gap-report/" aria-current="page">Pay gap report</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/pay-gap-report/">Pay gap report</a></li><li aria-current="page">Formula</li></ol></nav>
+
+  <section class="tool-hero">
+    <p class="eyebrow">Mean, median and quartile pay bands</p>
+    <h1>The gender pay gap formula, <em>worked through</em></h1>
+    <p class="lede">Every statutory gender pay gap, in the UK, in Ireland and under the EU directive, uses the same formula. Below it is applied to ten employees, step by step, so you can check your own figures by hand or in a spreadsheet.</p>
+  </section>
+
+  <div class="g-wrap">
+    <div class="g-main">
+      <section id="formula">
+        <h2>The formula</h2>
+        <div class="formula">gap = (A − B) ÷ A × 100</div>
+        <p>A is the figure for men and B the figure for women: the mean hourly pay of each, the median hourly pay, or the mean or median bonus. The gap is a percentage of men’s pay. A positive gap means men are paid more; a negative gap means women are. It is written into the UK Regulations (SI 2017/172, regulations 8 to 11), the Irish Regulations (S.I. No. 264 of 2022, regulations 7 to 9) and, in words, the EU directive (Article 3(1)(c) and (e)).</p>
+      </section>
+
+      <section id="example">
+        <h2>Ten employees</h2>
+        <p>Hourly pay already worked out, ranked from lowest to highest. Four are men and six are women.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Rank</th><th scope="col">Employee</th><th scope="col">Sex</th><th scope="col" class="num">Hourly pay</th><th scope="col">Quartile band</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>E01</td><td>Female</td><td class="num">£11.20</td><td>Lower</td></tr>
+              <tr><td>2</td><td>E02</td><td>Male</td><td class="num">£12.00</td><td>Lower</td></tr>
+              <tr><td>3</td><td>E03</td><td>Female</td><td class="num">£12.00</td><td>Lower</td></tr>
+              <tr><td>4</td><td>E04</td><td>Female</td><td class="num">£13.10</td><td>Lower middle</td></tr>
+              <tr><td>5</td><td>E05</td><td>Male</td><td class="num">£14.50</td><td>Lower middle</td></tr>
+              <tr><td>6</td><td>E06</td><td>Female</td><td class="num">£15.75</td><td>Upper middle</td></tr>
+              <tr><td>7</td><td>E07</td><td>Female</td><td class="num">£18.00</td><td>Upper middle</td></tr>
+              <tr><td>8</td><td>E08</td><td>Female</td><td class="num">£19.45</td><td>Upper middle</td></tr>
+              <tr><td>9</td><td>E09</td><td>Male</td><td class="num">£24.00</td><td>Upper</td></tr>
+              <tr><td>10</td><td>E10</td><td>Male</td><td class="num">£31.50</td><td>Upper</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>Mean gap</h3>
+        <p>Men: (12.00 + 14.50 + 24.00 + 31.50) ÷ 4 = £20.50. Women: (11.20 + 12.00 + 13.10 + 15.75 + 18.00 + 19.45) ÷ 6 = £89.50 ÷ 6 = £14.9167.</p>
+        <div class="formula">(20.50 − 14.9167) ÷ 20.50 × 100 = 27.2%</div>
+        <h3>Median gap</h3>
+        <p>The median is the middle value; with an even count it is the mean of the two middle values. Men, in order: 12.00, 14.50, 24.00, 31.50, so (14.50 + 24.00) ÷ 2 = £19.25. Women: 11.20, 12.00, 13.10, 15.75, 18.00, 19.45, so (13.10 + 15.75) ÷ 2 = £14.425.</p>
+        <div class="formula">(19.25 − 14.425) ÷ 19.25 × 100 = 25.1%</div>
+        <p>Work from the unrounded averages and round only the result. Rounding the women’s mean to £14.92 first would still give 27.2% here, but it can move the last digit in other cases.</p>
+      </section>
+
+      <section id="quartiles">
+        <h2>Quartile pay bands</h2>
+        <p>Rank everyone and split them into four bands as equal as possible. Ten does not divide by four, so two people are left over. The GOV.UK guidance puts one left over in the lower band; two in the lower and upper middle bands; three in the lower, lower middle and upper middle bands. Ten people make bands of 3, 2, 3 and 2:</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Band</th><th scope="col">People</th><th scope="col" class="num">Men</th><th scope="col" class="num">Women</th></tr></thead>
+            <tbody>
+              <tr><td>Upper</td><td>E09, E10</td><td class="num">100.0%</td><td class="num">0.0%</td></tr>
+              <tr><td>Upper middle</td><td>E06, E07, E08</td><td class="num">0.0%</td><td class="num">100.0%</td></tr>
+              <tr><td>Lower middle</td><td>E04, E05</td><td class="num">50.0%</td><td class="num">50.0%</td></tr>
+              <tr><td>Lower</td><td>E01, E02, E03</td><td class="num">33.3%</td><td class="num">66.7%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>People on the same pay.</strong> E02 and E03 both earn £12.00 and sit in the same band, so nothing changes. When a group on the same rate straddles a dividing line, each band must hold the same mix of men and women from that group, as far as possible (UK regulation 13(2); Irish regulation 10(3)). The GOV.UK example: 40 employees on the same pay, 36 women and 4 men, with 10 falling in the lower band and 30 in the lower middle band. The lower band takes 9 women and 1 man, the lower middle band 27 women and 3 men.</p>
+        <p>The Irish Regulations and the EU directive ask for four equal groups but do not say where a remainder goes; the calculator applies the GOV.UK method to all three.</p>
+      </section>
+
+      <section id="bonus">
+        <h2>Bonus figures</h2>
+        <p>Bonus gaps use the same formula on the bonuses of the people who were paid one. Say two of the four men were paid bonuses of £500 and £1,500, and three of the six women £400, £900 and £1,200.</p>
+        <ul>
+          <li>Mean: men (500 + 1,500) ÷ 2 = £1,000; women (400 + 900 + 1,200) ÷ 3 = £833.33; gap 16.7%.</li>
+          <li>Median: men (500 + 1,500) ÷ 2 = £1,000; women £900; gap 10.0%.</li>
+          <li>Paid a bonus: men 2 of 4 = 50.0%; women 3 of 6 = 50.0%. Here the divisor is everyone, not only those paid.</li>
+        </ul>
+      </section>
+
+      <section id="spreadsheet">
+        <h2>In a spreadsheet</h2>
+        <p>With sex in column B (M or F) and hourly pay in column C, rows 2 to 11:</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Figure</th><th scope="col">Formula</th></tr></thead>
+            <tbody>
+              <tr><td>Mean for men</td><td><code>=AVERAGEIF(B2:B11,"M",C2:C11)</code></td></tr>
+              <tr><td>Median for men</td><td><code>=MEDIAN(IF(B2:B11="M",C2:C11))</code></td></tr>
+              <tr><td>Gap, with men in F2 and women in F3</td><td><code>=(F2-F3)/F2*100</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>In older versions of Excel confirm the median formula with Ctrl+Shift+Enter; in Google Sheets wrap it in <code>ARRAYFORMULA</code>. Quartile bands with ties are where spreadsheets usually go wrong, because the mixing rule is not a single formula.</p>
+      </section>
+
+      <section id="adjusted">
+        <h2>Unadjusted and adjusted gaps</h2>
+        <p>The statutory figures are <strong>unadjusted</strong>: they compare all the men with all the women in the organisation, whatever their job, hours or length of service. That is the point of them: a gap often reflects how men and women are spread across jobs and pay levels, which the quartile figures show.</p>
+        <p>An <strong>adjusted</strong> gap tries to compare like with like. It is usually estimated with a regression of pay on factors such as job level, hours, tenure and location, and reports the difference left once those are accounted for. No statutory report in the UK or Ireland asks for one, there is no single method, and the result depends on which factors are included. The calculator does not produce an adjusted gap.</p>
+        <p>Indicator (g) of the EU directive is a step in that direction: it compares men and women within each category of workers doing the same work or work of equal value. Within each category it is still the same unadjusted formula. None of these figures is the same as equal pay, which is the legal right to equal pay for equal work or work of equal value.</p>
+      </section>
+
+      <p class="source">Sources: <a href="https://www.legislation.gov.uk/uksi/2017/172/contents/made" rel="noopener">SI 2017/172</a>, regulations 8 to 13; GOV.UK, <a href="https://www.gov.uk/government/publications/gender-pay-gap-reporting-guidance-for-employers/making-your-calculations" rel="noopener">Making your calculations</a> (updated 21 May 2026); <a href="https://www.irishstatutebook.ie/eli/2022/si/264/made/en/print" rel="noopener">S.I. No. 264 of 2022</a>, regulations 7 to 10; <a href="https://eur-lex.europa.eu/eli/dir/2023/970/oj" rel="noopener">Directive (EU) 2023/970</a>, Articles 3 and 9. Last checked 8 October 2026. The worked example is also a test case the calculator is checked against.</p>
+    </div>
+
+    <aside class="g-aside" aria-label="On this page">
+      <div class="g-box">
+        <h2>On this page</h2>
+        <ol>
+          <li><a href="#formula">The formula</a></li>
+          <li><a href="#example">Mean and median</a></li>
+          <li><a href="#quartiles">Quartile bands and ties</a></li>
+          <li><a href="#bonus">Bonus figures</a></li>
+          <li><a href="#spreadsheet">In a spreadsheet</a></li>
+          <li><a href="#adjusted">Adjusted gaps</a></li>
+        </ol>
+      </div>
+      <div class="g-box g-cta">
+        <strong>Let the calculator do the ranking</strong>
+        <p>Drop your payroll file: the mean and median gaps are free, with the working shown. Quartiles with ties handled are part of Pro.</p>
+        <a class="btn btn-primary" href="/pay-gap-report/">Open the calculator</a>
+      </div>
+    </aside>
+  </div>
+
+  <section class="section" id="guides">
+    <h2>More on pay gap reporting</h2>
+    <nav class="related" aria-label="Guides">
+      <a href="/pay-gap-report/uk/"><strong>UK gender pay gap calculation</strong><span>From payroll data to the six measures.</span></a>
+      <a href="/pay-gap-report/ireland/"><strong>Reporting in Ireland</strong><span>Including part-time and temporary splits.</span></a>
+      <a href="/pay-gap-report/eu-pay-transparency-directive/"><strong>The EU directive</strong><span>Indicators (a) to (g) and the 5% test.</span></a>
+      <a href="/pay-gap-report/template/"><strong>The CSV template</strong><span>A file laid out for these calculations.</span></a>
+      <a href="/pay-gap-report/"><strong>Pay gap calculator</strong><span>Run your own payroll file in the browser.</span></a>
+    </nav>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools that each do one job well. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a> · <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
+        <li><a href="/name-cut-files/">Name Cut Files</a></li>
+        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
+        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
+        <li><a href="/quilt-label-maker/">Quilt Label Maker</a></li>
+        <li><a href="/etsy-tax-summary/">Etsy Tax Summary</a></li>
+        <li><a href="/pay-gap-report/">Pay Gap Report</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

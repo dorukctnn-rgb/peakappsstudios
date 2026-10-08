@@ -1,0 +1,4 @@
+employee_id,sex,ordinary_pay,bonus_in_period,hours,pay_period,hourly_pay,bonus_pay,full_pay,part_time,temporary,benefit_in_kind,category
+EXAMPLE-1,F,2650.00,0.00,37.5,monthly,,1200.00,Y,N,N,N,Administration
+EXAMPLE-2,M,520.00,12.50,40,weekly,,450.00,Y,N,Y,N,Warehouse operative
+EXAMPLE-3,F,1060.00,0.00,18.75,monthly,,0.00,N,Y,N,N,Customer service
