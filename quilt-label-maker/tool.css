@@ -1,0 +1,196 @@
+/* Quilt Label Maker. The label sits on a cutting mat at true scale; the controls are a tabbed column. */
+
+/* ---------- Label fonts (SIL OFL, vendored in ./vendor/fonts with their licences) ---------- */
+@font-face { font-family: "QL Script"; src: url("/quilt-label-maker/vendor/fonts/dancing-script/dancing-script-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "QL Script"; src: url("/quilt-label-maker/vendor/fonts/dancing-script/dancing-script-latin-ext-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "QL Caslon"; src: url("/quilt-label-maker/vendor/fonts/libre-caslon-text/libre-caslon-text-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "QL Caslon"; src: url("/quilt-label-maker/vendor/fonts/libre-caslon-text/libre-caslon-text-latin-ext-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "QL Caslon"; src: url("/quilt-label-maker/vendor/fonts/libre-caslon-text/libre-caslon-text-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "QL Caslon"; src: url("/quilt-label-maker/vendor/fonts/libre-caslon-text/libre-caslon-text-latin-ext-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "QL Caslon"; src: url("/quilt-label-maker/vendor/fonts/libre-caslon-text/libre-caslon-text-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "QL Caslon"; src: url("/quilt-label-maker/vendor/fonts/libre-caslon-text/libre-caslon-text-latin-ext-700-normal.woff2") format("woff2"); font-weight: 700; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "QL Hand"; src: url("/quilt-label-maker/vendor/fonts/caveat/caveat-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "QL Hand"; src: url("/quilt-label-maker/vendor/fonts/caveat/caveat-latin-ext-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "QL Hand"; src: url("/quilt-label-maker/vendor/fonts/caveat/caveat-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "QL Hand"; src: url("/quilt-label-maker/vendor/fonts/caveat/caveat-latin-ext-700-normal.woff2") format("woff2"); font-weight: 700; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "QL Type"; src: url("/quilt-label-maker/vendor/fonts/courier-prime/courier-prime-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "QL Type"; src: url("/quilt-label-maker/vendor/fonts/courier-prime/courier-prime-latin-ext-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "QL Type"; src: url("/quilt-label-maker/vendor/fonts/courier-prime/courier-prime-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "QL Type"; src: url("/quilt-label-maker/vendor/fonts/courier-prime/courier-prime-latin-ext-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "QL Type"; src: url("/quilt-label-maker/vendor/fonts/courier-prime/courier-prime-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "QL Type"; src: url("/quilt-label-maker/vendor/fonts/courier-prime/courier-prime-latin-ext-700-normal.woff2") format("woff2"); font-weight: 700; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+/* tools.css computes --accent-soft on :root, before the page's own accent is set on <body>; recompute it here. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 10%, var(--paper)); }
+:root { --mat: #33403a; --mat-ink: rgba(240, 236, 226, .78); --mat-line: rgba(240, 236, 226, .2); }
+
+.ql-hero { padding-bottom: 28px; }
+
+/* ---------- Tool shell ---------- */
+.ql { display: grid; grid-template-columns: minmax(0, 1fr) minmax(340px, 400px); border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; align-items: start; }
+.ql-stage { align-self: stretch; min-width: 0; background: var(--mat); color: var(--mat-ink); }
+.ql-sticky { position: sticky; top: 61px; height: min(calc(100vh - 61px), 780px); min-height: 480px; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr) auto; }
+.ql-bar { min-width: 0; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 14px; }
+.ql-readout { font-size: 12.5px; letter-spacing: .02em; color: var(--mat-ink); text-align: center; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ql-seg { background: rgba(255, 255, 255, .06); border-color: rgba(255, 255, 255, .16); }
+.ql-seg button { color: var(--mat-ink); font-size: 13.5px; padding: 5px 11px; }
+.ql-seg button[aria-pressed="true"] { background: #f1ede4; color: #23211d; }
+.ql-seg button:focus-visible { outline-color: #f1ede4; }
+.ql-view { position: relative; min-height: 0; overflow: auto; overscroll-behavior: contain; }
+.ql-view svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.ql-view.is-actual svg { position: static; }
+.ql-view svg text { -webkit-user-select: none; user-select: none; }
+.ql-under { min-height: 44px; display: flex; align-items: center; justify-content: center; gap: 14px; padding: 8px 14px 12px; flex-wrap: wrap; }
+.ql-warn { margin: 0; font-size: 13.5px; color: #f2c99a; text-align: center; max-width: 60ch; }
+.ql-warn:empty { display: none; }
+.ql-under:not(:has(.ql-pager:not([hidden]), .ql-warn:not(:empty))) { min-height: 0; padding: 0; }
+.ql-pager { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; }
+.ql-icon { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, .18); background: rgba(255, 255, 255, .06); color: inherit; cursor: pointer; padding: 0; }
+.ql-icon svg { width: 16px; height: 16px; }
+.ql-icon:hover { background: rgba(255, 255, 255, .12); }
+.ql-icon[disabled] { opacity: .35; cursor: default; }
+
+/* ---------- Panel ---------- */
+.ql-panel { border-left: 1px solid var(--line); display: flex; flex-direction: column; min-width: 0; min-height: min(calc(100vh - 61px), 780px); }
+.ql-tabs { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--line); padding: 0 8px; }
+.ql-tabs [role="tab"] { font: inherit; font-size: 14.5px; color: var(--muted); background: none; border: 0; padding: 15px 4px 13px; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.ql-tabs [role="tab"]:hover { color: var(--ink); }
+.ql-tabs [role="tab"][aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); font-weight: 500; }
+.ql-tabpanel { padding: 20px 20px 24px; display: grid; gap: 16px; align-content: start; flex: 1; }
+.ql-fields { display: grid; gap: 14px; }
+.ql-kind { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
+.ql-pair { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 8px; }
+.ql-pair-state { grid-template-columns: minmax(0, 1fr) minmax(0, 0.42fr); }
+.ql-leadin { color: var(--ink-2); font-style: italic; }
+.ql-textarea { resize: vertical; min-height: 70px; line-height: 1.45; }
+.ql-list { font-family: var(--mono); font-size: 13.5px; min-height: 120px; }
+.ql-link { justify-self: start; font: inherit; font-size: 13.5px; color: var(--accent); background: none; border: 0; padding: 2px 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.field > label { font-size: 13px; color: var(--ink-2); }
+.field small { font-size: 12px; }
+
+/* QOV checklist */
+.ql-check { border: 1px solid var(--line-2); border-radius: 10px; padding: 12px 14px; background: var(--paper); font-size: 14px; }
+.ql-check .group-title { margin: 0 0 8px; }
+.ql-check ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.ql-check li { display: grid; grid-template-columns: 16px 1fr; gap: 9px; align-items: start; }
+.ql-check li svg { width: 16px; height: 16px; margin-top: 3px; }
+.ql-check li.todo { color: var(--ink); font-weight: 500; }
+.ql-check p { margin: 8px 0 0; font-size: 13px; color: var(--ink-2); }
+.ql-check p.warn { color: var(--warn); }
+
+/* Layout picker */
+.ql-layouts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.ql-layout { font: inherit; display: grid; gap: 6px; padding: 8px 8px 9px; border: 1px solid var(--line-2); border-radius: 10px; background: var(--paper); cursor: pointer; text-align: left; color: var(--ink-2); font-size: 13.5px; }
+.ql-layout svg { width: 100%; height: auto; display: block; border-radius: 4px; box-shadow: 0 0 0 1px rgba(0, 0, 0, .06); }
+.ql-layout:hover { border-color: var(--ink-2); }
+.ql-layout[aria-checked="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); color: var(--ink); }
+
+/* Lettering */
+.ql-lettering { display: grid; gap: 6px; }
+.ql-letter { font: inherit; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 9px 12px; border: 1px solid var(--line-2); border-radius: 9px; background: var(--paper); cursor: pointer; color: var(--ink); text-align: left; }
+.ql-letter .sample { font-size: 21px; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.ql-letter .name { font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+.ql-letter:hover { border-color: var(--ink-2); }
+.ql-letter[aria-checked="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+
+/* Ink swatches */
+.ql-inkrow { display: grid; grid-template-columns: 64px 1fr; align-items: center; gap: 8px; }
+.ql-inklabel { font-size: 13px; color: var(--ink-2); }
+.ql-swatches { display: flex; flex-wrap: wrap; gap: 8px; }
+.ql-swatch { width: 30px; height: 30px; border-radius: 50%; border: 0; padding: 0; cursor: pointer; background: var(--sw); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .12); }
+.ql-swatch[aria-checked="true"] { box-shadow: 0 0 0 2px var(--card), 0 0 0 4px var(--sw); }
+
+/* Saved designs */
+.ql-savebar { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+.ql-savedlist { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.ql-savedlist:empty { display: none; }
+.ql-savedlist li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 6px; align-items: center; font-size: 14px; padding: 6px 6px 6px 12px; border: 1px solid var(--line); border-radius: 8px; }
+.ql-savedlist li span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Size */
+.ql-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.ql-chip { font: inherit; font-family: var(--mono); font-size: 13px; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line-2); background: var(--paper); color: var(--ink-2); cursor: pointer; }
+.ql-chip:hover { border-color: var(--ink-2); }
+.ql-chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.ql-sizerow { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 8px; align-items: end; }
+.ql-swap { color: var(--ink-2); border-color: var(--line-2); background: var(--paper); width: 40px; height: 40px; }
+.ql-swap:hover { background: var(--paper-2); }
+
+/* Print modes */
+.ql-modes { display: grid; gap: 8px; }
+.ql-mode { display: grid; grid-template-columns: 20px 1fr; gap: 10px; padding: 11px 12px; border: 1px solid var(--line-2); border-radius: 10px; background: var(--paper); cursor: pointer; }
+.ql-mode input { accent-color: var(--accent); width: 16px; height: 16px; margin: 3px 0 0; }
+.ql-mode strong { display: flex; align-items: center; gap: 8px; font-weight: 500; font-size: 15px; }
+.ql-mode small { display: block; color: var(--muted); font-size: 13px; }
+.ql-mode:has(input:checked) { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.ql-sub { display: grid; gap: 12px; padding-left: 2px; }
+.ql-filebar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.ql-file { position: relative; overflow: hidden; }
+.ql-file input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+
+/* Actions */
+.ql-actions { position: sticky; bottom: 0; border-top: 1px solid var(--line); padding: 14px 20px 16px; background: var(--paper); display: grid; gap: 10px; z-index: 2; }
+.ql-summary { margin: 0; font-size: 13.5px; color: var(--ink-2); }
+.ql-summary b { font-weight: 600; color: var(--ink); }
+.ql-buttons { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 8px; }
+.ql-buttons .btn { width: 100%; }
+.ql-progress { height: 4px; border-radius: 2px; background: var(--line); overflow: hidden; }
+.ql-progress i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .2s; }
+
+.ql-key { background: transparent; color: var(--paper); border-color: color-mix(in oklab, var(--paper) 40%, transparent); }
+.ql-key:hover { color: var(--paper); border-color: var(--paper); }
+.ql-related a { padding-right: 12px; }
+.ql-credits { margin-top: 22px; max-width: 80ch; }
+
+/* ---------- Guide pages ---------- */
+.ql-guide { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: clamp(28px, 5vw, 64px); align-items: start; }
+.ql-guide > * { min-width: 0; }
+.ql-aside { position: sticky; top: 84px; border: 1px solid var(--line-2); border-radius: 12px; background: var(--card); padding: 18px; display: grid; gap: 12px; margin-top: 28px; }
+.ql-aside p { margin: 0; font-size: 14.5px; color: var(--ink-2); }
+.ql-aside .btn { width: 100%; }
+.ql-answer { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 18px; border-radius: 0 10px 10px 0; margin: 22px 0 8px; }
+.ql-answer p { margin: 0; color: var(--ink); }
+.ql-sample { margin: 18px 0; display: grid; gap: 14px; }
+.ql-example { border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); padding: 14px 16px; display: grid; gap: 4px; }
+.ql-example p { margin: 0; }
+.ql-example .lbl { font-family: var(--serif); font-size: 21px; color: var(--ink); line-height: 1.25; }
+.ql-example .meta { font-size: 13px; color: var(--muted); }
+.ql-example a { font-size: 13.5px; justify-self: start; margin-top: 4px; }
+.ql-example.has-fig { grid-template-columns: minmax(0, 250px) minmax(0, 1fr); gap: 18px; align-items: center; padding: 14px; }
+.ql-extext { display: grid; gap: 4px; min-width: 0; }
+.ql-fig { aspect-ratio: 3 / 2; border-radius: 6px; background: var(--mat); padding: 9px; }
+.ql-fig svg { display: block; width: 100%; height: 100%; box-shadow: 0 6px 16px -8px rgba(0, 0, 0, .55); }
+@media (max-width: 620px) { .ql-example.has-fig { grid-template-columns: 1fr; } .ql-fig { max-width: 340px; } }
+.ql-figure { margin: 22px 0; border-radius: 12px; overflow: hidden; background: var(--mat); padding: clamp(16px, 3vw, 28px); }
+.ql-figure svg { display: block; width: 100%; height: auto; }
+.ql-figure figcaption { color: var(--mat-ink); font-size: 13px; margin-top: 10px; }
+.ql-quote { margin: 16px 0; padding: 12px 16px; border-left: 2px solid var(--line-2); color: var(--ink-2); font-size: 15.5px; }
+.ql-quote p { margin: 0 0 6px; }
+.ql-quote cite { font-style: normal; font-size: 13px; color: var(--muted); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1080px) { .ql { grid-template-columns: minmax(0, 1fr) minmax(320px, 360px); } }
+@media (max-width: 900px) {
+  .ql { grid-template-columns: minmax(0, 1fr); }
+  .ql-sticky { position: relative; top: 0; height: auto; min-height: 0; }
+  .ql-view { height: clamp(260px, 64vw, 460px); }
+  .ql-panel { border-left: 0; border-top: 1px solid var(--line); min-height: 0; }
+  .ql-actions { position: static; }
+  .ql-guide { grid-template-columns: 1fr; }
+  .ql-aside { position: static; margin-top: 8px; }
+}
+@media (max-width: 480px) {
+  .ql { border-radius: 12px; margin-inline: calc(-1 * var(--gutter) + 8px); }
+  .ql-hero { padding-bottom: 18px; }
+  .ql-hero .facts { display: none; }
+  .ql-bar { padding: 10px; gap: 6px; }
+  .ql-seg button { padding: 5px 9px; font-size: 13px; }
+  .ql-tabpanel { padding: 16px 14px 20px; }
+  .ql-tabs { padding: 0 2px; }
+  .ql-tabs [role="tab"] { font-size: 14px; }
+  .ql-readout .ql-cut { display: none; }
+  .ql-actions { padding: 14px; }
+  .ql-pair { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); }
+  .ql-layouts { gap: 8px; }
+}
+@media print { .ql-sticky { position: static; } }
