@@ -5,7 +5,7 @@ import { buildOutput, planTiles, tileWindow, rowLabel, PAPERS } from './engine.j
 
 /* ---- Gumroad Pro product. The owner pastes the product id here once the product exists
  *      (Gumroad requires product_id for products created after 2023; until then the permalink is used). */
-const SEWING_PRO_PRODUCT_ID = '';
+const SEWING_PRO_PRODUCT_ID = 'gW4_EpsBZTT_9rbAq_33Ww==';
 const SEWING_PRO_PERMALINK = 'sewing-pattern-pro';
 const SEWING_PRO_BUY_URL = 'https://dorukctn.gumroad.com/l/sewing-pattern-pro';
 
