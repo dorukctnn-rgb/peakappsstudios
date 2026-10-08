@@ -108,6 +108,8 @@ body { --accent-soft: color-mix(in oklab, var(--accent) 10%, var(--paper)); }
 .ql-savedlist li span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* Size */
+.ql-examples { display: grid; gap: 8px; padding-bottom: 16px; margin-bottom: 2px; border-bottom: 1px solid var(--line); }
+.ql-examples .ql-chip { font-family: var(--sans); font-size: 13.5px; }
 .ql-chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .ql-chip { font: inherit; font-family: var(--mono); font-size: 13px; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line-2); background: var(--paper); color: var(--ink-2); cursor: pointer; }
 .ql-chip:hover { border-color: var(--ink-2); }

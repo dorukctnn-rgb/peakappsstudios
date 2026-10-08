@@ -654,11 +654,7 @@
   // ---------- CSV import ----------
   const imp = $('[data-import]'), impField = $('[data-import-field]'), impPrev = $('[data-import-preview]');
   let analysis = null, impNames = [];
-  PeakUI.drop($('[data-drop]'), async files => {
-    const f = files[0];
-    if (!f) return;
-    if (!/\.(csv|tsv|txt)$/i.test(f.name) && !/csv|text/.test(f.type)) { toast('That isn’t a CSV file. In Etsy, download the Sold Order Items CSV from Shop Manager, Settings, Options, Download Data.'); return; }
-    const text = await f.text();
+  function openCsvText(text) {
     analysis = X.analyze(X.parseCSV(text));
     if (!analysis.ok || !analysis.fields.length) { toast('No rows found in that file.'); return; }
     impField.innerHTML = analysis.fields.map(fl => `<option value="${esc(fl.id)}">${esc(fl.label)}${fl.kind === 'var' ? ' (from Variations)' : ''}</option>`).join('');
@@ -666,6 +662,23 @@
     imp.hidden = false;
     previewImport();
     imp.scrollIntoView({ block: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  }
+  PeakUI.drop($('[data-drop]'), async files => {
+    const f = files[0];
+    if (!f) return;
+    if (!/\.(csv|tsv|txt)$/i.test(f.name) && !/csv|text/.test(f.type)) { toast('That isn’t a CSV file. In Etsy, download the Sold Order Items CSV from Shop Manager, Settings, Options, Download Data.'); return; }
+    openCsvText(await f.text());
+  });
+  // A made-up orders file, so the import can be read before anyone buys Pro.
+  const sampleCsvBtn = $('[data-sample-csv]');
+  if (sampleCsvBtn) sampleCsvBtn.addEventListener('click', async () => {
+    sampleCsvBtn.disabled = true;
+    try {
+      const r = await fetch(BASE + 'sample-etsy-orders.csv');
+      if (!r.ok) throw new Error(String(r.status));
+      openCsvText(await r.text());
+    } catch (e) { toast('The sample orders file couldn’t be loaded.'); }
+    finally { sampleCsvBtn.disabled = false; }
   });
   function previewImport() {
     const r = X.extractNames(analysis, { field: impField.value, split: $('[data-import-split]').checked ? 'all' : 'lines', repeatQty: $('[data-import-qty]').checked });

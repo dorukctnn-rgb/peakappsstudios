@@ -23,6 +23,10 @@
 .kdp .drop { padding: 16px 12px; }
 .kdp .drop strong { font-weight: 600; font-size: 15.5px; }
 .kdp .drop svg { color: var(--ink-2); }
+.kdp-sample { display: block; margin: 12px 0 0; font: inherit; font-size: 13.5px; color: var(--muted); background: none; border: 0; padding: 2px 0; cursor: pointer; text-align: left; }
+.kdp-sample span { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.kdp-sample:hover span { color: var(--accent); }
+.kdp-sample[disabled] { opacity: .5; cursor: progress; }
 .kdp-hint { margin-top: 10px; }
 .kdp-hint a { color: var(--ink-2); }
 

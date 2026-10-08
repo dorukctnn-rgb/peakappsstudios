@@ -1,0 +1,17 @@
+Sale Date,Item Name,Buyer,Quantity,Price,Currency,Transaction ID,Listing ID,Order ID,Variations,SKU
+12/01/26,"Personalized Name Ornament, Wooden",sample_buyer_1,1,18.00,USD,9900000001,7700000011,8800000001,"Ornament Color:Natural,Personalization:Amelia",ORN-NAT
+12/01/26,"Personalized Name Ornament, Wooden",sample_buyer_1,2,18.00,USD,9900000002,7700000011,8800000001,"Ornament Color:White,Personalization:Theo",ORN-WHT
+12/01/26,Custom Stocking Name Decal,sample_buyer_2,1,6.50,USD,9900000003,7700000012,8800000002,"Font:Script,Color:Gold Glitter,Personalization:Name: Siobhán",DEC-SCR
+12/02/26,Family Names Ornament Set,sample_buyer_3,1,24.00,USD,9900000004,7700000013,8800000003,"Size:4 inch,Personalization:Mum, Dad, Róisín & Oisín",FAM-4
+12/02/26,Custom Stocking Name Decal,sample_buyer_4,3,6.50,USD,9900000005,7700000012,8800000004,"Font:Script,Color:White,Personalization:Name: Jackson",DEC-WHT
+12/03/26,"Personalized Name Ornament, Wooden",sample_buyer_5,1,18.00,USD,9900000006,7700000011,8800000005,"Ornament Color:Natural,Personalization:Łukasz",ORN-NAT
+12/03/26,Name Sign for Nursery,sample_buyer_6,1,32.00,USD,9900000007,7700000014,8800000006,"Length:12 inch,Personalization:Charlotte-Rose",SGN-12
+12/04/26,Custom Stocking Name Decal,sample_buyer_7,2,6.50,USD,9900000008,7700000012,8800000007,"Font:Block,Color:Red,Personalization:Mila and Nuri",DEC-RED
+12/04/26,"Personalized Name Ornament, Wooden",sample_buyer_8,1,18.00,USD,9900000009,7700000011,8800000008,"Ornament Color:White,Personalization:Zoë",ORN-WHT
+12/05/26,Family Names Ornament Set,sample_buyer_9,1,24.00,USD,9900000010,7700000013,8800000009,"Size:4 inch,Personalization:Grandma, Grandpa & Jude",FAM-4
+12/05/26,Name Sign for Nursery,sample_buyer_10,1,32.00,USD,9900000011,7700000014,8800000010,"Length:12 inch,Personalization:Emmanuel",SGN-12
+12/06/26,Custom Stocking Name Decal,sample_buyer_11,2,6.50,USD,9900000012,7700000012,8800000011,"Font:Script,Color:Gold Glitter,Personalization:Name: Priya",DEC-SCR
+12/06/26,"Personalized Name Ornament, Wooden",sample_buyer_12,1,18.00,USD,9900000013,7700000011,8800000012,"Ornament Color:Natural,Personalization:Ingrid",ORN-NAT
+12/07/26,Family Names Ornament Set,sample_buyer_13,1,24.00,USD,9900000014,7700000013,8800000013,"Size:4 inch,Personalization:Ayşe, Mehmet & Deniz",FAM-4
+12/07/26,Name Sign for Nursery,sample_buyer_14,1,32.00,USD,9900000015,7700000014,8800000014,"Length:12 inch,Personalization:Beatriz",SGN-12
+12/08/26,Custom Stocking Name Decal,sample_buyer_15,1,6.50,USD,9900000016,7700000012,8800000015,"Font:Block,Color:White,Personalization:Name: Kofi",DEC-WHT

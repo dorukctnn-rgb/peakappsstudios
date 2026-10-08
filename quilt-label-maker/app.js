@@ -25,6 +25,21 @@ const DESIGNS = {
   qov: { layout: 'stars', lettering: 'heirloom', borderInk: 'red', textInk: 'navy' },
 };
 const SAMPLE = { title: 'Evening Star', forLead: 'Made for', for: 'Nora Bennett', byLead: 'Made by', by: 'her grandmother, Ruth Ellis', date: 'May 2026', place: 'Ames, Iowa', message: 'For naps, forts and cold mornings.', care: '' };
+/* One-click examples. Made-up quilts, written to show what each quilt-block border looks like on a real label. */
+const EXAMPLES = [
+  { name: 'Baby quilt', size: [5, 3],
+    fields: { title: 'Evening Star', forLead: 'Made for', for: 'Nora Bennett', byLead: 'Made by', by: 'her grandmother, Ruth Ellis', date: 'May 2026', place: 'Ames, Iowa', message: 'For naps, forts and cold mornings.', care: 'Wash cold, tumble dry low.' },
+    design: { layout: 'sawtooth', lettering: 'script', borderInk: 'red', textInk: 'charcoal' } },
+  { name: 'Wedding gift', size: [6, 4],
+    fields: { title: 'Double Wedding Ring', forLead: 'For', for: 'Amara and Theo', byLead: 'Pieced and quilted by', by: 'the Cedar Street Quilters', date: '14 June 2026', place: 'Portland, Oregon', message: 'Pieced from forty scraps, one from every guest.', care: '' },
+    design: { layout: 'stars', lettering: 'heirloom', borderInk: 'navy', textInk: 'charcoal' } },
+  { name: 'Memory quilt', size: [6, 4],
+    fields: { title: 'Shirts and Sundays', forLead: 'For', for: 'the Okonkwo family', byLead: 'Made by', by: 'Ada Okonkwo', date: 'October 2026', place: 'Leeds', message: 'Cut from my father’s work shirts. He wore every one of them.', care: 'Hand wash. Dry flat, out of the sun.' },
+    design: { layout: 'geese', lettering: 'typewriter', borderInk: 'walnut', textInk: 'charcoal' } },
+  { name: 'Charity quilt', size: [4, 3],
+    fields: { title: '', forLead: 'Made for', for: 'a neighbour we have not met', byLead: 'Made by', by: 'Harbour Lane Guild', date: '2026', place: 'Hull', message: '', care: 'Wash warm. Dry flat.' },
+    design: { layout: 'cornerstones', lettering: 'modern', borderInk: 'forest', textInk: 'charcoal' } },
+];
 const EMPTY_QOV = { awardee: '', piecer: '', piecerState: '', quilter: '', quilterState: '', binder: '', binderState: '', date: '', place: '', message: '', care: '', donor: '', mark: true };
 const QOVF_CARE = 'Wash in cold water with a mild detergent and a color catcher the first time. Tumble dry low.';
 
@@ -306,6 +321,24 @@ function setPressed(root, value) { root.querySelectorAll('button[data-value]').f
 document.querySelectorAll('[data-f]').forEach(el => el.addEventListener('input', () => { S.fields[el.dataset.f] = el.value; update(); }));
 document.querySelectorAll('[data-q]').forEach(el => el.addEventListener(el.type === 'checkbox' ? 'change' : 'input', () => { S.qov[el.dataset.q] = el.type === 'checkbox' ? el.checked : el.value; update(); }));
 $('qovCare').addEventListener('click', () => { S.qov.care = QOVF_CARE; $('q-care').value = QOVF_CARE; update(); });
+
+/* Examples: a finished label, border and all, in one click. */
+$('examples').innerHTML = EXAMPLES.map((ex, i) => `<button type="button" class="ql-chip" data-ex="${i}">${escapeHtml(ex.name)}</button>`).join('');
+$('examples').addEventListener('click', e => {
+  const b = e.target.closest('[data-ex]'); if (!b) return;
+  const ex = EXAMPLES[+b.dataset.ex];
+  S.kind = 'quilt';
+  S.fields = { ...ex.fields };
+  S.designs.quilt = { ...ex.design };
+  if (S.unit === 'in') { S.w = ex.size[0] * 72; S.h = ex.size[1] * 72; }
+  else { S.w = toPt(Math.round(ex.size[0] * 2.54 * 2) / 2, 'cm'); S.h = toPt(Math.round(ex.size[1] * 2.54 * 2) / 2, 'cm'); }
+  batchCache.key = '';
+  $('examples').querySelectorAll('[data-ex]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+  syncInputs();
+  ensureFonts([ex.design.lettering]).then(() => { clearMeasureCache(); update(); }).catch(() => {});
+  update();
+  toast(`Example loaded: ${ex.name}, ${LAYOUTS[ex.design.layout].name} border.`);
+});
 
 $('kindSeg').addEventListener('click', e => {
   const b = e.target.closest('button[data-value]'); if (!b || b.dataset.value === S.kind) return;

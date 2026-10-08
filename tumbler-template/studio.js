@@ -479,6 +479,15 @@
   }
   if (dropEl && window.PeakUI) PeakUI.drop(dropEl, files => setDesign(files[0]));
   $('[data-design-clear]') && $('[data-design-clear]').addEventListener('click', clearDesign);
+  // Sample artwork (sample-design.js), for people who have not made their design yet.
+  const sampleBtn = $('[data-sample-design]');
+  if (sampleBtn) sampleBtn.addEventListener('click', async () => {
+    if (!window.TumblerSample) { toast('The sample design couldn’t be drawn in this browser.'); return; }
+    sampleBtn.disabled = true;
+    try { await setDesign(await window.TumblerSample.design()); }
+    catch (e) { toast('The sample design couldn’t be drawn in this browser.'); }
+    finally { sampleBtn.disabled = false; }
+  });
   // fit segmented control triggers a preview refresh through S.fit
   const fitSeg = $('[data-seg="fit"]');
   if (fitSeg) fitSeg.addEventListener('click', () => { renderDesignHint(); schedulePreview(0); });

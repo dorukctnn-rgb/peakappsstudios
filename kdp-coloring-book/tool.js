@@ -104,6 +104,15 @@
     } catch (e) { return null; }
   }
   PeakUI.drop($('drop'), addFiles);
+  // Sample pages, drawn by sample.js, for a visitor who has no artwork with them yet.
+  $('sample').addEventListener('click', async (e) => {
+    const b = e.currentTarget;
+    if (!window.KDPSample) { PeakUI.toast('The sample pages couldn’t be drawn in this browser.'); return; }
+    b.disabled = true;
+    try { await addFiles(await window.KDPSample.pages()); }
+    catch (err) { PeakUI.toast('The sample pages couldn’t be drawn in this browser.'); }
+    finally { b.disabled = false; }
+  });
   // Files dropped anywhere on the tool also count.
   const tool = $('maker');
   const hasFiles = e => e.dataTransfer && [...e.dataTransfer.types].includes('Files');
