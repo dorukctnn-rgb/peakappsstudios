@@ -43,6 +43,8 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
 body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 img, svg, canvas { max-width: 100%; }
 img { display: block; height: auto; }
