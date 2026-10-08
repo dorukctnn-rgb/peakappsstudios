@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Etsy Monthly Statement CSV Explained, Column by Column</title>
+<meta name="description" content="What each column and row type in Etsy's monthly statement CSV means: Sale, Fee, Tax, VAT, Marketing, Refund and Deposit rows, with a worked order example.">
+<link rel="canonical" href="https://peakappsstudio.com/etsy-tax-summary/monthly-statement-csv/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Etsy monthly statement CSV explained">
+<meta property="og:description" content="Every column and row type in the statement file, how the sales tax nets out, and the quirks that break spreadsheet totals.">
+<meta property="og:url" content="https://peakappsstudio.com/etsy-tax-summary/monthly-statement-csv/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="stylesheet" href="/etsy-tax-summary/tool.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Etsy tax summary","item":"https://peakappsstudio.com/etsy-tax-summary/"},{"@type":"ListItem","position":3,"name":"Monthly statement CSV explained","item":"https://peakappsstudio.com/etsy-tax-summary/monthly-statement-csv/"}]}
+</script>
+</head>
+<body style="--accent:#5b2d56">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a href="/tumbler-template/" class="hide-sm">Tumbler templates</a>
+      <a href="/name-cut-files/" class="hide-sm">Name cut files</a>
+      <a href="/kdp-coloring-book/" class="hide-sm">KDP coloring books</a>
+      <a href="/sewing-pattern-printer/" class="hide-sm">Sewing pattern printer</a>
+      <a href="/quilt-label-maker/" class="hide-sm">Quilt labels</a>
+      <a href="/etsy-tax-summary/" aria-current="page">Etsy tax summary</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/etsy-tax-summary/">Etsy tax summary</a></li><li aria-current="page">Monthly statement CSV</li></ol></nav>
+
+  <section class="tool-hero">
+    <p class="eyebrow">Etsy Payments, monthly statement</p>
+    <h1>The Etsy monthly statement CSV, <em>column by column</em></h1>
+    <p class="lede">The monthly statement is the one Etsy file that holds every sale, fee, tax, ad charge, refund and deposit for a month. It is also easy to total wrongly: the sale rows include sales tax that isn’t yours, the money columns are text, and deposits hide their amount in the title. Here is what each part means.</p>
+  </section>
+
+  <div class="g-wrap">
+    <div class="g-main">
+      <section id="download">
+        <h2>Downloading it</h2>
+        <ol class="steps">
+          <li><span>On Etsy.com, open <strong>Shop Manager</strong>, then <strong>Finances</strong>, then <strong>Monthly statements</strong>.</span></li>
+          <li><span>Select <strong>View all monthly statements</strong>, choose the year and month, and select <strong>Generate CSV</strong>.</span></li>
+          <li><span>Etsy emails you when the file is ready. Select <strong>Take me to download</strong>, then <strong>Download CSV</strong>. The file is named like <code>etsy_statement_2025_1.csv</code> (year, then month).</span></li>
+        </ol>
+        <p>One file covers one calendar month, so a year is twelve downloads. A UK tax year needs thirteen, because it runs from 6 April to 5 April.</p>
+      </section>
+
+      <section id="columns">
+        <h2>The columns</h2>
+        <div class="table-wrap">
+          <table class="g-stack g-rows">
+            <thead><tr><th scope="col">Column</th><th scope="col">Example</th><th scope="col">What it holds</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Date</strong></td><td class="mono-cell">September 3, 2026<br>16 January, 2024</td><td>The day of the activity, written out as text. Files we have seen use either order, month first or day first.</td></tr>
+              <tr><td><strong>Type</strong></td><td class="mono-cell">Sale, Fee, Tax, VAT, Marketing, Refund, Deposit</td><td>The kind of row. This is the column to sort and total by.</td></tr>
+              <tr><td><strong>Title</strong></td><td class="mono-cell">Payment for Order #4163388166<br>Transaction fee: Speckled mug...</td><td>What the row is. Fee titles include the item name, cut off after about 40 characters.</td></tr>
+              <tr><td><strong>Info</strong></td><td class="mono-cell">Order #4163388166<br>Listing #4466076995</td><td>The order, listing or label the row belongs to. Etsy Ads rows say which day’s clicks were billed.</td></tr>
+              <tr><td><strong>Currency</strong></td><td class="mono-cell">USD, GBP, EUR</td><td>Your Payment account currency. Every row in a file uses it.</td></tr>
+              <tr><td><strong>Amount</strong></td><td class="mono-cell">$6.78<br>-$25.00<br>--</td><td>Money from buyers: sales, and refunds as negatives. <code>--</code> means empty.</td></tr>
+              <tr><td><strong>Fees &amp; Taxes</strong></td><td class="mono-cell">-$0.45<br>$1.30</td><td>Fees, taxes and credits. Negative is a charge, positive is money back.</td></tr>
+              <tr><td><strong>Net</strong></td><td class="mono-cell">-$0.45</td><td>Amount plus Fees &amp; Taxes. Totalling this column gives the month’s net activity, except deposits.</td></tr>
+              <tr><td><strong>Tax Details</strong></td><td class="mono-cell">--</td><td>Empty in every file we have seen.</td></tr>
+              <tr><td><strong>Status</strong>, <strong>Availability Date</strong></td><td class="mono-cell">(often empty)</td><td>Headings added in some files generated in 2026. In the September 2026 file we examined, the rows still had only the first nine values.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="rows">
+        <h2>The row types</h2>
+        <p>Titles below are as they appear in real statements. Credits use the same wording with “Credit for” in front and a positive amount.</p>
+        <div class="table-wrap">
+          <table class="g-stack">
+            <thead><tr><th scope="col">Type</th><th scope="col">Typical titles</th><th scope="col">What it means</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Sale</strong></td><td class="mono-cell">Payment for Order #…</td><td>Everything the buyer paid for the order in the Amount column: items, shipping, gift wrap, after discounts, <em>plus</em> any sales tax or VAT that Etsy collected.</td></tr>
+              <tr><td><strong>Tax</strong></td><td class="mono-cell">Sales tax paid by buyer<br>Refund to buyer for sales tax</td><td>Takes the tax Etsy collected back out of the sale, or puts it back when you refund. Etsy pays this tax to the tax authorities; it isn’t your income.</td></tr>
+              <tr><td><strong>Tax</strong></td><td class="mono-cell">Tax: Transaction</td><td>Tax charged on an Etsy fee in some places. It is part of what the fee cost you.</td></tr>
+              <tr><td><strong>Fee</strong></td><td class="mono-cell">Transaction fee: [item]<br>Transaction fee: Shipping</td><td>6.5% of the item price and, on its own row, of the shipping you charged.</td></tr>
+              <tr><td><strong>Fee</strong></td><td class="mono-cell">Processing fee</td><td>Payment processing: a fixed amount plus a percentage of the order total, which varies by country.</td></tr>
+              <tr><td><strong>Fee</strong></td><td class="mono-cell">Listing fee<br>Listing fee ($0.20 USD)</td><td>$0.20 for each listing, renewal and extra quantity sold, converted to your currency when it isn’t USD.</td></tr>
+              <tr><td><strong>Fee</strong></td><td class="mono-cell">Regulatory Operating fee</td><td>A percentage of the order total for sellers in the UK, France, Italy, India, Spain, Türkiye, Vietnam and Canada.</td></tr>
+              <tr><td><strong>VAT</strong></td><td class="mono-cell">VAT: transaction<br>VAT: Processing Fee<br>VAT: auto-renew sold</td><td>VAT that Etsy charges on its own fees to sellers in VAT countries such as the UK, with “credit” rows when a fee is refunded.</td></tr>
+              <tr><td><strong>Marketing</strong></td><td class="mono-cell">Etsy Ads</td><td>Ad charges, usually one row per day. Info says “Bill for click-throughs to your shop on” and the date.</td></tr>
+              <tr><td><strong>Marketing</strong></td><td class="mono-cell">Fee for sale made through Offsite Ads<br>Credit for Offsite Ads fee</td><td>15% of the order total, or 12% once you sold $10,000 in the past year, capped at $100 an order.</td></tr>
+              <tr><td><strong>Refund</strong></td><td class="mono-cell">Refund to buyer for Order #…<br>Partial refund to buyer for Order #…</td><td>Money returned to the buyer, tax included. The fee credits follow as separate Fee and Marketing rows.</td></tr>
+              <tr><td><strong>Shipping</strong></td><td class="mono-cell">(shipping label rows)</td><td>Labels bought through Etsy, with the label number in Info. Refunds for unused labels are positive.</td></tr>
+              <tr><td><strong>Deposit</strong></td><td class="mono-cell">€20.51 sent to your bank account<br>Returned deposit</td><td>A transfer to your bank. The amount appears only in the Title; Amount, Fees &amp; Taxes and Net are <code>--</code>. A returned deposit puts the money back, in Amount and Net.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="example">
+        <h2>One order, row by row</h2>
+        <p>A made-up order: a $30 mug with $5 shipping to a buyer in a state where Etsy collects 8% sales tax. The statement shows it like this (newest rows first in the real file):</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Type</th><th scope="col">Title</th><th scope="col" class="num">Amount</th><th scope="col" class="num">Fees &amp; Taxes</th><th scope="col" class="num">Net</th></tr></thead>
+            <tbody>
+              <tr><td>Sale</td><td>Payment for Order #4100000001</td><td class="num">$37.80</td><td class="num">--</td><td class="num">$37.80</td></tr>
+              <tr><td>Tax</td><td>Sales tax paid by buyer</td><td class="num">--</td><td class="num">-$2.80</td><td class="num">-$2.80</td></tr>
+              <tr><td>Fee</td><td>Transaction fee: Speckled stoneware mug, 12 oz</td><td class="num">--</td><td class="num">-$1.95</td><td class="num">-$1.95</td></tr>
+              <tr><td>Fee</td><td>Transaction fee: Shipping</td><td class="num">--</td><td class="num">-$0.33</td><td class="num">-$0.33</td></tr>
+              <tr><td>Fee</td><td>Processing fee</td><td class="num">--</td><td class="num">-$1.38</td><td class="num">-$1.38</td></tr>
+              <tr><td>Fee</td><td>Listing fee</td><td class="num">--</td><td class="num">-$0.20</td><td class="num">-$0.20</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>The buyer paid $37.80. Of that, $2.80 is sales tax that Etsy keeps back and remits, so your sale is <strong>$35.00</strong> ($30 item plus $5 shipping). The fees come to <strong>$3.86</strong>, and $31.14 reaches your balance. Adding up only the Sale rows would overstate your sales by every cent of tax Etsy collected.</p>
+      </section>
+
+      <section id="quirks">
+        <h2>Why spreadsheet totals go wrong</h2>
+        <ul>
+          <li><strong>The money columns are text.</strong> Values carry the currency sign (<code>$6.78</code>, <code>-€0.17</code>) and empty cells are <code>--</code>, so a plain SUM often returns zero until every cell is converted.</li>
+          <li><strong>Sale includes tax.</strong> Subtract the “Sales tax paid by buyer” rows to get your sales, and add back “Refund to buyer for sales tax” on refunds.</li>
+          <li><strong>Deposits have no number in the number columns.</strong> The amount sits in the Title, as in “$48.62 sent to your bank account”.</li>
+          <li><strong>Identical rows can be real.</strong> Two “Listing fee” rows for the same listing on the same day are two charges, so don’t remove duplicates inside one file. Do remove them when you have downloaded the same month twice.</li>
+          <li><strong>Opening the file in Excel and saving it again</strong> can turn dates into <code>9/3/2026</code> and amounts into plain numbers or <code>(1.10)</code>. Keep the original download.</li>
+          <li><strong>The header can be longer than the rows.</strong> Some 2026 files list eleven headings while most rows carry nine values.</li>
+        </ul>
+        <p>The <a href="/etsy-tax-summary/">Etsy tax summary</a> handles all of these: it reads the text amounts, takes the collected tax out of sales, pulls deposit amounts from the titles, counts a month downloaded twice once, and lists any row type it doesn’t recognise instead of guessing.</p>
+      </section>
+
+      <section id="other-files">
+        <h2>The other Etsy CSVs</h2>
+        <p>These come from Shop Manager, Settings, Options, <strong>Download Data</strong>. Pick the CSV type and year; leave the month empty for the whole year.</p>
+        <div class="table-wrap">
+          <table class="g-stack">
+            <thead><tr><th scope="col">File</th><th scope="col">One row per</th><th scope="col">Useful columns</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Sold Orders</strong><br><span class="mono-cell">EtsySoldOrders2025.csv</span></td><td>Order</td><td>Sale Date, Order ID, Order Value, Discount Amount, Shipping Discount, Shipping, Sales Tax, Order Total, Card Processing Fees, Order Net. The Shipping column tells you how much of your sales was postage.</td></tr>
+              <tr><td><strong>Sold Order Items</strong><br><span class="mono-cell">EtsySoldOrderItems2025.csv</span></td><td>Item</td><td>Item Name, Quantity, Price, Item Total, Variations, Transaction ID. Order Shipping and Order Sales Tax repeat on every item of an order, so count them once per order.</td></tr>
+              <tr><td><strong>Etsy Payments Sales</strong><br><span class="mono-cell">EtsyDirectCheckoutPayments2025.csv</span></td><td>Payment</td><td>Gross Amount, Fees, Net Amount, Listing Amount, Refund Amount, Order Date. Etsy says the total of the Gross column for the year is the figure on its 1099-K.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>None of these show listing fees, ads or labels, which is why the monthly statement is the file for the tax return. In order files we checked, the Sales Tax column read 0 on orders whose Order Total included tax that Etsy collected, so take that figure from the statement’s Tax rows.</p>
+      </section>
+
+      <p class="source">Sources: Etsy Help, <a href="https://help.etsy.com/hc/en-us/articles/360016389113" rel="noopener">How to Calculate Your Etsy Payments Deposit Amount</a>, <a href="https://help.etsy.com/hc/en-us/articles/115014483627" rel="noopener">What are the Fees and Taxes for Selling on Etsy?</a>, <a href="https://help.etsy.com/hc/en-us/articles/360000343328" rel="noopener">How to Download a Spreadsheet of Your Sold Transactions</a> and <a href="https://help.etsy.com/hc/en-us/articles/360016389293" rel="noopener">How Is the Total on My 1099-K Calculated?</a>; layouts checked against statement files from 2024 to September 2026 that sellers published on GitHub. Last checked 8 October 2026.</p>
+    </div>
+
+    <aside class="g-aside" aria-label="On this page">
+      <div class="g-box">
+        <h2>On this page</h2>
+        <ol>
+          <li><a href="#download">Downloading it</a></li>
+          <li><a href="#columns">The columns</a></li>
+          <li><a href="#rows">The row types</a></li>
+          <li><a href="#example">One order, row by row</a></li>
+          <li><a href="#quirks">Spreadsheet traps</a></li>
+          <li><a href="#other-files">The other Etsy CSVs</a></li>
+        </ol>
+      </div>
+      <div class="g-box g-cta">
+        <strong>Skip the spreadsheet</strong>
+        <p>Drop the year’s statements and get every total, month by month. Free, in your browser.</p>
+        <a class="btn btn-primary" href="/etsy-tax-summary/">Open the Etsy tax summary</a>
+      </div>
+    </aside>
+  </div>
+
+  <section class="section" id="guides">
+    <h2>More Etsy tax guides</h2>
+    <nav class="related" aria-label="Guides">
+      <a href="/etsy-tax-summary/without-1099-k/"><strong>Filing without a 1099-K</strong><span>The 2026 threshold and how to total the year yourself.</span></a>
+      <a href="/etsy-tax-summary/schedule-c-lines/"><strong>Etsy fees on Schedule C</strong><span>Which line each fee, ad and label usually goes on.</span></a>
+      <a href="/etsy-tax-summary/uk-self-assessment/"><strong>Etsy on UK Self Assessment</strong><span>Turnover, fees and the SA103S boxes.</span></a>
+      <a href="/tools/"><strong>All Peak Apps tools</strong><span>Browser tools for makers and publishers.</span></a>
+    </nav>
+    <p class="source etx-legal">Not affiliated with or endorsed by Etsy, Inc. Etsy is a trademark of Etsy, Inc.; we name it only to say which files the tool reads.</p>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools for makers and independent publishers. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a> · <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
+        <li><a href="/name-cut-files/">Name Cut Files</a></li>
+        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
+        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
+        <li><a href="/quilt-label-maker/">Quilt Label Maker</a></li>
+        <li><a href="/etsy-tax-summary/">Etsy Tax Summary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

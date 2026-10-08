@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Name SVG Generator for Cricut: Batch Names from a List</title>
+<meta name="description" content="Paste a list of names and get welded, same-size SVG cut files laid out on your mat. Script fonts, offsets, PNG for sublimation. Free, in your browser.">
+<link rel="canonical" href="https://peakappsstudio.com/name-cut-files/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Name SVG generator: a list of names to cut-ready files">
+<meta property="og:description" content="Paste names or an Etsy orders CSV. Each name is welded into one piece, sized the same and laid out on your mat as an SVG in inches.">
+<meta property="og:url" content="https://peakappsstudio.com/name-cut-files/">
+<meta property="og:image" content="https://peakappsstudio.com/name-cut-files/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="stylesheet" href="/name-cut-files/tool.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","@id":"https://peakappsstudio.com/name-cut-files/#app","name":"Name Cut Files","url":"https://peakappsstudio.com/name-cut-files/","description":"Turns a list of names, or an Etsy Sold Order Items CSV, into welded name outlines sized to the same width or height, laid out on a cutting mat and saved as an SVG in inch units, a 300 dpi PNG or a DXF.","applicationCategory":"DesignApplication","operatingSystem":"Any (web browser)","browserRequirements":"Requires JavaScript","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/","email":"peakappsstudios@gmail.com"},
+  "offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD","description":"Up to 10 names per file as SVG, 300 dpi PNG or DXF, five bundled fonts or your own, with no watermark."},{"@type":"Offer","name":"Pro (one-time payment)","price":"15","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/name-cut-files-pro","description":"Unlimited names, Etsy orders CSV import, a backing layer, a ZIP with one SVG per name, mirrored PNG and more mat and paper sizes."}]},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Name cut files","item":"https://peakappsstudio.com/name-cut-files/"}]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Can Cricut Design Space import a list of names?","acceptedAnswer":{"@type":"Answer","text":"Not as finished pieces. You can paste a list into one text box and use Ungroup to Lines to get one text box per name. In a kerned font, letters that touch weld on their own when you cut, but every name still has to be sized, and letters that don't touch nudged together, one name at a time. This tool does that for the whole list and gives you one SVG in which every name is its own layer."}},
+  {"@type":"Question","name":"Why is each name a single compound path?","acceptedAnswer":{"@type":"Answer","text":"So it cuts as one piece and stays one layer. Overlapping letters are merged into one outline, which is what Weld does in Design Space, and the holes in letters such as o, a and e are kept."}},
+  {"@type":"Question","name":"Will the names come in at the right size in Design Space?","acceptedAnswer":{"@type":"Answer","text":"Yes. The SVG states its size in inches and Cricut's help pages say SVG files upload as designed. Compare the size in the Design Space layer panel with the size shown under the mat before you cut a batch."}},
+  {"@type":"Question","name":"Does it work with Silhouette Studio?","acceptedAnswer":{"@type":"Answer","text":"Silhouette Studio needs Designer Edition or above to open SVG files. With the free Basic Edition, download the DXF instead; it holds the same outlines."}},
+  {"@type":"Question","name":"Why are the dots on i and j separate?","acceptedAnswer":{"@type":"Answer","text":"In almost every font the dot of an i or j, and accents such as the two dots on Zoë, are drawn apart from the letter. They cut as small separate pieces. Turn on the backing layer if you want everything to sit on one shape."}},
+  {"@type":"Question","name":"Is the name SVG generator free?","acceptedAnswer":{"@type":"Answer","text":"Yes, for up to 10 names per file, with no watermark and no sign-up. Pro is a one-time $15 purchase that removes the limit and adds Etsy CSV import, the backing layer, a ZIP with one SVG per name, mirrored PNGs and more mat sizes."}},
+  {"@type":"Question","name":"Can I use my own font?","acceptedAnswer":{"@type":"Answer","text":"Yes. Choose a TTF, OTF or WOFF file on your computer. Your browser reads it and nothing is uploaded. If you sell what you make, check that the font's licence allows commercial use."}}
+ ]}
+]}
+</script>
+</head>
+<body style="--accent:#6d2e5b">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a href="/tumbler-template/" class="hide-sm">Tumbler templates</a>
+      <a href="/name-cut-files/" aria-current="page">Name cut files</a>
+      <a href="/kdp-coloring-book/" class="hide-sm">KDP coloring books</a>
+      <a href="/sewing-pattern-printer/" class="hide-sm">Sewing pattern printer</a>
+      <a href="/quilt-label-maker/" class="hide-sm">Quilt labels</a>
+      <a href="/etsy-tax-summary/" class="hide-sm">Etsy tax summary</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li aria-current="page">Name cut files</li></ol></nav>
+  <header class="nc-hero">
+    <h1>Turn a list of names into <span class="nw">cut-ready</span> <em>SVG files</em></h1>
+    <p class="lede">Paste names, one per line. Each one is welded into a single piece, sized to match the others and laid out on your mat, ready for Cricut Design Space, Silhouette Studio or a laser. Free for up to 10 names per file, and nothing leaves your device.</p>
+  </header>
+
+  <section class="nc" data-nc aria-labelledby="nc-title">
+    <h2 id="nc-title" class="sr-only">Name cut file maker</h2>
+
+    <div class="nc-card nc-names">
+      <div class="nc-head">
+        <h3 class="nc-title"><span class="n">01</span>Names</h3>
+        <span class="nc-count" data-count aria-live="polite">6 names</span>
+      </div>
+      <label class="sr-only" for="nc-list">Names, one per line</label>
+      <textarea id="nc-list" class="input nc-list" data-list rows="6" spellcheck="false" autocomplete="off" autocapitalize="words">Emma
+Oliver
+Charlotte
+Theo
+Amelia
+Jackson</textarea>
+      <div class="nc-colrow" data-colrow hidden>
+        <label for="nc-col">Your paste has columns. Names are in</label>
+        <select id="nc-col" class="select" data-col></select>
+      </div>
+      <div class="drop nc-drop" data-drop tabindex="0" role="button" aria-label="Import names from an Etsy orders CSV file">
+        <input type="file" accept=".csv,.tsv,.txt,text/csv" tabindex="-1" aria-hidden="true">
+        <span class="nc-drop-t"><strong>Import Etsy orders</strong> <span class="pro-tag">Pro</span></span>
+        <span class="hint">Drop the Sold Order Items CSV here, or tap to choose it</span>
+      </div>
+      <div class="nc-import" data-import hidden>
+        <p class="nc-import-sum" data-import-sum></p>
+        <label class="field"><span>The names are in</span><select class="select" data-import-field></select></label>
+        <div class="nc-import-opts">
+          <label class="check"><input type="checkbox" data-import-split checked><span>One order line can hold several names (split at commas, &amp; and new lines)</span></label>
+          <label class="check"><input type="checkbox" data-import-qty checked><span>Repeat a name when the quantity is more than 1</span></label>
+        </div>
+        <ol class="nc-import-preview" data-import-preview></ol>
+        <div class="nc-import-actions">
+          <button type="button" class="btn btn-primary btn-sm" data-import-use>Use these names</button>
+          <button type="button" class="btn btn-sm" data-import-cancel>Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="nc-stage">
+      <div class="nc-stage-in">
+        <div class="nc-matbox" data-matbox>
+          <svg class="nc-mat" data-mat role="img" aria-label="Names laid out on the cutting mat"></svg>
+          <p class="nc-status" data-status role="status" aria-live="polite"></p>
+          <div class="nc-pager" data-pager hidden>
+            <button type="button" class="nc-pg" data-pg="-1" aria-label="Previous mat"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+            <span data-pg-label>Mat 1 of 1</span>
+            <button type="button" class="nc-pg" data-pg="1" aria-label="Next mat"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+          </div>
+        </div>
+        <dl class="nc-readout" data-readout aria-label="Layout summary">
+          <div><dt>Names</dt><dd data-r-names>6</dd></div>
+          <div><dt>Each name</dt><dd data-r-size>3 in wide</dd></div>
+          <div><dt>Mat</dt><dd data-r-mat>12 × 12 in</dd></div>
+          <div><dt>Pieces</dt><dd data-r-pieces>&nbsp;</dd></div>
+        </dl>
+        <ol class="nc-namelist" data-namelist aria-label="Sizes of each name"></ol>
+      </div>
+    </div>
+
+    <div class="nc-card nc-font">
+      <div class="nc-head"><h3 class="nc-title"><span class="n">02</span>Font</h3></div>
+      <div class="nc-fonts" role="radiogroup" aria-label="Font" data-fonts>
+        <button type="button" class="nc-fontbtn" role="radio" aria-checked="true" data-font="pacifico" aria-label="Pacifico, brush script"><svg viewBox="0 0 135.8 52.2" aria-hidden="true"><use href="/name-cut-files/specimens.svg#sp-pacifico" width="135.8" height="52.2"/></svg><span class="nc-fontname">Brush script</span></button>
+        <button type="button" class="nc-fontbtn" role="radio" aria-checked="false" data-font="dancing" aria-label="Dancing Script, casual script"><svg viewBox="0 0 221.6 42" aria-hidden="true"><use href="/name-cut-files/specimens.svg#sp-dancing" width="221.6" height="42"/></svg><span class="nc-fontname">Casual script</span></button>
+        <button type="button" class="nc-fontbtn" role="radio" aria-checked="false" data-font="norican" aria-label="Norican, calligraphy"><svg viewBox="0 0 119.9 32.7" aria-hidden="true"><use href="/name-cut-files/specimens.svg#sp-norican" width="119.9" height="32.7"/></svg><span class="nc-fontname">Calligraphy</span></button>
+        <button type="button" class="nc-fontbtn" role="radio" aria-checked="false" data-font="greatvibes" aria-label="Great Vibes, formal script"><svg viewBox="0 0 165.4 51" aria-hidden="true"><use href="/name-cut-files/specimens.svg#sp-greatvibes" width="165.4" height="51"/></svg><span class="nc-fontname">Formal script</span></button>
+        <button type="button" class="nc-fontbtn" role="radio" aria-checked="false" data-font="baloo" aria-label="Baloo 2, rounded block"><svg viewBox="0 0 131.6 29.1" aria-hidden="true"><use href="/name-cut-files/specimens.svg#sp-baloo" width="131.6" height="29.1"/></svg><span class="nc-fontname">Rounded block</span></button>
+        <button type="button" class="nc-fontbtn nc-own" role="radio" aria-checked="false" data-font="own"><span class="nc-own-t">Your font</span><span class="nc-fontname" data-own-name>TTF, OTF or WOFF</span></button>
+      </div>
+      <input type="file" data-font-file accept=".ttf,.otf,.woff,font/ttf,font/otf,font/woff" hidden>
+      <p class="hint" data-font-note>Four scripts whose letters join and one rounded block. All five are under the SIL Open Font License, so you can sell what you cut.</p>
+    </div>
+
+    <div class="nc-card nc-size">
+      <div class="nc-head">
+        <h3 class="nc-title"><span class="n">03</span>Size</h3>
+        <div class="seg nc-seg" data-seg="unit" role="group" aria-label="Units"><button type="button" data-value="in" aria-pressed="true">in</button><button type="button" data-value="cm" aria-pressed="false">cm</button></div>
+      </div>
+      <div class="seg nc-mode" data-seg="mode" role="group" aria-label="How to size the names">
+        <button type="button" data-value="width" aria-pressed="true">Same width</button><button type="button" data-value="height" aria-pressed="false">Same height</button><button type="button" data-value="fit" aria-pressed="false">Fit a box</button>
+      </div>
+      <div class="nc-fields">
+        <label class="field" data-when="width fit"><span>Width</span><span class="input-unit"><input class="input" data-in="width" inputmode="decimal" autocomplete="off"><i data-u>in</i></span></label>
+        <label class="field" data-when="height fit"><span>Height</span><span class="input-unit"><input class="input" data-in="height" inputmode="decimal" autocomplete="off"><i data-u>in</i></span></label>
+      </div>
+      <p class="hint" data-mode-hint>Every name is exactly this wide. Short names come out taller.</p>
+      <div class="nc-range">
+        <label for="nc-track">Letter spacing</label>
+        <input type="range" id="nc-track" min="-120" max="200" step="5" data-in="tracking">
+        <output for="nc-track" data-track-out>0</output>
+      </div>
+      <div class="nc-caserow"><span id="nc-case-l">Letters</span><div class="seg nc-seg" data-seg="case" role="group" aria-labelledby="nc-case-l"><button type="button" data-value="as" aria-pressed="true">As typed</button><button type="button" data-value="title" aria-pressed="false">Title</button><button type="button" data-value="upper" aria-pressed="false">CAPS</button></div></div>
+    </div>
+
+    <div class="nc-card nc-layers">
+      <div class="nc-head"><h3 class="nc-title"><span class="n">04</span>Weld and layers</h3></div>
+      <label class="check"><input type="checkbox" data-check="join"><span>Join letters that don’t touch <small>slides a letter over until it overlaps its neighbour</small></span></label>
+      <div class="nc-optrow">
+        <label class="check"><input type="checkbox" data-check="bar"><span>Bar under the letters <small>ties every letter into one piece</small></span></label>
+        <div class="seg nc-seg" data-seg="barSize" role="group" aria-label="Bar thickness" data-when-bar><button type="button" data-value="thin" aria-pressed="false">Thin</button><button type="button" data-value="medium" aria-pressed="true">Medium</button><button type="button" data-value="bold" aria-pressed="false">Bold</button></div>
+      </div>
+      <div class="nc-optrow">
+        <label class="check"><input type="checkbox" data-check="backing"><span>Backing layer <span class="pro-tag">Pro</span> <small>an offset shape under each name</small></span></label>
+        <span class="input-unit" data-when-backing><input class="input" data-in="offset" inputmode="decimal" aria-label="Backing offset"><i data-u>in</i></span>
+      </div>
+    </div>
+
+    <div class="nc-card nc-export">
+      <div class="nc-head"><h3 class="nc-title"><span class="n">05</span>Mat and download</h3></div>
+      <label class="field"><span>Lay the names out on</span>
+        <select class="select" data-mat-select>
+          <optgroup label="Cutting mats">
+            <option value="m12x12">12 × 12 in mat</option>
+            <option value="m12x24">12 × 24 in mat</option>
+          </optgroup>
+          <optgroup label="Paper, to print">
+            <option value="letter">Letter paper, 8.5 × 11 in</option>
+            <option value="a4">A4 paper, 210 × 297 mm</option>
+          </optgroup>
+          <optgroup label="More sizes (Pro)">
+            <option value="ptc-letter">Print Then Cut area on Letter, 7.44 × 9.94 in</option>
+            <option value="ptc-a4">Print Then Cut area on A4, 7.2 × 10.62 in</option>
+            <option value="joy-s">Cricut Joy mat, 4.5 × 6.5 in</option>
+            <option value="joy-l">Cricut Joy mat, 4.5 × 12 in</option>
+            <option value="joy-xtra">Cricut Joy Xtra mat, 8.5 × 12 in</option>
+            <option value="portrait">Silhouette Portrait mat, 8 × 12 in</option>
+            <option value="cameo-plus">Silhouette Cameo Plus mat, 15 × 15 in</option>
+            <option value="cameo-pro">Silhouette Cameo Pro mat, 24 × 24 in</option>
+            <option value="custom">Custom size (laser bed, other machines)</option>
+          </optgroup>
+        </select></label>
+      <div class="nc-fields nc-custom" data-custom hidden>
+        <label class="field"><span>Mat width</span><span class="input-unit"><input class="input" data-in="customW" inputmode="decimal" autocomplete="off"><i data-u>in</i></span></label>
+        <label class="field"><span>Mat height</span><span class="input-unit"><input class="input" data-in="customH" inputmode="decimal" autocomplete="off"><i data-u>in</i></span></label>
+      </div>
+      <div class="nc-fields">
+        <label class="field"><span>Margin</span><span class="input-unit"><input class="input" data-in="margin" inputmode="decimal" autocomplete="off"><i data-u>in</i></span></label>
+        <label class="field"><span>Gap between names</span><span class="input-unit"><input class="input" data-in="gap" inputmode="decimal" autocomplete="off"><i data-u>in</i></span></label>
+      </div>
+      <div class="nc-btns">
+        <button type="button" class="btn btn-primary nc-main" data-action="svg" disabled>Download SVG</button>
+        <button type="button" class="btn" data-action="png" disabled>PNG <small>300 dpi</small></button>
+        <button type="button" class="btn" data-action="dxf" disabled>DXF</button>
+      </div>
+      <p class="nc-limit" data-limit hidden></p>
+      <div class="nc-png">
+        <label class="nc-ink"><input type="color" value="#111111" data-in="ink" aria-label="Colour of the names in the PNG"><span>PNG colour</span></label>
+        <label class="check"><input type="checkbox" data-check="mirror"><span>Mirror the PNG <span class="pro-tag">Pro</span></span></label>
+      </div>
+      <button type="button" class="btn nc-zip" data-action="zip" disabled><span>One SVG per name, in a ZIP</span> <span class="pro-tag">Pro</span></button>
+      <p class="hint nc-after">In Design Space: Upload, choose the SVG, then check one name’s size in the layer panel against the list above before you cut.</p>
+    </div>
+  </section>
+
+  <section class="section two-col" aria-labelledby="how">
+    <div class="prose">
+      <h2 id="how">How to use it</h2>
+      <ol class="steps">
+        <li><div><strong>Add the names.</strong> Type or paste them one per line, or copy a column from a spreadsheet. With Pro you can drop the Sold Order Items CSV from Etsy instead and pick the field that holds the personalization.</div></li>
+        <li><div><strong>Pick a font and a size.</strong> Same width suits stocking cuffs and labels, same height keeps the letters one size, and Fit a box keeps long and short names inside one blank, such as an ornament.</div></li>
+        <li><div><strong>Check the pieces.</strong> The list under the mat gives each name’s finished size and flags any name that would cut into more than one piece, apart from the dots on i and j.</div></li>
+        <li><div><strong>Download and cut.</strong> Upload the SVG to Design Space, or open it in Silhouette Studio, and check one name’s size before you cut the batch. For iron-on vinyl, turn on Mirror for the mat in Design Space.</div></li>
+      </ol>
+      <p><a href="/name-cut-files/how-to-cut-multiple-names-cricut/">Step-by-step for Design Space</a>, with what Attach and material saver do to your layout.</p>
+    </div>
+    <div class="prose">
+      <h2 id="files">Which file to download</h2>
+      <div class="table-wrap"><table>
+        <thead><tr><th>File</th><th>Use it for</th></tr></thead>
+        <tbody>
+          <tr><td><strong>SVG</strong></td><td>Cricut Design Space, Silhouette Studio Designer Edition, Inkscape, laser software. Sized in inches; each name is one filled path with its own layer.</td></tr>
+          <tr><td><strong>PNG 300 dpi</strong></td><td>Sublimation and printing. The file records 300 dpi, so it prints at true size at 100%. Transparent background.</td></tr>
+          <tr><td><strong>DXF</strong></td><td>Silhouette Studio Basic Edition, which can’t open SVG, and CAD or laser programs. Inches; names and backings on separate layers.</td></tr>
+          <tr><td><strong>ZIP</strong> <span class="pro-tag">Pro</span></td><td>One SVG per name, sized to the name, in a folder per Etsy order when the names came from a CSV.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="section prose" aria-labelledby="weld">
+    <h2 id="weld">What “welded” means here</h2>
+    <p>A script font draws every letter as its own shape. The letters only look joined because the shapes overlap, so if you cut them as they are, the blade follows each letter’s whole outline and the name falls apart. Weld in Design Space merges overlapping shapes into one outline. This tool does that for every name at once: the letter outlines are traced to within about 0.03 mm and merged with a polygon union, so each name becomes one compound path and the holes in o, a and e stay open.</p>
+    <p>Some script fonts stop a capital, or the odd lowercase pair, just short of the next letter. With <strong>Join letters that don’t touch</strong> on, each loose letter slides left until it overlaps its neighbour by a small fixed amount, which is what you would do by hand before welding. With <strong>Bar under the letters</strong> on, a rounded bar along the baseline ties the whole name together, the usual fix for block letters.</p>
+    <h3 id="fonts">The five fonts, tested</h3>
+    <p>We welded 38 test names in each font, from Mia and Zoë to Jessica-Marie, Łukasz and Siobhán, at 3 in wide, and counted the pieces each one cuts into, leaving out dots and accents.</p>
+    <div class="table-wrap"><table class="stack">
+      <thead><tr><th>Font</th><th>Style</th><th class="num">One piece</th><th>Good for</th></tr></thead>
+      <tbody>
+        <tr><td>Pacifico</td><td data-label="Style">Thick brush script</td><td class="num" data-label="One piece">38 of 38</td><td data-label="Good for">Small names in vinyl and iron-on; strokes stay wide</td></tr>
+        <tr><td>Dancing Script (bold)</td><td data-label="Style">Casual script</td><td class="num" data-label="One piece">38 of 38</td><td data-label="Good for">Stockings, tumblers, shirts</td></tr>
+        <tr><td>Norican</td><td data-label="Style">Calligraphy script</td><td class="num" data-label="One piece">37 of 38</td><td data-label="Good for">Ornaments and place cards (the W is drawn in two strokes)</td></tr>
+        <tr><td>Great Vibes</td><td data-label="Style">Formal thin script</td><td class="num" data-label="One piece">36 of 38</td><td data-label="Good for">Larger names, laser, wedding signs (K and Q have a separate stroke)</td></tr>
+        <tr><td>Baloo 2 (extra bold)</td><td data-label="Style">Rounded block letters</td><td class="num" data-label="One piece">38 of 38</td><td data-label="Good for">Kids’ names, school labels, jerseys; counted with the bar on, since block letters never touch</td></tr>
+      </tbody>
+    </table></div>
+    <p class="tbl-note">Test run on 8 October 2026 with the files that ship with this page. All five fonts cover accented Latin letters, including Polish, Czech and Turkish.</p>
+  </section>
+
+  <section class="section" aria-labelledby="guides">
+    <h2 id="guides">Guides</h2>
+    <nav class="related" aria-labelledby="guides">
+      <a href="/name-cut-files/how-to-cut-multiple-names-cricut/"><strong>How to cut multiple names on a Cricut</strong><span>From a list to one upload, and what Design Space does to your layout.</span></a>
+      <a href="/name-cut-files/christmas-stocking-names/"><strong>Christmas stocking names</strong><span>Name sizes for stocking cuffs, worked out from the cuff you have.</span></a>
+      <a href="/name-cut-files/name-ornaments/"><strong>Name ornaments</strong><span>Sizes for flat and round ornaments, and backing layers for laser cutting.</span></a>
+      <a href="/tumbler-template/"><strong>Tumbler template generator</strong><span>The flat template for a tapered cup, for placing a name on a tumbler.</span></a>
+    </nav>
+  </section>
+
+  <section class="section" aria-labelledby="pro">
+    <div class="pro">
+      <div class="pro-left">
+        <p class="eyebrow">Pro, one-time</p>
+        <h2 id="pro">For a stack of <em>orders</em></h2>
+        <p class="muted" style="margin:10px 0 0">Everything above stays free for up to 10 names a file. Pro is for the week before the holidays.</p>
+        <ul class="pro-list">
+          <li><span><strong>Unlimited names in one file.</strong> Lay out 40 stocking names on two 12 × 24 in mats in one download.</span></li>
+          <li><span><strong>Etsy orders import.</strong> Drop the Sold Order Items CSV; the personalization is read from the Variations column, with the order number kept.</span></li>
+          <li><span><strong>Backing layer.</strong> An offset outline under each name, holes filled, for layered vinyl, cardstock and laser-cut ornaments.</span></li>
+          <li><span><strong>One SVG per name, in a ZIP.</strong> Sorted into a folder per order.</span></li>
+          <li><span><strong>Mirrored PNG</strong> for sublimation and printable iron-on, and more layouts: Cricut Joy and Joy Xtra mats, Print Then Cut areas, Silhouette Portrait and Cameo mats and any custom bed size.</span></li>
+        </ul>
+      </div>
+      <div class="pro-right">
+        <div class="price">$15 <small>one-time, no subscription</small></div>
+        <a class="btn btn-primary" data-buy-pro href="https://dorukctn.gumroad.com/l/name-cut-files-pro">Get Pro on Gumroad</a>
+        <button type="button" class="btn" data-enter-key style="background:transparent;color:var(--paper);border-color:color-mix(in oklab,var(--paper) 40%,transparent)">I have a license key</button>
+        <p class="fine" data-pro-state hidden></p>
+        <p class="fine"><a href="#" data-pro-signout hidden style="color:inherit">Switch Pro off on this browser</a></p>
+        <p class="fine">Payment, receipt and license key come from Gumroad. Enter the key once per browser. <a href="/tools/privacy/" style="color:inherit">How keys are checked</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section prose" aria-labelledby="faq">
+    <h2 id="faq">Questions</h2>
+    <div class="faq">
+      <details><summary>Can Cricut Design Space import a list of names?</summary><div class="answer"><p>Not as finished pieces. You can paste a list into one text box and use Ungroup to Lines to get one text box per name. In a kerned font, letters that touch weld on their own when you cut, but every name still has to be sized, and letters that don’t touch nudged together, one name at a time. This tool does that for the whole list and gives you one SVG in which every name is its own layer. <a href="/name-cut-files/how-to-cut-multiple-names-cricut/">Both methods, step by step</a>.</p></div></details>
+      <details><summary>Why is each name a single compound path?</summary><div class="answer"><p>So it cuts as one piece and stays one layer. Overlapping letters are merged into one outline, which is what Weld does in Design Space, and the holes in letters such as o, a and e are kept.</p></div></details>
+      <details><summary>Will the names come in at the right size in Design Space?</summary><div class="answer"><p>Yes. The SVG states its size in inches and Cricut’s help pages say SVG files upload as designed. Compare the size in the Design Space layer panel with the size shown under the mat before you cut a batch.</p></div></details>
+      <details><summary>Does it work with Silhouette Studio?</summary><div class="answer"><p>Silhouette Studio needs Designer Edition or above to open SVG files. With the free Basic Edition, download the DXF instead; it holds the same outlines.</p></div></details>
+      <details><summary>Why are the dots on i and j separate?</summary><div class="answer"><p>In almost every font the dot of an i or j, and accents such as the two dots on Zoë, are drawn apart from the letter. They cut as small separate pieces. Turn on the backing layer if you want everything to sit on one shape.</p></div></details>
+      <details><summary>Is the name SVG generator free?</summary><div class="answer"><p>Yes, for up to 10 names per file, with no watermark and no sign-up. Pro is a one-time $15 purchase that removes the limit and adds Etsy CSV import, the backing layer, a ZIP with one SVG per name, mirrored PNGs and more mat sizes.</p></div></details>
+      <details><summary>Can I use my own font?</summary><div class="answer"><p>Yes. Choose a TTF, OTF or WOFF file on your computer. Your browser reads it and nothing is uploaded. If you sell what you make, check that the font’s licence allows commercial use.</p></div></details>
+    </div>
+    <p class="nc-note">Cricut, Design Space, Silhouette Studio and Etsy are trademarks of their owners. Peak Apps Tools is not affiliated with or endorsed by them; the names appear here only to say which programs the files work with. Fonts: Pacifico, Dancing Script, Norican, Great Vibes and Baloo 2, each under the <a href="/name-cut-files/fonts/pacifico.OFL.txt">SIL Open Font License 1.1</a>.</p>
+  </section>
+
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools for makers and independent publishers. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a> · <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
+        <li><a href="/name-cut-files/">Name Cut Files</a></li>
+        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
+        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
+        <li><a href="/quilt-label-maker/">Quilt Label Maker</a></li>
+        <li><a href="/etsy-tax-summary/">Etsy Tax Summary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/site.js" defer></script>
+<script src="/assets/license.js" defer></script>
+<script src="/name-cut-files/engine.js" defer></script>
+<script src="/name-cut-files/csv.js" defer></script>
+<script src="/name-cut-files/app.js" defer></script>
+</body>
+</html>

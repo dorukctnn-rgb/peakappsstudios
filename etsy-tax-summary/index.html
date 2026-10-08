@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Etsy Tax Summary from Your Statement CSVs (Free, Private)</title>
+<meta name="description" content="Drop your Etsy monthly statement CSVs and get gross sales, refunds, every fee and Schedule C totals for the year. Runs in your browser; files never leave it.">
+<link rel="canonical" href="https://peakappsstudio.com/etsy-tax-summary/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Etsy tax summary from your monthly statement CSVs">
+<meta property="og:description" content="Year totals from your Etsy statements: sales, refunds, each fee, ads, labels and deposits, with the sales tax Etsy collected taken out. Free, in your browser.">
+<meta property="og:url" content="https://peakappsstudio.com/etsy-tax-summary/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="stylesheet" href="/etsy-tax-summary/tool.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","@id":"https://peakappsstudio.com/etsy-tax-summary/#app","name":"Etsy Tax Summary","url":"https://peakappsstudio.com/etsy-tax-summary/","description":"Reads Etsy monthly statement CSVs in the browser and totals gross sales, refunds, each fee type, ads, shipping labels and deposits for a tax year, with the sales tax Etsy collected shown separately and a month-by-month table.","applicationCategory":"FinanceApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD","description":"Unlimited statement files read in the browser, year and month totals, checks and where each total usually goes."},{"@type":"Offer","name":"Pro (one-time)","price":"19","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/etsy-tax-summary-pro","description":"Accountant PDF, categorized CSV and XLSX export, several shops in one report, UK tax year, and a materials and mileage list."}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Etsy tax summary","item":"https://peakappsstudio.com/etsy-tax-summary/"}]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Are my files uploaded anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. The CSV files are read by JavaScript in this page, on your computer. Nothing is sent to a server, and closing the tab discards them. If you buy Pro, only the license key is sent to Gumroad to check it."}},
+  {"@type":"Question","name":"Do I need all twelve monthly statements?","acceptedAnswer":{"@type":"Answer","text":"For a full year, yes: each statement covers one calendar month. The summary names any month that has no rows. For a UK tax year you also need the April statement of the following year, because the year ends on 5 April."}},
+  {"@type":"Question","name":"Why doesn't my total match my 1099-K or my deposits?","acceptedAnswer":{"@type":"Answer","text":"Etsy's 1099-K reports gross sales: what buyers paid before refunds, fees or shipping costs, without the sales tax Etsy collected. Deposits are what was left after fees, refunds and taxes, paid out on your deposit schedule. The summary shows each of these and how they connect. If you add the Etsy Payments sales CSV, it also shows the total of its Gross column, which Etsy says is the 1099-K figure."}},
+  {"@type":"Question","name":"Is the sales tax Etsy collected part of my income?","acceptedAnswer":{"@type":"Answer","text":"Etsy collects and remits US sales tax as the marketplace in states with marketplace facilitator laws, and VAT on some orders. The statement adds it to the sale and takes it back out on a Tax row. The summary leaves it out of sales and shows it on its own line. Etsy says these amounts are not on the 1099-K."}},
+  {"@type":"Question","name":"Where do Etsy fees go on Schedule C?","acceptedAnswer":{"@type":"Answer","text":"Common practice is listing, transaction, processing and regulatory fees on line 10 (commissions and fees), Etsy Ads and Offsite Ads on line 8 (advertising) and Etsy shipping labels on line 18 (office expense, which the IRS instructions say includes postage). Your tax preparer may group them differently. The Schedule C guide goes line by line."}},
+  {"@type":"Question","name":"Does it work for UK shops and other currencies?","acceptedAnswer":{"@type":"Answer","text":"Yes. The statement layout is the same in every currency. The UK view maps the totals to the boxes of the SA103S self-employment page, and Pro adds the 6 April to 5 April tax year. Shops in other countries get plain categories. See Etsy income on UK Self Assessment."}},
+  {"@type":"Question","name":"Is this tax advice?","acceptedAnswer":{"@type":"Answer","text":"No. It totals your own Etsy records and shows where these amounts usually go. Your situation may differ, for example with inventory, VAT registration or more than one business, so check the figures with your accountant or tax software."}}
+ ]}
+]}
+</script>
+</head>
+<body style="--accent:#5b2d56">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a href="/tumbler-template/" class="hide-sm">Tumbler templates</a>
+      <a href="/name-cut-files/" class="hide-sm">Name cut files</a>
+      <a href="/kdp-coloring-book/" class="hide-sm">KDP coloring books</a>
+      <a href="/sewing-pattern-printer/" class="hide-sm">Sewing pattern printer</a>
+      <a href="/quilt-label-maker/" class="hide-sm">Quilt labels</a>
+      <a href="/etsy-tax-summary/" aria-current="page">Etsy tax summary</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li aria-current="page">Etsy tax summary</li></ol></nav>
+
+  <section class="tool-hero etx-hero">
+    <div>
+      <p class="eyebrow">Etsy statements, totalled for tax</p>
+      <h1>Etsy tax summary from your <em>monthly statement</em> CSVs</h1>
+    </div>
+    <div>
+      <p class="lede">Drop in the year’s statement files from Etsy. You get sales, refunds, every fee, ads, shipping labels and deposits for the tax year, month by month, with the sales tax Etsy collected taken out and shown on its own.</p>
+      <ul class="facts">
+        <li>Free, no account</li>
+        <li>Files are read in your browser, never uploaded</li>
+        <li>US Schedule C and UK Self Assessment</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="etx" id="tool" aria-label="Etsy tax summary tool" data-state="empty">
+    <!-- Before any file -->
+    <div class="etx-empty" id="empty">
+      <div class="etx-drop drop" id="drop" tabindex="0" role="button" aria-describedby="drop-help">
+        <svg class="etx-drop-art" width="64" height="56" viewBox="0 0 64 56" aria-hidden="true">
+          <rect x="14" y="4" width="34" height="42" rx="3" fill="var(--card)" stroke="currentColor" stroke-width="1.3" opacity=".45"/>
+          <rect x="8" y="9" width="34" height="42" rx="3" fill="var(--card)" stroke="currentColor" stroke-width="1.3"/>
+          <path d="M14 19h22M14 25h22M14 31h22M14 37h14" stroke="currentColor" stroke-width="1.2" opacity=".5"/>
+          <path d="M25 17v28M33 17v28" stroke="currentColor" stroke-width="1" opacity=".25"/>
+          <circle cx="47" cy="41" r="10" fill="var(--accent)"/>
+          <path d="M47 36v10M42 41h10" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <strong>Drop your Etsy CSV files here</strong>
+        <span id="drop-help" class="small muted">Monthly statements for the year, as many as you have. Sold Orders, Sold Order Items and Etsy Payments sales CSVs are optional.</span>
+        <span class="btn btn-primary btn-sm" aria-hidden="true">Choose files</span>
+        <input type="file" id="file" accept=".csv,.tsv,text/csv,text/tab-separated-values" multiple tabindex="-1" aria-hidden="true">
+      </div>
+      <div class="etx-how">
+        <h2 class="group-title">Where Etsy keeps the files</h2>
+        <ol class="steps etx-steps">
+          <li><span>In <strong>Shop Manager</strong>, open <strong>Finances</strong>, then <strong>Monthly statements</strong>.</span></li>
+          <li><span>Select <strong>View all monthly statements</strong>, choose the year and month, then <strong>Generate CSV</strong>.</span></li>
+          <li><span>Etsy emails you when the file is ready. Download it, then repeat for each month of the year.</span></li>
+          <li><span>Optional: <strong>Settings</strong>, <strong>Options</strong>, <strong>Download Data</strong>. Pick the <strong>Sold Orders</strong> CSV type and the year, with no month, to see how much of your sales was shipping.</span></li>
+        </ol>
+        <p class="etx-sample">No files at hand? <button type="button" class="linklike" id="sample">Load a sample year</button> from a made-up shop.</p>
+      </div>
+    </div>
+
+    <!-- After files are read -->
+    <div class="etx-ready" id="ready" hidden>
+      <div class="etx-bar" role="group" aria-label="Summary settings">
+        <label class="field etx-f-period"><span>Tax year</span><select class="select" id="period"></select></label>
+        <div class="field etx-f-region"><span id="region-l">Forms</span>
+          <div class="seg" id="region" role="group" aria-labelledby="region-l">
+            <button type="button" data-value="us" aria-pressed="false">US</button>
+            <button type="button" data-value="uk" aria-pressed="false">UK</button>
+            <button type="button" data-value="other" aria-pressed="false">Other</button>
+          </div>
+        </div>
+        <label class="field etx-f-currency" id="currency-f"><span>Shop currency</span><select class="select" id="currency"></select></label>
+        <label class="field etx-f-shop" id="shop-f" hidden><span>Shop</span><select class="select" id="shop"></select></label>
+        <div class="etx-bar-actions">
+          <button type="button" class="btn btn-sm" id="add-files">Add files</button>
+          <button type="button" class="btn btn-sm" id="add-shop">Add a shop <span class="pro-tag">Pro</span></button>
+          <button type="button" class="btn btn-sm etx-quiet" id="reset">Start over</button>
+          <input type="file" id="file2" accept=".csv,.tsv,text/csv,text/tab-separated-values" multiple hidden>
+        </div>
+        <label class="check etx-march" id="march-f" hidden><input type="checkbox" id="march"><span>End on 31 March <span class="small muted">(HMRC treats it as the tax year end)</span></span></label>
+      </div>
+      <p class="etx-sample-note" id="sample-note" hidden>You are looking at a made-up shop. <button type="button" class="linklike" id="sample-clear">Clear it</button> and drop your own files.</p>
+
+      <div class="etx-main">
+        <article class="ledger" aria-labelledby="ledger-h">
+          <header class="ledger-head">
+            <div>
+              <p class="eyebrow" id="ledger-sub"></p>
+              <h2 id="ledger-h">Summary</h2>
+            </div>
+            <dl class="ledger-key" id="ledger-key"></dl>
+          </header>
+          <div class="ledger-body">
+            <table class="ledger-table" id="ledger"></table>
+          </div>
+          <div class="ledger-memo" id="memo"></div>
+        </article>
+
+        <aside class="etx-side" aria-label="Checks and exports">
+          <section class="side-block" aria-labelledby="checks-h">
+            <h3 id="checks-h">Checks</h3>
+            <ul class="checks" id="checks"></ul>
+          </section>
+          <section class="side-block" id="k1099" aria-labelledby="k1099-h" hidden>
+            <h3 id="k1099-h">Form 1099-K</h3>
+            <div id="k1099-body"></div>
+          </section>
+          <section class="side-block side-export" aria-labelledby="export-h">
+            <h3 id="export-h">For your accountant <span class="pro-tag">Pro</span></h3>
+            <div class="export-btns">
+              <button type="button" class="btn btn-primary" id="x-pdf">Download the PDF report</button>
+              <div class="export-row">
+                <button type="button" class="btn btn-sm" id="x-csv">Export CSV</button>
+                <button type="button" class="btn btn-sm" id="x-xlsx">Export XLSX</button>
+              </div>
+            </div>
+            <p class="hint" id="export-note">Summary, form lines, month table, checks and every row with its category.</p>
+          </section>
+        </aside>
+      </div>
+
+      <section class="etx-block" aria-labelledby="months-h">
+        <div class="etx-block-head">
+          <h3 id="months-h">Month by month</h3>
+          <p class="hint" id="months-note"></p>
+        </div>
+        <div class="table-wrap etx-months-wrap" tabindex="0" role="region" aria-labelledby="months-h"><table class="etx-months" id="months"></table></div>
+      </section>
+
+      <div class="etx-two">
+        <section class="etx-block" aria-labelledby="map-h">
+          <div class="etx-block-head">
+            <h3 id="map-h">Where these usually go</h3>
+            <p class="hint" id="map-note"></p>
+          </div>
+          <div class="etx-map" id="map"></div>
+        </section>
+        <section class="etx-block" aria-labelledby="files-h">
+          <div class="etx-block-head">
+            <h3 id="files-h">Files</h3>
+            <p class="hint" id="files-note"></p>
+          </div>
+          <label class="field etx-shopname" id="shopname-f" hidden><span>Shop name</span><input class="input" id="shopname" maxlength="60" autocomplete="off"></label>
+          <ul class="etx-files" id="files"></ul>
+        </section>
+      </div>
+
+      <section class="etx-block etx-costs" id="costs" aria-labelledby="costs-h">
+        <div class="etx-block-head">
+          <h3 id="costs-h">Materials, supplies and mileage <span class="pro-tag">Pro</span></h3>
+          <p class="hint" id="costs-note">Costs that aren’t in Etsy’s files. Add them here for an estimated profit and the right form lines. Saved in this browser only.</p>
+        </div>
+        <form class="cost-form" id="cost-form" novalidate>
+          <label class="field"><span>Date</span><input class="input" type="date" id="c-date" required></label>
+          <label class="field"><span>Kind</span>
+            <select class="select" id="c-kind">
+              <option value="materials">Materials</option>
+              <option value="supplies">Packaging and supplies</option>
+              <option value="mileage">Mileage</option>
+              <option value="other">Other expense</option>
+            </select>
+          </label>
+          <label class="field cost-desc"><span>Description</span><input class="input" id="c-desc" maxlength="80" autocomplete="off" placeholder="Clay, 25 lb"></label>
+          <label class="field" id="c-amount-f"><span id="c-amount-l">Amount</span><input class="input" id="c-amount" inputmode="decimal" autocomplete="off" placeholder="0.00"></label>
+          <button type="submit" class="btn btn-ink" id="c-add">Add</button>
+        </form>
+        <p class="warn" id="cost-err" role="alert" hidden></p>
+        <div class="table-wrap" id="cost-wrap" hidden><table class="cost-table" id="cost-table"></table></div>
+        <div class="cost-lock" id="cost-lock">
+          <p>Part of Pro: add materials, packaging, other costs and business miles. Miles use the IRS standard rate for the date (US) or HMRC’s flat rate (UK).</p>
+          <button type="button" class="btn btn-sm" data-enter-key>Enter license key</button>
+        </div>
+      </section>
+
+      <details class="etx-details" id="other-d" hidden>
+        <summary>What’s in “Other Etsy fees and credits”</summary>
+        <div class="table-wrap"><table id="other-t"></table></div>
+      </details>
+      <details class="etx-details" id="review-d" hidden>
+        <summary id="review-s">Rows to review</summary>
+        <p class="hint">These rows have a Type the summary doesn’t sort on its own, so they are kept out of the totals. Ask your accountant where they belong.</p>
+        <div class="table-wrap"><table id="review-t"></table></div>
+      </details>
+    </div>
+    <p class="sr-only" id="status" aria-live="polite"></p>
+  </section>
+
+  <p class="etx-privacy small muted">Files are read by JavaScript on this page. Nothing is uploaded, and nothing is kept after you close the tab, except costs you add with Pro, which stay in this browser.</p>
+
+  <section class="section two-col">
+    <div class="prose">
+      <h2>What each number means</h2>
+      <p><strong>Sales</strong> are the “Payment for Order” rows: everything the buyer paid, including shipping, after discounts. Etsy adds any sales tax or VAT it collects to that row and takes it back out on a “Sales tax paid by buyer” row, so the summary subtracts it and shows it under <strong>tax Etsy collected</strong>. That tax was never yours: Etsy collects and pays it over as the marketplace.</p>
+      <p><strong>Refunds</strong> are the refund rows less the tax returned with them. The fee credits Etsy gives back on a refund are netted into each fee line.</p>
+      <p><strong>Etsy fees</strong> are the Fee rows: listing and renewal, transaction (on items and on shipping), payment processing, regulatory operating fees where they apply, subscriptions, and any tax or VAT Etsy charged on its fees. <strong>Ads</strong> are Etsy Ads and Offsite Ads. <strong>Labels</strong> are shipping labels bought through Etsy.</p>
+    </div>
+    <div class="prose">
+      <h2>Why deposits are different</h2>
+      <p>Your bank deposits are what was available after fees, refunds and taxes, paid out on your deposit schedule. Etsy points out that deposits won’t match net profit for that reason. The summary shows the net from Etsy activity, the deposits sent to your bank in the period, and what stayed in your Etsy balance.</p>
+      <p>Etsy’s <strong>1099-K</strong> is different again: it reports gross sales before refunds, fees or shipping costs, without the sales tax Etsy collected. From the 2025 calendar year Etsy files one only above $20,000 <em>and</em> more than 200 sales, so most small shops get none and total the year themselves. More in <a href="/etsy-tax-summary/without-1099-k/">filing Etsy income without a 1099-K</a>.</p>
+      <p class="source">Sources: Etsy Help, <a href="https://help.etsy.com/hc/en-us/articles/360016389293" rel="noopener">How Is the Total on My 1099-K Calculated?</a>, <a href="https://help.etsy.com/hc/en-us/articles/360000343968" rel="noopener">How US State Sales Tax and Fees Applies to Etsy Orders</a> and <a href="https://help.etsy.com/hc/en-us/articles/360016389113" rel="noopener">How to Calculate Your Etsy Payments Deposit Amount</a>; IRS, <a href="https://www.irs.gov/newsroom/form-1099-k-faqs-general-information" rel="noopener">Form 1099-K FAQs</a>. Last checked 8 October 2026.</p>
+    </div>
+  </section>
+
+  <section class="section" id="pro">
+    <div class="pro">
+      <div class="pro-left">
+        <p class="eyebrow">Pro</p>
+        <h2>The year, ready to hand to your <em>accountant</em></h2>
+        <ul class="pro-list">
+          <li>A PDF report: summary, Schedule C lines or SA103S boxes, the month table, the checks and the list of source files</li>
+          <li>Every statement row with its category and form line, as CSV and XLSX</li>
+          <li>Several shops: each on its own or combined in one report</li>
+          <li>The UK tax year, 6 April to 5 April (or to 31 March)</li>
+          <li>A list for materials, packaging and business miles, priced at the IRS or HMRC rate for the date, for an estimated profit</li>
+        </ul>
+      </div>
+      <div class="pro-right">
+        <p class="price">$19 <small>one-time, no subscription</small></p>
+        <a class="btn btn-primary" data-buy-pro href="https://dorukctn.gumroad.com/l/etsy-tax-summary-pro">Buy Pro on Gumroad</a>
+        <button type="button" class="btn" data-enter-key style="background:transparent;color:var(--paper);border-color:color-mix(in oklab, var(--paper) 40%, transparent)">Enter license key</button>
+        <p class="fine">Gumroad handles payment and refunds. Your key turns on Pro in this browser; enter it again on another computer. The free summary stays free.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <h2>Questions</h2>
+    <div class="faq">
+      <details><summary>Are my files uploaded anywhere?</summary><div class="answer"><p>No. The CSV files are read by JavaScript in this page, on your computer. Nothing is sent to a server, and closing the tab discards them. If you buy Pro, only the license key is sent to Gumroad to check it.</p></div></details>
+      <details><summary>Do I need all twelve monthly statements?</summary><div class="answer"><p>For a full year, yes: each statement covers one calendar month. The summary names any month that has no rows. For a UK tax year you also need the April statement of the following year, because the year ends on 5 April.</p></div></details>
+      <details><summary>Why doesn’t my total match my 1099-K or my deposits?</summary><div class="answer"><p>Etsy’s 1099-K reports gross sales: what buyers paid before refunds, fees or shipping costs, without the sales tax Etsy collected. Deposits are what was left after fees, refunds and taxes, paid out on your deposit schedule. The summary shows each of these and how they connect. If you add the Etsy Payments sales CSV, it also shows the total of its Gross column, which Etsy says is the 1099-K figure.</p></div></details>
+      <details><summary>Is the sales tax Etsy collected part of my income?</summary><div class="answer"><p>Etsy collects and remits US sales tax as the marketplace in states with marketplace facilitator laws, and VAT on some orders. The statement adds it to the sale and takes it back out on a Tax row. The summary leaves it out of sales and shows it on its own line. Etsy says these amounts are not on the 1099-K.</p></div></details>
+      <details><summary>Where do Etsy fees go on Schedule C?</summary><div class="answer"><p>Common practice is listing, transaction, processing and regulatory fees on line 10 (commissions and fees), Etsy Ads and Offsite Ads on line 8 (advertising) and Etsy shipping labels on line 18 (office expense, which the IRS instructions say includes postage). Your tax preparer may group them differently. The <a href="/etsy-tax-summary/schedule-c-lines/">Schedule C guide</a> goes line by line.</p></div></details>
+      <details><summary>Does it work for UK shops and other currencies?</summary><div class="answer"><p>Yes. The statement layout is the same in every currency. The UK view maps the totals to the boxes of the SA103S self-employment page, and Pro adds the 6 April to 5 April tax year. Shops in other countries get plain categories. See <a href="/etsy-tax-summary/uk-self-assessment/">Etsy income on UK Self Assessment</a>.</p></div></details>
+      <details><summary>Is this tax advice?</summary><div class="answer"><p>No. It totals your own Etsy records and shows where these amounts usually go. Your situation may differ, for example with inventory, VAT registration or more than one business, so check the figures with your accountant or tax software.</p></div></details>
+    </div>
+  </section>
+
+  <section class="section" id="guides">
+    <h2>Etsy tax guides</h2>
+    <nav class="related" aria-label="Guides">
+      <a href="/etsy-tax-summary/without-1099-k/"><strong>Filing without a 1099-K</strong><span>The 2026 threshold and how to total the year yourself.</span></a>
+      <a href="/etsy-tax-summary/monthly-statement-csv/"><strong>The monthly statement CSV</strong><span>Every column and row type, explained.</span></a>
+      <a href="/etsy-tax-summary/schedule-c-lines/"><strong>Etsy fees on Schedule C</strong><span>Which line each fee, ad and label usually goes on.</span></a>
+      <a href="/etsy-tax-summary/uk-self-assessment/"><strong>Etsy on UK Self Assessment</strong><span>Turnover, fees and the SA103S boxes for 2025 to 2026.</span></a>
+      <a href="/tools/"><strong>All Peak Apps tools</strong><span>Tumbler templates, KDP interiors, sewing patterns.</span></a>
+    </nav>
+    <p class="source etx-legal">Not tax advice: the summary totals your own records; check them with your accountant. Not affiliated with or endorsed by Etsy, Inc. Etsy is a trademark of Etsy, Inc.; we name it only to say which files the tool reads.</p>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools for makers and independent publishers. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a> · <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
+        <li><a href="/name-cut-files/">Name Cut Files</a></li>
+        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
+        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
+        <li><a href="/quilt-label-maker/">Quilt Label Maker</a></li>
+        <li><a href="/etsy-tax-summary/">Etsy Tax Summary</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/site.js" defer></script>
+<script src="/assets/license.js" defer></script>
+<script src="/etsy-tax-summary/etsytax.js" defer></script>
+<script src="/etsy-tax-summary/report.js" defer></script>
+<script src="/etsy-tax-summary/tool.js" defer></script>
+</body>
+</html>
