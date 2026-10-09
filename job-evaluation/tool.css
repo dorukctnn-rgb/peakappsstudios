@@ -1,4 +1,12 @@
 /* Job Evaluation: tool-specific styles. The shared system lives in /assets/tools.css. Accent: moss #4a5d23. */
+
+/* The headline's italic (Instrument Serif) can arrive after the first paint. Until it does, the browser draws a local
+   italic; these faces scale Georgia and Times New Roman to Instrument Serif's width and line metrics, so the headline
+   keeps its line breaks and height when the web font swaps in (no layout shift). The pages also preload the font. */
+@font-face { font-family: "Instrument Serif Fallback"; src: local("Georgia Italic"), local("Georgia-Italic"); font-style: italic; font-weight: 400; size-adjust: 80.5%; ascent-override: 123%; descent-override: 38.5%; line-gap-override: 0%; }
+@font-face { font-family: "Instrument Serif Fallback Times"; src: local("Times New Roman Italic"), local("TimesNewRomanPS-ItalicMT"); font-style: italic; font-weight: 400; size-adjust: 91%; ascent-override: 108.8%; descent-override: 34.1%; line-gap-override: 0%; }
+:root { --serif: "Instrument Serif", "Instrument Serif Fallback", "Instrument Serif Fallback Times", "Iowan Old Style", Georgia, serif; }
+
 body { --accent-text: var(--accent); --accent-soft: color-mix(in oklab, var(--accent) 9%, var(--paper)); --women: var(--accent); --men: #8b8f98; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) body { --accent-text: #b5c983; --women: #95ad5a; --men: #737883; } }
 :root[data-theme="dark"] body { --accent-text: #b5c983; --women: #95ad5a; --men: #737883; }
