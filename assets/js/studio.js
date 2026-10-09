@@ -10,7 +10,8 @@
   const nav = document.querySelector('[data-nav]');
   const onNav = () => nav && nav.setAttribute('data-scrolled', scrollY > 24 ? 'true' : 'false');
   addEventListener('scroll', onNav, { passive: true });
-  onNav();
+  /* Reading scrollY forces layout; in the first frame it reuses the layout that frame needs anyway. */
+  requestAnimationFrame(onNav);
 
   /* Masked image reveals. */
   const reveals = document.querySelectorAll('.reveal-img');
