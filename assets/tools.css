@@ -67,7 +67,9 @@ a:hover { color: var(--accent); }
 .head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
 .head-nav a:hover { background: var(--paper-2); color: var(--ink); }
 .head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
-@media (max-width: 1560px) { .head-nav .hide-sm { display: none; } }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
 @media (max-width: 640px) { .brand-sub { display: none; } }
 @media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
 
