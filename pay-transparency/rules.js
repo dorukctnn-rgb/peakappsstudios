@@ -34,6 +34,7 @@
     it_dlgs: { label: 'Normattiva, Legislative Decree No. 96 of 7 May 2026', url: 'https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2026-05-07;96' },
     gr_law: { label: 'Law 5316/2026, Government Gazette A’ 105 (EUR-Lex copy)', url: 'https://eur-lex.europa.eu/legal-content/EL/TXT/PDF/?uri=NIM:202605866' },
     sk_act: { label: 'Act No. 76/2026 Coll. (EUR-Lex copy)', url: 'https://eur-lex.europa.eu/legal-content/SK/TXT/PDF/?uri=NIM:202603903' },
+    lt_tar: { label: 'Register of Legal Acts (e-TAR), Law No. XV-969', url: 'https://www.e-tar.lt/portal/lt/legalAct/2ab448a0584211f180c9c618618421ed' },
   };
 
   // ---------- Statutory regimes: a right to pay information that national law has put in force ----------
@@ -153,7 +154,7 @@
     { code: 'LV', names: { en: 'Latvia', de: 'Lettland', nl: 'Letland' }, status: 'unknown',
       table: { transposed: 'Not confirmed', act: 'No measures notified on EUR-Lex.', applies: 'Not confirmed' }, sources: ['nim'] },
     { code: 'LT', names: { en: 'Lithuania', de: 'Litauen', nl: 'Litouwen' }, status: 'unknown',
-      table: { transposed: 'Not confirmed', act: 'Labour Code amendment No. XV-969 (Register of Legal Acts, 25 May 2026) is among the notified measures. We could not open the official text to check it.', applies: 'Not confirmed' }, sources: ['nim'] },
+      table: { transposed: 'Not confirmed', act: 'Labour Code amendment No. XV-969 of 21 May 2026 (Register of Legal Acts 2026-08785), in force from 7 June 2026, with some articles from 26 May 2026 and 1 January 2027. Its text is published as a scan, so we could not check which provision gives the right to information.', applies: 'Not confirmed' }, sources: ['lt_tar', 'nim'] },
     { code: 'LU', names: { en: 'Luxembourg', de: 'Luxemburg', nl: 'Luxemburg' }, status: 'unknown',
       table: { transposed: 'Not confirmed', act: 'No measures notified on EUR-Lex.', applies: 'Not confirmed' }, sources: ['nim'] },
     { code: 'MT', names: { en: 'Malta', de: 'Malta', nl: 'Malta' }, status: 'yes',
