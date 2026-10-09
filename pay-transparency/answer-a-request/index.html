@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Answer a Pay Information Request (Article 7) From Payroll</title>
+<meta name="description" content="Work out a worker's pay level and the average pay of women and men in their category from a payroll export, with the answer letter and due date. In your browser.">
+<link rel="canonical" href="https://peakappsstudio.com/pay-transparency/answer-a-request/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Answer a pay information request from your payroll">
+<meta property="og:description" content="The figures for an Article 7 answer, worked out from your payroll export in the browser, with the letter in English, German or Dutch and the date it is due.">
+<meta property="og:url" content="https://peakappsstudio.com/pay-transparency/answer-a-request/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="stylesheet" href="/pay-transparency/tool.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","@id":"https://peakappsstudio.com/pay-transparency/answer-a-request/#app","name":"Pay information request answer tool","url":"https://peakappsstudio.com/pay-transparency/answer-a-request/","description":"Reads a payroll export (CSV or XLSX) in the browser and works out what an employer gives a worker who asks for pay information under Article 7 of Directive (EU) 2023/970 or the national rule in force: the worker's pay level and the average pay levels of women and men in their category of workers, with checks for averages that would disclose a colleague's pay, the answer letter in English, German or Dutch, the answer-by date and a request log.","applicationCategory":"BusinessApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD","description":"Load a payroll file, check the data, see the categories and headcounts by sex, and preview the start of the answer letter with the figures hidden."},{"@type":"Offer","name":"Pro (one-time, per organisation)","price":"99","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/pay-transparency-kit-pro","description":"The figures, the full answer letters in English, German and Dutch as PDF and text, the request log, the yearly notice to all workers and the pay criteria template."}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Pay transparency","item":"https://peakappsstudio.com/pay-transparency/"},{"@type":"ListItem","position":3,"name":"Answer a request","item":"https://peakappsstudio.com/pay-transparency/answer-a-request/"}]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Is the payroll file uploaded anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. The file is read by JavaScript in this page, on your computer, and the figures are worked out there. Nothing about the file is sent to a server. If you buy Pro, only the licence key is sent to Gumroad to check it."}},
+  {"@type":"Question","name":"Which averages does the answer give?","acceptedAnswer":{"@type":"Answer","text":"By default the directive's own definition of pay level: gross annual pay and the corresponding gross hourly pay (Article 3(1)(b)), each as the mean for the women and for the men in the worker's category. You can give annual pay only or hourly pay only, and show annual pay as paid or converted to full time. The letter says which you chose."}},
+  {"@type":"Question","name":"How is part-time work handled?","acceptedAnswer":{"@type":"Answer","text":"Hourly pay divides annual pay by the hours paid, so part-time work does not lower it. Annual pay is shown as paid unless you choose full-time equivalent, which divides it by the FTE from your file, or by hours against the full-time week you set."}},
+  {"@type":"Question","name":"What if a category has only one or two people of one sex?","acceptedAnswer":{"@type":"Answer","text":"The tool flags it. An average over one person is that person's pay, and in a group of two that includes the worker who asked, the worker can work out the other person's pay. The directive lets countries route such figures only to workers' representatives, the labour inspectorate or the equality body (Article 12(3)); it sets no minimum group size. You decide whether to leave the figure out, and the letter says so."}},
+  {"@type":"Question","name":"Does it handle Germany's Entgelttransparenzgesetz?","acceptedAnswer":{"@type":"Answer","text":"Yes. For establishments with more than 200 employees it works out the comparison pay of § 11(3): the median of the average monthly gross pay of the other sex in the comparison activity, converted to full time, and leaves it out where fewer than six of them do that work (§ 12(3)). The answer is due within three months under § 15(3)."}},
+  {"@type":"Question","name":"What does Pro include?","acceptedAnswer":{"@type":"Answer","text":"For $99, once, per organisation: the figures, the full answer letters in English, German and Dutch as PDF and text, a request log you can keep adding to, the yearly notice to all workers in three languages and the pay criteria template."}}
+ ]}
+]}
+</script>
+</head>
+<body style="--accent:#7d5a12">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a href="/tumbler-template/" class="hide-sm">Tumbler templates</a>
+      <a href="/name-cut-files/" class="hide-sm">Name cut files</a>
+      <a href="/kdp-coloring-book/" class="hide-sm">KDP coloring books</a>
+      <a href="/sewing-pattern-printer/" class="hide-sm">Sewing pattern printer</a>
+      <a href="/quilt-label-maker/" class="hide-sm">Quilt labels</a>
+      <a href="/etsy-tax-summary/" class="hide-sm">Etsy tax summary</a>
+      <a href="/pay-gap-report/" class="hide-sm">Pay gap report</a>
+      <a href="/pay-transparency/" aria-current="page">Pay transparency</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/pay-transparency/">Pay transparency</a></li><li aria-current="page">Answer a request</li></ol></nav>
+
+  <section class="tool-hero pt-hero">
+    <div>
+      <p class="eyebrow">For employers, Article 7 of Directive (EU) 2023/970</p>
+      <h1>Answer a pay information request from your <em>payroll</em></h1>
+    </div>
+    <div>
+      <p class="lede">A worker asked for their pay level and the average pay of women and men doing the same work. Drop the payroll export, pick the worker, and get the figures, the answer letter in English, German or Dutch, and the date it is due.</p>
+      <ul class="facts">
+        <li>The payroll file stays in your browser</li>
+        <li>The national rule in force, or the directive</li>
+        <li>Rules checked on 8 October 2026</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="pt-emp" id="tool" aria-label="Answer tool" data-state="empty">
+    <div class="pt-empty" id="empty">
+      <div class="drop pt-drop" id="drop" tabindex="0" role="button" aria-describedby="drop-help">
+        <svg width="72" height="56" viewBox="0 0 72 56" aria-hidden="true" style="color:var(--ink-2)">
+          <rect x="6" y="6" width="44" height="44" rx="3" fill="var(--card)" stroke="currentColor" stroke-width="1.3"/>
+          <path d="M6 16h44M6 26h44M6 36h44M20 6v44M33 6v44" stroke="currentColor" stroke-width="1" opacity=".35"/>
+          <rect x="38" y="30" width="22" height="20" rx="2" fill="var(--paper)" stroke="var(--accent)" stroke-width="1.4"/>
+          <path d="M42 36h14M42 40h14M42 44h9" stroke="var(--accent)" stroke-width="1.2"/>
+        </svg>
+        <strong>Drop the payroll export here</strong>
+        <span id="drop-help" class="small muted">A CSV or XLSX file with one row per worker: sex, category, pay for the year and hours.</span>
+        <span class="btn btn-primary btn-sm" aria-hidden="true">Choose a file</span>
+        <input type="file" id="file" accept=".csv,.tsv,.txt,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" tabindex="-1" aria-hidden="true">
+      </div>
+      <div class="pt-how">
+        <h2 class="group-title">What the file needs</h2>
+        <ol class="steps">
+          <li><span>One row per worker, with their sex and their category of workers: the group doing the same work or work of equal value.</span></li>
+          <li><span>Basic pay and complementary or variable pay for the year, and the hours paid or weekly hours. A gross hourly rate also works.</span></li>
+          <li><span>If you have them: a full-time equivalent column, the job title and the name, for the letter.</span></li>
+        </ol>
+        <p class="pt-private"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="2.5" y="6" width="9" height="6.5" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4.5 6V4.5a2.5 2.5 0 0 1 5 0V6" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>The file is read by this page on your computer. It is not uploaded, and nothing about its contents is sent anywhere.</span></p>
+        <div class="pt-start">
+          <a class="btn btn-sm" href="/pay-gap-report/pay-gap-template.csv" download>Download a CSV template</a>
+          <button type="button" class="btn btn-sm btn-ink" id="sample">Load a sample company</button>
+        </div>
+        <p class="hint">The template and the sample come from the <a href="/pay-gap-report/">Pay Gap Report</a>: the same file answers both. The sample is a synthetic company of 180 made-up employees in eight categories.</p>
+      </div>
+    </div>
+
+    <div id="ready" hidden>
+      <div class="pt-filebar">
+        <div class="pt-file"><span class="pt-file-name" id="file-name"></span><span class="pt-file-meta" id="file-meta"></span></div>
+        <div class="pt-start">
+          <button type="button" class="btn btn-sm" id="replace">Choose another file</button>
+          <button type="button" class="btn btn-sm pt-quiet" id="reset">Start over</button>
+          <input type="file" id="file2" accept=".csv,.tsv,.txt,.xlsx" hidden>
+        </div>
+      </div>
+      <p class="pt-sample-note" id="sample-note" hidden>Synthetic data: the Pay Gap Report's made-up company of 180 employees, so you can see every step work. <button type="button" class="linklike" id="sample-clear">Clear it</button> and drop your own file.</p>
+
+      <section class="pt-step" aria-labelledby="map-h">
+        <div class="pt-step-head"><span class="pt-step-n">1</span><div><h2 id="map-h">Match the columns</h2><p class="hint">Matched from the header row. Change any that are wrong.</p></div></div>
+        <div class="pt-map">
+          <div class="table-wrap pt-map-wrap"><table class="pt-map-table"><caption class="sr-only">Columns in your file</caption><thead><tr><th scope="col">What the answer needs</th><th scope="col">Column in your file</th><th scope="col" class="pt-map-ex">First value</th></tr></thead><tbody id="map-body"></tbody></table></div>
+          <div class="pt-basis" id="basis">
+            <label class="field"><span>The hours column holds</span><select class="select" id="hours-mode"><option value="total">Hours paid in the year</option><option value="weekly">Weekly hours, times 52.18</option></select></label>
+            <label class="field"><span>A full-time week, in hours</span><input class="input" type="number" id="ft-week" min="1" max="60" step="0.5" value="40"></label>
+            <p class="hint" id="basis-hint">Used for the full-time equivalent when the file has no FTE column: hours paid divided by a full-time year of this many hours a week.</p>
+          </div>
+        </div>
+        <p class="warn" id="map-warn" role="alert" hidden></p>
+      </section>
+
+      <section class="pt-step" id="checks-step" aria-labelledby="checks-h">
+        <div class="pt-step-head"><span class="pt-step-n">2</span><div><h2 id="checks-h">Check the data</h2><p class="hint">The Pay Gap Report's checks, before any figure: what the file holds and what is left out of the averages.</p></div></div>
+        <ul class="pt-checklist" id="checks"></ul>
+      </section>
+
+      <section class="pt-step" id="cats-step" aria-labelledby="cats-h">
+        <div class="pt-step-head"><span class="pt-step-n">3</span><div><h2 id="cats-h">Categories of workers</h2><p class="hint">Each category is a group doing the same work or work of equal value (Article 3(1)(h)). Headcounts by sex, free.</p></div></div>
+        <div class="table-wrap"><table class="pt-cats" id="cats"></table></div>
+        <p class="hint" id="cats-note"></p>
+      </section>
+
+      <section class="pt-step" id="req-step" aria-labelledby="req-h">
+        <div class="pt-step-head"><span class="pt-step-n">4</span><div><h2 id="req-h">The request</h2><p class="hint">Who asked, when, and under which rule.</p></div></div>
+        <div class="pt-req" id="req">
+          <label class="field"><span>Country of employment</span><select class="select" id="country"></select></label>
+          <label class="field" id="de-basis-f" hidden><span>Germany: answer under</span><select class="select" id="de-basis"><option value="entg">§ 10 EntgTranspG (more than 200 employees)</option><option value="art7">The directive's Article 7 (voluntary for now)</option></select></label>
+          <label class="field" id="be-sector-f" hidden><span>Belgium: employer</span><select class="select" id="be-sector"><option value="vl-public">Flemish administration, local authority or education</option><option value="other">Another employer</option></select></label>
+          <label class="field field-2"><span>Worker who asked</span><select class="select" id="worker"></select></label>
+          <label class="field" id="cmp-f" hidden><span>Comparison activity they named</span><select class="select" id="cmp"></select></label>
+          <label class="field"><span>Request received on</span><input class="input" type="date" id="received"></label>
+          <label class="field"><span>Pay data for the year</span><input class="input" type="number" id="year" min="2000" max="2100" step="1"></label>
+          <label class="field"><span>Currency</span><select class="select" id="currency"><option value="EUR">EUR</option><option value="BGN">BGN</option><option value="CZK">CZK</option><option value="DKK">DKK</option><option value="HUF">HUF</option><option value="PLN">PLN</option><option value="RON">RON</option><option value="SEK">SEK</option></select></label>
+          <label class="field"><span>Letter language</span><select class="select" id="lang"><option value="en">English</option><option value="de">Deutsch</option><option value="nl">Nederlands</option></select></label>
+          <label class="field" id="basis-f"><span>Pay levels to give</span><select class="select" id="pay-basis"><option value="both">Annual and hourly</option><option value="annual">Annual only</option><option value="hourly">Hourly only</option></select></label>
+          <label class="field" id="pt-f"><span>Annual pay of part-timers</span><select class="select" id="parttime"><option value="paid">As paid</option><option value="fte">Full-time equivalent</option></select></label>
+          <label class="field"><span>Worker's name, for the letter</span><input class="input" id="worker-name" maxlength="80"></label>
+          <label class="field"><span>Employer name</span><input class="input" id="employer" maxlength="90" autocomplete="organization"></label>
+          <label class="field"><span>Signed by</span><input class="input" id="signatory" maxlength="80"></label>
+          <label class="field"><span>Their job title</span><input class="input" id="signatory-title" maxlength="80"></label>
+          <label class="field field-wide"><span>Where workers can read the pay criteria, optional</span><input class="input" id="criteria-where" maxlength="160" placeholder="the pay policy on the intranet"></label>
+          <p class="pt-dates" id="dates"></p>
+        </div>
+      </section>
+
+      <section class="pt-step" id="ans-step" aria-labelledby="ans-h">
+        <div class="pt-step-head"><span class="pt-step-n">5</span><div><h2 id="ans-h">The answer</h2><p class="hint" id="ans-sub"></p></div></div>
+        <div class="pt-figs" id="figs"></div>
+        <div id="disclosure"></div>
+        <p class="pt-note" id="method"></p>
+        <div class="pt-lock" id="lock">
+          <p><strong>The figures and the full letter are part of Pro.</strong> Pro is $99 once, per organisation, and adds the PDFs, the request log, the yearly notice and the criteria template. The categories, headcounts and checks above stay free.</p>
+          <div class="pt-lock-actions"><a class="btn btn-primary btn-sm" data-buy-pro href="https://dorukctn.gumroad.com/l/pay-transparency-kit-pro">Buy Pro on Gumroad</a><button type="button" class="btn btn-sm" data-enter-key>Enter licence key</button></div>
+        </div>
+        <div class="pt-out">
+          <article class="pt-paper" id="letter" aria-label="The answer letter"></article>
+          <div class="pt-out-btns" id="out-btns">
+            <button type="button" class="btn btn-primary" id="x-pdf">Download the answer (PDF)</button>
+            <button type="button" class="btn" id="x-txt">Download the answer (text)</button>
+            <h3>Request log</h3>
+            <p class="hint" id="log-note">Each answer you download is added to the log for this session.</p>
+            <button type="button" class="btn" id="x-log">Download the request log (CSV)</button>
+            <button type="button" class="btn pt-quiet" id="log-load">Continue an earlier log</button>
+            <input type="file" id="log-file" accept=".csv,text/csv" hidden>
+            <h3>For all workers</h3>
+            <label class="field"><span>Requests go to</span><input class="input" id="contact" maxlength="120" placeholder="hr@example.com"></label>
+            <button type="button" class="btn" id="x-notice">Yearly notice (PDF)</button>
+            <button type="button" class="btn" id="x-notice-txt">Yearly notice (text)</button>
+            <button type="button" class="btn" id="x-criteria">Pay criteria template (text)</button>
+          </div>
+        </div>
+      </section>
+    </div>
+    <p class="sr-only" id="status" aria-live="polite"></p>
+  </section>
+
+  <p class="small muted" style="margin:12px 2px 0">The file never leaves this page: it is read with JavaScript on your computer, there are no analytics here, and the letters and the log are built on the page. Close the tab and it is gone.</p>
+
+  <section class="section two-col" id="method-notes">
+    <div class="prose">
+      <h2>How the figures are worked out</h2>
+      <p><strong>Pay level.</strong> Gross annual pay is basic pay plus complementary or variable pay for the year; gross hourly pay is that divided by the hours paid (Article 3(1)(a) and (b)). Weekly hours are multiplied by 52.18, as in the Pay Gap Report.</p>
+      <p><strong>Averages.</strong> The mean for the women and for the men in the worker's category, over everyone the data checks keep: recorded as male or female, with pay and hours. The worker who asked is part of their own group.</p>
+      <p><strong>Part-time.</strong> Hourly pay is unaffected by hours worked. Annual pay can be shown as paid or converted to full time: divided by the FTE in your file, or by the hours paid over a full-time year.</p>
+    </div>
+    <div class="prose">
+      <h2>Groups of one or two</h2>
+      <p>The directive sets no minimum group size. It lets each country decide that, where an answer would disclose an identifiable worker's pay, only workers' representatives, the labour inspectorate or the equality body see it (Article 12(3)). Malta has used that option; Slovakia leaves out an average that would reveal another employee's pay; Germany's current law leaves out the comparison pay where fewer than six people of the other sex do the work.</p>
+      <p>The tool flags what follows from the arithmetic: a group of one is that person's pay, and a group of two that includes the worker who asked lets them work out the other's. It leaves those figures out of the letter unless you choose to include them.</p>
+    </div>
+  </section>
+
+  <section class="section" id="pro">
+    <div class="pro">
+      <div class="pro-left">
+        <p class="eyebrow">Pro</p>
+        <h2>Answer every request <em>on time</em></h2>
+        <ul class="pro-list">
+          <li>The worker's pay level and the averages for women and men in their category, annual and hourly</li>
+          <li>The answer letter in English, German or Dutch, as PDF and text, citing the rule in force</li>
+          <li>Germany: the comparison pay under § 11 EntgTranspG, with the six-person rule</li>
+          <li>A request log you download and add to, with every answer-by date</li>
+          <li>The yearly notice to all workers and a pay criteria template, in three languages</li>
+        </ul>
+      </div>
+      <div class="pro-right">
+        <p class="price">$99 <small>one-time, per organisation</small></p>
+        <a class="btn btn-primary" data-buy-pro href="https://dorukctn.gumroad.com/l/pay-transparency-kit-pro">Buy Pro on Gumroad</a>
+        <button type="button" class="btn" data-enter-key style="background:transparent;color:var(--paper);border-color:color-mix(in oklab, var(--paper) 40%, transparent)">Enter licence key</button>
+        <p class="fine">Gumroad handles payment and refunds. Your key turns on Pro in this browser, here and on the yearly notice page.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <h2>Questions</h2>
+    <div class="faq">
+      <details><summary>Is the payroll file uploaded anywhere?</summary><div class="answer"><p>No. The file is read by JavaScript in this page, on your computer, and the figures are worked out there. Nothing about the file is sent to a server. If you buy Pro, only the licence key is sent to Gumroad to check it.</p></div></details>
+      <details><summary>Which averages does the answer give?</summary><div class="answer"><p>By default the directive's own definition of pay level: gross annual pay and the corresponding gross hourly pay (Article 3(1)(b)), each as the mean for the women and for the men in the worker's category. You can give annual pay only or hourly pay only, and show annual pay as paid or converted to full time. The letter says which you chose.</p></div></details>
+      <details><summary>How is part-time work handled?</summary><div class="answer"><p>Hourly pay divides annual pay by the hours paid, so part-time work does not lower it. Annual pay is shown as paid unless you choose full-time equivalent, which divides it by the FTE from your file, or by hours against the full-time week you set.</p></div></details>
+      <details><summary>What if a category has only one or two people of one sex?</summary><div class="answer"><p>The tool flags it. An average over one person is that person's pay, and in a group of two that includes the worker who asked, the worker can work out the other person's pay. The directive lets countries route such figures only to workers' representatives, the labour inspectorate or the equality body (Article 12(3)); it sets no minimum group size. You decide whether to leave the figure out, and the letter says so.</p></div></details>
+      <details><summary>Does it handle Germany's Entgelttransparenzgesetz?</summary><div class="answer"><p>Yes. For establishments with more than 200 employees it works out the comparison pay of § 11(3): the median of the average monthly gross pay of the other sex in the comparison activity, converted to full time, and leaves it out where fewer than six of them do that work (§ 12(3)). The answer is due within three months under § 15(3).</p></div></details>
+      <details><summary>What does Pro include?</summary><div class="answer"><p>For $99, once, per organisation: the figures, the full answer letters in English, German and Dutch as PDF and text, a request log you can keep adding to, the yearly notice to all workers in three languages and the pay criteria template.</p></div></details>
+    </div>
+  </section>
+
+  <section class="section" id="related">
+    <h2>More on pay transparency</h2>
+    <nav class="related" aria-label="Related pages">
+      <a href="/pay-transparency/"><strong>Pay transparency by country</strong><span>The right to information in all 27 countries.</span></a>
+      <a href="/pay-transparency/annual-notice-template/"><strong>Annual notice template</strong><span>The yearly reminder every employer sends.</span></a>
+      <a href="/pay-transparency/request-pay-information/"><strong>The worker's request letter</strong><span>What your staff will send you.</span></a>
+      <a href="/pay-gap-report/"><strong>Pay gap report</strong><span>The reporting indicators, from the same file.</span></a>
+    </nav>
+    <p class="source pt-legal">Sources: <a href="https://eur-lex.europa.eu/eli/dir/2023/970/oj" rel="noopener">Directive (EU) 2023/970</a>, Articles 3, 4, 6, 7 and 12; <a href="https://www.gesetze-im-internet.de/entgtranspg/BJNR215210017.html" rel="noopener">Entgelttransparenzgesetz</a>, §§ 10 to 16; the national texts in the <a href="/pay-transparency/#countries">country table</a>. Last checked 8 October 2026. Not legal advice: the employer decides the categories of workers and what it discloses, and answers for the letter it sends.</p>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools that each do one job well. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a> · <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
+        <li><a href="/name-cut-files/">Name Cut Files</a></li>
+        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
+        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
+        <li><a href="/quilt-label-maker/">Quilt Label Maker</a></li>
+        <li><a href="/etsy-tax-summary/">Etsy Tax Summary</a></li>
+        <li><a href="/pay-gap-report/">Pay Gap Report</a></li>
+        <li><a href="/pay-transparency/">Pay Transparency Kit</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/site.js" defer></script>
+<script src="/assets/license.js" defer></script>
+<script src="/pay-gap-report/paygap.js" defer></script>
+<script src="/pay-transparency/rules.js" defer></script>
+<script src="/pay-transparency/letters.js" defer></script>
+<script src="/pay-transparency/engine.js" defer></script>
+<script src="/pay-transparency/answer.js" defer></script>
+</body>
+</html>

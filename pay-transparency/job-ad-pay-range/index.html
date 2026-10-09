@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Job Ad Pay Range Checker: EU Pay Transparency Article 5</title>
+<meta name="description" content="Paste a job ad and check it against Article 5 of the EU Pay Transparency Directive: a pay range, no pay-history questions and gender-neutral titles.">
+<link rel="canonical" href="https://peakappsstudio.com/pay-transparency/job-ad-pay-range/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Job ad checker for pay transparency">
+<meta property="og:description" content="Check a job ad in English, German or Dutch for a starting pay or range, pay-history questions and gendered wording, against Article 5 of Directive (EU) 2023/970.">
+<meta property="og:url" content="https://peakappsstudio.com/pay-transparency/job-ad-pay-range/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/tools.css">
+<link rel="stylesheet" href="/pay-transparency/tool.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","@id":"https://peakappsstudio.com/pay-transparency/job-ad-pay-range/#app","name":"Job ad pay range checker","url":"https://peakappsstudio.com/pay-transparency/job-ad-pay-range/","description":"Checks a pasted job ad in English, German or Dutch against Article 5 of Directive (EU) 2023/970: a starting pay or pay range, a collective agreement reference, questions about pay history, and gendered job titles or wording, using published word lists.","applicationCategory":"BusinessApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Pay transparency","item":"https://peakappsstudio.com/pay-transparency/"},{"@type":"ListItem","position":3,"name":"Job ad pay range checker","item":"https://peakappsstudio.com/pay-transparency/job-ad-pay-range/"}]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Does the pay range have to be in the job ad itself?","acceptedAnswer":{"@type":"Answer","text":"Under the directive, applicants get the starting pay or its range in a way that allows an informed negotiation, such as in the published ad, before the interview or otherwise (Article 5(1)). National law can be stricter: Austria already requires the collective-agreement minimum pay in the ad, and Poland requires the information in the ad or, failing that, before the interview or before the contract."}},
+  {"@type":"Question","name":"Can we still ask what salary a candidate expects?","acceptedAnswer":{"@type":"Answer","text":"The directive's ban covers questions about pay in a candidate's current or previous jobs (Article 5(2)). A question about expected pay is not about pay history, so the checker does not flag it."}},
+  {"@type":"Question","name":"How does the checker decide?","acceptedAnswer":{"@type":"Answer","text":"With the word lists published on this page: amounts with a currency or a k, vague pay phrases, pay history phrases, gendered titles and pronouns, German gender marks such as (m/w/d), and collective agreement terms. It cannot read meaning the way a person does, so treat its findings as a checklist, not a verdict."}}
+ ]}
+]}
+</script>
+</head>
+<body style="--accent:#7d5a12">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a href="/tumbler-template/" class="hide-sm">Tumbler templates</a>
+      <a href="/name-cut-files/" class="hide-sm">Name cut files</a>
+      <a href="/kdp-coloring-book/" class="hide-sm">KDP coloring books</a>
+      <a href="/sewing-pattern-printer/" class="hide-sm">Sewing pattern printer</a>
+      <a href="/quilt-label-maker/" class="hide-sm">Quilt labels</a>
+      <a href="/etsy-tax-summary/" class="hide-sm">Etsy tax summary</a>
+      <a href="/pay-gap-report/" class="hide-sm">Pay gap report</a>
+      <a href="/pay-transparency/" aria-current="page">Pay transparency</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/pay-transparency/">Pay transparency</a></li><li aria-current="page">Job ad pay range checker</li></ol></nav>
+
+  <section class="tool-hero pt-hero">
+    <div>
+      <p class="eyebrow">Article 5 of Directive (EU) 2023/970</p>
+      <h1>Job ad checker for <em>pay transparency</em></h1>
+    </div>
+    <div>
+      <p class="lede">Paste a job ad in English, German or Dutch. The checker looks for a starting pay or range, questions about pay history, and gendered titles or wording, with the word lists shown below the tool.</p>
+      <ul class="facts">
+        <li>Free, nothing leaves this page</li>
+        <li>English, German and Dutch ads</li>
+        <li>Rules checked on 8 October 2026</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="pt-ad" id="tool" aria-label="Job ad checker">
+    <div class="pt-ad-in">
+      <label class="field" for="ad"><span>Job ad text</span></label>
+      <textarea class="input" id="ad" spellcheck="false" placeholder="Paste the full ad: title, pay, what you offer, how to apply."></textarea>
+      <div class="pt-start">
+        <button type="button" class="btn btn-sm" data-example="en">English example</button>
+        <button type="button" class="btn btn-sm" data-example="de">German example</button>
+        <button type="button" class="btn btn-sm" data-example="nl">Dutch example</button>
+        <button type="button" class="btn btn-sm pt-quiet" id="clear">Clear</button>
+      </div>
+      <p class="hint">The ad is checked on this page as you type. Nothing is sent or stored.</p>
+    </div>
+    <div class="pt-ad-out" aria-live="polite">
+      <h2>What the checker found</h2>
+      <p class="hint" id="lang-note"></p>
+      <ul class="pt-checklist" id="results"></ul>
+    </div>
+  </section>
+
+  <section class="section" id="compliant">
+    <div class="g-wrap">
+      <div class="g-main">
+        <section>
+          <h2>What a compliant job ad states</h2>
+          <ol>
+            <li><strong>The starting pay or its range</strong>, set on objective, gender-neutral criteria, for the position (Article 5(1)(a)). Gross, and per year, month or hour, so applicants can compare.</li>
+            <li><strong>The relevant collective agreement terms</strong>, where the employer applies one to the job (Article 5(1)(b)), for example the scale or grade.</li>
+            <li><strong>No question about pay history.</strong> Employers may not ask applicants about their pay in current or previous jobs (Article 5(2)), in the ad, the application form or the interview.</li>
+            <li><strong>A gender-neutral title and text</strong>, and a recruitment process that does not discriminate (Article 5(3)).</li>
+          </ol>
+          <p>The directive lets the pay information come in the published ad, before the interview or otherwise, as long as it allows an informed and transparent negotiation (Article 5(1)). Putting it in the ad is the simplest way to show you did.</p>
+        </section>
+        <section id="national">
+          <h2>Where national rules for job ads already apply</h2>
+          <div class="table-wrap">
+            <table class="pt-table">
+              <thead><tr><th scope="col">Country</th><th scope="col">Rule</th><th scope="col">Since</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Austria</th><td data-l="Rule">Job ads state the minimum pay under the collective agreement or law, and any willingness to pay more (§ 9(2) of the Equal Treatment Act)</td><td data-l="Since">Already law; current wording in force since 1 August 2013</td></tr>
+                <tr><th scope="row">Poland</th><td data-l="Rule">Starting pay or range, in the ad or else before the interview or the contract; gender-neutral ads and titles; no questions about pay in current or previous jobs (Labour Code, Articles 18³ca and 22¹)</td><td data-l="Since">24 December 2025</td></tr>
+                <tr><th scope="row">Malta</th><td data-l="Rule">Starting pay or range and the collective agreement terms before the recruitment ends; no pay-history questions; gender-neutral ads (regulation 4 of L.N. 173 of 2026)</td><td data-l="Since">5 June 2026</td></tr>
+                <tr><th scope="row">Italy</th><td data-l="Rule">Candidates are told the starting pay or its range (Article 5 of Legislative Decree No. 96 of 7 May 2026)</td><td data-l="Since">7 June 2026</td></tr>
+                <tr><th scope="row">Slovakia</th><td data-l="Rule">Starting pay or range before the interview or the contract, met when it is in the published offer; gender-neutral offers and titles; no asking about pay at current or previous employers (section 4 of Act No. 76/2026 Coll.)</td><td data-l="Since">7 June 2026</td></tr>
+                <tr><th scope="row">Belgium (Flanders, public sector)</th><td data-l="Rule">No questions about candidates' pay in current or previous jobs (Article 5 of the Flemish Decree of 12 June 2026)</td><td data-l="Since">7 June 2026</td></tr>
+                <tr><th scope="row">Greece</th><td data-l="Rule">Pay information before the interview, for example in ads; no pay-history questions (Law 5316/2026)</td><td data-l="Since">1 November 2026</td></tr>
+                <tr><th scope="row">Netherlands</th><td data-l="Rule">Bill 36 949: pay or pay range for the position, before pay negotiations; no questions about current or past pay</td><td data-l="Since">Not law yet; aimed at 1 January 2027</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="source">Other countries: see the <a href="/pay-transparency/#countries">country table</a>. Checked 8 October 2026 on the national texts linked there.</p>
+        </section>
+        <section id="lists-section">
+          <h2>The word lists</h2>
+          <p>The checker is only as good as these lists. It reads amounts with a currency sign or code, or written as 45k, as pay figures when they sit near a pay word or a period such as per year. Everything else it matches against the lists below, as whole words.</p>
+          <details><summary>Show the lists</summary><div id="lists"></div></details>
+        </section>
+      </div>
+      <aside class="g-aside" aria-label="Pay transparency tools">
+        <div class="g-box g-cta">
+          <strong>A worker asked about their pay?</strong>
+          <p>Article 7 answers, from your payroll export, in the browser.</p>
+          <a class="btn btn-primary" href="/pay-transparency/answer-a-request/">Answer a request</a>
+        </div>
+        <div class="g-box">
+          <h2>The kit</h2>
+          <ol>
+            <li><a href="/pay-transparency/">All 27 countries</a></li>
+            <li><a href="/pay-transparency/request-pay-information/">Request letter for workers</a></li>
+            <li><a href="/pay-transparency/annual-notice-template/">Annual notice template</a></li>
+            <li><a href="/pay-gap-report/">Pay gap report</a></li>
+          </ol>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <h2>Questions</h2>
+    <div class="faq">
+      <details><summary>Does the pay range have to be in the job ad itself?</summary><div class="answer"><p>Under the directive, applicants get the starting pay or its range in a way that allows an informed negotiation, such as in the published ad, before the interview or otherwise (Article 5(1)). National law can be stricter: Austria already requires the collective-agreement minimum pay in the ad, and Poland requires the information in the ad or, failing that, before the interview or before the contract.</p></div></details>
+      <details><summary>Can we still ask what salary a candidate expects?</summary><div class="answer"><p>The directive's ban covers questions about pay in a candidate's current or previous jobs (Article 5(2)). A question about expected pay is not about pay history, so the checker does not flag it.</p></div></details>
+      <details><summary>How does the checker decide?</summary><div class="answer"><p>With the word lists published on this page: amounts with a currency or a k, vague pay phrases, pay history phrases, gendered titles and pronouns, German gender marks such as (m/w/d), and collective agreement terms. It cannot read meaning the way a person does, so treat its findings as a checklist, not a verdict.</p></div></details>
+    </div>
+    <p class="source pt-legal">Sources: <a href="https://eur-lex.europa.eu/eli/dir/2023/970/oj" rel="noopener">Directive (EU) 2023/970</a>, Article 5; <a href="https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&amp;Gesetzesnummer=20003395" rel="noopener">Gleichbehandlungsgesetz</a>, § 9; <a href="https://api.sejm.gov.pl/eli/acts/DU/2025/807/text.pdf" rel="noopener">Dz.U. 2025 item 807</a>; <a href="https://legislation.mt/eli/ln/2026/173/eng" rel="noopener">L.N. 173 of 2026</a>; <a href="https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2026-05-07;96" rel="noopener">Legislative Decree No. 96/2026</a>; <a href="https://eur-lex.europa.eu/legal-content/SK/TXT/PDF/?uri=NIM:202603903" rel="noopener">Act No. 76/2026 Coll.</a>; <a href="https://www.vlaanderen.be/Decision/6A2AA0D71151A5CDECCA1FA1" rel="noopener">Flemish decree of 12 June 2026</a>; <a href="https://eur-lex.europa.eu/legal-content/EL/TXT/PDF/?uri=NIM:202605866" rel="noopener">Law 5316/2026</a>; <a href="https://www.tweedekamer.nl/kamerstukken/wetsvoorstellen/detail?cfg=wetsvoorsteldetails&amp;qry=wetsvoorstel%3A36949" rel="noopener">bill 36 949</a>. Last checked 8 October 2026. Not legal advice.</p>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools that each do one job well. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a> · <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
+        <li><a href="/name-cut-files/">Name Cut Files</a></li>
+        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
+        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
+        <li><a href="/quilt-label-maker/">Quilt Label Maker</a></li>
+        <li><a href="/etsy-tax-summary/">Etsy Tax Summary</a></li>
+        <li><a href="/pay-gap-report/">Pay Gap Report</a></li>
+        <li><a href="/pay-transparency/">Pay Transparency Kit</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="/pay-transparency/jobad.js" defer></script>
+<script src="/pay-transparency/jobad-page.js" defer></script>
+</body>
+</html>
