@@ -449,9 +449,10 @@ body.pe-je { --pe-accent: var(--pe-tab-je-ink); --pe-accent-fill: var(--pe-tab-j
 .pe .pe-list a:hover span { color: var(--ink-2); }
 .pe .pe-list a[aria-current="page"] span { background: color-mix(in oklab, var(--tool, var(--accent)) 7%, var(--card)); color: var(--ink-2); }
 .pe .pe-list a[aria-current="page"] strong::after { content: ", this tool"; font-weight: 500; }
-/* the Pay Transparency Kit's tab is amber, so it carries ink type (white on amber would be 2.1:1) */
-.pe .pe-list a[href="/pay-transparency/"] { --tool: var(--pe-tab-ptk); }
-.pe .pe-list a[href="/pay-transparency/"] strong, .pe .pe-list a[href="/pay-transparency/"]:hover strong { color: #121a17; }
+/* the Pay Transparency Kit's tab is amber, so it carries ink type (white on amber would be 2.1:1); the card's --tool
+   comes inline from tools.json as the darker amber, so the fill is set here */
+.pe .pe-list a[href="/pay-transparency/"] strong, .pe .pe-list a[href="/pay-transparency/"]:hover strong { background: var(--pe-tab-ptk); color: #121a17; }
+.pe .pe-list a[href="/pay-transparency/"] span { border-top-color: var(--pe-tab-ptk); }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pe .pe-list a[href="/pay-transparency/"] strong { background: var(--pe-tab-ptk); color: #121a17; } }
 :root[data-theme="dark"] .pe .pe-list a[href="/pay-transparency/"] strong { background: var(--pe-tab-ptk); color: #121a17; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pe .pe-list a strong { color: #0b130f; background: color-mix(in oklab, var(--tool, var(--accent)) 45%, #ffffff); } }

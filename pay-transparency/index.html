@@ -445,9 +445,10 @@ body.pe-je { --pe-accent: var(--pe-tab-je-ink); --pe-accent-fill: var(--pe-tab-j
 .pe .pe-list a:hover span { color: var(--ink-2); }
 .pe .pe-list a[aria-current="page"] span { background: color-mix(in oklab, var(--tool, var(--accent)) 7%, var(--card)); color: var(--ink-2); }
 .pe .pe-list a[aria-current="page"] strong::after { content: ", this tool"; font-weight: 500; }
-/* the Pay Transparency Kit's tab is amber, so it carries ink type (white on amber would be 2.1:1) */
-.pe .pe-list a[href="/pay-transparency/"] { --tool: var(--pe-tab-ptk); }
-.pe .pe-list a[href="/pay-transparency/"] strong, .pe .pe-list a[href="/pay-transparency/"]:hover strong { color: #121a17; }
+/* the Pay Transparency Kit's tab is amber, so it carries ink type (white on amber would be 2.1:1); the card's --tool
+   comes inline from tools.json as the darker amber, so the fill is set here */
+.pe .pe-list a[href="/pay-transparency/"] strong, .pe .pe-list a[href="/pay-transparency/"]:hover strong { background: var(--pe-tab-ptk); color: #121a17; }
+.pe .pe-list a[href="/pay-transparency/"] span { border-top-color: var(--pe-tab-ptk); }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pe .pe-list a[href="/pay-transparency/"] strong { background: var(--pe-tab-ptk); color: #121a17; } }
 :root[data-theme="dark"] .pe .pe-list a[href="/pay-transparency/"] strong { background: var(--pe-tab-ptk); color: #121a17; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pe .pe-list a strong { color: #0b130f; background: color-mix(in oklab, var(--tool, var(--accent)) 45%, #ffffff); } }
@@ -844,7 +845,7 @@ body.pe-ptk { --paper-letter: #ffffff; --ink-letter: #121a17; --pt-amber: var(--
     <div>
       <h1>EU pay transparency, country by country</h1>
       <p class="lede">Every EU country had to give workers the right to ask how their pay compares, and to make employers of every size answer, by 7 June 2026. Malta, Italy and Slovakia have that right in force, Greece from 1 November 2026 and Flanders for its public sector. Elsewhere the laws are still in parliament or we could not confirm them, and Germany still runs its 2017 law.</p>
-      <p class="pe-hero-meta">Directive (EU) 2023/970 in all 27 countries, each row with its official source, checked on 8 October 2026. Where a row says not confirmed, we could not verify it.</p>
+      <p class="pe-hero-meta">Directive (EU) 2023/970 in all 27 countries, each row with its official source, checked on 8 October 2026. Where a row says “not confirmed”, we could not verify it.</p>
     </div>
     <figure class="pe-hero-fig">
       <img src="/pay-transparency/img/letters-960.webp" srcset="/pay-transparency/img/letters-480.webp 480w, /pay-transparency/img/letters-960.webp 960w, /pay-transparency/img/letters-1440.webp 1440w" sizes="(max-width: 900px) calc(100vw - 32px), 50vw" width="1440" height="900" fetchpriority="high" decoding="async" alt="The kit’s two letters for one request, on a grey desk. On the left, Maria Rossi’s request to Sample Company Ltd under regulation 6 of Malta’s pay transparency regulations, with the reply date, 16 October 2026, marked in amber. On top, the company’s answer, with her pay level of €66,362.06 a year and the average pay of the 3 women and 7 men in her category marked in amber, and the highlighter beside it.">
