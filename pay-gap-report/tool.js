@@ -338,6 +338,25 @@
       : reg.area === 'eu'
         ? 'The PDF holds indicators (a) to (g), the quartile chart, the category table with the Article 10 flags, the methodology and your explanation.'
         : 'The PDF holds the figures, the quartile chart, the methodology with legal references and your statement.';
+
+    // UK only: open the Equality Action Plan with the figures shown on this page, in a URL fragment (#prefill=), which the
+    // browser never sends to a server. Free shows the two hourly gaps, so only those travel; Pro adds the other measures.
+    $('eap-cta').hidden = reg.area !== 'uk';
+    if (reg.area === 'uk') {
+      const q = new URLSearchParams();
+      q.set('prefill', '1');
+      q.set('s', S.regime === 'uk_public' ? 'public' : 'private');
+      q.set('y', String(S.ukYear[S.regime]));
+      if (S.employer.trim()) q.set('e', S.employer.trim().slice(0, 120));
+      const put = (k, v) => { const r = P.round1(v); if (r != null) q.set(k, r.toFixed(1)); };
+      put('mh', res.byId.mean_hourly.value); put('md', res.byId.median_hourly.value);
+      if (pro) {
+        put('mb', res.byId.mean_bonus.value); put('db', res.byId.median_bonus.value);
+        put('bm', res.byId.bonus_share.men.value); put('bw', res.byId.bonus_share.women.value);
+        res.byId.quartiles.bands.forEach((b, i) => put('q' + (i + 1), b.womenPct));
+      }
+      $('eap-link').href = '/equality-action-plan/#' + q.toString();
+    }
   }
 
   // ---------- Exports (Pro) ----------
