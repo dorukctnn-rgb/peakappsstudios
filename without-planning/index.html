@@ -231,6 +231,8 @@ body.wp-page {
   .wp-table tr.is-fail td:first-child, .wp-table tr.is-check td:first-child { box-shadow: none; }
   .wp-table td[data-h]::before { content: attr(data-h) ": "; color: var(--muted); font-weight: 400; font-size: 13px; }
   .wp-table .wp-ref { max-width: none; }
+  /* the desktop column widths (.wp-table .wp-rule etc.) outrank ".wp-table td", so reset them for the stacked rows */
+  .wp-table td.wp-st, .wp-table td.wp-rule, .wp-table td.wp-yours, .wp-table td.wp-lim, .wp-table td.wp-ref { width: auto; }
 }
 .wp-building { margin-top: 18px; padding: 14px 16px; border: 1px solid var(--line-2); background: var(--sheet); border-radius: var(--radius); }
 .wp-building h3 { font-size: 22px; margin: 0 0 6px; }
@@ -320,6 +322,11 @@ body.wp-page {
 .wp-rules caption, .wp-facts caption { caption-side: top; text-align: left; font-size: 13.5px; color: var(--muted); padding: 0 0 8px; }
 .wp-rules td:first-child { white-space: normal; font-weight: 400; }
 .wp-rules td.wp-src, .wp-facts td.wp-src { font-size: 13.5px; width: 34%; }
+@media (max-width: 700px) {
+  /* stacked tables: the caption becomes a full-width block and the source cell takes the full row */
+  .wp-rules caption, .wp-facts caption { display: block; width: 100%; padding: 10px 12px 8px; }
+  .wp-rules td.wp-src, .wp-facts td.wp-src { width: auto; }
+}
 .wp-list { margin: 0; padding-left: 18px; display: grid; gap: 6px; color: var(--ink-2); }
 .wp-row .btn { margin: 0 8px 8px 0; }
 
