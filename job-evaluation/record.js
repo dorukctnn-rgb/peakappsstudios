@@ -1,13 +1,14 @@
 /* Job Evaluation: the methodology record as an A4 PDF (Pro). pdf-lib is passed in (the copy vendored with the Pay Gap
  * Report, loaded only when a PDF is asked for) and every string goes through the Pay Gap Report's pdfText(), which keeps
- * it inside the WinAnsi set of the standard Helvetica font. The record holds what an employer keeps as evidence: the
+ * it inside the WinAnsi set the PDF fonts encode. The record holds what an employer keeps as evidence: the
  * factor plan and every level description, the weights and any change to the defaults, each role's level on every
  * subfactor with its reason, the grades, the categories of work of equal value, the bias checks, the decisions and a
- * sign-off block. Works in the browser (window.JobEvalRecord) and in Node for the tests. */
+ * sign-off block. It is set in the pay equity family's type and colours (/assets/pe-pdf.js, loaded with pdf-lib).
+ * Works in the browser (window.JobEvalRecord) and in Node for the tests. */
 (function (root, factory) {
-  if (typeof module === 'object' && module.exports) module.exports = factory();
-  else root.JobEvalRecord = factory();
-})(typeof self !== 'undefined' ? self : this, function () {
+  if (typeof module === 'object' && module.exports) module.exports = factory(() => require('../assets/pe-pdf.js'));
+  else root.JobEvalRecord = factory(() => root.PEPdf);
+})(typeof self !== 'undefined' ? self : this, function (getPE) {
   'use strict';
 
   const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -36,7 +37,7 @@
     const { J, ev, res, checks } = view;
     const pdfText = view.pdfText;
     const sc = ev.scheme;
-    const { PDFDocument, StandardFonts, rgb } = PDFLib;
+    const { PDFDocument } = PDFLib;
     const doc = await PDFDocument.create();
     const org = String(ev.org || '').trim() || 'Organisation name';
     const evDate = longDate(ev.date);
@@ -44,15 +45,24 @@
     doc.setAuthor(pdfText(org));
     doc.setCreator('Peak Apps Job Evaluation');
     doc.setProducer('pdf-lib');
-    const F = await doc.embedFont(StandardFonts.Helvetica), B = await doc.embedFont(StandardFonts.HelveticaBold);
+    // Archivo in the family's colours, index blue for the accent; measured as Helvetica, so every line and page break
+    // is where it always was
+    const T = await getPE().fonts(doc, PDFLib, ['regular', 'bold', 'display']);
+    const F = T.regular, B = T.bold, D = T.display, C = T.C;
     const W = 595.28, H = 841.89, M = 48, CW = W - 2 * M;
-    const INK = rgb(0.08, 0.08, 0.09), MUTED = rgb(0.4, 0.41, 0.44), RULE = rgb(0.82, 0.82, 0.8), SOFT = rgb(0.955, 0.95, 0.935);
-    const ACCENT = rgb(0x4a / 255, 0x5d / 255, 0x23 / 255), WARN = rgb(0.6, 0.29, 0.07), OK = rgb(0.17, 0.42, 0.25);
+    const INK = C.ink, MUTED = C.muted, RULE = C.rule, SOFT = C.soft;
+    const ACCENT = C.jeInk, WARN = C.warn, OK = C.ok;
     let page, y;
     const pages = [];
     const newPage = () => { page = doc.addPage([W, H]); pages.push(page); y = H - M; };
     const ensure = h => { if (y - h < M + 26) newPage(); };
-    const text = (str, x, yy, o = {}) => { const f = o.bold ? B : F, s = o.size || 9.5; const t = pdfText(str); const tw = f.widthOfTextAtSize(t, s); page.drawText(t, { x: o.right ? x - tw : x, y: yy, size: s, font: f, color: o.color || INK }); return tw; };
+    // Bold text at 12.5 pt or more is a heading or a title: it takes the family's expanded cut, with room up to the
+    // right margin (or o.max). Everything else keeps to the width it was measured with.
+    const text = (str, x, yy, o = {}) => {
+      const s = o.size || 9.5, display = o.display != null ? o.display : !!o.bold && s >= 12.5;
+      const f = display ? D : o.bold ? B : F, t = pdfText(str);
+      return T.draw(page, t, { x, y: yy, size: s, font: f, color: o.color || INK, align: o.right ? 'right' : 'left', max: o.max != null ? o.max : display ? W - M - x : undefined });
+    };
     const wrap = (str, font, s, max) => {
       const out = [];
       for (const p of pdfText(str).split('\n')) {
@@ -72,7 +82,7 @@
       }
       return out;
     };
-    const para = (str, o = {}) => { const s = o.size || 9, f = o.bold ? B : F; for (const l of wrap(str, f, s, o.width || CW)) { ensure(s + 4); if (l) text(l, o.x || M, y, { size: s, bold: o.bold, color: o.color }); y -= s + (o.lead || 3.6); } };
+    const para = (str, o = {}) => { const s = o.size || 9, f = o.bold ? B : F; for (const l of wrap(str, f, s, o.width || CW)) { ensure(s + 4); if (l) text(l, o.x || M, y, { size: s, bold: o.bold, color: o.color, max: o.width || CW }); y -= s + (o.lead || 3.6); } };
     // A list item with a hanging indent
     const bullet = (str, o = {}) => { const x = o.x || M, s = o.size || 9; ensure(s + 4); text('-', x, y, { size: s, color: MUTED }); para(str, Object.assign({}, o, { x: x + 9, width: (o.width || CW) - 9 })); };
     const rule = (yy, c = RULE, t = 0.6, x0 = M, x1 = W - M) => page.drawLine({ start: { x: x0, y: yy }, end: { x: x1, y: yy }, thickness: t, color: c });
@@ -87,7 +97,7 @@
         const h = Math.max(...cells.map(c => c.length)) * lead;
         if (y - h < M + 26) { newPage(); head(); }
         if (r.shade) page.drawRectangle({ x: M - 4, y: y - h + lead - 4, width: CW + 8, height: h + 1, color: SOFT });
-        cols.forEach((c, i) => cells[i].forEach((l, k) => text(l, c.right ? c.x + c.w : c.x, y - k * lead, { size, bold: r.bold || (c.bold && !r.muted), right: c.right, color: r.muted ? MUTED : r.color || INK })));
+        cols.forEach((c, i) => cells[i].forEach((l, k) => text(l, c.right ? c.x + c.w : c.x, y - k * lead, { size, bold: r.bold || (c.bold && !r.muted), right: c.right, color: r.muted ? MUTED : r.color || INK, max: c.wrap ? c.w : undefined })));
         y -= h; y -= 2.4;
         if (o.lines) rule(y + 5, RULE, 0.3);
       }
@@ -105,7 +115,7 @@
     text('JOB EVALUATION RECORD', M, y, { size: 8, color: ACCENT, bold: true });
     text(`Prepared ${view.generated || ''}`, W - M, y, { size: 8, color: MUTED, right: true });
     y -= 30;
-    for (const l of wrap(org, B, 22, CW)) { text(l, M, y, { bold: true, size: 22 }); y -= 26; }
+    { const ls = wrap(org, B, 22, CW), d = ls.every(l => T.fits(D, l, 22, CW)); for (const l of ls) { text(l, M, y, { bold: true, size: 22, display: d }); y -= 26; } }
     y += 4;
     text(`Point-factor job evaluation of ${plural(res.rows.length, 'role')}`, M, y, { size: 12 });
     y -= 24;
@@ -130,7 +140,7 @@
     [['Roles scored', `${done.length} of ${res.rows.length}`], ['Categories', String(res.categories.length)], ['Checks to review', String(flagged)], ['Points scale', `0 to ${num(J, sc.total)}`]].forEach(([k, v], i) => {
       const x = M + 12 + i * (CW / 4);
       text(k, x, y - 17, { size: 7.5, color: MUTED });
-      text(v, x, y - 39, { size: 17, bold: true, color: k === 'Checks to review' && flagged ? WARN : INK });
+      text(v, x, y - 39, { size: 17, bold: true, color: k === 'Checks to review' && flagged ? WARN : INK, max: CW / 4 - 16 });
     });
     y -= bh + 12;
     para('This record sets out the factor plan, the level descriptions and weights, the level given to each role on every subfactor with the reason recorded, the grades and the categories of work of equal value that result, and the bias checks. It documents how the categories of workers were set for pay information requests (Article 7), pay reporting (Article 9) and any joint pay assessment (Article 10). It certifies nothing; section 8 lists what the employer still has to do.', { size: 8.5, color: MUTED });
@@ -272,9 +282,9 @@
       p.drawLine({ start: { x: M, y: M - 10 }, end: { x: W - M, y: M - 10 }, thickness: 0.5, color: RULE });
       const fs = 7.5; let t = foot;
       while (F.widthOfTextAtSize(t, fs) > CW - 70 && t.length > 20) t = t.slice(0, -2);
-      p.drawText(t === foot ? t : t + '.', { x: M, y: M - 22, size: fs, font: F, color: MUTED });
+      T.draw(p, t === foot ? t : t + '.', { x: M, y: M - 22, size: fs, font: F, color: MUTED, max: CW - 70 });
       const pg = `Page ${i + 1} of ${pages.length}`;
-      p.drawText(pg, { x: W - M - F.widthOfTextAtSize(pg, fs), y: M - 22, size: fs, font: F, color: MUTED });
+      T.draw(p, pg, { x: W - M, y: M - 22, size: fs, font: F, color: MUTED, align: 'right' });
     });
     return doc.save();
   }

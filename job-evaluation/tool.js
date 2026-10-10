@@ -461,6 +461,7 @@
     try {
       btn.disabled = true; btn.textContent = 'Preparing the PDF…';
       await loadScript(PDFLIB_SRC, () => window.PDFLib);
+      await loadScript('/assets/pe-pdf.js', () => window.PEPdf);
       await loadScript('/pay-gap-report/report.js', () => window.PayGapReport);
       await loadScript('/job-evaluation/record.js', () => window.JobEvalRecord);
       const ev = evNow();

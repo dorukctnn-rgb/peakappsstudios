@@ -74,6 +74,7 @@
       btn.disabled = true; btn.textContent = 'Preparing the PDF…';
       await load('/pay-gap-report/report.js', () => window.PayGapReport);
       await load('/pay-gap-report/vendor/pdf-lib.min.js', () => window.PDFLib);
+      await load('/assets/pe-pdf.js', () => window.PEPdf);
       const bytes = await M.letterPDF(window.PDFLib, window.PayGapReport.pdfText, currentLetter());
       PeakUI.download(new Blob([bytes], { type: 'application/pdf' }), 'request-for-support-at-work.pdf');
       say('PDF downloaded.');

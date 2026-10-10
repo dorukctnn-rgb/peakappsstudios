@@ -19,7 +19,7 @@
   const STORE_KEY = 'equality-action-plan:draft';
   const SRC = {
     paygap: '/pay-gap-report/paygap.js', report: '/pay-gap-report/report.js', pdflib: '/pay-gap-report/vendor/pdf-lib.min.js',
-    analysis: '/equality-action-plan/analysis.js', pack: '/equality-action-plan/pack.js',
+    analysis: '/equality-action-plan/analysis.js', pack: '/equality-action-plan/pack.js', pe: '/assets/pe-pdf.js',
   };
 
   const R = window.EAPRules, E = window.EAP;

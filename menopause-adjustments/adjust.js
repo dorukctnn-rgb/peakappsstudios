@@ -4,11 +4,12 @@
  * reader choose; the guidance lists the changes without tying them to particular symptoms, and the page says so.
  * The letter asks for a conversation. It does not say that symptoms are a disability or that any change is a legal
  * right: the Equality and Human Rights Commission's wording on when the Equality Act can apply is shown on the page.
- * Pure data and functions, no DOM, no network: window.MenoAdjust in the browser, module.exports in Node. */
+ * Pure data and functions, no DOM: window.MenoAdjust in the browser, module.exports in Node. The letter PDF is set in
+ * the pay equity family's text face (/assets/pe-pdf.js, loaded with pdf-lib, which fetches the font files). */
 (function (root, factory) {
-  if (typeof module === 'object' && module.exports) module.exports = factory();
-  else root.MenoAdjust = factory();
-})(typeof self !== 'undefined' ? self : this, function () {
+  if (typeof module === 'object' && module.exports) module.exports = factory(() => require('../assets/pe-pdf.js'));
+  else root.MenoAdjust = factory(() => root.PEPdf);
+})(typeof self !== 'undefined' ? self : this, function (getPE) {
   'use strict';
 
   const CHECKED = '10 October 2026';
@@ -139,29 +140,31 @@
 
   // The letter as an A4 PDF. pdf-lib and pdfText (the Pay Gap Report's WinAnsi filter) are passed in.
   async function letterPDF(PDFLib, pdfText, l) {
-    const { PDFDocument, StandardFonts, rgb } = PDFLib;
+    const { PDFDocument } = PDFLib;
     const doc = await PDFDocument.create();
     doc.setTitle(pdfText(l.subject));
     doc.setCreator('Peak Apps Menopause Adjustments');
     doc.setProducer('pdf-lib');
     doc.setLanguage('en-GB');
-    const F = await doc.embedFont(StandardFonts.Helvetica), B = await doc.embedFont(StandardFonts.HelveticaBold);
+    // Archivo, measured as Helvetica, so every line and page break is where it always was
+    const T = await getPE().fonts(doc, PDFLib, ['regular', 'bold']);
+    const F = T.regular, B = T.bold;
     const W = 595.28, H = 841.89, ML = 70, MR = 66, MT = 70, MB = 72, CW = W - ML - MR, SIZE = 10.5, LEAD = 15.4;
-    const INK = rgb(0.08, 0.08, 0.09);
+    const INK = T.C.ink;
     let page = doc.addPage([W, H]), y = H - MT;
     const ensure = h => { if (y - h < MB) { page = doc.addPage([W, H]); y = H - MT; } };
     const wrap = (s, f, size, max) => { const out = []; for (const para of pdfText(s).split('\n')) { const words = para.split(/\s+/).filter(Boolean); let cur = ''; for (const w of words) { const t = cur ? cur + ' ' + w : w; if (f.widthOfTextAtSize(t, size) > max && cur) { out.push(cur); cur = w; } else cur = t; } if (cur) out.push(cur); } return out; };
-    const para = (s, o = {}) => { const f = o.bold ? B : F, size = o.size || SIZE; for (const line of wrap(s, f, size, (o.width || CW))) { ensure(LEAD); page.drawText(line, { x: o.x || ML, y, size, font: f, color: INK }); y -= LEAD; } };
-    l.sender.forEach((s, i) => { page.drawText(pdfText(s), { x: ML, y, size: i === 0 ? 11 : 10, font: i === 0 ? B : F, color: INK }); y -= 15; });
+    const para = (s, o = {}) => { const f = o.bold ? B : F, size = o.size || SIZE; for (const line of wrap(s, f, size, (o.width || CW))) { ensure(LEAD); T.draw(page, line, { x: o.x || ML, y, size, font: f, color: INK, max: o.width || CW }); y -= LEAD; } };
+    l.sender.forEach((s, i) => { T.draw(page, pdfText(s), { x: ML, y, size: i === 0 ? 11 : 10, font: i === 0 ? B : F, color: INK }); y -= 15; });
     y -= 14;
     const d = pdfText(l.date);
-    page.drawText(d, { x: W - MR - F.widthOfTextAtSize(d, SIZE), y, size: SIZE, font: F, color: INK });
+    T.draw(page, d, { x: W - MR, y, size: SIZE, font: F, color: INK, align: 'right' });
     y -= 30;
     para(l.salutation); y -= 8;
     para(l.subject, { bold: true, size: 11 }); y -= 8;
     for (const p of l.paras) { para(p); y -= 8; }
     para(l.intro); y -= 4;
-    for (const it of l.items) { const lines = wrap(it, F, SIZE, CW - 18); ensure(LEAD * lines.length); page.drawCircle({ x: ML + 5, y: y + 3.5, size: 1.6, color: INK }); lines.forEach(line => { page.drawText(line, { x: ML + 16, y, size: SIZE, font: F, color: INK }); y -= LEAD; }); y -= 2; }
+    for (const it of l.items) { const lines = wrap(it, F, SIZE, CW - 18); ensure(LEAD * lines.length); page.drawCircle({ x: ML + 5, y: y + 3.5, size: 1.6, color: INK }); lines.forEach(line => { T.draw(page, line, { x: ML + 16, y, size: SIZE, font: F, color: INK, max: CW - 18 }); y -= LEAD; }); y -= 2; }
     y -= 8;
     for (const p of l.closing) { para(p); y -= 8; }
     para('Thank you for your help.'); y -= 22;

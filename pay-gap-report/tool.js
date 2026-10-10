@@ -372,17 +372,21 @@
     v.narrative = S.narrative[S.regime] ? S.narrative[S.regime].text : X.narrativeTemplate(v);
     return v;
   }
-  let pdfLibPromise = null;
-  function loadPdfLib() {
-    if (window.PDFLib) return Promise.resolve(window.PDFLib);
-    if (!pdfLibPromise) pdfLibPromise = new Promise((resolve, reject) => {
+  // pdf-lib, and the family's PDF type (/assets/pe-pdf.js), load once, when the first PDF is asked for
+  const loading = {};
+  function loadOnce(src, ready) {
+    if (ready()) return Promise.resolve(ready());
+    if (!loading[src]) loading[src] = new Promise((resolve, reject) => {
       const el = document.createElement('script');
-      el.src = PDFLIB_SRC;
-      el.onload = () => (window.PDFLib ? resolve(window.PDFLib) : reject(new Error('pdf-lib did not load')));
-      el.onerror = () => { pdfLibPromise = null; reject(new Error('pdf-lib did not load')); };
+      el.src = src;
+      el.onload = () => (ready() ? resolve(ready()) : reject(new Error(src + ' did not load')));
+      el.onerror = () => { loading[src] = null; reject(new Error(src + ' did not load')); };
       document.head.appendChild(el);
     });
-    return pdfLibPromise;
+    return loading[src];
+  }
+  function loadPdfLib() {
+    return Promise.all([loadOnce(PDFLIB_SRC, () => window.PDFLib), loadOnce('/assets/pe-pdf.js', () => window.PEPdf)]).then(([lib]) => lib);
   }
   function slug() {
     const p = periodFor();

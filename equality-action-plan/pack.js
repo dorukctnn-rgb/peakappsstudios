@@ -1,12 +1,13 @@
 /* Equality Action Plan exports (Pro): the sign-off pack PDF, the website plan page (self-contained HTML and PDF), the
  * measures tracker PDF and the staff consultation kit. Pure functions over a "view" built by pro.js; pdf-lib is passed in
  * (the copy vendored with the Pay Gap Report, loaded only when a PDF is asked for) and text goes through the Pay Gap
- * Report's pdfText(), which keeps it inside the WinAnsi set of the standard fonts.
+ * Report's pdfText(), which keeps it inside the WinAnsi set the PDF fonts encode. The PDFs are set in the pay equity
+ * family's type and colours (/assets/pe-pdf.js, loaded with pdf-lib).
  * Works in the browser (window.EAPPack) and in Node for the tests. */
 (function (root, factory) {
-  if (typeof module === 'object' && module.exports) module.exports = factory(() => require('../pay-gap-report/report.js'), require('./rules.js'), require('./engine.js'));
-  else root.EAPPack = factory(() => root.PayGapReport, root.EAPRules, root.EAP);
-})(typeof self !== 'undefined' ? self : this, function (getReport, R, E) {
+  if (typeof module === 'object' && module.exports) module.exports = factory(() => require('../pay-gap-report/report.js'), require('./rules.js'), require('./engine.js'), () => require('../assets/pe-pdf.js'));
+  else root.EAPPack = factory(() => root.PayGapReport, root.EAPRules, root.EAP, () => root.PEPdf);
+})(typeof self !== 'undefined' ? self : this, function (getReport, R, E, getPE) {
   'use strict';
 
   const W = 595.28, H = 841.89, M = 50, CW = W - 2 * M;
@@ -38,7 +39,7 @@
 
   // ---------- PDF layout helpers ----------
   async function makeDoc(PDFLib, meta) {
-    const { PDFDocument, StandardFonts, rgb } = PDFLib;
+    const { PDFDocument } = PDFLib;
     const pdfText = getReport().pdfText;
     const doc = await PDFDocument.create();
     doc.setTitle(pdfText(meta.title));
@@ -46,20 +47,24 @@
     doc.setCreator('Peak Apps Equality Action Plan');
     doc.setProducer('pdf-lib');
     doc.setLanguage('en-GB');
-    const F = await doc.embedFont(StandardFonts.Helvetica), B = await doc.embedFont(StandardFonts.HelveticaBold), I = await doc.embedFont(StandardFonts.HelveticaOblique);
+    // Archivo in the family's colours, sign-off red for the accent; measured as Helvetica, so every line and page
+    // break is where it always was
+    const T = await getPE().fonts(doc, PDFLib, ['regular', 'bold', 'italic', 'display']);
+    const F = T.regular, B = T.bold, I = T.italic, D = T.display, P = T.C;
     const C = {
-      INK: rgb(0.08, 0.08, 0.09), INK2: rgb(0.22, 0.23, 0.25), MUTED: rgb(0.4, 0.41, 0.44), RULE: rgb(0.82, 0.82, 0.8), SOFT: rgb(0.962, 0.955, 0.94),
-      ACCENT: rgb(0x7b / 255, 0x2d / 255, 0x3b / 255), ACCENT_SOFT: rgb(0.972, 0.94, 0.94), MEN: rgb(0.6, 0.61, 0.64), OK: rgb(0.17, 0.42, 0.25), WARN: rgb(0.6, 0.29, 0.07), WHITE: rgb(1, 1, 1),
+      INK: P.ink, INK2: P.ink2, MUTED: P.muted, RULE: P.rule, SOFT: P.soft,
+      ACCENT: P.eapInk, ACCENT_SOFT: P.eapSoft, WOMEN: P.women, MEN: P.men, ON_FILL: P.onFill, OK: P.ok, WARN: P.warn, WHITE: P.white,
     };
-    const L = { doc, F, B, I, C, pdfText, pages: [], page: null, y: 0 };
+    const L = { doc, F, B, I, D, C, pdfText, pages: [], page: null, y: 0 };
     L.newPage = () => { L.page = doc.addPage([W, H]); L.pages.push(L.page); L.y = H - M; return L.page; };
     L.ensure = h => { if (L.y - h < M + 30) L.newPage(); };
     L.width = (s, size, font) => (font || F).widthOfTextAtSize(pdfText(s), size);
+    // Bold text at 12.5 pt or more is a heading or a title: it takes the family's expanded cut, with room up to the
+    // right margin (or o.max). Everything else keeps to the width it was measured with.
     L.text = (s, x, y, o = {}) => {
-      const f = o.bold ? B : o.italic ? I : F, size = o.size || 9.5, t = pdfText(s);
-      const tw = f.widthOfTextAtSize(t, size);
-      L.page.drawText(t, { x: o.right ? x - tw : o.center ? x - tw / 2 : x, y, size, font: f, color: o.color || C.INK });
-      return tw;
+      const size = o.size || 9.5, display = o.display != null ? o.display : !!o.bold && size >= 12.5;
+      const f = display ? D : o.bold ? B : o.italic ? I : F, t = pdfText(s);
+      return T.draw(L.page, t, { x, y, size, font: f, color: o.color || C.INK, align: o.right ? 'right' : o.center ? 'center' : 'left', max: o.max != null ? o.max : display ? W - M - x : undefined });
     };
     L.wrap = (s, size, max, font) => {
       const f = font || F, out = [];
@@ -77,7 +82,7 @@
     };
     L.para = (s, o = {}) => {
       const size = o.size || 9.5, lead = o.lead || size * 1.42, f = o.bold ? B : o.italic ? I : F;
-      for (const line of L.wrap(s, size, o.width || CW, f)) { L.ensure(lead); if (line) L.text(line, o.x || M, L.y, { size, bold: o.bold, italic: o.italic, color: o.color }); L.y -= lead; }
+      for (const line of L.wrap(s, size, o.width || CW, f)) { L.ensure(lead); if (line) L.text(line, o.x || M, L.y, { size, bold: o.bold, italic: o.italic, color: o.color, max: o.width || CW }); L.y -= lead; }
     };
     L.rule = (y, c = C.RULE, t = 0.6, x0 = M, x1 = W - M) => L.page.drawLine({ start: { x: x0, y }, end: { x: x1, y }, thickness: t, color: c });
     L.h2 = (s, o = {}) => {
@@ -86,6 +91,8 @@
       L.text(s, M, L.y, { bold: true, size: 13 });
       L.y -= 8; L.rule(L.y, C.INK, 0.8); L.y -= 16;
     };
+    // the lines of one title all take the expanded cut, or all the bold cut where one of them would not fit
+    L.title = (lines, size, lead) => { const d = lines.every(l => T.fits(D, l, size, CW)); for (const l of lines) { L.text(l, M, L.y, { bold: true, size, display: d }); L.y -= lead; } };
     L.label = (s, o = {}) => { L.text(s.toUpperCase(), o.x || M, L.y, { size: 7.5, bold: true, color: o.color || C.ACCENT }); };
     // A simple table: cols [{ w, align }], rows of strings; the first row is the head
     L.table = (cols, rows, o = {}) => {
@@ -99,8 +106,8 @@
         if (head) { L.page.drawRectangle({ x: M, y: L.y - h + lead - 1, width: CW, height: h, color: C.SOFT }); }
         lines.forEach((ls, ci) => ls.forEach((ln, li) => {
           const c = cols[ci], yy = L.y - li * lead;
-          if (c.align === 'right') L.text(ln, xs[ci] + c.w - 4, yy, { size, bold: head, color: head ? C.INK2 : C.INK, right: true });
-          else L.text(ln, xs[ci] + 4, yy, { size, bold: head || (o.boldFirst && ci === 0), color: head ? C.INK2 : C.INK });
+          if (c.align === 'right') L.text(ln, xs[ci] + c.w - 4, yy, { size, bold: head, color: head ? C.INK2 : C.INK, right: true, max: c.w - 8 });
+          else L.text(ln, xs[ci] + 4, yy, { size, bold: head || (o.boldFirst && ci === 0), color: head ? C.INK2 : C.INK, max: c.w - 8 });
         }));
         L.y -= h;
         L.rule(L.y + lead - 2, C.RULE, 0.4);
@@ -115,15 +122,15 @@
         const n = it.women + it.men, wW = n ? bw * it.women / n : 0;
         L.text(it.label, M, L.y - 9, { size: 8.5 });
         L.page.drawRectangle({ x: M + lw, y: L.y - 13, width: bw, height: 13, color: C.SOFT });
-        if (wW > 0) L.page.drawRectangle({ x: M + lw, y: L.y - 13, width: wW, height: 13, color: C.ACCENT });
+        if (wW > 0) L.page.drawRectangle({ x: M + lw, y: L.y - 13, width: wW, height: 13, color: C.WOMEN });
         if (bw - wW > 0 && n) L.page.drawRectangle({ x: M + lw + wW, y: L.y - 13, width: bw - wW, height: 13, color: C.MEN });
         const pct = n ? (it.women * 100 / n) : null;
-        if (pct != null && wW > 38) L.text(`${pct.toFixed(1)}%`, M + lw + 5, L.y - 9.5, { size: 7.5, bold: true, color: C.WHITE });
+        if (pct != null && wW > 38) L.text(`${pct.toFixed(1)}%`, M + lw + 5, L.y - 9.5, { size: 7.5, bold: true, color: C.ON_FILL, max: wW - 8 });
         L.text(`${it.women} women, ${it.men} men`, W - M, L.y - 9, { size: 7.5, color: C.MUTED, right: true });
         L.y -= 19;
       }
       L.ensure(16);
-      L.page.drawRectangle({ x: M + lw, y: L.y - 6, width: 8, height: 8, color: C.ACCENT }); L.text('Women', M + lw + 12, L.y - 5, { size: 7.5, color: C.MUTED });
+      L.page.drawRectangle({ x: M + lw, y: L.y - 6, width: 8, height: 8, color: C.WOMEN }); L.text('Women', M + lw + 12, L.y - 5, { size: 7.5, color: C.MUTED });
       L.page.drawRectangle({ x: M + lw + 60, y: L.y - 6, width: 8, height: 8, color: C.MEN }); L.text('Men', M + lw + 72, L.y - 5, { size: 7.5, color: C.MUTED });
       L.y -= 16;
     };
@@ -133,9 +140,9 @@
         p.drawLine({ start: { x: M, y: M - 12 }, end: { x: W - M, y: M - 12 }, thickness: 0.5, color: C.RULE });
         const fs = 7.5;
         let s = t; while (F.widthOfTextAtSize(s, fs) > CW - 70 && s.length > 20) s = s.slice(0, -2);
-        p.drawText(s === t ? s : s + '.', { x: M, y: M - 24, size: fs, font: F, color: C.MUTED });
+        T.draw(p, s === t ? s : s + '.', { x: M, y: M - 24, size: fs, font: F, color: C.MUTED, max: CW - 70 });
         const pg = `Page ${i + 1} of ${L.pages.length}`;
-        p.drawText(pg, { x: W - M - F.widthOfTextAtSize(pg, fs), y: M - 24, size: fs, font: F, color: C.MUTED });
+        T.draw(p, pg, { x: W - M, y: M - 24, size: fs, font: F, color: C.MUTED, align: 'right' });
       });
     };
     return L;
@@ -180,7 +187,7 @@
     L.label('Equality action plan: sign-off pack');
     L.text(`Prepared ${v.generated}`, W - M, L.y, { size: 8, color: C.MUTED, right: true });
     L.y -= 30;
-    for (const l of L.wrap(employer, 22, CW, L.B)) { L.text(l, M, L.y, { bold: true, size: 22 }); L.y -= 26; }
+    L.title(L.wrap(employer, 22, CW, L.B), 22, 26);
     L.y += 4;
     L.text(`Action plan for the ${v.ry.label} reporting year`, M, L.y, { size: 12.5, color: C.INK2 });
     L.y -= 24;
@@ -445,7 +452,7 @@
     L.newPage();
     L.label('Equality action plan');
     L.y -= 28;
-    for (const l of L.wrap(employer, 22, CW, L.B)) { L.text(l, M, L.y, { bold: true, size: 22 }); L.y -= 26; }
+    L.title(L.wrap(employer, 22, CW, L.B), 22, 26);
     L.para(`For the ${v.ry.label} reporting year, alongside our gender pay gap figures for the snapshot date of ${v.ry.snapshot.long}. Published ${v.generated}.`, { size: 10, color: C.MUTED });
     L.h2('Introduction');
     L.para(`This plan shows the steps we are taking to address our gender pay gap and to support employees experiencing menopause. We chose the actions from the government’s list of evidence-informed actions.${v.ry.status === 'voluntary' ? ' Action plans are voluntary for the 2026 to 2027 reporting year.' : ''}`, { size: 10.5, lead: 15 });

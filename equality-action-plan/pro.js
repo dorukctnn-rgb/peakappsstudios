@@ -229,7 +229,7 @@
   function ensurePack() {
     return C.loadScript(C.SRC.report, () => window.PayGapReport).then(() => C.loadScript(C.SRC.pack, () => window.EAPPack));
   }
-  function ensurePdf() { return ensurePack().then(() => C.loadScript(C.SRC.pdflib, () => window.PDFLib)); }
+  function ensurePdf() { return ensurePack().then(() => C.loadScript(C.SRC.pdflib, () => window.PDFLib)).then(() => C.loadScript(C.SRC.pe, () => window.PEPdf)); }
   function makeView() {
     const S = C.S;
     return window.EAPPack.view({ plan: S.plan, analysis: S.analysis && S.pro ? S.analysis : null, analysisFile: S.table ? S.table.name : null, previous: S.prevTracker ? S.prevTracker.rows : null, today: new Date() });
