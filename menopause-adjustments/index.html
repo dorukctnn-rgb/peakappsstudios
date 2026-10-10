@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menopause Adjustments at Work: Ideas and a Request Letter</title>
+<meta name="description" content="Reasonable adjustments for menopause at work: changes listed in the Acas and GOV.UK guidance, chosen by symptom, and a polite letter to your manager. Free, private.">
+<link rel="canonical" href="https://peakappsstudio.com/menopause-adjustments/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Menopause adjustments at work: ideas from the guidance and a letter to your manager">
+<meta property="og:description" content="Pick what affects you at work and see the changes Acas and GOV.UK list for employers, each with its source. Then write a polite request to your manager.">
+<meta property="og:url" content="https://peakappsstudio.com/menopause-adjustments/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
+<style data-from="/assets/tools.css">
+/* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
+
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e1;
+  --card: #fbfaf7;
+  --ink: #141518;
+  --ink-2: #33363d;
+  --muted: #676b74;
+  --line: rgba(20, 21, 24, 0.12);
+  --line-2: rgba(20, 21, 24, 0.22);
+  --accent: #1f5c4d;          /* each tool overrides this on <body style="--accent:..."> */
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  --warn: #9a4a12;
+  --ok: #2c6a3f;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+    --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+  --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; }
+img { display: block; height: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 10px; z-index: 100; background: var(--ink); color: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 10px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-head { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand-sub { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 400; padding-left: 10px; border-left: 1px solid var(--line-2); }
+.head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
+.head-nav a:hover { background: var(--paper-2); color: var(--ink); }
+.head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
+@media (max-width: 640px) { .brand-sub { display: none; } }
+@media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
+
+/* ---------- Type ---------- */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+h1 { font-size: clamp(32px, 4.6vw, 54px); }
+h1 em, h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 19px; letter-spacing: -0.01em; }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; margin: 16px 0 0; }
+.mono { font-family: var(--mono); }
+.muted { color: var(--muted); }
+small, .small { font-size: 13.5px; }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 22px 0 0; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-2); }
+.crumbs a { text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.tool-hero { padding: 28px 0 24px; display: grid; gap: 8px; }
+.tool-hero .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.tool-hero .facts li { display: inline-flex; align-items: center; gap: 8px; }
+.tool-hero .facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Tool shell ---------- */
+.tool { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.tool-panel { padding: 22px; border-right: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.tool-stage { position: relative; min-height: 460px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper); display: grid; place-items: center; padding: 22px; }
+.tool-stage canvas, .tool-stage svg, .tool-stage img { max-height: 70vh; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px -12px rgba(0,0,0,.18); background: #fff; }
+.stage-bar { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.tool-foot { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 14px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--paper); }
+.tool-foot .spacer { flex: 1; }
+@media (max-width: 860px) {
+  .tool { grid-template-columns: 1fr; }
+  .tool-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tool-stage { min-height: 320px; }
+}
+
+/* ---------- Form controls ---------- */
+.group { display: grid; gap: 10px; }
+.group-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > label { font-size: 13px; color: var(--ink-2); }
+.input, .select { width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 8px; padding: 9px 11px; transition: border-color .15s, box-shadow .15s; }
+.input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input-unit { position: relative; }
+.input-unit .input { padding-right: 38px; font-family: var(--mono); font-size: 14.5px; }
+.input-unit i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 3px; flex: none; }
+.seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line-2); border-radius: 9px; padding: 3px; gap: 3px; background: var(--paper); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.warn { font-size: 13.5px; color: var(--warn); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.btn { --b: var(--line-2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 500; line-height: 1; padding: 11px 16px; border-radius: 9px; border: 1px solid var(--b); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; transition: transform .15s var(--ease), background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklab, var(--accent) 86%, #000); color: var(--accent-ink); border-color: transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-ink:hover { color: var(--paper); background: var(--ink-2); }
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.pro-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: var(--ink); color: var(--paper); }
+
+/* ---------- Drop zone ---------- */
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 18px 14px; background: var(--paper); cursor: pointer; transition: border-color .15s, background .15s; font-size: 14.5px; }
+.drop:hover, .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Content ---------- */
+.section { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prose { max-width: 70ch; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose h2 { margin: 1.6em 0 .5em; }
+.prose h3 { margin: 1.4em 0 .4em; }
+.prose code, .prose kbd { font-family: var(--mono); font-size: .9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+.two-col > * { min-width: 0; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: 3px; }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 13px; background: var(--paper); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 15px; }
+.source { font-size: 13px; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--line-2); margin-top: 18px; }
+.faq details { border-bottom: 1px solid var(--line-2); }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 13px; font-family: var(--mono); font-size: 18px; color: var(--muted); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 18px; color: var(--ink-2); max-width: 70ch; }
+
+/* ---------- Pro ---------- */
+.pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--card); }
+.pro-left { padding: clamp(22px, 3vw, 36px); }
+.pro-right { padding: clamp(22px, 3vw, 36px); background: var(--ink); color: var(--paper); display: grid; align-content: center; gap: 14px; }
+.pro-right .price { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pro-right .price small { font-size: 15px; font-weight: 400; color: color-mix(in oklab, var(--paper) 70%, transparent); letter-spacing: 0; }
+.pro-right .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.pro-right .btn-primary:hover { background: #fff; color: var(--ink); }
+.pro-right .fine { font-size: 13px; color: color-mix(in oklab, var(--paper) 65%, transparent); margin: 0; }
+.pro-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.pro-list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.pro-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border: 1.5px solid var(--accent); border-radius: 2px; transform: rotate(45deg); }
+@media (max-width: 760px) { .pro { grid-template-columns: 1fr; } }
+
+/* ---------- A real file, shown ---------- */
+.shot { margin: 22px 0 0; }
+.shot img { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; }
+.shot figcaption { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+.shot figcaption strong { font-weight: 600; color: var(--ink-2); }
+.shot-sm { max-width: 920px; }
+
+/* ---------- Where free stops and Pro starts ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; margin: 26px 0 0; background: var(--card); }
+.split > div { padding: 18px 20px 20px; }
+.split > div + div { border-left: 1px solid var(--line-2); background: var(--accent-soft); }
+.split h3 { font-size: 15.5px; margin: 0; }
+.split > div > p { margin: 5px 0 0; font-size: 13.5px; color: var(--muted); }
+.split ul { list-style: none; margin: 13px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
+.split li { position: relative; padding-left: 18px; }
+.split li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; border-radius: 1px; background: var(--line-2); }
+.split > div + div li::before { background: var(--accent); }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } .split > div + div { border-left: 0; border-top: 1px solid var(--line-2); } }
+
+/* ---------- A file list, as the archive really holds it ---------- */
+.filelist { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 5px; }
+.filelist li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filelist li span { color: var(--muted); }
+
+/* ---------- License dialog ---------- */
+.license-dialog { border: 1px solid var(--line-2); border-radius: 14px; padding: 0; width: min(440px, calc(100% - 32px)); background: var(--card); color: var(--ink); }
+.license-dialog::backdrop { background: rgba(10, 11, 13, .45); }
+.license-dialog form { padding: 22px; display: grid; gap: 14px; }
+.license-status { font-size: 14px; min-height: 1.4em; margin: 0; }
+.license-status[data-state="ok"] { color: var(--ok); }
+.license-status[data-state="err"] { color: var(--warn); }
+
+/* ---------- Related / cards ---------- */
+.related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line-2); margin-top: 22px; }
+.related a { display: grid; gap: 4px; padding: 18px 18px 18px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.related a strong { font-weight: 600; }
+.related a span { font-size: 14px; color: var(--muted); }
+.related a:hover strong { color: var(--accent); }
+
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
+/* ---------- Footer ---------- */
+.site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
+.site-foot h2 { font-size: 13px; font-family: var(--mono); letter-spacing: .1em; text-transform: uppercase; font-weight: 400; color: var(--ink-2); margin: 0 0 10px; }
+.site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+@media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .3s var(--ease); z-index: 90; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media print { .site-head, .site-foot, .tool-panel, .tool-foot, .no-print { display: none !important; } body { background: #fff; } }
+
+/* The hidden attribute must win over component display rules. */
+[hidden] { display: none !important; }
+</style>
+<style data-from="/menopause-adjustments/tool.css">
+/* Menopause adjustments at work: tool-specific styles. Shared system: /assets/tools.css. Accent: claret #7b2d3b,
+   shared with the Equality Action Plan it belongs to. */
+@font-face { font-family: "Instrument Serif Fallback"; src: local("Georgia Italic"), local("Georgia-Italic"); font-style: italic; font-weight: 400; size-adjust: 80.5%; ascent-override: 123%; descent-override: 38.5%; line-gap-override: 0%; }
+@font-face { font-family: "Instrument Serif Fallback Times"; src: local("Times New Roman Italic"), local("TimesNewRomanPS-ItalicMT"); font-style: italic; font-weight: 400; size-adjust: 91%; ascent-override: 108.8%; descent-override: 34.1%; line-gap-override: 0%; }
+:root { --serif: "Instrument Serif", "Instrument Serif Fallback", "Instrument Serif Fallback Times", "Iowan Old Style", Georgia, serif; }
+body { --accent-text: var(--accent); --accent-soft: color-mix(in oklab, var(--accent) 6%, var(--paper)); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) body { --accent-text: #e6a3ae; } }
+:root[data-theme="dark"] body { --accent-text: #e6a3ae; }
+.linklike { font: inherit; color: var(--accent-text); background: none; border: 0; padding: 0; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; cursor: pointer; }
+.linklike:hover { color: var(--ink); }
+
+.ma-hero { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 12px clamp(24px, 4vw, 64px); align-items: end; padding-bottom: 22px; }
+.ma-hero h1 { font-size: clamp(31px, 3.6vw, 48px); text-wrap: balance; }
+.ma-hero .lede { margin: 0; font-size: 17px; }
+@media (max-width: 860px) { .ma-hero { grid-template-columns: 1fr; align-items: start; } }
+
+.ma-law { margin: 0 0 18px; padding: 16px 18px; border: 1px solid var(--line-2); border-left: 3px solid var(--accent); border-radius: 4px 12px 12px 4px; background: var(--card); display: grid; gap: 8px; }
+.ma-law h2 { font-size: 17px; letter-spacing: -0.01em; }
+.ma-law p { margin: 0; color: var(--ink-2); font-size: 15px; max-width: 100ch; }
+.ma-law a { color: var(--accent-text); }
+.ma-law blockquote { margin: 0; padding: 10px 14px; background: var(--paper); border-radius: 8px; }
+.ma-law blockquote p { color: var(--ink); }
+.ma-law cite { display: block; margin-top: 6px; font-style: normal; font-size: 13px; color: var(--muted); }
+
+.ma { border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.ma-step { padding: 22px 24px 24px; border-bottom: 1px solid var(--line); min-width: 0; }
+.ma-step:last-of-type { border-bottom: 0; }
+.ma-step-head { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 12px; align-items: start; margin-bottom: 14px; }
+.ma-step-head h2 { font-size: 20px; letter-spacing: -0.01em; }
+.ma-step-head .hint { margin-top: 4px; max-width: 90ch; }
+.ma-step-head .hint a { color: var(--accent-text); }
+.ma-step-n { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--accent); color: var(--accent-text); font-family: var(--mono); font-size: 13px; margin-top: 1px; }
+@media (max-width: 560px) { .ma-step { padding: 18px 16px 20px; } .ma-step-head { grid-template-columns: 1fr; gap: 8px; } }
+
+.ma-checks { display: flex; flex-wrap: wrap; gap: 8px; }
+.ma-chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid var(--line-2); border-radius: 999px; background: var(--paper); font-size: 14.5px; cursor: pointer; }
+.ma-chip input { accent-color: var(--accent); width: 16px; height: 16px; margin: 0; }
+.ma-chip:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+.ma-chip:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.ma-ideas { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 10px; }
+.ma-idea { border: 1px solid var(--line-2); border-radius: 12px; padding: 12px 14px; background: var(--paper); display: grid; gap: 6px; align-content: start; }
+.ma-idea:has(input:checked) { border-color: color-mix(in oklab, var(--accent) 55%, var(--line-2)); background: var(--accent-soft); }
+.ma-idea-pick { display: flex; gap: 9px; align-items: flex-start; cursor: pointer; font-size: 15px; }
+.ma-idea-pick input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 2px; flex: none; }
+.ma-idea-pick strong { font-weight: 600; }
+.ma-quote { margin: 0; font-size: 13.5px; color: var(--ink-2); }
+.ma-note { margin: 0; font-size: 13px; color: var(--warn); }
+.ma-src { margin: 0; font-size: 12.5px; color: var(--muted); }
+.ma-src a { color: var(--muted); }
+.ma-src a:hover { color: var(--accent-text); }
+.ma-why { display: block; margin-top: 4px; font-family: var(--mono); font-size: 11.5px; color: var(--accent-text); }
+.ma-more { margin: 12px 0 0; font-size: 14px; }
+@media (max-width: 480px) { .ma-ideas { grid-template-columns: 1fr; } }
+
+.ma-letter { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 20px; align-items: start; }
+.ma-fields { display: grid; gap: 12px; }
+.ma-fields .check span { font-size: 14px; }
+.ma-preview { display: grid; gap: 10px; }
+.ma-text { margin: 0; padding: 18px 20px; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; color: #17181b; font-family: var(--sans); font-size: 14.5px; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; min-height: 320px; box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 10px 26px -14px rgba(0,0,0,.18); }
+.ma-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+@media (max-width: 900px) { .ma-letter { grid-template-columns: 1fr; } }
+@media (max-width: 480px) { .ma-fields .row { grid-template-columns: 1fr; } }
+
+.ma-privacy { margin: 14px 0 0; max-width: 90ch; }
+.ma-hr { margin: 28px 0 0; padding: 18px 20px; border: 1px solid var(--ink); border-radius: 12px; background: var(--ink); color: var(--paper); display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; justify-content: space-between; }
+.ma-hr h2 { font-size: 19px; color: var(--paper); }
+.ma-hr p { margin: 4px 0 0; max-width: 70ch; font-size: 14.5px; color: color-mix(in oklab, var(--paper) 78%, transparent); }
+.ma-hr .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.ma-hr .btn-primary:hover { background: #fff; color: var(--ink); }
+.ma-legal { margin-top: 18px; max-width: 90ch; }
+
+@media print {
+  .site-head, .site-foot, .ma-law, .ma-step:not(:last-of-type), .ma-fields, .ma-actions, .ma-hr, .ma-privacy, #method, #faq, #guides, .tool-hero, .crumbs, .ma-step-head { display: none !important; }
+  .ma, .ma-text { border: 0; box-shadow: none; }
+}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","@id":"https://peakappsstudio.com/menopause-adjustments/#app","name":"Menopause Adjustments at Work","url":"https://peakappsstudio.com/menopause-adjustments/","description":"A free tool for employees in the UK: choose the menopause symptoms and work situations that affect you and see the changes at work that Acas and the GOV.UK guidance for employers list, each with its source, then write a polite letter asking your manager for a conversation about them, as text or PDF. It runs in the browser and stores nothing.","applicationCategory":"BusinessApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"inLanguage":"en-GB","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Menopause adjustments at work","item":"https://peakappsstudio.com/menopause-adjustments/"}]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Is menopause covered by the Equality Act?","acceptedAnswer":{"@type":"Answer","text":"Menopause is not itself a protected characteristic under the Equality Act 2010, Acas says. The Equality and Human Rights Commission says that if menopause or perimenopause symptoms have a long term and substantial impact on a woman’s ability to carry out normal day-to-day activities, they could be considered a disability, and if they amount to a disability the employer is under a legal obligation to make reasonable adjustments. Less favourable treatment because of menopause symptoms could also be age or sex discrimination. Whether any of this applies to you depends on your circumstances."}},
+  {"@type":"Question","name":"What are reasonable adjustments for menopause at work?","acceptedAnswer":{"@type":"Answer","text":"Acas lists changes such as flexible start and finish times, breaks when needed, a private area to rest, working from home when practical, time off on a day you cannot carry on, changes to some duties, and control over your working environment such as a fan or a window that opens. A menopause risk assessment looks at temperature and ventilation, uniforms, rest areas, toilets and cold drinking water."}},
+  {"@type":"Question","name":"Do I have to tell my employer about my symptoms?","acceptedAnswer":{"@type":"Answer","text":"Acas says the worker should decide how much information they share, and that managers should respect their privacy and not tell colleagues without their permission. The letter here mentions your symptoms only if you choose to."}},
+  {"@type":"Question","name":"Who can I talk to if not my manager?","acceptedAnswer":{"@type":"Answer","text":"Acas says employers should give the option of talking to someone other than your manager, such as someone in HR, a trade union representative, an employee assistance counsellor or a menopause or wellbeing champion. For advice on your rights at work, the Acas helpline is 0300 123 1100."}}
+ ]}
+]}
+</script>
+</head>
+<body style="--accent:#7b2d3b">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a href="/tumbler-template/" class="hide-sm">Tumbler templates</a>
+      <a href="/name-cut-files/" class="hide-sm">Name cut files</a>
+      <a href="/kdp-coloring-book/" class="hide-sm">KDP coloring books</a>
+      <a href="/sewing-pattern-printer/" class="hide-sm">Sewing pattern printer</a>
+      <a href="/quilt-label-maker/" class="hide-sm">Quilt labels</a>
+      <a href="/etsy-tax-summary/" class="hide-sm">Etsy tax summary</a>
+      <a href="/pay-gap-report/" class="hide-sm">Pay gap report</a>
+      <a href="/equality-action-plan/" class="hide-sm">Equality action plan</a>
+      <a href="/job-evaluation/" class="hide-sm">Job evaluation</a>
+      <a href="/pay-transparency/" class="hide-sm">Pay transparency</a>
+      <a href="/menopause-adjustments/" aria-current="page">Menopause adjustments</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li aria-current="page">Menopause adjustments at work</li></ol></nav>
+
+  <section class="tool-hero ma-hero">
+    <div>
+      <p class="eyebrow">For employees in the UK</p>
+      <h1>Menopause adjustments at work, and a letter to <em>ask for them</em></h1>
+    </div>
+    <div>
+      <p class="lede">Choose what affects you at work. You see the changes that Acas and the GOV.UK guidance for employers list, each with its source, and a polite letter asking your manager for a conversation about the ones you pick.</p>
+      <ul class="facts">
+        <li>Ideas from Acas and GOV.UK guidance</li>
+        <li>Nothing you choose is stored or sent</li>
+        <li>Free, with no sign-up</li>
+      </ul>
+    </div>
+  </section>
+
+  <aside class="ma-law" aria-labelledby="law-h">
+    <h2 id="law-h">Is menopause covered by the Equality Act?</h2>
+    <p>“Menopause is not a specific protected characteristic under the Equality Act 2010,” says <a href="https://www.acas.org.uk/menopause-at-work/menopause-and-the-law" rel="noopener">Acas</a>. The Equality and Human Rights Commission says:</p>
+    <blockquote><p data-ehrc>If menopause or perimenopause symptoms have a long term and substantial impact on a woman’s ability to carry out normal day-to-day activities, these symptoms could be considered a disability. If menopause or perimenopause symptoms amount to a disability, an employer will be under a legal obligation to make reasonable adjustments.</p><cite><a href="https://www.equalityhumanrights.com/guidance/menopause-workplace-guidance-employers" rel="noopener">EHRC, Menopause in the workplace: guidance for employers</a>, updated 24 June 2026</cite></blockquote>
+    <p class="small">Whether that applies to you depends on your circumstances, and this tool does not decide it. Acas and the EHRC add that less favourable treatment because of menopause symptoms could also be age or sex discrimination. For advice, the Acas helpline is 0300 123 1100, Monday to Friday, 8am to 6pm. This page is not legal advice.</p>
+  </aside>
+
+  <section class="ma" id="tool" aria-label="Menopause adjustments and request letter">
+    <section class="ma-step" aria-labelledby="s1-h">
+      <div class="ma-step-head"><span class="ma-step-n">1</span><div><h2 id="s1-h">What affects you at work</h2><p class="hint">Symptoms as the <a href="https://www.nhs.uk/conditions/menopause/symptoms/" rel="noopener">NHS</a> describes them. Choose any; you decide later whether the letter mentions them.</p></div></div>
+      <div class="ma-checks" id="symptoms" role="group" aria-labelledby="s1-h"></div>
+    </section>
+    <section class="ma-step" aria-labelledby="s2-h">
+      <div class="ma-step-head"><span class="ma-step-n">2</span><div><h2 id="s2-h">What your work involves</h2><p class="hint">Acas says employers should consider how a job can make symptoms harder to deal with, for example long shifts, a uniform or little flexibility.</p></div></div>
+      <div class="ma-checks" id="situations" role="group" aria-labelledby="s2-h"></div>
+    </section>
+    <section class="ma-step" aria-labelledby="s3-h">
+      <div class="ma-step-head"><span class="ma-step-n">3</span><div><h2 id="s3-h">Changes to talk about</h2><p class="hint" id="ideas-hint">Tick the ones you would like to raise. Each change is from the guidance named under it; which ones appear for your choices is our own grouping, as the guidance lists them without linking them to particular symptoms.</p></div></div>
+      <ol class="ma-ideas" id="ideas"></ol>
+      <p class="ma-more"><button type="button" class="linklike" id="show-all" aria-expanded="false">Show every change in the guidance</button></p>
+    </section>
+    <section class="ma-step" aria-labelledby="s4-h">
+      <div class="ma-step-head"><span class="ma-step-n">4</span><div><h2 id="s4-h">Your letter</h2><p class="hint">A request for a private conversation, not a legal demand. Copy it into an email or download it, and change anything you like before you send it.</p></div></div>
+      <div class="ma-letter">
+        <div class="ma-fields">
+          <div class="row"><label class="field"><span>Your name</span><input class="input" id="l-name" maxlength="80" autocomplete="name"></label><label class="field"><span>Your job title or team <small class="muted">(optional)</small></span><input class="input" id="l-role" maxlength="80"></label></div>
+          <label class="field"><span>Your manager’s name</span><input class="input" id="l-manager" maxlength="80"></label>
+          <label class="check"><input type="checkbox" id="l-symptoms"> <span>Name my symptoms in the letter. Acas says you decide how much to share.</span></label>
+          <label class="check"><input type="checkbox" id="l-work" checked> <span>Mention the parts of my work that make it harder</span></label>
+          <label class="check"><input type="checkbox" id="l-writing" checked> <span>Ask for any changes to be agreed in writing and reviewed</span></label>
+          <label class="check"><input type="checkbox" id="l-confidential" checked> <span>Ask for it to stay confidential</span></label>
+          <label class="check"><input type="checkbox" id="l-hr"> <span>Offer to talk to someone in HR first</span></label>
+          <label class="field"><span>Ask for a reply</span><select class="select" id="l-reply"><option value="">No date</option><option value="10">Within 10 working days</option><option value="14">Within two weeks</option></select></label>
+          <p class="hint">GOV.UK’s guidance for employers suggests responding to adjustment requests as soon as possible, for example within 10 working days.</p>
+        </div>
+        <div class="ma-preview">
+          <pre class="ma-text" id="letter" aria-live="polite" tabindex="0" aria-label="Your letter"></pre>
+          <div class="ma-actions">
+            <button type="button" class="btn btn-primary" id="copy">Copy the letter</button>
+            <button type="button" class="btn" id="pdf">Download as PDF</button>
+            <button type="button" class="btn" id="txt">Download as text</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <p class="sr-only" id="status" aria-live="polite"></p>
+  </section>
+
+  <p class="ma-privacy small muted">Everything here happens in your browser. Nothing you choose or type is stored or sent anywhere, and there are no analytics on this page. Close the tab and it is gone.</p>
+
+  <aside class="ma-hr" aria-labelledby="hr-h">
+    <div>
+      <h2 id="hr-h">Are you the employer?</h2>
+      <p>Employers with 250 or more employees can publish an equality action plan with their gender pay gap figures, including at least one action to support employees experiencing menopause.</p>
+    </div>
+    <a class="btn btn-primary" href="/equality-action-plan/">Build your action plan</a>
+  </aside>
+
+  <section class="section two-col" id="method">
+    <div class="prose">
+      <h2>Where the ideas come from</h2>
+      <p><strong>Acas.</strong> Its guidance on menopause at work lists changes an employer could make, from flexible start and finish times to control over your working environment, and the points a menopause risk assessment covers. It also says changes should be agreed in writing and reviewed, and that absence because of menopause should be recorded separately.</p>
+      <p><strong>GOV.UK.</strong> The action pages written for employers’ equality action plans: workplace adjustments, the menopause risk assessment, occupational health advice and support networks. They suggest employers respond to requests as soon as possible and agree changes in writing.</p>
+      <p><strong>The NHS.</strong> The list of symptoms, in its words. The match between a symptom and a change is ours, to help you choose.</p>
+    </div>
+    <div class="prose">
+      <h2>Before you send it</h2>
+      <p><strong>Talking first is fine.</strong> Acas says employers should invite workers to talk privately, and that you decide how much to share. The letter can simply start that conversation.</p>
+      <p><strong>Longer-term changes.</strong> For a lasting change to your hours or pattern, Acas says you could make a flexible working request.</p>
+      <p><strong>Help and advice.</strong> A trade union representative, HR or an employee assistance service can help. For advice on your rights, call the Acas helpline on 0300 123 1100.</p>
+      <p class="source">Sources: Acas, <a href="https://www.acas.org.uk/menopause-at-work" rel="noopener">Menopause at work</a>: <a href="https://www.acas.org.uk/menopause-at-work/supporting-staff-through-the-menopause" rel="noopener">Supporting workers</a>, <a href="https://www.acas.org.uk/menopause-at-work/talking-with-staff-about-the-menopause" rel="noopener">Talking with workers</a> and <a href="https://www.acas.org.uk/menopause-at-work/menopause-and-the-law" rel="noopener">Menopause and discrimination</a> (updated 7 April 2026); EHRC, <a href="https://www.equalityhumanrights.com/guidance/menopause-workplace-guidance-employers" rel="noopener">Menopause in the workplace: guidance for employers</a> (updated 24 June 2026); GOV.UK, <a href="https://www.gov.uk/government/publications/offer-workplace-adjustments-for-employees-experiencing-menopause/offer-workplace-adjustments-for-employees-experiencing-menopause" rel="noopener">Offer workplace adjustments</a> and <a href="https://www.gov.uk/government/publications/conduct-a-menopause-risk-assessment-for-your-workplace/conduct-a-menopause-risk-assessment-for-your-workplace" rel="noopener">Conduct a menopause risk assessment</a> (4 March 2026); NHS, <a href="https://www.nhs.uk/conditions/menopause/symptoms/" rel="noopener">Symptoms of menopause and perimenopause</a>. Last checked 10 October 2026.</p>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <h2>Questions</h2>
+    <div class="faq">
+      <details><summary>Is menopause covered by the Equality Act?</summary><div class="answer"><p>Menopause is not itself a protected characteristic under the Equality Act 2010, Acas says. The Equality and Human Rights Commission says that if menopause or perimenopause symptoms have a long term and substantial impact on a woman’s ability to carry out normal day-to-day activities, they could be considered a disability, and if they amount to a disability the employer is under a legal obligation to make reasonable adjustments. Less favourable treatment because of menopause symptoms could also be age or sex discrimination. Whether any of this applies to you depends on your circumstances.</p></div></details>
+      <details><summary>What are reasonable adjustments for menopause at work?</summary><div class="answer"><p>Acas lists changes such as flexible start and finish times, breaks when needed, a private area to rest, working from home when practical, time off on a day you cannot carry on, changes to some duties, and control over your working environment such as a fan or a window that opens. A menopause risk assessment looks at temperature and ventilation, uniforms, rest areas, toilets and cold drinking water.</p></div></details>
+      <details><summary>Do I have to tell my employer about my symptoms?</summary><div class="answer"><p>Acas says the worker should decide how much information they share, and that managers should respect their privacy and not tell colleagues without their permission. The letter here mentions your symptoms only if you choose to.</p></div></details>
+      <details><summary>Who can I talk to if not my manager?</summary><div class="answer"><p>Acas says employers should give the option of talking to someone other than your manager, such as someone in HR, a trade union representative, an employee assistance counsellor or a menopause or wellbeing champion. For advice on your rights at work, the Acas helpline is 0300 123 1100.</p></div></details>
+    </div>
+  </section>
+
+  <section class="section" id="guides">
+    <h2>Related</h2>
+    <nav class="related" aria-label="Related pages">
+      <a href="/equality-action-plan/menopause-action-plan-template/"><strong>Menopause action plan template</strong><span>For employers: the six GOV.UK menopause actions.</span></a>
+      <a href="/equality-action-plan/2027/"><strong>Equality action plans 2027</strong><span>When employers’ plans become mandatory.</span></a>
+      <a href="/equality-action-plan/"><strong>Equality action plan builder</strong><span>For HR: the 18 actions and the rules, checked as you write.</span></a>
+      <a href="/tools/"><strong>All Peak Apps tools</strong><span>Small browser tools that do one job well.</span></a>
+    </nav>
+    <nav class="pe-block" aria-labelledby="pe-title">
+  <p class="pe-title" id="pe-title">Pay equity tools</p>
+  <ul class="pe-list">
+    <li><a href="/pay-gap-report/" style="--tool:#1e4f6e"><strong>Pay Gap Report</strong><span>The statutory gender pay gap measures from a payroll export, for the UK, Ireland and the EU directive, worked out in your browser.</span></a></li>
+    <li><a href="/equality-action-plan/" style="--tool:#7b2d3b"><strong>Equality Action Plan</strong><span>A gender pay gap and menopause action plan from GOV.UK’s 18 actions, with the rules and word limits checked as you write.</span></a></li>
+    <li><a href="/job-evaluation/" style="--tool:#4a5d23"><strong>Job Evaluation</strong><span>Score roles on skills, effort, responsibility and working conditions, and see which jobs are work of equal value.</span></a></li>
+    <li><a href="/pay-transparency/" style="--tool:#7d5a12"><strong>Pay Transparency Kit</strong><span>Request letters for workers and Article 7 answers for employers, with the EU directive’s status in all 27 countries.</span></a></li>
+  </ul>
+</nav>
+
+    <p class="source ma-legal">Not legal advice. The ideas are changes the official guidance for employers lists; whether an employer has to make any of them depends on the circumstances. The letter is a request for a conversation.</p>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools that each do one job well. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a> · <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
+        <li><a href="/name-cut-files/">Name Cut Files</a></li>
+        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
+        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
+        <li><a href="/quilt-label-maker/">Quilt Label Maker</a></li>
+        <li><a href="/etsy-tax-summary/">Etsy Tax Summary</a></li>
+        <li><a href="/menopause-adjustments/">Menopause Adjustments at Work</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Pay equity tools</h2>
+      <ul>
+        <li><a href="/pay-gap-report/">Pay Gap Report</a></li>
+        <li><a href="/equality-action-plan/">Equality Action Plan</a></li>
+        <li><a href="/job-evaluation/">Job Evaluation</a></li>
+        <li><a href="/pay-transparency/">Pay Transparency Kit</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/site.js" defer></script>
+<script src="/menopause-adjustments/adjust.js" defer></script>
+<script src="/menopause-adjustments/tool.js" defer></script>
+</body>
+</html>

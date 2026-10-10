@@ -1,0 +1,943 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Equality Action Plan Builder for Pay Gap and Menopause</title>
+<meta name="description" content="Build a gender pay gap and menopause action plan from GOV.UK’s 18 actions, with the minimums and the 100 and 200 word limits checked live. Free, in your browser.">
+<link rel="canonical" href="https://peakappsstudio.com/equality-action-plan/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Equality action plan builder for the gender pay gap and menopause">
+<meta property="og:description" content="Choose from GOV.UK’s 18 actions, write the supporting text inside the service’s word limits and see the rules checked as you type. Start from your gender pay gap figures.">
+<meta property="og:url" content="https://peakappsstudio.com/equality-action-plan/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
+<style data-from="/assets/tools.css">
+/* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
+
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e1;
+  --card: #fbfaf7;
+  --ink: #141518;
+  --ink-2: #33363d;
+  --muted: #676b74;
+  --line: rgba(20, 21, 24, 0.12);
+  --line-2: rgba(20, 21, 24, 0.22);
+  --accent: #1f5c4d;          /* each tool overrides this on <body style="--accent:..."> */
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  --warn: #9a4a12;
+  --ok: #2c6a3f;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+    --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+  --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; }
+img { display: block; height: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 10px; z-index: 100; background: var(--ink); color: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 10px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-head { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand-sub { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 400; padding-left: 10px; border-left: 1px solid var(--line-2); }
+.head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
+.head-nav a:hover { background: var(--paper-2); color: var(--ink); }
+.head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
+@media (max-width: 640px) { .brand-sub { display: none; } }
+@media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
+
+/* ---------- Type ---------- */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+h1 { font-size: clamp(32px, 4.6vw, 54px); }
+h1 em, h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 19px; letter-spacing: -0.01em; }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; margin: 16px 0 0; }
+.mono { font-family: var(--mono); }
+.muted { color: var(--muted); }
+small, .small { font-size: 13.5px; }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 22px 0 0; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-2); }
+.crumbs a { text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.tool-hero { padding: 28px 0 24px; display: grid; gap: 8px; }
+.tool-hero .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.tool-hero .facts li { display: inline-flex; align-items: center; gap: 8px; }
+.tool-hero .facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Tool shell ---------- */
+.tool { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.tool-panel { padding: 22px; border-right: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.tool-stage { position: relative; min-height: 460px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper); display: grid; place-items: center; padding: 22px; }
+.tool-stage canvas, .tool-stage svg, .tool-stage img { max-height: 70vh; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px -12px rgba(0,0,0,.18); background: #fff; }
+.stage-bar { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.tool-foot { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 14px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--paper); }
+.tool-foot .spacer { flex: 1; }
+@media (max-width: 860px) {
+  .tool { grid-template-columns: 1fr; }
+  .tool-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tool-stage { min-height: 320px; }
+}
+
+/* ---------- Form controls ---------- */
+.group { display: grid; gap: 10px; }
+.group-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > label { font-size: 13px; color: var(--ink-2); }
+.input, .select { width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 8px; padding: 9px 11px; transition: border-color .15s, box-shadow .15s; }
+.input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input-unit { position: relative; }
+.input-unit .input { padding-right: 38px; font-family: var(--mono); font-size: 14.5px; }
+.input-unit i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 3px; flex: none; }
+.seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line-2); border-radius: 9px; padding: 3px; gap: 3px; background: var(--paper); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.warn { font-size: 13.5px; color: var(--warn); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.btn { --b: var(--line-2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 500; line-height: 1; padding: 11px 16px; border-radius: 9px; border: 1px solid var(--b); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; transition: transform .15s var(--ease), background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklab, var(--accent) 86%, #000); color: var(--accent-ink); border-color: transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-ink:hover { color: var(--paper); background: var(--ink-2); }
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.pro-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: var(--ink); color: var(--paper); }
+
+/* ---------- Drop zone ---------- */
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 18px 14px; background: var(--paper); cursor: pointer; transition: border-color .15s, background .15s; font-size: 14.5px; }
+.drop:hover, .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Content ---------- */
+.section { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prose { max-width: 70ch; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose h2 { margin: 1.6em 0 .5em; }
+.prose h3 { margin: 1.4em 0 .4em; }
+.prose code, .prose kbd { font-family: var(--mono); font-size: .9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+.two-col > * { min-width: 0; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: 3px; }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 13px; background: var(--paper); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 15px; }
+.source { font-size: 13px; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--line-2); margin-top: 18px; }
+.faq details { border-bottom: 1px solid var(--line-2); }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 13px; font-family: var(--mono); font-size: 18px; color: var(--muted); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 18px; color: var(--ink-2); max-width: 70ch; }
+
+/* ---------- Pro ---------- */
+.pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--card); }
+.pro-left { padding: clamp(22px, 3vw, 36px); }
+.pro-right { padding: clamp(22px, 3vw, 36px); background: var(--ink); color: var(--paper); display: grid; align-content: center; gap: 14px; }
+.pro-right .price { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pro-right .price small { font-size: 15px; font-weight: 400; color: color-mix(in oklab, var(--paper) 70%, transparent); letter-spacing: 0; }
+.pro-right .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.pro-right .btn-primary:hover { background: #fff; color: var(--ink); }
+.pro-right .fine { font-size: 13px; color: color-mix(in oklab, var(--paper) 65%, transparent); margin: 0; }
+.pro-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.pro-list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.pro-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border: 1.5px solid var(--accent); border-radius: 2px; transform: rotate(45deg); }
+@media (max-width: 760px) { .pro { grid-template-columns: 1fr; } }
+
+/* ---------- A real file, shown ---------- */
+.shot { margin: 22px 0 0; }
+.shot img { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; }
+.shot figcaption { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+.shot figcaption strong { font-weight: 600; color: var(--ink-2); }
+.shot-sm { max-width: 920px; }
+
+/* ---------- Where free stops and Pro starts ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; margin: 26px 0 0; background: var(--card); }
+.split > div { padding: 18px 20px 20px; }
+.split > div + div { border-left: 1px solid var(--line-2); background: var(--accent-soft); }
+.split h3 { font-size: 15.5px; margin: 0; }
+.split > div > p { margin: 5px 0 0; font-size: 13.5px; color: var(--muted); }
+.split ul { list-style: none; margin: 13px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
+.split li { position: relative; padding-left: 18px; }
+.split li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; border-radius: 1px; background: var(--line-2); }
+.split > div + div li::before { background: var(--accent); }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } .split > div + div { border-left: 0; border-top: 1px solid var(--line-2); } }
+
+/* ---------- A file list, as the archive really holds it ---------- */
+.filelist { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 5px; }
+.filelist li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filelist li span { color: var(--muted); }
+
+/* ---------- License dialog ---------- */
+.license-dialog { border: 1px solid var(--line-2); border-radius: 14px; padding: 0; width: min(440px, calc(100% - 32px)); background: var(--card); color: var(--ink); }
+.license-dialog::backdrop { background: rgba(10, 11, 13, .45); }
+.license-dialog form { padding: 22px; display: grid; gap: 14px; }
+.license-status { font-size: 14px; min-height: 1.4em; margin: 0; }
+.license-status[data-state="ok"] { color: var(--ok); }
+.license-status[data-state="err"] { color: var(--warn); }
+
+/* ---------- Related / cards ---------- */
+.related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line-2); margin-top: 22px; }
+.related a { display: grid; gap: 4px; padding: 18px 18px 18px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.related a strong { font-weight: 600; }
+.related a span { font-size: 14px; color: var(--muted); }
+.related a:hover strong { color: var(--accent); }
+
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
+/* ---------- Footer ---------- */
+.site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
+.site-foot h2 { font-size: 13px; font-family: var(--mono); letter-spacing: .1em; text-transform: uppercase; font-weight: 400; color: var(--ink-2); margin: 0 0 10px; }
+.site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+@media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .3s var(--ease); z-index: 90; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media print { .site-head, .site-foot, .tool-panel, .tool-foot, .no-print { display: none !important; } body { background: #fff; } }
+
+/* The hidden attribute must win over component display rules. */
+[hidden] { display: none !important; }
+</style>
+<style data-from="/equality-action-plan/tool.css">
+/* Equality Action Plan: tool-specific styles. The shared system lives in /assets/tools.css. Accent: claret #7b2d3b. */
+
+/* The headline's italic (Instrument Serif) can arrive after the first paint. These faces scale Georgia and Times New Roman
+   to Instrument Serif's metrics, so the headline keeps its line breaks when the web font swaps in (no layout shift). */
+@font-face { font-family: "Instrument Serif Fallback"; src: local("Georgia Italic"), local("Georgia-Italic"); font-style: italic; font-weight: 400; size-adjust: 80.5%; ascent-override: 123%; descent-override: 38.5%; line-gap-override: 0%; }
+@font-face { font-family: "Instrument Serif Fallback Times"; src: local("Times New Roman Italic"), local("TimesNewRomanPS-ItalicMT"); font-style: italic; font-weight: 400; size-adjust: 91%; ascent-override: 108.8%; descent-override: 34.1%; line-gap-override: 0%; }
+:root { --serif: "Instrument Serif", "Instrument Serif Fallback", "Instrument Serif Fallback Times", "Iowan Old Style", Georgia, serif; }
+
+body { --accent-text: var(--accent); --accent-soft: color-mix(in oklab, var(--accent) 6%, var(--paper)); --women: var(--accent); --men: #8b8f98; --met: var(--ok); --unmet: var(--warn); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) body { --accent-text: #e6a3ae; --women: #c9737f; --men: #737883; } }
+:root[data-theme="dark"] body { --accent-text: #e6a3ae; --women: #c9737f; --men: #737883; }
+.num, .eap td.num, .eap th.num { font-variant-numeric: tabular-nums; }
+.linklike { font: inherit; color: var(--accent-text); background: none; border: 0; padding: 0; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; cursor: pointer; }
+.linklike:hover { color: var(--ink); }
+.eap-quiet { border-color: transparent; background: transparent; color: var(--muted); }
+.eap-quiet:hover { border-color: var(--line-2); }
+
+/* ---------- Hero ---------- */
+.eap-hero { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 12px clamp(24px, 4vw, 64px); align-items: end; padding-bottom: 22px; }
+.eap-hero h1 { font-size: clamp(31px, 3.6vw, 48px); text-wrap: balance; }
+.eap-hero .lede { margin: 0; font-size: 17px; }
+.eap-hero .facts { margin-top: 14px; }
+@media (max-width: 860px) { .eap-hero { grid-template-columns: 1fr; align-items: start; } }
+
+.eap-status { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 16px; align-items: baseline; margin: 0 0 18px; padding: 13px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--accent); border-radius: 4px 12px 12px 4px; background: var(--card); }
+.eap-status-tag { margin: 0; font-family: var(--mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-text); white-space: nowrap; }
+.eap-status-text { margin: 0; font-size: 14.5px; color: var(--ink-2); max-width: 110ch; }
+@media (max-width: 640px) { .eap-status { grid-template-columns: 1fr; } }
+
+/* ---------- Tool shell ---------- */
+.eap { border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; position: relative; }
+.eap-bar { display: flex; flex-wrap: wrap; align-items: end; gap: 12px 16px; padding: 14px 20px; border-bottom: 1px solid var(--line); background: var(--paper); }
+.eap-org { flex: 1 1 240px; max-width: 360px; }
+.eap-year-f { width: 230px; }
+.eap-seg button { white-space: nowrap; }
+.eap-bar-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto; }
+.eap-dates { margin: 0; padding: 9px 20px; font-size: 13.5px; color: var(--ink-2); border-bottom: 1px solid var(--line); }
+.eap-dates strong { font-weight: 600; color: var(--ink); }
+.eap-sample-note, .eap-prefill-note { margin: 0; padding: 10px 20px; font-size: 14px; color: var(--ink-2); background: var(--accent-soft); border-bottom: 1px solid var(--line); }
+@media (max-width: 560px) { .eap-bar, .eap-dates, .eap-sample-note, .eap-prefill-note { padding-left: 16px; padding-right: 16px; } .eap-year-f { width: 100%; } .eap-bar-actions { margin-left: 0; } .eap-sector-f, .eap-sector-f .seg { width: 100%; } }
+
+/* Steps */
+.eap-step { padding: 22px 24px 24px; border-bottom: 1px solid var(--line); min-width: 0; }
+.eap-step:last-of-type { border-bottom: 0; }
+.eap-step-head { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 12px; align-items: start; margin-bottom: 16px; }
+.eap-step-head h2 { font-size: 20px; letter-spacing: -0.01em; }
+.eap-step-head .hint { margin-top: 4px; max-width: 88ch; }
+.eap-step-n { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--accent); color: var(--accent-text); font-family: var(--mono); font-size: 13px; margin-top: 1px; }
+@media (max-width: 560px) { .eap-step { padding: 18px 16px 20px; } .eap-step-head { grid-template-columns: 1fr; gap: 8px; } }
+
+/* Step 1: figures and diagnosis */
+.eap-diag { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 22px; align-items: start; }
+.eap-figs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.eap-figset { margin: 0; padding: 10px 12px 12px; border: 1px solid var(--line); border-radius: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; min-width: 0; }
+.eap-figset legend { font-size: 13px; font-weight: 600; padding: 0 4px; color: var(--ink); }
+.eap-figset .field > span:first-child { font-size: 12.5px; color: var(--muted); }
+.eap-figset .input { padding: 7px 26px 7px 9px; font-size: 14px; }
+.eap-figset-q { grid-column: 1 / -1; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.eap-figs-hint { grid-column: 1 / -1; }
+.eap-figs-hint code { font-family: var(--mono); font-size: 12px; background: var(--paper-2); padding: 1px 4px; border-radius: 4px; }
+.eap-figs .warn { grid-column: 1 / -1; }
+.eap-diag-out { display: grid; gap: 12px; align-content: start; min-height: 120px; }
+.eap-diag-empty { margin: 0; padding: 14px 16px; border: 1px dashed var(--line-2); border-radius: 10px; color: var(--muted); font-size: 14.5px; }
+.eap-pat { border: 1px solid var(--line-2); border-radius: 10px; padding: 12px 14px; background: var(--paper); display: grid; gap: 8px; }
+.eap-pat > p { margin: 0; font-size: 15px; color: var(--ink); }
+.eap-pat .eap-q { font-size: 13px; color: var(--muted); }
+.eap-pat-acts { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.eap-pat-acts li { display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.eap-pat-acts li:last-child { border-bottom: 0; }
+.eap-why summary { cursor: pointer; font-size: 13px; color: var(--accent-text); width: fit-content; }
+.eap-why ul { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 6px; font-size: 13px; color: var(--ink-2); }
+.eap-why strong { font-weight: 600; color: var(--ink); }
+.eap-chip { flex: none; font: inherit; font-size: 13px; padding: 4px 10px; border-radius: 7px; border: 1px solid var(--accent); background: transparent; color: var(--accent-text); cursor: pointer; white-space: nowrap; }
+.eap-chip:hover { background: var(--accent-soft); }
+.eap-chip[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.eap-note { margin: 0; font-size: 14px; color: var(--ink-2); padding-left: 12px; border-left: 2px solid var(--line-2); }
+.eap-note-lead { margin: 0; font-size: 15px; color: var(--ink); }
+@media (max-width: 960px) { .eap-diag { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .eap-figs { grid-template-columns: 1fr 1fr; } .eap-figset-q { grid-template-columns: 1fr 1fr; } .eap-figset-q, .eap-figs-hint { grid-column: 1 / -1; } }
+@media (max-width: 380px) { .eap-figs { grid-template-columns: 1fr; } }
+
+/* Step 2: the picker and the rules */
+.eap-pick { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 22px; align-items: start; }
+.eap-groups { display: grid; gap: 14px; min-width: 0; }
+.eap-group { margin: 0; padding: 0; border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; min-width: 0; }
+.eap-group legend { float: left; width: 100%; display: flex; justify-content: space-between; gap: 10px; align-items: baseline; padding: 10px 14px; margin: 0; background: var(--paper); border-bottom: 1px solid var(--line); font-weight: 600; font-size: 14.5px; }
+.eap-group legend small { font-family: var(--mono); font-weight: 400; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.eap-group[data-kind="menopause"] legend small { color: var(--accent-text); }
+.eap-acts { list-style: none; margin: 0; padding: 0; clear: both; }
+.eap-act { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 4px 12px; align-items: start; padding: 11px 14px; border-top: 1px solid var(--line); }
+.eap-act:first-child { border-top: 0; }
+.eap-act input[type=checkbox] { width: 17px; height: 17px; margin: 3px 0 0; accent-color: var(--accent); }
+.eap-act-name { font-size: 15px; font-weight: 500; line-height: 1.35; cursor: pointer; }
+.eap-act-sum { grid-column: 2; margin: 2px 0 0; font-size: 13px; color: var(--muted); line-height: 1.45; }
+.eap-act-sum a { color: var(--accent-text); white-space: nowrap; }
+.eap-act .seg { grid-column: 3; grid-row: 1 / span 2; align-self: center; }
+.eap-act .seg button { font-size: 12.5px; padding: 5px 9px; }
+.eap-act[data-on="true"] { background: var(--accent-soft); }
+.eap-act[data-on="false"] .seg { visibility: hidden; }
+.eap-rules { position: sticky; top: 76px; border: 1px solid var(--line-2); border-radius: 12px; padding: 14px 16px; background: var(--paper); display: grid; gap: 10px; }
+.eap-rules h3 { font-size: 15.5px; }
+.eap-rule-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.eap-rule-list li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 8px; font-size: 14px; }
+.eap-rule-list li::before { content: ""; width: 12px; height: 12px; margin-top: 4px; border-radius: 50%; border: 2px solid var(--unmet); }
+.eap-rule-list li[data-ok="true"]::before { background: var(--met); border-color: var(--met); }
+.eap-rule-list strong { display: block; font-weight: 600; color: var(--ink); }
+.eap-rule-list span { color: var(--ink-2); font-size: 13.5px; }
+.eap-rule-list li[data-ok="false"] span { color: var(--unmet); }
+.eap-rules-count { margin: 0; font-size: 13px; color: var(--muted); }
+.eap-rules-src { margin: 0; font-size: 12.5px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 9px; }
+.eap-rules-src a { color: var(--accent-text); }
+.eap-asof { font-family: var(--mono); font-size: 11.5px; }
+@media (max-width: 960px) { .eap-pick { grid-template-columns: 1fr; } .eap-rules { position: static; order: -1; } }
+@media (max-width: 560px) { .eap-act { grid-template-columns: 22px minmax(0, 1fr); } .eap-act .seg { grid-column: 2; grid-row: auto; justify-self: start; margin-top: 6px; } .eap-act[data-on="false"] .seg { display: none; } }
+
+/* Step 3: texts */
+.eap-texts { display: grid; gap: 14px; }
+.eap-texts-empty { margin: 0 0 14px; }
+.eap-text { border: 1px solid var(--line-2); border-radius: 12px; padding: 14px 16px; background: var(--paper); display: grid; gap: 8px; }
+.eap-text-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 12px; align-items: baseline; }
+.eap-text-head h3 { font-size: 16px; }
+.eap-tag { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.eap-tag[data-status="new"] { color: var(--accent-text); }
+.eap-prompts { margin: 0; padding-left: 18px; font-size: 13.5px; color: var(--ink-2); }
+.eap-prompts li + li { margin-top: 2px; }
+.eap-textarea { font: inherit; font-size: 15px; line-height: 1.55; resize: vertical; min-height: 110px; background: var(--card); }
+.eap-count-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; align-items: baseline; }
+.eap-count { margin: 0; font-family: var(--mono); font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+.eap-count[data-state="near"] { color: var(--ink); }
+.eap-count[data-state="over"] { color: var(--warn); font-weight: 500; }
+.eap-text[data-state="over"], .eap-text[data-state="links"], .eap-text[data-state="missing"] { border-color: color-mix(in oklab, var(--warn) 55%, var(--line-2)); }
+.eap-narr { margin-top: 18px; display: grid; gap: 6px; }
+.eap-more { margin-top: 18px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px 22px; align-items: start; }
+.eap-resp { display: grid; gap: 8px; }
+@media (max-width: 860px) { .eap-more { grid-template-columns: 1fr; } }
+@media (max-width: 480px) { .eap-resp .row { grid-template-columns: 1fr; } }
+
+/* Step 4: output */
+.eap-ready { margin: 0 0 14px; padding: 11px 14px; border-radius: 10px; font-size: 14.5px; background: var(--paper); border: 1px solid var(--line-2); }
+.eap-ready[data-ok="true"] { border-color: color-mix(in oklab, var(--ok) 45%, var(--line-2)); }
+.eap-ready ul { margin: 6px 0 0; padding-left: 18px; color: var(--warn); }
+.eap-blocks { list-style: none; counter-reset: b; margin: 0; padding: 0; display: grid; gap: 10px; }
+.eap-block { counter-increment: b; border: 1px solid var(--line-2); border-radius: 10px; background: var(--paper); display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 14px; padding: 12px 14px; }
+.eap-block-head { font-size: 14px; font-weight: 600; color: var(--ink); }
+.eap-block-head::before { content: counter(b) ". "; font-family: var(--mono); font-weight: 400; color: var(--accent-text); }
+.eap-block-meta { display: block; font-weight: 400; font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+.eap-block pre { grid-column: 1 / -1; margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font-family: var(--sans); font-size: 14px; line-height: 1.55; color: var(--ink-2); max-height: 260px; overflow: auto; }
+.eap-block .btn { align-self: start; }
+.eap-block[data-empty="true"] pre { color: var(--muted); font-style: italic; }
+.eap-out-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+
+/* Step 5: Pro */
+.eap-pro-rows { list-style: none; margin: 0; padding: 0; border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; }
+.eap-pro-rows li { display: grid; grid-template-columns: 18px minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; padding: 12px 14px; border-top: 1px solid var(--line); }
+.eap-pro-btns { display: flex; gap: 8px; justify-content: flex-end; }
+.eap-pro-rows li:first-child { border-top: 0; }
+.eap-pro-rows strong { display: block; font-size: 15px; font-weight: 600; }
+.eap-pro-rows span:not(.eap-lock) { display: block; font-size: 13.5px; color: var(--muted); margin-top: 2px; max-width: 86ch; }
+.eap-lock { width: 14px; height: 14px; align-self: start; margin-top: 4px; background: currentColor; color: var(--muted); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Crect x='2.5' y='6' width='9' height='6.5' rx='1.2' fill='none' stroke='black' stroke-width='1.4'/%3E%3Cpath d='M4.5 6V4.5a2.5 2.5 0 0 1 5 0V6' fill='none' stroke='black' stroke-width='1.4'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Crect x='2.5' y='6' width='9' height='6.5' rx='1.2' fill='none' stroke='black' stroke-width='1.4'/%3E%3Cpath d='M4.5 6V4.5a2.5 2.5 0 0 1 5 0V6' fill='none' stroke='black' stroke-width='1.4'/%3E%3C/svg%3E") center / contain no-repeat; }
+.eap-pro-step[data-pro="true"] .eap-lock { visibility: hidden; }
+.eap-lock-bar { display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center; justify-content: space-between; margin-top: 14px; padding: 13px 15px; border-radius: 10px; background: var(--accent-soft); font-size: 14.5px; }
+.eap-lock-bar p { margin: 0; max-width: 74ch; color: var(--ink-2); }
+.eap-lock-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+@media (max-width: 640px) { .eap-pro-rows li { grid-template-columns: 18px minmax(0, 1fr); } .eap-pro-btns { grid-column: 2; justify-content: flex-start; } }
+
+.eap-panel { margin-top: 18px; padding: 18px; border: 1px solid var(--line-2); border-radius: 12px; background: var(--paper); display: grid; gap: 14px; min-width: 0; }
+.eap-panel h3 { font-size: 17px; }
+.eap-panel-head { display: flex; flex-wrap: wrap; gap: 8px 14px; justify-content: space-between; align-items: baseline; }
+.eap-drop { min-height: 150px; border-radius: 12px; gap: 8px; padding: 22px 18px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 22px 22px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 22px 22px, var(--card); }
+.eap-drop strong { font-size: 16.5px; font-weight: 600; }
+.eap-drop .btn { pointer-events: none; }
+.eap-panel-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.eap-map-wrap { margin: 0; max-height: 360px; overflow: auto; }
+.eap-map { font-size: 13.5px; }
+.eap-map th[scope="row"] { font-weight: 500; background: none; }
+.eap-map th[scope="row"] small { display: block; color: var(--muted); font-weight: 400; font-size: 12px; }
+.eap-map .select { padding: 6px 8px; font-size: 13.5px; }
+.eap-map-ex { font-family: var(--mono); font-size: 12px; color: var(--muted); white-space: nowrap; max-width: 160px; overflow: hidden; text-overflow: ellipsis; }
+.eap-checks { margin: 0; padding-left: 18px; font-size: 14px; color: var(--ink-2); }
+.eap-secs { display: grid; gap: 14px; }
+.eap-sec { border: 1px solid var(--line-2); border-radius: 12px; background: var(--card); padding: 14px 16px; display: grid; gap: 10px; min-width: 0; }
+.eap-sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 12px; align-items: baseline; }
+.eap-sec-head h4 { margin: 0; font-size: 15.5px; letter-spacing: -0.01em; }
+.eap-sec-q { margin: 0; font-size: 13px; color: var(--muted); font-style: italic; }
+.eap-sec-fact { margin: 0; font-size: 14.5px; color: var(--ink); }
+.eap-sec-basis { margin: 0; font-size: 12.5px; color: var(--muted); }
+.eap-sec[data-ok="false"] { background: var(--paper); }
+.eap-sec-missing { margin: 0; font-size: 13.5px; color: var(--warn); }
+.eap-sec .table-wrap { margin: 0; }
+.eap-sec table { font-size: 13.5px; }
+.eap-sec td, .eap-sec th { padding: 7px 10px; }
+.eap-sec td:not(:first-child), .eap-sec th:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.eap-sec tbody th { background: none; font-weight: 500; }
+.eap-locked-row { display: flex; gap: 8px; align-items: center; font-size: 13.5px; color: var(--muted); }
+.eap-bars { display: grid; gap: 7px; }
+.eap-bar-row { display: grid; grid-template-columns: 150px minmax(0, 1fr) 120px; gap: 10px; align-items: center; font-size: 13px; }
+.eap-bar-row > span:first-child { color: var(--ink-2); }
+.eap-bar-track { display: flex; height: 18px; border-radius: 4px; overflow: hidden; background: var(--paper-2); }
+.eap-bar-track .w { background: var(--women); }
+.eap-bar-track .m { background: var(--men); }
+.eap-bar-n { font-family: var(--mono); font-size: 11.5px; color: var(--muted); text-align: right; white-space: nowrap; }
+.eap-key { display: flex; gap: 14px; font-size: 12.5px; color: var(--muted); }
+.eap-key span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+.eap-key .k-w::before { background: var(--women); }
+.eap-key .k-m::before { background: var(--men); }
+@media (max-width: 640px) { .eap-bar-row { grid-template-columns: 1fr; gap: 3px; } .eap-bar-n { text-align: left; } }
+
+/* Tracker */
+.eap-track-wrap { margin: 0; }
+.eap-track { font-size: 13.5px; min-width: 860px; }
+.eap-track td { padding: 6px 8px; vertical-align: top; }
+.eap-track th { padding: 7px 8px; white-space: nowrap; }
+.eap-track .input, .eap-track .select { padding: 6px 8px; font-size: 13.5px; }
+.eap-track td.eap-track-act { min-width: 180px; font-weight: 500; }
+.eap-track td.eap-track-act small { display: block; font-weight: 400; color: var(--muted); }
+.eap-track .eap-chg { font-family: var(--mono); font-size: 12.5px; white-space: nowrap; }
+.eap-track .eap-chg[data-dir="up"] { color: var(--ok); }
+.eap-track .eap-chg[data-dir="down"] { color: var(--warn); }
+
+/* Consultation kit */
+.eap-consult { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+.eap-consult ol { margin: 0; padding-left: 20px; font-size: 14px; color: var(--ink-2); display: grid; gap: 6px; }
+.eap-form { display: grid; gap: 12px; }
+.eap-form fieldset { margin: 0; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; display: grid; gap: 6px; min-width: 0; }
+.eap-form legend { font-size: 13.5px; font-weight: 600; padding: 0 4px; }
+.eap-form label { display: flex; gap: 8px; font-size: 13.5px; align-items: flex-start; }
+.eap-form label.field { display: grid; gap: 5px; }
+.eap-opts { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 6px 16px; }
+.eap-form input[type=checkbox], .eap-form input[type=radio] { accent-color: var(--accent); margin-top: 3px; }
+.eap-tally { font-size: 13px; }
+@media (max-width: 860px) { .eap-consult { grid-template-columns: 1fr; } }
+
+.eap-privacy { margin: 14px 0 0; max-width: 90ch; }
+.eap-legal { margin-top: 18px; max-width: 90ch; }
+
+/* ---------- Guide pages ---------- */
+.g-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: clamp(24px, 4vw, 56px); align-items: start; }
+.g-wrap > * { min-width: 0; }
+.g-main > section + section { margin-top: 44px; }
+.g-main h2 { margin: 0 0 12px; }
+.g-main h3 { margin: 22px 0 8px; }
+.g-main p, .g-main li { color: var(--ink-2); max-width: 70ch; }
+.g-main ol, .g-main ul { padding-left: 22px; }
+.g-main li + li { margin-top: 6px; }
+.g-main .table-wrap { margin: 14px 0 6px; }
+.g-main table { font-size: 14.5px; }
+.g-main code { font-family: var(--mono); font-size: .88em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+.g-main blockquote { margin: 14px 0; padding: 12px 16px; border-left: 3px solid var(--accent); background: var(--accent-soft); border-radius: 0 8px 8px 0; color: var(--ink-2); font-size: 15px; }
+.g-main blockquote p { margin: 0; }
+.g-main blockquote cite { display: block; margin-top: 6px; font-style: normal; font-size: 13px; color: var(--muted); }
+.g-main .callout p { margin: 0; }
+.g-aside { position: sticky; top: 84px; display: grid; gap: 14px; }
+.g-box { border: 1px solid var(--line-2); border-radius: 12px; background: var(--card); padding: 18px; display: grid; gap: 10px; font-size: 14.5px; }
+.g-box h2 { font-size: 13px; font-family: var(--mono); font-weight: 400; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.g-box ol { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.g-box a { text-decoration: none; }
+.g-box a:hover { text-decoration: underline; }
+.g-cta { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.g-cta p { margin: 0; color: color-mix(in oklab, var(--paper) 78%, transparent); }
+.g-cta strong { color: var(--paper); font-size: 16px; }
+.g-cta .btn-primary { justify-self: start; background: var(--paper); color: var(--ink); border-color: var(--paper); white-space: normal; text-align: left; }
+.g-cta .btn-primary:hover { background: #fff; color: var(--ink); }
+.g-dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 18px; margin: 14px 0; font-size: 15px; }
+.g-dl dt { font-weight: 600; color: var(--ink); }
+.g-dl dd { margin: 0; color: var(--ink-2); }
+.g-rules td:first-child { white-space: nowrap; font-weight: 600; color: var(--ink); }
+.g-rules td.g-src { font-size: 13px; color: var(--muted); min-width: 180px; }
+.g-act { border: 1px solid var(--line-2); border-radius: 12px; background: var(--card); padding: 16px 18px; margin: 14px 0; display: grid; gap: 8px; }
+.g-act h3 { margin: 0; font-size: 17px; }
+.g-act p { margin: 0; }
+.g-act .g-act-meta { font-family: var(--mono); font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.g-act .g-example { padding: 10px 12px; border-left: 3px solid var(--accent); background: var(--accent-soft); border-radius: 0 8px 8px 0; color: var(--ink); font-size: 15px; }
+.g-act .g-words { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.g-fill { display: grid; gap: 4px; margin: 6px 0 0; padding: 0; list-style: none; font-size: 14.5px; }
+.g-fill li { padding: 7px 10px; border: 1px dashed var(--line-2); border-radius: 8px; color: var(--muted); }
+.g-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 0; }
+@media (max-width: 900px) { .g-wrap { grid-template-columns: 1fr; } .g-aside { position: static; } }
+@media (max-width: 640px) {
+  .g-stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .g-stack, .g-stack tbody, .g-stack tr, .g-stack td { display: block; width: 100%; }
+  .g-stack tr { padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  .g-stack tbody tr:last-child { border-bottom: 0; }
+  .g-stack td { border: 0; padding: 2px 0; white-space: normal !important; }
+  .g-stack td:first-child { font-weight: 600; color: var(--ink); }
+  .g-dl { grid-template-columns: 1fr; gap: 2px; }
+  .g-dl dd { margin-bottom: 8px; }
+}
+
+@media print {
+  .eap-bar, .eap-out-actions, .eap-pro-step, .eap-status, #guides, #faq, #pro, #proof, #method { display: none !important; }
+}
+
+/* Below the first screen, skip layout until a section is near the viewport: the builder is long and its first paint
+   should not wait for the guides, the FAQ and the later steps. */
+#text-step, #out-step, #pro-step, #method, #proof, #pro, #faq, #guides { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","@id":"https://peakappsstudio.com/equality-action-plan/#app","name":"Equality Action Plan","url":"https://peakappsstudio.com/equality-action-plan/","description":"Builds an equality action plan for UK employers with 250 or more employees from the 18 actions in the GOV.UK guidance (Creating an action plan: guidance for employers), checks the minimums (at least one gender pay gap action, one menopause action and two new or in progress actions) and the 100 and 200 word limits, diagnoses the published gender pay gap figures and writes the text in the order the guidance sets out. It runs in the browser.","applicationCategory":"BusinessApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"inLanguage":"en-GB","offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD","description":"The 18 actions with statuses, the three rules checked live, supporting text with word counters and link warnings, the quick diagnosis from your published figures, and the plan as text in the order the guidance sets out."},{"@type":"Offer","name":"Pro (one-time, per organisation)","price":"79","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/equality-action-plan-pro","description":"The Step 1 analysis from your HR export, the sign-off pack PDF for the responsible person, a website plan page as HTML and PDF, the measures tracker as CSV and PDF with last year compared, and the staff consultation kit. Covers every reporting entity of one organisation."}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Equality action plan","item":"https://peakappsstudio.com/equality-action-plan/"}]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Is an equality action plan mandatory?","acceptedAnswer":{"@type":"Answer","text":"Not yet. Employers with 250 or more employees can publish one voluntarily with their gender pay gap figures. GOV.UK says plans will become mandatory from spring 2027, subject to secondary legislation. Section 78A of the Equality Act 2010 gives the power to make those regulations; none had been made or laid in draft when we last checked, on 10 October 2026."}},
+  {"@type":"Question","name":"What must the plan include?","acceptedAnswer":{"@type":"Answer","text":"At least 2 of the 18 actions on GOV.UK’s list: at least one that addresses the gender pay gap and at least one that supports employees experiencing menopause, and at least 2 must be new or in progress. Each new or in progress action needs supporting text of up to 100 words on why you chose it and how you will track it. An overall supporting narrative of up to 200 words is optional."}},
+  {"@type":"Question","name":"What is the difference between new or in progress and embedded?","acceptedAnswer":{"@type":"Answer","text":"New or in progress means you will be working on the action for the first time or building on something you already do. Embedded means it is already an established part of your working practice. Embedded actions can be added, with optional text on how you embedded them and the results, but they do not count towards the two new or in progress actions."}},
+  {"@type":"Question","name":"How are the words counted?","acceptedAnswer":{"@type":"Answer","text":"The way the GOV.UK Design System word counter counts them: every run of characters between spaces or line breaks is one word. Part-time is one word, 4 April 2027 is three, and a dash or ampersand with a space on each side counts as one. The gender pay gap service makes the final check."}},
+  {"@type":"Question","name":"Who is the responsible person?","acceptedAnswer":{"@type":"Answer","text":"Private and voluntary sector employers must name a responsible person when they submit the plan, usually a director, partner or senior officer, who confirms that the information submitted is accurate. Most public authority employers do not need to."}},
+  {"@type":"Question","name":"We are a group with several companies. How many plans do we need?","acceptedAnswer":{"@type":"Answer","text":"GOV.UK says you must submit an action plan for each separate legal entity with 250 or more employees. Each can have its own actions and text, or you can copy the same actions and narratives into a plan for each entity. One Pro licence covers every reporting entity of your organisation."}},
+  {"@type":"Question","name":"Is anything I type uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. The plan is kept in your browser on this computer, and the HR export for the Pro analysis is read on the page and never sent anywhere. With Pro, only the licence key is sent to Gumroad to check it."}},
+  {"@type":"Question","name":"Is this legal advice?","acceptedAnswer":{"@type":"Answer","text":"No. The tool checks your plan against the rules in the GOV.UK guidance, shown with their sources, and helps you write it. You choose the actions and the words, and the employer is responsible for what it submits."}},
+  {"@type":"Question","name":"What does Pro include?","acceptedAnswer":{"@type":"Answer","text":"For $79, once, per organisation: the Step 1 analysis from your HR export, the sign-off pack PDF for the responsible person, a page for your website as HTML and PDF, the measures tracker as CSV and PDF with last year’s file compared, and a staff consultation kit with an anonymous survey and a focus group guide."}}
+ ]}
+]}
+</script>
+</head>
+<body style="--accent:#7b2d3b">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a href="/tumbler-template/" class="hide-sm">Tumbler templates</a>
+      <a href="/name-cut-files/" class="hide-sm">Name cut files</a>
+      <a href="/kdp-coloring-book/" class="hide-sm">KDP coloring books</a>
+      <a href="/sewing-pattern-printer/" class="hide-sm">Sewing pattern printer</a>
+      <a href="/quilt-label-maker/" class="hide-sm">Quilt labels</a>
+      <a href="/etsy-tax-summary/" class="hide-sm">Etsy tax summary</a>
+      <a href="/pay-gap-report/" class="hide-sm">Pay gap report</a>
+      <a href="/equality-action-plan/" aria-current="page">Equality action plan</a>
+      <a href="/job-evaluation/" class="hide-sm">Job evaluation</a>
+      <a href="/pay-transparency/" class="hide-sm">Pay transparency</a>
+      <a href="/menopause-adjustments/" class="hide-sm">Menopause adjustments</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li aria-current="page">Equality action plan</li></ol></nav>
+
+  <section class="tool-hero eap-hero">
+    <div>
+      <p class="eyebrow">Equality Act 2010, section 78A</p>
+      <h1>Equality action plan builder for the gender pay gap and <em>menopause</em></h1>
+    </div>
+    <div>
+      <p class="lede">Choose from the 18 actions on GOV.UK’s list, mark each one new or embedded, and write the text inside the service’s word limits while the three rules are checked as you go. Start from your gender pay gap figures and see what they show.</p>
+      <ul class="facts">
+        <li><span>Rules as of <span data-asof>10 October 2026</span></span></li>
+        <li>Everything stays in your browser</li>
+        <li>For employers with 250 or more staff</li>
+      </ul>
+    </div>
+  </section>
+
+  <aside class="eap-status" aria-label="Status of the duty">
+    <p class="eap-status-tag">Voluntary now</p>
+    <p class="eap-status-text">GOV.UK: “Subject to legislation, these will become mandatory from spring 2027.” The regulations have not been made yet. A plan for the 2026 to 2027 reporting year is due with your gender pay gap figures: <strong>4 April 2027</strong> for private and voluntary employers, <strong>30 March 2027</strong> for most public authorities. <a href="/equality-action-plan/2027/">What is mandatory, and when</a></p>
+  </aside>
+
+  <section class="eap" id="tool" aria-label="Equality action plan builder">
+    <div class="eap-bar">
+      <label class="field eap-org"><span>Organisation</span><input class="input" id="employer" maxlength="120" autocomplete="organization" placeholder="Your organisation"></label>
+      <div class="field eap-sector-f">
+        <span id="sector-l">Employer type</span>
+        <div class="seg eap-seg" id="sector" role="group" aria-labelledby="sector-l">
+          <button type="button" data-value="private" aria-pressed="true">Private or voluntary</button>
+          <button type="button" data-value="public" aria-pressed="false">Public authority</button>
+        </div>
+      </div>
+      <label class="field eap-year-f"><span>Reporting year</span><select class="select" id="year"></select></label>
+      <div class="eap-bar-actions">
+        <button type="button" class="btn btn-sm btn-ink" id="sample">Load the sample plan</button>
+        <button type="button" class="btn btn-sm eap-quiet" id="reset">Start over</button>
+      </div>
+    </div>
+    <p class="eap-dates" id="dates"></p>
+    <p class="eap-sample-note" id="sample-note" hidden>Sample plan: <span id="sample-note-text"></span> <button type="button" class="linklike" id="sample-clear">Clear it</button> and write your own.</p>
+    <p class="eap-prefill-note" id="prefill-note" hidden></p>
+
+    <!-- Step 1 -->
+    <section class="eap-step" id="diag-step" aria-labelledby="diag-h">
+      <div class="eap-step-head">
+        <span class="eap-step-n">1</span>
+        <div><h2 id="diag-h">Start from your gender pay gap figures</h2><p class="hint">The six measures you publish, as percentages. The diagnosis says what they show and which actions GOV.UK suggests for it; it never guesses a cause. Leave out any you do not have.</p></div>
+      </div>
+      <div class="eap-diag">
+        <div class="eap-figs" role="group" aria-label="Your published figures">
+          <fieldset class="eap-figset">
+            <legend>Hourly pay gap</legend>
+            <label class="field"><span>Mean</span><span class="input-unit"><input class="input" inputmode="decimal" data-fig="mh" autocomplete="off"><i>%</i></span></label>
+            <label class="field"><span>Median</span><span class="input-unit"><input class="input" inputmode="decimal" data-fig="md" autocomplete="off"><i>%</i></span></label>
+          </fieldset>
+          <fieldset class="eap-figset">
+            <legend>Bonus pay gap</legend>
+            <label class="field"><span>Mean</span><span class="input-unit"><input class="input" inputmode="decimal" data-fig="mb" autocomplete="off"><i>%</i></span></label>
+            <label class="field"><span>Median</span><span class="input-unit"><input class="input" inputmode="decimal" data-fig="db" autocomplete="off"><i>%</i></span></label>
+          </fieldset>
+          <fieldset class="eap-figset">
+            <legend>Paid a bonus</legend>
+            <label class="field"><span>Men</span><span class="input-unit"><input class="input" inputmode="decimal" data-fig="bm" autocomplete="off"><i>%</i></span></label>
+            <label class="field"><span>Women</span><span class="input-unit"><input class="input" inputmode="decimal" data-fig="bw" autocomplete="off"><i>%</i></span></label>
+          </fieldset>
+          <fieldset class="eap-figset eap-figset-q">
+            <legend>Women in each quartile</legend>
+            <label class="field"><span>Lower</span><span class="input-unit"><input class="input" inputmode="decimal" data-fig="q1" autocomplete="off"><i>%</i></span></label>
+            <label class="field"><span>Lower middle</span><span class="input-unit"><input class="input" inputmode="decimal" data-fig="q2" autocomplete="off"><i>%</i></span></label>
+            <label class="field"><span>Upper middle</span><span class="input-unit"><input class="input" inputmode="decimal" data-fig="q3" autocomplete="off"><i>%</i></span></label>
+            <label class="field"><span>Upper</span><span class="input-unit"><input class="input" inputmode="decimal" data-fig="q4" autocomplete="off"><i>%</i></span></label>
+          </fieldset>
+          <p class="hint eap-figs-hint">The figures from the gender pay gap service, for example <code>DiffMeanHourlyPercent</code> for the mean hourly gap and <code>FemaleLowerQuartile</code> for the lower quartile. No figures yet? <a href="/pay-gap-report/">Work them out from a payroll export</a>.</p>
+          <p class="warn" id="fig-warn" role="alert" hidden></p>
+        </div>
+        <div class="eap-diag-out" id="diagnosis" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- Step 2 -->
+    <section class="eap-step" id="pick-step" aria-labelledby="pick-h">
+      <div class="eap-step-head">
+        <span class="eap-step-n">2</span>
+        <div><h2 id="pick-h">Choose your actions</h2><p class="hint">The 18 actions on GOV.UK’s list, in its five groups. Tick an action, then say whether it is new or in progress, or already embedded in how you work.</p></div>
+      </div>
+      <div class="eap-pick">
+        <div class="eap-groups" id="groups"></div>
+        <aside class="eap-rules" id="rules-panel" aria-labelledby="rules-h">
+          <h3 id="rules-h">The three rules</h3>
+          <ul class="eap-rule-list" id="rules" aria-live="polite"></ul>
+          <p class="eap-rules-count" id="counts"></p>
+          <p class="eap-rules-src">From GOV.UK, <a href="https://www.gov.uk/government/publications/creating-an-action-plan-guidance-for-employers/step-2-choose-your-actions" rel="noopener">Step 2. Choose your actions</a>. <span class="eap-asof" data-asof-line>Rules as of 10 October 2026</span>. <a href="/equality-action-plan/rules/">Every rule and its source</a></p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Step 3 -->
+    <section class="eap-step" id="text-step" aria-labelledby="text-h">
+      <div class="eap-step-head">
+        <span class="eap-step-n">3</span>
+        <div><h2 id="text-h">Write the supporting text</h2><p class="hint">Up to 100 words for each action, with no links and no files. New or in progress actions need text; for embedded actions it is optional.</p></div>
+      </div>
+      <div class="eap-texts" id="texts"></div>
+      <p class="eap-texts-empty hint" id="texts-empty">Choose an action in step 2 and its text box appears here.</p>
+      <div class="eap-narr">
+        <label class="field"><span>Supporting narrative for your overall action plan <small class="muted">(optional, up to 200 words)</small></span>
+          <textarea class="input eap-textarea" id="narrative" rows="6" spellcheck="true" aria-describedby="narr-count narr-hint"></textarea></label>
+        <div class="eap-count-row"><p class="hint" id="narr-hint">Background, and your organisation’s objectives for gender equality.</p><p class="eap-count" id="narr-count">0 / 200 words</p></div>
+        <p class="warn" id="narr-warn" hidden></p>
+      </div>
+      <div class="eap-more">
+        <label class="field eap-web"><span>Link to the page on your website <small class="muted">(the service asks for it separately)</small></span><input class="input" id="website" type="url" inputmode="url" placeholder="https://www.example.com/equality" autocomplete="url"></label>
+        <div class="eap-resp" id="resp">
+          <p class="hint" id="resp-hint">Private and voluntary sector employers name a responsible person, usually a director, partner or senior officer, who confirms the information is accurate.</p>
+          <div class="row"><label class="field"><span>Responsible person</span><input class="input" id="resp-name" maxlength="90" autocomplete="name"></label><label class="field"><span>Job title</span><input class="input" id="resp-title" maxlength="90" autocomplete="organization-title"></label></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 4 -->
+    <section class="eap-step" id="out-step" aria-labelledby="out-h">
+      <div class="eap-step-head">
+        <span class="eap-step-n">4</span>
+        <div><h2 id="out-h">Copy it into the gender pay gap service</h2><p class="hint">In the order the guidance sets out: the actions and their status, the text for each action, the narrative, your web page and the responsible person.</p></div>
+      </div>
+      <p class="eap-ready" id="ready" role="status"></p>
+      <ol class="eap-blocks" id="blocks"></ol>
+      <div class="eap-out-actions">
+        <button type="button" class="btn btn-primary" id="copy-all">Copy the whole plan</button>
+        <button type="button" class="btn" id="download-txt">Download as a text file</button>
+        <a class="btn eap-quiet" href="https://www.gov.uk/government/publications/creating-an-action-plan-guidance-for-employers/step-4-submit-your-action-plan" rel="noopener">How to submit on GOV.UK</a>
+      </div>
+    </section>
+
+    <!-- Step 5: Pro -->
+    <section class="eap-step eap-pro-step" id="pro-step" aria-labelledby="pro-h" data-pro="false">
+      <div class="eap-step-head">
+        <span class="eap-step-n">5</span>
+        <div><h2 id="pro-h">The analysis and the paperwork <span class="pro-tag" id="pro-tag">Pro</span></h2><p class="hint" id="pro-sub">For the people who sign it off, publish it and review it next year.</p></div>
+      </div>
+      <ul class="eap-pro-rows" id="pro-rows">
+        <li data-pro-row="analysis"><span class="eap-lock" aria-hidden="true"></span><div><strong>Step 1 analysis from your HR export</strong><span>Men and women at each pay level and grade, starting pay of the year’s hires, bonuses, promotion rates at the same grade, leavers, part-time and flexible working by level, and a baseline for women aged 40 to 60.</span></div><div class="eap-pro-btns"><button type="button" class="btn btn-sm" data-open="analysis">Open</button></div></li>
+        <li data-pro-row="pack"><span class="eap-lock" aria-hidden="true"></span><div><strong>Sign-off pack PDF</strong><span>Your actions, statuses and text, the narrative, a data appendix and an approval page with name, role and date for the responsible person.</span></div><div class="eap-pro-btns"><button type="button" class="btn btn-sm" data-pro-action="pack">Download</button></div></li>
+        <li data-pro-row="web"><span class="eap-lock" aria-hidden="true"></span><div><strong>Website plan page, HTML and PDF</strong><span>A self-contained page with your planned and embedded actions, to publish on your own site and link from the service.</span></div><div class="eap-pro-btns"><button type="button" class="btn btn-sm" data-pro-action="web-html">HTML</button><button type="button" class="btn btn-sm" data-pro-action="web-pdf">PDF</button></div></li>
+        <li data-pro-row="tracker"><span class="eap-lock" aria-hidden="true"></span><div><strong>Measures tracker, CSV and PDF</strong><span>A metric, baseline, target, owner and review date for each action. Load last year’s file next year and see the change.</span></div><div class="eap-pro-btns"><button type="button" class="btn btn-sm" data-open="tracker">Open</button></div></li>
+        <li data-pro-row="consult"><span class="eap-lock" aria-hidden="true"></span><div><strong>Staff consultation kit</strong><span>An anonymous menopause needs survey, a focus group guide and a CSV of the answers you type in.</span></div><div class="eap-pro-btns"><button type="button" class="btn btn-sm" data-open="consult">Open</button></div></li>
+      </ul>
+      <div class="eap-lock-bar" id="lock">
+        <p><strong>Pro is $79 once, per organisation, and covers every reporting entity in it.</strong> The builder above stays free.</p>
+        <div class="eap-lock-actions"><a class="btn btn-primary btn-sm" data-buy-pro href="https://dorukctn.gumroad.com/l/equality-action-plan-pro">Buy Pro on Gumroad</a><button type="button" class="btn btn-sm" data-enter-key>Enter licence key</button></div>
+      </div>
+      <div class="eap-panel" id="panel-analysis" hidden></div>
+      <div class="eap-panel" id="panel-tracker" hidden></div>
+      <div class="eap-panel" id="panel-consult" hidden></div>
+    </section>
+    <p class="sr-only" id="status" aria-live="polite"></p>
+  </section>
+
+  <p class="eap-privacy small muted">The plan you write is saved in this browser so you can come back to it, and nothing is sent anywhere. There are no analytics on this page. The HR export for the Pro analysis is read on the page and not stored.</p>
+
+  <section class="section two-col" id="method">
+    <div class="prose">
+      <h2>The rules the builder checks</h2>
+      <p><strong>Actions.</strong> GOV.UK lists 18 actions in five groups: four groups on the gender pay gap (recruiting staff, developing and promoting staff, building diversity, increasing transparency) and one on supporting employees experiencing menopause. You must choose at least 2: at least one on the gender pay gap and at least one on menopause.</p>
+      <p><strong>Status.</strong> Each action is ‘new or in progress’, which you will work on for the first time or build on, or ‘embedded’, already an established part of how you work. At least 2 must be new or in progress. The published plan shows them as planned actions and embedded actions.</p>
+      <p><strong>Text.</strong> For each new or in progress action, why you chose it and how you will track whether it is improving gender equality, in up to 100 words. For embedded actions you can add how you embedded it and the results. No links and no files. The overall narrative is optional, up to 200 words.</p>
+    </div>
+    <div class="prose">
+      <h2>Who, when, and what is not settled</h2>
+      <p><strong>Who.</strong> Employers with 250 or more employees, for each legal entity of that size. In the public sector, only the authorities listed in Schedule 19 to the Equality Act 2010 as section 78A sets out; public authorities in Scotland and Wales have different rules.</p>
+      <p><strong>When.</strong> A plan for the 2026 to 2027 reporting year is voluntary and goes with the gender pay gap figures: by 4 April 2027 for private, voluntary and other employers, by 30 March 2027 for most public authorities. Private and voluntary employers name a responsible person.</p>
+      <p><strong>Not settled.</strong> GOV.UK says plans will become mandatory from spring 2027, subject to secondary legislation. The regulations may change the content, the limits or the approval, so every rule here sits in one dated file and the builder prints the date it was checked. <a href="/equality-action-plan/rules/">The rules with their sources</a>.</p>
+      <p class="source">Sources: Equality Act 2010, <a href="https://www.legislation.gov.uk/ukpga/2010/15/section/78A" rel="noopener">section 78A</a>, inserted by the Employment Rights Act 2025, <a href="https://www.legislation.gov.uk/ukpga/2025/36/section/33" rel="noopener">section 33</a> (in force 6 April 2026, <a href="https://www.legislation.gov.uk/uksi/2026/323/regulation/3/made" rel="noopener">S.I. 2026/323</a>); GOV.UK, <a href="https://www.gov.uk/government/publications/creating-an-action-plan-guidance-for-employers" rel="noopener">Creating an action plan: guidance for employers</a> (updated 13 May 2026) and <a href="https://www.gov.uk/government/collections/action-plans-list-of-actions" rel="noopener">Action plans: list of actions</a>; Business.gov.uk, <a href="https://www.business.gov.uk/campaign/employment-changes/employers/employer-action-plans/" rel="noopener">Employer Action Plans</a> (updated 5 October 2026); GOV.UK, <a href="https://www.gov.uk/government/publications/gender-pay-gap-reporting-guidance-for-employers/when-to-report" rel="noopener">When to report</a> (updated 21 May 2026). Last checked 10 October 2026.</p>
+    </div>
+  </section>
+
+  <section class="section" id="proof" aria-labelledby="proof-h">
+    <p class="eyebrow">What the $79 version writes</p>
+    <h2 id="proof-h">A plan the responsible person can <em>sign</em></h2>
+    <p class="lede">Load the sample plan above and the free builder fills in. The PDF below is the sign-off pack Pro wrote for that same synthetic company, in one click.</p>
+    <figure class="shot">
+      <img src="/equality-action-plan/pro-pack.webp" srcset="/equality-action-plan/pro-pack-450.webp 450w, /equality-action-plan/pro-pack-675.webp 675w, /equality-action-plan/pro-pack-1050.webp 1050w, /equality-action-plan/pro-pack-1240.webp 1240w, /equality-action-plan/pro-pack.webp 1500w" sizes="(max-width: 1336px) 92vw, 1240px" width="1500" height="1060" loading="lazy" decoding="async" alt="Two pages of a printed equality action plan sign-off pack side by side. The first has the organisation, the reporting year, the deadline, the status of the duty, the three rules marked as met and the list of planned and embedded actions. The second is the approval page with the responsible person’s name, job title, a signature line and the date.">
+      <figcaption>Pages 1 and 7 of the seven-page sign-off pack for the sample company. <strong>Every action carries its status, its group and its word count</strong>, the data appendix on pages 4 to 6 holds the figures and the Step 1 analysis behind the choices, and the last page is for the responsible person to sign. The company and its figures are synthetic.</figcaption>
+    </figure>
+
+    <div class="split">
+      <div>
+        <h3>Free builds the plan</h3>
+        <p>Everything the service asks for.</p>
+        <ul>
+          <li>The 18 actions with their statuses and the three rules checked live</li>
+          <li>Supporting text with word counters and a warning for links</li>
+          <li>The quick diagnosis from your published figures</li>
+          <li>The whole plan as text, in the order the guidance sets out</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Pro does the work around it</h3>
+        <p>For the people who analyse, approve, publish and review.</p>
+        <ul>
+          <li>The Step 1 analysis from your HR export, with charts</li>
+          <li>The sign-off pack PDF with an approval page</li>
+          <li>A page for your website, as HTML and PDF</li>
+          <li>The measures tracker and the staff consultation kit</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pro">
+    <div class="pro">
+      <div class="pro-left">
+        <p class="eyebrow">Pro</p>
+        <h2>The analysis, the sign-off and next year’s review for your <em>organisation</em></h2>
+        <ul class="pro-list">
+          <li>The Step 1 analysis from your payroll or HR export, in the browser: pay levels, grades, hires, bonuses, promotions, leavers, flexible working and a baseline for women aged 40 to 60</li>
+          <li>A sign-off pack PDF: actions, statuses, text, narrative, data appendix and an approval page for the responsible person</li>
+          <li>A website plan page as a self-contained HTML file and a PDF</li>
+          <li>The measures tracker as CSV and PDF; next year, load this year’s file and see the change</li>
+          <li>A staff consultation kit, and one payment for every reporting entity of your organisation</li>
+        </ul>
+      </div>
+      <div class="pro-right">
+        <p class="price">$79 <small>one-time, per organisation</small></p>
+        <a class="btn btn-primary" data-buy-pro href="https://dorukctn.gumroad.com/l/equality-action-plan-pro">Buy Pro on Gumroad</a>
+        <button type="button" class="btn" data-enter-key style="background:transparent;color:var(--paper);border-color:color-mix(in oklab, var(--paper) 40%, transparent)">Enter licence key</button>
+        <p class="fine">Gumroad handles payment and refunds. Your key turns on Pro in this browser; enter it again on another computer. The builder stays free.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <h2>Questions</h2>
+    <div class="faq">
+      <details><summary>Is an equality action plan mandatory?</summary><div class="answer"><p>Not yet. Employers with 250 or more employees can publish one voluntarily with their gender pay gap figures. GOV.UK says plans will become mandatory from spring 2027, subject to secondary legislation. Section 78A of the Equality Act 2010 gives the power to make those regulations; none had been made or laid in draft when we last checked, on 10 October 2026. <a href="/equality-action-plan/2027/">What 2027 means, with how advisers read it</a>.</p></div></details>
+      <details><summary>What must the plan include?</summary><div class="answer"><p>At least 2 of the 18 actions on GOV.UK’s list: at least one that addresses the gender pay gap and at least one that supports employees experiencing menopause, and at least 2 must be new or in progress. Each new or in progress action needs supporting text of up to 100 words on why you chose it and how you will track it. An overall supporting narrative of up to 200 words is optional. <a href="/equality-action-plan/rules/">Every rule with its source</a>.</p></div></details>
+      <details><summary>What is the difference between new or in progress and embedded?</summary><div class="answer"><p>New or in progress means you will be working on the action for the first time or building on something you already do. Embedded means it is already an established part of your working practice. Embedded actions can be added, with optional text on how you embedded them and the results, but they do not count towards the two new or in progress actions.</p></div></details>
+      <details><summary>How are the words counted?</summary><div class="answer"><p>The way the GOV.UK Design System word counter counts them: every run of characters between spaces or line breaks is one word. Part-time is one word, 4 April 2027 is three, and a dash or ampersand with a space on each side counts as one. The gender pay gap service makes the final check.</p></div></details>
+      <details><summary>Who is the responsible person?</summary><div class="answer"><p>Private and voluntary sector employers must name a responsible person when they submit the plan, usually a director, partner or senior officer, who confirms that the information submitted is accurate. Most public authority employers do not need to.</p></div></details>
+      <details><summary>We are a group with several companies. How many plans do we need?</summary><div class="answer"><p>GOV.UK says you must submit an action plan for each separate legal entity with 250 or more employees. Each can have its own actions and text, or you can copy the same actions and narratives into a plan for each entity. One Pro licence covers every reporting entity of your organisation.</p></div></details>
+      <details><summary>Is anything I type uploaded?</summary><div class="answer"><p>No. The plan is kept in your browser on this computer, and the HR export for the Pro analysis is read on the page and never sent anywhere. With Pro, only the licence key is sent to Gumroad to check it.</p></div></details>
+      <details><summary>Is this legal advice?</summary><div class="answer"><p>No. The tool checks your plan against the rules in the GOV.UK guidance, shown with their sources, and helps you write it. You choose the actions and the words, and the employer is responsible for what it submits.</p></div></details>
+      <details><summary>What does Pro include?</summary><div class="answer"><p>For $79, once, per organisation: the Step 1 analysis from your HR export, the sign-off pack PDF for the responsible person, a page for your website as HTML and PDF, the measures tracker as CSV and PDF with last year’s file compared, and a staff consultation kit with an anonymous survey and a focus group guide.</p></div></details>
+    </div>
+  </section>
+
+  <section class="section" id="guides">
+    <h2>Equality action plan guides</h2>
+    <nav class="related" aria-label="Guides">
+      <a href="/equality-action-plan/2027/"><strong>Equality action plans 2027</strong><span>What is mandatory and when, word for word.</span></a>
+      <a href="/equality-action-plan/rules/"><strong>The rules, with sources</strong><span>Minimums, statuses, word limits, who and when.</span></a>
+      <a href="/equality-action-plan/menopause-action-plan-template/"><strong>Menopause action plan template</strong><span>The six official menopause actions to fill in.</span></a>
+      <a href="/equality-action-plan/gender-pay-gap-action-plan-examples/"><strong>Gender pay gap action plan examples</strong><span>A 100-word example for each of the 12 actions.</span></a>
+      <a href="/menopause-adjustments/"><strong>Menopause adjustments at work</strong><span>For employees: ideas from the official guidance and a request letter.</span></a>
+    </nav>
+    <nav class="pe-block" aria-labelledby="pe-title">
+  <p class="pe-title" id="pe-title">Pay equity tools</p>
+  <ul class="pe-list">
+    <li><a href="/pay-gap-report/" style="--tool:#1e4f6e"><strong>Pay Gap Report</strong><span>The statutory gender pay gap measures from a payroll export, for the UK, Ireland and the EU directive, worked out in your browser.</span></a></li>
+    <li><a href="/equality-action-plan/" style="--tool:#7b2d3b" aria-current="page"><strong>Equality Action Plan</strong><span>A gender pay gap and menopause action plan from GOV.UK’s 18 actions, with the rules and word limits checked as you write.</span></a></li>
+    <li><a href="/job-evaluation/" style="--tool:#4a5d23"><strong>Job Evaluation</strong><span>Score roles on skills, effort, responsibility and working conditions, and see which jobs are work of equal value.</span></a></li>
+    <li><a href="/pay-transparency/" style="--tool:#7d5a12"><strong>Pay Transparency Kit</strong><span>Request letters for workers and Article 7 answers for employers, with the EU directive’s status in all 27 countries.</span></a></li>
+  </ul>
+</nav>
+
+    <p class="source eap-legal">Not legal advice. The builder checks the plan against the rules in the GOV.UK guidance as they stood on the date shown, and helps you write it. The employer chooses the actions and the words and is responsible for what it submits.</p>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools that each do one job well. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a> · <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
+        <li><a href="/name-cut-files/">Name Cut Files</a></li>
+        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
+        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
+        <li><a href="/quilt-label-maker/">Quilt Label Maker</a></li>
+        <li><a href="/etsy-tax-summary/">Etsy Tax Summary</a></li>
+        <li><a href="/menopause-adjustments/">Menopause Adjustments at Work</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Pay equity tools</h2>
+      <ul>
+        <li><a href="/pay-gap-report/">Pay Gap Report</a></li>
+        <li><a href="/equality-action-plan/">Equality Action Plan</a></li>
+        <li><a href="/job-evaluation/">Job Evaluation</a></li>
+        <li><a href="/pay-transparency/">Pay Transparency Kit</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/site.js" defer></script>
+<script src="/assets/license.js" defer></script>
+<script src="/equality-action-plan/rules.js" defer></script>
+<script src="/equality-action-plan/engine.js" defer></script>
+<script src="/equality-action-plan/tool.js" defer></script>
+</body>
+</html>

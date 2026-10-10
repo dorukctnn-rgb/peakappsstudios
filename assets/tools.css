@@ -235,9 +235,20 @@ td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowra
 .related a span { font-size: 14px; color: var(--muted); }
 .related a:hover strong { color: var(--accent); }
 
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
 /* ---------- Footer ---------- */
 .site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
-.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(2, 1fr); gap: 28px; }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
 .site-foot h2 { font-size: 13px; font-family: var(--mono); letter-spacing: .1em; text-transform: uppercase; font-weight: 400; color: var(--ink-2); margin: 0 0 10px; }
 .site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
 .site-foot a { text-decoration: none; }
