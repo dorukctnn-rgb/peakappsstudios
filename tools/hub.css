@@ -1,0 +1,96 @@
+/* Peak Apps Tools, the hub: its own look inside the shared header and footer, scoped to body.hub.
+ * The idea is a workbench with every tool's output laid out on it square (knolling): a workshop-orange bench, ink indigo
+ * for the type, cool white paper below it, and each tool marked with its own colour and a drawing of what it makes.
+ * Type: Funnel Display for headings and tool names, Funnel Sans for the rest (NORD ID, SIL Open Font License,
+ * /tools/fonts/OFL-funnel.txt), self-hosted woff2. */
+
+@font-face { font-family: "Funnel Display"; src: url("/tools/fonts/funnel-display-latin.woff2") format("woff2"); font-weight: 300 800; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Funnel Display"; src: url("/tools/fonts/funnel-display-latin-ext.woff2") format("woff2"); font-weight: 300 800; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Funnel Sans"; src: url("/tools/fonts/funnel-sans-latin.woff2") format("woff2"); font-weight: 300 800; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Funnel Sans"; src: url("/tools/fonts/funnel-sans-latin-ext.woff2") format("woff2"); font-weight: 300 800; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+/* Arial scaled to Funnel's average width and line metrics (worked out from the font files): no shift when it swaps in */
+@font-face { font-family: "Funnel Sans Fallback"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"); size-adjust: 101.8%; ascent-override: 98.2%; descent-override: 24.6%; line-gap-override: 0%; }
+@font-face { font-family: "Funnel Display Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"); font-weight: 700 800; size-adjust: 102.7%; ascent-override: 97.4%; descent-override: 24.3%; line-gap-override: 0%; }
+
+body.hub {
+  --hub-bench: #fb6f24;      /* the orange bench, also the background of the hero image */
+  --hub-ink: #1f1b4d;        /* ink indigo: every word on the bench is set in it (5.6:1 on the orange) */
+  --hub-paper: #f3f4f0;      /* cool white paper under the bench */
+  --hub-sheet: #ffffff;
+  --hub-muted: #56536b;
+  --paper: var(--hub-paper); --paper-2: #e6e7e1; --card: var(--hub-sheet);
+  --ink: var(--hub-ink); --ink-2: #39365e; --muted: var(--hub-muted);
+  --line: rgba(31, 27, 77, 0.13); --line-2: rgba(31, 27, 77, 0.26);
+  --accent: var(--hub-ink); --accent-ink: #ffffff;
+  --sans: "Funnel Sans", "Funnel Sans Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display: "Funnel Display", "Funnel Display Fallback", "Funnel Sans", ui-sans-serif, system-ui, sans-serif;
+  --mono: var(--sans);
+  background: var(--hub-paper); color: var(--hub-ink); font-family: var(--sans); font-size: 17px; line-height: 1.55;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.hub {
+    --hub-paper: #14121f; --hub-sheet: #1c1a2b; --paper-2: #24223a; --hub-muted: #a9a6c0;
+    --ink: #ecebf6; --ink-2: #c9c7dc; --line: rgba(236, 235, 246, 0.12); --line-2: rgba(236, 235, 246, 0.24); --accent: #ffb38a; --accent-ink: #1f1b4d;
+    color: #ecebf6;
+  }
+}
+:root[data-theme="dark"] body.hub {
+  --hub-paper: #14121f; --hub-sheet: #1c1a2b; --paper-2: #24223a; --hub-muted: #a9a6c0;
+  --ink: #ecebf6; --ink-2: #c9c7dc; --line: rgba(236, 235, 246, 0.12); --line-2: rgba(236, 235, 246, 0.24); --accent: #ffb38a; --accent-ink: #1f1b4d;
+  color: #ecebf6;
+}
+
+/* ---------- The bench: header and hero on orange ---------- */
+.hub .site-head { background: var(--hub-bench); color: var(--hub-ink); border-bottom: 1px solid rgba(31, 27, 77, 0.2); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.hub .site-head a, .hub .head-nav a { color: var(--hub-ink); }
+.hub .head-nav a:hover { background: rgba(255, 255, 255, 0.35); color: var(--hub-ink); }
+.hub .head-nav a[aria-current="page"] { background: rgba(255, 255, 255, 0.55); color: var(--hub-ink); }
+.hub .brand-sub { color: var(--hub-ink); border-left-color: rgba(31, 27, 77, 0.35); }
+.hub :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+.hub-hero :focus-visible, .hub .site-head :focus-visible { outline-color: var(--hub-ink); }
+
+.hub-hero { background: var(--hub-bench); color: var(--hub-ink); padding: 6px 0 clamp(26px, 4vw, 48px); }
+.hub-hero-in { display: grid; grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr); gap: clamp(16px, 3vw, 48px); align-items: center; }
+.hub-hero .crumbs { color: var(--hub-ink); margin-top: 18px; }
+.hub-hero .crumbs a { color: var(--hub-ink); text-decoration: underline; text-decoration-color: rgba(31, 27, 77, 0.45); }
+.hub-hero .crumbs li + li::before { color: rgba(31, 27, 77, 0.5); }
+.hub-hero h1 { font-family: var(--display); font-weight: 800; font-size: clamp(38px, 4.7vw, 66px); line-height: 0.98; letter-spacing: -0.025em; margin: 22px 0 0; max-width: 12ch; text-wrap: balance; color: var(--hub-ink); }
+.hub-hero .lede { color: var(--hub-ink); font-size: clamp(17px, 1.45vw, 19.5px); max-width: 44ch; margin: 18px 0 0; }
+.hub-hero-fig { margin: 0; min-width: 0; }
+.hub-hero-fig img { width: 100%; height: auto; aspect-ratio: 4 / 3; background: var(--hub-bench); }
+.hub-hero-fig figcaption { font-size: 14px; color: var(--hub-ink); margin: 6px 0 0; max-width: 62ch; }
+@media (max-width: 900px) {
+  .hub-hero-in { grid-template-columns: 1fr; }
+  .hub-hero h1 { max-width: 14ch; }
+  .hub-hero-fig { margin: 4px -8px 0; }
+}
+
+/* ---------- The index of tools ---------- */
+.hub-groups { padding: clamp(30px, 5vw, 64px) 0 0; display: grid; gap: clamp(40px, 5vw, 64px); }
+.hub-group-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 24px; border-bottom: 2px solid var(--ink); padding-bottom: 12px; }
+.hub-group-head h2 { font-family: var(--display); font-weight: 800; font-size: clamp(26px, 2.6vw, 36px); letter-spacing: -0.02em; line-height: 1.05; margin: 0; color: var(--ink); }
+.hub-group-head p { margin: 0; color: var(--muted); font-size: 15.5px; max-width: 56ch; }
+.hub-list { list-style: none; margin: 0; padding: 0; }
+.hub-list li { border-bottom: 1px solid var(--line-2); }
+.hub-list a { display: grid; grid-template-columns: 64px minmax(0, 1fr) minmax(150px, auto); gap: 4px 22px; align-items: start; padding: 20px 0 22px; text-decoration: none; color: var(--ink); }
+.hub-mark { grid-row: 1 / span 2; width: 56px; height: 56px; color: var(--ink); }
+.hub-mark .f { fill: var(--tool); }
+.hub-mark .s { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }
+.hub-mark .w { fill: var(--card); }
+.hub-name { font-family: var(--display); font-weight: 750; font-size: clamp(21px, 1.9vw, 26px); letter-spacing: -0.015em; line-height: 1.15; margin: 0; }
+.hub-desc { grid-column: 2; margin: 2px 0 0; color: var(--ink-2); font-size: 16.5px; max-width: 64ch; }
+.hub-price { margin: 0; grid-column: 3; grid-row: 1 / span 2; justify-self: end; text-align: right; font-size: 15px; color: var(--muted); padding-top: 4px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.hub-price b { display: block; font-weight: 700; color: var(--ink); }
+.hub-list a:hover .hub-name { color: var(--tool); }
+.hub-list a:hover .hub-mark { color: var(--tool); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .hub-list a:hover .hub-name { color: color-mix(in oklab, var(--tool) 40%, #ffffff); } }
+:root[data-theme="dark"] .hub-list a:hover .hub-name { color: color-mix(in oklab, var(--tool) 40%, #ffffff); }
+@media (max-width: 720px) {
+  .hub-list a { grid-template-columns: 48px minmax(0, 1fr); gap: 4px 16px; padding: 18px 0 20px; }
+  .hub-mark { width: 46px; height: 46px; grid-row: 1 / span 3; }
+  .hub-price { grid-column: 2; grid-row: auto; justify-self: start; text-align: left; white-space: normal; padding-top: 6px; }
+  .hub-price b { display: inline; margin-right: 6px; }
+}
+.hub-note { margin: clamp(36px, 5vw, 56px) 0 0; max-width: 70ch; color: var(--muted); font-size: 15.5px; }
+
+.hub .site-foot { border-top: 2px solid var(--ink); }

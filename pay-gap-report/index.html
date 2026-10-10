@@ -12,11 +12,778 @@
 <meta property="og:description" content="The statutory gender pay gap measures from your payroll export: mean and median gaps, bonus figures, quartile pay bands and the Irish and EU splits. Computed in your browser.">
 <meta property="og:url" content="https://peakappsstudio.com/pay-gap-report/">
 <meta name="twitter:card" content="summary">
-<meta name="theme-color" content="#f5f3ee">
+<meta name="theme-color" content="#e6e9e4">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/tools.css">
-<link rel="stylesheet" href="/pay-gap-report/tool.css">
+<link rel="preload" href="/assets/fonts/archivo-expanded-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="/pay-gap-report/img/quartiles-960.webp" imagesrcset="/pay-gap-report/img/quartiles-480.webp 480w, /pay-gap-report/img/quartiles-960.webp 960w, /pay-gap-report/img/quartiles-1440.webp 1440w" imagesizes="(max-width: 900px) calc(100vw - 32px), 50vw" fetchpriority="high">
+<style data-from="/assets/tools.css">
+/* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
+
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e1;
+  --card: #fbfaf7;
+  --ink: #141518;
+  --ink-2: #33363d;
+  --muted: #676b74;
+  --line: rgba(20, 21, 24, 0.12);
+  --line-2: rgba(20, 21, 24, 0.22);
+  --accent: #1f5c4d;          /* each tool overrides this on <body style="--accent:..."> */
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  --warn: #9a4a12;
+  --ok: #2c6a3f;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+    --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+  --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; }
+img { display: block; height: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 10px; z-index: 100; background: var(--ink); color: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 10px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-head { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand-sub { font-family: var(--sans); font-size: 14.5px; letter-spacing: 0; color: var(--muted); font-weight: 500; padding-left: 10px; border-left: 1px solid var(--line-2); }
+.head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
+.head-nav a:hover { background: var(--paper-2); color: var(--ink); }
+.head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
+@media (max-width: 640px) { .brand-sub { display: none; } }
+@media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
+
+/* ---------- Type ---------- */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+h1 { font-size: clamp(32px, 4.6vw, 54px); }
+h1 em, h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 19px; letter-spacing: -0.01em; }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; margin: 16px 0 0; }
+.mono { font-family: var(--mono); }
+.muted { color: var(--muted); }
+small, .small { font-size: 13.5px; }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 22px 0 0; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-2); }
+.crumbs a { text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.tool-hero { padding: 28px 0 24px; display: grid; gap: 8px; }
+.tool-hero .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.tool-hero .facts li { display: inline-flex; align-items: center; gap: 8px; }
+.tool-hero .facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Tool shell ---------- */
+.tool { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.tool-panel { padding: 22px; border-right: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.tool-stage { position: relative; min-height: 460px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper); display: grid; place-items: center; padding: 22px; }
+.tool-stage canvas, .tool-stage svg, .tool-stage img { max-height: 70vh; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px -12px rgba(0,0,0,.18); background: #fff; }
+.stage-bar { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.tool-foot { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 14px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--paper); }
+.tool-foot .spacer { flex: 1; }
+@media (max-width: 860px) {
+  .tool { grid-template-columns: 1fr; }
+  .tool-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tool-stage { min-height: 320px; }
+}
+
+/* ---------- Form controls ---------- */
+.group { display: grid; gap: 10px; }
+.group-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > label { font-size: 13px; color: var(--ink-2); }
+.input, .select { width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 8px; padding: 9px 11px; transition: border-color .15s, box-shadow .15s; }
+.input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input-unit { position: relative; }
+.input-unit .input { padding-right: 38px; font-family: var(--mono); font-size: 14.5px; }
+.input-unit i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 3px; flex: none; }
+.seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line-2); border-radius: 9px; padding: 3px; gap: 3px; background: var(--paper); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.warn { font-size: 13.5px; color: var(--warn); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.btn { --b: var(--line-2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 500; line-height: 1; padding: 11px 16px; border-radius: 9px; border: 1px solid var(--b); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; transition: transform .15s var(--ease), background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklab, var(--accent) 86%, #000); color: var(--accent-ink); border-color: transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-ink:hover { color: var(--paper); background: var(--ink-2); }
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.pro-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: var(--ink); color: var(--paper); }
+
+/* ---------- Drop zone ---------- */
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 18px 14px; background: var(--paper); cursor: pointer; transition: border-color .15s, background .15s; font-size: 14.5px; }
+.drop:hover, .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Content ---------- */
+.section { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prose { max-width: 70ch; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose h2 { margin: 1.6em 0 .5em; }
+.prose h3 { margin: 1.4em 0 .4em; }
+.prose code, .prose kbd { font-family: var(--mono); font-size: .9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+.two-col > * { min-width: 0; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: 3px; }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 13px; background: var(--paper); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 15px; }
+.source { font-size: 13px; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--line-2); margin-top: 18px; }
+.faq details { border-bottom: 1px solid var(--line-2); }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 13px; font-family: var(--mono); font-size: 18px; color: var(--muted); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 18px; color: var(--ink-2); max-width: 70ch; }
+
+/* ---------- Pro ---------- */
+.pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--card); }
+.pro-left { padding: clamp(22px, 3vw, 36px); }
+.pro-right { padding: clamp(22px, 3vw, 36px); background: var(--ink); color: var(--paper); display: grid; align-content: center; gap: 14px; }
+.pro-right .price { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pro-right .price small { font-size: 15px; font-weight: 400; color: color-mix(in oklab, var(--paper) 70%, transparent); letter-spacing: 0; }
+.pro-right .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.pro-right .btn-primary:hover { background: #fff; color: var(--ink); }
+.pro-right .fine { font-size: 13px; color: color-mix(in oklab, var(--paper) 65%, transparent); margin: 0; }
+.pro-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.pro-list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.pro-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border: 1.5px solid var(--accent); border-radius: 2px; transform: rotate(45deg); }
+@media (max-width: 760px) { .pro { grid-template-columns: 1fr; } }
+
+/* ---------- A real file, shown ---------- */
+.shot { margin: 22px 0 0; }
+.shot img { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; }
+.shot figcaption { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+.shot figcaption strong { font-weight: 600; color: var(--ink-2); }
+.shot-sm { max-width: 920px; }
+
+/* ---------- Where free stops and Pro starts ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; margin: 26px 0 0; background: var(--card); }
+.split > div { padding: 18px 20px 20px; }
+.split > div + div { border-left: 1px solid var(--line-2); background: var(--accent-soft); }
+.split h3 { font-size: 15.5px; margin: 0; }
+.split > div > p { margin: 5px 0 0; font-size: 13.5px; color: var(--muted); }
+.split ul { list-style: none; margin: 13px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
+.split li { position: relative; padding-left: 18px; }
+.split li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; border-radius: 1px; background: var(--line-2); }
+.split > div + div li::before { background: var(--accent); }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } .split > div + div { border-left: 0; border-top: 1px solid var(--line-2); } }
+
+/* ---------- A file list, as the archive really holds it ---------- */
+.filelist { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 5px; }
+.filelist li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filelist li span { color: var(--muted); }
+
+/* ---------- License dialog ---------- */
+.license-dialog { border: 1px solid var(--line-2); border-radius: 14px; padding: 0; width: min(440px, calc(100% - 32px)); background: var(--card); color: var(--ink); }
+.license-dialog::backdrop { background: rgba(10, 11, 13, .45); }
+.license-dialog form { padding: 22px; display: grid; gap: 14px; }
+.license-status { font-size: 14px; min-height: 1.4em; margin: 0; }
+.license-status[data-state="ok"] { color: var(--ok); }
+.license-status[data-state="err"] { color: var(--warn); }
+
+/* ---------- Related / cards ---------- */
+.related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line-2); margin-top: 22px; }
+.related a { display: grid; gap: 4px; padding: 18px 18px 18px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.related a strong { font-weight: 600; }
+.related a span { font-size: 14px; color: var(--muted); }
+.related a:hover strong { color: var(--accent); }
+
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
+/* ---------- Footer ---------- */
+.site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
+.site-foot h2 { font-size: 15px; font-family: var(--sans); letter-spacing: 0; font-weight: 600; color: var(--ink); margin: 0 0 10px; }
+.site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+@media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .3s var(--ease); z-index: 90; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media print { .site-head, .site-foot, .tool-panel, .tool-foot, .no-print { display: none !important; } body { background: #fff; } }
+
+/* The hidden attribute must win over component display rules. */
+[hidden] { display: none !important; }
+</style>
+<style data-from="/assets/pay-equity.css">
+/* Pay equity family: the shared type system, neutral base and accents of the HR reporting tools (Pay Gap Report,
+ * Equality Action Plan, Menopause Adjustments; Pay Transparency Kit and Job Evaluation adopt it next). Scoped to
+ * body.pe, so the shared header, footer and every other tool keep their own look. Load it after /assets/tools.css and
+ * before the tool's own stylesheet, and give the body "pe" plus the tool's class (pe-pgr, pe-eap, pe-ma, pe-ptk, pe-je).
+ *
+ * The idea is a compliance binder: white report sheets on a grey filing desk, headings set wide and heavy like the
+ * cover of a statutory report, tabular figures, and one coloured divider tab per tool. Data colours are the same in
+ * every tool (women green, men grey), so a chart means the same thing wherever it appears.
+ * Type: Archivo (Omnibus-Type, SIL Open Font License, /assets/fonts/OFL-archivo.txt), two cuts made from the variable
+ * font: "Archivo Expanded" (width 118, weights 700 to 800) for h1 and h2, "Archivo" (width 100, 400 to 700) for the rest. */
+
+@font-face { font-family: "Archivo Expanded"; src: url("/assets/fonts/archivo-expanded-latin.woff2") format("woff2"); font-weight: 700 800; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Archivo Expanded"; src: url("/assets/fonts/archivo-expanded-latin-ext.woff2") format("woff2"); font-weight: 700 800; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Archivo"; src: url("/assets/fonts/archivo-latin.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Archivo"; src: url("/assets/fonts/archivo-latin-ext.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+/* Arial (bold for the expanded cut) scaled to Archivo's average width and line metrics, worked out from the font files,
+   so text keeps roughly its line breaks while the web font arrives */
+@font-face { font-family: "Archivo Fallback"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"); size-adjust: 98.6%; ascent-override: 89%; descent-override: 21.3%; line-gap-override: 0%; }
+@font-face { font-family: "Archivo Expanded Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"); font-weight: 700 800; size-adjust: 121.7%; ascent-override: 72.2%; descent-override: 17.3%; line-gap-override: 0%; }
+
+/* ---------- Tokens ---------- */
+body.pe {
+  /* the base every family tool shares */
+  --pe-desk: #e6e9e4;          /* the grey filing desk the sheets lie on */
+  --pe-desk-2: #d8ddd6;        /* a closed tab, a hovered row */
+  --pe-sheet: #ffffff;         /* a report sheet */
+  --pe-ink: #121a17;
+  --pe-ink-2: #36423d;
+  --pe-muted: #59665f;
+  --pe-line: rgba(18, 26, 23, 0.13);
+  --pe-line-2: rgba(18, 26, 23, 0.26);
+  /* data: the same in every tool */
+  --pe-women: #11995a;         /* fills, with ink text on them */
+  --pe-women-ink: #0b7a45;     /* the same green as text on white */
+  --pe-men: #c9cfd4;
+  --pe-men-ink: #4f5b63;
+  --pe-on-women: #0b130f;      /* text set on the fills */
+  --pe-on-men: #0b130f;
+  /* one divider tab per tool: a fill for large areas and an ink shade that carries white text and small text */
+  --pe-tab-pgr: #11995a; --pe-tab-pgr-ink: #0b7a45;   /* Pay Gap Report: ledger green */
+  --pe-tab-eap: #e0442a; --pe-tab-eap-ink: #c0321c;   /* Equality Action Plan: sign-off red */
+  --pe-tab-ma: #9b5bb0; --pe-tab-ma-ink: #7d3c93;     /* Menopause Adjustments: heather */
+  --pe-tab-ptk: #f0a800; --pe-tab-ptk-ink: #8a5b00;   /* Pay Transparency Kit, phase 2: amber */
+  --pe-tab-je: #2f6fd6; --pe-tab-je-ink: #2257b8;     /* Job Evaluation, phase 2: index blue */
+  --pe-ok: #1d7a45; --pe-warn: #9a4a12;               /* status, kept apart from the tool colours */
+
+  /* mapped onto the shared system so the components in /assets/tools.css follow */
+  --paper: var(--pe-desk); --paper-2: var(--pe-desk-2); --card: var(--pe-sheet);
+  --ink: var(--pe-ink); --ink-2: var(--pe-ink-2); --muted: var(--pe-muted); --line: var(--pe-line); --line-2: var(--pe-line-2);
+  --accent: var(--pe-accent, var(--pe-tab-pgr-ink)); --accent-ink: #ffffff; --accent-text: var(--accent);
+  --accent-fill: var(--pe-accent-fill, var(--pe-tab-pgr));
+  --accent-soft: color-mix(in oklab, var(--accent-fill) 9%, var(--pe-sheet));
+  --warn: var(--pe-warn); --ok: var(--pe-ok);
+  --women: var(--pe-women); --men: var(--pe-men);
+  --sans: "Archivo", "Archivo Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display: "Archivo Expanded", "Archivo Expanded Fallback", "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --mono: var(--sans);
+  --pe-r: 4px;                 /* sheets and controls */
+  --pe-r-tab: 7px;             /* the top corners of a tab */
+  background: var(--pe-desk); color: var(--pe-ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.55;
+}
+body.pe-pgr { --pe-accent: var(--pe-tab-pgr-ink); --pe-accent-fill: var(--pe-tab-pgr); }
+body.pe-eap { --pe-accent: var(--pe-tab-eap-ink); --pe-accent-fill: var(--pe-tab-eap); }
+body.pe-ma { --pe-accent: var(--pe-tab-ma-ink); --pe-accent-fill: var(--pe-tab-ma); }
+body.pe-ptk { --pe-accent: var(--pe-tab-ptk-ink); --pe-accent-fill: var(--pe-tab-ptk); }
+body.pe-je { --pe-accent: var(--pe-tab-je-ink); --pe-accent-fill: var(--pe-tab-je); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.pe {
+    --pe-desk: #101512; --pe-desk-2: #1d2621; --pe-sheet: #171e1a; --pe-ink: #e7ece8; --pe-ink-2: #c4cdc7; --pe-muted: #9ba7a1;
+    --pe-line: rgba(231, 236, 232, 0.12); --pe-line-2: rgba(231, 236, 232, 0.24);
+    --pe-women: #2fb878; --pe-women-ink: #6fd8a3; --pe-men: #59646c; --pe-men-ink: #b4bec5; --pe-on-men: #ffffff;
+    --pe-tab-pgr-ink: #6fd8a3; --pe-tab-eap-ink: #ff8c72; --pe-tab-ma-ink: #d9a8ea; --pe-tab-ptk-ink: #f2c35a; --pe-tab-je-ink: #9dbcff;
+    --pe-ok: #7cc493; --pe-warn: #e3a36b; --accent-ink: #0b130f;
+  }
+}
+:root[data-theme="dark"] body.pe {
+  --pe-desk: #101512; --pe-desk-2: #1d2621; --pe-sheet: #171e1a; --pe-ink: #e7ece8; --pe-ink-2: #c4cdc7; --pe-muted: #9ba7a1;
+  --pe-line: rgba(231, 236, 232, 0.12); --pe-line-2: rgba(231, 236, 232, 0.24);
+  --pe-women: #2fb878; --pe-women-ink: #6fd8a3; --pe-men: #59646c; --pe-men-ink: #b4bec5; --pe-on-men: #ffffff;
+  --pe-tab-pgr-ink: #6fd8a3; --pe-tab-eap-ink: #ff8c72; --pe-tab-ma-ink: #d9a8ea; --pe-tab-ptk-ink: #f2c35a; --pe-tab-je-ink: #9dbcff;
+  --pe-ok: #7cc493; --pe-warn: #e3a36b; --accent-ink: #0b130f;
+}
+
+/* ---------- Type ---------- */
+.pe h1, .pe h2 { font-family: var(--display); font-weight: 800; letter-spacing: -0.012em; line-height: 1.06; text-wrap: balance; }
+.pe h1 { font-size: clamp(32px, 3.4vw, 48px); }
+.pe h2 { font-size: clamp(23px, 2.2vw, 30px); line-height: 1.12; }
+.pe h3 { font-family: var(--sans); font-weight: 700; font-size: 19px; letter-spacing: -0.005em; line-height: 1.25; }
+.pe h1 em, .pe h2 em { font-family: inherit; font-style: normal; font-weight: inherit; letter-spacing: inherit; }
+.pe .lede { font-size: clamp(17px, 1.4vw, 19px); color: var(--ink-2); line-height: 1.55; max-width: 60ch; }
+.pe a { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.pe a:hover { color: var(--accent-text); }
+.pe :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.pe ::selection { background: var(--accent-fill); color: #fff; }
+.pe .num, .pe td.num, .pe th.num, .pe table { font-variant-numeric: tabular-nums; }
+.pe td.num, .pe th.num { font-family: var(--sans); }
+.pe code, .pe kbd { font-family: var(--sans); font-stretch: normal; font-size: 0.92em; font-weight: 600; color: var(--ink-2); background: color-mix(in oklab, var(--pe-desk) 70%, var(--pe-sheet)); padding: 1px 5px; border-radius: 3px; overflow-wrap: anywhere; }
+.pe .crumbs { font-size: 14px; }
+.pe .crumbs a { color: var(--ink-2); text-decoration: underline; text-decoration-color: var(--line-2); }
+
+/* Small labels: sentence case in the text face, never spaced capitals or a typewriter face */
+.pe .eyebrow, .pe .group-title, .pe .pe-title, .pe .g-box h2 { font-family: var(--sans); font-size: 15px; font-weight: 700; letter-spacing: 0; text-transform: none; color: var(--ink); }
+.pe .pro-tag { font-family: var(--sans); font-size: 12.5px; font-weight: 700; letter-spacing: 0; text-transform: none; padding: 2px 7px; border-radius: 3px; background: var(--ink); color: var(--card); vertical-align: 0.15em; }
+
+/* ---------- Header and footer: the shared partials, on the family's desk ---------- */
+.pe .site-head { background: var(--pe-desk); -webkit-backdrop-filter: none; backdrop-filter: none; border-bottom-color: var(--line-2); }
+.pe .head-nav a[aria-current="page"] { background: var(--card); box-shadow: inset 0 -2px 0 var(--accent-fill); border-radius: 4px 4px 0 0; }
+.pe .site-foot { border-top: 1px solid var(--line-2); }
+
+/* ---------- Controls ---------- */
+.pe .btn { border-radius: var(--pe-r); font-weight: 600; font-size: 15px; }
+.pe .btn-sm { font-size: 14px; }
+.pe .btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.pe .btn-primary:hover { background: color-mix(in oklab, var(--accent) 84%, #000); border-color: transparent; color: var(--accent-ink); }
+.pe .btn-ink { background: var(--ink); border-color: var(--ink); color: var(--card); }
+.pe .btn-ink:hover { background: var(--ink-2); color: var(--card); }
+.pe .input, .pe .select { border-radius: var(--pe-r); background: var(--card); font-size: 15.5px; }
+.pe .input:focus, .pe .select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent-fill) 22%, transparent); }
+.pe .input-unit .input { font-family: var(--sans); font-size: 15px; }
+.pe .input-unit i { font-family: var(--sans); font-size: 13px; }
+.pe .seg { border-radius: var(--pe-r); background: var(--card); }
+.pe .seg button { border-radius: 2px; font-weight: 600; }
+.pe .seg button[aria-pressed="true"] { background: var(--ink); color: var(--card); }
+.pe .drop { border-radius: var(--pe-r); }
+.pe .hint { color: var(--muted); }
+
+/* ---------- Sheets, tables, notes ---------- */
+.pe .table-wrap { border-radius: var(--pe-r); background: var(--card); }
+.pe th { background: color-mix(in oklab, var(--pe-desk) 55%, var(--card)); font-size: 13.5px; color: var(--ink-2); }
+.pe .callout { border-left-color: var(--accent-fill); border-radius: 0 var(--pe-r) var(--pe-r) 0; }
+.pe .source { color: var(--muted); }
+.pe .prose p, .pe .prose li { color: var(--ink-2); }
+
+/* Questions: a drawn plus that turns into a minus */
+.pe .faq { border-top: 2px solid var(--ink); }
+.pe .faq summary { font-weight: 600; font-size: 17px; }
+.pe .faq summary::after { content: ""; position: absolute; right: 6px; top: 26px; width: 12px; height: 2px; background: var(--ink); transform: none; font: inherit; }
+.pe .faq summary::before { content: ""; position: absolute; right: 11px; top: 21px; width: 2px; height: 12px; background: var(--ink); transition: transform .2s var(--ease); }
+.pe .faq details[open] summary::after { transform: none; }
+.pe .faq details[open] summary::before { transform: scaleY(0); }
+
+/* Related pages: a ruled index */
+.pe .related { border-top: 2px solid var(--ink); grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); column-gap: 28px; }
+.pe .related a { padding: 14px 0; }
+.pe .related a strong { font-weight: 700; }
+.pe .related a:hover strong { color: var(--accent-text); }
+
+/* ---------- The pay equity tools block: divider tabs, one per tool, in the tool's colour ---------- */
+.pe .pe-block { margin: 40px 0 0; }
+.pe .pe-title { margin: 0 0 14px; }
+.pe .pe-list { grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px 8px; align-items: stretch; }
+.pe .pe-list a { display: grid; grid-template-rows: auto 1fr; gap: 0; padding: 0; border: 0; border-radius: 0; background: none; height: 100%; color: var(--ink); }
+.pe .pe-list a strong { justify-self: start; max-width: 100%; padding: 8px 12px 7px; border-radius: var(--pe-r-tab) var(--pe-r-tab) 0 0; background: var(--tool, var(--accent)); color: #fff; font-size: 14.5px; font-weight: 700; line-height: 1.25; }
+.pe .pe-list a span { display: block; padding: 12px 13px 14px; border: 1px solid var(--line-2); border-top: 3px solid var(--tool, var(--accent)); border-radius: 0 var(--pe-r) var(--pe-r) var(--pe-r); background: var(--card); color: var(--muted); font-size: 14px; line-height: 1.45; }
+.pe .pe-list a:hover strong { color: #fff; }
+.pe .pe-list a:hover span { color: var(--ink-2); }
+.pe .pe-list a[aria-current="page"] span { background: color-mix(in oklab, var(--tool, var(--accent)) 7%, var(--card)); color: var(--ink-2); }
+.pe .pe-list a[aria-current="page"] strong::after { content: ", this tool"; font-weight: 500; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pe .pe-list a strong { color: #0b130f; background: color-mix(in oklab, var(--tool, var(--accent)) 45%, #ffffff); } }
+:root[data-theme="dark"] .pe .pe-list a strong { color: #0b130f; background: color-mix(in oklab, var(--tool, var(--accent)) 45%, #ffffff); }
+
+/* ---------- Hero: the heading and the tool's 3D figure ---------- */
+.pe-hero { display: grid; grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); gap: clamp(22px, 3.6vw, 56px); align-items: center; padding: clamp(14px, 2.4vw, 28px) 0 clamp(22px, 3vw, 36px); }
+.pe-hero .lede { margin: 16px 0 0; }
+.pe-hero-meta { margin: 14px 0 0; font-size: 14.5px; color: var(--muted); max-width: 62ch; }
+.pe-hero-meta strong { color: var(--ink); font-weight: 600; }
+.pe-hero-fig { margin: 0; min-width: 0; }
+.pe-hero-fig img { width: 100%; height: auto; aspect-ratio: 16 / 10; background: var(--card); border: 1px solid var(--line-2); border-radius: var(--pe-r); }
+.pe-hero-fig figcaption { margin: 9px 0 0; font-size: 13.5px; color: var(--muted); max-width: 70ch; }
+@media (max-width: 900px) { .pe-hero { grid-template-columns: 1fr; align-items: start; } }
+
+/* ---------- Pro: what it adds, and the price ---------- */
+.pe .pro { border-radius: var(--pe-r); border-color: var(--ink); }
+.pe .pro-right { background: var(--ink); color: var(--card); }
+.pe .pro-right .price { font-family: var(--display); font-weight: 800; letter-spacing: -0.02em; }
+.pe .pro-right .price small { font-family: var(--sans); }
+.pe .pro-right .btn-primary { background: var(--card); border-color: var(--card); color: var(--ink); }
+.pe .pro-right .btn-primary:hover { background: #fff; color: var(--pe-ink); }
+.pe .pro-list li::before { border-radius: 1px; transform: none; width: 9px; height: 9px; margin-top: 8px; background: var(--accent-fill); border: 0; }
+.pe .split { border-radius: var(--pe-r); }
+.pe .split > div + div { background: var(--accent-soft); }
+.pe .split > div + div li::before { background: var(--accent-fill); }
+.pe .shot img { border-radius: var(--pe-r); }
+.pe .shot figcaption strong { color: var(--ink); }
+
+/* ---------- Guide pages ---------- */
+.pe .g-box { border-radius: var(--pe-r); }
+.pe .g-box h2 { margin: 0; }
+.pe .g-cta { background: var(--ink); border-color: var(--ink); }
+.pe .g-cta strong { color: var(--card); }
+.pe .g-cta p { color: color-mix(in oklab, var(--card) 80%, transparent); }
+.pe .g-cta .btn-primary { background: var(--card); border-color: var(--card); color: var(--ink); }
+.pe .g-cta .btn-primary:hover { background: #fff; color: var(--pe-ink); }
+.pe .g-main h2 { font-size: clamp(22px, 2vw, 28px); }
+.pe .g-main .formula { font-family: var(--sans); font-weight: 600; font-size: 15px; border-radius: var(--pe-r); }
+.pe .g-main .code-cell { font-family: var(--sans); font-size: 13.5px; font-weight: 600; }
+.pe .g-main code { font-family: var(--sans); }
+.pe .g-main blockquote { border-left-color: var(--accent-fill); border-radius: 0 var(--pe-r) var(--pe-r) 0; }
+.pe .g-figure { border-radius: var(--pe-r); }
+.pe .g-figure dt { font-family: var(--sans); font-size: 13.5px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--muted); }
+.pe .g-figure dd { font-family: var(--display); font-weight: 800; letter-spacing: -0.01em; }
+.pe-guide-meta { margin: 12px 0 0; font-size: 14.5px; color: var(--muted); }
+/* Tables on a phone: every row becomes a block and every cell takes the full width of the sheet, with its column's
+   name in front (data-h, set by /assets/pay-equity.js). Tables a tool lays out itself (the measures, the column
+   matching) keep their own rules in the tool's stylesheet; these only make sure nothing stays a narrow column. */
+@media (max-width: 640px) {
+  .pe main table { min-width: 0 !important; }
+  .pe main table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .pe main table, .pe main table tbody, .pe main table tr, .pe main table td, .pe main table tbody th, .pe main table caption { display: block; width: 100% !important; max-width: none !important; }
+  .pe main table caption { text-align: left; }
+  .pe main table tr { padding: 11px 14px; border-bottom: 1px solid var(--line); }
+  .pe main table tbody tr:last-child { border-bottom: 0; }
+  .pe main table td, .pe main table tbody th { border: 0; padding: 2px 0; text-align: left !important; white-space: normal !important; }
+  .pe main table td[data-h]::before, .pe main table tbody th[data-h]::before { content: attr(data-h) ": "; color: var(--muted); font-weight: 400; font-size: 13.5px; }
+  .pe main .table-wrap { overflow-x: visible; }
+}
+
+/* Below the first screen, skip layout until a section is near the viewport */
+/* (not #guides: it sits right above the footer, and skipping its layout puts the footer in the wrong place for tools
+   that read the page, such as contrast checkers) */
+.pe #method, .pe #proof, .pe #pro, .pe #faq { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+</style>
+<style data-from="/pay-gap-report/tool.css">
+/* Pay Gap Report: the tool's own styles, on the pay equity family (/assets/pay-equity.css: Archivo, the filing desk
+ * and its sheets, women green and men grey in every chart). The tool's tab colour is ledger green. The regime switch is
+ * a row of divider tabs on top of the calculator sheet: one payroll file, four sets of rules. */
+.linklike { font: inherit; color: var(--accent-text); background: none; border: 0; padding: 0; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; cursor: pointer; }
+.linklike:hover { color: var(--ink); }
+
+/* ---------- Tool shell: tabs on a sheet ---------- */
+.pg { position: relative; margin-top: 6px; }
+.pg.is-over::after { content: ""; position: absolute; inset: 52px 8px 8px; border: 2px dashed var(--accent); border-radius: var(--pe-r); background: color-mix(in oklab, var(--accent-soft) 70%, transparent); pointer-events: none; }
+
+.pg-regime { display: block; padding: 0; background: none; border: 0; }
+.pg-regime-pick { display: flex; align-items: flex-end; gap: 6px 16px; flex-wrap: wrap; }
+.pg-label { font-family: var(--sans); font-size: 14.5px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--ink-2); padding-bottom: 10px; }
+.pe .pg-seg { display: flex; gap: 4px; padding: 0; border: 0; border-radius: 0; background: none; position: relative; z-index: 1; }
+.pe .pg-seg button { font: inherit; font-size: 15px; font-weight: 600; color: var(--ink-2); background: var(--paper-2); border: 1px solid var(--line-2); border-bottom: 0; border-radius: var(--pe-r-tab) var(--pe-r-tab) 0 0; padding: 9px 15px 9px; margin-bottom: -1px; white-space: nowrap; cursor: pointer; }
+.pe .pg-seg button:hover { background: color-mix(in oklab, var(--paper-2) 60%, var(--card)); color: var(--ink); }
+.pe .pg-seg button[aria-pressed="true"] { background: var(--card); color: var(--ink); box-shadow: inset 0 3px 0 var(--accent-fill); padding-bottom: 10px; }
+.pg-regime-note { margin: 0; padding: 13px 20px; font-size: 14.5px; color: var(--ink-2); background: var(--card); border: 1px solid var(--line-2); border-bottom: 1px solid var(--line); border-radius: 0 var(--pe-r) 0 0; }
+.pg-empty, .pg-ready { background: var(--card); border: 1px solid var(--line-2); border-top: 0; border-radius: 0 0 var(--pe-r) var(--pe-r); }
+@media (max-width: 560px) {
+  .pg-regime-pick { gap: 4px; }
+  .pg-label { padding-bottom: 4px; width: 100%; }
+  .pe .pg-seg { gap: 3px; width: 100%; }
+  .pe .pg-seg button { flex: 1 1 0; min-width: 0; padding: 9px 6px; font-size: 13.5px; white-space: normal; line-height: 1.2; text-align: center; }
+  .pg-regime-note { padding: 12px 16px; border-radius: 0; }
+}
+
+/* Empty state: the drop zone and what the file needs */
+.pg-empty { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
+.pg-drop { min-height: 330px; margin: 18px; border-radius: var(--pe-r); gap: 10px; padding: 32px 22px; align-content: center; border-color: color-mix(in oklab, var(--accent) 45%, var(--line-2)); background:
+    repeating-linear-gradient(0deg, color-mix(in oklab, var(--pe-women) 6%, transparent) 0 22px, transparent 22px 44px), var(--card); }
+.pg-drop strong { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; }
+.pg-drop .small { max-width: 38ch; color: var(--muted); }
+.pg-drop-art { color: var(--ink-2); margin-bottom: 4px; }
+.pg-drop .btn { margin-top: 6px; pointer-events: none; }
+.pg-how { padding: 26px 26px 24px 8px; display: grid; align-content: start; gap: 8px; }
+.pg-how .group-title { margin: 0; font-size: 17px; }
+.pg-steps { margin-top: 8px; gap: 12px; }
+.pg-steps li { font-size: 15px; color: var(--ink-2); grid-template-columns: 16px 1fr; gap: 12px; }
+.pg-steps li::before { content: ""; width: 9px; height: 9px; margin-top: 8px; background: var(--accent-fill); border-radius: 1px; padding: 0; }
+.pg-private { display: flex; gap: 10px; align-items: flex-start; margin: 10px 0 0; padding: 11px 13px; border-radius: var(--pe-r); background: var(--accent-soft); font-size: 14px; color: var(--ink-2); }
+.pg-private svg { flex: none; margin-top: 3px; color: var(--accent-text); }
+.pg-start { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+@media (max-width: 860px) {
+  .pg-empty { grid-template-columns: 1fr; }
+  .pg-drop { min-height: 230px; margin: 14px; }
+  .pg-how { padding: 4px 18px 22px; }
+}
+
+/* File bar */
+.pg-filebar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; padding: 14px 20px; border-bottom: 1px solid var(--line); }
+.pg-file { display: grid; gap: 1px; min-width: 0; }
+.pg-file-name { font-family: var(--sans); font-weight: 600; font-size: 14.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pg-file-meta { font-size: 13.5px; color: var(--muted); }
+.pg-filebar-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.pg-quiet { border-color: transparent; background: transparent; color: var(--muted); }
+.pg-sample-note { margin: 0; padding: 10px 20px; font-size: 14px; color: var(--ink-2); background: var(--accent-soft); border-bottom: 1px solid var(--line); }
+@media (max-width: 560px) { .pg-filebar, .pg-sample-note { padding-left: 16px; padding-right: 16px; } }
+
+/* Steps: a real sequence, so numbered */
+.pg-step { padding: 22px 24px 24px; border-bottom: 1px solid var(--line); min-width: 0; }
+.pg-step:last-child { border-bottom: 0; }
+.pg-step-head { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 12px; align-items: start; margin-bottom: 14px; }
+.pg-step-head h2 { font-size: clamp(21px, 2vw, 25px); }
+.pg-step-head .hint { margin-top: 4px; }
+.pg-step-n { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 3px; background: var(--ink); color: var(--card); font-family: var(--display); font-weight: 800; font-size: 15px; margin-top: 0; }
+@media (max-width: 560px) { .pg-step { padding: 18px 16px 20px; } }
+
+/* Column matching */
+.pg-map { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(240px, 1fr); gap: 18px; align-items: start; }
+.pg-map-wrap { margin: 0; }
+.pg-map-table { font-size: 14.5px; }
+.pg-map-table th[scope="row"] { font-weight: 600; font-size: 14.5px; background: none; color: var(--ink); }
+.pg-map-table th[scope="row"] small { display: block; font-weight: 400; color: var(--muted); font-size: 13px; }
+.pg-map-table td { vertical-align: middle; }
+.pg-map-table .select { padding: 6px 8px; font-size: 14.5px; min-width: 150px; }
+.pg-map-table td.pg-map-ex { font-family: var(--sans); font-size: 13.5px; color: var(--muted); max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pg tbody tr:last-child th { border-bottom: 0; }
+.pg-map-table tr.is-missing th[scope="row"]::after { content: "needed"; margin-left: 8px; font-family: var(--sans); font-size: 12.5px; font-weight: 700; letter-spacing: 0; text-transform: none; color: var(--warn); }
+.pg-basis { display: grid; gap: 12px; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--pe-r); background: color-mix(in oklab, var(--pe-desk) 45%, var(--card)); font-size: 14px; }
+.pg-basis .hint { font-size: 13.5px; }
+.pg-map-warn { margin-top: 12px; }
+@media (max-width: 960px) { .pg-map { grid-template-columns: 1fr; } }
+@media (max-width: 640px) {
+  .pg-map-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .pg-map-table, .pg-map-table tbody, .pg-map-table tr, .pg-map-table td, .pg-map-table th { display: block; width: 100%; }
+  .pg-map-table caption { display: block; width: 100%; }
+  .pg-map-table tr { padding: 10px 12px; border-bottom: 1px solid var(--line); }
+  .pg-map-table td, .pg-map-table th { border: 0; padding: 3px 0; }
+  .pg-map-table td.pg-map-ex { max-width: none; overflow: visible; white-space: normal; }
+  .pg-map-table .pg-map-ex:not(:empty)::before { content: "First value: "; font-family: var(--sans); }
+}
+
+/* Checks */
+.pg-checks { list-style: none; margin: 0; padding: 0; display: grid; border-top: 1px solid var(--line); }
+.pg-checks > li { display: grid; grid-template-columns: 14px minmax(0, 1fr); gap: 2px 12px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+.pg-checks > li::before { content: ""; width: 9px; height: 9px; border-radius: 1px; margin-top: 7px; background: var(--ok); }
+.pg-checks > li[data-state="check"]::before { background: var(--warn); }
+.pg-checks > li[data-state="info"]::before { background: var(--ink-2); }
+.pg-checks .ck-body { display: grid; gap: 6px; min-width: 0; }
+.pg-checks strong { font-weight: 700; }
+.pg-checks .ck-text { color: var(--ink-2); font-size: 14.5px; margin: 0; max-width: 78ch; }
+.pg-checks .ck-choice { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14.5px; }
+.pg-checks .ck-choice label { display: inline-flex; gap: 7px; align-items: center; cursor: pointer; }
+.pg-checks .ck-choice input { accent-color: var(--accent); }
+.pg-checks .ck-values { display: grid; gap: 6px; }
+.pg-checks .ck-value { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: 14.5px; }
+.pg-checks .ck-value code { font-size: 13.5px; }
+.pg-checks .ck-value .select { width: auto; padding: 5px 8px; font-size: 14px; }
+.pg-checks details { font-size: 14px; }
+.pg-checks summary { cursor: pointer; color: var(--accent-text); width: fit-content; }
+.pg-checks .ck-rows { margin: 6px 0 0; font-family: var(--sans); font-size: 13.5px; color: var(--ink-2); columns: 3 170px; column-gap: 18px; padding: 0; list-style: none; }
+.pg-confirm { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 16px; }
+
+/* Settings */
+.pg-settings { display: flex; flex-wrap: wrap; align-items: end; gap: 12px 16px; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--pe-r); background: color-mix(in oklab, var(--pe-desk) 45%, var(--card)); margin-bottom: 20px; }
+.pg-f-employer { flex: 1 1 260px; }
+.pg-f-year, .pg-f-date { flex: 0 1 190px; }
+.pg-dates { flex: 1 1 100%; margin: 0; font-size: 14px; color: var(--ink-2); }
+
+/* Headline figures */
+.pg-headline { display: grid; grid-template-columns: minmax(220px, 0.8fr) minmax(0, 2fr); gap: 0; border: 1px solid var(--line-2); border-radius: var(--pe-r); overflow: clip; }
+.pg-count { margin: 0; padding: 16px 18px; display: grid; gap: 8px; align-content: start; border-right: 1px solid var(--line); background: color-mix(in oklab, var(--pe-desk) 45%, var(--card)); }
+.pg-count div { display: flex; justify-content: space-between; gap: 12px; font-size: 15px; }
+.pg-count dt { color: var(--ink-2); }
+.pg-count dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; }
+.pg-count .pg-count-h { font-family: var(--sans); font-size: 15px; font-weight: 700; letter-spacing: 0; text-transform: none; color: var(--ink); }
+.pg-count .pg-count-sub dt, .pg-count .pg-count-sub dd { color: var(--muted); font-weight: 400; font-size: 14px; }
+.pg-gaps { display: grid; grid-template-columns: 1fr 1fr; }
+.pg-gap { padding: 18px 20px 20px; display: grid; gap: 6px; align-content: start; }
+.pg-gap + .pg-gap { border-left: 1px solid var(--line); }
+.pg-gap dt, .pg-gap .pg-gap-l { font-family: var(--sans); font-size: 15px; font-weight: 700; letter-spacing: 0; text-transform: none; color: var(--ink); }
+.pg-gap .pg-gap-v { font-family: var(--display); font-size: clamp(36px, 4.4vw, 54px); font-weight: 800; letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums; color: var(--ink); }
+.pg-gap .pg-gap-ref { font-size: 13px; color: var(--muted); }
+.pg-gap .pg-gap-mw { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; font-size: 14.5px; margin-top: 6px; }
+.pg-gap .pg-gap-mw span:nth-child(odd) { color: var(--muted); }
+.pg-gap .pg-gap-mw span:nth-child(even) { font-variant-numeric: tabular-nums; }
+.pg-gap .pg-gap-note { font-size: 14px; color: var(--warn); }
+@media (max-width: 860px) {
+  .pg-headline { grid-template-columns: 1fr; }
+  .pg-count { border-right: 0; border-bottom: 1px solid var(--line); }
+}
+@media (max-width: 520px) { .pg-gaps { grid-template-columns: 1fr; } .pg-gap + .pg-gap { border-left: 0; border-top: 1px solid var(--line); } }
+
+.pg-explain { margin-top: 14px; padding: 14px 16px; border-radius: var(--pe-r); background: color-mix(in oklab, var(--pe-desk) 45%, var(--card)); border: 1px solid var(--line); font-size: 14.5px; color: var(--ink-2); }
+.pg-explain h4 { margin: 0 0 6px; font-family: var(--sans); font-size: 15px; font-weight: 700; letter-spacing: 0; text-transform: none; color: var(--ink); }
+.pg-explain p { margin: 0; max-width: 92ch; }
+.pg-explain p + p { margin-top: 6px; }
+.pg-explain .pg-formula { font-family: var(--sans); font-weight: 600; font-size: 14px; color: var(--ink); overflow-wrap: anywhere; }
+.pg-sign { margin: 10px 0 0; }
+
+/* Measures */
+.pg-block { margin-top: 26px; }
+.pg-block-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 18px; margin-bottom: 10px; }
+.pg-block-head h3 { font-size: 19px; display: flex; align-items: center; gap: 8px; }
+.pg-block-head .hint { max-width: 70ch; }
+.pg-measures-wrap { margin: 0; }
+.pg-measures { font-size: 15px; }
+.pg-measures th, .pg-measures td { padding: 10px 14px; vertical-align: top; }
+.pg-measures thead th { font-size: 13.5px; color: var(--ink-2); }
+.pg-measures tbody th { font-weight: 600; background: none; color: var(--ink); }
+.pg-measures .pg-ref { display: block; font-family: var(--sans); font-size: 13px; color: var(--accent-text); font-weight: 500; margin-top: 2px; }
+.pg-measures td.num { font-family: var(--sans); font-weight: 700; }
+.pg-measures td.pg-mw { font-family: var(--sans); color: var(--ink-2); white-space: nowrap; font-weight: 400; }
+.pg-measures tr.is-locked th { color: var(--ink-2); }
+.pg-measures tr.is-locked td { color: var(--muted); }
+.pg-measures .pg-locked { display: inline-flex; align-items: center; gap: 6px; font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--muted); }
+.pg-measures .pg-locked svg { color: var(--muted); }
+.pg-measures tr.is-sub th { padding-left: 28px; font-weight: 400; }
+.pg-measures .pg-note { display: block; font-size: 13px; color: var(--muted); font-weight: 400; margin-top: 2px; white-space: normal; }
+.pg-measures th.num, .pg-cat th.num { font-family: var(--sans); }
+@media (max-width: 680px) {
+  .pg-measures thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .pg-measures, .pg-measures tbody, .pg-measures tr, .pg-measures td, .pg-measures th { display: block; width: 100%; }
+  .pg-measures caption { display: block; width: 100%; }
+  .pg-measures tr { padding: 10px 14px; border-bottom: 1px solid var(--line); }
+  .pg-measures tbody tr:last-child { border-bottom: 0; }
+  .pg-measures td, .pg-measures th { border: 0; padding: 2px 0; text-align: left; }
+  .pg-measures td.num { text-align: left; font-size: 17px; }
+  .pg-measures td[data-l]::before { content: attr(data-l) ": "; color: var(--muted); font-weight: 400; font-size: 13.5px; }
+  .pg-measures tr.is-sub th { padding-left: 0; }
+}
+
+.pg-lock { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; margin-top: 12px; padding: 13px 15px; border-radius: var(--pe-r); background: var(--accent-soft); border-left: 3px solid var(--accent-fill); font-size: 14.5px; color: var(--ink-2); }
+.pg-lock p { margin: 0; flex: 1 1 360px; }
+.pg-lock-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* Quartile chart: women green from the left, men grey, ink text on both */
+.pg-q { display: grid; gap: 10px; }
+.pg-q-row { display: grid; grid-template-columns: 130px minmax(0, 1fr) 150px; gap: 14px; align-items: center; font-size: 14.5px; }
+.pg-q-name { font-weight: 700; }
+.pg-q-name small { display: block; font-weight: 400; color: var(--muted); font-size: 13px; }
+.pg-q-bar { display: flex; height: 32px; border-radius: 2px; overflow: hidden; background: var(--paper-2); }
+.pg-q-bar span { display: grid; place-items: center; font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; }
+.pg-q-bar .w { background: var(--women); color: var(--pe-on-women); }
+.pg-q-bar .m { background: var(--men); color: var(--pe-on-men); }
+.pg-q-n { font-size: 13.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.pg-q-key { display: flex; flex-wrap: wrap; gap: 16px; font-size: 13.5px; color: var(--ink-2); margin-top: 2px; }
+.pg-q-key span::before { content: ""; display: inline-block; width: 11px; height: 11px; border-radius: 1px; margin-right: 6px; vertical-align: -1px; }
+.pg-q-key .k-w::before { background: var(--women); }
+.pg-q-key .k-m::before { background: var(--men); }
+@media (max-width: 640px) { .pg-q-row { grid-template-columns: 1fr; gap: 4px; } }
+
+/* Categories */
+.pg-cat-wrap { margin: 0; }
+.pg-cat { font-size: 14.5px; min-width: 760px; }
+.pg-cat th, .pg-cat td { padding: 9px 12px; }
+.pg-cat thead th { font-size: 13.5px; color: var(--ink-2); white-space: normal; vertical-align: bottom; line-height: 1.3; }
+.pg-cat td.num { font-family: var(--sans); }
+.pg-cat tbody th { font-weight: 600; background: none; }
+.pg-cat tr.is-flag th, .pg-cat tr.is-flag td { background: color-mix(in oklab, var(--warn) 8%, var(--card)); }
+.pg-cat .pg-flag { font-family: var(--sans); font-size: 13px; font-weight: 700; letter-spacing: 0; text-transform: none; color: var(--warn); white-space: nowrap; }
+.pg-cat .pg-flag-soft { color: var(--muted); font-weight: 600; }
+.pg-art10 { margin: 12px 0 0; padding: 12px 14px; border-left: 3px solid var(--accent-fill); background: var(--accent-soft); border-radius: 0 var(--pe-r) var(--pe-r) 0; font-size: 14.5px; color: var(--ink-2); max-width: 90ch; }
+
+/* Export */
+.pg-export { padding-top: 22px; border-top: 1px solid var(--line); }
+.pg-export-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(240px, 1fr); gap: 20px; align-items: start; }
+.pg-textarea { font-family: var(--sans); font-size: 15px; line-height: 1.55; resize: vertical; min-height: 220px; }
+.pg-signer { margin-top: 12px; display: grid; gap: 8px; }
+.pg-export-btns { display: grid; gap: 8px; }
+.pg-export-btns .btn { width: 100%; }
+.pg-export[data-pro="false"] .pg-export-btns .btn { opacity: .92; }
+@media (max-width: 860px) { .pg-export-grid { grid-template-columns: 1fr; } }
+@media (max-width: 480px) { .pg-signer .row { grid-template-columns: 1fr; } }
+
+.pg-privacy { margin: 12px 2px 0; color: var(--muted); }
+.pg-legal { margin-top: 18px; }
+
+@media print {
+  .pg-regime, .pg-filebar, .pg-sample-note, .pg-step:not(.pg-results), .pg-lock, .pg-export, .pg-empty, .pg-privacy, #pro, #faq, #guides, #proof, .pe-hero-fig { display: none !important; }
+  .pg-ready { border: 0; }
+}
+
+/* ---------- Guide pages ---------- */
+.g-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: clamp(24px, 4vw, 56px); align-items: start; margin-top: 8px; }
+.g-wrap > * { min-width: 0; }
+.g-main > section + section { margin-top: 44px; }
+.g-main h2 { margin: 0 0 12px; }
+.g-main h3 { margin: 22px 0 8px; }
+.g-main p, .g-main li { color: var(--ink-2); max-width: 70ch; }
+.g-main ol, .g-main ul { padding-left: 22px; }
+.g-main li + li { margin-top: 6px; }
+.g-main .table-wrap { margin: 14px 0 6px; }
+.g-main table { font-size: 15px; }
+.g-main td.num, .g-main th.num { font-family: var(--sans); font-variant-numeric: tabular-nums; }
+.g-main code { font-size: .9em; overflow-wrap: anywhere; }
+.g-main .code-cell { color: var(--accent-text); white-space: nowrap; }
+.g-main .formula { background: var(--card); border: 1px solid var(--line-2); border-left: 3px solid var(--accent-fill); padding: 14px 16px; margin: 14px 0; color: var(--ink); overflow-x: auto; }
+.g-main .callout p { margin: 0; }
+.g-aside { position: sticky; top: 84px; display: grid; gap: 14px; }
+.g-box { border: 1px solid var(--line-2); background: var(--card); padding: 18px; display: grid; gap: 10px; font-size: 15px; }
+.g-box ol { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.g-box a { text-decoration: none; }
+.g-box a:hover { text-decoration: underline; }
+.g-cta { color: var(--card); }
+.g-cta .btn-primary { justify-self: start; }
+.g-figure { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; border: 1px solid var(--line-2); background: var(--card); overflow: hidden; margin: 18px 0; }
+.g-figure div { padding: 16px 18px; border-right: 1px solid var(--line); }
+.g-figure div:last-child { border-right: 0; }
+.g-figure dd { margin: 4px 0 0; font-size: 24px; font-variant-numeric: tabular-nums; }
+.g-figure dd small { display: block; font-family: var(--sans); font-size: 13.5px; font-weight: 400; color: var(--muted); letter-spacing: 0; }
+.g-sex-m { color: var(--ink-2); }
+@media (max-width: 900px) { .g-wrap { grid-template-columns: 1fr; } .g-aside { position: static; } }
+@media (max-width: 560px) { .g-figure div { border-right: 0; border-bottom: 1px solid var(--line); } .g-figure div:last-child { border-bottom: 0; } }
+@media (max-width: 640px) {
+  .g-stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .g-stack, .g-stack tbody, .g-stack tr, .g-stack td { display: block; width: 100%; }
+  .g-stack tr { padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  .g-stack tbody tr:last-child { border-bottom: 0; }
+  .g-stack td { border: 0; padding: 2px 0; }
+  .g-stack td:first-child { font-weight: 700; color: var(--ink); white-space: normal; }
+  .g-stack .code-cell { display: inline-block; margin: 2px 0; white-space: normal; }
+}
+</style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
  {"@type":"WebApplication","@id":"https://peakappsstudio.com/pay-gap-report/#app","name":"Pay Gap Report","url":"https://peakappsstudio.com/pay-gap-report/","description":"Reads a payroll export (CSV or XLSX) in the browser and works out the statutory gender pay gap measures for the UK (SI 2017/172 and SI 2017/353), Ireland (S.I. No. 264 of 2022, as amended) and the EU Pay Transparency Directive (2023/970, Article 9), with data checks before any figure.","applicationCategory":"BusinessApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD","description":"Headcount by sex, data checks, and the mean and median hourly pay gaps with the working shown."},{"@type":"Offer","name":"Pro (one-time, per organisation)","price":"79","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/pay-gap-report-pro","description":"Every statutory measure for the chosen regime, quartile pay bands, bonus figures, the Irish part-time, temporary and benefits in kind figures, EU category gaps with the 5% flag, a PDF report, a figures CSV and an audit file of excluded rows."}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
@@ -33,7 +800,7 @@
 ]}
 </script>
 </head>
-<body style="--accent:#1e4f6e">
+<body class="pe pe-pgr">
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head">
   <div class="wrap">
@@ -62,20 +829,17 @@
 <main id="main" class="wrap">
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li aria-current="page">Pay gap report</li></ol></nav>
 
-  <section class="tool-hero pg-hero">
+  <header class="pe-hero">
     <div>
-      <p class="eyebrow">Statutory gender pay gap reporting</p>
-      <h1>Gender pay gap calculator and report for the <em>UK, Ireland and EU</em></h1>
-    </div>
-    <div>
+      <h1>Gender pay gap calculator and report for the UK, Ireland and EU</h1>
       <p class="lede">Drop in a payroll export and get the measures the law asks for: mean and median hourly pay gaps, bonus gaps, quartile pay bands and, for Ireland and the EU directive, the extra splits. Each figure shows how it was worked out.</p>
-      <ul class="facts">
-        <li>Payroll data stays in your browser</li>
-        <li>UK, Ireland and Directive (EU) 2023/970</li>
-        <li>Rules checked against the official texts</li>
-      </ul>
+      <p class="pe-hero-meta">The rules are checked against the official texts: SI 2017/172 and SI 2017/353 for the UK, S.I. No. 264 of 2022 as amended for Ireland, and Directive (EU) 2023/970. Your payroll data stays in your browser.</p>
     </div>
-  </section>
+    <figure class="pe-hero-fig">
+      <img src="/pay-gap-report/img/quartiles-960.webp" srcset="/pay-gap-report/img/quartiles-480.webp 480w, /pay-gap-report/img/quartiles-960.webp 960w, /pay-gap-report/img/quartiles-1440.webp 1440w" sizes="(max-width: 900px) calc(100vw - 32px), 50vw" width="1440" height="900" fetchpriority="high" decoding="async" alt="The sample company’s four quartile pay bands in 3D, one block for each of its 175 full-pay relevant employees, women in green at the bottom of each column and men in grey above them. Women are 38.6% of the lower band, 40.9% of the lower middle, 34.1% of the upper middle and 39.5% of the upper band.">
+      <figcaption>The sample company below, in its four quartile pay bands: one block for each of 175 full-pay relevant employees, women in green. Load it and the calculator shows the same figures.</figcaption>
+    </figure>
+  </header>
 
   <section class="pg" id="tool" aria-label="Pay gap calculator" data-state="empty">
     <div class="pg-regime">
@@ -242,9 +1006,8 @@
   </section>
 
   <section class="section" id="proof" aria-labelledby="proof-h">
-    <p class="eyebrow">What the $79 version writes</p>
-    <h2 id="proof-h">A report you can <em>publish</em></h2>
-    <p class="lede">Load the sample company above and the free figures fill the page. The PDF below is what Pro made from that same synthetic company, in one click.</p>
+    <h2 id="proof-h">A report you can publish</h2>
+    <p class="lede">Load the sample company above and the free figures fill the page. The PDF below is what Pro, $79 once, made from that same synthetic company.</p>
     <figure class="shot">
       <img src="/pay-gap-report/pro-report.webp" width="1500" height="1060" loading="lazy" decoding="async" alt="Two pages of a printed gender pay gap report side by side. The first has the employer name, snapshot date and deadline, four headline gaps, a table of the statutory measures with their regulation references, and a bar chart of men and women in each quartile pay band. The second sets out how the figures were worked out, with legal references, and the data used.">
       <figcaption>Pages 1 and 2 of the three-page PDF report for the sample company under the UK private sector rules. <strong>Every figure carries its regulation reference</strong>, the methodology says which definitions were used, and page 3 holds the narrative and the written statement for a director to sign. The company and its people are synthetic.</figcaption>
@@ -277,8 +1040,7 @@
   <section class="section" id="pro">
     <div class="pro">
       <div class="pro-left">
-        <p class="eyebrow">Pro</p>
-        <h2>The full statutory report for your <em>organisation</em></h2>
+        <h2>The full statutory report for your organisation</h2>
         <ul class="pro-list">
           <li>Every measure for the UK, Ireland or the EU directive, from the same file</li>
           <li>Quartile pay bands with a chart, worked out with the GOV.UK rules for ties and remainders</li>
@@ -321,6 +1083,16 @@
       <a href="/job-evaluation/"><strong>Job evaluation</strong><span>Group roles into the categories of indicator (g), on gender-neutral criteria.</span></a>
       <a href="/tools/"><strong>All Peak Apps tools</strong><span>Small browser tools that do one job well.</span></a>
     </nav>
+    <nav class="pe-block" aria-labelledby="pe-title">
+  <p class="pe-title" id="pe-title">Pay equity tools</p>
+  <ul class="pe-list">
+    <li><a href="/pay-gap-report/" style="--tool:#0b7a45" aria-current="page"><strong>Pay Gap Report</strong><span>The statutory gender pay gap measures from a payroll export, for the UK, Ireland and the EU directive, worked out in your browser.</span></a></li>
+    <li><a href="/equality-action-plan/" style="--tool:#c0321c"><strong>Equality Action Plan</strong><span>A gender pay gap and menopause action plan from GOV.UK’s 18 actions, with the rules and word limits checked as you write.</span></a></li>
+    <li><a href="/job-evaluation/" style="--tool:#4a5d23"><strong>Job Evaluation</strong><span>Score roles on skills, effort, responsibility and working conditions, and see which jobs are work of equal value.</span></a></li>
+    <li><a href="/pay-transparency/" style="--tool:#7d5a12"><strong>Pay Transparency Kit</strong><span>Request letters for workers and Article 7 answers for employers, with the EU directive’s status in all 27 countries.</span></a></li>
+  </ul>
+</nav>
+
     <p class="source pg-legal">Not legal advice. The tool calculates the measures from the data you provide, with the definitions shown on this page; the employer decides who is included and what counts as ordinary and bonus pay, and is responsible for what it publishes.</p>
   </section>
 </main>
@@ -329,7 +1101,7 @@
     <div>
       <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
       <p style="margin:0;max-width:44ch">Small, careful tools that each do one job well. Your files are processed in your browser and never uploaded.</p>
-      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a> · <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a>.<br>Write to <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
     </div>
     <div>
       <h2>Tools</h2>
@@ -365,6 +1137,7 @@
 </footer>
 
 <script src="/assets/site.js" defer></script>
+<script src="/assets/pay-equity.js" defer></script>
 <script src="/assets/license.js" defer></script>
 <script src="/pay-gap-report/paygap.js" defer></script>
 <script src="/pay-gap-report/report.js" defer></script>

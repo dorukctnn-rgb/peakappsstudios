@@ -12,29 +12,385 @@
 <meta property="og:description" content="Tumbler templates, KDP coloring book interiors and layered sewing pattern printing, all in your browser.">
 <meta property="og:url" content="https://peakappsstudio.com/tools/">
 <meta name="twitter:card" content="summary">
-<meta name="theme-color" content="#f5f3ee">
+<meta name="theme-color" content="#fb6f24">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/tools.css">
+<link rel="preload" href="/tools/fonts/funnel-display-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/tools/fonts/funnel-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="/tools/img/bench-960.webp" imagesrcset="/tools/img/bench-480.webp 480w, /tools/img/bench-960.webp 960w, /tools/img/bench-1440.webp 1440w" imagesizes="(max-width: 900px) calc(100vw - 16px), 56vw" fetchpriority="high">
+<style data-from="/assets/tools.css">
+/* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
+
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e1;
+  --card: #fbfaf7;
+  --ink: #141518;
+  --ink-2: #33363d;
+  --muted: #676b74;
+  --line: rgba(20, 21, 24, 0.12);
+  --line-2: rgba(20, 21, 24, 0.22);
+  --accent: #1f5c4d;          /* each tool overrides this on <body style="--accent:..."> */
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  --warn: #9a4a12;
+  --ok: #2c6a3f;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+    --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+  --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; }
+img { display: block; height: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 10px; z-index: 100; background: var(--ink); color: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 10px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-head { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand-sub { font-family: var(--sans); font-size: 14.5px; letter-spacing: 0; color: var(--muted); font-weight: 500; padding-left: 10px; border-left: 1px solid var(--line-2); }
+.head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
+.head-nav a:hover { background: var(--paper-2); color: var(--ink); }
+.head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
+@media (max-width: 640px) { .brand-sub { display: none; } }
+@media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
+
+/* ---------- Type ---------- */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+h1 { font-size: clamp(32px, 4.6vw, 54px); }
+h1 em, h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 19px; letter-spacing: -0.01em; }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; margin: 16px 0 0; }
+.mono { font-family: var(--mono); }
+.muted { color: var(--muted); }
+small, .small { font-size: 13.5px; }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 22px 0 0; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-2); }
+.crumbs a { text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.tool-hero { padding: 28px 0 24px; display: grid; gap: 8px; }
+.tool-hero .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.tool-hero .facts li { display: inline-flex; align-items: center; gap: 8px; }
+.tool-hero .facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Tool shell ---------- */
+.tool { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.tool-panel { padding: 22px; border-right: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.tool-stage { position: relative; min-height: 460px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper); display: grid; place-items: center; padding: 22px; }
+.tool-stage canvas, .tool-stage svg, .tool-stage img { max-height: 70vh; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px -12px rgba(0,0,0,.18); background: #fff; }
+.stage-bar { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.tool-foot { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 14px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--paper); }
+.tool-foot .spacer { flex: 1; }
+@media (max-width: 860px) {
+  .tool { grid-template-columns: 1fr; }
+  .tool-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tool-stage { min-height: 320px; }
+}
+
+/* ---------- Form controls ---------- */
+.group { display: grid; gap: 10px; }
+.group-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > label { font-size: 13px; color: var(--ink-2); }
+.input, .select { width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 8px; padding: 9px 11px; transition: border-color .15s, box-shadow .15s; }
+.input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input-unit { position: relative; }
+.input-unit .input { padding-right: 38px; font-family: var(--mono); font-size: 14.5px; }
+.input-unit i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 3px; flex: none; }
+.seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line-2); border-radius: 9px; padding: 3px; gap: 3px; background: var(--paper); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.warn { font-size: 13.5px; color: var(--warn); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.btn { --b: var(--line-2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 500; line-height: 1; padding: 11px 16px; border-radius: 9px; border: 1px solid var(--b); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; transition: transform .15s var(--ease), background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklab, var(--accent) 86%, #000); color: var(--accent-ink); border-color: transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-ink:hover { color: var(--paper); background: var(--ink-2); }
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.pro-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: var(--ink); color: var(--paper); }
+
+/* ---------- Drop zone ---------- */
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 18px 14px; background: var(--paper); cursor: pointer; transition: border-color .15s, background .15s; font-size: 14.5px; }
+.drop:hover, .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Content ---------- */
+.section { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prose { max-width: 70ch; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose h2 { margin: 1.6em 0 .5em; }
+.prose h3 { margin: 1.4em 0 .4em; }
+.prose code, .prose kbd { font-family: var(--mono); font-size: .9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+.two-col > * { min-width: 0; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: 3px; }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 13px; background: var(--paper); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 15px; }
+.source { font-size: 13px; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--line-2); margin-top: 18px; }
+.faq details { border-bottom: 1px solid var(--line-2); }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 13px; font-family: var(--mono); font-size: 18px; color: var(--muted); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 18px; color: var(--ink-2); max-width: 70ch; }
+
+/* ---------- Pro ---------- */
+.pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--card); }
+.pro-left { padding: clamp(22px, 3vw, 36px); }
+.pro-right { padding: clamp(22px, 3vw, 36px); background: var(--ink); color: var(--paper); display: grid; align-content: center; gap: 14px; }
+.pro-right .price { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pro-right .price small { font-size: 15px; font-weight: 400; color: color-mix(in oklab, var(--paper) 70%, transparent); letter-spacing: 0; }
+.pro-right .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.pro-right .btn-primary:hover { background: #fff; color: var(--ink); }
+.pro-right .fine { font-size: 13px; color: color-mix(in oklab, var(--paper) 65%, transparent); margin: 0; }
+.pro-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.pro-list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.pro-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border: 1.5px solid var(--accent); border-radius: 2px; transform: rotate(45deg); }
+@media (max-width: 760px) { .pro { grid-template-columns: 1fr; } }
+
+/* ---------- A real file, shown ---------- */
+.shot { margin: 22px 0 0; }
+.shot img { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; }
+.shot figcaption { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+.shot figcaption strong { font-weight: 600; color: var(--ink-2); }
+.shot-sm { max-width: 920px; }
+
+/* ---------- Where free stops and Pro starts ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; margin: 26px 0 0; background: var(--card); }
+.split > div { padding: 18px 20px 20px; }
+.split > div + div { border-left: 1px solid var(--line-2); background: var(--accent-soft); }
+.split h3 { font-size: 15.5px; margin: 0; }
+.split > div > p { margin: 5px 0 0; font-size: 13.5px; color: var(--muted); }
+.split ul { list-style: none; margin: 13px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
+.split li { position: relative; padding-left: 18px; }
+.split li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; border-radius: 1px; background: var(--line-2); }
+.split > div + div li::before { background: var(--accent); }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } .split > div + div { border-left: 0; border-top: 1px solid var(--line-2); } }
+
+/* ---------- A file list, as the archive really holds it ---------- */
+.filelist { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 5px; }
+.filelist li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filelist li span { color: var(--muted); }
+
+/* ---------- License dialog ---------- */
+.license-dialog { border: 1px solid var(--line-2); border-radius: 14px; padding: 0; width: min(440px, calc(100% - 32px)); background: var(--card); color: var(--ink); }
+.license-dialog::backdrop { background: rgba(10, 11, 13, .45); }
+.license-dialog form { padding: 22px; display: grid; gap: 14px; }
+.license-status { font-size: 14px; min-height: 1.4em; margin: 0; }
+.license-status[data-state="ok"] { color: var(--ok); }
+.license-status[data-state="err"] { color: var(--warn); }
+
+/* ---------- Related / cards ---------- */
+.related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line-2); margin-top: 22px; }
+.related a { display: grid; gap: 4px; padding: 18px 18px 18px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.related a strong { font-weight: 600; }
+.related a span { font-size: 14px; color: var(--muted); }
+.related a:hover strong { color: var(--accent); }
+
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
+/* ---------- Footer ---------- */
+.site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
+.site-foot h2 { font-size: 15px; font-family: var(--sans); letter-spacing: 0; font-weight: 600; color: var(--ink); margin: 0 0 10px; }
+.site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+@media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .3s var(--ease); z-index: 90; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media print { .site-head, .site-foot, .tool-panel, .tool-foot, .no-print { display: none !important; } body { background: #fff; } }
+
+/* The hidden attribute must win over component display rules. */
+[hidden] { display: none !important; }
+</style>
+<style data-from="/tools/hub.css">
+/* Peak Apps Tools, the hub: its own look inside the shared header and footer, scoped to body.hub.
+ * The idea is a workbench with every tool's output laid out on it square (knolling): a workshop-orange bench, ink indigo
+ * for the type, cool white paper below it, and each tool marked with its own colour and a drawing of what it makes.
+ * Type: Funnel Display for headings and tool names, Funnel Sans for the rest (NORD ID, SIL Open Font License,
+ * /tools/fonts/OFL-funnel.txt), self-hosted woff2. */
+
+@font-face { font-family: "Funnel Display"; src: url("/tools/fonts/funnel-display-latin.woff2") format("woff2"); font-weight: 300 800; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Funnel Display"; src: url("/tools/fonts/funnel-display-latin-ext.woff2") format("woff2"); font-weight: 300 800; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Funnel Sans"; src: url("/tools/fonts/funnel-sans-latin.woff2") format("woff2"); font-weight: 300 800; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Funnel Sans"; src: url("/tools/fonts/funnel-sans-latin-ext.woff2") format("woff2"); font-weight: 300 800; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+/* Arial scaled to Funnel's average width and line metrics (worked out from the font files): no shift when it swaps in */
+@font-face { font-family: "Funnel Sans Fallback"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"); size-adjust: 101.8%; ascent-override: 98.2%; descent-override: 24.6%; line-gap-override: 0%; }
+@font-face { font-family: "Funnel Display Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"); font-weight: 700 800; size-adjust: 102.7%; ascent-override: 97.4%; descent-override: 24.3%; line-gap-override: 0%; }
+
+body.hub {
+  --hub-bench: #fb6f24;      /* the orange bench, also the background of the hero image */
+  --hub-ink: #1f1b4d;        /* ink indigo: every word on the bench is set in it (5.6:1 on the orange) */
+  --hub-paper: #f3f4f0;      /* cool white paper under the bench */
+  --hub-sheet: #ffffff;
+  --hub-muted: #56536b;
+  --paper: var(--hub-paper); --paper-2: #e6e7e1; --card: var(--hub-sheet);
+  --ink: var(--hub-ink); --ink-2: #39365e; --muted: var(--hub-muted);
+  --line: rgba(31, 27, 77, 0.13); --line-2: rgba(31, 27, 77, 0.26);
+  --accent: var(--hub-ink); --accent-ink: #ffffff;
+  --sans: "Funnel Sans", "Funnel Sans Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display: "Funnel Display", "Funnel Display Fallback", "Funnel Sans", ui-sans-serif, system-ui, sans-serif;
+  --mono: var(--sans);
+  background: var(--hub-paper); color: var(--hub-ink); font-family: var(--sans); font-size: 17px; line-height: 1.55;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.hub {
+    --hub-paper: #14121f; --hub-sheet: #1c1a2b; --paper-2: #24223a; --hub-muted: #a9a6c0;
+    --ink: #ecebf6; --ink-2: #c9c7dc; --line: rgba(236, 235, 246, 0.12); --line-2: rgba(236, 235, 246, 0.24); --accent: #ffb38a; --accent-ink: #1f1b4d;
+    color: #ecebf6;
+  }
+}
+:root[data-theme="dark"] body.hub {
+  --hub-paper: #14121f; --hub-sheet: #1c1a2b; --paper-2: #24223a; --hub-muted: #a9a6c0;
+  --ink: #ecebf6; --ink-2: #c9c7dc; --line: rgba(236, 235, 246, 0.12); --line-2: rgba(236, 235, 246, 0.24); --accent: #ffb38a; --accent-ink: #1f1b4d;
+  color: #ecebf6;
+}
+
+/* ---------- The bench: header and hero on orange ---------- */
+.hub .site-head { background: var(--hub-bench); color: var(--hub-ink); border-bottom: 1px solid rgba(31, 27, 77, 0.2); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.hub .site-head a, .hub .head-nav a { color: var(--hub-ink); }
+.hub .head-nav a:hover { background: rgba(255, 255, 255, 0.35); color: var(--hub-ink); }
+.hub .head-nav a[aria-current="page"] { background: rgba(255, 255, 255, 0.55); color: var(--hub-ink); }
+.hub .brand-sub { color: var(--hub-ink); border-left-color: rgba(31, 27, 77, 0.35); }
+.hub :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+.hub-hero :focus-visible, .hub .site-head :focus-visible { outline-color: var(--hub-ink); }
+
+.hub-hero { background: var(--hub-bench); color: var(--hub-ink); padding: 6px 0 clamp(26px, 4vw, 48px); }
+.hub-hero-in { display: grid; grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr); gap: clamp(16px, 3vw, 48px); align-items: center; }
+.hub-hero .crumbs { color: var(--hub-ink); margin-top: 18px; }
+.hub-hero .crumbs a { color: var(--hub-ink); text-decoration: underline; text-decoration-color: rgba(31, 27, 77, 0.45); }
+.hub-hero .crumbs li + li::before { color: rgba(31, 27, 77, 0.5); }
+.hub-hero h1 { font-family: var(--display); font-weight: 800; font-size: clamp(38px, 4.7vw, 66px); line-height: 0.98; letter-spacing: -0.025em; margin: 22px 0 0; max-width: 12ch; text-wrap: balance; color: var(--hub-ink); }
+.hub-hero .lede { color: var(--hub-ink); font-size: clamp(17px, 1.45vw, 19.5px); max-width: 44ch; margin: 18px 0 0; }
+.hub-hero-fig { margin: 0; min-width: 0; }
+.hub-hero-fig img { width: 100%; height: auto; aspect-ratio: 4 / 3; background: var(--hub-bench); }
+.hub-hero-fig figcaption { font-size: 14px; color: var(--hub-ink); margin: 6px 0 0; max-width: 62ch; }
+@media (max-width: 900px) {
+  .hub-hero-in { grid-template-columns: 1fr; }
+  .hub-hero h1 { max-width: 14ch; }
+  .hub-hero-fig { margin: 4px -8px 0; }
+}
+
+/* ---------- The index of tools ---------- */
+.hub-groups { padding: clamp(30px, 5vw, 64px) 0 0; display: grid; gap: clamp(40px, 5vw, 64px); }
+.hub-group-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 24px; border-bottom: 2px solid var(--ink); padding-bottom: 12px; }
+.hub-group-head h2 { font-family: var(--display); font-weight: 800; font-size: clamp(26px, 2.6vw, 36px); letter-spacing: -0.02em; line-height: 1.05; margin: 0; color: var(--ink); }
+.hub-group-head p { margin: 0; color: var(--muted); font-size: 15.5px; max-width: 56ch; }
+.hub-list { list-style: none; margin: 0; padding: 0; }
+.hub-list li { border-bottom: 1px solid var(--line-2); }
+.hub-list a { display: grid; grid-template-columns: 64px minmax(0, 1fr) minmax(150px, auto); gap: 4px 22px; align-items: start; padding: 20px 0 22px; text-decoration: none; color: var(--ink); }
+.hub-mark { grid-row: 1 / span 2; width: 56px; height: 56px; color: var(--ink); }
+.hub-mark .f { fill: var(--tool); }
+.hub-mark .s { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }
+.hub-mark .w { fill: var(--card); }
+.hub-name { font-family: var(--display); font-weight: 750; font-size: clamp(21px, 1.9vw, 26px); letter-spacing: -0.015em; line-height: 1.15; margin: 0; }
+.hub-desc { grid-column: 2; margin: 2px 0 0; color: var(--ink-2); font-size: 16.5px; max-width: 64ch; }
+.hub-price { margin: 0; grid-column: 3; grid-row: 1 / span 2; justify-self: end; text-align: right; font-size: 15px; color: var(--muted); padding-top: 4px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.hub-price b { display: block; font-weight: 700; color: var(--ink); }
+.hub-list a:hover .hub-name { color: var(--tool); }
+.hub-list a:hover .hub-mark { color: var(--tool); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .hub-list a:hover .hub-name { color: color-mix(in oklab, var(--tool) 40%, #ffffff); } }
+:root[data-theme="dark"] .hub-list a:hover .hub-name { color: color-mix(in oklab, var(--tool) 40%, #ffffff); }
+@media (max-width: 720px) {
+  .hub-list a { grid-template-columns: 48px minmax(0, 1fr); gap: 4px 16px; padding: 18px 0 20px; }
+  .hub-mark { width: 46px; height: 46px; grid-row: 1 / span 3; }
+  .hub-price { grid-column: 2; grid-row: auto; justify-self: start; text-align: left; white-space: normal; padding-top: 6px; }
+  .hub-price b { display: inline; margin-right: 6px; }
+}
+.hub-note { margin: clamp(36px, 5vw, 56px) 0 0; max-width: 70ch; color: var(--muted); font-size: 15.5px; }
+
+.hub .site-foot { border-top: 2px solid var(--ink); }
+</style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
  {"@type":"CollectionPage","@id":"https://peakappsstudio.com/tools/#page","name":"Peak Apps Tools","url":"https://peakappsstudio.com/tools/","isPartOf":{"@type":"WebSite","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/","email":"peakappsstudios@gmail.com"}},
  {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Peak Apps Studio","item":"https://peakappsstudio.com/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://peakappsstudio.com/tools/"}]}
 ]}
 </script>
-<style>
-  .hub-list { list-style: none; padding: 0; margin: 36px 0 0; border-top: 1px solid var(--line-2); }
-  .hub-list li { border-bottom: 1px solid var(--line-2); }
-  .hub-list a { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 18px; align-items: baseline; padding: 26px 0; text-decoration: none; }
-  .hub-list .n { font-family: var(--mono); font-size: 13px; color: var(--muted); }
-  .hub-list h2 { font-size: clamp(22px, 2.4vw, 30px); }
-  .hub-list p { margin: 8px 0 0; color: var(--ink-2); max-width: 60ch; }
-  .hub-list .go { font-family: var(--mono); font-size: 13px; color: var(--muted); }
-  .hub-list a:hover h2 { color: var(--tool); }
-  @media (max-width: 640px) { .hub-list a { grid-template-columns: 34px 1fr; } .hub-list .go { display: none; } }
-</style>
 </head>
-<body>
+<body class="hub">
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head">
   <div class="wrap">
@@ -60,35 +416,125 @@
   </div>
 </header>
 
-<main id="main" class="wrap">
-  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="https://peakappsstudio.com/">Peak Apps Studio</a></li><li aria-current="page">Tools</li></ol></nav>
-  <section class="tool-hero">
-    <p class="eyebrow">Peak Apps Tools</p>
-    <h1>Tools that finish the <em>fiddly</em> part of the job.</h1>
-    <p class="lede">Each one does a single thing that usually takes Photoshop, a paid subscription or an afternoon of spreadsheet work. They run in your browser, so your designs, books, patterns and payroll files never leave your computer.</p>
+<main id="main">
+  <section class="hub-hero" aria-labelledby="hub-h">
+    <div class="wrap hub-hero-in">
+      <div>
+        <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="https://peakappsstudio.com/">Peak Apps Studio</a></li><li aria-current="page">Tools</li></ol></nav>
+        <h1 id="hub-h">Tools that finish the fiddly part of the job</h1>
+        <p class="lede">Each one does a single thing that usually takes Photoshop, a paid subscription or an afternoon of spreadsheet work. They run in your browser, so your designs, books, patterns and payroll files never leave your computer.</p>
+      </div>
+      <figure class="hub-hero-fig">
+        <img src="/tools/img/bench-960.webp" srcset="/tools/img/bench-480.webp 480w, /tools/img/bench-960.webp 960w, /tools/img/bench-1440.webp 1440w" sizes="(max-width: 900px) calc(100vw - 16px), 56vw" width="1440" height="1080" fetchpriority="high" decoding="async" alt="What the tools make, laid out square on an orange bench: a gender pay gap report, an equality action plan sign-off pack, a job evaluation record and an Etsy tax summary; a coloring book, a tumbler template with its tumbler, a sewing pattern assembly map, a lampshade, a pay information request in its envelope, a quilt label, a name cut file, a desk fan and a model house on its plot.">
+        <figcaption>The pages are the tools’ own output for their sample data; the tumbler, lampshade, envelope, fan and house are models.</figcaption>
+      </figure>
+    </div>
   </section>
-  <ol class="hub-list">
-    <li><a href="/tumbler-template/" style="--tool:#1f5c4d"><span class="n">01</span><div><h2>Tumbler template generator</h2><p>Enter the top and bottom diameter and height of any tapered tumbler, cup or mug and get an exact flat template. Then bend your design to fit it, ready to print.</p></div><span class="go">Open</span></a></li>
-    <li><a href="/cone-template/" style="--tool:#1f5c4d"><span class="n">02</span><div><h2>Cone and lampshade template</h2><p>The same geometry for paper cones, truncated cones and drum-free lampshades, with an optional glue tab. Free, printed at true size.</p></div><span class="go">Open</span></a></li>
-    <li><a href="/kdp-coloring-book/" style="--tool:#2f3f8f"><span class="n">03</span><div><h2>KDP coloring book interior maker</h2><p>Drop in your coloring pages and get an interior PDF with Amazon KDP's bleed, gutter margins and blank backs worked out for your page count. Free for books up to 24 coloring pages.</p></div><span class="go">Open</span></a></li>
-    <li><a href="/sewing-pattern-printer/" style="--tool:#a8402c"><span class="n">04</span><div><h2>Print only your size</h2><p>Open a layered PDF sewing pattern, switch off the sizes you don't need and print or save just yours, even on a Mac, iPad or Chromebook.</p></div><span class="go">Open</span></a></li>
-    <li><a href="/quilt-label-maker/" style="--tool:#7a3655"><span class="n">05</span><div><h2>Quilt label maker</h2><p>Design a label with a quilt-block border and print it at true size on an inkjet fabric sheet. Includes a Quilt of Valor checklist.</p></div><span class="go">Open</span></a></li>
-    <li><a href="/etsy-tax-summary/" style="--tool:#5b2d56"><span class="n">06</span><div><h2>Etsy tax summary</h2><p>Drop your Etsy monthly statement CSVs and get the year's sales, refunds and every fee, with the Schedule C line or Self Assessment box beside each total.</p></div><span class="go">Open</span></a></li>
-    <li><a href="/name-cut-files/" style="--tool:#6d2e5b"><span class="n">07</span><div><h2>Name cut files</h2><p>Paste a list of names or an Etsy orders file and get welded, same-size SVG cut files laid out on a 12x12 or 12x24 mat for Cricut or Silhouette.</p></div><span class="go">Open</span></a></li>
-    <li><a href="/pay-gap-report/" style="--tool:#1e4f6e"><span class="n">08</span><div><h2>Pay gap report</h2><p>Drop a payroll export and get the statutory gender pay gap measures for the UK, Ireland or the EU Pay Transparency Directive, with the data checked first and nothing uploaded.</p></div><span class="go">Open</span></a></li>
-    <li><a href="/pay-transparency/" style="--tool:#7d5a12"><span class="n">09</span><div><h2>Pay transparency kit</h2><p>Workers write the request for their pay information; employers answer it from a payroll export. With the EU directive's status in all 27 countries, checked on official sources.</p></div><span class="go">Open</span></a></li>
-    <li><a href="/job-evaluation/" style="--tool:#4a5d23"><span class="n">10</span><div><h2>Job evaluation</h2><p>Score each role on skills, effort, responsibility and working conditions with the factor plan of the EU-wide guidelines, and see which jobs are work of equal value. With bias checks, and the categories ready for the pay gap report.</p></div><span class="go">Open</span></a></li>
-    <li><a href="/equality-action-plan/" style="--tool:#7b2d3b"><span class="n">11</span><div><h2>Equality action plan</h2><p>Build a gender pay gap and menopause action plan from GOV.UK’s 18 actions, with the minimums and the 100 and 200 word limits checked as you write, and a diagnosis of your published figures.</p></div><span class="go">Open</span></a></li>
-    <li><a href="/menopause-adjustments/" style="--tool:#7b2d3b"><span class="n">12</span><div><h2>Menopause adjustments at work</h2><p>For employees: the changes Acas and GOV.UK list for employers, chosen by symptom and each with its source, and a polite letter asking your manager to talk about them.</p></div><span class="go">Open</span></a></li>
-    <li><a href="/without-planning/" style="--tool:#1f48c7"><span class="n">13</span><div><h2>Without Planning</h2><p>Draw your house, garden and project and check it in 3D against England’s permitted development rules and Ireland’s exemptions of 27 July 2026, condition by condition with the legal reference for each.</p></div><span class="go">Open</span></a></li>
-  </ol>
+
+  <div class="wrap hub-groups">
+    <section aria-labelledby="g-makers">
+      <div class="hub-group-head"><h2 id="g-makers">For makers and Etsy sellers</h2><p>Templates and files you print or cut at true size, and your year on Etsy in numbers.</p></div>
+      <ul class="hub-list">
+        <li><a href="/tumbler-template/" style="--tool:#1f5c4d">
+          <svg class="hub-mark" viewBox="0 0 56 56" aria-hidden="true"><path class="f" d="M5 21 A46 46 0 0 1 51 21 L43.5 45 A30 30 0 0 0 12.5 45 Z"/><path class="s" d="M5 21 A46 46 0 0 1 51 21 L43.5 45 A30 30 0 0 0 12.5 45 Z"/><path class="s" d="M8.6 27.5 A40 40 0 0 1 47.4 27.5 M10.6 37 A34 34 0 0 1 45.4 37" opacity=".55"/></svg>
+          <h3 class="hub-name">Tumbler template generator</h3>
+          <p class="hub-desc">Enter the top and bottom diameter and height of any tapered tumbler, cup or mug and get an exact flat template. Then bend your design to fit it, ready to print.</p>
+          <p class="hub-price"><b>Free</b>Pro $19 once</p>
+        </a></li>
+        <li><a href="/cone-template/" style="--tool:#1f5c4d">
+          <svg class="hub-mark" viewBox="0 0 56 56" aria-hidden="true"><path class="w" d="M28 7 L7.5 43 L3 39.5 L23.5 6.5 Z"/><path class="s" d="M28 7 L7.5 43 L3 39.5 L23.5 6.5 Z" stroke-dasharray="2.4 2.2"/><path class="f" d="M28 7 L49 43.4 A42 42 0 0 1 7 43.4 Z"/><path class="s" d="M28 7 L49 43.4 A42 42 0 0 1 7 43.4 Z"/></svg>
+          <h3 class="hub-name">Cone and lampshade template</h3>
+          <p class="hub-desc">The same geometry for paper cones, truncated cones and drum-free lampshades, with an optional glue tab. Free, printed at true size.</p>
+          <p class="hub-price"><b>Free</b>Pro $19 once</p>
+        </a></li>
+        <li><a href="/kdp-coloring-book/" style="--tool:#2f3f8f">
+          <svg class="hub-mark" viewBox="0 0 56 56" aria-hidden="true"><rect class="w" x="11" y="5" width="34" height="46" rx="1.5"/><rect class="f" x="11" y="5" width="5" height="46"/><rect class="s" x="11" y="5" width="34" height="46" rx="1.5"/><circle class="s" cx="30.5" cy="25" r="9"/><circle class="s" cx="30.5" cy="25" r="4"/><path class="s" d="M30.5 13.5v3M30.5 33.5v3M19 25h3M39 25h3M22.4 16.9l2.1 2.1M36.5 31l2.1 2.1M22.4 33.1l2.1-2.1M36.5 19l2.1-2.1"/><path class="s" d="M21 43h19" opacity=".55"/></svg>
+          <h3 class="hub-name">KDP coloring book interior maker</h3>
+          <p class="hub-desc">Drop in your coloring pages and get an interior PDF with Amazon KDP's bleed, gutter margins and blank backs worked out for your page count. Free for books up to 24 coloring pages.</p>
+          <p class="hub-price"><b>Free</b>Pro $19 once</p>
+        </a></li>
+        <li><a href="/sewing-pattern-printer/" style="--tool:#a8402c">
+          <svg class="hub-mark" viewBox="0 0 56 56" aria-hidden="true"><path class="f" d="M12 7 L38 7 Q43 27 48 49 L15 49 Q11 30 12 7 Z"/><path class="s" d="M12 7 L38 7 Q43 27 48 49 L15 49 Q11 30 12 7 Z"/><path class="w" d="M42.6 26 l3 -1.4 l0.7 3.3 Z"/><path class="s" d="M28 15 V41 M25 18.5 L28 15 L31 18.5 M25 37.5 L28 41 L31 37.5"/></svg>
+          <h3 class="hub-name">Print only your size</h3>
+          <p class="hub-desc">Open a layered PDF sewing pattern, switch off the sizes you don't need and print or save just yours, even on a Mac, iPad or Chromebook.</p>
+          <p class="hub-price"><b>Free</b>Pro $9 once</p>
+        </a></li>
+        <li><a href="/quilt-label-maker/" style="--tool:#7a3655">
+          <svg class="hub-mark" viewBox="0 0 56 56" aria-hidden="true"><rect class="w" x="7" y="9" width="42" height="38"/><path class="f" d="M9 11h38v4H9z M9 41h38v4H9z M9 15h4v26H9z M43 15h4v26h-4z"/><path class="w" d="M9 15 l2 -4 l2 4 l2 -4 l2 4 l2 -4 l2 4 l2 -4 l2 4 l2 -4 l2 4 l2 -4 l2 4 l2 -4 l2 4 l2 -4 l2 4 l2 -4 l2 4 Z"/><rect class="s" x="7" y="9" width="42" height="38"/><path class="s" d="M18 24h20M21 30h14M23 35h10"/></svg>
+          <h3 class="hub-name">Quilt label maker</h3>
+          <p class="hub-desc">Design a label with a quilt-block border and print it at true size on an inkjet fabric sheet. Includes a Quilt of Valor checklist.</p>
+          <p class="hub-price"><b>Free</b>Pro $9 once</p>
+        </a></li>
+        <li><a href="/etsy-tax-summary/" style="--tool:#5b2d56">
+          <svg class="hub-mark" viewBox="0 0 56 56" aria-hidden="true"><rect class="w" x="11" y="5" width="34" height="46" rx="1"/><rect class="f" x="15" y="10" width="17" height="4"/><path class="s" d="M15 20h26M15 25h26M15 30h26M15 35h26" opacity=".6"/><rect class="f" x="15" y="40" width="26" height="4"/><rect class="s" x="11" y="5" width="34" height="46" rx="1"/></svg>
+          <h3 class="hub-name">Etsy tax summary</h3>
+          <p class="hub-desc">Drop your Etsy monthly statement CSVs and get the year's sales, refunds and every fee, with the Schedule C line or Self Assessment box beside each total.</p>
+          <p class="hub-price"><b>Free</b>Pro $19 once</p>
+        </a></li>
+        <li><a href="/name-cut-files/" style="--tool:#6d2e5b">
+          <svg class="hub-mark" viewBox="0 0 56 56" aria-hidden="true"><rect class="w" x="4" y="14" width="48" height="28" rx="2"/><rect class="s" x="4" y="14" width="48" height="28" rx="2" stroke-dasharray="3 2.4"/><path d="M9 34 C11 22 18 20 17 31 C16.5 36 21 36 23 29 C24.6 23.5 29.5 23.5 28.4 30 C27.6 35 32.5 35.4 34.6 29 C36.2 24 41 24 40.4 30 C39.8 35.5 45 35 47 28" fill="none" stroke="var(--tool)" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3 class="hub-name">Name cut files</h3>
+          <p class="hub-desc">Paste a list of names or an Etsy orders file and get welded, same-size SVG cut files laid out on a 12x12 or 12x24 mat for Cricut or Silhouette.</p>
+          <p class="hub-price"><b>Free</b>Pro $15 once</p>
+        </a></li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="g-hr">
+      <div class="hub-group-head"><h2 id="g-hr">For HR, payroll and employees</h2><p>Reporting under UK, Irish and EU rules, worked out from your own files, and a letter for employees who need changes at work.</p></div>
+      <ul class="hub-list">
+        <li><a href="/pay-gap-report/" style="--tool:#0b7a45">
+          <svg class="hub-mark" viewBox="0 0 56 56" aria-hidden="true"><path class="w" d="M6 10h9v38H6z M18 10h9v38h-9z M30 10h9v38h-9z M42 10h9v38h-9z"/><path class="f" d="M6 33.3h9v14.7H6z M18 32.5h9v15.5h-9z M30 35h9v13h-9z M42 33h9v15h-9z"/><path class="s" d="M6 10h9v38H6z M18 10h9v38h-9z M30 10h9v38h-9z M42 10h9v38h-9z"/></svg>
+          <h3 class="hub-name">Pay gap report</h3>
+          <p class="hub-desc">Drop a payroll export and get the statutory gender pay gap measures for the UK, Ireland or the EU Pay Transparency Directive, with the data checked first and nothing uploaded.</p>
+          <p class="hub-price"><b>Free</b>Pro $79 once</p>
+        </a></li>
+        <li><a href="/pay-transparency/" style="--tool:#7d5a12">
+          <svg class="hub-mark" viewBox="0 0 56 56" aria-hidden="true"><rect class="w" x="12" y="6" width="32" height="22"/><path class="s" d="M16 12h22M16 17h16" opacity=".6"/><rect class="f" x="5" y="16" width="46" height="32" rx="1.5"/><path class="s" d="M5 17 L28 35 L51 17"/><rect class="s" x="5" y="16" width="46" height="32" rx="1.5"/></svg>
+          <h3 class="hub-name">Pay transparency kit</h3>
+          <p class="hub-desc">Workers write the request for their pay information; employers answer it from a payroll export. With the EU directive's status in all 27 countries, checked on official sources.</p>
+          <p class="hub-price"><b>Free</b>For employers, Pro $99 once</p>
+        </a></li>
+        <li><a href="/job-evaluation/" style="--tool:#4a5d23">
+          <svg class="hub-mark" viewBox="0 0 56 56" aria-hidden="true"><path class="s" d="M28 10v35M19 47h18M9 15h38M12 15 L7 30 M12 15 L17 30 M44 15 L39 30 M44 15 L49 30"/><path class="f" d="M5 30 Q12 39 19 30 Z M37 30 Q44 39 51 30 Z"/><path class="s" d="M5 30 Q12 39 19 30 Z M37 30 Q44 39 51 30 Z"/><circle class="f" cx="28" cy="10" r="3"/></svg>
+          <h3 class="hub-name">Job evaluation</h3>
+          <p class="hub-desc">Score each role on skills, effort, responsibility and working conditions with the factor plan of the EU-wide guidelines, and see which jobs are work of equal value. With bias checks, and the categories ready for the pay gap report.</p>
+          <p class="hub-price"><b>Free up to 5 roles</b>Pro $99 once</p>
+        </a></li>
+        <li><a href="/equality-action-plan/" style="--tool:#c0321c">
+          <svg class="hub-mark" viewBox="0 0 56 56" aria-hidden="true"><rect class="w" x="15" y="4" width="32" height="42"/><rect class="s" x="15" y="4" width="32" height="42"/><rect class="w" x="12" y="7" width="32" height="42"/><rect class="s" x="12" y="7" width="32" height="42"/><rect class="w" x="9" y="10" width="32" height="42"/><rect class="s" x="9" y="10" width="32" height="42"/><path class="s" d="M14 18h20M14 23h16" opacity=".6"/><path d="M14 41 c3 -7 5 3 8 -2 s5 4 9 -1" fill="none" stroke="var(--tool)" stroke-width="2.4" stroke-linecap="round"/><path class="s" d="M14 45h22" opacity=".6"/><path class="f" d="M41 36h10l-3 3l3 3H41z"/></svg>
+          <h3 class="hub-name">Equality action plan</h3>
+          <p class="hub-desc">Build a gender pay gap and menopause action plan from GOV.UK’s 18 actions, with the minimums and the 100 and 200 word limits checked as you write, and a diagnosis of your published figures.</p>
+          <p class="hub-price"><b>Free</b>Pro $79 once</p>
+        </a></li>
+        <li><a href="/menopause-adjustments/" style="--tool:#7d3c93">
+          <svg class="hub-mark" viewBox="0 0 56 56" aria-hidden="true"><path class="f" d="M28 22 C22 10 31 7 33 13 Z M28 22 C40 21 39 31 32 30 Z M28 22 C22 32 15 26 19 21 Z"/><circle class="s" cx="28" cy="22" r="16"/><circle class="s" cx="28" cy="22" r="10" opacity=".5"/><circle class="w" cx="28" cy="22" r="2.6"/><circle class="s" cx="28" cy="22" r="2.6"/><path class="s" d="M28 38v6"/><ellipse class="w" cx="28" cy="47" rx="12" ry="3.5"/><ellipse class="s" cx="28" cy="47" rx="12" ry="3.5"/></svg>
+          <h3 class="hub-name">Menopause adjustments at work</h3>
+          <p class="hub-desc">For employees: the changes Acas and GOV.UK list for employers, chosen by symptom and each with its source, and a polite letter asking your manager to talk about them.</p>
+          <p class="hub-price"><b>Free</b>No Pro version</p>
+        </a></li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="g-home">
+      <div class="hub-group-head"><h2 id="g-home">For homeowners</h2><p>A home project checked against the national planning rules for England and Ireland.</p></div>
+      <ul class="hub-list">
+        <li><a href="/without-planning/" style="--tool:#1f48c7">
+          <svg class="hub-mark" viewBox="0 0 56 56" aria-hidden="true"><rect class="s" x="4" y="8" width="48" height="42" stroke-dasharray="3.2 2.4" style="stroke:#d9262b"/><path class="f" d="M14 44 V28 L26 18 L38 28 V44 Z"/><path class="s" d="M14 44 V28 L26 18 L38 28 V44 Z"/><rect class="w" x="38" y="34" width="9" height="10"/><rect class="s" x="38" y="34" width="9" height="10"/><path class="s" d="M22 44v-8h7v8"/></svg>
+          <h3 class="hub-name">Without Planning</h3>
+          <p class="hub-desc">Draw your house, garden and project and check it in 3D against England’s permitted development rules and Ireland’s exemptions of 27 July 2026, condition by condition with the legal reference for each.</p>
+          <p class="hub-price"><b>Free</b>Pro $29 once</p>
+        </a></li>
+      </ul>
+    </section>
+  </div>
 </main>
 <footer class="site-foot">
   <div class="wrap cols">
     <div>
       <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
       <p style="margin:0;max-width:44ch">Small, careful tools that each do one job well. Your files are processed in your browser and never uploaded.</p>
-      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a> · <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a>.<br>Write to <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
     </div>
     <div>
       <h2>Tools</h2>
