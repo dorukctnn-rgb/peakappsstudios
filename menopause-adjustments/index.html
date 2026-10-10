@@ -287,7 +287,8 @@ td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowra
 </style>
 <style data-from="/assets/pay-equity.css">
 /* Pay equity family: the shared type system, neutral base and accents of the HR reporting tools (Pay Gap Report,
- * Equality Action Plan, Menopause Adjustments; Pay Transparency Kit and Job Evaluation adopt it next). Scoped to
+ * Equality Action Plan, Menopause Adjustments, Pay Transparency Kit, Job Evaluation). The PDFs they write take the same
+ * type and colours from /assets/pe-pdf.js. Scoped to
  * body.pe, so the shared header, footer and every other tool keep their own look. Load it after /assets/tools.css and
  * before the tool's own stylesheet, and give the body "pe" plus the tool's class (pe-pgr, pe-eap, pe-ma, pe-ptk, pe-je).
  *
@@ -328,8 +329,8 @@ body.pe {
   --pe-tab-pgr: #11995a; --pe-tab-pgr-ink: #0b7a45;   /* Pay Gap Report: ledger green */
   --pe-tab-eap: #e0442a; --pe-tab-eap-ink: #c0321c;   /* Equality Action Plan: sign-off red */
   --pe-tab-ma: #9b5bb0; --pe-tab-ma-ink: #7d3c93;     /* Menopause Adjustments: heather */
-  --pe-tab-ptk: #f0a800; --pe-tab-ptk-ink: #8a5b00;   /* Pay Transparency Kit, phase 2: amber */
-  --pe-tab-je: #2f6fd6; --pe-tab-je-ink: #2257b8;     /* Job Evaluation, phase 2: index blue */
+  --pe-tab-ptk: #f0a800; --pe-tab-ptk-ink: #8a5b00;   /* Pay Transparency Kit: amber, with ink type on the fill */
+  --pe-tab-je: #2f6fd6; --pe-tab-je-ink: #2257b8;     /* Job Evaluation: index blue */
   --pe-ok: #1d7a45; --pe-warn: #9a4a12;               /* status, kept apart from the tool colours */
 
   /* mapped onto the shared system so the components in /assets/tools.css follow */
@@ -370,7 +371,7 @@ body.pe-je { --pe-accent: var(--pe-tab-je-ink); --pe-accent-fill: var(--pe-tab-j
 }
 
 /* ---------- Type ---------- */
-.pe h1, .pe h2 { font-family: var(--display); font-weight: 800; letter-spacing: -0.012em; line-height: 1.06; text-wrap: balance; }
+.pe h1, .pe h2 { font-family: var(--display); font-weight: 800; letter-spacing: -0.012em; line-height: 1.06; text-wrap: balance; overflow-wrap: break-word; }
 .pe h1 { font-size: clamp(32px, 3.4vw, 48px); }
 .pe h2 { font-size: clamp(23px, 2.2vw, 30px); line-height: 1.12; }
 .pe h3 { font-family: var(--sans); font-weight: 700; font-size: 19px; letter-spacing: -0.005em; line-height: 1.25; }
@@ -444,6 +445,11 @@ body.pe-je { --pe-accent: var(--pe-tab-je-ink); --pe-accent-fill: var(--pe-tab-j
 .pe .pe-list a:hover span { color: var(--ink-2); }
 .pe .pe-list a[aria-current="page"] span { background: color-mix(in oklab, var(--tool, var(--accent)) 7%, var(--card)); color: var(--ink-2); }
 .pe .pe-list a[aria-current="page"] strong::after { content: ", this tool"; font-weight: 500; }
+/* the Pay Transparency Kit's tab is amber, so it carries ink type (white on amber would be 2.1:1) */
+.pe .pe-list a[href="/pay-transparency/"] { --tool: var(--pe-tab-ptk); }
+.pe .pe-list a[href="/pay-transparency/"] strong, .pe .pe-list a[href="/pay-transparency/"]:hover strong { color: #121a17; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pe .pe-list a[href="/pay-transparency/"] strong { background: var(--pe-tab-ptk); color: #121a17; } }
+:root[data-theme="dark"] .pe .pe-list a[href="/pay-transparency/"] strong { background: var(--pe-tab-ptk); color: #121a17; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pe .pe-list a strong { color: #0b130f; background: color-mix(in oklab, var(--tool, var(--accent)) 45%, #ffffff); } }
 :root[data-theme="dark"] .pe .pe-list a strong { color: #0b130f; background: color-mix(in oklab, var(--tool, var(--accent)) 45%, #ffffff); }
 
@@ -728,8 +734,8 @@ body.pe-je { --pe-accent: var(--pe-tab-je-ink); --pe-accent-fill: var(--pe-tab-j
   <ul class="pe-list">
     <li><a href="/pay-gap-report/" style="--tool:#0b7a45"><strong>Pay Gap Report</strong><span>The statutory gender pay gap measures from a payroll export, for the UK, Ireland and the EU directive, worked out in your browser.</span></a></li>
     <li><a href="/equality-action-plan/" style="--tool:#c0321c"><strong>Equality Action Plan</strong><span>A gender pay gap and menopause action plan from GOV.UK’s 18 actions, with the rules and word limits checked as you write.</span></a></li>
-    <li><a href="/job-evaluation/" style="--tool:#4a5d23"><strong>Job Evaluation</strong><span>Score roles on skills, effort, responsibility and working conditions, and see which jobs are work of equal value.</span></a></li>
-    <li><a href="/pay-transparency/" style="--tool:#7d5a12"><strong>Pay Transparency Kit</strong><span>Request letters for workers and Article 7 answers for employers, with the EU directive’s status in all 27 countries.</span></a></li>
+    <li><a href="/job-evaluation/" style="--tool:#2257b8"><strong>Job Evaluation</strong><span>Score roles on skills, effort, responsibility and working conditions, and see which jobs are work of equal value.</span></a></li>
+    <li><a href="/pay-transparency/" style="--tool:#8a5b00"><strong>Pay Transparency Kit</strong><span>Request letters for workers and Article 7 answers for employers, with the EU directive’s status in all 27 countries.</span></a></li>
   </ul>
 </nav>
 

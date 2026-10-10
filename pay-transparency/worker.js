@@ -143,6 +143,7 @@
     if (!libs) libs = (async () => {
       if (!window.PayGapReport) await loadScript('/pay-gap-report/report.js');
       if (!window.PDFLib) await loadScript('/pay-gap-report/vendor/pdf-lib.min.js');
+      if (!window.PEPdf) await loadScript('/assets/pe-pdf.js');
       if (!window.PayTransPDF) await loadScript('/pay-transparency/letterpdf.js');
       return window.PDFLib;
     })().catch(e => { libs = null; throw e; });

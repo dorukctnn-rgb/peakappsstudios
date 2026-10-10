@@ -67,6 +67,7 @@
       if (kind === 'pdf') {
         if (!window.PayGapReport) await loadScript('/pay-gap-report/report.js');
         if (!window.PDFLib) await loadScript('/pay-gap-report/vendor/pdf-lib.min.js');
+        if (!window.PEPdf) await loadScript('/assets/pe-pdf.js');
         if (!window.PayTransPDF) await loadScript('/pay-transparency/letterpdf.js');
         const bytes = await window.PayTransPDF.letterPDF(window.PDFLib, L, { title: L.subject, author: d.employer });
         PeakUI.download(new Blob([bytes], { type: 'application/pdf' }), base + '.pdf');

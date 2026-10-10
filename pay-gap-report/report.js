@@ -1,11 +1,12 @@
 /* Pay Gap Report exports (Pro): the figures CSV, the excluded rows CSV and the PDF report.
  * Pure functions over a "view" built by tool.js; pdf-lib is passed in (loaded only when the PDF is asked for).
  * The on-screen table, the CSV and the PDF all read their numbers from figureRows(), so they always agree.
+ * The PDF is set in the pay equity family's type and colours (/assets/pe-pdf.js, loaded with pdf-lib).
  * Works in the browser (window.PayGapReport) and in Node for the tests. */
 (function (root, factory) {
-  if (typeof module === 'object' && module.exports) module.exports = factory();
-  else root.PayGapReport = factory();
-})(typeof self !== 'undefined' ? self : this, function () {
+  if (typeof module === 'object' && module.exports) module.exports = factory(() => require('../assets/pe-pdf.js'));
+  else root.PayGapReport = factory(() => root.PEPdf);
+})(typeof self !== 'undefined' ? self : this, function (getPE) {
   'use strict';
 
   const UK_FIELDS = {
@@ -153,7 +154,7 @@
 
   async function pdf(PDFLib, view) {
     const P = view.P, R = view.R, res = view.res, h = res.headcount, cur = res.currency;
-    const { PDFDocument, StandardFonts, rgb } = PDFLib;
+    const { PDFDocument } = PDFLib;
     const doc = await PDFDocument.create();
     const w = dateWords(view);
     const employer = view.employer || 'Employer name';
@@ -162,15 +163,23 @@
     doc.setAuthor(pdfText(employer));
     doc.setCreator('Peak Apps Pay Gap Report');
     doc.setProducer('pdf-lib');
-    const F = await doc.embedFont(StandardFonts.Helvetica), B = await doc.embedFont(StandardFonts.HelveticaBold);
+    // Archivo in the family's colours; measured as Helvetica, so every line and page break is where it always was
+    const T = await getPE().fonts(doc, PDFLib, ['regular', 'bold', 'display']);
+    const F = T.regular, B = T.bold, D = T.display, C = T.C;
     const W = 595.28, H = 841.89, M = 48, CW = W - 2 * M;
-    const INK = rgb(0.08, 0.08, 0.09), MUTED = rgb(0.4, 0.41, 0.44), RULE = rgb(0.82, 0.82, 0.8), SOFT = rgb(0.955, 0.95, 0.935);
-    const ACCENT = rgb(0x1e / 255, 0x4f / 255, 0x6e / 255), MEN = rgb(0.55, 0.56, 0.6), WARN = rgb(0.6, 0.29, 0.07);
+    const INK = C.ink, MUTED = C.muted, RULE = C.rule, SOFT = C.soft;
+    const ACCENT = C.pgrInk, WOMEN = C.women, MEN = C.men, ON_FILL = C.onFill, WARN = C.warn;
     let page, y;
     const pages = [];
     const newPage = () => { page = doc.addPage([W, H]); pages.push(page); y = H - M; };
     const ensure = hh => { if (y - hh < M + 26) newPage(); };
-    const text = (str, x, yy, o = {}) => { const f = o.bold ? B : F, s = o.size || 9.5; const t = pdfText(str); const tw = f.widthOfTextAtSize(t, s); page.drawText(t, { x: o.right ? x - tw : o.center ? x - tw / 2 : x, y: yy, size: s, font: f, color: o.color || INK }); return tw; };
+    // Bold text at 12.5 pt or more is a heading or a title: it takes the family's expanded cut, with room up to the
+    // right margin (or o.max). Everything else keeps to the width it was measured with.
+    const text = (str, x, yy, o = {}) => {
+      const s = o.size || 9.5, display = o.display != null ? o.display : !!o.bold && s >= 12.5;
+      const f = display ? D : o.bold ? B : F, t = pdfText(str);
+      return T.draw(page, t, { x, y: yy, size: s, font: f, color: o.color || INK, align: o.right ? 'right' : o.center ? 'center' : 'left', max: o.max != null ? o.max : display ? W - M - x : undefined });
+    };
     const wrap = (str, font, s, max) => {
       const out = [];
       for (const para of pdfText(str).split('\n')) {
@@ -181,16 +190,18 @@
       }
       return out;
     };
-    const para = (str, o = {}) => { const s = o.size || 9, f = o.bold ? B : F; for (const l of wrap(str, f, s, o.width || CW)) { ensure(s + 4); if (l) text(l, o.x || M, y, { size: s, bold: o.bold, color: o.color }); y -= s + (o.lead || 3.6); } };
+    const para = (str, o = {}) => { const s = o.size || 9, f = o.bold ? B : F; for (const l of wrap(str, f, s, o.width || CW)) { ensure(s + 4); if (l) text(l, o.x || M, y, { size: s, bold: o.bold, color: o.color, max: o.width || CW }); y -= s + (o.lead || 3.6); } };
     const rule = (yy, c = RULE, t = 0.6, x0 = M, x1 = W - M) => page.drawLine({ start: { x: x0, y: yy }, end: { x: x1, y: yy }, thickness: t, color: c });
-    const h2 = str => { const ls = wrap(str, B, 12.5, CW); ensure(34 + 15 * ls.length); y -= 12; ls.forEach((l, i) => text(l, M, y - i * 15, { bold: true, size: 12.5 })); y -= 15 * (ls.length - 1) + 8; rule(y, INK, 0.8); y -= 15; };
+    // the lines of one heading all take the expanded cut, or all the bold cut where one of them would not fit
+    const titleCut = (ls, s) => ls.every(l => T.fits(D, l, s, CW));
+    const h2 = str => { const ls = wrap(str, B, 12.5, CW), d = titleCut(ls, 12.5); ensure(34 + 15 * ls.length); y -= 12; ls.forEach((l, i) => text(l, M, y - i * 15, { bold: true, size: 12.5, display: d })); y -= 15 * (ls.length - 1) + 8; rule(y, INK, 0.8); y -= 15; };
 
     // ---- Cover ----
     newPage();
     text(R.area === 'eu' ? 'PAY GAP REPORT' : 'GENDER PAY GAP REPORT', M, y, { size: 8, color: ACCENT, bold: true });
     text(`Prepared ${view.generated}`, W - M, y, { size: 8, color: MUTED, right: true });
     y -= 30;
-    for (const l of wrap(employer, B, 22, CW)) { text(l, M, y, { bold: true, size: 22 }); y -= 26; }
+    { const ls = wrap(employer, B, 22, CW), d = titleCut(ls, 22); for (const l of ls) { text(l, M, y, { bold: true, size: 22, display: d }); y -= 26; } }
     y += 4;
     text(R.area === 'eu' ? `Pay gap reporting for the reference year ${w.snapshot}` : `${title}, ${w.when}`, M, y, { size: 12, color: INK });
     y -= 24;
@@ -216,7 +227,7 @@
     keyIds.forEach((id, i) => {
       const f = res.byId[id], x = M + 12 + i * (CW / 4);
       text(keyLabel[id], x, y - 17, { size: 7.5, color: MUTED });
-      text(f && f.value != null ? P.pct(f.value, { ascii: true }) : 'n/a', x, y - 39, { size: 17, bold: true });
+      text(f && f.value != null ? P.pct(f.value, { ascii: true }) : 'n/a', x, y - 39, { size: 17, bold: true, max: CW / 4 - 16 });
     });
     y -= bh + 10;
     para('Positive figures mean men are paid more on average; negative figures mean women are. Each gap is the difference between men\'s and women\'s pay as a percentage of men\'s.', { size: 8.5, color: MUTED });
@@ -267,17 +278,17 @@
         text(`${n} people, ${b.min != null ? money(b.min) : ''} to ${b.max != null ? money(b.max) : ''}`, M, y - 24, { size: 7.5, color: MUTED });
         const wW = n ? bw * b.women / n : 0;
         page.drawRectangle({ x: bx, y: y - 26, width: bw, height: 22, color: SOFT });
-        if (wW > 0) page.drawRectangle({ x: bx, y: y - 26, width: wW, height: 22, color: ACCENT });
+        if (wW > 0) page.drawRectangle({ x: bx, y: y - 26, width: wW, height: 22, color: WOMEN });
         if (bw - wW > 0) page.drawRectangle({ x: bx + wW, y: y - 26, width: bw - wW, height: 22, color: MEN });
         const wl = `${P.pct(b.womenPct, { ascii: true })} women`, ml = `${P.pct(b.menPct, { ascii: true })} men`;
-        if (wW > F.widthOfTextAtSize(pdfText(wl), 8) + 10) text(wl, bx + 6, y - 18, { size: 8, color: rgb(1, 1, 1), bold: true });
-        if (bw - wW > F.widthOfTextAtSize(pdfText(ml), 8) + 10) text(ml, bx + bw - 6, y - 18, { size: 8, color: rgb(1, 1, 1), bold: true, right: true });
+        if (wW > F.widthOfTextAtSize(pdfText(wl), 8) + 10) text(wl, bx + 6, y - 18, { size: 8, color: ON_FILL, bold: true, max: wW - 10 });
+        if (bw - wW > F.widthOfTextAtSize(pdfText(ml), 8) + 10) text(ml, bx + bw - 6, y - 18, { size: 8, color: ON_FILL, bold: true, right: true, max: bw - wW - 10 });
         text(`${b.women} women`, W - M, y - 12, { size: 8.5, right: true });
         text(`${b.men} men`, W - M, y - 23, { size: 8.5, right: true });
         y -= 36;
       });
       y -= 6;
-      page.drawRectangle({ x: M, y: y - 1, width: 8, height: 8, color: ACCENT }); text('Women', M + 12, y, { size: 8, color: MUTED });
+      page.drawRectangle({ x: M, y: y - 1, width: 8, height: 8, color: WOMEN }); text('Women', M + 12, y, { size: 8, color: MUTED });
       page.drawRectangle({ x: M + 60, y: y - 1, width: 8, height: 8, color: MEN }); text('Men', M + 72, y, { size: 8, color: MUTED });
       text(`${qf.n} ${R.area === 'uk' ? 'full-pay relevant employees' : R.area === 'ie' ? 'relevant employees' : 'workers'} ranked by hourly pay. ${R.lawShort}, ${qf.ref}.`, M + 110, y, { size: 8, color: MUTED });
       y -= 16;
@@ -294,7 +305,7 @@
       if (!cf.rows.length) { para(cf.note || 'No categories in the file.', { size: 8.5, color: MUTED }); }
       for (const g of cf.rows) {
         ensure(28);
-        if (g.flag) page.drawRectangle({ x: M - 4, y: y - 4, width: CW + 8, height: 14, color: rgb(0.99, 0.95, 0.91) });
+        if (g.flag) page.drawRectangle({ x: M - 4, y: y - 4, width: CW + 8, height: 14, color: C.warnSoft });
         text(g.name.length > 34 ? g.name.slice(0, 33) + '.' : g.name, cols[0], y, { size: 8.5, bold: g.flag });
         text(String(g.men), cols[1], y, { size: 8.5, right: true }); text(String(g.women), cols[2], y, { size: 8.5, right: true });
         [g.hourly, g.basic, g.variable, g.annual].forEach((v, i) => text(v == null ? 'n/a' : P.pct(v, { ascii: true }), cols[3 + i], y, { size: 8.5, right: true, bold: i === 0 && g.flag }));
@@ -365,9 +376,9 @@
       p.drawLine({ start: { x: M, y: M - 10 }, end: { x: W - M, y: M - 10 }, thickness: 0.5, color: RULE });
       const fs = 7.5; let t = foot;
       while (F.widthOfTextAtSize(t, fs) > CW - 70 && t.length > 20) t = t.slice(0, -2);
-      p.drawText(t === foot ? t : t + '.', { x: M, y: M - 22, size: fs, font: F, color: MUTED });
+      T.draw(p, t === foot ? t : t + '.', { x: M, y: M - 22, size: fs, font: F, color: MUTED, max: CW - 70 });
       const pg = `Page ${i + 1} of ${pages.length}`;
-      p.drawText(pg, { x: W - M - F.widthOfTextAtSize(pg, fs), y: M - 22, size: fs, font: F, color: MUTED });
+      T.draw(p, pg, { x: W - M, y: M - 22, size: fs, font: F, color: MUTED, align: 'right' });
     });
     return doc.save();
   }

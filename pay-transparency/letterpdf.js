@@ -1,11 +1,13 @@
 /* Pay Transparency Kit: one letter as an A4 PDF. pdf-lib is passed in (the copy vendored with the Pay Gap Report,
  * loaded only when a PDF is asked for) and text goes through the Pay Gap Report's pdfText(), which keeps it inside the
- * WinAnsi set of the standard Helvetica font (German and Dutch letters, the euro sign and typographic quotes are in it).
+ * WinAnsi set the PDF fonts encode (German and Dutch letters, the euro sign and typographic quotes are in it). The
+ * letter is set in the pay equity family's text face and ink (/assets/pe-pdf.js, loaded with pdf-lib), with no colour:
+ * it is the sender's letter.
  * Works in the browser (window.PayTransPDF) and in Node for the tests. */
 (function (root, factory) {
-  if (typeof module === 'object' && module.exports) module.exports = factory(() => require('../pay-gap-report/report.js'), require('./letters.js'));
-  else root.PayTransPDF = factory(() => root.PayGapReport, root.PayTransLetters);
-})(typeof self !== 'undefined' ? self : this, function (getReport, LT) {
+  if (typeof module === 'object' && module.exports) module.exports = factory(() => require('../pay-gap-report/report.js'), require('./letters.js'), () => require('../assets/pe-pdf.js'));
+  else root.PayTransPDF = factory(() => root.PayGapReport, root.PayTransLetters, () => root.PEPdf);
+})(typeof self !== 'undefined' ? self : this, function (getReport, LT, getPE) {
   'use strict';
 
   const PAGE_WORD = { en: 'Page', de: 'Seite', nl: 'Pagina' };
@@ -13,7 +15,7 @@
 
   async function letterPDF(PDFLib, letter, meta) {
     const pdfText = getReport().pdfText;
-    const { PDFDocument, StandardFonts, rgb } = PDFLib;
+    const { PDFDocument } = PDFLib;
     const doc = await PDFDocument.create();
     const m = meta || {};
     doc.setTitle(pdfText(m.title || letter.subject || 'Letter'));
@@ -21,9 +23,11 @@
     doc.setCreator('Peak Apps Pay Transparency Kit');
     doc.setProducer('pdf-lib');
     if (letter.lang) doc.setLanguage(letter.lang);
-    const F = await doc.embedFont(StandardFonts.Helvetica), B = await doc.embedFont(StandardFonts.HelveticaBold);
+    // Archivo, measured as Helvetica, so every line and page break is where it always was
+    const T = await getPE().fonts(doc, PDFLib, ['regular', 'bold']);
+    const F = T.regular, B = T.bold;
     const W = 595.28, H = 841.89, ML = 68, MR = 64, MT = 64, MB = 70, CW = W - ML - MR;
-    const INK = rgb(0.08, 0.08, 0.09), MUTED = rgb(0.38, 0.39, 0.42), RULE = rgb(0.8, 0.8, 0.78);
+    const INK = T.C.ink, MUTED = T.C.muted, RULE = T.C.rule;
     const SIZE = 10.5, LEAD = 15.2;
     let page, y;
     const pages = [];
@@ -43,10 +47,10 @@
       }
       return out;
     };
-    const draw = (t, x, yy, o) => page.drawText(t, { x, y: yy, size: (o && o.size) || SIZE, font: (o && o.bold) ? B : F, color: (o && o.color) || INK });
+    const draw = (t, x, yy, o) => T.draw(page, t, { x, y: yy, size: (o && o.size) || SIZE, font: (o && o.bold) ? B : F, color: (o && o.color) || INK, align: o && o.align, max: o && o.max });
     const para = (str, o = {}) => {
       const font = o.bold ? B : F, size = o.size || SIZE;
-      for (const line of wrap(str, font, size, o.width || CW)) { ensure(LEAD); draw(line, o.x || ML, y, { size, bold: o.bold, color: o.color }); y -= o.lead || LEAD; }
+      for (const line of wrap(str, font, size, o.width || CW)) { ensure(LEAD); draw(line, o.x || ML, y, { size, bold: o.bold, color: o.color, max: o.width || CW }); y -= o.lead || LEAD; }
     };
 
     newPage();
@@ -61,7 +65,7 @@
     }
     if (letter.dateLine) {
       const t = pdfText(letter.dateLine);
-      draw(t, W - MR - F.widthOfTextAtSize(t, SIZE), y, {});
+      draw(t, W - MR, y, { align: 'right' });
       y -= 26;
     }
     if (letter.subject) { para(letter.subject, { bold: true, size: 11.5, lead: 16 }); y -= 10; }
@@ -77,7 +81,7 @@
           const lines = wrap(body, F, SIZE, CW - 22);
           ensure(LEAD * Math.min(lines.length, 2));
           draw(pdfText(label), ML + 2, y, { color: MUTED });
-          for (const line of lines) { ensure(LEAD); draw(line, ML + 22, y, {}); y -= LEAD; }
+          for (const line of lines) { ensure(LEAD); draw(line, ML + 22, y, { max: CW - 22 }); y -= LEAD; }
           y -= 3;
         }
         y -= 5;
@@ -96,7 +100,7 @@
       pages.forEach((p, i) => {
         const t = `${PAGE_WORD[lang]} ${i + 1} ${OF_WORD[lang]} ${pages.length}`;
         p.drawLine({ start: { x: ML, y: MB - 26 }, end: { x: W - MR, y: MB - 26 }, thickness: 0.5, color: RULE });
-        p.drawText(t, { x: W - MR - F.widthOfTextAtSize(t, 8), y: MB - 40, size: 8, font: F, color: MUTED });
+        T.draw(p, t, { x: W - MR, y: MB - 40, size: 8, font: F, color: MUTED, align: 'right' });
       });
     }
     return doc.save();
