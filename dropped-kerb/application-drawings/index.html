@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dropped kerb application drawings: what to send</title>
+<meta name="description" content="What councils ask you to send with a dropped kerb application: the sketch or plan, its measurements, photographs and consents, with an example plan.">
+<link rel="canonical" href="https://peakappsstudio.com/dropped-kerb/application-drawings/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Dropped kerb application drawings: what councils ask for, with an example">
+<meta property="og:description" content="What councils ask you to send with a dropped kerb application: the sketch or plan, its measurements, photographs and consents, with an example plan.">
+<meta property="og:url" content="https://peakappsstudio.com/dropped-kerb/application-drawings/">
+<meta property="og:image" content="https://peakappsstudio.com/dropped-kerb/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#ebebe6">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/dropped-kerb/fonts/saira-condensed-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/dropped-kerb/fonts/signika-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="/dropped-kerb/img/hero-drawings-960.webp" imagesrcset="/dropped-kerb/img/hero-drawings-480.webp 480w, /dropped-kerb/img/hero-drawings-960.webp 960w, /dropped-kerb/img/hero-drawings-1440.webp 1440w" imagesizes="(max-width: 860px) 100vw, 52vw" fetchpriority="high">
+<link rel="stylesheet" href="/assets/tools.css">
+<style data-from="/dropped-kerb/tool.css">
+/* Dropped Kerb Check: the tool's own identity, scoped to body.dk-page (the shared header and footer keep their structure).
+ * Drawn from the street edge itself: wet asphalt for ink, kerb granite for lines and secondary text, buff footway and
+ * pale concrete flags for surfaces, porous-paving green for a pass, signal red for a fail, site-check amber for a point
+ * the council decides on site, and one accent, soakaway teal, for what you press. No yellow-line yellow.
+ * Type: Saira, condensed, for headings and figures (wdth 75, 700); Signika, a wayfinding face, for everything read. */
+
+@font-face { font-family: "Saira DK"; src: url("/dropped-kerb/fonts/saira-condensed-latin.woff2") format("woff2"); font-weight: 700; font-stretch: 75%; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Saira DK"; src: url("/dropped-kerb/fonts/saira-condensed-latin-ext.woff2") format("woff2"); font-weight: 700; font-stretch: 75%; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Signika"; src: url("/dropped-kerb/fonts/signika-latin.woff2") format("woff2"); font-weight: 300 700; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Signika"; src: url("/dropped-kerb/fonts/signika-latin-ext.woff2") format("woff2"); font-weight: 300 700; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+body.dk-page {
+  --asphalt: #1f2629; --asphalt-2: #3a4245; --granite: #5c6467; --granite-2: #8f9597; --granite-3: #c9ccc9;
+  --footway: #d8ccb0; --footway-2: #ece4d2; --concrete: #ebebe6; --sheet: #ffffff;
+  --porous: #3f7d3a; --porous-ink: #2f6a2c; --signal: #c8201e; --signal-ink: #b01a18; --site: #d9952a; --site-ink: #8a5200;
+  --water: #0b6f80; --water-ink: #ffffff; --water-2: #08596a;
+  --paper: var(--concrete); --paper-2: #e1e2dc; --card: var(--sheet); --ink: var(--asphalt); --ink-2: var(--asphalt-2); --muted: var(--granite);
+  --line: rgba(31, 38, 41, .12); --line-2: rgba(31, 38, 41, .24);
+  --accent: var(--water); --accent-ink: var(--water-ink); --ok: var(--porous-ink); --warn: var(--site-ink);
+  --sans: "Signika", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: var(--sans);
+  --display: "Saira DK", "Arial Narrow", sans-serif-condensed, sans-serif;
+  --radius: 3px;
+  background: var(--concrete); color: var(--ink); font-size: 17px; line-height: 1.55; font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.dk-page {
+    --asphalt: #e9ece8; --asphalt-2: #c9cecb; --granite: #a7aeae; --granite-2: #7d8486; --granite-3: #3a4144;
+    --footway: #6b604b; --footway-2: #2a2721; --concrete: #161a1c; --sheet: #1e2427;
+    --porous: #7cc472; --porous-ink: #8fd486; --signal: #ff7b72; --signal-ink: #ff958d; --site: #f0b459; --site-ink: #f3c27a;
+    --water: #6cc9d6; --water-ink: #062a31; --water-2: #8fd7e1;
+    --paper-2: #232a2d; --line: rgba(233, 236, 232, .12); --line-2: rgba(233, 236, 232, .24);
+  }
+}
+:root[data-theme="dark"] body.dk-page {
+  --asphalt: #e9ece8; --asphalt-2: #c9cecb; --granite: #a7aeae; --granite-2: #7d8486; --granite-3: #3a4144;
+  --footway: #6b604b; --footway-2: #2a2721; --concrete: #161a1c; --sheet: #1e2427;
+  --porous: #7cc472; --porous-ink: #8fd486; --signal: #ff7b72; --signal-ink: #ff958d; --site: #f0b459; --site-ink: #f3c27a;
+  --water: #6cc9d6; --water-ink: #062a31; --water-2: #8fd7e1;
+  --paper-2: #232a2d; --line: rgba(233, 236, 232, .12); --line-2: rgba(233, 236, 232, .24);
+}
+
+/* ---------- Type ---------- */
+.dk-page h1, .dk-page h2, .dk-page h3, .dk-display { font-family: var(--display); font-stretch: 75%; font-weight: 700; letter-spacing: 0; line-height: 1.02; text-wrap: balance; }
+.dk-page h1 { font-size: clamp(40px, 5vw, 66px); max-width: 15ch; }
+.dk-page h2 { font-size: clamp(30px, 3.4vw, 44px); }
+.dk-page h3 { font-size: 24px; line-height: 1.1; }
+.dk-page .lede { font-size: clamp(18px, 1.6vw, 20px); color: var(--ink-2); max-width: 60ch; margin: 0; }
+.dk-page a { color: var(--water); text-decoration-thickness: 1px; }
+.dk-page a:hover { color: var(--ink); }
+.dk-page .btn { border-radius: var(--radius); font-weight: 600; font-size: 16px; }
+.dk-page .btn-primary { background: var(--water); border-color: var(--water); color: var(--water-ink); }
+.dk-page .btn-primary:hover { background: var(--water-2); border-color: var(--water-2); color: var(--water-ink); }
+.dk-page :focus-visible { outline: 2px solid var(--water); outline-offset: 2px; }
+.dk-asof { font-size: 14.5px; color: var(--muted); margin: 0; }
+.dk-asof strong { color: var(--ink); font-weight: 600; }
+
+/* ---------- Hero, ending on the kerb: a granite band with the one dropped section, under the council picker ---------- */
+.dk-hero { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(20px, 4vw, 60px); align-items: end; padding: clamp(16px, 2.6vw, 30px) 0 clamp(16px, 2.2vw, 24px); }
+.dk-hero-side { display: grid; gap: 14px; }
+.dk-kerb { --drop-at: 58%; --drop-w: 22%; height: 14px; margin: 0 0 18px; background: repeating-linear-gradient(90deg, var(--granite-3) 0 88px, var(--granite-2) 88px 90px); clip-path: polygon(0 0, var(--drop-at) 0, calc(var(--drop-at) + 26px) 64%, calc(var(--drop-at) + var(--drop-w) - 26px) 64%, calc(var(--drop-at) + var(--drop-w)) 0, 100% 0, 100% 100%, 0 100%); }
+@media (max-width: 860px) { .dk-hero { grid-template-columns: 1fr; align-items: start; } .dk-kerb { --drop-at: 30%; --drop-w: 40%; } }
+
+/* council picker */
+.dk-pick { display: grid; gap: 6px; }
+.dk-pick label { font-weight: 600; font-size: 15px; }
+.dk-pick-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.dk-pick input { flex: 1 1 260px; min-width: 0; font: inherit; font-size: 17px; padding: 11px 12px; border: 1px solid var(--line-2); border-radius: var(--radius); background: var(--sheet); color: var(--ink); }
+.dk-pick input:focus { outline: none; border-color: var(--water); box-shadow: 0 0 0 3px color-mix(in oklab, var(--water) 22%, transparent); }
+.dk-auth { font-size: 14.5px; color: var(--ink-2); margin: 0; }
+.dk-auth b { font-weight: 600; }
+.dk-auth .dk-tick { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--porous); margin-right: 6px; vertical-align: 1px; }
+.dk-auth .dk-none { display: inline-block; width: 9px; height: 9px; border: 1.6px solid var(--site-ink); border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
+.dk-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 2px 0 0; padding: 0; list-style: none; }
+.dk-chips button { font: inherit; font-size: 13.5px; border: 1px solid var(--line-2); background: transparent; color: var(--ink-2); padding: 4px 9px; border-radius: 2px; cursor: pointer; }
+.dk-chips button[aria-pressed="true"] { background: var(--ink); color: var(--sheet); border-color: var(--ink); }
+
+/* ---------- The bench: the street section, then the form beside it ---------- */
+.dk-bench { display: grid; grid-template-columns: minmax(0, 1fr) minmax(340px, 420px); background: var(--sheet); border: 1px solid var(--line-2); border-radius: var(--radius); }
+.dk-stage { position: relative; min-width: 0; }
+.dk-sticky { position: sticky; top: 72px; display: grid; }
+.dk-form { padding: 14px 18px 20px; border-left: 1px solid var(--line-2); display: grid; gap: 2px; align-content: start; min-width: 0; }
+@media (max-width: 960px) {
+  .dk-bench { grid-template-columns: 1fr; }
+  .dk-form { border-left: 0; border-top: 1px solid var(--line-2); }
+  .dk-sticky { position: static; }
+}
+.dk-view { position: relative; aspect-ratio: 16 / 10; background: #e7e8e3; overflow: hidden; border-bottom: 1px solid var(--line-2); }
+.dk-view img, .dk-view canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.dk-view canvas { touch-action: none; cursor: grab; }
+.dk-view canvas:active { cursor: grabbing; }
+.dk-tags { position: absolute; inset: 0; pointer-events: none; }
+.dk-tag { position: absolute; left: 0; top: 0; font-size: 13.5px; font-weight: 600; line-height: 1; padding: 6px 7px; background: rgba(255, 255, 255, .94); color: #1f2629; white-space: nowrap; box-shadow: 0 1px 0 rgba(31, 38, 41, .28); }
+.dk-tag-ok { color: #2f6a2c; } .dk-tag-check { color: #8a5200; } .dk-tag-limit { color: #0b5f6e; }
+.dk-tag-bad { background: #c8201e; color: #fff; }
+.dk-badge { position: absolute; left: 10px; top: 10px; font-size: 13px; font-weight: 600; background: var(--asphalt); color: #fff; padding: 5px 8px; border-radius: 2px; }
+.dk-viewbar { position: absolute; left: 10px; right: 10px; bottom: 10px; display: flex; justify-content: space-between; align-items: end; gap: 8px; pointer-events: none; }
+.dk-viewbar > * { pointer-events: auto; }
+.dk-start { display: inline-flex; align-items: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 600; padding: 9px 12px; border: 0; border-radius: var(--radius); background: var(--asphalt); color: #fff; cursor: pointer; }
+.dk-start svg { width: 18px; height: 18px; }
+.dk-start:disabled { opacity: .8; cursor: progress; }
+.dk-views { display: inline-flex; background: rgba(255, 255, 255, .94); border: 1px solid rgba(31, 38, 41, .2); border-radius: var(--radius); padding: 3px; gap: 3px; }
+.dk-views button { font: inherit; font-size: 14px; font-weight: 600; border: 0; background: transparent; color: #3a4245; padding: 6px 10px; border-radius: 2px; cursor: pointer; }
+.dk-views button[aria-pressed="true"] { background: #1f2629; color: #fff; }
+.dk-gl-note { position: absolute; left: 10px; right: 10px; top: 46px; margin: 0; font-size: 14px; background: rgba(255, 255, 255, .94); padding: 8px 10px; color: #1f2629; }
+.dk-legend { position: absolute; right: 10px; top: 10px; display: grid; gap: 4px; font-size: 12.5px; background: rgba(255, 255, 255, .9); padding: 7px 9px; color: #1f2629; }
+.dk-legend span { display: flex; align-items: center; gap: 7px; }
+.dk-legend i { width: 18px; height: 9px; display: inline-block; }
+.dk-key-splay { background: rgba(11, 111, 128, .35); border: 1px solid #0b6f80; }
+.dk-key-ring { border: 1.5px dashed #3f7d3a; border-radius: 50%; height: 12px !important; width: 12px !important; }
+.dk-key-fail { background: #c8201e; }
+@media (max-width: 600px) { .dk-legend { display: none; } }
+
+/* the title block under the view: verdict, counts, the planning answer and the money */
+.dk-title { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0; }
+.dk-verdict { padding: 14px 16px; border-right: 1px solid var(--line); min-width: 0; }
+.dk-verdict-t { display: flex; gap: 10px; align-items: flex-start; font-family: var(--display); font-stretch: 75%; font-weight: 700; font-size: clamp(24px, 2.4vw, 30px); line-height: 1.05; margin: 2px 0 6px; }
+.dk-verdict-t svg { width: 22px; height: 22px; flex: none; margin-top: 3px; }
+.dk-verdict p { margin: 0; font-size: 15.5px; color: var(--ink-2); }
+.dk-tb-label { font-size: 13.5px; color: var(--muted); }
+.dk-counts { display: grid; grid-auto-flow: column; align-content: center; }
+.dk-count { display: grid; place-items: center; padding: 10px 16px; border-left: 1px solid var(--line); min-width: 74px; }
+.dk-count:first-child { border-left: 0; }
+.dk-count b { font-family: var(--display); font-stretch: 75%; font-size: 34px; line-height: 1; }
+.dk-count span { font-size: 13px; font-weight: 600; }
+.dk-sub { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border-top: 1px solid var(--line); }
+.dk-sub > div { padding: 11px 16px; min-width: 0; }
+.dk-sub > div + div { border-left: 1px solid var(--line); }
+.dk-sub h3 { font-size: 19px; margin: 0 0 3px; display: flex; gap: 8px; align-items: center; }
+.dk-sub h3 svg { width: 16px; height: 16px; }
+.dk-sub p { margin: 0; font-size: 14.5px; color: var(--ink-2); }
+.dk-money { font-family: var(--display); font-stretch: 75%; font-weight: 700; font-size: 26px; line-height: 1.05; display: block; margin: 2px 0; }
+.dk-tb-meta { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 4px 18px; padding: 8px 16px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+.dk-tb-meta strong { color: var(--ink); font-weight: 600; }
+@media (max-width: 640px) { .dk-title { grid-template-columns: 1fr; } .dk-verdict { border-right: 0; border-bottom: 1px solid var(--line); } .dk-sub { grid-template-columns: 1fr; } .dk-sub > div + div { border-left: 0; border-top: 1px solid var(--line); } }
+.st-pass { color: var(--porous-ink); } .st-fail { color: var(--signal-ink); } .st-check { color: var(--site-ink); } .st-info, .st-incomplete { color: var(--muted); }
+
+/* ---------- The form: numbered because it is a sequence ---------- */
+.dk-step { border: 0; margin: 0; padding: 12px 0 10px; border-top: 1px solid var(--line); min-width: 0; }
+.dk-step:first-of-type { border-top: 0; padding-top: 2px; }
+.dk-step > legend { font-family: var(--display); font-stretch: 75%; font-weight: 700; font-size: 22px; line-height: 1.1; padding: 0; margin: 0 0 8px; display: flex; gap: 10px; align-items: baseline; }
+.dk-step-n { font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--sheet); background: var(--ink); width: 22px; height: 22px; display: inline-grid; place-items: center; border-radius: 2px; transform: translateY(-2px); }
+.dk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px; }
+.dk-field { display: grid; gap: 4px; min-width: 0; align-content: start; }
+.dk-field > span:first-child { font-size: 14.5px; font-weight: 600; color: var(--ink); line-height: 1.25; }
+.dk-field small { font-size: 12.5px; color: var(--muted); line-height: 1.3; }
+.dk-in { position: relative; display: block; }
+.dk-in input, .dk-field select { width: 100%; min-width: 0; font: inherit; font-size: 16px; padding: 8px 10px; border: 1px solid var(--line-2); border-radius: var(--radius); background: var(--paper); color: var(--ink); }
+.dk-in input { padding-right: 34px; }
+.dk-in i { position: absolute; right: 9px; top: 50%; transform: translateY(-50%); font-style: normal; font-size: 13px; color: var(--muted); pointer-events: none; }
+.dk-in input:focus, .dk-field select:focus { outline: none; border-color: var(--water); box-shadow: 0 0 0 3px color-mix(in oklab, var(--water) 20%, transparent); }
+.dk-seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--line-2); border-radius: var(--radius); padding: 3px; gap: 3px; background: var(--paper); }
+.dk-seg button { font: inherit; font-size: 14.5px; font-weight: 600; border: 0; background: transparent; color: var(--ink-2); padding: 6px 10px; border-radius: 2px; cursor: pointer; min-height: 34px; }
+.dk-seg button[aria-pressed="true"] { background: var(--ink); color: var(--sheet); }
+.dk-row { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; margin: 0 0 10px; }
+.dk-note { font-size: 13px; color: var(--muted); margin: 8px 0 0; }
+.dk-q { border: 0; margin: 8px 0 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 10px; align-items: center; min-width: 0; }
+.dk-q legend { float: left; font-size: 14.5px; font-weight: 600; padding: 0; line-height: 1.3; max-width: 100%; }
+.dk-q legend small { display: block; font-weight: 400; color: var(--muted); font-size: 12.5px; }
+.dk-yn { display: inline-flex; border: 1px solid var(--line-2); border-radius: var(--radius); overflow: hidden; }
+.dk-yn label { position: relative; }
+.dk-yn input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.dk-yn span { display: inline-block; font-size: 13.5px; font-weight: 600; padding: 6px 9px; color: var(--ink-2); background: var(--paper); border-left: 1px solid var(--line); }
+.dk-yn label:first-child span { border-left: 0; }
+.dk-yn input:checked + span { background: var(--ink); color: var(--sheet); }
+.dk-yn input:focus-visible + span { outline: 2px solid var(--water); outline-offset: -2px; }
+.dk-sub-fields { margin: 6px 0 0 0; padding: 8px 0 2px 12px; border-left: 2px solid var(--line-2); }
+[hidden] { display: none !important; }
+
+/* ---------- Actions and the sample note ---------- */
+.dk-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 14px 0 0; }
+.dk-actions .hint { flex: 1 1 260px; font-size: 13.5px; color: var(--muted); }
+.dk-sample-note { font-size: 14px; color: var(--muted); margin: 8px 0 0; }
+
+/* ---------- The schedule: every rule with its source ---------- */
+.dk-sec { padding: clamp(36px, 5vw, 64px) 0 0; }
+.dk-sched-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 18px; margin: 0 0 12px; }
+.dk-table { width: 100%; border-collapse: collapse; background: var(--sheet); border: 1px solid var(--line-2); font-size: 14.5px; }
+.dk-table caption { text-align: left; font-size: 14px; color: var(--muted); padding: 0 0 8px; caption-side: top; }
+.dk-table th, .dk-table td { text-align: left; padding: 9px 11px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.dk-table thead th { font-size: 13px; font-weight: 600; color: var(--muted); background: var(--paper); }
+.dk-table tr.dk-group td { background: var(--paper); font-weight: 600; font-size: 14px; color: var(--ink); padding-top: 12px; }
+.dk-st { white-space: nowrap; font-weight: 600; }
+.dk-st span { display: inline-flex; gap: 6px; align-items: center; }
+.dk-st svg { width: 13px; height: 13px; }
+.dk-cell-note { display: block; color: var(--muted); font-size: 13px; margin-top: 3px; }
+.dk-ref a { color: var(--ink-2); }
+tr.is-fail td:first-child { box-shadow: inset 4px 0 0 var(--signal); }
+tr.is-check td:first-child { box-shadow: inset 4px 0 0 var(--site); }
+@media (max-width: 820px) {
+  .dk-table, .dk-table tbody, .dk-table tr, .dk-table td, .dk-table caption { display: block; width: 100%; }
+  .dk-table thead { display: none; }
+  .dk-table tr { border-bottom: 1px solid var(--line-2); padding: 8px 0; }
+  .dk-table td { border: 0; padding: 3px 11px; }
+  .dk-table td[data-h]::before { content: attr(data-h) ": "; color: var(--muted); font-size: 13px; }
+  .dk-table td.dk-empty { display: none; }
+  .dk-table caption { padding: 0 11px 8px; }
+}
+
+/* planning and cost, side by side */
+.dk-two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(18px, 3vw, 40px); }
+.dk-two > * { min-width: 0; }
+@media (max-width: 860px) { .dk-two { grid-template-columns: 1fr; } }
+.dk-cost { width: 100%; border-collapse: collapse; font-size: 15px; background: var(--sheet); border: 1px solid var(--line-2); }
+.dk-cost td, .dk-cost th { padding: 9px 11px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.dk-cost td.num { text-align: right; white-space: nowrap; font-weight: 600; }
+.dk-cost tr.dk-total td { font-weight: 700; background: var(--paper); }
+.dk-cost .dk-cell-note { font-weight: 400; }
+
+/* ---------- Pro ---------- */
+.dk-pro { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); border: 1px solid var(--ink); background: var(--sheet); }
+.dk-pro-l { padding: clamp(18px, 3vw, 32px); }
+.dk-pro-r { padding: clamp(18px, 3vw, 32px); background: var(--asphalt); color: #fff; display: grid; gap: 12px; align-content: center; }
+.dk-pro-r p { margin: 0; font-size: 14px; color: rgba(255, 255, 255, .78); }
+.dk-price { font-family: var(--display); font-stretch: 75%; font-weight: 700; font-size: 54px; line-height: 1; margin: 0; }
+.dk-price small { font-family: var(--sans); font-size: 15px; font-weight: 400; color: rgba(255, 255, 255, .78); }
+.dk-pro-r .btn-primary { background: #fff; color: #1f2629; border-color: #fff; }
+.dk-pro-r .btn-primary:hover { background: #e7f3f5; color: #1f2629; }
+.dk-pro-r .btn-ghost { background: transparent; color: #fff; border-color: rgba(255, 255, 255, .5); }
+:root[data-theme="dark"] .dk-pro-r { background: #0f1315; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .dk-pro-r { background: #0f1315; } }
+.dk-locked { list-style: none; padding: 0; margin: 14px 0 16px; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.dk-locked li { display: grid; grid-template-columns: 18px minmax(0, 1fr) auto; gap: 12px; align-items: start; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.dk-locked svg { width: 16px; height: 16px; margin-top: 3px; color: var(--granite); }
+.dk-locked b { display: block; font-weight: 600; }
+.dk-locked span { font-size: 14px; color: var(--ink-2); }
+.dk-locked em { font-style: normal; font-size: 12.5px; font-weight: 600; padding: 3px 7px; background: var(--ink); color: var(--sheet); border-radius: 2px; }
+.dk-locked li.is-open em { background: var(--porous); color: #fff; }
+.dk-pro-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+@media (max-width: 760px) { .dk-pro { grid-template-columns: 1fr; } }
+
+/* ---------- Councils compared ---------- */
+.dk-compare { width: 100%; height: auto; display: block; background: var(--sheet); border: 1px solid var(--line-2); }
+.dk-compare text { font-family: var(--sans); fill: var(--ink); }
+.dk-compare .dk-c-muted { fill: var(--muted); }
+.dk-compare-note { font-size: 13.5px; color: var(--muted); margin: 8px 0 0; }
+
+/* ---------- Guides, FAQ, sources ---------- */
+.dk-guides { list-style: none; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); border-top: 1px solid var(--line-2); }
+.dk-guides li { border-bottom: 1px solid var(--line-2); }
+.dk-guides a { display: grid; gap: 2px; padding: 12px 10px 12px 0; text-decoration: none; color: var(--ink); }
+.dk-guides b { font-weight: 600; }
+.dk-guides span { font-size: 14px; color: var(--muted); }
+.dk-guides a:hover b { color: var(--water); }
+.dk-councils { columns: 3 220px; column-gap: 28px; padding: 0; margin: 12px 0 0; list-style: none; }
+.dk-councils li { break-inside: avoid; padding: 4px 0; font-size: 15px; }
+.dk-faq { border-top: 1px solid var(--line-2); margin-top: 12px; }
+.dk-faq details { border-bottom: 1px solid var(--line-2); }
+.dk-faq summary { cursor: pointer; list-style: none; padding: 14px 32px 14px 0; font-weight: 600; position: relative; }
+.dk-faq summary::-webkit-details-marker { display: none; }
+.dk-faq summary::after { content: ""; position: absolute; right: 8px; top: 21px; width: 10px; height: 10px; border-right: 2px solid var(--granite); border-bottom: 2px solid var(--granite); transform: rotate(45deg); transition: transform .2s; }
+.dk-faq details[open] summary::after { transform: rotate(-135deg); top: 25px; }
+.dk-faq .answer { padding: 0 0 16px; color: var(--ink-2); max-width: 72ch; }
+.dk-faq .answer p { margin: 0 0 8px; }
+.dk-source { font-size: 13.5px; color: var(--muted); max-width: 90ch; margin: 18px 0 0; }
+
+/* ---------- Guide and council pages ---------- */
+.dk-ghero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(20px, 4vw, 56px); align-items: center; padding: clamp(16px, 2.6vw, 30px) 0 18px; }
+.dk-ghero-text { display: grid; gap: 14px; align-content: start; }
+.dk-ghero-fig { margin: 0; min-width: 0; }
+.dk-ghero-fig img { width: 100%; height: auto; aspect-ratio: 16 / 9; background: #e7e8e3; border: 1px solid var(--line-2); }
+.dk-ghero-fig figcaption { font-size: 13.5px; color: var(--muted); margin-top: 6px; }
+@media (max-width: 860px) { .dk-ghero { grid-template-columns: minmax(0, 1fr); } }
+.dk-cta .btn { white-space: normal; text-align: center; }
+.dk-page h1 { overflow-wrap: break-word; }
+.dk-short { margin: 0; padding: 14px 0; border-top: 1px solid var(--line-2); border-bottom: 1px solid var(--line-2); }
+.dk-short ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; max-width: 80ch; }
+.dk-gsec h2 { margin: 0 0 12px; }
+.dk-gsec p { max-width: 72ch; color: var(--ink-2); }
+.dk-tablewrap { margin: 12px 0 0; }
+.dk-facts { width: 100%; border-collapse: collapse; background: var(--sheet); border: 1px solid var(--line-2); font-size: 15px; }
+.dk-facts caption { text-align: left; font-size: 14px; color: var(--muted); padding: 0 0 8px; }
+.dk-facts th, .dk-facts td { text-align: left; padding: 9px 11px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.dk-facts thead th { font-size: 13px; font-weight: 600; color: var(--muted); background: var(--paper); }
+.dk-facts td.num { white-space: nowrap; font-weight: 600; }
+.dk-src { font-size: 13px; }
+@media (max-width: 700px) {
+  .dk-facts, .dk-facts tbody, .dk-facts tr, .dk-facts td, .dk-facts caption { display: block; width: 100%; }
+  .dk-facts thead { display: none; }
+  .dk-facts tr { border-bottom: 1px solid var(--line-2); padding: 6px 0; }
+  .dk-facts td { border: 0; padding: 3px 11px; }
+  .dk-facts td[data-h]::before { content: attr(data-h) ": "; color: var(--muted); font-size: 13px; }
+  .dk-facts caption { padding: 0 11px 8px; }
+}
+.dk-cta { display: flex; flex-wrap: wrap; gap: 10px; margin: 6px 0 0; }
+
+/* the shared "Home project tools" block keeps its own small styles in tools.css (.home-block) */
+.dk-steps { margin: 0; padding-left: 22px; display: grid; gap: 8px; max-width: 72ch; color: var(--ink-2); }
+.dk-gsec ul { max-width: 76ch; color: var(--ink-2); padding-left: 20px; }
+.dk-gsec ul li + li { margin-top: 6px; }
+.dk-packfig { max-width: 760px; }
+.dk-packfig img { aspect-ratio: auto; background: #fff; }
+.dk-h3 { margin: 24px 0 10px; font-size: 18px; }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","@id":"https://peakappsstudio.com/dropped-kerb/#app","name":"Dropped Kerb Check","url":"https://peakappsstudio.com/dropped-kerb/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Pro (one-time, per property)","price":"19","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/dropped-kerb-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Dropped Kerb Check","item":"https://peakappsstudio.com/dropped-kerb/"},{"@type":"ListItem","position":3,"name":"Application drawings","item":"https://peakappsstudio.com/dropped-kerb/application-drawings/"}]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Do I need an architect’s drawing for a dropped kerb?","acceptedAnswer":{"@type":"Answer","text":"Not at the councils checked here that say what to send: Kent, Essex and Sheffield ask for a sketch or plan with measurements, and Hertfordshire for a good quality plan. A planning application, if you need one, has its own drawing requirements."}}
+ ]}
+]}
+</script>
+</head>
+<body class="dk-page" style="--accent:#0b6f80">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a href="/tumbler-template/" class="hide-sm">Tumbler templates</a>
+      <a href="/name-cut-files/" class="hide-sm">Name cut files</a>
+      <a href="/kdp-coloring-book/" class="hide-sm">KDP coloring books</a>
+      <a href="/sewing-pattern-printer/" class="hide-sm">Sewing pattern printer</a>
+      <a href="/quilt-label-maker/" class="hide-sm">Quilt labels</a>
+      <a href="/etsy-tax-summary/" class="hide-sm">Etsy tax summary</a>
+      <a href="/pay-gap-report/" class="hide-sm">Pay gap report</a>
+      <a href="/equality-action-plan/" class="hide-sm">Equality action plan</a>
+      <a href="/job-evaluation/" class="hide-sm">Job evaluation</a>
+      <a href="/pay-transparency/" class="hide-sm">Pay transparency</a>
+      <a href="/menopause-adjustments/" class="hide-sm">Menopause adjustments</a>
+      <a href="/without-planning/" class="hide-sm">Without planning</a>
+      <a href="/dropped-kerb/" aria-current="page">Dropped kerb</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/dropped-kerb/">Dropped Kerb Check</a></li><li aria-current="page">Application drawings</li></ol></nav>
+
+  <header class="dk-ghero">
+    <div class="dk-ghero-text">
+      <h1>Dropped kerb application drawings: what councils ask for, with an example</h1>
+      <p class="lede">For the highway application, councils want a sketch or plan of the frontage with its measurements, and several also ask for photographs, the planning position and the owner’s written consent if you do not own the property. A planning application, if you need one, has its own drawing requirements.</p>
+      <p class="dk-asof">What each council asks for, read on <strong>11 October 2026</strong>.</p>
+      <p class="dk-cta"><a class="btn btn-primary" href="/dropped-kerb/#a=kent">Make the plan for your frontage</a></p>
+    </div>
+    <figure class="dk-ghero-fig">
+      <img src="/dropped-kerb/img/hero-drawings-960.webp" srcset="/dropped-kerb/img/hero-drawings-480.webp 480w, /dropped-kerb/img/hero-drawings-960.webp 960w, /dropped-kerb/img/hero-drawings-1440.webp 1440w" sizes="(max-width: 860px) 100vw, 52vw" width="1440" height="810" fetchpriority="high" decoding="async" alt="A plan view in 3D of a sample frontage in Kent from above: the drive, the crossing, the splays, a street tree with its ring and a lamp column.">
+      <figcaption>The plan view the Pro pack draws from: the drive, the crossing, the splays and the clearance rings, with the road at the foot.</figcaption>
+    </figure>
+  </header>
+  <div class="dk-kerb" aria-hidden="true"></div>
+
+  <section class="dk-short" aria-label="In short">
+    <ul>
+      <li><b>Kent:</b> at least one photograph of the front of the house, taking in the neighbours, and a sketch with the dimensions and all street furniture.</li>
+      <li><b>Sheffield:</b> a sketch with measurements and your ownership outlined in red.</li>
+      <li><b>Waltham Forest:</b> the depth of the front garden, the crossover widths at the boundary and at the footway edge, the footway width and the frontage either side.</li>
+      <li><b>Hertfordshire:</b> a good quality plan; poor plans are returned and the application put on hold.</li>
+    </ul>
+  </section>
+
+  <section class="dk-sec dk-gsec">
+    <h2>How to measure</h2>
+    <ol class="dk-steps"><li>Depth: from the back of the footway to the nearest part of the house where the car parks, counting bay windows, porches, steps and anything else fixed.</li><li>Width: the clear space between walls, fences or the house where the car goes.</li><li>Footway and verge: from the kerb face to the back of the footway, and any grass in between.</li><li>Distances: from where the sloping kerbs would end to each tree trunk, lamp column, sign or cabinet, and to the nearest junction.</li><li>Heights: any wall, fence or hedge beside the opening, against the 0.6 m visibility limit.</li></ol>
+  </section>
+
+  <section class="dk-sec dk-gsec">
+    <h2>An example plan, from the Pro pack</h2>
+    <figure class="dk-ghero-fig dk-packfig"><img src="/dropped-kerb/img/pack-plan-960.webp" srcset="/dropped-kerb/img/pack-plan-480.webp 480w, /dropped-kerb/img/pack-plan-960.webp 960w, /dropped-kerb/img/pack-plan-1440.webp 1440w" sizes="(max-width: 860px) 100vw, 760px" width="1440" height="1840" loading="lazy" decoding="async" alt="The site plan page of a Pro application pack for the Kent sample frontage: the frontage to scale with the red boundary, the drive, the car, the splays, the crossing and its dimensions, then the street either side with the tree and the lamp column."><figcaption>The site plan from a Pro pack for the Kent sample frontage, drawn to a stated scale on A4. The house is a sample, not a real property.</figcaption></figure>
+  </section>
+
+  <section class="dk-sec dk-gsec">
+    <h2>What each council asks you to send</h2>
+    <div class="dk-tablewrap"><table class="dk-facts"><caption>What to send, as each council describes it, read on 11 October 2026.</caption><thead><tr><th scope="col">Council</th><th scope="col">What it asks for</th><th scope="col">Source</th></tr></thead><tbody><tr><td data-h="Council"><a href="/dropped-kerb/kent/">Kent</a></td><td data-h="What it asks for">At least one photograph of the front of the property, taking in neighbours who may be affected; a sketch or plan of where the dropped kerb goes, with dimensions and all street furniture; the freeholder’s written permission if you do not own it; and planning permission, or written confirmation that none is needed.</td><td class="dk-src" data-h="Source"><a href="https://www.kent.gov.uk/__data/assets/pdf_file/0020/191441/Dropped-Kerb-Application-Guidance.pdf" rel="noopener">KCC guidance v9</a></td></tr><tr><td data-h="Council">Essex</td><td data-h="What it asks for">A sketch plan with measurements, a copy of any relevant planning permissions and written consent from the property owner, all mandatory.</td><td class="dk-src" data-h="Source"><a href="https://www.essexhighways.org/vehicle-crossings-dropped-kerbs" rel="noopener">Essex Highways page</a></td></tr><tr><td data-h="Council"><a href="/dropped-kerb/hampshire/">Hampshire</a></td><td data-h="What it asks for">Photographs of the location, and proof of planning permission where it is needed; without it the application is refused.</td><td class="dk-src" data-h="Source"><a href="https://www.hants.gov.uk/transport/parking/droppedkerbs" rel="noopener">HCC application page</a></td></tr><tr><td data-h="Council"><a href="/dropped-kerb/surrey/">Surrey</a></td><td data-h="What it asks for">Written evidence from the district or borough council that planning permission is not needed, or of the permission granted.</td><td class="dk-src" data-h="Source"><a href="https://www.surreycc.gov.uk/roads-and-transport/permits-and-licences/vehicle-crossovers-or-dropped-kerbs/guidance" rel="noopener">SCC householder guidance</a></td></tr><tr><td data-h="Council"><a href="/dropped-kerb/hertfordshire/">Hertfordshire</a></td><td data-h="What it asks for">A good quality plan of the proposal; poor quality plans are returned and the application put on hold until a new one arrives.</td><td class="dk-src" data-h="Source"><a href="https://www.hertfordshire.gov.uk/media-library/documents/highways/dropped-kerb-policy.pdf" rel="noopener">HCC policy v7</a></td></tr><tr><td data-h="Council"><a href="/dropped-kerb/lancashire/">Lancashire</a></td><td data-h="What it asks for">If you are not the freehold owner, a copy of the owner’s written permission.</td><td class="dk-src" data-h="Source"><a href="https://www.lancashire.gov.uk/roads-parking-and-travel/roads/vehicle-crossings/main-things-for-consideration-before-you-apply/" rel="noopener">LCC things to consider</a></td></tr><tr><td data-h="Council"><a href="/dropped-kerb/manchester/">Manchester</a></td><td data-h="What it asks for">If the drive is not built yet, details of the proposed parking arrangement; it must be in place by the payment stage.</td><td class="dk-src" data-h="Source"><a href="https://www.manchester.gov.uk/parking/parking-at-your-home/dropped-kerbs-definition-and-requirements" rel="noopener">MCC requirements page</a></td></tr><tr><td data-h="Council"><a href="/dropped-kerb/sheffield/">Sheffield</a></td><td data-h="What it asks for">A sketch of the proposed crossing and parking area with measurements, with your ownership outlined in red.</td><td class="dk-src" data-h="Source"><a href="https://www.sheffield.gov.uk/sites/default/files/2026-07/domestic_vehicular_crossing_application_-_2026.docx" rel="noopener">SCC application form 2026</a></td></tr><tr><td data-h="Council"><a href="/dropped-kerb/waltham-forest/">Waltham Forest</a></td><td data-h="What it asks for">The front garden depth to the nearest point of the building, counting steps, planters and other fixtures; the crossover width at the boundary (L1) and at the footway edge (L2); the footway width (W); and the frontage either side (D1, D2), in metres to the nearest centimetre.</td><td class="dk-src" data-h="Source"><a href="https://www.walthamforest.gov.uk/media/11469" rel="noopener">LBWF application guidance</a></td></tr></tbody></table></div>
+    <p>Birmingham, Leeds, Bristol and Havering take the details through their own application routes, linked from each council page here.</p>
+  </section>
+
+  <section class="dk-sec" id="faq" aria-labelledby="faq-h">
+    <h2 id="faq-h">Questions</h2>
+    <div class="dk-faq">
+      <details><summary>Do I need an architect’s drawing for a dropped kerb?</summary><div class="answer"><p>Not at the councils checked here that say what to send: Kent, Essex and Sheffield ask for a sketch or plan with measurements, and Hertfordshire for a good quality plan. A planning application, if you need one, has its own drawing requirements.</p></div></details>
+    </div>
+  </section>
+
+  <section class="dk-sec" aria-labelledby="more-h">
+    <h2 id="more-h">Related</h2>
+    <ul class="dk-guides">
+      <li><a href="/dropped-kerb/"><b>Check your driveway in 3D</b><span>Every rule for your council, in 3D.</span></a></li>
+      <li><a href="/dropped-kerb/planning-permission/"><b>Planning permission</b><span>Classified roads, flats and the 5 m² rule.</span></a></li>
+      <li><a href="/dropped-kerb/rules/"><b>Dropped kerb rules compared</b><span>Depth, width, splays, junctions, trees.</span></a></li>
+      <li><a href="/dropped-kerb/waltham-forest/"><b>Waltham Forest rules and fees</b><span>The measurements its form asks for.</span></a></li>
+      <li><a href="/dropped-kerb/sheffield/"><b>Sheffield rules and fees</b><span>The red line of ownership.</span></a></li>
+    </ul>
+  </section>
+
+  <nav class="home-block" aria-labelledby="home-title">
+  <p class="home-title" id="home-title">Home project tools</p>
+  <ul class="home-list">
+    <li><a href="/without-planning/" style="--tool:#1f48c7"><strong>Without Planning</strong><span>Check a home extension, garden room or heat pump in 3D against England’s permitted development rules and Ireland’s 2026 exemptions.</span></a></li>
+    <li><a href="/dropped-kerb/" style="--tool:#0b6f80" aria-current="page"><strong>Dropped Kerb Check</strong><span>Check a driveway in 3D against your council’s dropped kerb rules, with the planning answer and the fees, before you pay to apply.</span></a></li>
+  </ul>
+</nav>
+
+
+  <p class="dk-source">Sources: <a href="https://www.kent.gov.uk/__data/assets/pdf_file/0020/191441/Dropped-Kerb-Application-Guidance.pdf" rel="noopener">Kent County Council, Residential Dropped Kerb Guidance and Self-Assessment, version 9 (April 2026)</a>; <a href="https://www.essexhighways.org/vehicle-crossings-dropped-kerbs" rel="noopener">Essex Highways, Vehicle crossings / dropped kerbs</a>; <a href="https://www.hants.gov.uk/transport/parking/droppedkerbs" rel="noopener">Hampshire County Council, Apply for a vehicular access</a>; <a href="https://www.surreycc.gov.uk/roads-and-transport/permits-and-licences/vehicle-crossovers-or-dropped-kerbs/guidance" rel="noopener">Surrey County Council, Vehicle crossover guidance for householders (reviewed 22 May 2026)</a>; <a href="https://www.hertfordshire.gov.uk/media-library/documents/highways/dropped-kerb-policy.pdf" rel="noopener">Hertfordshire County Council, Residential Dropped Kerbs Policy, version 7 (8 May 2026)</a>; <a href="https://www.lancashire.gov.uk/roads-parking-and-travel/roads/vehicle-crossings/main-things-for-consideration-before-you-apply/" rel="noopener">Lancashire County Council, Vehicle crossings: main things for consideration before you apply</a>; <a href="https://www.manchester.gov.uk/parking/parking-at-your-home/dropped-kerbs-definition-and-requirements" rel="noopener">Manchester City Council, Dropped kerbs: definition and requirements</a>; <a href="https://www.sheffield.gov.uk/sites/default/files/2026-07/domestic_vehicular_crossing_application_-_2026.docx" rel="noopener">Sheffield City Council, Domestic Vehicular Crossing Application, 2026 (Highways Act 1980, section 184)</a>; <a href="https://www.walthamforest.gov.uk/media/11469" rel="noopener">London Borough of Waltham Forest, Vehicle Crossover Application Guidance</a>; read on 11 October 2026. legislation.gov.uk and GOV.UK content is used under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="noopener">Open Government Licence v3.0</a>; council figures are quoted as facts with their source, not copied text. Not legal advice and not a decision: the council decides after its own site visit. Not affiliated with any council or government department.</p>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools that each do one job well. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a>.<br>Write to <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
+        <li><a href="/name-cut-files/">Name Cut Files</a></li>
+        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
+        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
+        <li><a href="/quilt-label-maker/">Quilt Label Maker</a></li>
+        <li><a href="/etsy-tax-summary/">Etsy Tax Summary</a></li>
+        <li><a href="/menopause-adjustments/">Menopause Adjustments at Work</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Home project tools</h2>
+      <ul>
+        <li><a href="/without-planning/">Without Planning</a></li>
+        <li><a href="/dropped-kerb/">Dropped Kerb Check</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Pay equity tools</h2>
+      <ul>
+        <li><a href="/pay-gap-report/">Pay Gap Report</a></li>
+        <li><a href="/equality-action-plan/">Equality Action Plan</a></li>
+        <li><a href="/job-evaluation/">Job Evaluation</a></li>
+        <li><a href="/pay-transparency/">Pay Transparency Kit</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
