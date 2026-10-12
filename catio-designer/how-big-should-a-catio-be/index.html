@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How big should a catio be? The figures, with sources</title>
+<meta name="description" content="How big a catio should be: no official standard exists. Each published figure with its source, the floor area for one to four cats, and shelf heights.">
+<link rel="canonical" href="https://peakappsstudio.com/catio-designer/how-big-should-a-catio-be/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="How big should a catio be?">
+<meta property="og:description" content="How big a catio should be: no official standard exists. Each published figure with its source, the floor area for one to four cats, and shelf heights.">
+<meta property="og:url" content="https://peakappsstudio.com/catio-designer/how-big-should-a-catio-be/">
+<meta property="og:image" content="https://peakappsstudio.com/catio-designer/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#eee8ff">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/catio-designer/fonts/gluten-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/catio-designer/fonts/familjen-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="/catio-designer/img/hero-size-960.webp" imagesrcset="/catio-designer/img/hero-size-480.webp 480w, /catio-designer/img/hero-size-960.webp 960w, /catio-designer/img/hero-size-1440.webp 1440w" imagesizes="(max-width: 860px) 100vw, 52vw" fetchpriority="high">
+<link rel="stylesheet" href="/assets/tools.css">
+<style data-from="/catio-designer/tool.css">
+/* Catio Designer: the tool's own identity, scoped to body.cd-page (the shared header and footer keep their structure).
+ * Taken from the subject: an evening sky over the garden (lilac page), plum ink, catnip green for what you press and
+ * for "fits", a marmalade cat for highlights and "check", a bluebird for links on white, cedar for wood only.
+ * Type: Gluten (bouncy, headings only) and Familjen Grotesk (everything read, tabular figures).
+ * Signature: a strip of welded mesh drawn in CSS, used once under the hero. */
+
+@font-face { font-family: "Gluten"; src: url("/catio-designer/fonts/gluten-latin.woff2") format("woff2"); font-weight: 700 800; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Gluten"; src: url("/catio-designer/fonts/gluten-latin-ext.woff2") format("woff2"); font-weight: 700 800; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Familjen Grotesk"; src: url("/catio-designer/fonts/familjen-grotesk-latin.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Familjen Grotesk"; src: url("/catio-designer/fonts/familjen-grotesk-latin-ext.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+/* fallbacks sized to the web fonts' average widths and heights (from _build/fonts.py), so the swap does not move the layout */
+@font-face { font-family: "Familjen Fallback"; src: local("Arial"), local("Helvetica Neue"), local("Helvetica"); size-adjust: 94.6%; ascent-override: 108.4%; descent-override: 23.8%; line-gap-override: 0%; }
+@font-face { font-family: "Gluten Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Helvetica Neue Bold"); font-weight: 700 800; size-adjust: 124.7%; ascent-override: 51.7%; descent-override: 19%; line-gap-override: 0%; }
+
+body.cd-page {
+  --lilac: #eee8ff; --lilac-2: #e2daf8; --paper: #ffffff; --paper-2: #f7f4ff;
+  --plum: #24123a; --plum-2: #5b4b73; --plum-3: #8b7ea3;
+  --catnip: #0e7a47; --catnip-ink: #ffffff; --catnip-2: #2bb673; --marmalade: #ff8a3d; --bird: #2e5bff; --cedar: #c98a4b; --fail: #c2253d; --fail-ink: #ffffff;
+  --paper: #ffffff; --card: var(--paper); --ink: var(--plum); --ink-2: var(--plum-2); --muted: var(--plum-2);
+  --line: rgba(36, 18, 58, .13); --line-2: rgba(36, 18, 58, .24);
+  --accent: var(--catnip); --accent-ink: var(--catnip-ink); --ok: var(--catnip); --warn: #9a4a12;
+  --sans: "Familjen Grotesk", "Familjen Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: var(--sans);
+  --display: "Gluten", "Gluten Fallback", sans-serif;
+  --r-panel: 18px; --r-field: 9px; --r-chip: 7px;
+  background: var(--lilac); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.55; font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.cd-page {
+    --lilac: #160d24; --lilac-2: #20142f; --paper: #221636; --paper-2: #2a1c41; --plum: #f1ebff; --plum-2: #c8bce0; --plum-3: #9a8db5;
+    --catnip: #3fcf8a; --catnip-ink: #06261a; --catnip-2: #3fcf8a; --bird: #93a9ff; --fail: #ff7a8c; --fail-ink: #2a0710; --warn: #ffb27a;
+    --card: var(--paper); --line: rgba(241, 235, 255, .13); --line-2: rgba(241, 235, 255, .26);
+  }
+}
+:root[data-theme="dark"] body.cd-page {
+  --lilac: #160d24; --lilac-2: #20142f; --paper: #221636; --paper-2: #2a1c41; --plum: #f1ebff; --plum-2: #c8bce0; --plum-3: #9a8db5;
+  --catnip: #3fcf8a; --catnip-ink: #06261a; --catnip-2: #3fcf8a; --bird: #93a9ff; --fail: #ff7a8c; --fail-ink: #2a0710; --warn: #ffb27a;
+  --card: var(--paper); --line: rgba(241, 235, 255, .13); --line-2: rgba(241, 235, 255, .26);
+}
+
+/* ---------- type ---------- */
+.cd-page h1, .cd-page h2, .cd-page h3 { font-family: var(--display); font-weight: 800; letter-spacing: -0.01em; line-height: 1.04; text-wrap: balance; color: var(--plum); }
+.cd-page h1 { font-size: clamp(38px, 5.4vw, 70px); margin: 0; max-width: 16ch; }
+.cd-page h2 { font-size: clamp(28px, 3.2vw, 42px); font-weight: 700; margin: 0 0 12px; }
+.cd-page h3 { font-size: 22px; font-weight: 700; margin: 0 0 6px; }
+.cd-page p { max-width: 68ch; }
+.cd-page .lede { font-size: clamp(18px, 1.55vw, 20px); color: var(--ink); margin: 0; }
+.cd-page a { color: var(--plum); text-decoration-color: var(--bird); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.cd-page a:hover { color: var(--bird); }
+.cd-page .cd-card a, .cd-page table a { color: var(--bird); text-decoration-thickness: 1px; }
+.cd-page :focus-visible { outline: 3px solid var(--bird); outline-offset: 2px; border-radius: 4px; }
+.cd-page ::selection { background: var(--bird); color: #fff; }
+.cd-page .btn { border-radius: var(--r-field); font-weight: 600; font-size: 16px; padding: 12px 18px; }
+.cd-page .btn-primary { background: var(--catnip); border-color: var(--catnip); color: var(--catnip-ink); }
+.cd-page .btn-primary:hover { background: color-mix(in oklab, var(--catnip) 86%, #000); border-color: color-mix(in oklab, var(--catnip) 86%, #000); color: var(--catnip-ink); }
+.cd-page .btn-ghost { background: transparent; }
+.cd-small { font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- hero ---------- */
+.cd-hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(18px, 4vw, 56px); align-items: end; padding: clamp(12px, 2.4vw, 28px) 0 clamp(14px, 2vw, 22px); }
+.cd-hero-side { display: grid; gap: 16px; }
+.cd-mesh-strip { height: 16px; margin: 0 0 18px; border-radius: 3px;
+  background-color: transparent;
+  background-image: linear-gradient(90deg, color-mix(in oklab, var(--plum) 30%, transparent) 1.5px, transparent 1.5px), linear-gradient(0deg, color-mix(in oklab, var(--plum) 30%, transparent) 1.5px, transparent 1.5px);
+  background-size: 8px 8px; background-position: 0 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+
+/* the four types, as line drawings */
+.cd-types { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; border: 0; padding: 0; margin: 0; }
+.cd-types legend { font-weight: 600; font-size: 15px; margin-bottom: 8px; padding: 0; }
+.cd-type { position: relative; display: grid; justify-items: center; gap: 4px; padding: 10px 6px 9px; border-radius: 12px; border: 1.5px solid var(--line-2); background: color-mix(in oklab, var(--paper) 55%, transparent); cursor: pointer; text-align: center; font-size: 14px; font-weight: 600; line-height: 1.2; color: var(--ink); }
+.cd-type input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.cd-type svg { width: 64px; height: 44px; color: var(--plum-2); }
+.cd-type:has(input:checked) { border-color: var(--plum); background: var(--paper); box-shadow: inset 0 -4px 0 var(--cedar); }
+.cd-type:has(input:checked) svg { color: var(--plum); }
+.cd-type:has(input:focus-visible) { outline: 3px solid var(--bird); outline-offset: 2px; }
+.cd-type .wood { color: var(--cedar); }
+@media (max-width: 900px) { .cd-hero { grid-template-columns: 1fr; align-items: start; } }
+@media (max-width: 460px) { .cd-types { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------- the bench: the 3D view beside the form ---------- */
+.cd-bench { display: grid; grid-template-columns: minmax(0, 1fr) minmax(330px, 410px); background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-panel); overflow: clip; }
+.cd-stage { border-right: 1px solid var(--line); min-width: 0; }
+.cd-sticky { position: sticky; top: 0; }
+.cd-view { position: relative; aspect-ratio: 16 / 10; background: linear-gradient(180deg, #cbbff0, #f2d9e2 62%, #ffd2ad); overflow: hidden; }
+.cd-view img, .cd-view canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; }
+.cd-view canvas { touch-action: none; cursor: grab; }
+.cd-view canvas:active { cursor: grabbing; }
+.cd-badge { position: absolute; left: 12px; top: 12px; background: var(--plum); color: #fff; font-weight: 700; font-size: 13.5px; padding: 4px 10px; border-radius: var(--r-chip); }
+.cd-gl-note { position: absolute; left: 12px; right: 12px; bottom: 60px; margin: 0; background: var(--paper); color: var(--ink); padding: 8px 12px; border-radius: var(--r-field); font-size: 14.5px; }
+.cd-start { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); display: inline-flex; gap: 8px; align-items: center; background: var(--plum); color: #fff; border: 0; border-radius: 999px; padding: 11px 18px; font: inherit; font-weight: 600; font-size: 15.5px; cursor: pointer; box-shadow: 0 6px 18px rgba(36, 18, 58, .28); }
+.cd-start svg { width: 18px; height: 18px; }
+.cd-start[disabled] { opacity: .8; cursor: progress; }
+.cd-tags { position: absolute; inset: 0; pointer-events: none; }
+.cd-tag { position: absolute; left: 0; top: 0; white-space: nowrap; font-size: 13.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: rgba(255, 255, 255, .94); color: #24123a; box-shadow: 0 1px 0 rgba(36, 18, 58, .25); }
+.cd-tag-fail { background: #c2253d; color: #fff; }
+.cd-tag-check { background: #ff8a3d; color: #24123a; }
+.cd-tag-fits { background: #2bb673; color: #24123a; }
+.cd-toolbar { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; padding: 10px 14px; border-top: 1px solid var(--line); background: var(--paper-2); }
+.cd-seg { display: inline-flex; border: 1px solid var(--line-2); border-radius: var(--r-field); overflow: hidden; }
+.cd-seg button { font: inherit; font-size: 14.5px; font-weight: 600; padding: 7px 11px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+.cd-seg button + button { border-left: 1px solid var(--line-2); }
+.cd-seg button[aria-pressed="true"] { background: var(--plum); color: var(--paper); }
+.cd-sun { display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 600; }
+.cd-sun input[type="range"] { width: 130px; accent-color: var(--marmalade); }
+.cd-sun output { min-width: 3.2em; font-variant-numeric: tabular-nums; }
+.cd-catbtn { font: inherit; font-size: 14.5px; font-weight: 600; padding: 7px 12px; border-radius: var(--r-field); border: 1.5px solid var(--marmalade); background: transparent; color: var(--ink); cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.cd-catbtn svg { width: 18px; height: 18px; color: var(--marmalade); }
+.cd-toolbar[hidden] { display: none; }
+
+/* the title block under the view: what this design is, and how its checks came out */
+.cd-title { padding: 14px 16px 16px; display: grid; gap: 10px; }
+.cd-title h2 { font-size: clamp(24px, 2.4vw, 30px); margin: 0; }
+.cd-title p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
+.cd-counts { display: flex; flex-wrap: wrap; gap: 8px; }
+.cd-count { display: inline-flex; color: var(--ink); gap: 6px; align-items: baseline; padding: 4px 10px; border-radius: var(--r-chip); font-size: 14.5px; font-weight: 600; border: 1px solid var(--line-2); }
+.cd-count b { font-size: 18px; }
+.cd-count.ct-fits { background: color-mix(in oklab, var(--catnip-2) 26%, var(--paper)); }
+.cd-count.ct-check { background: color-mix(in oklab, var(--marmalade) 26%, var(--paper)); }
+.cd-count.ct-fail { background: color-mix(in oklab, var(--fail) 18%, var(--paper)); }
+.cd-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13.5px; color: var(--ink-2); }
+
+/* ---------- the form ---------- */
+.cd-form { padding: 6px 16px 18px; display: grid; gap: 4px; align-content: start; }
+.cd-step { border: 0; padding: 12px 0 14px; margin: 0; border-bottom: 1px solid var(--line); }
+.cd-step:last-child { border-bottom: 0; }
+.cd-step > legend { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 21px; padding: 0; margin: 0 0 10px; color: var(--plum); }
+.cd-step-n { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--cedar); color: #24123a; font-family: var(--sans); font-size: 15px; font-weight: 700; }
+.cd-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 12px; }
+.cd-field { display: grid; gap: 4px; align-content: start; font-size: 14.5px; font-weight: 600; min-width: 0; }
+.cd-field.wide { grid-column: 1 / -1; }
+.cd-field small { font-weight: 400; color: var(--ink-2); font-size: 13.5px; line-height: 1.35; }
+.cd-in { position: relative; display: flex; align-items: center; }
+.cd-in input { padding-right: 38px; }
+.cd-in i { position: absolute; right: 10px; font-style: normal; font-weight: 500; font-size: 14px; color: var(--ink-2); pointer-events: none; }
+.cd-form input[type="number"], .cd-form input[type="text"], .cd-form input[type="search"], .cd-form select, .cd-shop input {
+  width: 100%; min-width: 0; font: inherit; font-size: 16px; font-weight: 500; padding: 9px 10px; border: 1px solid var(--line-2); border-radius: var(--r-field); background: var(--paper); color: var(--ink); }
+.cd-form input:focus, .cd-form select:focus, .cd-shop input:focus { outline: none; border-color: var(--bird); box-shadow: 0 0 0 3px color-mix(in oklab, var(--bird) 22%, transparent); }
+.cd-row { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
+.cd-check { display: flex; gap: 8px; align-items: flex-start; font-size: 14.5px; font-weight: 500; }
+.cd-check input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--catnip); flex: none; }
+.cd-units { display: inline-flex; }
+.cd-note { font-size: 13.5px; color: var(--ink-2); margin: 6px 0 0; }
+.cd-pro-tag { display: inline-block; font-size: 12.5px; font-weight: 700; padding: 1px 7px; border-radius: 5px; background: var(--plum); color: var(--paper); margin-left: 6px; vertical-align: 1px; }
+[data-show][hidden] { display: none !important; }
+@media (max-width: 960px) { .cd-bench { grid-template-columns: 1fr; } .cd-stage { border-right: 0; border-bottom: 1px solid var(--line); } .cd-sticky { position: static; } }
+
+/* ---------- actions ---------- */
+.cd-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 16px 0 6px; }
+.cd-actions .hint { font-size: 14px; color: var(--ink-2); }
+.cd-sample-note { margin: 0 0 10px; font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- sections, tables ---------- */
+.cd-sec { margin: clamp(30px, 5vw, 56px) 0 0; }
+.cd-sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 20px; margin-bottom: 10px; }
+.cd-sec-head p { margin: 0; color: var(--ink-2); font-size: 14.5px; }
+.cd-card { background: var(--paper); border: 1px solid var(--line-2); border-radius: 14px; }
+.cd-table { width: 100%; border-collapse: collapse; background: var(--paper); border: 1px solid var(--line-2); border-radius: 14px; overflow: hidden; font-size: 15.5px; }
+.cd-table caption { caption-side: top; text-align: left; padding: 0 0 8px; color: var(--ink-2); font-size: 14.5px; }
+.cd-table th, .cd-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.cd-table thead th { font-size: 13.5px; font-weight: 700; color: var(--ink-2); background: var(--paper-2); }
+.cd-table tbody tr:last-child td { border-bottom: 0; }
+.cd-table .num { text-align: right; white-space: nowrap; }
+.cd-group td { background: var(--paper-2); font-weight: 700; font-size: 14px; color: var(--ink-2); }
+.cd-st { white-space: nowrap; font-weight: 700; font-size: 14px; }
+.cd-st span { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: var(--r-chip); }
+.cd-st svg { width: 13px; height: 13px; }
+.st-fits span { background: var(--catnip-2); color: #24123a; }
+.st-check span { background: var(--marmalade); color: #24123a; }
+.st-fail span { background: var(--fail); color: var(--fail-ink); }
+.st-info span { background: var(--lilac-2); color: var(--ink); }
+.cd-why { color: var(--ink-2); font-size: 14.5px; }
+.cd-src { font-size: 13.5px; color: var(--ink-2); }
+.cd-src a { white-space: normal; }
+.cd-shop input { max-width: 110px; text-align: right; padding: 6px 8px; font-size: 15px; }
+.cd-total td { font-weight: 700; background: var(--paper-2); }
+@media (max-width: 760px) {
+  .cd-table, .cd-table tbody, .cd-table tr, .cd-table td, .cd-table caption { display: block; width: 100%; }
+  .cd-table thead { display: none; }
+  .cd-table caption { padding: 10px 12px 8px; }
+  .cd-table tr { border-bottom: 1px solid var(--line); padding: 8px 0; }
+  .cd-table td { border: 0; padding: 4px 12px; }
+  .cd-table td[data-h]::before { content: attr(data-h); display: block; font-size: 12.5px; font-weight: 700; color: var(--ink-2); }
+  .cd-table .num { text-align: left; }
+  .cd-shop input { max-width: 100%; text-align: left; }
+}
+
+/* ---------- Pro ---------- */
+.cd-pro { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr); gap: 0; background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-panel); overflow: clip; }
+.cd-pro-l { padding: clamp(18px, 2.6vw, 30px); display: grid; gap: 14px; align-content: start; }
+.cd-pro-r { padding: clamp(18px, 2.6vw, 30px); background: var(--plum); color: #f4efff; display: grid; gap: 12px; align-content: start; }
+.cd-pro-r p { color: #e7defa; margin: 0; font-size: 14.5px; }
+.cd-pro-r .btn-ghost { color: #fff; border-color: rgba(255, 255, 255, .5); }
+.cd-pro-r .cd-price { font-family: var(--display); font-size: 44px; font-weight: 800; color: #fff; margin: 0; line-height: 1; }
+.cd-price small { font-family: var(--sans); font-size: 15px; font-weight: 500; color: #e7defa; }
+.cd-locked { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.cd-locked li { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 10px; align-items: start; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.cd-locked svg { width: 16px; height: 16px; margin-top: 3px; color: var(--plum-2); }
+.cd-locked b { display: block; font-weight: 700; }
+.cd-locked span { display: block; color: var(--ink-2); font-size: 14.5px; }
+.cd-locked em { font-style: normal; font-size: 12.5px; font-weight: 700; padding: 2px 8px; border-radius: 5px; background: var(--lilac-2); color: var(--ink); }
+.cd-locked li.is-open em { background: var(--catnip-2); color: #24123a; }
+.cd-pro-out { margin: 0; }
+.cd-pro-out img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid var(--line-2); background: #fff; }
+.cd-pro-out figcaption { font-size: 13.5px; color: var(--ink-2); margin-top: 6px; }
+.cd-pro-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.cd-addons { border: 1px solid var(--line-2); border-radius: 12px; padding: 12px 14px; display: grid; gap: 8px; margin: 0; }
+.cd-addons legend { font-weight: 700; padding: 0 4px; }
+.cd-addons[disabled] { opacity: .62; }
+.cd-saved { display: grid; gap: 8px; }
+.cd-saved ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.cd-saved li { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; font-size: 14.5px; }
+.cd-saved li button { font: inherit; font-size: 13.5px; padding: 4px 9px; border-radius: 6px; border: 1px solid var(--line-2); background: var(--paper); color: var(--ink); cursor: pointer; }
+.cd-pro-work { display: grid; gap: 14px; }
+.cd-pro-work[hidden] { display: none; }
+.cd-diagram { width: 100%; height: auto; display: block; background: var(--paper); }
+.cd-board { margin: 0 0 6px; }
+.cd-board figcaption { font-size: 13.5px; color: var(--ink-2); }
+@media (max-width: 860px) { .cd-pro { grid-template-columns: 1fr; } }
+
+/* ---------- guides, FAQ, sources ---------- */
+.cd-guides { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0; border-top: 2px solid var(--plum); }
+.cd-guides li { border-bottom: 1px solid var(--line-2); }
+.cd-guides a { display: grid; gap: 2px; padding: 14px 12px 14px 0; text-decoration: none; color: var(--ink); }
+.cd-guides b { font-family: var(--display); font-weight: 700; font-size: 20px; line-height: 1.15; }
+.cd-guides span { color: var(--ink-2); font-size: 14.5px; }
+.cd-guides a:hover b { color: var(--catnip); }
+.cd-faq details { border-bottom: 1px solid var(--line-2); padding: 12px 0; }
+.cd-faq summary { cursor: pointer; font-weight: 700; font-size: 17.5px; }
+.cd-faq .answer p { margin: 8px 0 0; }
+.cd-aus { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px 40px; align-items: start; }
+.cd-aus ul { margin: 0; padding-left: 20px; }
+@media (max-width: 760px) { .cd-aus { grid-template-columns: 1fr; } }
+.cd-sources { font-size: 14.5px; }
+.cd-sources ol { margin: 0; padding-left: 22px; display: grid; gap: 4px; }
+.cd-sources li span { color: var(--ink-2); }
+
+/* ---------- guide pages ---------- */
+.cd-article { max-width: 760px; }
+.cd-article h2 { margin-top: 34px; }
+.cd-figure { margin: 18px 0; }
+.cd-figure img { width: 100%; height: auto; display: block; border-radius: 14px; border: 1px solid var(--line-2); }
+.cd-figure figcaption { font-size: 14px; color: var(--ink-2); margin-top: 6px; }
+.cd-callout { background: var(--paper); border: 1px solid var(--line-2); border-left: 5px solid var(--cedar); border-radius: 12px; padding: 14px 16px; margin: 16px 0; }
+.cd-callout p { margin: 0; }
+.cd-open { display: inline-flex; margin-top: 8px; }
+.cd-guide-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(18px, 4vw, 48px); align-items: center; padding: clamp(10px, 2vw, 22px) 0 6px; }
+.cd-guide-hero img { width: 100%; height: auto; display: block; border-radius: 16px; border: 1px solid var(--line-2); aspect-ratio: 16 / 10; object-fit: cover; }
+@media (max-width: 860px) { .cd-guide-hero { grid-template-columns: 1fr; } }
+
+/* ---------- print: the shopping list only ---------- */
+@media print {
+  body.cd-print-shop .site-head, body.cd-print-shop .site-foot, body.cd-print-shop main > *:not(#shop), body.cd-print-shop .skip { display: none !important; }
+  body.cd-print-shop #shop { margin: 0; }
+  body.cd-print-shop .cd-shop input { border: 0; padding: 0; }
+  body.cd-page { background: #fff; }
+}
+@media (prefers-reduced-motion: reduce) { .cd-page * { scroll-behavior: auto !important; transition: none !important; } }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","@id":"https://peakappsstudio.com/catio-designer/#app","name":"Catio Designer","url":"https://peakappsstudio.com/catio-designer/","applicationCategory":"DesignApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Pro (one-time)","price":"19","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/catio-designer-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Catio Designer","item":"https://peakappsstudio.com/catio-designer/"},{"@type":"ListItem","position":3,"name":"How big should a catio be?","item":"https://peakappsstudio.com/catio-designer/how-big-should-a-catio-be/"}]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"How big should a catio be for 2 cats?","acceptedAnswer":{"@type":"Answer","text":"By the one published per-cat figure we found (Catnets), at least 4 square metres, about 43 sq ft: an 8 x 6 ft catio gives 4.46 m². Add shelves so the cats can climb as well as walk."}},
+  {"@type":"Question","name":"Is there an official minimum catio size?","acceptedAnswer":{"@type":"Answer","text":"No. No law or standards body sets one. Humane World for Animals says catios range from small window boxes to screened-in rooms; Catnets, an enclosure maker, gives 2 square metres per cat when cats share."}},
+  {"@type":"Question","name":"How tall should a catio be?","acceptedAnswer":{"@type":"Answer","text":"No source we checked gives a height per cat. Count shelves instead: steps of 12 to 18 in suit older or cautious cats and up to 24 in suits young, athletic ones. A walk-in catio needs a front about 66 in tall for the door."}}
+ ]}
+]}
+</script>
+</head>
+<body class="cd-page" style="--accent:#0e7a47">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a href="/tumbler-template/" class="hide-sm">Tumbler templates</a>
+      <a href="/name-cut-files/" class="hide-sm">Name cut files</a>
+      <a href="/kdp-coloring-book/" class="hide-sm">KDP coloring books</a>
+      <a href="/sewing-pattern-printer/" class="hide-sm">Sewing pattern printer</a>
+      <a href="/quilt-label-maker/" class="hide-sm">Quilt labels</a>
+      <a href="/etsy-tax-summary/" class="hide-sm">Etsy tax summary</a>
+      <a href="/pay-gap-report/" class="hide-sm">Pay gap report</a>
+      <a href="/equality-action-plan/" class="hide-sm">Equality action plan</a>
+      <a href="/job-evaluation/" class="hide-sm">Job evaluation</a>
+      <a href="/pay-transparency/" class="hide-sm">Pay transparency</a>
+      <a href="/menopause-adjustments/" class="hide-sm">Menopause adjustments</a>
+      <a href="/without-planning/" class="hide-sm">Without planning</a>
+      <a href="/dropped-kerb/" class="hide-sm">Dropped kerb</a>
+      <a href="/catio-designer/" aria-current="page">Catio designer</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/catio-designer/">Catio Designer</a></li><li aria-current="page">How big should a catio be?</li></ol></nav>
+  <header class="cd-guide-hero">
+    <div>
+      <h1>How big should a catio be?</h1>
+      <p class="lede" style="margin-top:14px">There is no official size for a catio: the only per-cat figure we could verify is 2 square metres (about 21.5 sq ft) for each cat when cats share, from the enclosure maker Catnets, and a window box is enough for one cat to watch the world.</p>
+      <a class="btn btn-primary cd-open" href="/catio-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoiZnJlZSIsInVuaXRzIjoiaW1wZXJpYWwiLCJjYXRzIjoyLCJsYXQiOjQwLjd9">Size your catio in the tool</a>
+    </div>
+    <img src="/catio-designer/img/hero-size-960.webp" srcset="/catio-designer/img/hero-size-480.webp 480w, /catio-designer/img/hero-size-960.webp 960w, /catio-designer/img/hero-size-1440.webp 1440w" sizes="(max-width: 860px) 100vw, 52vw" width="1440" height="900" fetchpriority="high" decoding="async" alt="A freestanding 8 by 6 ft catio in 3D with a walk-in door, three shelves and a mesh roof with shade cloth, on a lawn at golden hour, with a marmalade cat on a shelf.">
+  </header>
+  <div class="cd-mesh-strip" aria-hidden="true"></div>
+  <article class="cd-article">
+
+    <h2>What the published figures say</h2>
+    <p>No law or standards body sets a size for a catio, and the guides that give one do not agree. These are the figures we could open and read on 12 October 2026, each with its source. Where a guide quoted an authority we could not trace, we left the figure out.</p>
+    <table class="cd-table ">
+      <caption>Published figures for catio and cat enclosure size, read on 12 October 2026.</caption>
+      <thead><tr><th scope="col">Source</th><th scope="col">What it says</th></tr></thead>
+      <tbody>
+        <tr><td data-h="Source"><a href="https://help.catnets.com.au/en-US/articles/cat-enclosure-faq-403157" rel="noopener">Catnets, enclosure FAQ</a></td><td data-h="What it says">With several cats in a portable enclosure, give each cat a minimum of 2 square metres (about 21.5 sq ft) of space.</td></tr>
+        <tr><td data-h="Source"><a href="https://help.catnets.com.au/en-US/how-many-cats-can-i-put-in-my-cat-run-5890409" rel="noopener">Catnets, cats per run</a></td><td data-h="What it says">If each cat in a cat run has less than 2 square metres, consider a larger run, and let the cats in and out of the house.</td></tr>
+        <tr><td data-h="Source"><a href="https://help.catnets.com.au/en-US/how-big-should-a-cat-enclosure-be-5890455" rel="noopener">Catnets, enclosure size</a></td><td data-h="What it says">For one cat, a single portable enclosure of 1.2 m or 1.8 m is ideal; for two or more cats, a double or triple. Whatever the size, cats need vertical climbing space, places to hide and a sunny place to rest.</td></tr>
+        <tr><td data-h="Source"><a href="https://humanepro.org/sites/default/files/documents/Catios-fact-sheet.pdf" rel="noopener">Humane World for Animals, fact sheet</a></td><td data-h="What it says">Catios range in size and design, from small cat-sized window boxes to large screened-in rooms you can share with your cats.</td></tr>
+        <tr><td data-h="Source">Height</td><td data-h="What it says">None of these sources gives a height per cat. They ask for climbing space instead, which shelves and a second tier give.</td></tr>
+      </tbody>
+    </table>
+    <p>So the honest answer has two parts. For one cat, a window box is a real catio: it is a lookout and a place in the sun, not a run. For cats that share, the one per-cat figure we found is 2 square metres each, and it comes from an enclosure maker, not a vet body.</p>
+
+    <h2>Floor area for one to four cats</h2>
+    <p>Here is the 2 square metre figure worked out for each number of cats, with a freestanding catio that meets it. The result column is the tool's own check of each design; open any of them to change the sizes.</p>
+    <table class="cd-table ">
+      <caption>Floor area at 2 square metres per cat, and a design that meets it.</caption>
+      <thead><tr><th scope="col">Cats</th><th scope="col">Area at 2 m² each</th><th scope="col">Example</th><th scope="col">Check</th><th scope="col">In the tool</th></tr></thead>
+      <tbody>
+        <tr><td data-h="Cats">1</td><td data-h="Area at 2 m² each">No published minimum</td><td data-h="Example">4 ft x 2 ft window box: 0.74 m² (8.0 sq ft)</td><td data-h="Check"><span class="cd-st st-info" style="display:inline-block"><span>Note</span></span></td><td data-h="In the tool"><a href="/catio-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoid2luZG93IiwidW5pdHMiOiJpbXBlcmlhbCIsIm5hbWUiOiJTYW1wbGUgd2luZG93IGJveCIsInJvbGwiOnsidyI6OTE0LjQsImwiOjE1MjQwfSwic2hhZGUiOjEsImxhdCI6NDAuNywiY2l0eSI6Ik5ldyBZb3JrLCBOWSIsInNhbXBsZSI6dHJ1ZX0">Open it</a></td></tr>
+        <tr><td data-h="Cats">2</td><td data-h="Area at 2 m² each">4.00 m² (43.1 sq ft)</td><td data-h="Example">8 x 6 ft freestanding: 4.46 m² (48.0 sq ft)</td><td data-h="Check"><span class="cd-st st-fits" style="display:inline-block"><span>Fits</span></span></td><td data-h="In the tool"><a href="/catio-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoiZnJlZSIsInVuaXRzIjoiaW1wZXJpYWwiLCJjYXRzIjoyLCJsYXQiOjQwLjd9">Open it</a></td></tr>
+        <tr><td data-h="Cats">3</td><td data-h="Area at 2 m² each">6.00 m² (64.6 sq ft)</td><td data-h="Example">10 x 7 ft freestanding: 6.50 m² (70.0 sq ft)</td><td data-h="Check"><span class="cd-st st-fits" style="display:inline-block"><span>Fits</span></span></td><td data-h="In the tool"><a href="/catio-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoiZnJlZSIsInVuaXRzIjoiaW1wZXJpYWwiLCJ3IjozMDQ4LCJkIjoyMTMzLjYsImNhdHMiOjMsImxhdCI6NDAuN30">Open it</a></td></tr>
+        <tr><td data-h="Cats">4</td><td data-h="Area at 2 m² each">8.00 m² (86.1 sq ft)</td><td data-h="Example">12 x 8 ft freestanding: 8.92 m² (96.0 sq ft)</td><td data-h="Check"><span class="cd-st st-fits" style="display:inline-block"><span>Fits</span></span></td><td data-h="In the tool"><a href="/catio-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoiZnJlZSIsInVuaXRzIjoiaW1wZXJpYWwiLCJ3IjozNjU3LjYsImQiOjI0MzguNCwiY2F0cyI6NCwibGF0Ijo0MC43fQ">Open it</a></td></tr>
+      </tbody>
+    </table>
+    <p>A lean-to on a house wall is often the cheaper way to the same area: one wall is already there. An 203.19999999999996 x 101.59999999999998 ft lean-to gives 2.97 m², which is 1.49 square metres each for two cats (<span class="cd-st st-check" style="display:inline-block"><span>Check</span></span>). <a href="/catio-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoibGVhbnRvIiwidW5pdHMiOiJpbXBlcmlhbCIsImNhdHMiOjIsImxhdCI6NDAuN30">Open the lean-to</a>.</p>
+
+    <h2>Height: count the shelves, not the feet</h2>
+    <p>Vertical space matters as much as floor area, and the useful measure is how many comfortable steps a cat can climb. <a href="https://www.therefinedfeline.com/cat-shelf-installation-mistakes/" rel="noopener">The Refined Feline, shelf spacing</a> suggests 12 to 18 in between shelves for older or cautious cats and up to 24 in for young, athletic ones, with less than 24 in across a gap. The tool spaces shelves about 16 in apart and flags any step over the limit for your least agile cat.</p>
+    <table class="cd-table ">
+      <caption>Shelf heights the tool sets, by the type and height of the catio.</caption>
+      <thead><tr><th scope="col">Catio</th><th scope="col">Shelves</th><th scope="col">Shelf heights</th><th scope="col">Step</th></tr></thead>
+      <tbody>
+        <tr><td data-h="Catio">Window box, 3 ft at the wall</td><td data-h="Shelves">2</td><td data-h="Shelf heights">9 in, 18 in</td><td data-h="Step">9 in</td></tr>
+        <tr><td data-h="Catio">Lean-to, 6 ft at the front</td><td data-h="Shelves">3</td><td data-h="Shelf heights">16 in, 32 in, 48 in</td><td data-h="Step">16 in</td></tr>
+        <tr><td data-h="Catio">Lean-to, 7 ft at the front</td><td data-h="Shelves">4</td><td data-h="Shelf heights">16 in, 32 in, 48 in, 64 in</td><td data-h="Step">16 in</td></tr>
+      </tbody>
+    </table>
+    <p>For a walk-in catio the tool adds a door for you once the front is at least 66 in (1680 mm) tall. That is a size for people, not cats: it is where a walk-in catio starts to need a real door frame.</p>
+
+    <div class="cd-callout"><p>Size your own space: choose the type, type the width and depth, and set the number of cats. The space check shows the area per cat against the 2 square metre figure, with its source. <a href="/catio-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoiZnJlZSIsInVuaXRzIjoiaW1wZXJpYWwiLCJjYXRzIjoyLCJsYXQiOjQwLjd9">Open a two-cat design</a>.</p></div>
+
+  </article>
+
+  <section class="cd-sec cd-article" aria-labelledby="faq-h">
+    <h2 id="faq-h">Questions</h2>
+    <div class="cd-faq">
+      <details><summary>How big should a catio be for 2 cats?</summary><div class="answer"><p>By the one published per-cat figure we found (Catnets), at least 4 square metres, about 43 sq ft: an 8 x 6 ft catio gives 4.46 m². Add shelves so the cats can climb as well as walk.</p></div></details>
+      <details><summary>Is there an official minimum catio size?</summary><div class="answer"><p>No. No law or standards body sets one. Humane World for Animals says catios range from small window boxes to screened-in rooms; Catnets, an enclosure maker, gives 2 square metres per cat when cats share.</p></div></details>
+      <details><summary>How tall should a catio be?</summary><div class="answer"><p>No source we checked gives a height per cat. Count shelves instead: steps of 12 to 18 in suit older or cautious cats and up to 24 in suits young, athletic ones. A walk-in catio needs a front about 66 in tall for the door.</p></div></details>
+    </div>
+  </section>
+
+  <section class="cd-sec" aria-labelledby="more-h">
+    <h2 id="more-h">More before you build</h2>
+    <ul class="cd-guides">
+      <li><a href="/catio-designer/"><b>Catio Designer</b><span>Design your own catio in 3D, with the checks and the shopping list.</span></a></li>
+      <li><a href="/catio-designer/catio-cost/"><b>What a catio costs to build</b><span>A dated bill of materials for three sizes, with your prices.</span></a></li>
+      <li><a href="/catio-designer/window-catio-plans/"><b>Window catio plans, free</b><span>Window boxes drawn for windows 24 to 48 in wide.</span></a></li>
+      <li><a href="/catio-designer/catio-mesh/"><b>Which mesh for a catio</b><span>Openings, gauges, coatings and roll widths compared.</span></a></li>
+      <li><a href="/catio-designer/balcony-catio/"><b>A balcony catio with no drilling</b><span>Tension posts and freestanding frames for renters.</span></a></li>
+    </ul>
+  </section>
+
+  <nav class="home-block" aria-labelledby="home-title">
+  <p class="home-title" id="home-title">Home project tools</p>
+  <ul class="home-list">
+    <li><a href="/without-planning/" style="--tool:#1f48c7"><strong>Without Planning</strong><span>Check a home extension, garden room or heat pump in 3D against England’s permitted development rules and Ireland’s 2026 exemptions.</span></a></li>
+    <li><a href="/dropped-kerb/" style="--tool:#0b6f80"><strong>Dropped Kerb Check</strong><span>Check a driveway in 3D against your council’s dropped kerb rules, with the planning answer and the fees, before you pay to apply.</span></a></li>
+    <li><a href="/catio-designer/" style="--tool:#b0501a" aria-current="page"><strong>Catio Designer</strong><span>Design a catio for your window, wall or balcony in 3D, with the mesh and shelf checks and every board and roll of mesh to buy.</span></a></li>
+  </ul>
+</nav>
+
+
+  <section class="cd-sec cd-sources" aria-labelledby="src-h">
+    <h2 id="src-h">Sources</h2>
+    <ol>
+      <li><a href="https://help.catnets.com.au/en-US/articles/cat-enclosure-faq-403157" rel="noopener">Catnets: Cat Enclosure FAQ, &quot;How many cats can I put in my enclosure?&quot;</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://help.catnets.com.au/en-US/how-many-cats-can-i-put-in-my-cat-run-5890409" rel="noopener">Catnets: How many cats can I put in my cat run?</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://help.catnets.com.au/en-US/how-big-should-a-cat-enclosure-be-5890455" rel="noopener">Catnets: How big should a cat enclosure be?</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://humanepro.org/sites/default/files/documents/Catios-fact-sheet.pdf" rel="noopener">Humane World for Animals: Catios fact sheet (PDF)</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://www.therefinedfeline.com/cat-shelf-installation-mistakes/" rel="noopener">The Refined Feline: Cat Shelves Wall, Mistakes to Avoid</a> <span>(read 12 October 2026)</span></li>
+    </ol>
+    <p class="cd-small">Guidance for a hobby build, not an engineering guarantee. Not affiliated with any of the makers or groups named here.</p>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools that each do one job well. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a>.<br>Write to <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
+        <li><a href="/name-cut-files/">Name Cut Files</a></li>
+        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
+        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
+        <li><a href="/quilt-label-maker/">Quilt Label Maker</a></li>
+        <li><a href="/etsy-tax-summary/">Etsy Tax Summary</a></li>
+        <li><a href="/menopause-adjustments/">Menopause Adjustments at Work</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Home project tools</h2>
+      <ul>
+        <li><a href="/without-planning/">Without Planning</a></li>
+        <li><a href="/dropped-kerb/">Dropped Kerb Check</a></li>
+        <li><a href="/catio-designer/">Catio Designer</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Pay equity tools</h2>
+      <ul>
+        <li><a href="/pay-gap-report/">Pay Gap Report</a></li>
+        <li><a href="/equality-action-plan/">Equality Action Plan</a></li>
+        <li><a href="/job-evaluation/">Job Evaluation</a></li>
+        <li><a href="/pay-transparency/">Pay Transparency Kit</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+</html>

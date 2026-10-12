@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catio mesh: the opening, gauge and roll to use</title>
+<meta name="description" content="Catio mesh compared: openings, wire gauges, coatings and roll sizes from retailers, what the guides recommend, and how many rolls your catio needs.">
+<link rel="canonical" href="https://peakappsstudio.com/catio-designer/catio-mesh/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Which mesh for a catio?">
+<meta property="og:description" content="Catio mesh compared: openings, wire gauges, coatings and roll sizes from retailers, what the guides recommend, and how many rolls your catio needs.">
+<meta property="og:url" content="https://peakappsstudio.com/catio-designer/catio-mesh/">
+<meta property="og:image" content="https://peakappsstudio.com/catio-designer/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#eee8ff">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/catio-designer/fonts/gluten-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/catio-designer/fonts/familjen-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="/catio-designer/img/hero-mesh-960.webp" imagesrcset="/catio-designer/img/hero-mesh-480.webp 480w, /catio-designer/img/hero-mesh-960.webp 960w, /catio-designer/img/hero-mesh-1440.webp 1440w" imagesizes="(max-width: 860px) 100vw, 52vw" fetchpriority="high">
+<link rel="stylesheet" href="/assets/tools.css">
+<style data-from="/catio-designer/tool.css">
+/* Catio Designer: the tool's own identity, scoped to body.cd-page (the shared header and footer keep their structure).
+ * Taken from the subject: an evening sky over the garden (lilac page), plum ink, catnip green for what you press and
+ * for "fits", a marmalade cat for highlights and "check", a bluebird for links on white, cedar for wood only.
+ * Type: Gluten (bouncy, headings only) and Familjen Grotesk (everything read, tabular figures).
+ * Signature: a strip of welded mesh drawn in CSS, used once under the hero. */
+
+@font-face { font-family: "Gluten"; src: url("/catio-designer/fonts/gluten-latin.woff2") format("woff2"); font-weight: 700 800; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Gluten"; src: url("/catio-designer/fonts/gluten-latin-ext.woff2") format("woff2"); font-weight: 700 800; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Familjen Grotesk"; src: url("/catio-designer/fonts/familjen-grotesk-latin.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Familjen Grotesk"; src: url("/catio-designer/fonts/familjen-grotesk-latin-ext.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+/* fallbacks sized to the web fonts' average widths and heights (from _build/fonts.py), so the swap does not move the layout */
+@font-face { font-family: "Familjen Fallback"; src: local("Arial"), local("Helvetica Neue"), local("Helvetica"); size-adjust: 94.6%; ascent-override: 108.4%; descent-override: 23.8%; line-gap-override: 0%; }
+@font-face { font-family: "Gluten Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Helvetica Neue Bold"); font-weight: 700 800; size-adjust: 124.7%; ascent-override: 51.7%; descent-override: 19%; line-gap-override: 0%; }
+
+body.cd-page {
+  --lilac: #eee8ff; --lilac-2: #e2daf8; --paper: #ffffff; --paper-2: #f7f4ff;
+  --plum: #24123a; --plum-2: #5b4b73; --plum-3: #8b7ea3;
+  --catnip: #0e7a47; --catnip-ink: #ffffff; --catnip-2: #2bb673; --marmalade: #ff8a3d; --bird: #2e5bff; --cedar: #c98a4b; --fail: #c2253d; --fail-ink: #ffffff;
+  --paper: #ffffff; --card: var(--paper); --ink: var(--plum); --ink-2: var(--plum-2); --muted: var(--plum-2);
+  --line: rgba(36, 18, 58, .13); --line-2: rgba(36, 18, 58, .24);
+  --accent: var(--catnip); --accent-ink: var(--catnip-ink); --ok: var(--catnip); --warn: #9a4a12;
+  --sans: "Familjen Grotesk", "Familjen Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: var(--sans);
+  --display: "Gluten", "Gluten Fallback", sans-serif;
+  --r-panel: 18px; --r-field: 9px; --r-chip: 7px;
+  background: var(--lilac); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.55; font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.cd-page {
+    --lilac: #160d24; --lilac-2: #20142f; --paper: #221636; --paper-2: #2a1c41; --plum: #f1ebff; --plum-2: #c8bce0; --plum-3: #9a8db5;
+    --catnip: #3fcf8a; --catnip-ink: #06261a; --catnip-2: #3fcf8a; --bird: #93a9ff; --fail: #ff7a8c; --fail-ink: #2a0710; --warn: #ffb27a;
+    --card: var(--paper); --line: rgba(241, 235, 255, .13); --line-2: rgba(241, 235, 255, .26);
+  }
+}
+:root[data-theme="dark"] body.cd-page {
+  --lilac: #160d24; --lilac-2: #20142f; --paper: #221636; --paper-2: #2a1c41; --plum: #f1ebff; --plum-2: #c8bce0; --plum-3: #9a8db5;
+  --catnip: #3fcf8a; --catnip-ink: #06261a; --catnip-2: #3fcf8a; --bird: #93a9ff; --fail: #ff7a8c; --fail-ink: #2a0710; --warn: #ffb27a;
+  --card: var(--paper); --line: rgba(241, 235, 255, .13); --line-2: rgba(241, 235, 255, .26);
+}
+
+/* ---------- type ---------- */
+.cd-page h1, .cd-page h2, .cd-page h3 { font-family: var(--display); font-weight: 800; letter-spacing: -0.01em; line-height: 1.04; text-wrap: balance; color: var(--plum); }
+.cd-page h1 { font-size: clamp(38px, 5.4vw, 70px); margin: 0; max-width: 16ch; }
+.cd-page h2 { font-size: clamp(28px, 3.2vw, 42px); font-weight: 700; margin: 0 0 12px; }
+.cd-page h3 { font-size: 22px; font-weight: 700; margin: 0 0 6px; }
+.cd-page p { max-width: 68ch; }
+.cd-page .lede { font-size: clamp(18px, 1.55vw, 20px); color: var(--ink); margin: 0; }
+.cd-page a { color: var(--plum); text-decoration-color: var(--bird); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.cd-page a:hover { color: var(--bird); }
+.cd-page .cd-card a, .cd-page table a { color: var(--bird); text-decoration-thickness: 1px; }
+.cd-page :focus-visible { outline: 3px solid var(--bird); outline-offset: 2px; border-radius: 4px; }
+.cd-page ::selection { background: var(--bird); color: #fff; }
+.cd-page .btn { border-radius: var(--r-field); font-weight: 600; font-size: 16px; padding: 12px 18px; }
+.cd-page .btn-primary { background: var(--catnip); border-color: var(--catnip); color: var(--catnip-ink); }
+.cd-page .btn-primary:hover { background: color-mix(in oklab, var(--catnip) 86%, #000); border-color: color-mix(in oklab, var(--catnip) 86%, #000); color: var(--catnip-ink); }
+.cd-page .btn-ghost { background: transparent; }
+.cd-small { font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- hero ---------- */
+.cd-hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(18px, 4vw, 56px); align-items: end; padding: clamp(12px, 2.4vw, 28px) 0 clamp(14px, 2vw, 22px); }
+.cd-hero-side { display: grid; gap: 16px; }
+.cd-mesh-strip { height: 16px; margin: 0 0 18px; border-radius: 3px;
+  background-color: transparent;
+  background-image: linear-gradient(90deg, color-mix(in oklab, var(--plum) 30%, transparent) 1.5px, transparent 1.5px), linear-gradient(0deg, color-mix(in oklab, var(--plum) 30%, transparent) 1.5px, transparent 1.5px);
+  background-size: 8px 8px; background-position: 0 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+
+/* the four types, as line drawings */
+.cd-types { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; border: 0; padding: 0; margin: 0; }
+.cd-types legend { font-weight: 600; font-size: 15px; margin-bottom: 8px; padding: 0; }
+.cd-type { position: relative; display: grid; justify-items: center; gap: 4px; padding: 10px 6px 9px; border-radius: 12px; border: 1.5px solid var(--line-2); background: color-mix(in oklab, var(--paper) 55%, transparent); cursor: pointer; text-align: center; font-size: 14px; font-weight: 600; line-height: 1.2; color: var(--ink); }
+.cd-type input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.cd-type svg { width: 64px; height: 44px; color: var(--plum-2); }
+.cd-type:has(input:checked) { border-color: var(--plum); background: var(--paper); box-shadow: inset 0 -4px 0 var(--cedar); }
+.cd-type:has(input:checked) svg { color: var(--plum); }
+.cd-type:has(input:focus-visible) { outline: 3px solid var(--bird); outline-offset: 2px; }
+.cd-type .wood { color: var(--cedar); }
+@media (max-width: 900px) { .cd-hero { grid-template-columns: 1fr; align-items: start; } }
+@media (max-width: 460px) { .cd-types { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------- the bench: the 3D view beside the form ---------- */
+.cd-bench { display: grid; grid-template-columns: minmax(0, 1fr) minmax(330px, 410px); background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-panel); overflow: clip; }
+.cd-stage { border-right: 1px solid var(--line); min-width: 0; }
+.cd-sticky { position: sticky; top: 0; }
+.cd-view { position: relative; aspect-ratio: 16 / 10; background: linear-gradient(180deg, #cbbff0, #f2d9e2 62%, #ffd2ad); overflow: hidden; }
+.cd-view img, .cd-view canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; }
+.cd-view canvas { touch-action: none; cursor: grab; }
+.cd-view canvas:active { cursor: grabbing; }
+.cd-badge { position: absolute; left: 12px; top: 12px; background: var(--plum); color: #fff; font-weight: 700; font-size: 13.5px; padding: 4px 10px; border-radius: var(--r-chip); }
+.cd-gl-note { position: absolute; left: 12px; right: 12px; bottom: 60px; margin: 0; background: var(--paper); color: var(--ink); padding: 8px 12px; border-radius: var(--r-field); font-size: 14.5px; }
+.cd-start { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); display: inline-flex; gap: 8px; align-items: center; background: var(--plum); color: #fff; border: 0; border-radius: 999px; padding: 11px 18px; font: inherit; font-weight: 600; font-size: 15.5px; cursor: pointer; box-shadow: 0 6px 18px rgba(36, 18, 58, .28); }
+.cd-start svg { width: 18px; height: 18px; }
+.cd-start[disabled] { opacity: .8; cursor: progress; }
+.cd-tags { position: absolute; inset: 0; pointer-events: none; }
+.cd-tag { position: absolute; left: 0; top: 0; white-space: nowrap; font-size: 13.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: rgba(255, 255, 255, .94); color: #24123a; box-shadow: 0 1px 0 rgba(36, 18, 58, .25); }
+.cd-tag-fail { background: #c2253d; color: #fff; }
+.cd-tag-check { background: #ff8a3d; color: #24123a; }
+.cd-tag-fits { background: #2bb673; color: #24123a; }
+.cd-toolbar { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; padding: 10px 14px; border-top: 1px solid var(--line); background: var(--paper-2); }
+.cd-seg { display: inline-flex; border: 1px solid var(--line-2); border-radius: var(--r-field); overflow: hidden; }
+.cd-seg button { font: inherit; font-size: 14.5px; font-weight: 600; padding: 7px 11px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+.cd-seg button + button { border-left: 1px solid var(--line-2); }
+.cd-seg button[aria-pressed="true"] { background: var(--plum); color: var(--paper); }
+.cd-sun { display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 600; }
+.cd-sun input[type="range"] { width: 130px; accent-color: var(--marmalade); }
+.cd-sun output { min-width: 3.2em; font-variant-numeric: tabular-nums; }
+.cd-catbtn { font: inherit; font-size: 14.5px; font-weight: 600; padding: 7px 12px; border-radius: var(--r-field); border: 1.5px solid var(--marmalade); background: transparent; color: var(--ink); cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.cd-catbtn svg { width: 18px; height: 18px; color: var(--marmalade); }
+.cd-toolbar[hidden] { display: none; }
+
+/* the title block under the view: what this design is, and how its checks came out */
+.cd-title { padding: 14px 16px 16px; display: grid; gap: 10px; }
+.cd-title h2 { font-size: clamp(24px, 2.4vw, 30px); margin: 0; }
+.cd-title p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
+.cd-counts { display: flex; flex-wrap: wrap; gap: 8px; }
+.cd-count { display: inline-flex; color: var(--ink); gap: 6px; align-items: baseline; padding: 4px 10px; border-radius: var(--r-chip); font-size: 14.5px; font-weight: 600; border: 1px solid var(--line-2); }
+.cd-count b { font-size: 18px; }
+.cd-count.ct-fits { background: color-mix(in oklab, var(--catnip-2) 26%, var(--paper)); }
+.cd-count.ct-check { background: color-mix(in oklab, var(--marmalade) 26%, var(--paper)); }
+.cd-count.ct-fail { background: color-mix(in oklab, var(--fail) 18%, var(--paper)); }
+.cd-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13.5px; color: var(--ink-2); }
+
+/* ---------- the form ---------- */
+.cd-form { padding: 6px 16px 18px; display: grid; gap: 4px; align-content: start; }
+.cd-step { border: 0; padding: 12px 0 14px; margin: 0; border-bottom: 1px solid var(--line); }
+.cd-step:last-child { border-bottom: 0; }
+.cd-step > legend { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 21px; padding: 0; margin: 0 0 10px; color: var(--plum); }
+.cd-step-n { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--cedar); color: #24123a; font-family: var(--sans); font-size: 15px; font-weight: 700; }
+.cd-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 12px; }
+.cd-field { display: grid; gap: 4px; align-content: start; font-size: 14.5px; font-weight: 600; min-width: 0; }
+.cd-field.wide { grid-column: 1 / -1; }
+.cd-field small { font-weight: 400; color: var(--ink-2); font-size: 13.5px; line-height: 1.35; }
+.cd-in { position: relative; display: flex; align-items: center; }
+.cd-in input { padding-right: 38px; }
+.cd-in i { position: absolute; right: 10px; font-style: normal; font-weight: 500; font-size: 14px; color: var(--ink-2); pointer-events: none; }
+.cd-form input[type="number"], .cd-form input[type="text"], .cd-form input[type="search"], .cd-form select, .cd-shop input {
+  width: 100%; min-width: 0; font: inherit; font-size: 16px; font-weight: 500; padding: 9px 10px; border: 1px solid var(--line-2); border-radius: var(--r-field); background: var(--paper); color: var(--ink); }
+.cd-form input:focus, .cd-form select:focus, .cd-shop input:focus { outline: none; border-color: var(--bird); box-shadow: 0 0 0 3px color-mix(in oklab, var(--bird) 22%, transparent); }
+.cd-row { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
+.cd-check { display: flex; gap: 8px; align-items: flex-start; font-size: 14.5px; font-weight: 500; }
+.cd-check input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--catnip); flex: none; }
+.cd-units { display: inline-flex; }
+.cd-note { font-size: 13.5px; color: var(--ink-2); margin: 6px 0 0; }
+.cd-pro-tag { display: inline-block; font-size: 12.5px; font-weight: 700; padding: 1px 7px; border-radius: 5px; background: var(--plum); color: var(--paper); margin-left: 6px; vertical-align: 1px; }
+[data-show][hidden] { display: none !important; }
+@media (max-width: 960px) { .cd-bench { grid-template-columns: 1fr; } .cd-stage { border-right: 0; border-bottom: 1px solid var(--line); } .cd-sticky { position: static; } }
+
+/* ---------- actions ---------- */
+.cd-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 16px 0 6px; }
+.cd-actions .hint { font-size: 14px; color: var(--ink-2); }
+.cd-sample-note { margin: 0 0 10px; font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- sections, tables ---------- */
+.cd-sec { margin: clamp(30px, 5vw, 56px) 0 0; }
+.cd-sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 20px; margin-bottom: 10px; }
+.cd-sec-head p { margin: 0; color: var(--ink-2); font-size: 14.5px; }
+.cd-card { background: var(--paper); border: 1px solid var(--line-2); border-radius: 14px; }
+.cd-table { width: 100%; border-collapse: collapse; background: var(--paper); border: 1px solid var(--line-2); border-radius: 14px; overflow: hidden; font-size: 15.5px; }
+.cd-table caption { caption-side: top; text-align: left; padding: 0 0 8px; color: var(--ink-2); font-size: 14.5px; }
+.cd-table th, .cd-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.cd-table thead th { font-size: 13.5px; font-weight: 700; color: var(--ink-2); background: var(--paper-2); }
+.cd-table tbody tr:last-child td { border-bottom: 0; }
+.cd-table .num { text-align: right; white-space: nowrap; }
+.cd-group td { background: var(--paper-2); font-weight: 700; font-size: 14px; color: var(--ink-2); }
+.cd-st { white-space: nowrap; font-weight: 700; font-size: 14px; }
+.cd-st span { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: var(--r-chip); }
+.cd-st svg { width: 13px; height: 13px; }
+.st-fits span { background: var(--catnip-2); color: #24123a; }
+.st-check span { background: var(--marmalade); color: #24123a; }
+.st-fail span { background: var(--fail); color: var(--fail-ink); }
+.st-info span { background: var(--lilac-2); color: var(--ink); }
+.cd-why { color: var(--ink-2); font-size: 14.5px; }
+.cd-src { font-size: 13.5px; color: var(--ink-2); }
+.cd-src a { white-space: normal; }
+.cd-shop input { max-width: 110px; text-align: right; padding: 6px 8px; font-size: 15px; }
+.cd-total td { font-weight: 700; background: var(--paper-2); }
+@media (max-width: 760px) {
+  .cd-table, .cd-table tbody, .cd-table tr, .cd-table td, .cd-table caption { display: block; width: 100%; }
+  .cd-table thead { display: none; }
+  .cd-table caption { padding: 10px 12px 8px; }
+  .cd-table tr { border-bottom: 1px solid var(--line); padding: 8px 0; }
+  .cd-table td { border: 0; padding: 4px 12px; }
+  .cd-table td[data-h]::before { content: attr(data-h); display: block; font-size: 12.5px; font-weight: 700; color: var(--ink-2); }
+  .cd-table .num { text-align: left; }
+  .cd-shop input { max-width: 100%; text-align: left; }
+}
+
+/* ---------- Pro ---------- */
+.cd-pro { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr); gap: 0; background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-panel); overflow: clip; }
+.cd-pro-l { padding: clamp(18px, 2.6vw, 30px); display: grid; gap: 14px; align-content: start; }
+.cd-pro-r { padding: clamp(18px, 2.6vw, 30px); background: var(--plum); color: #f4efff; display: grid; gap: 12px; align-content: start; }
+.cd-pro-r p { color: #e7defa; margin: 0; font-size: 14.5px; }
+.cd-pro-r .btn-ghost { color: #fff; border-color: rgba(255, 255, 255, .5); }
+.cd-pro-r .cd-price { font-family: var(--display); font-size: 44px; font-weight: 800; color: #fff; margin: 0; line-height: 1; }
+.cd-price small { font-family: var(--sans); font-size: 15px; font-weight: 500; color: #e7defa; }
+.cd-locked { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.cd-locked li { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 10px; align-items: start; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.cd-locked svg { width: 16px; height: 16px; margin-top: 3px; color: var(--plum-2); }
+.cd-locked b { display: block; font-weight: 700; }
+.cd-locked span { display: block; color: var(--ink-2); font-size: 14.5px; }
+.cd-locked em { font-style: normal; font-size: 12.5px; font-weight: 700; padding: 2px 8px; border-radius: 5px; background: var(--lilac-2); color: var(--ink); }
+.cd-locked li.is-open em { background: var(--catnip-2); color: #24123a; }
+.cd-pro-out { margin: 0; }
+.cd-pro-out img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid var(--line-2); background: #fff; }
+.cd-pro-out figcaption { font-size: 13.5px; color: var(--ink-2); margin-top: 6px; }
+.cd-pro-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.cd-addons { border: 1px solid var(--line-2); border-radius: 12px; padding: 12px 14px; display: grid; gap: 8px; margin: 0; }
+.cd-addons legend { font-weight: 700; padding: 0 4px; }
+.cd-addons[disabled] { opacity: .62; }
+.cd-saved { display: grid; gap: 8px; }
+.cd-saved ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.cd-saved li { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; font-size: 14.5px; }
+.cd-saved li button { font: inherit; font-size: 13.5px; padding: 4px 9px; border-radius: 6px; border: 1px solid var(--line-2); background: var(--paper); color: var(--ink); cursor: pointer; }
+.cd-pro-work { display: grid; gap: 14px; }
+.cd-pro-work[hidden] { display: none; }
+.cd-diagram { width: 100%; height: auto; display: block; background: var(--paper); }
+.cd-board { margin: 0 0 6px; }
+.cd-board figcaption { font-size: 13.5px; color: var(--ink-2); }
+@media (max-width: 860px) { .cd-pro { grid-template-columns: 1fr; } }
+
+/* ---------- guides, FAQ, sources ---------- */
+.cd-guides { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0; border-top: 2px solid var(--plum); }
+.cd-guides li { border-bottom: 1px solid var(--line-2); }
+.cd-guides a { display: grid; gap: 2px; padding: 14px 12px 14px 0; text-decoration: none; color: var(--ink); }
+.cd-guides b { font-family: var(--display); font-weight: 700; font-size: 20px; line-height: 1.15; }
+.cd-guides span { color: var(--ink-2); font-size: 14.5px; }
+.cd-guides a:hover b { color: var(--catnip); }
+.cd-faq details { border-bottom: 1px solid var(--line-2); padding: 12px 0; }
+.cd-faq summary { cursor: pointer; font-weight: 700; font-size: 17.5px; }
+.cd-faq .answer p { margin: 8px 0 0; }
+.cd-aus { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px 40px; align-items: start; }
+.cd-aus ul { margin: 0; padding-left: 20px; }
+@media (max-width: 760px) { .cd-aus { grid-template-columns: 1fr; } }
+.cd-sources { font-size: 14.5px; }
+.cd-sources ol { margin: 0; padding-left: 22px; display: grid; gap: 4px; }
+.cd-sources li span { color: var(--ink-2); }
+
+/* ---------- guide pages ---------- */
+.cd-article { max-width: 760px; }
+.cd-article h2 { margin-top: 34px; }
+.cd-figure { margin: 18px 0; }
+.cd-figure img { width: 100%; height: auto; display: block; border-radius: 14px; border: 1px solid var(--line-2); }
+.cd-figure figcaption { font-size: 14px; color: var(--ink-2); margin-top: 6px; }
+.cd-callout { background: var(--paper); border: 1px solid var(--line-2); border-left: 5px solid var(--cedar); border-radius: 12px; padding: 14px 16px; margin: 16px 0; }
+.cd-callout p { margin: 0; }
+.cd-open { display: inline-flex; margin-top: 8px; }
+.cd-guide-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(18px, 4vw, 48px); align-items: center; padding: clamp(10px, 2vw, 22px) 0 6px; }
+.cd-guide-hero img { width: 100%; height: auto; display: block; border-radius: 16px; border: 1px solid var(--line-2); aspect-ratio: 16 / 10; object-fit: cover; }
+@media (max-width: 860px) { .cd-guide-hero { grid-template-columns: 1fr; } }
+
+/* ---------- print: the shopping list only ---------- */
+@media print {
+  body.cd-print-shop .site-head, body.cd-print-shop .site-foot, body.cd-print-shop main > *:not(#shop), body.cd-print-shop .skip { display: none !important; }
+  body.cd-print-shop #shop { margin: 0; }
+  body.cd-print-shop .cd-shop input { border: 0; padding: 0; }
+  body.cd-page { background: #fff; }
+}
+@media (prefers-reduced-motion: reduce) { .cd-page * { scroll-behavior: auto !important; transition: none !important; } }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","@id":"https://peakappsstudio.com/catio-designer/#app","name":"Catio Designer","url":"https://peakappsstudio.com/catio-designer/","applicationCategory":"DesignApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Pro (one-time)","price":"19","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/catio-designer-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Catio Designer","item":"https://peakappsstudio.com/catio-designer/"},{"@type":"ListItem","position":3,"name":"Catio mesh","item":"https://peakappsstudio.com/catio-designer/catio-mesh/"}]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"What size mesh for a catio?","acceptedAnswer":{"@type":"Answer","text":"No larger than 2 x 3 in openings (Catio Spaces); the BC SPCA plans use 1 x 1 in. 1/2 in hardware cloth also keeps paws from reaching through and small wildlife out."}},
+  {"@type":"Question","name":"Is chicken wire safe for a catio?","acceptedAnswer":{"@type":"Answer","text":"No. Chicken wire is 19 to 22 gauge, is not very strong, can leave jagged edges when cut and may rust. Use galvanized welded wire or hardware cloth instead."}},
+  {"@type":"Question","name":"What gauge wire for a catio?","acceptedAnswer":{"@type":"Answer","text":"16 gauge or heavier is what Catio Spaces recommends against coyotes. 19 gauge hardware cloth is lighter and is sold for pet runs; where coyotes, raccoons or dogs visit, choose the heavier wire."}}
+ ]}
+]}
+</script>
+</head>
+<body class="cd-page" style="--accent:#0e7a47">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a href="/tumbler-template/" class="hide-sm">Tumbler templates</a>
+      <a href="/name-cut-files/" class="hide-sm">Name cut files</a>
+      <a href="/kdp-coloring-book/" class="hide-sm">KDP coloring books</a>
+      <a href="/sewing-pattern-printer/" class="hide-sm">Sewing pattern printer</a>
+      <a href="/quilt-label-maker/" class="hide-sm">Quilt labels</a>
+      <a href="/etsy-tax-summary/" class="hide-sm">Etsy tax summary</a>
+      <a href="/pay-gap-report/" class="hide-sm">Pay gap report</a>
+      <a href="/equality-action-plan/" class="hide-sm">Equality action plan</a>
+      <a href="/job-evaluation/" class="hide-sm">Job evaluation</a>
+      <a href="/pay-transparency/" class="hide-sm">Pay transparency</a>
+      <a href="/menopause-adjustments/" class="hide-sm">Menopause adjustments</a>
+      <a href="/without-planning/" class="hide-sm">Without planning</a>
+      <a href="/dropped-kerb/" class="hide-sm">Dropped kerb</a>
+      <a href="/catio-designer/" aria-current="page">Catio designer</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/catio-designer/">Catio Designer</a></li><li aria-current="page">Catio mesh</li></ol></nav>
+  <header class="cd-guide-hero">
+    <div>
+      <h1>Which mesh for a catio?</h1>
+      <p class="lede" style="margin-top:14px">Use galvanized or stainless welded wire with openings no larger than 2 x 3 in: Catio Spaces recommends 16 gauge, and 1/2 in hardware cloth in 19 gauge is the common lighter choice; chicken wire and window screen are not strong enough.</p>
+      <a class="btn btn-primary cd-open" href="/catio-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoid2luZG93IiwidW5pdHMiOiJpbXBlcmlhbCIsIm5hbWUiOiJTYW1wbGUgd2luZG93IGJveCIsInJvbGwiOnsidyI6OTE0LjQsImwiOjE1MjQwfSwic2hhZGUiOjEsImxhdCI6NDAuNywiY2l0eSI6Ik5ldyBZb3JrLCBOWSIsInNhbXBsZSI6dHJ1ZX0">Count the rolls for your catio</a>
+    </div>
+    <img src="/catio-designer/img/hero-mesh-960.webp" srcset="/catio-designer/img/hero-mesh-480.webp 480w, /catio-designer/img/hero-mesh-960.webp 960w, /catio-designer/img/hero-mesh-1440.webp 1440w" sizes="(max-width: 860px) 100vw, 52vw" width="1440" height="900" fetchpriority="high" decoding="async" alt="A freestanding catio in 3D walled in 2 x 3 in welded wire on a cedar frame, with a walk-in door and shelves, on a lawn.">
+  </header>
+  <div class="cd-mesh-strip" aria-hidden="true"></div>
+  <article class="cd-article">
+
+    <h2>Catio mesh compared</h2>
+    <p>The table lists the mesh we found on retailers' listings, with the opening, the wire gauge and the rolls as each listing gives them, and the tool's check of each one in a lean-to. We list no prices. The lower the gauge number, the thicker and stronger the wire.</p>
+    <table class="cd-table ">
+      <caption>Mesh for catios, from retailers' listings and the guides cited, read on 12 October 2026.</caption>
+      <thead><tr><th scope="col">Mesh</th><th scope="col">Opening</th><th scope="col">Gauge</th><th scope="col">Coating</th><th scope="col">Rolls listed</th><th scope="col">Check</th><th scope="col">Source</th></tr></thead>
+      <tbody>
+        <tr><td data-h="Mesh">1/2 in hardware cloth, 19 gauge, galvanized</td><td data-h="Opening">1/2 in x 1/2 in</td><td data-h="Gauge">19 (1.00 mm)</td><td data-h="Coating">galvanized</td><td data-h="Rolls listed">36 in x 50 ft; 24 in x 100 ft; 900 mm x 6 m; 900 mm x 30 m</td><td data-h="Check"><span class="cd-st st-check" style="display:inline-block"><span>Check</span></span></td><td data-h="Source"><a href="https://www.newegg.com/p/2AC-00N9-01G12" rel="noopener">Newegg, 1/2 in hardware cloth</a>, <a href="https://www.fhbrundle.co.uk/products/01026939B__Galvanised_Welded_Mesh_-_Mesh_Master" rel="noopener">F.H. Brundle, 13 mm welded mesh</a></td></tr>
+        <tr><td data-h="Mesh">13 x 13 mm welded mesh, 19 g (1.0 mm), galvanised</td><td data-h="Opening">1/2 in x 1/2 in</td><td data-h="Gauge">19 (1.00 mm)</td><td data-h="Coating">galvanized</td><td data-h="Rolls listed">900 mm x 6 m; 900 mm x 30 m</td><td data-h="Check"><span class="cd-st st-check" style="display:inline-block"><span>Check</span></span></td><td data-h="Source"><a href="https://www.fhbrundle.co.uk/products/01026939B__Galvanised_Welded_Mesh_-_Mesh_Master" rel="noopener">F.H. Brundle, 13 mm welded mesh</a>, <a href="https://www.screwfix.com/p/apollo-13-x-13mm-galvanised-welded-mesh-0-9m-x-6m/53558" rel="noopener">Screwfix, 13 x 13 mm mesh</a></td></tr>
+        <tr><td data-h="Mesh">1/2 x 1 in (13 x 25 mm) welded mesh, 19 gauge, galvanized</td><td data-h="Opening">1/2 in x 1 in</td><td data-h="Gauge">19 (1.00 mm)</td><td data-h="Coating">galvanized</td><td data-h="Rolls listed">900 mm x 6 m</td><td data-h="Check"><span class="cd-st st-check" style="display:inline-block"><span>Check</span></span></td><td data-h="Source"><a href="https://www.fhbrundle.co.uk/products/01026939B__Galvanised_Welded_Mesh_-_Mesh_Master" rel="noopener">F.H. Brundle, 13 mm welded mesh</a>, <a href="https://www.screwfix.com/p/apollo-13-x-25mm-galvanised-welded-mesh-0-9-x-6m/76864" rel="noopener">Screwfix, 13 x 25 mm mesh</a></td></tr>
+        <tr><td data-h="Mesh">1 x 1 in (25 x 25 mm) welded mesh, galvanized or stainless</td><td data-h="Opening">1 in x 1 in</td><td data-h="Gauge">Not stated</td><td data-h="Coating">galvanized or stainless</td><td data-h="Rolls listed">Varies; enter yours</td><td data-h="Check"><span class="cd-st st-check" style="display:inline-block"><span>Check</span></span></td><td data-h="Source"><a href="https://spca.bc.ca/wp-content/uploads/DIY-Stand-Alone-Catio.pdf" rel="noopener">BC SPCA catio plan</a></td></tr>
+        <tr><td data-h="Mesh">2 x 3 in welded fence wire, 16 gauge, galvanized</td><td data-h="Opening">2 in x 3 in</td><td data-h="Gauge">16</td><td data-h="Coating">galvanized</td><td data-h="Rolls listed">Varies; enter yours</td><td data-h="Check"><span class="cd-st st-fits" style="display:inline-block"><span>Fits</span></span></td><td data-h="Source"><a href="https://catiospaces.com/catios-cat-enclosures/free-tips/diy-catio-materials-how-to-pick-the-right-cat-enclosure-mesh-for-your-catio/" rel="noopener">Catio Spaces, choosing mesh</a>, <a href="https://catiospaces.com/catios-cat-enclosures/free-tips/are-catios-coyote-safe/" rel="noopener">Catio Spaces, predators</a></td></tr>
+        <tr><td data-h="Mesh">1/4 in hardware cloth, 23 gauge, galvanized</td><td data-h="Opening">1/4 in x 1/4 in</td><td data-h="Gauge">23</td><td data-h="Coating">galvanized</td><td data-h="Rolls listed">900 mm x 6 m</td><td data-h="Check"><span class="cd-st st-fail" style="display:inline-block"><span>Fail</span></span></td><td data-h="Source"><a href="https://www.fhbrundle.co.uk/products/01026939B__Galvanised_Welded_Mesh_-_Mesh_Master" rel="noopener">F.H. Brundle, 13 mm welded mesh</a></td></tr>
+        <tr><td data-h="Mesh">2 x 3 in vinyl-coated welded wire, 16 gauge</td><td data-h="Opening">2 in x 3 in</td><td data-h="Gauge">16</td><td data-h="Coating">vinyl (PVC)</td><td data-h="Rolls listed">Varies; enter yours</td><td data-h="Check"><span class="cd-st st-check" style="display:inline-block"><span>Check</span></span></td><td data-h="Source"><a href="https://catiospaces.com/catios-cat-enclosures/free-tips/diy-catio-materials-how-to-pick-the-right-cat-enclosure-mesh-for-your-catio/" rel="noopener">Catio Spaces, choosing mesh</a></td></tr>
+        <tr><td data-h="Mesh">Chicken wire (poultry netting)</td><td data-h="Opening">Not a grid</td><td data-h="Gauge">Not stated</td><td data-h="Coating">galvanized</td><td data-h="Rolls listed">Varies; enter yours</td><td data-h="Check"><span class="cd-st st-fail" style="display:inline-block"><span>Fail</span></span></td><td data-h="Source"><a href="https://catiospaces.com/catios-cat-enclosures/free-tips/diy-catio-materials-how-to-pick-the-right-cat-enclosure-mesh-for-your-catio/" rel="noopener">Catio Spaces, choosing mesh</a>, <a href="https://catiospaces.com/catios-cat-enclosures/free-tips/are-catios-coyote-safe/" rel="noopener">Catio Spaces, predators</a></td></tr>
+        <tr><td data-h="Mesh">Window or porch screen (fiberglass or plastic)</td><td data-h="Opening">Not a grid</td><td data-h="Gauge">Not stated</td><td data-h="Coating">none</td><td data-h="Rolls listed">Varies; enter yours</td><td data-h="Check"><span class="cd-st st-fail" style="display:inline-block"><span>Fail</span></span></td><td data-h="Source"><a href="https://catiospaces.com/catios-cat-enclosures/free-tips/diy-catio-materials-how-to-pick-the-right-cat-enclosure-mesh-for-your-catio/" rel="noopener">Catio Spaces, choosing mesh</a>, <a href="https://catiospaces.com/catios-cat-enclosures/free-tips/are-catios-coyote-safe/" rel="noopener">Catio Spaces, predators</a></td></tr>
+      </tbody>
+    </table>
+
+    <h2>What the guides recommend</h2>
+    <ul>
+      <li><b>Opening:</b> no more than 2 x 3 in, the grid <a href="https://catiospaces.com/catios-cat-enclosures/free-tips/are-catios-coyote-safe/" rel="noopener">Catio Spaces, predators</a> uses for its catios. The BC SPCA plans use 1 x 1 in mesh, galvanized or stainless (<a href="https://spca.bc.ca/wp-content/uploads/DIY-Stand-Alone-Catio.pdf" rel="noopener">BC SPCA catio plan</a>). Smaller openings, such as 1/2 in hardware cloth, keep out more small animals and stop paws reaching through.</li>
+      <li><b>Gauge:</b> 16 gauge fencing wire, which <a href="https://catiospaces.com/catios-cat-enclosures/free-tips/are-catios-coyote-safe/" rel="noopener">Catio Spaces, predators</a> recommends against coyotes. 1/2 in hardware cloth is usually 19 gauge: lighter, and sold for pet runs (<a href="https://www.screwfix.com/p/apollo-13-x-13mm-galvanised-welded-mesh-0-9m-x-6m/53558" rel="noopener">Screwfix, 13 x 13 mm mesh</a>), so the tool marks it as one to check where coyotes, raccoons or dogs visit.</li>
+      <li><b>Coating:</b> galvanized steel. Vinyl-coated wire breaks down and splits over time, and a cat may chew it (<a href="https://catiospaces.com/catios-cat-enclosures/free-tips/diy-catio-materials-how-to-pick-the-right-cat-enclosure-mesh-for-your-catio/" rel="noopener">Catio Spaces, choosing mesh</a>).</li>
+      <li><b>Not strong enough:</b> chicken wire, which is 19 to 22 gauge, can leave jagged edges and may rust; window and porch screen is easy for persistent cats and wildlife to get through (<a href="https://catiospaces.com/catios-cat-enclosures/free-tips/diy-catio-materials-how-to-pick-the-right-cat-enclosure-mesh-for-your-catio/" rel="noopener">Catio Spaces, choosing mesh</a>).</li>
+    </ul>
+
+    <h2>How many rolls you need</h2>
+    <p>The roll width decides how the walls are cut. The tool tries strips across and strips down each wall, keeps the shorter total, overlaps each strip on the last by 1 in, and packs the strips onto rolls. Here is the same window box (4 ft wide, 3 ft tall) and the same 8 x 4 ft lean-to on three roll sizes:</p>
+    <table class="cd-table ">
+      <caption>Mesh strips and rolls for two designs, by roll size, from Catio Designer.</caption>
+      <thead><tr><th scope="col">Roll</th><th scope="col">Window box, 4 x 2 x 3 ft</th><th scope="col">Lean-to, 8 x 4 ft, 7 ft at the wall</th></tr></thead>
+      <tbody>
+        <tr><td data-h="Roll">24 in x 100 ft</td><td data-h="Window box, 4 x 2 x 3 ft">5 strips, 13 ft 7 1/2 in, 1 roll</td><td data-h="Lean-to, 8 x 4 ft, 7 ft at the wall">19 strips, 61 ft 6 in, 1 roll</td></tr>
+        <tr><td data-h="Roll">36 in x 50 ft</td><td data-h="Window box, 4 x 2 x 3 ft">3 strips, 8 ft, 1 roll</td><td data-h="Lean-to, 8 x 4 ft, 7 ft at the wall">12 strips, 40 ft, 1 roll</td></tr>
+        <tr><td data-h="Roll">48 in x 50 ft</td><td data-h="Window box, 4 x 2 x 3 ft">3 strips, 6 ft 7 1/2 in, 1 roll</td><td data-h="Lean-to, 8 x 4 ft, 7 ft at the wall">8 strips, 29 ft 9 in, 1 roll</td></tr>
+      </tbody>
+    </table>
+    <p>A 36 in roll covers a 3 ft wall in one strip, which is why 36 in rolls suit window boxes. <a href="/catio-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoid2luZG93IiwidW5pdHMiOiJpbXBlcmlhbCIsIm5hbWUiOiJTYW1wbGUgd2luZG93IGJveCIsInJvbGwiOnsidyI6OTE0LjQsImwiOjE1MjQwfSwic2hhZGUiOjEsImxhdCI6NDAuNywiY2l0eSI6Ik5ldyBZb3JrLCBOWSIsInNhbXBsZSI6dHJ1ZX0">Open the window box</a> and change the roll to see the count change.</p>
+
+    <h2>Fixing the mesh</h2>
+    <p>Staple the mesh to the outside of each wall frame, with staples 1/2 in or longer, and cut off any extra with wire snips so nothing sharp is left (<a href="https://spca.bc.ca/wp-content/uploads/DIY-Stand-Alone-Catio.pdf" rel="noopener">BC SPCA catio plan</a>). The tool's shopping list counts a staple about every 3 in along the frame, a washer-head screw about every 12 in round the edge of each piece, and hog rings or stainless zip ties along overlaps that fall between members. Where coyotes visit, lay mesh under the base frame or build on pavers so nothing digs in (<a href="https://catiospaces.com/catios-cat-enclosures/free-tips/are-catios-coyote-safe/" rel="noopener">Catio Spaces, predators</a>).</p>
+
+  </article>
+
+  <section class="cd-sec cd-article" aria-labelledby="faq-h">
+    <h2 id="faq-h">Questions</h2>
+    <div class="cd-faq">
+      <details><summary>What size mesh for a catio?</summary><div class="answer"><p>No larger than 2 x 3 in openings (Catio Spaces); the BC SPCA plans use 1 x 1 in. 1/2 in hardware cloth also keeps paws from reaching through and small wildlife out.</p></div></details>
+      <details><summary>Is chicken wire safe for a catio?</summary><div class="answer"><p>No. Chicken wire is 19 to 22 gauge, is not very strong, can leave jagged edges when cut and may rust. Use galvanized welded wire or hardware cloth instead.</p></div></details>
+      <details><summary>What gauge wire for a catio?</summary><div class="answer"><p>16 gauge or heavier is what Catio Spaces recommends against coyotes. 19 gauge hardware cloth is lighter and is sold for pet runs; where coyotes, raccoons or dogs visit, choose the heavier wire.</p></div></details>
+    </div>
+  </section>
+
+  <section class="cd-sec" aria-labelledby="more-h">
+    <h2 id="more-h">More before you build</h2>
+    <ul class="cd-guides">
+      <li><a href="/catio-designer/"><b>Catio Designer</b><span>Design your own catio in 3D, with the checks and the shopping list.</span></a></li>
+      <li><a href="/catio-designer/how-big-should-a-catio-be/"><b>How big should a catio be?</b><span>The published figures, with sources, and your space sized.</span></a></li>
+      <li><a href="/catio-designer/catio-cost/"><b>What a catio costs to build</b><span>A dated bill of materials for three sizes, with your prices.</span></a></li>
+      <li><a href="/catio-designer/window-catio-plans/"><b>Window catio plans, free</b><span>Window boxes drawn for windows 24 to 48 in wide.</span></a></li>
+      <li><a href="/catio-designer/balcony-catio/"><b>A balcony catio with no drilling</b><span>Tension posts and freestanding frames for renters.</span></a></li>
+    </ul>
+  </section>
+
+  <nav class="home-block" aria-labelledby="home-title">
+  <p class="home-title" id="home-title">Home project tools</p>
+  <ul class="home-list">
+    <li><a href="/without-planning/" style="--tool:#1f48c7"><strong>Without Planning</strong><span>Check a home extension, garden room or heat pump in 3D against England’s permitted development rules and Ireland’s 2026 exemptions.</span></a></li>
+    <li><a href="/dropped-kerb/" style="--tool:#0b6f80"><strong>Dropped Kerb Check</strong><span>Check a driveway in 3D against your council’s dropped kerb rules, with the planning answer and the fees, before you pay to apply.</span></a></li>
+    <li><a href="/catio-designer/" style="--tool:#b0501a" aria-current="page"><strong>Catio Designer</strong><span>Design a catio for your window, wall or balcony in 3D, with the mesh and shelf checks and every board and roll of mesh to buy.</span></a></li>
+  </ul>
+</nav>
+
+
+  <section class="cd-sec cd-sources" aria-labelledby="src-h">
+    <h2 id="src-h">Sources</h2>
+    <ol>
+      <li><a href="https://catiospaces.com/catios-cat-enclosures/free-tips/diy-catio-materials-how-to-pick-the-right-cat-enclosure-mesh-for-your-catio/" rel="noopener">Catio Spaces: How to Pick the Right Cat Enclosure Mesh for Your Catio</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://catiospaces.com/catios-cat-enclosures/free-tips/are-catios-coyote-safe/" rel="noopener">Catio Spaces: Are Catios Coyote-Safe?</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://spca.bc.ca/wp-content/uploads/DIY-Stand-Alone-Catio.pdf" rel="noopener">BC SPCA: DIY Stand Alone Catio (PDF plan)</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://www.screwfix.com/p/apollo-13-x-13mm-galvanised-welded-mesh-0-9m-x-6m/53558" rel="noopener">Screwfix: Apollo 13 x 13mm Galvanised Welded Mesh 0.9m x 6m, &quot;ideal for the construction of pet runs and cages&quot;</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://www.screwfix.com/p/apollo-13-x-25mm-galvanised-welded-mesh-0-9-x-6m/76864" rel="noopener">Screwfix: Apollo 13 x 25mm Galvanised Welded Mesh 0.9m x 6m</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://www.newegg.com/p/2AC-00N9-01G12" rel="noopener">Newegg: Hardware Cloth, 1/2 inch, 36in x 50 ft, 19 Gauge, Hot Dipped Galvanized (also 24in x 100 ft); mesh size 0.5 x 0.5 in (12.7 x 12.7 mm)</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://www.fhbrundle.co.uk/products/01026939B__Galvanised_Welded_Mesh_-_Mesh_Master" rel="noopener">F.H. Brundle: 6m Roll, 36&quot; x 1/2&quot; x 1/2&quot; x 19g Galvanised Welded Mesh; roll width 900 mm, mesh 13 x 13 mm, 19 g (1.00 mm); also 30 m rolls, 1/2&quot; x 1&quot; 19g and 1/4&quot; x 1/4&quot; 23g</a> <span>(read 12 October 2026)</span></li>
+    </ol>
+    <p class="cd-small">Guidance for a hobby build, not an engineering guarantee. Not affiliated with any of the makers or groups named here.</p>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools that each do one job well. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a>.<br>Write to <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
+        <li><a href="/name-cut-files/">Name Cut Files</a></li>
+        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
+        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
+        <li><a href="/quilt-label-maker/">Quilt Label Maker</a></li>
+        <li><a href="/etsy-tax-summary/">Etsy Tax Summary</a></li>
+        <li><a href="/menopause-adjustments/">Menopause Adjustments at Work</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Home project tools</h2>
+      <ul>
+        <li><a href="/without-planning/">Without Planning</a></li>
+        <li><a href="/dropped-kerb/">Dropped Kerb Check</a></li>
+        <li><a href="/catio-designer/">Catio Designer</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Pay equity tools</h2>
+      <ul>
+        <li><a href="/pay-gap-report/">Pay Gap Report</a></li>
+        <li><a href="/equality-action-plan/">Equality Action Plan</a></li>
+        <li><a href="/job-evaluation/">Job Evaluation</a></li>
+        <li><a href="/pay-transparency/">Pay Transparency Kit</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+</html>

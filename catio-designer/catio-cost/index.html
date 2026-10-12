@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How much does it cost to build a catio? Price your own</title>
+<meta name="description" content="What a catio costs to build: published price ranges with sources, and dated bills of materials for three sizes from the tool, ready for your own prices.">
+<link rel="canonical" href="https://peakappsstudio.com/catio-designer/catio-cost/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="How much does it cost to build a catio?">
+<meta property="og:description" content="What a catio costs to build: published price ranges with sources, and dated bills of materials for three sizes from the tool, ready for your own prices.">
+<meta property="og:url" content="https://peakappsstudio.com/catio-designer/catio-cost/">
+<meta property="og:image" content="https://peakappsstudio.com/catio-designer/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#eee8ff">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/catio-designer/fonts/gluten-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/catio-designer/fonts/familjen-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="/catio-designer/img/hero-cost-960.webp" imagesrcset="/catio-designer/img/hero-cost-480.webp 480w, /catio-designer/img/hero-cost-960.webp 960w, /catio-designer/img/hero-cost-1440.webp 1440w" imagesizes="(max-width: 860px) 100vw, 52vw" fetchpriority="high">
+<link rel="stylesheet" href="/assets/tools.css">
+<style data-from="/catio-designer/tool.css">
+/* Catio Designer: the tool's own identity, scoped to body.cd-page (the shared header and footer keep their structure).
+ * Taken from the subject: an evening sky over the garden (lilac page), plum ink, catnip green for what you press and
+ * for "fits", a marmalade cat for highlights and "check", a bluebird for links on white, cedar for wood only.
+ * Type: Gluten (bouncy, headings only) and Familjen Grotesk (everything read, tabular figures).
+ * Signature: a strip of welded mesh drawn in CSS, used once under the hero. */
+
+@font-face { font-family: "Gluten"; src: url("/catio-designer/fonts/gluten-latin.woff2") format("woff2"); font-weight: 700 800; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Gluten"; src: url("/catio-designer/fonts/gluten-latin-ext.woff2") format("woff2"); font-weight: 700 800; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Familjen Grotesk"; src: url("/catio-designer/fonts/familjen-grotesk-latin.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Familjen Grotesk"; src: url("/catio-designer/fonts/familjen-grotesk-latin-ext.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+/* fallbacks sized to the web fonts' average widths and heights (from _build/fonts.py), so the swap does not move the layout */
+@font-face { font-family: "Familjen Fallback"; src: local("Arial"), local("Helvetica Neue"), local("Helvetica"); size-adjust: 94.6%; ascent-override: 108.4%; descent-override: 23.8%; line-gap-override: 0%; }
+@font-face { font-family: "Gluten Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Helvetica Neue Bold"); font-weight: 700 800; size-adjust: 124.7%; ascent-override: 51.7%; descent-override: 19%; line-gap-override: 0%; }
+
+body.cd-page {
+  --lilac: #eee8ff; --lilac-2: #e2daf8; --paper: #ffffff; --paper-2: #f7f4ff;
+  --plum: #24123a; --plum-2: #5b4b73; --plum-3: #8b7ea3;
+  --catnip: #0e7a47; --catnip-ink: #ffffff; --catnip-2: #2bb673; --marmalade: #ff8a3d; --bird: #2e5bff; --cedar: #c98a4b; --fail: #c2253d; --fail-ink: #ffffff;
+  --paper: #ffffff; --card: var(--paper); --ink: var(--plum); --ink-2: var(--plum-2); --muted: var(--plum-2);
+  --line: rgba(36, 18, 58, .13); --line-2: rgba(36, 18, 58, .24);
+  --accent: var(--catnip); --accent-ink: var(--catnip-ink); --ok: var(--catnip); --warn: #9a4a12;
+  --sans: "Familjen Grotesk", "Familjen Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: var(--sans);
+  --display: "Gluten", "Gluten Fallback", sans-serif;
+  --r-panel: 18px; --r-field: 9px; --r-chip: 7px;
+  background: var(--lilac); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.55; font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.cd-page {
+    --lilac: #160d24; --lilac-2: #20142f; --paper: #221636; --paper-2: #2a1c41; --plum: #f1ebff; --plum-2: #c8bce0; --plum-3: #9a8db5;
+    --catnip: #3fcf8a; --catnip-ink: #06261a; --catnip-2: #3fcf8a; --bird: #93a9ff; --fail: #ff7a8c; --fail-ink: #2a0710; --warn: #ffb27a;
+    --card: var(--paper); --line: rgba(241, 235, 255, .13); --line-2: rgba(241, 235, 255, .26);
+  }
+}
+:root[data-theme="dark"] body.cd-page {
+  --lilac: #160d24; --lilac-2: #20142f; --paper: #221636; --paper-2: #2a1c41; --plum: #f1ebff; --plum-2: #c8bce0; --plum-3: #9a8db5;
+  --catnip: #3fcf8a; --catnip-ink: #06261a; --catnip-2: #3fcf8a; --bird: #93a9ff; --fail: #ff7a8c; --fail-ink: #2a0710; --warn: #ffb27a;
+  --card: var(--paper); --line: rgba(241, 235, 255, .13); --line-2: rgba(241, 235, 255, .26);
+}
+
+/* ---------- type ---------- */
+.cd-page h1, .cd-page h2, .cd-page h3 { font-family: var(--display); font-weight: 800; letter-spacing: -0.01em; line-height: 1.04; text-wrap: balance; color: var(--plum); }
+.cd-page h1 { font-size: clamp(38px, 5.4vw, 70px); margin: 0; max-width: 16ch; }
+.cd-page h2 { font-size: clamp(28px, 3.2vw, 42px); font-weight: 700; margin: 0 0 12px; }
+.cd-page h3 { font-size: 22px; font-weight: 700; margin: 0 0 6px; }
+.cd-page p { max-width: 68ch; }
+.cd-page .lede { font-size: clamp(18px, 1.55vw, 20px); color: var(--ink); margin: 0; }
+.cd-page a { color: var(--plum); text-decoration-color: var(--bird); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.cd-page a:hover { color: var(--bird); }
+.cd-page .cd-card a, .cd-page table a { color: var(--bird); text-decoration-thickness: 1px; }
+.cd-page :focus-visible { outline: 3px solid var(--bird); outline-offset: 2px; border-radius: 4px; }
+.cd-page ::selection { background: var(--bird); color: #fff; }
+.cd-page .btn { border-radius: var(--r-field); font-weight: 600; font-size: 16px; padding: 12px 18px; }
+.cd-page .btn-primary { background: var(--catnip); border-color: var(--catnip); color: var(--catnip-ink); }
+.cd-page .btn-primary:hover { background: color-mix(in oklab, var(--catnip) 86%, #000); border-color: color-mix(in oklab, var(--catnip) 86%, #000); color: var(--catnip-ink); }
+.cd-page .btn-ghost { background: transparent; }
+.cd-small { font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- hero ---------- */
+.cd-hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(18px, 4vw, 56px); align-items: end; padding: clamp(12px, 2.4vw, 28px) 0 clamp(14px, 2vw, 22px); }
+.cd-hero-side { display: grid; gap: 16px; }
+.cd-mesh-strip { height: 16px; margin: 0 0 18px; border-radius: 3px;
+  background-color: transparent;
+  background-image: linear-gradient(90deg, color-mix(in oklab, var(--plum) 30%, transparent) 1.5px, transparent 1.5px), linear-gradient(0deg, color-mix(in oklab, var(--plum) 30%, transparent) 1.5px, transparent 1.5px);
+  background-size: 8px 8px; background-position: 0 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+
+/* the four types, as line drawings */
+.cd-types { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; border: 0; padding: 0; margin: 0; }
+.cd-types legend { font-weight: 600; font-size: 15px; margin-bottom: 8px; padding: 0; }
+.cd-type { position: relative; display: grid; justify-items: center; gap: 4px; padding: 10px 6px 9px; border-radius: 12px; border: 1.5px solid var(--line-2); background: color-mix(in oklab, var(--paper) 55%, transparent); cursor: pointer; text-align: center; font-size: 14px; font-weight: 600; line-height: 1.2; color: var(--ink); }
+.cd-type input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.cd-type svg { width: 64px; height: 44px; color: var(--plum-2); }
+.cd-type:has(input:checked) { border-color: var(--plum); background: var(--paper); box-shadow: inset 0 -4px 0 var(--cedar); }
+.cd-type:has(input:checked) svg { color: var(--plum); }
+.cd-type:has(input:focus-visible) { outline: 3px solid var(--bird); outline-offset: 2px; }
+.cd-type .wood { color: var(--cedar); }
+@media (max-width: 900px) { .cd-hero { grid-template-columns: 1fr; align-items: start; } }
+@media (max-width: 460px) { .cd-types { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------- the bench: the 3D view beside the form ---------- */
+.cd-bench { display: grid; grid-template-columns: minmax(0, 1fr) minmax(330px, 410px); background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-panel); overflow: clip; }
+.cd-stage { border-right: 1px solid var(--line); min-width: 0; }
+.cd-sticky { position: sticky; top: 0; }
+.cd-view { position: relative; aspect-ratio: 16 / 10; background: linear-gradient(180deg, #cbbff0, #f2d9e2 62%, #ffd2ad); overflow: hidden; }
+.cd-view img, .cd-view canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; }
+.cd-view canvas { touch-action: none; cursor: grab; }
+.cd-view canvas:active { cursor: grabbing; }
+.cd-badge { position: absolute; left: 12px; top: 12px; background: var(--plum); color: #fff; font-weight: 700; font-size: 13.5px; padding: 4px 10px; border-radius: var(--r-chip); }
+.cd-gl-note { position: absolute; left: 12px; right: 12px; bottom: 60px; margin: 0; background: var(--paper); color: var(--ink); padding: 8px 12px; border-radius: var(--r-field); font-size: 14.5px; }
+.cd-start { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); display: inline-flex; gap: 8px; align-items: center; background: var(--plum); color: #fff; border: 0; border-radius: 999px; padding: 11px 18px; font: inherit; font-weight: 600; font-size: 15.5px; cursor: pointer; box-shadow: 0 6px 18px rgba(36, 18, 58, .28); }
+.cd-start svg { width: 18px; height: 18px; }
+.cd-start[disabled] { opacity: .8; cursor: progress; }
+.cd-tags { position: absolute; inset: 0; pointer-events: none; }
+.cd-tag { position: absolute; left: 0; top: 0; white-space: nowrap; font-size: 13.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: rgba(255, 255, 255, .94); color: #24123a; box-shadow: 0 1px 0 rgba(36, 18, 58, .25); }
+.cd-tag-fail { background: #c2253d; color: #fff; }
+.cd-tag-check { background: #ff8a3d; color: #24123a; }
+.cd-tag-fits { background: #2bb673; color: #24123a; }
+.cd-toolbar { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; padding: 10px 14px; border-top: 1px solid var(--line); background: var(--paper-2); }
+.cd-seg { display: inline-flex; border: 1px solid var(--line-2); border-radius: var(--r-field); overflow: hidden; }
+.cd-seg button { font: inherit; font-size: 14.5px; font-weight: 600; padding: 7px 11px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+.cd-seg button + button { border-left: 1px solid var(--line-2); }
+.cd-seg button[aria-pressed="true"] { background: var(--plum); color: var(--paper); }
+.cd-sun { display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 600; }
+.cd-sun input[type="range"] { width: 130px; accent-color: var(--marmalade); }
+.cd-sun output { min-width: 3.2em; font-variant-numeric: tabular-nums; }
+.cd-catbtn { font: inherit; font-size: 14.5px; font-weight: 600; padding: 7px 12px; border-radius: var(--r-field); border: 1.5px solid var(--marmalade); background: transparent; color: var(--ink); cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.cd-catbtn svg { width: 18px; height: 18px; color: var(--marmalade); }
+.cd-toolbar[hidden] { display: none; }
+
+/* the title block under the view: what this design is, and how its checks came out */
+.cd-title { padding: 14px 16px 16px; display: grid; gap: 10px; }
+.cd-title h2 { font-size: clamp(24px, 2.4vw, 30px); margin: 0; }
+.cd-title p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
+.cd-counts { display: flex; flex-wrap: wrap; gap: 8px; }
+.cd-count { display: inline-flex; color: var(--ink); gap: 6px; align-items: baseline; padding: 4px 10px; border-radius: var(--r-chip); font-size: 14.5px; font-weight: 600; border: 1px solid var(--line-2); }
+.cd-count b { font-size: 18px; }
+.cd-count.ct-fits { background: color-mix(in oklab, var(--catnip-2) 26%, var(--paper)); }
+.cd-count.ct-check { background: color-mix(in oklab, var(--marmalade) 26%, var(--paper)); }
+.cd-count.ct-fail { background: color-mix(in oklab, var(--fail) 18%, var(--paper)); }
+.cd-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13.5px; color: var(--ink-2); }
+
+/* ---------- the form ---------- */
+.cd-form { padding: 6px 16px 18px; display: grid; gap: 4px; align-content: start; }
+.cd-step { border: 0; padding: 12px 0 14px; margin: 0; border-bottom: 1px solid var(--line); }
+.cd-step:last-child { border-bottom: 0; }
+.cd-step > legend { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 21px; padding: 0; margin: 0 0 10px; color: var(--plum); }
+.cd-step-n { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--cedar); color: #24123a; font-family: var(--sans); font-size: 15px; font-weight: 700; }
+.cd-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 12px; }
+.cd-field { display: grid; gap: 4px; align-content: start; font-size: 14.5px; font-weight: 600; min-width: 0; }
+.cd-field.wide { grid-column: 1 / -1; }
+.cd-field small { font-weight: 400; color: var(--ink-2); font-size: 13.5px; line-height: 1.35; }
+.cd-in { position: relative; display: flex; align-items: center; }
+.cd-in input { padding-right: 38px; }
+.cd-in i { position: absolute; right: 10px; font-style: normal; font-weight: 500; font-size: 14px; color: var(--ink-2); pointer-events: none; }
+.cd-form input[type="number"], .cd-form input[type="text"], .cd-form input[type="search"], .cd-form select, .cd-shop input {
+  width: 100%; min-width: 0; font: inherit; font-size: 16px; font-weight: 500; padding: 9px 10px; border: 1px solid var(--line-2); border-radius: var(--r-field); background: var(--paper); color: var(--ink); }
+.cd-form input:focus, .cd-form select:focus, .cd-shop input:focus { outline: none; border-color: var(--bird); box-shadow: 0 0 0 3px color-mix(in oklab, var(--bird) 22%, transparent); }
+.cd-row { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
+.cd-check { display: flex; gap: 8px; align-items: flex-start; font-size: 14.5px; font-weight: 500; }
+.cd-check input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--catnip); flex: none; }
+.cd-units { display: inline-flex; }
+.cd-note { font-size: 13.5px; color: var(--ink-2); margin: 6px 0 0; }
+.cd-pro-tag { display: inline-block; font-size: 12.5px; font-weight: 700; padding: 1px 7px; border-radius: 5px; background: var(--plum); color: var(--paper); margin-left: 6px; vertical-align: 1px; }
+[data-show][hidden] { display: none !important; }
+@media (max-width: 960px) { .cd-bench { grid-template-columns: 1fr; } .cd-stage { border-right: 0; border-bottom: 1px solid var(--line); } .cd-sticky { position: static; } }
+
+/* ---------- actions ---------- */
+.cd-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 16px 0 6px; }
+.cd-actions .hint { font-size: 14px; color: var(--ink-2); }
+.cd-sample-note { margin: 0 0 10px; font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- sections, tables ---------- */
+.cd-sec { margin: clamp(30px, 5vw, 56px) 0 0; }
+.cd-sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 20px; margin-bottom: 10px; }
+.cd-sec-head p { margin: 0; color: var(--ink-2); font-size: 14.5px; }
+.cd-card { background: var(--paper); border: 1px solid var(--line-2); border-radius: 14px; }
+.cd-table { width: 100%; border-collapse: collapse; background: var(--paper); border: 1px solid var(--line-2); border-radius: 14px; overflow: hidden; font-size: 15.5px; }
+.cd-table caption { caption-side: top; text-align: left; padding: 0 0 8px; color: var(--ink-2); font-size: 14.5px; }
+.cd-table th, .cd-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.cd-table thead th { font-size: 13.5px; font-weight: 700; color: var(--ink-2); background: var(--paper-2); }
+.cd-table tbody tr:last-child td { border-bottom: 0; }
+.cd-table .num { text-align: right; white-space: nowrap; }
+.cd-group td { background: var(--paper-2); font-weight: 700; font-size: 14px; color: var(--ink-2); }
+.cd-st { white-space: nowrap; font-weight: 700; font-size: 14px; }
+.cd-st span { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: var(--r-chip); }
+.cd-st svg { width: 13px; height: 13px; }
+.st-fits span { background: var(--catnip-2); color: #24123a; }
+.st-check span { background: var(--marmalade); color: #24123a; }
+.st-fail span { background: var(--fail); color: var(--fail-ink); }
+.st-info span { background: var(--lilac-2); color: var(--ink); }
+.cd-why { color: var(--ink-2); font-size: 14.5px; }
+.cd-src { font-size: 13.5px; color: var(--ink-2); }
+.cd-src a { white-space: normal; }
+.cd-shop input { max-width: 110px; text-align: right; padding: 6px 8px; font-size: 15px; }
+.cd-total td { font-weight: 700; background: var(--paper-2); }
+@media (max-width: 760px) {
+  .cd-table, .cd-table tbody, .cd-table tr, .cd-table td, .cd-table caption { display: block; width: 100%; }
+  .cd-table thead { display: none; }
+  .cd-table caption { padding: 10px 12px 8px; }
+  .cd-table tr { border-bottom: 1px solid var(--line); padding: 8px 0; }
+  .cd-table td { border: 0; padding: 4px 12px; }
+  .cd-table td[data-h]::before { content: attr(data-h); display: block; font-size: 12.5px; font-weight: 700; color: var(--ink-2); }
+  .cd-table .num { text-align: left; }
+  .cd-shop input { max-width: 100%; text-align: left; }
+}
+
+/* ---------- Pro ---------- */
+.cd-pro { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr); gap: 0; background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-panel); overflow: clip; }
+.cd-pro-l { padding: clamp(18px, 2.6vw, 30px); display: grid; gap: 14px; align-content: start; }
+.cd-pro-r { padding: clamp(18px, 2.6vw, 30px); background: var(--plum); color: #f4efff; display: grid; gap: 12px; align-content: start; }
+.cd-pro-r p { color: #e7defa; margin: 0; font-size: 14.5px; }
+.cd-pro-r .btn-ghost { color: #fff; border-color: rgba(255, 255, 255, .5); }
+.cd-pro-r .cd-price { font-family: var(--display); font-size: 44px; font-weight: 800; color: #fff; margin: 0; line-height: 1; }
+.cd-price small { font-family: var(--sans); font-size: 15px; font-weight: 500; color: #e7defa; }
+.cd-locked { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.cd-locked li { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 10px; align-items: start; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.cd-locked svg { width: 16px; height: 16px; margin-top: 3px; color: var(--plum-2); }
+.cd-locked b { display: block; font-weight: 700; }
+.cd-locked span { display: block; color: var(--ink-2); font-size: 14.5px; }
+.cd-locked em { font-style: normal; font-size: 12.5px; font-weight: 700; padding: 2px 8px; border-radius: 5px; background: var(--lilac-2); color: var(--ink); }
+.cd-locked li.is-open em { background: var(--catnip-2); color: #24123a; }
+.cd-pro-out { margin: 0; }
+.cd-pro-out img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid var(--line-2); background: #fff; }
+.cd-pro-out figcaption { font-size: 13.5px; color: var(--ink-2); margin-top: 6px; }
+.cd-pro-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.cd-addons { border: 1px solid var(--line-2); border-radius: 12px; padding: 12px 14px; display: grid; gap: 8px; margin: 0; }
+.cd-addons legend { font-weight: 700; padding: 0 4px; }
+.cd-addons[disabled] { opacity: .62; }
+.cd-saved { display: grid; gap: 8px; }
+.cd-saved ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.cd-saved li { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; font-size: 14.5px; }
+.cd-saved li button { font: inherit; font-size: 13.5px; padding: 4px 9px; border-radius: 6px; border: 1px solid var(--line-2); background: var(--paper); color: var(--ink); cursor: pointer; }
+.cd-pro-work { display: grid; gap: 14px; }
+.cd-pro-work[hidden] { display: none; }
+.cd-diagram { width: 100%; height: auto; display: block; background: var(--paper); }
+.cd-board { margin: 0 0 6px; }
+.cd-board figcaption { font-size: 13.5px; color: var(--ink-2); }
+@media (max-width: 860px) { .cd-pro { grid-template-columns: 1fr; } }
+
+/* ---------- guides, FAQ, sources ---------- */
+.cd-guides { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0; border-top: 2px solid var(--plum); }
+.cd-guides li { border-bottom: 1px solid var(--line-2); }
+.cd-guides a { display: grid; gap: 2px; padding: 14px 12px 14px 0; text-decoration: none; color: var(--ink); }
+.cd-guides b { font-family: var(--display); font-weight: 700; font-size: 20px; line-height: 1.15; }
+.cd-guides span { color: var(--ink-2); font-size: 14.5px; }
+.cd-guides a:hover b { color: var(--catnip); }
+.cd-faq details { border-bottom: 1px solid var(--line-2); padding: 12px 0; }
+.cd-faq summary { cursor: pointer; font-weight: 700; font-size: 17.5px; }
+.cd-faq .answer p { margin: 8px 0 0; }
+.cd-aus { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px 40px; align-items: start; }
+.cd-aus ul { margin: 0; padding-left: 20px; }
+@media (max-width: 760px) { .cd-aus { grid-template-columns: 1fr; } }
+.cd-sources { font-size: 14.5px; }
+.cd-sources ol { margin: 0; padding-left: 22px; display: grid; gap: 4px; }
+.cd-sources li span { color: var(--ink-2); }
+
+/* ---------- guide pages ---------- */
+.cd-article { max-width: 760px; }
+.cd-article h2 { margin-top: 34px; }
+.cd-figure { margin: 18px 0; }
+.cd-figure img { width: 100%; height: auto; display: block; border-radius: 14px; border: 1px solid var(--line-2); }
+.cd-figure figcaption { font-size: 14px; color: var(--ink-2); margin-top: 6px; }
+.cd-callout { background: var(--paper); border: 1px solid var(--line-2); border-left: 5px solid var(--cedar); border-radius: 12px; padding: 14px 16px; margin: 16px 0; }
+.cd-callout p { margin: 0; }
+.cd-open { display: inline-flex; margin-top: 8px; }
+.cd-guide-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(18px, 4vw, 48px); align-items: center; padding: clamp(10px, 2vw, 22px) 0 6px; }
+.cd-guide-hero img { width: 100%; height: auto; display: block; border-radius: 16px; border: 1px solid var(--line-2); aspect-ratio: 16 / 10; object-fit: cover; }
+@media (max-width: 860px) { .cd-guide-hero { grid-template-columns: 1fr; } }
+
+/* ---------- print: the shopping list only ---------- */
+@media print {
+  body.cd-print-shop .site-head, body.cd-print-shop .site-foot, body.cd-print-shop main > *:not(#shop), body.cd-print-shop .skip { display: none !important; }
+  body.cd-print-shop #shop { margin: 0; }
+  body.cd-print-shop .cd-shop input { border: 0; padding: 0; }
+  body.cd-page { background: #fff; }
+}
+@media (prefers-reduced-motion: reduce) { .cd-page * { scroll-behavior: auto !important; transition: none !important; } }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","@id":"https://peakappsstudio.com/catio-designer/#app","name":"Catio Designer","url":"https://peakappsstudio.com/catio-designer/","applicationCategory":"DesignApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Pro (one-time)","price":"19","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/catio-designer-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Catio Designer","item":"https://peakappsstudio.com/catio-designer/"},{"@type":"ListItem","position":3,"name":"Catio cost","item":"https://peakappsstudio.com/catio-designer/catio-cost/"}]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"How much does it cost to build a catio?","acceptedAnswer":{"@type":"Answer","text":"Published figures run from under $100 (Humane World for Animals) to $350 to $1,100 in materials for most DIY cat runs (Catnets, Australia). Price your own: the tool lists every board, roll and screw for your size, and you type your store's prices."}},
+  {"@type":"Question","name":"How much does a builder charge for a catio?","acceptedAnswer":{"@type":"Answer","text":"A builder interviewed by WVLT in February 2026 prices a traditional 6 by 8 ft catio at about $4,000, and some custom catios go over $15,000."}}
+ ]}
+]}
+</script>
+</head>
+<body class="cd-page" style="--accent:#0e7a47">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a href="/tumbler-template/" class="hide-sm">Tumbler templates</a>
+      <a href="/name-cut-files/" class="hide-sm">Name cut files</a>
+      <a href="/kdp-coloring-book/" class="hide-sm">KDP coloring books</a>
+      <a href="/sewing-pattern-printer/" class="hide-sm">Sewing pattern printer</a>
+      <a href="/quilt-label-maker/" class="hide-sm">Quilt labels</a>
+      <a href="/etsy-tax-summary/" class="hide-sm">Etsy tax summary</a>
+      <a href="/pay-gap-report/" class="hide-sm">Pay gap report</a>
+      <a href="/equality-action-plan/" class="hide-sm">Equality action plan</a>
+      <a href="/job-evaluation/" class="hide-sm">Job evaluation</a>
+      <a href="/pay-transparency/" class="hide-sm">Pay transparency</a>
+      <a href="/menopause-adjustments/" class="hide-sm">Menopause adjustments</a>
+      <a href="/without-planning/" class="hide-sm">Without planning</a>
+      <a href="/dropped-kerb/" class="hide-sm">Dropped kerb</a>
+      <a href="/catio-designer/" aria-current="page">Catio designer</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/catio-designer/">Catio Designer</a></li><li aria-current="page">Catio cost</li></ol></nav>
+  <header class="cd-guide-hero">
+    <div>
+      <h1>How much does it cost to build a catio?</h1>
+      <p class="lede" style="margin-top:14px">A DIY catio costs what its boards, mesh, panels and screws cost where you live: published figures run from under $100 for a simple catio to thousands of dollars, and a builder quotes about $4,000 for a 6 by 8 ft catio. The lists below give the quantities for three sizes, and you type the prices.</p>
+      <a class="btn btn-primary cd-open" href="/catio-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoid2luZG93IiwidW5pdHMiOiJpbXBlcmlhbCIsIm5hbWUiOiJTYW1wbGUgd2luZG93IGJveCIsInJvbGwiOnsidyI6OTE0LjQsImwiOjE1MjQwfSwic2hhZGUiOjEsImxhdCI6NDAuNywiY2l0eSI6Ik5ldyBZb3JrLCBOWSIsInNhbXBsZSI6dHJ1ZX0">Price your own catio in the tool</a>
+    </div>
+    <img src="/catio-designer/img/hero-cost-960.webp" srcset="/catio-designer/img/hero-cost-480.webp 480w, /catio-designer/img/hero-cost-960.webp 960w, /catio-designer/img/hero-cost-1440.webp 1440w" sizes="(max-width: 860px) 100vw, 52vw" width="1440" height="900" fetchpriority="high" decoding="async" alt="A cedar lean-to catio in 3D against a house wall on a patio, with a walk-in door, shelves and clear roof panels, at golden hour.">
+  </header>
+  <div class="cd-mesh-strip" aria-hidden="true"></div>
+  <article class="cd-article">
+
+    <h2>What published guides say a catio costs</h2>
+    <table class="cd-table ">
+      <caption>Cost figures as each source gives them, read on 12 October 2026. None of them is a quote for your catio.</caption>
+      <thead><tr><th scope="col">Source</th><th scope="col">What it says</th></tr></thead>
+      <tbody>
+        <tr><td data-h="Source"><a href="https://www.humaneworld.org/catios" rel="noopener">Humane World for Animals, catios</a></td><td data-h="What it says">Prices can range from under $100 to thousands of dollars. Kits tend to cost more than building your own; a custom-built catio costs more again.</td></tr>
+        <tr><td data-h="Source"><a href="https://help.catnets.com.au/en-US/articles/cat-enclosure-faq-403157" rel="noopener">Catnets, enclosure FAQ</a></td><td data-h="What it says">An Australian maker, in the prices it gives: freestanding enclosures from about $369 to $799; most DIY cat runs between $350 and $1,100 in materials, and some large areas over $1,500.</td></tr>
+        <tr><td data-h="Source"><a href="https://www.wvlt.tv/2026/02/06/outdoor-catios-becoming-more-popular-nationwide-pet-spending-increases/" rel="noopener">WVLT, 6 February 2026</a></td><td data-h="What it says">A builder interviewed in February 2026 prices a traditional 6 by 8 ft catio at about $4,000, with some custom catios over $15,000.</td></tr>
+      </tbody>
+    </table>
+    <p>The spread is wide because the materials list changes with every catio. The useful number is your own: the boards, rolls and screws for your size, at your store's prices. That is what the tables below and the tool give you. We ship no prices, because they go out of date and differ from town to town.</p>
+
+    <h2>Three bills of materials, ready for your prices</h2>
+    <p>Each list below comes from the tool for a typical design. Type the unit prices from your store or its website and the total adds up on this page; nothing is saved or sent. To price a different size, open the design in the tool, change it, and type your prices into its shopping list.</p>
+    <h3>Window box, 4 x 2 x 3 ft</h3>
+    <p class="cd-small">9 boards of 2x2 at 8 ft, 1 roll of 1/2 in hardware cloth, 19 gauge, galvanized, 1 sheet of plywood, 1 roof panel. <a href="/catio-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoid2luZG93IiwidW5pdHMiOiJpbXBlcmlhbCIsIm5hbWUiOiJTYW1wbGUgd2luZG93IGJveCIsInJvbGwiOnsidyI6OTE0LjQsImwiOjE1MjQwfSwic2hhZGUiOjEsImxhdCI6NDAuNywiY2l0eSI6Ik5ldyBZb3JrLCBOWSIsInNhbXBsZSI6dHJ1ZX0">Open this design</a></p>
+    <table class="cd-table cd-shop" data-bom="0">
+      <caption>Bill of materials from Catio Designer, 12 October 2026. Type your store's prices to see the total.</caption>
+      <thead><tr><th scope="col">Item</th><th scope="col" class="num">Quantity</th><th scope="col" class="num">Your unit price</th><th scope="col" class="num">Cost</th></tr></thead>
+      <tbody>
+        <tr><td data-h="Item"><b>2x2 x 8 ft</b></td><td class="num" data-h="Quantity">9 boards</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="9" aria-label="Unit price for 2x2 x 8 ft"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>4 x 8 ft plywood, 3/4 in (sold as 23/32 in)</b></td><td class="num" data-h="Quantity">1 sheet</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="1" aria-label="Unit price for 4 x 8 ft plywood, 3/4 in (sold as 23/32 in)"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>1/2 in hardware cloth, 19 gauge, galvanized, roll 36 in x 50 ft</b></td><td class="num" data-h="Quantity">1 roll</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="1" aria-label="Unit price for 1/2 in hardware cloth, 19 gauge, galvanized, roll 36 in x 50 ft"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>Clear corrugated polycarbonate panels, 26 in x 8 ft</b></td><td class="num" data-h="Quantity">1 panel</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="1" aria-label="Unit price for Clear corrugated polycarbonate panels, 26 in x 8 ft"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>Roofing screws with sealing washers</b></td><td class="num" data-h="Quantity">20 screws</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="20" aria-label="Unit price for Roofing screws with sealing washers"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>Exterior wood screws, 3 in</b></td><td class="num" data-h="Quantity">132 screws</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="132" aria-label="Unit price for Exterior wood screws, 3 in"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>Structural screws or lag screws for the wall fixings</b></td><td class="num" data-h="Quantity">20 fixings</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="20" aria-label="Unit price for Structural screws or lag screws for the wall fixings"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>Exterior wood screws for the plywood, 1 1/4 in</b></td><td class="num" data-h="Quantity">41 screws</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="41" aria-label="Unit price for Exterior wood screws for the plywood, 1 1/4 in"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>Staples, 1/2 in or longer, for a heavy-duty stapler</b></td><td class="num" data-h="Quantity">139 staples</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="139" aria-label="Unit price for Staples, 1/2 in or longer, for a heavy-duty stapler"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>Washer-head screws or screws with fender washers, 1 1/4 in</b></td><td class="num" data-h="Quantity">33 screws</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="33" aria-label="Unit price for Washer-head screws or screws with fender washers, 1 1/4 in"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr class="cd-total"><td colspan="3">Total of the prices you entered</td><td class="num" data-total></td></tr>
+      </tbody>
+    </table>
+    <h3>Lean-to, 6 x 3 ft, 7 ft at the wall</h3>
+    <p class="cd-small">21 boards of 2x3 at 8 ft, 1 roll of 1/2 in hardware cloth, 19 gauge, galvanized, 1 sheet of plywood, 2 roof panels. <a href="/catio-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoibGVhbnRvIiwidW5pdHMiOiJpbXBlcmlhbCIsIm5hbWUiOiJMZWFuLXRvIGV4YW1wbGUiLCJ3IjoxODI4LjgsImQiOjkxNC40LCJoMiI6MTg3OS42LCJsYXQiOjQwLjd9">Open this design</a></p>
+    <table class="cd-table cd-shop" data-bom="1">
+      <caption>Bill of materials from Catio Designer, 12 October 2026. Type your store's prices to see the total.</caption>
+      <thead><tr><th scope="col">Item</th><th scope="col" class="num">Quantity</th><th scope="col" class="num">Your unit price</th><th scope="col" class="num">Cost</th></tr></thead>
+      <tbody>
+        <tr><td data-h="Item"><b>2x3 x 8 ft</b></td><td class="num" data-h="Quantity">21 boards</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="21" aria-label="Unit price for 2x3 x 8 ft"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>4 x 8 ft plywood, 3/4 in (sold as 23/32 in)</b></td><td class="num" data-h="Quantity">1 sheet</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="1" aria-label="Unit price for 4 x 8 ft plywood, 3/4 in (sold as 23/32 in)"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>1/2 in hardware cloth, 19 gauge, galvanized, roll 24 in x 100 ft</b></td><td class="num" data-h="Quantity">1 roll</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="1" aria-label="Unit price for 1/2 in hardware cloth, 19 gauge, galvanized, roll 24 in x 100 ft"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>Clear corrugated polycarbonate panels, 26 in x 8 ft</b></td><td class="num" data-h="Quantity">2 panels</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="2" aria-label="Unit price for Clear corrugated polycarbonate panels, 26 in x 8 ft"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>Roofing screws with sealing washers</b></td><td class="num" data-h="Quantity">45 screws</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="45" aria-label="Unit price for Roofing screws with sealing washers"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>Exterior wood screws, 3 in</b></td><td class="num" data-h="Quantity">159 screws</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="159" aria-label="Unit price for Exterior wood screws, 3 in"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>Structural screws or lag screws for the wall fixings</b></td><td class="num" data-h="Quantity">22 fixings</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="22" aria-label="Unit price for Structural screws or lag screws for the wall fixings"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>Exterior wood screws for the plywood, 1 1/4 in</b></td><td class="num" data-h="Quantity">36 screws</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="36" aria-label="Unit price for Exterior wood screws for the plywood, 1 1/4 in"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>Staples, 1/2 in or longer, for a heavy-duty stapler</b></td><td class="num" data-h="Quantity">432 staples</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="432" aria-label="Unit price for Staples, 1/2 in or longer, for a heavy-duty stapler"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>Washer-head screws or screws with fender washers, 1 1/4 in</b></td><td class="num" data-h="Quantity">88 screws</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="88" aria-label="Unit price for Washer-head screws or screws with fender washers, 1 1/4 in"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>Hog rings or stainless zip ties for overlaps between members</b></td><td class="num" data-h="Quantity">47 ties</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="47" aria-label="Unit price for Hog rings or stainless zip ties for overlaps between members"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>Exterior door hinges</b></td><td class="num" data-h="Quantity">3 hinges</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="3" aria-label="Unit price for Exterior door hinges"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>Door latch with a safety cord or clip</b></td><td class="num" data-h="Quantity">1 latch</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="1" aria-label="Unit price for Door latch with a safety cord or clip"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr class="cd-total"><td colspan="3">Total of the prices you entered</td><td class="num" data-total></td></tr>
+      </tbody>
+    </table>
+    <h3>Freestanding, 8 x 6 ft, 6 ft 8 in tall</h3>
+    <p class="cd-small">35 boards of 2x3 at 8 ft, 2 rolls of 1/2 in hardware cloth, 19 gauge, galvanized, 1 sheet of plywood. <a href="/catio-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoiZnJlZSIsInVuaXRzIjoiaW1wZXJpYWwiLCJuYW1lIjoiRnJlZXN0YW5kaW5nIGV4YW1wbGUiLCJjYXRzIjoyLCJsYXQiOjQwLjd9">Open this design</a></p>
+    <table class="cd-table cd-shop" data-bom="2">
+      <caption>Bill of materials from Catio Designer, 12 October 2026. Type your store's prices to see the total.</caption>
+      <thead><tr><th scope="col">Item</th><th scope="col" class="num">Quantity</th><th scope="col" class="num">Your unit price</th><th scope="col" class="num">Cost</th></tr></thead>
+      <tbody>
+        <tr><td data-h="Item"><b>2x3 x 8 ft</b></td><td class="num" data-h="Quantity">35 boards</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="35" aria-label="Unit price for 2x3 x 8 ft"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>4 x 8 ft plywood, 3/4 in (sold as 23/32 in)</b></td><td class="num" data-h="Quantity">1 sheet</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="1" aria-label="Unit price for 4 x 8 ft plywood, 3/4 in (sold as 23/32 in)"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>1/2 in hardware cloth, 19 gauge, galvanized, roll 24 in x 100 ft</b></td><td class="num" data-h="Quantity">2 rolls</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="2" aria-label="Unit price for 1/2 in hardware cloth, 19 gauge, galvanized, roll 24 in x 100 ft"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>Exterior wood screws, 3 in</b></td><td class="num" data-h="Quantity">221 screws</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="221" aria-label="Unit price for Exterior wood screws, 3 in"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>Exterior wood screws for the plywood, 1 1/4 in</b></td><td class="num" data-h="Quantity">36 screws</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="36" aria-label="Unit price for Exterior wood screws for the plywood, 1 1/4 in"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>Staples, 1/2 in or longer, for a heavy-duty stapler</b></td><td class="num" data-h="Quantity">1030 staples</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="1030" aria-label="Unit price for Staples, 1/2 in or longer, for a heavy-duty stapler"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>Washer-head screws or screws with fender washers, 1 1/4 in</b></td><td class="num" data-h="Quantity">186 screws</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="186" aria-label="Unit price for Washer-head screws or screws with fender washers, 1 1/4 in"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>Hog rings or stainless zip ties for overlaps between members</b></td><td class="num" data-h="Quantity">260 ties</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="260" aria-label="Unit price for Hog rings or stainless zip ties for overlaps between members"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>Exterior door hinges</b></td><td class="num" data-h="Quantity">3 hinges</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="3" aria-label="Unit price for Exterior door hinges"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item"><b>Door latch with a safety cord or clip</b></td><td class="num" data-h="Quantity">1 latch</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-qty="1" aria-label="Unit price for Door latch with a safety cord or clip"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr class="cd-total"><td colspan="3">Total of the prices you entered</td><td class="num" data-total></td></tr>
+      </tbody>
+    </table>
+
+    <h2>What moves the total</h2>
+    <ul>
+      <li><b>The lumber.</b> Cedar costs more than pine but resists rot; whichever you choose, keep pressure-treated wood away from anything the cat can rub or chew (<a href="https://www.epa.gov/ingredients-used-pesticide-products/overview-wood-preservative-chemicals" rel="noopener">US EPA, wood preservatives</a>). A heavier section (2x4 against 2x3) adds wood without adding much strength a catio needs.</li>
+      <li><b>The mesh.</b> Heavier wire costs more per roll. The roll width decides how many strips you cut: the tool picks the cheaper direction for each wall and counts the rolls.</li>
+      <li><b>The roof.</b> Mesh is the cheapest top; corrugated panels add the panels, the roofing screws with sealing washers and a slope of at least 5 degrees (<a href="https://www.palram.com/au/wp-content/uploads/sites/3/2019/07/SUNTUFF_Roofing_Installation_Guide-.pdf" rel="noopener">Palram, corrugated sheet guide</a>).</li>
+      <li><b>The door.</b> A walk-in door adds the leaf, a brace, three hinges and a latch.</li>
+      <li><b>Waste.</b> The sample window box uses 9 boards with 12% of the wood left over. Pro packs every cut onto the boards to waste least and draws each board's cutting diagram.</li>
+    </ul>
+
+  </article>
+
+  <section class="cd-sec cd-article" aria-labelledby="faq-h">
+    <h2 id="faq-h">Questions</h2>
+    <div class="cd-faq">
+      <details><summary>How much does it cost to build a catio?</summary><div class="answer"><p>Published figures run from under $100 (Humane World for Animals) to $350 to $1,100 in materials for most DIY cat runs (Catnets, Australia). Price your own: the tool lists every board, roll and screw for your size, and you type your store's prices.</p></div></details>
+      <details><summary>How much does a builder charge for a catio?</summary><div class="answer"><p>A builder interviewed by WVLT in February 2026 prices a traditional 6 by 8 ft catio at about $4,000, and some custom catios go over $15,000.</p></div></details>
+    </div>
+  </section>
+
+  <section class="cd-sec" aria-labelledby="more-h">
+    <h2 id="more-h">More before you build</h2>
+    <ul class="cd-guides">
+      <li><a href="/catio-designer/"><b>Catio Designer</b><span>Design your own catio in 3D, with the checks and the shopping list.</span></a></li>
+      <li><a href="/catio-designer/how-big-should-a-catio-be/"><b>How big should a catio be?</b><span>The published figures, with sources, and your space sized.</span></a></li>
+      <li><a href="/catio-designer/window-catio-plans/"><b>Window catio plans, free</b><span>Window boxes drawn for windows 24 to 48 in wide.</span></a></li>
+      <li><a href="/catio-designer/catio-mesh/"><b>Which mesh for a catio</b><span>Openings, gauges, coatings and roll widths compared.</span></a></li>
+      <li><a href="/catio-designer/balcony-catio/"><b>A balcony catio with no drilling</b><span>Tension posts and freestanding frames for renters.</span></a></li>
+    </ul>
+  </section>
+
+  <nav class="home-block" aria-labelledby="home-title">
+  <p class="home-title" id="home-title">Home project tools</p>
+  <ul class="home-list">
+    <li><a href="/without-planning/" style="--tool:#1f48c7"><strong>Without Planning</strong><span>Check a home extension, garden room or heat pump in 3D against England’s permitted development rules and Ireland’s 2026 exemptions.</span></a></li>
+    <li><a href="/dropped-kerb/" style="--tool:#0b6f80"><strong>Dropped Kerb Check</strong><span>Check a driveway in 3D against your council’s dropped kerb rules, with the planning answer and the fees, before you pay to apply.</span></a></li>
+    <li><a href="/catio-designer/" style="--tool:#b0501a" aria-current="page"><strong>Catio Designer</strong><span>Design a catio for your window, wall or balcony in 3D, with the mesh and shelf checks and every board and roll of mesh to buy.</span></a></li>
+  </ul>
+</nav>
+
+
+  <section class="cd-sec cd-sources" aria-labelledby="src-h">
+    <h2 id="src-h">Sources</h2>
+    <ol>
+      <li><a href="https://www.humaneworld.org/catios" rel="noopener">Humane World for Animals: Catios, Safe Outdoor Enclosures for Happy, Healthy Cats</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://help.catnets.com.au/en-US/articles/cat-enclosure-faq-403157" rel="noopener">Catnets: Cat Enclosure FAQ, &quot;How many cats can I put in my enclosure?&quot;</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://www.wvlt.tv/2026/02/06/outdoor-catios-becoming-more-popular-nationwide-pet-spending-increases/" rel="noopener">WVLT (Gray Television): Outdoor catios becoming more popular nationwide as pet spending increases, 6 February 2026</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://www.epa.gov/ingredients-used-pesticide-products/overview-wood-preservative-chemicals" rel="noopener">US EPA: Overview of Wood Preservative Chemicals</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://www.palram.com/au/wp-content/uploads/sites/3/2019/07/SUNTUFF_Roofing_Installation_Guide-.pdf" rel="noopener">Palram Australia: SUNTUF Roofing Installation Guide (pitch, purlin spacing, side lap)</a> <span>(read 12 October 2026)</span></li>
+    </ol>
+    <p class="cd-small">Guidance for a hobby build, not an engineering guarantee. Not affiliated with any of the makers or groups named here.</p>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools that each do one job well. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a>.<br>Write to <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
+        <li><a href="/name-cut-files/">Name Cut Files</a></li>
+        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
+        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
+        <li><a href="/quilt-label-maker/">Quilt Label Maker</a></li>
+        <li><a href="/etsy-tax-summary/">Etsy Tax Summary</a></li>
+        <li><a href="/menopause-adjustments/">Menopause Adjustments at Work</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Home project tools</h2>
+      <ul>
+        <li><a href="/without-planning/">Without Planning</a></li>
+        <li><a href="/dropped-kerb/">Dropped Kerb Check</a></li>
+        <li><a href="/catio-designer/">Catio Designer</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Pay equity tools</h2>
+      <ul>
+        <li><a href="/pay-gap-report/">Pay Gap Report</a></li>
+        <li><a href="/equality-action-plan/">Equality Action Plan</a></li>
+        <li><a href="/job-evaluation/">Job Evaluation</a></li>
+        <li><a href="/pay-transparency/">Pay Transparency Kit</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('table[data-bom]').forEach(t => {
+  const fmt = x => x.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  t.addEventListener('input', () => {
+    let total = 0, any = false;
+    t.querySelectorAll('input[data-qty]').forEach(i => { const cell = i.closest('tr').querySelector('[data-cost]'); const p = Number(i.value); if (i.value !== '' && p >= 0) { const c = p * Number(i.dataset.qty); cell.textContent = fmt(c); total += c; any = true; } else cell.textContent = ''; });
+    t.querySelector('[data-total]').textContent = any ? fmt(total) : '';
+  });
+});
+</script>
+</body>
+</html>
