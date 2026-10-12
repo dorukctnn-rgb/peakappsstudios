@@ -12,10 +12,10 @@
 <meta property="og:description" content="The right to pay information in all 27 EU countries, checked on official sources on 8 October 2026, with tools for workers and employers.">
 <meta property="og:url" content="https://peakappsstudio.com/pay-transparency/">
 <meta name="twitter:card" content="summary">
-<meta name="theme-color" content="#e6e9e4">
+<meta name="theme-color" content="#252b79">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="/assets/fonts/archivo-expanded-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/pay-transparency/fonts/platypi-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/pay-transparency/fonts/ancizar-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" href="/pay-transparency/img/letters-960.webp" imagesrcset="/pay-transparency/img/letters-480.webp 480w, /pay-transparency/img/letters-960.webp 960w, /pay-transparency/img/letters-1440.webp 1440w" imagesizes="(max-width: 900px) calc(100vw - 32px), 50vw" fetchpriority="high">
 <style data-from="/assets/tools.css">
 /* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
@@ -526,26 +526,137 @@ body.pe-je { --pe-accent: var(--pe-tab-je-ink); --pe-accent-fill: var(--pe-tab-j
 .pe #method, .pe #proof, .pe #pro, .pe #faq { content-visibility: auto; contain-intrinsic-size: auto 900px; }
 </style>
 <style data-from="/pay-transparency/tool.css">
-/* Pay Transparency Kit: the tool's own styles, on the pay equity family (/assets/pay-equity.css: Archivo, the filing
- * desk and its sheets, women green and men grey wherever pay is split by sex). The kit is correspondence: a worker's
- * request and the employer's written answer, so letters are white sheets on the desk, and the kit's amber tab
- * (#f0a800, with #8a5b00 for text on white) marks what the letters are about: the dates and the figures.
- * Buttons are amber with ink type (8.6:1); links and focus use the darker amber. */
-/* --pt-on-amber stays dark in both themes: amber is light enough to carry it (8.6:1), never light type */
-body.pe-ptk { --paper-letter: #ffffff; --ink-letter: #121a17; --pt-amber: var(--pe-tab-ptk); --pt-amber-ink: var(--pe-tab-ptk-ink); --pt-on-amber: #121a17;
-  --pt-mark: color-mix(in oklab, var(--pe-tab-ptk) 34%, #ffffff); --pt-mark-page: color-mix(in oklab, var(--pe-tab-ptk) 26%, transparent); }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) body.pe-ptk { --paper-letter: #f3f5f2; --pt-mark: color-mix(in oklab, var(--pe-tab-ptk) 40%, #ffffff); } }
-:root[data-theme="dark"] body.pe-ptk { --paper-letter: #f3f5f2; --pt-mark: color-mix(in oklab, var(--pe-tab-ptk) 40%, #ffffff); }
+/* Pay Transparency Kit: the tool's own identity, on the pay equity family's layout (/assets/pay-equity.css gives the
+ * sheets, tables and controls; this file replaces its type and colours on body.pe-ptk). The kit is correspondence: a
+ * worker's request and the employer's written answer. So the band is carbon-paper indigo with white letters on it, a
+ * lime highlighter marks what the letters are about (the dates and the figures), and every country's status in the
+ * table is a rubber stamp on the record.
+ * Type: Platypi (David Sargent, SIL Open Font License, fonts/OFL-platypi.txt), a sharp semi-serif, 600 to 800, for
+ * headings and figures; Ancizar Sans (Universidad Nacional de Colombia, SIL Open Font License,
+ * fonts/OFL-ancizar-sans.txt), 400 to 700 with tabular figures, for everything read, the letters included. */
+
+@font-face { font-family: "Platypi PTK"; src: url("/pay-transparency/fonts/platypi-latin.woff2") format("woff2"); font-weight: 600 800; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Platypi PTK"; src: url("/pay-transparency/fonts/platypi-latin-ext.woff2") format("woff2"); font-weight: 600 800; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Ancizar Sans"; src: url("/pay-transparency/fonts/ancizar-sans-latin.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Ancizar Sans"; src: url("/pay-transparency/fonts/ancizar-sans-latin-ext.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+/* Arial (Arial Bold for the display cut) scaled to each face's average width and line metrics, worked out from the
+   font files, so lines keep their breaks while the web fonts arrive */
+@font-face { font-family: "Ancizar Sans Fallback"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"); size-adjust: 88.4%; ascent-override: 101.8%; descent-override: 33.9%; line-gap-override: 0%; }
+@font-face { font-family: "Platypi PTK Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"); font-weight: 600 800; size-adjust: 107.2%; ascent-override: 104.9%; descent-override: 23.4%; line-gap-override: 0%; }
+
+/* ---------- Tokens: the family's names, this tool's values ---------- */
+body.pe.pe-ptk {
+  --ptk-carbon: #252b79;       /* carbon-paper indigo: the band, buttons, links; white type on it (12.4:1) */
+  --ptk-carbon-2: #343a96;     /* a hovered button */
+  --ptk-lime: #c6ef3a;         /* the highlighter: fills and marks only, with ink type on them (12.9:1) */
+  --ptk-band-ink: #ffffff;     /* every word on the band */
+  --pe-desk: #eceef6; --pe-desk-2: #dcdfec; --pe-sheet: #ffffff;
+  --pe-ink: #16183a; --pe-ink-2: #34375a; --pe-muted: #575a73;
+  --pe-line: rgba(22, 24, 58, 0.13); --pe-line-2: rgba(22, 24, 58, 0.26);
+  --pe-women: var(--ptk-carbon); --pe-women-ink: var(--ptk-carbon); --pe-on-women: #ffffff;
+  --pe-men: #c9ccd8; --pe-men-ink: #555a6e; --pe-on-men: #16183a;
+  --pe-accent: var(--ptk-carbon); --pe-accent-fill: var(--ptk-carbon);
+  --accent-text: var(--ptk-carbon); --accent-ink: #ffffff;
+  --accent-soft: #f2f9da;
+  --pe-ok: #1d7a45; --pe-warn: #9a4a12;
+  --sans: "Ancizar Sans", "Ancizar Sans Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display: "Platypi PTK", "Platypi PTK Fallback", Georgia, serif;
+  --mono: var(--sans);
+  font-size: 17px;
+  /* the kit's own names (tool.css below) take the new colours */
+  --ink-letter: #16183a; --pt-amber: var(--ptk-lime); --pt-amber-ink: var(--ptk-carbon); --pt-on-amber: #16183a;
+  --pt-mark: #ddf58a; --pt-mark-page: rgba(198, 239, 58, 0.5);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.pe.pe-ptk {
+    --ptk-carbon: #b8bdff; --ptk-carbon-2: #cdd0ff; --ptk-band-ink: #ffffff;
+    --pe-desk: #10111f; --pe-desk-2: #1c1e33; --pe-sheet: #171a2c;
+    --pe-ink: #e8e9f5; --pe-ink-2: #c6c8dc; --pe-muted: #9a9db5;
+    --pe-line: rgba(232, 233, 245, 0.12); --pe-line-2: rgba(232, 233, 245, 0.24);
+    --pe-women: #b8bdff; --pe-women-ink: #b8bdff; --pe-on-women: #10111f; --pe-men: #575b70; --pe-men-ink: #bfc2d4; --pe-on-men: #ffffff;
+    --pe-accent: #b8bdff; --pe-accent-fill: #b8bdff; --accent-text: #b8bdff; --accent-ink: #10111f; --accent-soft: #23281a;
+    --pe-ok: #7cc493; --pe-warn: #e3a36b; --pt-mark: #ddf58a; --paper-letter: #f3f4f8;
+  }
+}
+:root[data-theme="dark"] body.pe.pe-ptk {
+  --ptk-carbon: #b8bdff; --ptk-carbon-2: #cdd0ff; --ptk-band-ink: #ffffff;
+  --pe-desk: #10111f; --pe-desk-2: #1c1e33; --pe-sheet: #171a2c;
+  --pe-ink: #e8e9f5; --pe-ink-2: #c6c8dc; --pe-muted: #9a9db5;
+  --pe-line: rgba(232, 233, 245, 0.12); --pe-line-2: rgba(232, 233, 245, 0.24);
+  --pe-women: #b8bdff; --pe-women-ink: #b8bdff; --pe-on-women: #10111f; --pe-men: #575b70; --pe-men-ink: #bfc2d4; --pe-on-men: #ffffff;
+  --pe-accent: #b8bdff; --pe-accent-fill: #b8bdff; --accent-text: #b8bdff; --accent-ink: #10111f; --accent-soft: #23281a;
+  --pe-ok: #7cc493; --pe-warn: #e3a36b; --pt-mark: #ddf58a; --paper-letter: #f3f4f8;
+}
+
+/* ---------- Type ---------- */
+.pe-ptk h1, .pe-ptk h2 { font-family: var(--display); font-weight: 700; letter-spacing: -0.012em; }
+.pe-ptk h1 { font-size: clamp(32px, 3.6vw, 50px); line-height: 1.06; }
+.pe-ptk h2 { font-size: clamp(23px, 2.1vw, 30px); line-height: 1.14; }
+.pe-ptk h3 { font-weight: 700; }
+.pe-ptk .g-figure dd, .pe-ptk .pro-right .price, .pe-ptk .pt-fig-v, .pe-ptk .pt-step-n { font-family: var(--display); font-weight: 700; }
+.pe-ptk ::selection { background: var(--ptk-lime); color: #16183a; }
+/* the shared footer keeps its small sentence-case headings */
+.pe-ptk .site-foot h2 { font-family: var(--sans); font-size: 15px; font-weight: 700; letter-spacing: 0; line-height: 1.3; }
+
+/* ---------- The band: header, breadcrumbs and hero on carbon indigo, edge to edge ---------- */
+.pe-ptk .site-head { background: var(--ptk-carbon); border-bottom-color: rgba(255, 255, 255, 0.18); }
+.pe-ptk .site-head a, .pe-ptk .head-nav a, .pe-ptk .brand-sub { color: var(--ptk-band-ink); }
+.pe-ptk .brand-sub { border-left-color: rgba(255, 255, 255, 0.35); }
+.pe-ptk .head-nav a:hover { background: rgba(255, 255, 255, 0.14); color: var(--ptk-band-ink); }
+.pe-ptk .head-nav a[aria-current="page"] { background: var(--ptk-lime); color: #16183a; box-shadow: none; border-radius: 4px; }
+.pe-ptk main > .crumbs, .pe-ptk .pe-hero, .pe-ptk .pt-hero, .pe-ptk main > .tool-hero {
+  background: var(--ptk-carbon); box-shadow: 0 0 0 100vmax var(--ptk-carbon); clip-path: inset(-1px -100vmax); color: var(--ptk-band-ink);
+}
+.pe-ptk main > .crumbs { margin: 0; padding-top: 22px; }
+.pe-ptk main > .crumbs a { color: var(--ptk-band-ink); text-decoration: underline; text-decoration-color: rgba(255, 255, 255, 0.5); }
+.pe-ptk main > .crumbs li + li::before { color: rgba(255, 255, 255, 0.55); }
+.pe-ptk .pe-hero h1, .pe-ptk .pt-hero h1, .pe-ptk main > .tool-hero h1, .pe-ptk .pe-hero .lede, .pe-ptk .pt-hero .lede, .pe-ptk main > .tool-hero .lede,
+.pe-ptk .pe-hero-meta, .pe-ptk .pe-hero-meta strong, .pe-ptk .pe-guide-meta, .pe-ptk .pe-hero-fig figcaption, .pe-ptk .pt-hero p { color: var(--ptk-band-ink); }
+.pe-ptk .pe-hero a, .pe-ptk .pt-hero a, .pe-ptk main > .tool-hero a { color: var(--ptk-band-ink); text-decoration-color: rgba(255, 255, 255, 0.55); }
+.pe-ptk .site-head :focus-visible, .pe-ptk main > .crumbs :focus-visible, .pe-ptk .pe-hero :focus-visible, .pe-ptk .pt-hero :focus-visible { outline-color: var(--ptk-lime); }
+.pe-ptk .pe-hero { padding-bottom: clamp(22px, 3vw, 36px); margin-bottom: clamp(30px, 3.4vw, 44px); }
+.pe-ptk .pt-hero, .pe-ptk main > .tool-hero { margin-bottom: clamp(26px, 3vw, 38px); padding-bottom: clamp(22px, 2.6vw, 30px); }
+.pe-ptk .pe-hero-fig img { background: var(--ptk-carbon); border: 0; border-radius: 0; }
+/* the language tabs of a letter sit on the band: closed ones are glass, the open one lime */
+.pe-ptk .pt-hero .pt-langs { border-bottom-color: rgba(255, 255, 255, 0.3); }
+.pe-ptk .pt-hero .pt-langs a, .pe-ptk .pt-hero .pt-langs span { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.3); color: var(--ptk-band-ink); }
+.pe-ptk .pt-hero .pt-langs a:hover { background: rgba(255, 255, 255, 0.2); color: var(--ptk-band-ink); }
+.pe-ptk .pt-hero .pt-langs [aria-current="page"] { background: var(--ptk-lime); border-color: var(--ptk-lime); color: #16183a; box-shadow: none; }
+
+/* ---------- The signature: every status is a rubber stamp, its ink the status's colour, a little off true ---------- */
+.pe-ptk .pt-badge { gap: 0; padding: 3px 9px 2px; border: 2px solid currentColor; border-radius: 4px; outline: 1px solid currentColor; outline-offset: -5px; transform: rotate(-2deg); font-weight: 700; font-size: 13.5px; line-height: 1.35; color: var(--pe-muted); background: color-mix(in oklab, currentColor 6%, transparent); }
+.pe-ptk .pt-badge::before { content: none; }
+.pe-ptk .pt-badge[data-s="yes"], .pe-ptk .pt-badge[data-s="statutory"] { color: var(--pe-ok); }
+.pe-ptk .pt-badge[data-s="partly"], .pe-ptk .pt-badge[data-s="upcoming"] { color: var(--ptk-carbon); }
+.pe-ptk .pt-badge[data-s="bill"], .pe-ptk .pt-badge[data-s="no"], .pe-ptk .pt-badge[data-s="voluntary"] { color: var(--pe-warn); }
+.pe-ptk .pt-badge[data-s="unknown"] { border-style: dashed; outline-color: transparent; }
+.pe-ptk tr:nth-child(even) .pt-badge { transform: rotate(1.5deg); }
+@media (prefers-reduced-motion: no-preference) { .pe-ptk .pt-badge { transition: transform .15s ease; } .pe-ptk tr:hover .pt-badge { transform: rotate(0); } }
+
+/* ---------- Controls in the new colours ---------- */
+.pe-ptk .btn-primary, .pe-ptk .pro-right .btn-primary, .pe-ptk .g-cta .btn-primary { background: var(--ptk-carbon); border-color: var(--ptk-carbon); color: #ffffff; }
+.pe-ptk .btn-primary:hover { background: var(--ptk-carbon-2); border-color: var(--ptk-carbon-2); color: #ffffff; }
+.pe-ptk .pro-right .btn-primary, .pe-ptk .g-cta .btn-primary { background: var(--ptk-lime); border-color: var(--ptk-lime); color: #16183a; }
+.pe-ptk .pro-right .btn-primary:hover, .pe-ptk .g-cta .btn-primary:hover { background: #d6f56b; border-color: #d6f56b; color: #16183a; }
+.pe-ptk a:hover { color: var(--ptk-carbon); }
+.pe-ptk .pe-list a[href="/pay-transparency/"] strong, .pe-ptk .pe-list a[href="/pay-transparency/"]:hover strong { background: var(--ptk-lime); color: #16183a; }
+.pe-ptk .pe-list a[href="/pay-transparency/"] span { border-top-color: var(--ptk-lime); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .pe-ptk .site-head, :root:not([data-theme="light"]) .pe-ptk main > .crumbs, :root:not([data-theme="light"]) .pe-ptk .pe-hero,
+  :root:not([data-theme="light"]) .pe-ptk .pt-hero, :root:not([data-theme="light"]) .pe-ptk main > .tool-hero { background: #1f2366; box-shadow: 0 0 0 100vmax #1f2366; }
+  :root:not([data-theme="light"]) .pe-ptk .site-head { box-shadow: none; }
+  :root:not([data-theme="light"]) .pe-ptk .btn-primary { background: #b8bdff; border-color: #b8bdff; color: #10111f; }
+  :root:not([data-theme="light"]) .pe-ptk .pe-list a[href="/pay-transparency/"] strong { background: var(--ptk-lime); color: #16183a; }
+}
+:root[data-theme="dark"] .pe-ptk .site-head, :root[data-theme="dark"] .pe-ptk main > .crumbs, :root[data-theme="dark"] .pe-ptk .pe-hero,
+:root[data-theme="dark"] .pe-ptk .pt-hero, :root[data-theme="dark"] .pe-ptk main > .tool-hero { background: #1f2366; box-shadow: 0 0 0 100vmax #1f2366; }
+:root[data-theme="dark"] .pe-ptk .site-head { box-shadow: none; }
+:root[data-theme="dark"] .pe-ptk .btn-primary { background: #b8bdff; border-color: #b8bdff; color: #10111f; }
+:root[data-theme="dark"] .pe-ptk .pe-list a[href="/pay-transparency/"] strong { background: var(--ptk-lime); color: #16183a; }
+
 .num { font-variant-numeric: tabular-nums; }
 .linklike { font: inherit; color: var(--accent-text); background: none; border: 0; padding: 0; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; cursor: pointer; }
 .linklike:hover { color: var(--ink); }
-
-/* Amber buttons with ink type */
-.pe-ptk .btn-primary { background: var(--pt-amber); border-color: var(--pt-amber); color: var(--pt-on-amber); }
-.pe-ptk .btn-primary:hover { background: color-mix(in oklab, var(--pt-amber) 86%, #000); border-color: transparent; color: var(--pt-on-amber); }
-.pe-ptk .pro-right .btn-primary, .pe-ptk .g-cta .btn-primary { background: var(--pt-amber); border-color: var(--pt-amber); color: var(--pt-on-amber); }
-.pe-ptk .pro-right .btn-primary:hover, .pe-ptk .g-cta .btn-primary:hover { background: #ffc22e; color: var(--pt-on-amber); }
-.pe-ptk ::selection { background: var(--pt-mark); color: #121a17; }
 
 /* ---------- Hero of the tool pages: the heading, and what it is for beside it ---------- */
 .pt-hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 12px clamp(24px, 4vw, 64px); align-items: end; padding: clamp(16px, 2.4vw, 28px) 0 26px; }
@@ -553,7 +664,7 @@ body.pe-ptk { --paper-letter: #ffffff; --ink-letter: #121a17; --pt-amber: var(--
 .pt-hero .pe-hero-meta { margin-top: 12px; }
 @media (max-width: 860px) { .pt-hero { grid-template-columns: 1fr; align-items: start; } }
 
-/* The language versions of a letter: divider tabs, the open one a white tab with the amber edge */
+/* The language versions of a letter: divider tabs, the open one a white tab with the highlighter edge */
 .pt-langs { display: flex; flex-wrap: wrap; gap: 4px; list-style: none; margin: 18px 0 0; padding: 0; font-size: 14.5px; border-bottom: 1px solid var(--line-2); }
 .pt-langs a, .pt-langs span { display: inline-block; padding: 7px 13px 6px; margin-bottom: -1px; border: 1px solid var(--line-2); border-bottom: 0; border-radius: var(--pe-r-tab) var(--pe-r-tab) 0 0; background: var(--paper-2); text-decoration: none; color: var(--ink-2); font-weight: 600; }
 .pt-langs a:hover { background: color-mix(in oklab, var(--paper-2) 50%, var(--card)); color: var(--ink); }
@@ -794,7 +905,7 @@ body.pe-ptk { --paper-letter: #ffffff; --ink-letter: #121a17; --pt-amber: var(--
 .pt-path .btn { justify-self: start; margin-top: 6px; }
 .pt-path-sheet .pt-more { font-size: 14px; color: var(--muted); }
 @media (max-width: 800px) { .pt-paths { grid-template-columns: 1fr; } }
-/* When: the dates on an amber mark */
+/* When: the dates on a highlighter mark */
 .pt-timeline { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 0; border-left: 2px solid var(--line-2); }
 .pt-timeline li { position: relative; padding: 0 0 20px 22px; color: var(--ink-2); max-width: 70ch; }
 .pt-timeline li::before { content: ""; position: absolute; left: -7px; top: 5px; width: 12px; height: 12px; border-radius: 1px; background: var(--pt-amber); }
@@ -859,7 +970,7 @@ body.pe-ptk { --paper-letter: #ffffff; --ink-letter: #121a17; --pt-amber: var(--
       <p class="pe-hero-meta">Directive (EU) 2023/970 in all 27 countries, each row with its official source, checked on 8 October 2026. Where a row says “not confirmed”, we could not verify it.</p>
     </div>
     <figure class="pe-hero-fig">
-      <img src="/pay-transparency/img/letters-960.webp" srcset="/pay-transparency/img/letters-480.webp 480w, /pay-transparency/img/letters-960.webp 960w, /pay-transparency/img/letters-1440.webp 1440w" sizes="(max-width: 900px) calc(100vw - 32px), 50vw" width="1440" height="900" fetchpriority="high" decoding="async" alt="The kit’s two letters for one request, on a grey desk. On the left, Maria Rossi’s request to Sample Company Ltd under regulation 6 of Malta’s pay transparency regulations, with the reply date, 16 October 2026, marked in amber. On top, the company’s answer, with her pay level of €66,362.06 a year and the average pay of the 3 women and 7 men in her category marked in amber, and the highlighter beside it.">
+      <img src="/pay-transparency/img/letters-960.webp" srcset="/pay-transparency/img/letters-480.webp 480w, /pay-transparency/img/letters-960.webp 960w, /pay-transparency/img/letters-1440.webp 1440w" sizes="(max-width: 900px) calc(100vw - 32px), 50vw" width="1440" height="900" fetchpriority="high" decoding="async" alt="The kit’s two letters for one request, on an indigo desk. On the left, Maria Rossi’s request to Sample Company Ltd under regulation 6 of Malta’s pay transparency regulations, with the reply date, 16 October 2026, marked in lime green. On top, the company’s answer, with her pay level of €66,362.06 a year and the average pay of the 3 women and 7 men in her category marked in lime green, and the highlighter beside it.">
       <figcaption>The kit’s own letters for a sample request under Malta’s rules: the worker’s request with the date the answer is due, and the employer’s answer from the sample payroll, with her pay level and the averages for the women and the men in her category. The company and its people are synthetic.</figcaption>
     </figure>
   </header>
@@ -1010,10 +1121,10 @@ body.pe-ptk { --paper-letter: #ffffff; --ink-letter: #121a17; --pt-amber: var(--
     <nav class="pe-block" aria-labelledby="pe-title">
   <p class="pe-title" id="pe-title">Pay equity tools</p>
   <ul class="pe-list">
-    <li><a href="/pay-gap-report/" style="--tool:#0b7a45"><strong>Pay Gap Report</strong><span>The statutory gender pay gap measures from a payroll export, for the UK, Ireland and the EU directive, worked out in your browser.</span></a></li>
-    <li><a href="/equality-action-plan/" style="--tool:#c0321c"><strong>Equality Action Plan</strong><span>A gender pay gap and menopause action plan from GOV.UK’s 18 actions, with the rules and word limits checked as you write.</span></a></li>
-    <li><a href="/job-evaluation/" style="--tool:#2257b8"><strong>Job Evaluation</strong><span>Score roles on skills, effort, responsibility and working conditions, and see which jobs are work of equal value.</span></a></li>
-    <li><a href="/pay-transparency/" style="--tool:#8a5b00" aria-current="page"><strong>Pay Transparency Kit</strong><span>Request letters for workers and Article 7 answers for employers, with the EU directive’s status in all 27 countries.</span></a></li>
+    <li><a href="/pay-gap-report/" style="--tool:#00776b"><strong>Pay Gap Report</strong><span>The statutory gender pay gap measures from a payroll export, for the UK, Ireland and the EU directive, worked out in your browser.</span></a></li>
+    <li><a href="/equality-action-plan/" style="--tool:#b0136b"><strong>Equality Action Plan</strong><span>A gender pay gap and menopause action plan from GOV.UK’s 18 actions, with the rules and word limits checked as you write.</span></a></li>
+    <li><a href="/job-evaluation/" style="--tool:#0e5e63"><strong>Job Evaluation</strong><span>Score roles on skills, effort, responsibility and working conditions, and see which jobs are work of equal value.</span></a></li>
+    <li><a href="/pay-transparency/" style="--tool:#252b79" aria-current="page"><strong>Pay Transparency Kit</strong><span>Request letters for workers and Article 7 answers for employers, with the EU directive’s status in all 27 countries.</span></a></li>
   </ul>
 </nav>
 
