@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catio designer: plan your catio in 3D, with a material list</title>
+<meta name="description" content="Design a catio online, free: a window box, lean-to, freestanding run or balcony screen-in, built in 3D from standard lumber with checks and a material list.">
+<link rel="canonical" href="https://peakappsstudio.com/catio-designer/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Catio designer: plan your catio in 3D, with a material list">
+<meta property="og:description" content="Enter your window, wall or balcony and get the catio in 3D, the mesh and shelf checks, and every board, roll of mesh and screw to buy. Free, no account.">
+<meta property="og:url" content="https://peakappsstudio.com/catio-designer/">
+<meta property="og:image" content="https://peakappsstudio.com/catio-designer/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#eee8ff">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/catio-designer/fonts/familjen-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="/catio-designer/img/poster-960.webp" imagesrcset="/catio-designer/img/poster-480.webp 480w, /catio-designer/img/poster-960.webp 960w, /catio-designer/img/poster-1440.webp 1440w" imagesizes="(max-width: 960px) 100vw, 64vw" fetchpriority="high">
+<link rel="stylesheet" href="/assets/tools.css">
+<style data-from="/catio-designer/tool.css">
+/* Catio Designer: the tool's own identity, scoped to body.cd-page (the shared header and footer keep their structure).
+ * Taken from the subject: an evening sky over the garden (lilac page), plum ink, catnip green for what you press and
+ * for "fits", a marmalade cat for highlights and "check", a bluebird for links on white, cedar for wood only.
+ * Type: Gluten (bouncy, headings only) and Familjen Grotesk (everything read, tabular figures).
+ * Signature: a strip of welded mesh drawn in CSS, used once under the hero. */
+
+@font-face { font-family: "Gluten"; src: url("/catio-designer/fonts/gluten-latin.woff2") format("woff2"); font-weight: 700 800; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Gluten"; src: url("/catio-designer/fonts/gluten-latin-ext.woff2") format("woff2"); font-weight: 700 800; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Familjen Grotesk"; src: url("/catio-designer/fonts/familjen-grotesk-latin.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Familjen Grotesk"; src: url("/catio-designer/fonts/familjen-grotesk-latin-ext.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+/* fallbacks sized to the web fonts' average widths and heights (from _build/fonts.py), so the swap does not move the layout */
+@font-face { font-family: "Familjen Fallback"; src: local("Arial"), local("Helvetica Neue"), local("Helvetica"); size-adjust: 94.6%; ascent-override: 108.4%; descent-override: 23.8%; line-gap-override: 0%; }
+@font-face { font-family: "Gluten Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Helvetica Neue Bold"); font-weight: 700 800; size-adjust: 124.7%; ascent-override: 51.7%; descent-override: 19%; line-gap-override: 0%; }
+
+body.cd-page {
+  --lilac: #eee8ff; --lilac-2: #e2daf8; --paper: #ffffff; --paper-2: #f7f4ff;
+  --plum: #24123a; --plum-2: #5b4b73; --plum-3: #8b7ea3;
+  --catnip: #0e7a47; --catnip-ink: #ffffff; --catnip-2: #2bb673; --marmalade: #ff8a3d; --bird: #2e5bff; --cedar: #c98a4b; --fail: #c2253d; --fail-ink: #ffffff;
+  --paper: #ffffff; --card: var(--paper); --ink: var(--plum); --ink-2: var(--plum-2); --muted: var(--plum-2);
+  --line: rgba(36, 18, 58, .13); --line-2: rgba(36, 18, 58, .24);
+  --accent: var(--catnip); --accent-ink: var(--catnip-ink); --ok: var(--catnip); --warn: #9a4a12;
+  --sans: "Familjen Grotesk", "Familjen Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: var(--sans);
+  --display: "Gluten", "Gluten Fallback", sans-serif;
+  --r-panel: 18px; --r-field: 9px; --r-chip: 7px;
+  background: var(--lilac); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.55; font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.cd-page {
+    --lilac: #160d24; --lilac-2: #20142f; --paper: #221636; --paper-2: #2a1c41; --plum: #f1ebff; --plum-2: #c8bce0; --plum-3: #9a8db5;
+    --catnip: #3fcf8a; --catnip-ink: #06261a; --catnip-2: #3fcf8a; --bird: #93a9ff; --fail: #ff7a8c; --fail-ink: #2a0710; --warn: #ffb27a;
+    --card: var(--paper); --line: rgba(241, 235, 255, .13); --line-2: rgba(241, 235, 255, .26);
+  }
+}
+:root[data-theme="dark"] body.cd-page {
+  --lilac: #160d24; --lilac-2: #20142f; --paper: #221636; --paper-2: #2a1c41; --plum: #f1ebff; --plum-2: #c8bce0; --plum-3: #9a8db5;
+  --catnip: #3fcf8a; --catnip-ink: #06261a; --catnip-2: #3fcf8a; --bird: #93a9ff; --fail: #ff7a8c; --fail-ink: #2a0710; --warn: #ffb27a;
+  --card: var(--paper); --line: rgba(241, 235, 255, .13); --line-2: rgba(241, 235, 255, .26);
+}
+
+/* ---------- type ---------- */
+.cd-page h1, .cd-page h2, .cd-page h3 { font-family: var(--display); font-weight: 800; letter-spacing: -0.01em; line-height: 1.04; text-wrap: balance; color: var(--plum); }
+.cd-page h1 { font-size: clamp(38px, 5.4vw, 70px); margin: 0; max-width: 16ch; }
+.cd-page h2 { font-size: clamp(28px, 3.2vw, 42px); font-weight: 700; margin: 0 0 12px; }
+.cd-page h3 { font-size: 22px; font-weight: 700; margin: 0 0 6px; }
+.cd-page p { max-width: 68ch; }
+.cd-page .lede { font-size: clamp(18px, 1.55vw, 20px); color: var(--ink); margin: 0; }
+.cd-page a { color: var(--plum); text-decoration-color: var(--bird); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.cd-page a:hover { color: var(--bird); }
+.cd-page .cd-card a, .cd-page table a { color: var(--bird); text-decoration-thickness: 1px; }
+.cd-page :focus-visible { outline: 3px solid var(--bird); outline-offset: 2px; border-radius: 4px; }
+.cd-page ::selection { background: var(--bird); color: #fff; }
+.cd-page .btn { border-radius: var(--r-field); font-weight: 600; font-size: 16px; padding: 12px 18px; }
+.cd-page .btn-primary { background: var(--catnip); border-color: var(--catnip); color: var(--catnip-ink); }
+.cd-page .btn-primary:hover { background: color-mix(in oklab, var(--catnip) 86%, #000); border-color: color-mix(in oklab, var(--catnip) 86%, #000); color: var(--catnip-ink); }
+.cd-page .btn-ghost { background: transparent; }
+.cd-small { font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- hero ---------- */
+.cd-hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(18px, 4vw, 56px); align-items: end; padding: clamp(12px, 2.4vw, 28px) 0 clamp(14px, 2vw, 22px); }
+.cd-hero-side { display: grid; gap: 16px; }
+.cd-mesh-strip { height: 16px; margin: 0 0 18px; border-radius: 3px;
+  background-color: transparent;
+  background-image: linear-gradient(90deg, color-mix(in oklab, var(--plum) 30%, transparent) 1.5px, transparent 1.5px), linear-gradient(0deg, color-mix(in oklab, var(--plum) 30%, transparent) 1.5px, transparent 1.5px);
+  background-size: 8px 8px; background-position: 0 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+
+/* the four types, as line drawings */
+.cd-types { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; border: 0; padding: 0; margin: 0; }
+.cd-types legend { font-weight: 600; font-size: 15px; margin-bottom: 8px; padding: 0; }
+.cd-type { position: relative; display: grid; justify-items: center; gap: 4px; padding: 10px 6px 9px; border-radius: 12px; border: 1.5px solid var(--line-2); background: color-mix(in oklab, var(--paper) 55%, transparent); cursor: pointer; text-align: center; font-size: 14px; font-weight: 600; line-height: 1.2; color: var(--ink); }
+.cd-type input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.cd-type svg { width: 64px; height: 44px; color: var(--plum-2); }
+.cd-type:has(input:checked) { border-color: var(--plum); background: var(--paper); box-shadow: inset 0 -4px 0 var(--cedar); }
+.cd-type:has(input:checked) svg { color: var(--plum); }
+.cd-type:has(input:focus-visible) { outline: 3px solid var(--bird); outline-offset: 2px; }
+.cd-type .wood { color: var(--cedar); }
+@media (max-width: 900px) { .cd-hero { grid-template-columns: 1fr; align-items: start; } }
+@media (max-width: 460px) { .cd-types { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------- the bench: the 3D view beside the form ---------- */
+.cd-bench { display: grid; grid-template-columns: minmax(0, 1fr) minmax(330px, 410px); background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-panel); overflow: clip; }
+.cd-stage { border-right: 1px solid var(--line); min-width: 0; }
+.cd-sticky { position: sticky; top: 0; }
+.cd-view { position: relative; aspect-ratio: 16 / 10; background: linear-gradient(180deg, #cbbff0, #f2d9e2 62%, #ffd2ad); overflow: hidden; }
+.cd-view img, .cd-view canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; }
+.cd-view canvas { touch-action: none; cursor: grab; }
+.cd-view canvas:active { cursor: grabbing; }
+.cd-badge { position: absolute; left: 12px; top: 12px; background: var(--plum); color: #fff; font-weight: 700; font-size: 13.5px; padding: 4px 10px; border-radius: var(--r-chip); }
+.cd-gl-note { position: absolute; left: 12px; right: 12px; bottom: 60px; margin: 0; background: var(--paper); color: var(--ink); padding: 8px 12px; border-radius: var(--r-field); font-size: 14.5px; }
+.cd-start { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); display: inline-flex; gap: 8px; align-items: center; background: var(--plum); color: #fff; border: 0; border-radius: 999px; padding: 11px 18px; font: inherit; font-weight: 600; font-size: 15.5px; cursor: pointer; box-shadow: 0 6px 18px rgba(36, 18, 58, .28); }
+.cd-start svg { width: 18px; height: 18px; }
+.cd-start[disabled] { opacity: .8; cursor: progress; }
+.cd-tags { position: absolute; inset: 0; pointer-events: none; }
+.cd-tag { position: absolute; left: 0; top: 0; white-space: nowrap; font-size: 13.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: rgba(255, 255, 255, .94); color: #24123a; box-shadow: 0 1px 0 rgba(36, 18, 58, .25); }
+.cd-tag-fail { background: #c2253d; color: #fff; }
+.cd-tag-check { background: #ff8a3d; color: #24123a; }
+.cd-tag-fits { background: #2bb673; color: #24123a; }
+.cd-toolbar { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; padding: 10px 14px; border-top: 1px solid var(--line); background: var(--paper-2); }
+.cd-seg { display: inline-flex; border: 1px solid var(--line-2); border-radius: var(--r-field); overflow: hidden; }
+.cd-seg button { font: inherit; font-size: 14.5px; font-weight: 600; padding: 7px 11px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+.cd-seg button + button { border-left: 1px solid var(--line-2); }
+.cd-seg button[aria-pressed="true"] { background: var(--plum); color: var(--paper); }
+.cd-sun { display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 600; }
+.cd-sun input[type="range"] { width: 130px; accent-color: var(--marmalade); }
+.cd-sun output { min-width: 3.2em; font-variant-numeric: tabular-nums; }
+.cd-catbtn { font: inherit; font-size: 14.5px; font-weight: 600; padding: 7px 12px; border-radius: var(--r-field); border: 1.5px solid var(--marmalade); background: transparent; color: var(--ink); cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.cd-catbtn svg { width: 18px; height: 18px; color: var(--marmalade); }
+.cd-toolbar[hidden] { display: none; }
+
+/* the title block under the view: what this design is, and how its checks came out */
+.cd-title { padding: 14px 16px 16px; display: grid; gap: 10px; }
+.cd-title h2 { font-size: clamp(24px, 2.4vw, 30px); margin: 0; }
+.cd-title p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
+.cd-counts { display: flex; flex-wrap: wrap; gap: 8px; }
+.cd-count { display: inline-flex; color: var(--ink); gap: 6px; align-items: baseline; padding: 4px 10px; border-radius: var(--r-chip); font-size: 14.5px; font-weight: 600; border: 1px solid var(--line-2); }
+.cd-count b { font-size: 18px; }
+.cd-count.ct-fits { background: color-mix(in oklab, var(--catnip-2) 26%, var(--paper)); }
+.cd-count.ct-check { background: color-mix(in oklab, var(--marmalade) 26%, var(--paper)); }
+.cd-count.ct-fail { background: color-mix(in oklab, var(--fail) 18%, var(--paper)); }
+.cd-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13.5px; color: var(--ink-2); }
+
+/* ---------- the form ---------- */
+.cd-form { padding: 6px 16px 18px; display: grid; gap: 4px; align-content: start; }
+.cd-step { border: 0; padding: 12px 0 14px; margin: 0; border-bottom: 1px solid var(--line); }
+.cd-step:last-child { border-bottom: 0; }
+.cd-step > legend { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 21px; padding: 0; margin: 0 0 10px; color: var(--plum); }
+.cd-step-n { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--cedar); color: #24123a; font-family: var(--sans); font-size: 15px; font-weight: 700; }
+.cd-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 12px; }
+.cd-field { display: grid; gap: 4px; align-content: start; font-size: 14.5px; font-weight: 600; min-width: 0; }
+.cd-field.wide { grid-column: 1 / -1; }
+.cd-field small { font-weight: 400; color: var(--ink-2); font-size: 13.5px; line-height: 1.35; }
+.cd-in { position: relative; display: flex; align-items: center; }
+.cd-in input { padding-right: 38px; }
+.cd-in i { position: absolute; right: 10px; font-style: normal; font-weight: 500; font-size: 14px; color: var(--ink-2); pointer-events: none; }
+.cd-form input[type="number"], .cd-form input[type="text"], .cd-form input[type="search"], .cd-form select, .cd-shop input {
+  width: 100%; min-width: 0; font: inherit; font-size: 16px; font-weight: 500; padding: 9px 10px; border: 1px solid var(--line-2); border-radius: var(--r-field); background: var(--paper); color: var(--ink); }
+.cd-form input:focus, .cd-form select:focus, .cd-shop input:focus { outline: none; border-color: var(--bird); box-shadow: 0 0 0 3px color-mix(in oklab, var(--bird) 22%, transparent); }
+.cd-row { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
+.cd-check { display: flex; gap: 8px; align-items: flex-start; font-size: 14.5px; font-weight: 500; }
+.cd-check input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--catnip); flex: none; }
+.cd-units { display: inline-flex; }
+.cd-note { font-size: 13.5px; color: var(--ink-2); margin: 6px 0 0; }
+.cd-pro-tag { display: inline-block; font-size: 12.5px; font-weight: 700; padding: 1px 7px; border-radius: 5px; background: var(--plum); color: var(--paper); margin-left: 6px; vertical-align: 1px; }
+[data-show][hidden] { display: none !important; }
+@media (max-width: 960px) { .cd-bench { grid-template-columns: 1fr; } .cd-stage { border-right: 0; border-bottom: 1px solid var(--line); } .cd-sticky { position: static; } }
+
+/* ---------- actions ---------- */
+.cd-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 16px 0 6px; }
+.cd-actions .hint { font-size: 14px; color: var(--ink-2); }
+.cd-sample-note { margin: 0 0 10px; font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- sections, tables ---------- */
+.cd-sec { margin: clamp(30px, 5vw, 56px) 0 0; }
+.cd-sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 20px; margin-bottom: 10px; }
+.cd-sec-head p { margin: 0; color: var(--ink-2); font-size: 14.5px; }
+.cd-card { background: var(--paper); border: 1px solid var(--line-2); border-radius: 14px; }
+.cd-table { width: 100%; border-collapse: collapse; background: var(--paper); border: 1px solid var(--line-2); border-radius: 14px; overflow: hidden; font-size: 15.5px; }
+.cd-table caption { caption-side: top; text-align: left; padding: 0 0 8px; color: var(--ink-2); font-size: 14.5px; }
+.cd-table th, .cd-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.cd-table thead th { font-size: 13.5px; font-weight: 700; color: var(--ink-2); background: var(--paper-2); }
+.cd-table tbody tr:last-child td { border-bottom: 0; }
+.cd-table .num { text-align: right; white-space: nowrap; }
+.cd-group td { background: var(--paper-2); font-weight: 700; font-size: 14px; color: var(--ink-2); }
+.cd-st { white-space: nowrap; font-weight: 700; font-size: 14px; }
+.cd-st span { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: var(--r-chip); }
+.cd-st svg { width: 13px; height: 13px; }
+.st-fits span { background: var(--catnip-2); color: #24123a; }
+.st-check span { background: var(--marmalade); color: #24123a; }
+.st-fail span { background: var(--fail); color: var(--fail-ink); }
+.st-info span { background: var(--lilac-2); color: var(--ink); }
+.cd-why { color: var(--ink-2); font-size: 14.5px; }
+.cd-src { font-size: 13.5px; color: var(--ink-2); }
+.cd-src a { white-space: normal; }
+.cd-shop input { max-width: 110px; text-align: right; padding: 6px 8px; font-size: 15px; }
+.cd-total td { font-weight: 700; background: var(--paper-2); }
+@media (max-width: 760px) {
+  .cd-table, .cd-table tbody, .cd-table tr, .cd-table td, .cd-table caption { display: block; width: 100%; }
+  .cd-table thead { display: none; }
+  .cd-table caption { padding: 10px 12px 8px; }
+  .cd-table tr { border-bottom: 1px solid var(--line); padding: 8px 0; }
+  .cd-table td { border: 0; padding: 4px 12px; }
+  .cd-table td[data-h]::before { content: attr(data-h); display: block; font-size: 12.5px; font-weight: 700; color: var(--ink-2); }
+  .cd-table .num { text-align: left; }
+  .cd-shop input { max-width: 100%; text-align: left; }
+}
+
+/* ---------- Pro ---------- */
+.cd-pro { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr); gap: 0; background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-panel); overflow: clip; }
+.cd-pro-l { padding: clamp(18px, 2.6vw, 30px); display: grid; gap: 14px; align-content: start; }
+.cd-pro-r { padding: clamp(18px, 2.6vw, 30px); background: var(--plum); color: #f4efff; display: grid; gap: 12px; align-content: start; }
+.cd-pro-r p { color: #e7defa; margin: 0; font-size: 14.5px; }
+.cd-pro-r .btn-ghost { color: #fff; border-color: rgba(255, 255, 255, .5); }
+.cd-pro-r .cd-price { font-family: var(--display); font-size: 44px; font-weight: 800; color: #fff; margin: 0; line-height: 1; }
+.cd-price small { font-family: var(--sans); font-size: 15px; font-weight: 500; color: #e7defa; }
+.cd-locked { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.cd-locked li { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 10px; align-items: start; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.cd-locked svg { width: 16px; height: 16px; margin-top: 3px; color: var(--plum-2); }
+.cd-locked b { display: block; font-weight: 700; }
+.cd-locked span { display: block; color: var(--ink-2); font-size: 14.5px; }
+.cd-locked em { font-style: normal; font-size: 12.5px; font-weight: 700; padding: 2px 8px; border-radius: 5px; background: var(--lilac-2); color: var(--ink); }
+.cd-locked li.is-open em { background: var(--catnip-2); color: #24123a; }
+.cd-pro-out { margin: 0; }
+.cd-pro-out img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid var(--line-2); background: #fff; }
+.cd-pro-out figcaption { font-size: 13.5px; color: var(--ink-2); margin-top: 6px; }
+.cd-pro-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.cd-addons { border: 1px solid var(--line-2); border-radius: 12px; padding: 12px 14px; display: grid; gap: 8px; margin: 0; }
+.cd-addons legend { font-weight: 700; padding: 0 4px; }
+.cd-addons[disabled] { opacity: .62; }
+.cd-saved { display: grid; gap: 8px; }
+.cd-saved ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.cd-saved li { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; font-size: 14.5px; }
+.cd-saved li button { font: inherit; font-size: 13.5px; padding: 4px 9px; border-radius: 6px; border: 1px solid var(--line-2); background: var(--paper); color: var(--ink); cursor: pointer; }
+.cd-pro-work { display: grid; gap: 14px; }
+.cd-pro-work[hidden] { display: none; }
+.cd-diagram { width: 100%; height: auto; display: block; background: var(--paper); }
+.cd-board { margin: 0 0 6px; }
+.cd-board figcaption { font-size: 13.5px; color: var(--ink-2); }
+@media (max-width: 860px) { .cd-pro { grid-template-columns: 1fr; } }
+
+/* ---------- guides, FAQ, sources ---------- */
+.cd-guides { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0; border-top: 2px solid var(--plum); }
+.cd-guides li { border-bottom: 1px solid var(--line-2); }
+.cd-guides a { display: grid; gap: 2px; padding: 14px 12px 14px 0; text-decoration: none; color: var(--ink); }
+.cd-guides b { font-family: var(--display); font-weight: 700; font-size: 20px; line-height: 1.15; }
+.cd-guides span { color: var(--ink-2); font-size: 14.5px; }
+.cd-guides a:hover b { color: var(--catnip); }
+.cd-faq details { border-bottom: 1px solid var(--line-2); padding: 12px 0; }
+.cd-faq summary { cursor: pointer; font-weight: 700; font-size: 17.5px; }
+.cd-faq .answer p { margin: 8px 0 0; }
+.cd-aus { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px 40px; align-items: start; }
+.cd-aus ul { margin: 0; padding-left: 20px; }
+@media (max-width: 760px) { .cd-aus { grid-template-columns: 1fr; } }
+.cd-sources { font-size: 14.5px; }
+.cd-sources ol { margin: 0; padding-left: 22px; display: grid; gap: 4px; }
+.cd-sources li span { color: var(--ink-2); }
+
+/* ---------- guide pages ---------- */
+.cd-article { max-width: 760px; }
+.cd-article h2 { margin-top: 34px; }
+.cd-figure { margin: 18px 0; }
+.cd-figure img { width: 100%; height: auto; display: block; border-radius: 14px; border: 1px solid var(--line-2); }
+.cd-figure figcaption { font-size: 14px; color: var(--ink-2); margin-top: 6px; }
+.cd-callout { background: var(--paper); border: 1px solid var(--line-2); border-left: 5px solid var(--cedar); border-radius: 12px; padding: 14px 16px; margin: 16px 0; }
+.cd-callout p { margin: 0; }
+.cd-open { display: inline-flex; margin-top: 8px; }
+.cd-guide-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(18px, 4vw, 48px); align-items: center; padding: clamp(10px, 2vw, 22px) 0 6px; }
+.cd-guide-hero img { width: 100%; height: auto; display: block; border-radius: 16px; border: 1px solid var(--line-2); aspect-ratio: 16 / 10; object-fit: cover; }
+@media (max-width: 860px) { .cd-guide-hero { grid-template-columns: 1fr; } }
+
+/* ---------- print: the shopping list only ---------- */
+@media print {
+  body.cd-print-shop .site-head, body.cd-print-shop .site-foot, body.cd-print-shop main > *:not(#shop), body.cd-print-shop .skip { display: none !important; }
+  body.cd-print-shop #shop { margin: 0; }
+  body.cd-print-shop .cd-shop input { border: 0; padding: 0; }
+  body.cd-page { background: #fff; }
+}
+@media (prefers-reduced-motion: reduce) { .cd-page * { scroll-behavior: auto !important; transition: none !important; } }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","@id":"https://peakappsstudio.com/catio-designer/#app","name":"Catio Designer","url":"https://peakappsstudio.com/catio-designer/","description":"Designs a DIY catio (an outdoor cat enclosure) for your own window, wall, yard or balcony: builds it in 3D from standard lumber, checks the mesh, the gaps, the shelf steps, the space per cat and the shade over the longest day, and lists every board, roll of mesh, panel and fastener to buy. Guidance with dated sources, not an engineering guarantee.","applicationCategory":"DesignApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD","description":"The 3D design, the checks with sources, the shopping list with your own prices, a share link and a printable list."},{"@type":"Offer","name":"Pro (one-time)","price":"19","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/catio-designer-pro","description":"The optimised cut list with a cutting diagram per board, the mesh cutting layout, a step-by-step build plan PDF, add-ons (tunnel and bridge, litter-box bench, window insert with a cat flap, second tier), saved designs, metric and imperial output, GLB and OBJ export and high-resolution renders."}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Catio Designer","item":"https://peakappsstudio.com/catio-designer/"}]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"How big should a catio be?","acceptedAnswer":{"@type":"Answer","text":"No official standard exists. Catios range from cat-sized window boxes to whole rooms. The one published per-cat figure we found is from Catnets, an enclosure maker: at least 2 square metres (about 21.5 sq ft) for each cat when cats share an enclosure. Every cat also needs climbing space and a place to hide."}},
+  {"@type":"Question","name":"What mesh should I use for a catio?","acceptedAnswer":{"@type":"Answer","text":"Galvanized or stainless welded wire or hardware cloth. Catio Spaces recommends 16 gauge fencing wire with openings no larger than 2 by 3 inches; 1/2 inch hardware cloth in 19 gauge is common and sold for pet runs, but it is lighter. Chicken wire and window screen are not strong enough."}},
+  {"@type":"Question","name":"Can I build a catio with pressure-treated lumber?","acceptedAnswer":{"@type":"Answer","text":"Keep it away from anything the cat can rub or chew. Treated lumber is wood impregnated with a pesticide (US EPA), and old arsenic-treated boards still turn up second hand. Untreated cedar, redwood or pine, with a pet-safe water-based finish if you want one, is the usual choice."}},
+  {"@type":"Question","name":"Is anything I enter sent to a server?","acceptedAnswer":{"@type":"Answer","text":"No. The design, the checks and the 3D model are worked out in your browser. The share link keeps the design after the # sign, which browsers do not send to servers. The city list for the shade check is a file on this site. If you buy Pro, only the licence key is sent to Gumroad to check it."}},
+  {"@type":"Question","name":"Does it work in metric, for a cat enclosure in Australia or the UK?","acceptedAnswer":{"@type":"Answer","text":"Yes. Switch to metric and the frame uses 45 x 45 mm, 38 x 63 mm CLS, 38 x 89 mm CLS or 45 x 90 mm timber in lengths from 2.4 m to 4.8 m, with 13 mm welded mesh in 900 mm rolls."}},
+  {"@type":"Question","name":"Will the catio hold up to snow and wind?","acceptedAnswer":{"@type":"Answer","text":"The tool does not size the frame for snow or wind. Make sure the roof is strong enough for the snowfall you get, and check locally with a builder or your building department if you get heavy snow."}}
+ ]}
+]}
+</script>
+</head>
+<body class="cd-page" style="--accent:#0e7a47">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a href="/tumbler-template/" class="hide-sm">Tumbler templates</a>
+      <a href="/name-cut-files/" class="hide-sm">Name cut files</a>
+      <a href="/kdp-coloring-book/" class="hide-sm">KDP coloring books</a>
+      <a href="/sewing-pattern-printer/" class="hide-sm">Sewing pattern printer</a>
+      <a href="/quilt-label-maker/" class="hide-sm">Quilt labels</a>
+      <a href="/etsy-tax-summary/" class="hide-sm">Etsy tax summary</a>
+      <a href="/pay-gap-report/" class="hide-sm">Pay gap report</a>
+      <a href="/equality-action-plan/" class="hide-sm">Equality action plan</a>
+      <a href="/job-evaluation/" class="hide-sm">Job evaluation</a>
+      <a href="/pay-transparency/" class="hide-sm">Pay transparency</a>
+      <a href="/menopause-adjustments/" class="hide-sm">Menopause adjustments</a>
+      <a href="/without-planning/" class="hide-sm">Without planning</a>
+      <a href="/dropped-kerb/" class="hide-sm">Dropped kerb</a>
+      <a href="/catio-designer/" aria-current="page">Catio designer</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li aria-current="page">Catio Designer</li></ol></nav>
+
+  <header class="cd-hero">
+    <div>
+      <h1>Design a catio for your own window, wall or balcony</h1>
+    </div>
+    <div class="cd-hero-side">
+      <p class="lede">Catio Designer is a free online catio design tool. Enter your space and it builds the catio in 3D from standard lumber, checks the mesh, gaps, shelf steps and shade, and lists every board, roll of mesh and screw to buy.</p>
+      <fieldset class="cd-types" id="types">
+        <legend>What are you building?</legend>
+        <label class="cd-type"><input type="radio" name="type" value="window"><svg viewBox="0 0 64 44" aria-hidden="true"><path d="M4 2v40" stroke="currentColor" stroke-width="2"/><rect x="8" y="10" width="14" height="18" fill="none" stroke="currentColor" stroke-width="1.6"/><path class="wood" d="M24 12h30v20H24z" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M28 12v20M34 12v20M40 12v20M46 12v20M24 18h30M24 25h30" stroke="currentColor" stroke-width=".8" opacity=".6"/><path class="wood" d="M24 32 54 32M30 32l-8 8" stroke="currentColor" stroke-width="2.4"/></svg><span>Window box</span></label>
+        <label class="cd-type"><input type="radio" name="type" value="leanto"><svg viewBox="0 0 64 44" aria-hidden="true"><path d="M4 2v40M2 42h60" stroke="currentColor" stroke-width="2"/><path class="wood" d="M6 8 56 16v26M6 8v34M56 42H6" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M16 10v32M26 11.6v30.4M36 13.2v28.8M46 14.8v27.2" stroke="currentColor" stroke-width=".8" opacity=".6"/><rect x="38" y="22" width="12" height="20" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Lean-to on a wall</span></label>
+        <label class="cd-type"><input type="radio" name="type" value="free"><svg viewBox="0 0 64 44" aria-hidden="true"><path d="M2 42h60" stroke="currentColor" stroke-width="2"/><path class="wood" d="M20 12h38v30H20z M20 12l4-6h38l-4 6M58 42l4-6V6" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M30 12v30M39 12v30M48 12v30" stroke="currentColor" stroke-width=".8" opacity=".6"/><path d="M2 34h18M2 42V34" stroke="currentColor" stroke-width="2"/><path d="M6 34v8M11 34v8M16 34v8" stroke="currentColor" stroke-width=".8" opacity=".6"/></svg><span>Freestanding</span></label>
+        <label class="cd-type"><input type="radio" name="type" value="balcony"><svg viewBox="0 0 64 44" aria-hidden="true"><path d="M2 4h60M2 40h60" stroke="currentColor" stroke-width="3"/><path d="M6 4v36" stroke="currentColor" stroke-width="2"/><path class="wood" d="M20 6v32M40 6v32M58 6v32M20 38h38M20 6h38" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M26 6v32M32 6v32M46 6v32M52 6v32" stroke="currentColor" stroke-width=".8" opacity=".6"/></svg><span>Balcony or deck</span></label>
+      </fieldset>
+    </div>
+  </header>
+  <div class="cd-mesh-strip" aria-hidden="true"></div>
+
+  <section class="cd-bench" id="tool" aria-label="Catio designer">
+    <div class="cd-stage">
+      <div class="cd-sticky">
+        <div class="cd-view" id="view">
+          <img id="poster" src="/catio-designer/img/poster-960.webp" srcset="/catio-designer/img/poster-480.webp 480w, /catio-designer/img/poster-960.webp 960w, /catio-designer/img/poster-1440.webp 1440w" sizes="(max-width: 960px) 100vw, 64vw" width="1440" height="900" fetchpriority="high" decoding="async" alt="The sample design in 3D at golden hour: a cedar window-box catio on a house wall under an open sash window, with mesh walls, a clear roof under shade cloth, two staggered shelves and a ramp. A marmalade tabby sits on the top shelf watching a small blue bird on a branch outside.">
+          <canvas id="canvas" tabindex="0" aria-label="3D model of your catio. Drag to turn it, scroll or pinch to zoom, or use the arrow keys." role="img" hidden></canvas>
+          <div class="cd-tags" id="tags" aria-hidden="true"></div>
+          <span class="cd-badge" id="badge">Sample</span>
+          <p class="cd-gl-note" id="gl-note" hidden>This browser cannot draw 3D (WebGL is off). The checks and the shopping list below still work.</p>
+          <button type="button" class="cd-start" id="start3d"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2 3 6v8l7 4 7-4V6z M3 6l7 4 7-4 M10 10v8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span>Turn it in 3D</span></button>
+        </div>
+        <div class="cd-toolbar" id="toolbar" hidden>
+          <div class="cd-seg" role="group" aria-label="Show" id="modes">
+            <button type="button" data-mode="full" aria-pressed="true">Whole catio</button>
+            <button type="button" data-mode="frame" aria-pressed="false">Frame only</button>
+            <button type="button" data-mode="steps" aria-pressed="false">Build steps</button>
+          </div>
+          <label class="cd-sun" for="sun">Sun <input type="range" id="sun" min="5" max="20" step="0.5" value="15"><output id="sun-out" for="sun">15:00</output></label>
+          <button type="button" class="cd-catbtn" id="catpath"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="5" cy="8" r="2" fill="currentColor"/><circle cx="9" cy="5" r="2" fill="currentColor"/><circle cx="13" cy="5.5" r="2" fill="currentColor"/><circle cx="16" cy="9" r="2" fill="currentColor"/><path d="M6 14c0-3 2.5-4.5 4.5-4.5S15 11 15 14c0 2-2 3-4.5 3S6 16 6 14z" fill="currentColor"/></svg>Walk the cat path</button>
+        </div>
+        <div class="cd-title" id="titleblock" aria-live="polite">
+          <h2 id="design-title">Sample window box</h2>
+          <p id="design-sub"><!-- @pre:sub -->4 ft wide, 2 ft deep, 3 ft high at the wall, 2x2 frame, 1 cat<!-- @pre:end --></p>
+          <div class="cd-counts" id="counts"><!-- @pre:counts --><span class="cd-count ct-fits"><b>9</b><span>fit</span></span><span class="cd-count ct-check"><b>1</b><span>to check</span></span><span class="cd-count ct-fail"><b>0</b><span>fail</span></span></div>
+          <div class="cd-meta"><span>Sources read on <strong>12 October 2026</strong></span><span>Worked out in your browser</span></div>
+        </div>
+      </div>
+    </div>
+
+    <form class="cd-form" id="form" autocomplete="off" novalidate onsubmit="return false">
+      <fieldset class="cd-step">
+        <legend><span class="cd-step-n">1</span>Your space</legend>
+        <div class="cd-row" style="margin-bottom:10px">
+          <div class="cd-seg cd-units" role="group" aria-label="Units" data-seg="units"><button type="button" data-v="imperial" aria-pressed="true">Inches (US)</button><button type="button" data-v="metric" aria-pressed="false">Metric</button></div>
+        </div>
+        <div class="cd-grid">
+          <label class="cd-field"><span data-label="w">Width along the wall</span><span class="cd-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="w" data-t="len"><i data-unit>in</i></span></label>
+          <label class="cd-field"><span>Depth out from the wall</span><span class="cd-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="d" data-t="len"><i data-unit>in</i></span></label>
+          <label class="cd-field"><span data-label="h">Height at the wall</span><span class="cd-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="h" data-t="len"><i data-unit>in</i></span></label>
+          <label class="cd-field" data-show="!ceiling"><span>Height at the front</span><span class="cd-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="h2" data-t="len"><i data-unit>in</i></span><small>Lower than the back for a roof that sheds rain</small></label>
+        </div>
+        <div class="cd-grid" data-show="type=balcony" style="margin-top:10px">
+          <label class="cd-check"><input type="checkbox" data-k="bal.ceiling" data-t="bool"><span>A ceiling or the balcony above</span></label>
+          <label class="cd-check" data-show="ceiling"><input type="checkbox" data-k="bal.nodrill" data-t="bool"><span>No drilling: tension posts hold it</span></label>
+          <label class="cd-check"><input type="checkbox" data-k="bal.left" data-t="bool"><span>The left side is a wall</span></label>
+          <label class="cd-check"><input type="checkbox" data-k="bal.right" data-t="bool"><span>The right side is a wall</span></label>
+        </div>
+        <div class="cd-grid" data-show="type=free" style="margin-top:10px">
+          <label class="cd-field wide"><span>Tunnel to a window or cat door</span><span class="cd-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="tunnel.l" data-t="len"><i data-unit>in</i></span><small>Its length; 0 for none</small></label>
+          <label class="cd-field" data-show="tunnel"><span>Tunnel width</span><span class="cd-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="tunnel.w" data-t="len"><i data-unit>in</i></span></label>
+          <label class="cd-field" data-show="tunnel"><span>Tunnel height</span><span class="cd-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="tunnel.h" data-t="len"><i data-unit>in</i></span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="cd-step">
+        <legend><span class="cd-step-n">2</span>The window and your cats</legend>
+        <div class="cd-grid">
+          <label class="cd-field"><span>Window or cat door width</span><span class="cd-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="win.w" data-t="len"><i data-unit>in</i></span></label>
+          <label class="cd-field"><span>Its height</span><span class="cd-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="win.h" data-t="len"><i data-unit>in</i></span></label>
+          <label class="cd-field wide" data-show="!type=window"><span>Its bottom edge above the catio floor</span><span class="cd-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="win.sill" data-t="len"><i data-unit>in</i></span><small>Where the cat comes in; the first jump is from here</small></label>
+          <label class="cd-field"><span>Cats</span><input type="number" inputmode="numeric" step="1" min="1" max="8" data-k="cats" data-t="int"></label>
+          <label class="cd-field"><span>The least agile of them</span><select data-k="agility"><option value="athletic">A young, athletic cat</option><option value="cautious">A kitten, an older or a cautious cat</option></select></label>
+          <label class="cd-field"><span>Shelves</span><input type="number" inputmode="numeric" step="1" min="0" max="5" data-k="shelves" data-t="int"></label>
+          <label class="cd-check" style="align-self:end"><input type="checkbox" data-k="ramp" data-t="bool"><span>A ramp to the first shelf</span></label>
+          <label class="cd-check wide" data-show="!type=window"><input type="checkbox" data-k="door" data-t="bool"><span>A walk-in door for you <small id="door-note"></small></span></label>
+          <label class="cd-field" data-show="door"><span>Door width</span><span class="cd-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="doorW" data-t="len"><i data-unit>in</i></span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="cd-step">
+        <legend><span class="cd-step-n">3</span>Lumber, mesh and roof</legend>
+        <div class="cd-grid">
+          <label class="cd-field"><span>Frame lumber</span><select data-k="lumber" id="lumber"></select><small id="lumber-actual"></small></label>
+          <label class="cd-field"><span>Board length you buy</span><select data-k="stock" data-t="num" id="stock"></select></label>
+          <label class="cd-field wide"><span>Mesh</span><select data-k="mesh" id="mesh"></select></label>
+          <label class="cd-field" data-show="mesh=custom"><span>Opening, short side</span><span class="cd-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="custom.a" data-t="len"><i data-unit>in</i></span></label>
+          <label class="cd-field" data-show="mesh=custom"><span>Opening, long side</span><span class="cd-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="custom.b" data-t="len"><i data-unit>in</i></span></label>
+          <label class="cd-field" data-show="mesh=custom"><span>Wire gauge</span><input type="number" inputmode="numeric" step="1" min="8" max="30" data-k="custom.gauge" data-t="int"></label>
+          <label class="cd-field"><span>Mesh roll width</span><span class="cd-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="roll.w" data-t="len"><i data-unit>in</i></span></label>
+          <label class="cd-field"><span>Roll length</span><span class="cd-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="roll.l" data-t="len"><i data-unit>in</i></span><small id="roll-note"></small></label>
+          <label class="cd-field" data-show="!ceiling"><span>Roof</span><select data-k="roof"><option value="mesh">Mesh</option><option value="poly">Clear polycarbonate panels</option><option value="solid">Solid (opaque) panels</option><option value="none">No roof</option></select></label>
+          <label class="cd-field" data-show="roofed"><span>Shade cloth on the roof</span><select data-k="shade" data-t="num"><option value="0">None</option><option value="0.5">Over the back half</option><option value="1">Over all of it</option></select></label>
+          <label class="cd-field" data-show="panels"><span>Panel width</span><span class="cd-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="panel.w" data-t="len"><i data-unit>in</i></span></label>
+          <label class="cd-field" data-show="panels"><span>Panel length</span><span class="cd-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="panel.l" data-t="len"><i data-unit>in</i></span><small>Example sizes: enter the panel you buy</small></label>
+          <label class="cd-field wide"><span>Floor</span><select data-k="floor" id="floor"><option value="plywood">Plywood floor</option><option value="meshfloor">Mesh under the base frame</option><option value="ground">Open ground</option><option value="existing">Patio, pavers, deck or balcony floor</option></select></label>
+          <label class="cd-field wide"><span>Studs no more than this far apart</span><span class="cd-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="spacing" data-t="len"><i data-unit>in</i></span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="cd-step">
+        <legend><span class="cd-step-n">4</span>Sun and the site</legend>
+        <div class="cd-grid">
+          <label class="cd-field"><span>The catio faces</span><select data-k="facing" data-t="num"><option value="0">North</option><option value="45">Northeast</option><option value="90">East</option><option value="135">Southeast</option><option value="180">South</option><option value="225">Southwest</option><option value="270">West</option><option value="315">Northwest</option></select></label>
+          <label class="cd-field"><span>Latitude</span><input type="number" inputmode="decimal" step="0.1" min="-66" max="66" data-k="lat" data-t="num" placeholder="40.7"></label>
+          <label class="cd-field wide"><span>Or find it from a city</span><input type="search" id="city" list="city-list" spellcheck="false" placeholder="Type a city, such as Portland"><datalist id="city-list"></datalist><small>The city list is a file on this site; nothing you type is sent anywhere.</small></label>
+          <label class="cd-field wide" data-show="!type=free"><span>The house wall</span><select data-k="wall"><option value="wood">Wood or fiber-cement siding</option><option value="vinyl">Vinyl siding</option><option value="masonry">Brick, block or stone</option><option value="stucco">Stucco or render</option></select></label>
+          <label class="cd-field" data-show="!type=free"><span>Widest gap at the wall</span><span class="cd-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="gaps.wall" data-t="len"><i data-unit>in</i></span><small>Siding laps, a crooked wall</small></label>
+          <label class="cd-field"><span>Widest gap under the frame</span><span class="cd-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="gaps.ground" data-t="len"><i data-unit>in</i></span><small>Where the ground dips</small></label>
+          <label class="cd-field" data-show="!type=free|tunnel"><span>Widest gap round the window</span><span class="cd-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="gaps.window" data-t="len"><i data-unit>in</i></span></label>
+        </div>
+      </fieldset>
+    </form>
+  </section>
+
+  <div class="cd-actions">
+    <button type="button" class="btn btn-primary" id="share">Copy the share link</button>
+    <button type="button" class="btn" id="sample">Load the sample design</button>
+    <button type="button" class="btn" id="fresh">Start my own design</button>
+    <span class="hint">The link holds your whole design after the # sign. Nothing is sent to a server.</span>
+  </div>
+  <p class="cd-sample-note" id="sample-note">This is a sample: a window box for one cat under a sash window in New York, facing south. Change any size to make it yours.</p>
+
+  <section class="cd-sec" id="checks" aria-labelledby="checks-h">
+    <div class="cd-sec-head"><h2 id="checks-h">The checks, with their sources</h2><p>Guidance from the sources named in each row, read on 12 October 2026. No official standard for catios exists.</p></div>
+    <table class="cd-table" id="check-table">
+      <caption>Fits means inside the guide; check means worth a second look; fail means change it before you build.</caption>
+      <thead><tr><th scope="col">Result</th><th scope="col">Check</th><th scope="col">Yours</th><th scope="col">Guide</th><th scope="col">Why</th></tr></thead>
+      <tbody id="check-rows" data-pre="sample"><!-- @pre:checks --><tr class="cd-group"><td colspan="5">Mesh</td></tr><tr data-id="mesh-material" class="is-fits"><td class="cd-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="currentColor"/></svg>Fits</span></td><td><b>Mesh material</b></td><td data-h="Yours">1/2 in hardware cloth, 19 gauge, galvanized</td><td data-h="Guide">Welded wire or hardware cloth</td><td data-h="Why" class="cd-why">Welded steel mesh, galvanized or stainless, as the catio guides use.<span class="cd-src"> <a href="https://www.newegg.com/p/2AC-00N9-01G12" rel="noopener" target="_blank" title="Newegg: Hardware Cloth, 1/2 inch, 36in x 50 ft, 19 Gauge, Hot Dipped Galvanized (also 24in x 100 ft); mesh size 0.5 x 0.5 in (12.7 x 12.7 mm), read 2026-10-12">Newegg, 1/2 in hardware cloth</a>, <a href="https://www.fhbrundle.co.uk/products/01026939B__Galvanised_Welded_Mesh_-_Mesh_Master" rel="noopener" target="_blank" title="F.H. Brundle: 6m Roll, 36&quot; x 1/2&quot; x 1/2&quot; x 19g Galvanised Welded Mesh; roll width 900 mm, mesh 13 x 13 mm, 19 g (1.00 mm); also 30 m rolls, 1/2&quot; x 1&quot; 19g and 1/4&quot; x 1/4&quot; 23g, read 2026-10-12">F.H. Brundle, 13 mm welded mesh</a>, <a href="https://catiospaces.com/catios-cat-enclosures/free-tips/diy-catio-materials-how-to-pick-the-right-cat-enclosure-mesh-for-your-catio/" rel="noopener" target="_blank" title="Catio Spaces: How to Pick the Right Cat Enclosure Mesh for Your Catio, read 2026-10-12">Catio Spaces, choosing mesh</a></span></td></tr><tr data-id="mesh-opening" class="is-fits"><td class="cd-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="currentColor"/></svg>Fits</span></td><td><b>Mesh opening</b></td><td data-h="Yours">1/2 in x 1/2 in</td><td data-h="Guide">No more than 2 in x 3 in</td><td data-h="Why" class="cd-why">Inside the largest grid opening the catio guides recommend. Smaller openings also keep out more wildlife.<span class="cd-src"> <a href="https://catiospaces.com/catios-cat-enclosures/free-tips/are-catios-coyote-safe/" rel="noopener" target="_blank" title="Catio Spaces: Are Catios Coyote-Safe?, read 2026-10-12">Catio Spaces, predators</a>, <a href="https://spca.bc.ca/wp-content/uploads/DIY-Stand-Alone-Catio.pdf" rel="noopener" target="_blank" title="BC SPCA: DIY Stand Alone Catio (PDF plan), read 2026-10-12">BC SPCA catio plan</a></span></td></tr><tr data-id="mesh-gauge" class="is-check"><td class="cd-st st-check"><span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.8 15 14H1z" fill="currentColor"/></svg>Check</span></td><td><b>Wire gauge</b></td><td data-h="Yours">19 gauge</td><td data-h="Guide">16 gauge or heavier</td><td data-h="Why" class="cd-why">Lighter than the 16 gauge one guide recommends. 19 gauge welded mesh is sold for pet runs; where coyotes, raccoons or dogs visit, choose the heavier wire.<span class="cd-src"> <a href="https://catiospaces.com/catios-cat-enclosures/free-tips/are-catios-coyote-safe/" rel="noopener" target="_blank" title="Catio Spaces: Are Catios Coyote-Safe?, read 2026-10-12">Catio Spaces, predators</a>, <a href="https://www.screwfix.com/p/apollo-13-x-13mm-galvanised-welded-mesh-0-9m-x-6m/53558" rel="noopener" target="_blank" title="Screwfix: Apollo 13 x 13mm Galvanised Welded Mesh 0.9m x 6m, &quot;ideal for the construction of pet runs and cages&quot;, read 2026-10-12">Screwfix, 13 x 13 mm mesh</a></span></td></tr><tr class="cd-group"><td colspan="5">Gaps</td></tr><tr data-id="gap" class="is-fits"><td class="cd-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="currentColor"/></svg>Fits</span></td><td><b>Largest gap</b></td><td data-h="Yours">0 in between the frame and the house wall</td><td data-h="Guide">No wider than 1/2 in</td><td data-h="Why" class="cd-why">There should be no openings a cat could squeeze through, even on top. No guide gives a gap size, so the tool holds every gap to the short side of your mesh opening and never more than 1 in (25 mm).<span class="cd-src"> <a href="https://www.humaneworld.org/catios" rel="noopener" target="_blank" title="Humane World for Animals: Catios, Safe Outdoor Enclosures for Happy, Healthy Cats, read 2026-10-12">Humane World for Animals, catios</a></span></td></tr><tr class="cd-group"><td colspan="5">Roof</td></tr><tr data-id="roof" class="is-fits"><td class="cd-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="currentColor"/></svg>Fits</span></td><td><b>Roof</b></td><td data-h="Yours">Clear polycarbonate panels</td><td data-h="Guide">Mesh or panels over the top</td><td data-h="Why" class="cd-why">A covered top keeps the cat in and climbers and birds of prey out.<span class="cd-src"> <a href="https://www.humaneworld.org/catios" rel="noopener" target="_blank" title="Humane World for Animals: Catios, Safe Outdoor Enclosures for Happy, Healthy Cats, read 2026-10-12">Humane World for Animals, catios</a>, <a href="https://catiospaces.com/catios-cat-enclosures/free-tips/are-catios-coyote-safe/" rel="noopener" target="_blank" title="Catio Spaces: Are Catios Coyote-Safe?, read 2026-10-12">Catio Spaces, predators</a></span></td></tr><tr data-id="roof-pitch" class="is-fits"><td class="cd-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="currentColor"/></svg>Fits</span></td><td><b>Roof slope for panels</b></td><td data-h="Yours">7.1 degrees</td><td data-h="Guide">At least 5 degrees</td><td data-h="Why" class="cd-why">Steep enough for rain to run off the corrugated panels.<span class="cd-src"> <a href="https://www.palram.com/au/wp-content/uploads/sites/3/2019/07/SUNTUFF_Roofing_Installation_Guide-.pdf" rel="noopener" target="_blank" title="Palram Australia: SUNTUF Roofing Installation Guide (pitch, purlin spacing, side lap), read 2026-10-12">Palram, corrugated sheet guide</a></span></td></tr><tr data-id="snow" class="is-info"><td class="cd-st st-info"><span><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Note</span></td><td><b>Snow and wind</b></td><td data-h="Yours">Clear polycarbonate panels</td><td data-h="Guide">Check locally</td><td data-h="Why" class="cd-why">Make sure the roof is strong enough for any snowfall you get. This tool does not size the frame for snow or wind; ask a local builder or your building department if you get heavy snow.<span class="cd-src"> <a href="https://www.humaneworld.org/catios" rel="noopener" target="_blank" title="Humane World for Animals: Catios, Safe Outdoor Enclosures for Happy, Healthy Cats, read 2026-10-12">Humane World for Animals, catios</a></span></td></tr><tr class="cd-group"><td colspan="5">Shelves and steps</td></tr><tr data-id="step-shelf-1" class="is-info"><td class="cd-st st-info"><span><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Note</span></td><td><b>Floor to Shelf 1</b></td><td data-h="Yours">Ramp at 38 degrees</td><td data-h="Guide">A ramp</td><td data-h="Why" class="cd-why">A ramp turns this step into a walk. Cover it with outdoor carpet or sisal for grip.</td></tr><tr data-id="step-shelf-2" class="is-fits"><td class="cd-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="currentColor"/></svg>Fits</span></td><td><b>Shelf 1 to Shelf 2</b></td><td data-h="Yours">9 in up</td><td data-h="Guide">Up to 24 in for a young, athletic cat</td><td data-h="Why" class="cd-why">A step the cat can manage.<span class="cd-src"> <a href="https://www.therefinedfeline.com/cat-shelf-installation-mistakes/" rel="noopener" target="_blank" title="The Refined Feline: Cat Shelves Wall, Mistakes to Avoid, read 2026-10-12">The Refined Feline, shelf spacing</a></span></td></tr><tr data-id="shelf-thick" class="is-fits"><td class="cd-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="currentColor"/></svg>Fits</span></td><td><b>Shelf thickness</b></td><td data-h="Yours">3/4 in plywood</td><td data-h="Guide">At least 3/4 in for cats under 15 lb</td><td data-h="Why" class="cd-why">Use 1 in (25 mm) or thicker for larger cats.<span class="cd-src"> <a href="https://www.therefinedfeline.com/how-to-build-a-cat-wall-catwalk/" rel="noopener" target="_blank" title="The Refined Feline: How to Build a Cat Wall Catwalk, read 2026-10-12">The Refined Feline, catwalk guide</a></span></td></tr><tr class="cd-group"><td colspan="5">Space for the cats</td></tr><tr data-id="area" class="is-info"><td class="cd-st st-info"><span><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Note</span></td><td><b>Floor area</b></td><td data-h="Yours">8.0 sq ft</td><td data-h="Guide">No published minimum for one cat</td><td data-h="Why" class="cd-why">No official standard exists. Catios range from cat-sized window boxes to rooms; one enclosure maker gives 2 square metres per cat only when cats share, and every cat needs climbing space and places to hide.<span class="cd-src"> <a href="https://humanepro.org/sites/default/files/documents/Catios-fact-sheet.pdf" rel="noopener" target="_blank" title="Humane World for Animals: Catios fact sheet (PDF), read 2026-10-12">Humane World for Animals, fact sheet</a>, <a href="https://help.catnets.com.au/en-US/how-big-should-a-cat-enclosure-be-5890455" rel="noopener" target="_blank" title="Catnets: How big should a cat enclosure be?, read 2026-10-12">Catnets, enclosure size</a>, <a href="https://help.catnets.com.au/en-US/articles/cat-enclosure-faq-403157" rel="noopener" target="_blank" title="Catnets: Cat Enclosure FAQ, &quot;How many cats can I put in my enclosure?&quot;, read 2026-10-12">Catnets, enclosure FAQ</a></span></td></tr><tr data-id="height" class="is-info"><td class="cd-st st-info"><span><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Note</span></td><td><b>Height</b></td><td data-h="Yours">3 ft at the wall, 2 ft 9 in at the front</td><td data-h="Guide">No published figure</td><td data-h="Why" class="cd-why">No guide we checked gives a height per cat. All cats need vertical climbing space, which the shelves give.<span class="cd-src"> <a href="https://help.catnets.com.au/en-US/how-big-should-a-cat-enclosure-be-5890455" rel="noopener" target="_blank" title="Catnets: How big should a cat enclosure be?, read 2026-10-12">Catnets, enclosure size</a></span></td></tr><tr class="cd-group"><td colspan="5">Sun and shade</td></tr><tr data-id="shade" class="is-fits"><td class="cd-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="currentColor"/></svg>Fits</span></td><td><b>Shade on the longest day</b></td><td data-h="Yours">30% of the floor at 15:00, the least shaded hour</td><td data-h="Guide">At least 25% shaded every hour, 11:00 to 15:00 sun time</td><td data-h="Why" class="cd-why">There is a shaded place to rest at every hour of the summer day. Keep fresh water out and the way indoors open.<span class="cd-src"> <a href="https://catiospaces.com/catios-cat-enclosures/free-tips/cooling-off-kitty-3-things-to-add-to-your-catio-during-a-heatwave/" rel="noopener" target="_blank" title="Catio Spaces: Cooling-Off Kitty, 3 Things to Add to Your Catio During a Heatwave, read 2026-10-12">Catio Spaces, heatwave tips</a>, <a href="https://catiospaces.com/catios-cat-enclosures/free-tips/where-can-you-build-a-catio/" rel="noopener" target="_blank" title="Catio Spaces: Where Can You Build a Catio?, read 2026-10-12">Catio Spaces, choosing a place</a>, <a href="https://www.humaneworld.org/catios" rel="noopener" target="_blank" title="Humane World for Animals: Catios, Safe Outdoor Enclosures for Happy, Healthy Cats, read 2026-10-12">Humane World for Animals, catios</a></span></td></tr><tr data-id="sun" class="is-info"><td class="cd-st st-info"><span><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Note</span></td><td><b>Sun</b></td><td data-h="Yours">Sun reaches the floor for part of the day</td><td data-h="Guide">A sunny place to rest</td><td data-h="Why" class="cd-why">Cats like a sunny resting spot as well as shade.<span class="cd-src"> <a href="https://help.catnets.com.au/en-US/how-big-should-a-cat-enclosure-be-5890455" rel="noopener" target="_blank" title="Catnets: How big should a cat enclosure be?, read 2026-10-12">Catnets, enclosure size</a>, <a href="https://catiospaces.com/catios-cat-enclosures/free-tips/where-can-you-build-a-catio/" rel="noopener" target="_blank" title="Catio Spaces: Where Can You Build a Catio?, read 2026-10-12">Catio Spaces, choosing a place</a></span></td></tr><tr class="cd-group"><td colspan="5">Floor</td></tr><tr data-id="dig" class="is-fits"><td class="cd-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="currentColor"/></svg>Fits</span></td><td><b>Floor</b></td><td data-h="Yours">Plywood floor</td><td data-h="Guide">Mesh under the base, pavers or a deck</td><td data-h="Why" class="cd-why">Nothing can dig under it.<span class="cd-src"> <a href="https://catiospaces.com/catios-cat-enclosures/free-tips/are-catios-coyote-safe/" rel="noopener" target="_blank" title="Catio Spaces: Are Catios Coyote-Safe?, read 2026-10-12">Catio Spaces, predators</a></span></td></tr><tr class="cd-group"><td colspan="5">Materials</td></tr><tr data-id="lumber" class="is-info"><td class="cd-st st-info"><span><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Note</span></td><td><b>Lumber</b></td><td data-h="Yours">2x2, actual 1 1/2 x 1 1/2 in</td><td data-h="Guide">Untreated cedar, redwood or pine</td><td data-h="Why" class="cd-why">Pressure-treated lumber is wood impregnated with a pesticide, and older arsenic-treated (CCA) boards turn up second hand. Cats rub and chew, so choose sturdy, nontoxic materials: untreated cedar, or wood with a pet-safe, water-based finish free of heavy metals.<span class="cd-src"> <a href="https://www.humaneworld.org/catios" rel="noopener" target="_blank" title="Humane World for Animals: Catios, Safe Outdoor Enclosures for Happy, Healthy Cats, read 2026-10-12">Humane World for Animals, catios</a>, <a href="https://www.epa.gov/ingredients-used-pesticide-products/overview-wood-preservative-chemicals" rel="noopener" target="_blank" title="US EPA: Overview of Wood Preservative Chemicals, read 2026-10-12">US EPA, wood preservatives</a>, <a href="https://spca.bc.ca/wp-content/uploads/DIY-Stand-Alone-Catio.pdf" rel="noopener" target="_blank" title="BC SPCA: DIY Stand Alone Catio (PDF plan), read 2026-10-12">BC SPCA catio plan</a></span></td></tr><tr class="cd-group"><td colspan="5">Before you build</td></tr><tr data-id="rules" class="is-info"><td class="cd-st st-info"><span><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Note</span></td><td><b>HOA and lease rules</b></td><td data-h="Yours">Fixed to the building</td><td data-h="Guide">Check before you build</td><td data-h="Why" class="cd-why">Check HOA and lease rules before you build. If you rent, check with your landlord or management company.<span class="cd-src"> <a href="https://www.humaneworld.org/catios" rel="noopener" target="_blank" title="Humane World for Animals: Catios, Safe Outdoor Enclosures for Happy, Healthy Cats, read 2026-10-12">Humane World for Animals, catios</a></span></td></tr></tbody>
+    </table>
+  </section>
+
+  <section class="cd-sec" id="shop" aria-labelledby="shop-h">
+    <div class="cd-sec-head"><h2 id="shop-h">Shopping list</h2><p>Type the prices from your store to see a total. The tool ships no prices.</p></div>
+    <table class="cd-table cd-shop" id="shop-table">
+      <caption id="shop-cap"><!-- @pre:shopcap -->Quantities for this design, 9 boards cut from 8 ft lengths, with a tenth spare on screws.<!-- @pre:end --></caption>
+      <thead><tr><th scope="col">Item</th><th scope="col" class="num">Quantity</th><th scope="col" class="num">Your unit price</th><th scope="col" class="num">Cost</th></tr></thead>
+      <tbody id="shop-rows"><!-- @pre:shop --><tr class="cd-group"><td colspan="4">Lumber</td></tr><tr data-item="lumber:2x2:2438"><td><b>2x2 x 8 ft</b><span class="cd-src" style="display:block">Actual size 1 1/2 x 1 1/2 in. Untreated cedar, redwood or pine.</span></td><td data-h="Quantity" class="num">9 boards</td><td data-h="Your unit price" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="lumber:2x2:2438" aria-label="Unit price for 2x2 x 8 ft" value=""></td><td data-h="Cost" class="num" data-cost="lumber:2x2:2438"></td></tr><tr class="cd-group"><td colspan="4">Sheet goods</td></tr><tr data-item="sheet"><td><b>4 x 8 ft plywood, 3/4 in (sold as 23/32 in)</b><span class="cd-src" style="display:block">Floor, shelves, ramp and add-on panels.</span></td><td data-h="Quantity" class="num">1 sheet</td><td data-h="Your unit price" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="sheet" aria-label="Unit price for 4 x 8 ft plywood, 3/4 in (sold as 23/32 in)" value=""></td><td data-h="Cost" class="num" data-cost="sheet"></td></tr><tr class="cd-group"><td colspan="4">Mesh</td></tr><tr data-item="mesh:hc12-19:914x15240"><td><b>1/2 in hardware cloth, 19 gauge, galvanized, roll 36 in x 50 ft</b><span class="cd-src" style="display:block">8 ft of strips with 1 in overlaps.</span></td><td data-h="Quantity" class="num">1 roll</td><td data-h="Your unit price" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="mesh:hc12-19:914x15240" aria-label="Unit price for 1/2 in hardware cloth, 19 gauge, galvanized, roll 36 in x 50 ft" value=""></td><td data-h="Cost" class="num" data-cost="mesh:hc12-19:914x15240"></td></tr><tr class="cd-group"><td colspan="4">Roof</td></tr><tr data-item="panel"><td><b>Clear corrugated polycarbonate panels, 26 in x 8 ft</b><span class="cd-src" style="display:block">2 columns; side lap 3 in.</span></td><td data-h="Quantity" class="num">1 panel</td><td data-h="Your unit price" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="panel" aria-label="Unit price for Clear corrugated polycarbonate panels, 26 in x 8 ft" value=""></td><td data-h="Cost" class="num" data-cost="panel"></td></tr><tr class="cd-group"><td colspan="4">Fasteners</td></tr><tr data-item="roofscrews"><td><b>Roofing screws with sealing washers</b><span class="cd-src" style="display:block">An estimate: about five per panel piece at each roof bar. Follow the panel maker&#39;s fixing pattern.</span></td><td data-h="Quantity" class="num">20 screws</td><td data-h="Your unit price" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="roofscrews" aria-label="Unit price for Roofing screws with sealing washers" value=""></td><td data-h="Cost" class="num" data-cost="roofscrews"></td></tr><tr data-item="screws-frame"><td><b>Exterior wood screws, 3 in</b><span class="cd-src" style="display:block">Two at each end of every piece, plus a tenth spare.</span></td><td data-h="Quantity" class="num">132 screws</td><td data-h="Your unit price" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="screws-frame" aria-label="Unit price for Exterior wood screws, 3 in" value=""></td><td data-h="Cost" class="num" data-cost="screws-frame"></td></tr><tr data-item="wallfix"><td><b>Structural screws or lag screws for the wall fixings</b><span class="cd-src" style="display:block">One per stud crossing on the wall battens and ledger. See the attachment detail for your wall.</span></td><td data-h="Quantity" class="num">20 fixings</td><td data-h="Your unit price" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="wallfix" aria-label="Unit price for Structural screws or lag screws for the wall fixings" value=""></td><td data-h="Cost" class="num" data-cost="wallfix"></td></tr><tr data-item="screws-ply"><td><b>Exterior wood screws for the plywood, 1 1/4 in</b><span class="cd-src" style="display:block">About one every 8 in (200 mm) round each piece.</span></td><td data-h="Quantity" class="num">41 screws</td><td data-h="Your unit price" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="screws-ply" aria-label="Unit price for Exterior wood screws for the plywood, 1 1/4 in" value=""></td><td data-h="Cost" class="num" data-cost="screws-ply"></td></tr><tr data-item="staples"><td><b>Staples, 1/2 in or longer, for a heavy-duty stapler</b><span class="cd-src" style="display:block">About one every 3 in along every member under the mesh.</span></td><td data-h="Quantity" class="num">139 staples</td><td data-h="Your unit price" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="staples" aria-label="Unit price for Staples, 1/2 in or longer, for a heavy-duty stapler" value=""></td><td data-h="Cost" class="num" data-cost="staples"></td></tr><tr data-item="washers"><td><b>Washer-head screws or screws with fender washers, 1 1/4 in</b><span class="cd-src" style="display:block">One every 12 in round the edge of each mesh panel, between the staples.</span></td><td data-h="Quantity" class="num">33 screws</td><td data-h="Your unit price" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="washers" aria-label="Unit price for Washer-head screws or screws with fender washers, 1 1/4 in" value=""></td><td data-h="Cost" class="num" data-cost="washers"></td></tr><tr class="cd-total"><td colspan="3">Total of the prices you entered</td><td class="num" id="shop-total"></td></tr></tbody>
+    </table>
+    <div class="cd-actions"><button type="button" class="btn" id="print">Print the shopping list</button><span class="hint" id="shop-note"></span></div>
+  </section>
+
+  <section class="cd-sec" id="pro" aria-labelledby="pro-h">
+    <div class="cd-pro">
+      <div class="cd-pro-l">
+        <h2 id="pro-h">The build plan for this exact catio</h2>
+        <p>Pro turns your design into a plan you can build from: every board with its cuts, the mesh cut to your roll, and the steps in order.</p>
+        <ul class="cd-locked" id="locked">
+          <li data-pro="cut"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><div><b>Optimised cut list</b><span>Every board by stock length with its cuts, packed to waste least, a cutting diagram per board and the leftovers</span></div><em>Pro</em></li>
+          <li data-pro="mesh"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><div><b>Mesh cutting layout</b><span>Each wall cut into strips for your roll width, with the overlaps and the number of rolls</span></div><em>Pro</em></li>
+          <li data-pro="pdf"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><div><b>Step-by-step build plan (PDF)</b><span>Dimensioned elevations, an exploded view for each step, the order of assembly and the fixing detail for your wall</span></div><em>Pro</em></li>
+          <li data-pro="addons"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><div><b>Add-ons</b><span>A raised tunnel and bridge, a litter-box bench, a window insert panel with a cat flap, a second tier</span></div><em>Pro</em></li>
+          <li data-pro="saved"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><div><b>Saved designs and both units</b><span>Several designs kept in this browser; the plan in inches and millimetres at once</span></div><em>Pro</em></li>
+          <li data-pro="export"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><div><b>3D files and renders</b><span>GLB and OBJ for SketchUp or Blender, and a high-resolution picture to show a landlord, an HOA or your household</span></div><em>Pro</em></li>
+        </ul>
+        <figure class="cd-pro-out">
+          <img src="/catio-designer/img/pro-cutlist-960.webp" srcset="/catio-designer/img/pro-cutlist-480.webp 480w, /catio-designer/img/pro-cutlist-960.webp 960w, /catio-designer/img/pro-cutlist-1440.webp 1440w" sizes="(max-width: 860px) 100vw, 56vw" width="1440" height="1018" loading="lazy" decoding="async" alt="The cut list page from the Pro build plan of the sample window box: each 8 ft 2x2 board drawn to scale with its cuts labelled in inches and the leftover hatched at the end.">
+          <figcaption>A real page from the Pro build plan of the sample design: the cut list, board by board.</figcaption>
+        </figure>
+        <fieldset class="cd-addons" id="addons" disabled>
+          <legend>Add-ons <span class="cd-pro-tag">Pro</span></legend>
+          <label class="cd-check"><input type="checkbox" data-k="addons.bridge.on" data-t="bool"><span>A raised tunnel and bridge from the right side</span></label>
+          <div class="cd-grid" data-show="addons.bridge.on"><label class="cd-field"><span>Bridge length</span><span class="cd-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="addons.bridge.l" data-t="len"><i data-unit>in</i></span></label><label class="cd-field"><span>Bridge height</span><span class="cd-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="addons.bridge.h" data-t="len"><i data-unit>in</i></span></label></div>
+          <label class="cd-check"><input type="checkbox" data-k="addons.litter.on" data-t="bool"><span>A litter-box bench with a hinged lid</span></label>
+          <label class="cd-check"><input type="checkbox" data-k="addons.insert.on" data-t="bool"><span>A window insert panel with a cat flap</span></label>
+          <div class="cd-grid" data-show="addons.insert.on"><label class="cd-field"><span>Window</span><select data-k="addons.insert.kind"><option value="sash">Sash (slides up)</option><option value="slider">Slider (slides sideways)</option></select></label><label class="cd-field"><span>Opening it fills</span><span class="cd-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="addons.insert.size" data-t="len"><i data-unit>in</i></span></label></div>
+          <label class="cd-check"><input type="checkbox" data-k="addons.tier.on" data-t="bool"><span>A second tier over the back half</span></label>
+        </fieldset>
+        <div class="cd-pro-work" id="pro-work" hidden>
+          <div class="cd-pro-btns">
+            <button type="button" class="btn btn-primary" id="x-pdf">Download the build plan (PDF)</button>
+            <button type="button" class="btn" id="x-glb">Download GLB</button>
+            <button type="button" class="btn" id="x-obj">Download OBJ</button>
+            <button type="button" class="btn" id="x-png">Download a large render</button>
+          </div>
+          <label class="cd-check"><input type="checkbox" id="both-units"><span>Show inches and millimetres together in the plan</span></label>
+          <div class="cd-saved" id="saved"><h3>Saved designs</h3><div class="cd-row"><input type="text" id="save-name" placeholder="Name this design" style="max-width:260px;font:inherit;padding:8px 10px;border:1px solid var(--line-2);border-radius:9px"><button type="button" class="btn" id="save">Save this design</button></div><ul id="saved-list"></ul></div>
+          <div id="cut-diagrams"></div>
+          <div id="mesh-diagrams"></div>
+        </div>
+      </div>
+      <div class="cd-pro-r">
+        <p class="cd-price">$19 <small>once</small></p>
+        <a class="btn btn-primary" data-buy-pro href="https://dorukctn.gumroad.com/l/catio-designer-pro">Buy Pro on Gumroad</a>
+        <button type="button" class="btn btn-ghost" data-enter-key>Enter licence key</button>
+        <p>Gumroad handles payment and refunds. Your key turns Pro on in this browser.</p>
+        <p>The plan is guidance for a hobby build, not an engineering guarantee.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cd-sec" id="guides" aria-labelledby="guides-h">
+    <h2 id="guides-h">Before you build</h2>
+    <ul class="cd-guides">
+      <li><a href="/catio-designer/how-big-should-a-catio-be/"><b>How big should a catio be?</b><span>The published figures, with sources, and your space sized.</span></a></li>
+      <li><a href="/catio-designer/catio-cost/"><b>What a catio costs to build</b><span>A dated bill of materials for three sizes, with your prices.</span></a></li>
+      <li><a href="/catio-designer/window-catio-plans/"><b>Window catio plans, free</b><span>Window boxes drawn for common window widths.</span></a></li>
+      <li><a href="/catio-designer/catio-mesh/"><b>Which mesh for a catio</b><span>Openings, gauges, coatings and roll widths compared.</span></a></li>
+      <li><a href="/catio-designer/balcony-catio/"><b>A balcony catio with no drilling</b><span>Tension posts and freestanding frames for renters.</span></a></li>
+    </ul>
+  </section>
+
+  <section class="cd-sec cd-aus" id="enclosure" aria-labelledby="aus-h">
+    <div>
+      <h2 id="aus-h">Cat enclosure plans in metric</h2>
+      <p>In Australia and much of the UK a catio is a cat enclosure or a cat run. Switch the tool to metric and it plans the enclosure in millimetres: the frame in 45 x 45 mm, 38 x 63 mm CLS, 38 x 89 mm CLS or 45 x 90 mm timber, cut from lengths between 2.4 m and 4.8 m, and the walls in 13 mm welded mesh from 900 mm rolls.</p>
+    </div>
+    <ul>
+      <li>The shade check uses 21 December south of the equator, so a summer cat enclosure in Perth or Sydney gets its shade tested on the longest day there.</li>
+      <li>Australian 90 x 45 mm framing is sold both untreated and treated. Keep treated timber where the cat cannot rub or chew it.</li>
+      <li>Check your council, strata, HOA and lease rules before you build. The tool gives no permit advice.</li>
+    </ul>
+  </section>
+
+  <nav class="home-block" aria-labelledby="home-title">
+  <p class="home-title" id="home-title">Home project tools</p>
+  <ul class="home-list">
+    <li><a href="/without-planning/" style="--tool:#1f48c7"><strong>Without Planning</strong><span>Check a home extension, garden room or heat pump in 3D against England’s permitted development rules and Ireland’s 2026 exemptions.</span></a></li>
+    <li><a href="/dropped-kerb/" style="--tool:#0b6f80"><strong>Dropped Kerb Check</strong><span>Check a driveway in 3D against your council’s dropped kerb rules, with the planning answer and the fees, before you pay to apply.</span></a></li>
+    <li><a href="/catio-designer/" style="--tool:#b0501a" aria-current="page"><strong>Catio Designer</strong><span>Design a catio for your window, wall or balcony in 3D, with the mesh and shelf checks and every board and roll of mesh to buy.</span></a></li>
+  </ul>
+</nav>
+
+
+  <section class="cd-sec" id="faq" aria-labelledby="faq-h">
+    <h2 id="faq-h">Questions</h2>
+    <div class="cd-faq">
+      <details><summary>How big should a catio be?</summary><div class="answer"><p>No official standard exists. Catios range from cat-sized window boxes to whole rooms. The one published per-cat figure we found is from Catnets, an enclosure maker: at least 2 square metres (about 21.5 sq ft) for each cat when cats share an enclosure. Every cat also needs climbing space and a place to hide. <a href="/catio-designer/how-big-should-a-catio-be/">The figures and their sources</a></p></div></details>
+      <details><summary>What mesh should I use for a catio?</summary><div class="answer"><p>Galvanized or stainless welded wire or hardware cloth. Catio Spaces recommends 16 gauge fencing wire with openings no larger than 2 by 3 inches; 1/2 inch hardware cloth in 19 gauge is common and sold for pet runs, but it is lighter. Chicken wire and window screen are not strong enough. <a href="/catio-designer/catio-mesh/">Mesh compared</a></p></div></details>
+      <details><summary>Can I build a catio with pressure-treated lumber?</summary><div class="answer"><p>Keep it away from anything the cat can rub or chew. Treated lumber is wood impregnated with a pesticide (US EPA), and old arsenic-treated boards still turn up second hand. Untreated cedar, redwood or pine, with a pet-safe water-based finish if you want one, is the usual choice.</p></div></details>
+      <details><summary>Is anything I enter sent to a server?</summary><div class="answer"><p>No. The design, the checks and the 3D model are worked out in your browser. The share link keeps the design after the # sign, which browsers do not send to servers. The city list for the shade check is a file on this site. If you buy Pro, only the licence key is sent to Gumroad to check it.</p></div></details>
+      <details><summary>Does it work in metric, for a cat enclosure in Australia or the UK?</summary><div class="answer"><p>Yes. Switch to metric and the frame uses 45 x 45 mm, 38 x 63 mm CLS, 38 x 89 mm CLS or 45 x 90 mm timber in lengths from 2.4 m to 4.8 m, with 13 mm welded mesh in 900 mm rolls.</p></div></details>
+      <details><summary>Will the catio hold up to snow and wind?</summary><div class="answer"><p>The tool does not size the frame for snow or wind. Make sure the roof is strong enough for the snowfall you get, and check locally with a builder or your building department if you get heavy snow.</p></div></details>
+    </div>
+  </section>
+
+  <section class="cd-sec cd-sources" id="sources" aria-labelledby="sources-h">
+    <h2 id="sources-h">Sources</h2>
+<!-- @sources:start -->
+    <p class="cd-small">Every figure the tool uses, with the page it comes from. Each was read on 12 October 2026. Lumber sizes are facts from the standard and from merchants' listings; mesh specs are from retailers' listings, without prices; the rules of thumb are cited, not copied. No official standard for catios exists.</p>
+    <ol>
+      <li><a href="https://www.nist.gov/document/ps-20-25-final" rel="noopener">American Softwood Lumber Standard, Voluntary Product Standard PS 20-25 (NIST, January 2025), Table 3, nominal and minimum-dressed sizes of boards, dimension and timbers</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://www.nist.gov/document/ps-20-25-final" rel="noopener">American Softwood Lumber Standard PS 20-25, section 5.3.1: standard lengths are multiples of 1 ft or 2 ft, as the grading rules specify</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://www.nist.gov/document/doc-ps-1-19-structural-plywood" rel="noopener">Structural Plywood, Voluntary Product Standard PS 1-19 (NIST, December 2019), section 5.4: grade requirements stated for 1220 mm by 2440 mm (48 x 96 in) panels</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://www.travisperkins.co.uk/cls-studwork-timber/38mm-x-63mm-x-3-0m-cls-profile-kiln-dried-studwork-and-framing-timber/p/956011" rel="noopener">Travis Perkins: 38mm x 63mm x 3.0m CLS Profile Kiln Dried Studwork and Framing Timber</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://beesleyandfildes.co.uk/c16-graded-kd-h-t-cls-50x75mm-38fx63f-p-" rel="noopener">Beesley &amp; Fildes: CLS Kiln Dried 50x75mm C16 Graded, finish size 38 x 63mm, lengths 2.4, 3.0 and 4.8 m</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://chandlersbs.co.uk/38x63mm-nom-50x75mm-cls-studding-2-4m-length-b22962" rel="noopener">Chandlers Building Supplies: 38x63mm (Nom 50x75mm) CLS Studding 2.4m Length</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://www.travisperkins.co.uk/cls-studwork-timber/38mmx89mmx4-8m-cls-profile-kiln-dried-studwork-timber/p/847886" rel="noopener">Travis Perkins: 38mm x 89mm x 4.8m CLS Profile Kiln Dried Studwork Timber (also sold at 2.4 m)</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://mkm.com/product/dar-redpine-45mm-x-45mm-t010797" rel="noopener">MKM: DAR Redpine 45mm x 45mm, dressed all round, 4.2 m</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://www.mitre10.com.au/timber-treated-pine-f7-mgp10-h3-90-x-45mm-3891041" rel="noopener">Mitre 10 (Australia): Timber Treated Pine F7/MGP10 H3 90 x 45mm, available from 2.4 m to 6.0 m in 0.3 m steps (the same section is sold untreated)</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://www.travisperkins.co.uk/search?text=18mm+plywood+2440+x+1220" rel="noopener">Travis Perkins search: 18mm x 2440mm x 1220mm plywood sheets</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://www.newegg.com/p/2AC-00N9-01G12" rel="noopener">Newegg: Hardware Cloth, 1/2 inch, 36in x 50 ft, 19 Gauge, Hot Dipped Galvanized (also 24in x 100 ft); mesh size 0.5 x 0.5 in (12.7 x 12.7 mm)</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://www.fhbrundle.co.uk/products/01026939B__Galvanised_Welded_Mesh_-_Mesh_Master" rel="noopener">F.H. Brundle: 6m Roll, 36&quot; x 1/2&quot; x 1/2&quot; x 19g Galvanised Welded Mesh; roll width 900 mm, mesh 13 x 13 mm, 19 g (1.00 mm); also 30 m rolls, 1/2&quot; x 1&quot; 19g and 1/4&quot; x 1/4&quot; 23g</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://www.screwfix.com/p/apollo-13-x-13mm-galvanised-welded-mesh-0-9m-x-6m/53558" rel="noopener">Screwfix: Apollo 13 x 13mm Galvanised Welded Mesh 0.9m x 6m, &quot;ideal for the construction of pet runs and cages&quot;</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://www.screwfix.com/p/apollo-13-x-25mm-galvanised-welded-mesh-0-9-x-6m/76864" rel="noopener">Screwfix: Apollo 13 x 25mm Galvanised Welded Mesh 0.9m x 6m</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://catiospaces.com/catios-cat-enclosures/free-tips/diy-catio-materials-how-to-pick-the-right-cat-enclosure-mesh-for-your-catio/" rel="noopener">Catio Spaces: How to Pick the Right Cat Enclosure Mesh for Your Catio</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://catiospaces.com/catios-cat-enclosures/free-tips/are-catios-coyote-safe/" rel="noopener">Catio Spaces: Are Catios Coyote-Safe?</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://catiospaces.com/catios-cat-enclosures/free-tips/cooling-off-kitty-3-things-to-add-to-your-catio-during-a-heatwave/" rel="noopener">Catio Spaces: Cooling-Off Kitty, 3 Things to Add to Your Catio During a Heatwave</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://catiospaces.com/catios-cat-enclosures/free-tips/where-can-you-build-a-catio/" rel="noopener">Catio Spaces: Where Can You Build a Catio?</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://spca.bc.ca/wp-content/uploads/DIY-Stand-Alone-Catio.pdf" rel="noopener">BC SPCA: DIY Stand Alone Catio (PDF plan)</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://www.humaneworld.org/catios" rel="noopener">Humane World for Animals: Catios, Safe Outdoor Enclosures for Happy, Healthy Cats</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://humanepro.org/sites/default/files/documents/Catios-fact-sheet.pdf" rel="noopener">Humane World for Animals: Catios fact sheet (PDF)</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://help.catnets.com.au/en-US/articles/cat-enclosure-faq-403157" rel="noopener">Catnets: Cat Enclosure FAQ, &quot;How many cats can I put in my enclosure?&quot;</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://help.catnets.com.au/en-US/how-many-cats-can-i-put-in-my-cat-run-5890409" rel="noopener">Catnets: How many cats can I put in my cat run?</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://help.catnets.com.au/en-US/how-big-should-a-cat-enclosure-be-5890455" rel="noopener">Catnets: How big should a cat enclosure be?</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://www.therefinedfeline.com/cat-shelf-installation-mistakes/" rel="noopener">The Refined Feline: Cat Shelves Wall, Mistakes to Avoid</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://www.therefinedfeline.com/how-to-build-a-cat-wall-catwalk/" rel="noopener">The Refined Feline: How to Build a Cat Wall Catwalk</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://www.epa.gov/ingredients-used-pesticide-products/overview-wood-preservative-chemicals" rel="noopener">US EPA: Overview of Wood Preservative Chemicals</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://www.palram.com/au/wp-content/uploads/sites/3/2019/07/SUNTUFF_Roofing_Installation_Guide-.pdf" rel="noopener">Palram Australia: SUNTUF Roofing Installation Guide (pitch, purlin spacing, side lap)</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://github.com/mourner/suncalc" rel="noopener">SunCalc 1.9.0 by Vladimir Agafonkin (BSD-2-Clause), sun position from date, time and latitude</a> <span>(read 12 October 2026)</span></li>
+      <li><a href="https://download.geonames.org/export/dump/" rel="noopener">GeoNames cities15000 (CC BY 4.0), trimmed when the site is built</a> <span>(read 12 October 2026)</span></li>
+    </ol>
+    <p class="cd-small">City latitudes: GeoNames, CC BY 4.0. Not affiliated with any maker, retailer or group named here.</p>
+<!-- @sources:end -->
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools that each do one job well. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a>.<br>Write to <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
+        <li><a href="/name-cut-files/">Name Cut Files</a></li>
+        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
+        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
+        <li><a href="/quilt-label-maker/">Quilt Label Maker</a></li>
+        <li><a href="/etsy-tax-summary/">Etsy Tax Summary</a></li>
+        <li><a href="/menopause-adjustments/">Menopause Adjustments at Work</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Home project tools</h2>
+      <ul>
+        <li><a href="/without-planning/">Without Planning</a></li>
+        <li><a href="/dropped-kerb/">Dropped Kerb Check</a></li>
+        <li><a href="/catio-designer/">Catio Designer</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Pay equity tools</h2>
+      <ul>
+        <li><a href="/pay-gap-report/">Pay Gap Report</a></li>
+        <li><a href="/equality-action-plan/">Equality Action Plan</a></li>
+        <li><a href="/job-evaluation/">Job Evaluation</a></li>
+        <li><a href="/pay-transparency/">Pay Transparency Kit</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* The page arrives with the sample already in it, so its scripts wait for the first paint: they are added in order
+   once the browser reports it (or after 3 s at the latest), and run one after the other. */
+(function () {
+  var src = ['/assets/site.js', '/assets/license.js', '/catio-designer/vendor/suncalc.js', '/catio-designer/data.js', '/catio-designer/engine.js', '/catio-designer/view.js', '/catio-designer/tool.js'];
+  var done = false;
+  function add() { if (done) return; done = true; src.forEach(function (u) { var el = document.createElement('script'); el.src = u; el.async = false; document.body.appendChild(el); }); }
+  try { new PerformanceObserver(function (l) { if (l.getEntriesByName('first-contentful-paint').length) setTimeout(add, 0); }).observe({ type: 'paint', buffered: true }); } catch (e) { requestAnimationFrame(function () { setTimeout(add, 0); }); }
+  setTimeout(add, 3000);
+})();
+</script>
+</body>
+</html>
