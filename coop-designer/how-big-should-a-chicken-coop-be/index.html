@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How big should a chicken coop be? Sizes for 3 to 30 hens</title>
+<meta name="description" content="How big a chicken coop and run should be for 3 to 30 hens, standard or bantam: the extension figures with sources, and a coop the tool builds for each flock.">
+<link rel="canonical" href="https://peakappsstudio.com/coop-designer/how-big-should-a-chicken-coop-be/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="How big should a chicken coop be?">
+<meta property="og:description" content="How big a chicken coop and run should be for 3 to 30 hens, standard or bantam: the extension figures with sources, and a coop the tool builds for each flock.">
+<meta property="og:url" content="https://peakappsstudio.com/coop-designer/how-big-should-a-chicken-coop-be/">
+<meta property="og:image" content="https://peakappsstudio.com/coop-designer/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#dcefea">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/coop-designer/fonts/geologica-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="/coop-designer/img/hero-size-960.webp" imagesrcset="/coop-designer/img/hero-size-480.webp 480w, /coop-designer/img/hero-size-960.webp 960w, /coop-designer/img/hero-size-1440.webp 1440w" imagesizes="(max-width: 860px) 100vw, 52vw" fetchpriority="high">
+<link rel="stylesheet" href="/assets/tools.css">
+<style data-from="/coop-designer/tool.css">
+/* Coop Designer: the tool's own identity, scoped to body.co-page (the shared header and footer keep their structure).
+ * Taken from the eggs a backyard flock lays: a duck-egg page (the blue eggs), chocolate ink (the darkest brown eggs),
+ * yolk for Pro and "check", an olive-egg green for links and focus, a garden-leaf green for "fits", a fox red for
+ * "fail", pine for wood only. Type: Parkinsans (plump and sturdy, headings only) and Geologica (everything read,
+ * tabular figures). Signature: a carton row of real egg colours, used once under the hero. */
+
+@font-face { font-family: "Parkinsans"; src: url("/coop-designer/fonts/parkinsans-latin.woff2") format("woff2"); font-weight: 600 800; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Parkinsans"; src: url("/coop-designer/fonts/parkinsans-latin-ext.woff2") format("woff2"); font-weight: 600 800; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Geologica"; src: url("/coop-designer/fonts/geologica-latin.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Geologica"; src: url("/coop-designer/fonts/geologica-latin-ext.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+/* fallbacks sized to the web fonts' average widths and heights (from _build/fonts.py), so the swap does not move the layout */
+@font-face { font-family: "Geologica Fallback"; src: local("Arial"), local("Helvetica Neue"), local("Helvetica"); size-adjust: 108.6%; ascent-override: 89.8%; descent-override: 25.3%; line-gap-override: 0%; }
+@font-face { font-family: "Parkinsans Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Helvetica Neue Bold"); font-weight: 600 800; size-adjust: 108.7%; ascent-override: 96.6%; descent-override: 32.2%; line-gap-override: 0%; }
+
+body.co-page {
+  --egg: #dcefea; --egg-2: #c9e6df; --egg-3: #b3d9d0; --paper: #ffffff; --paper-2: #f2f9f6;
+  --choc: #2e1a12; --choc-2: #5f4a3e; --choc-3: #8a776b;
+  --yolk: #ffb000; --olive: #56701a; --leaf: #9bc53d; --fox: #c63d2f; --fox-ink: #ffffff; --pine: #d9a35f;
+  --card: var(--paper); --ink: var(--choc); --ink-2: var(--choc-2); --muted: var(--choc-2);
+  --line: rgba(46, 26, 18, .13); --line-2: rgba(46, 26, 18, .26);
+  --accent: var(--choc); --accent-ink: #ffffff; --ok: var(--olive); --warn: #8a5200;
+  --btn: var(--choc); --btn-ink: #ffffff; --link: var(--olive);
+  --sans: "Geologica", "Geologica Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: var(--sans);
+  --display: "Parkinsans", "Parkinsans Fallback", sans-serif;
+  --r-panel: 20px; --r-field: 10px; --r-chip: 8px;
+  background: var(--egg); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.58; font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.co-page {
+    --egg: #1b1410; --egg-2: #2a1f18; --egg-3: #3a2b21; --paper: #241a14; --paper-2: #2c2019;
+    --choc: #f4ede4; --choc-2: #d2c4b6; --choc-3: #a8988a;
+    --olive: #b8d36b; --leaf: #a8d45a; --fox: #ff7a6b; --fox-ink: #2a0905; --warn: #ffc15a;
+    --btn: #f4ede4; --btn-ink: #1b1410; --link: #b8d36b;
+    --card: var(--paper); --line: rgba(244, 237, 228, .13); --line-2: rgba(244, 237, 228, .26);
+  }
+}
+:root[data-theme="dark"] body.co-page {
+  --egg: #1b1410; --egg-2: #2a1f18; --egg-3: #3a2b21; --paper: #241a14; --paper-2: #2c2019;
+  --choc: #f4ede4; --choc-2: #d2c4b6; --choc-3: #a8988a;
+  --olive: #b8d36b; --leaf: #a8d45a; --fox: #ff7a6b; --fox-ink: #2a0905; --warn: #ffc15a;
+  --btn: #f4ede4; --btn-ink: #1b1410; --link: #b8d36b;
+  --card: var(--paper); --line: rgba(244, 237, 228, .13); --line-2: rgba(244, 237, 228, .26);
+}
+
+/* ---------- type ---------- */
+.co-page h1, .co-page h2, .co-page h3 { font-family: var(--display); font-weight: 800; letter-spacing: -0.015em; line-height: 1.03; text-wrap: balance; color: var(--choc); }
+.co-page h1 { font-size: clamp(38px, 5.2vw, 68px); margin: 0; max-width: 15ch; }
+.co-page h2 { font-size: clamp(27px, 3vw, 40px); font-weight: 800; margin: 0 0 12px; }
+.co-page h3 { font-size: 21px; font-weight: 700; margin: 0 0 6px; letter-spacing: -0.005em; }
+.co-page p { max-width: 68ch; }
+.co-page .lede { font-size: clamp(18px, 1.5vw, 20px); color: var(--ink); margin: 0; }
+.co-page a { color: var(--choc); text-decoration-color: var(--olive); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.co-page a:hover { color: var(--olive); }
+.co-page table a, .co-page .co-card a { color: var(--link); text-decoration-thickness: 1px; }
+.co-page :focus-visible { outline: 3px solid var(--olive); outline-offset: 2px; border-radius: 4px; }
+.co-page ::selection { background: var(--yolk); color: #2e1a12; }
+.co-page .btn { border-radius: var(--r-field); font-weight: 600; font-size: 16px; padding: 12px 18px; }
+.co-page .btn-primary { background: var(--btn); border-color: var(--btn); color: var(--btn-ink); }
+.co-page .btn-primary:hover { background: color-mix(in oklab, var(--btn) 84%, var(--olive)); border-color: color-mix(in oklab, var(--btn) 84%, var(--olive)); color: var(--btn-ink); }
+.co-page .btn-yolk { background: var(--yolk); border-color: var(--yolk); color: #2e1a12; }
+.co-page .btn-yolk:hover { background: #f2a400; border-color: #f2a400; color: #2e1a12; }
+.co-page .btn-ghost { background: transparent; }
+.co-small { font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- hero ---------- */
+.co-hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(18px, 4vw, 56px); align-items: end; padding: clamp(12px, 2.4vw, 28px) 0 clamp(12px, 1.6vw, 18px); }
+.co-hero-side { display: grid; gap: 16px; }
+/* the signature: one carton row of eggs in the colours a mixed flock lays */
+.co-eggs { display: block; width: 100%; height: 44px; margin: 2px 0 18px; }
+.co-eggs .co-cup { fill: var(--egg-3); }
+@media (max-width: 600px) { .co-eggs { height: 34px; margin-bottom: 14px; } }
+
+/* the four types, as line drawings */
+.co-types { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; border: 0; padding: 0; margin: 0; }
+.co-types legend { font-weight: 600; font-size: 15px; margin-bottom: 8px; padding: 0; }
+.co-type { position: relative; display: grid; justify-items: center; gap: 4px; padding: 10px 6px 9px; border-radius: 12px; border: 1.5px solid var(--line-2); background: color-mix(in oklab, var(--paper) 50%, transparent); cursor: pointer; text-align: center; font-size: 14px; font-weight: 600; line-height: 1.2; color: var(--ink); }
+.co-type input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.co-type svg { width: 66px; height: 46px; color: var(--choc-2); }
+.co-type:has(input:checked) { border-color: var(--choc); background: var(--paper); box-shadow: inset 0 -4px 0 var(--yolk); }
+.co-type:has(input:checked) svg { color: var(--choc); }
+.co-type:has(input:focus-visible) { outline: 3px solid var(--olive); outline-offset: 2px; }
+.co-type .wood { color: var(--pine); }
+@media (max-width: 900px) { .co-hero { grid-template-columns: 1fr; align-items: start; } }
+@media (max-width: 460px) { .co-types { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------- the bench: the 3D view beside the form ---------- */
+.co-bench { display: grid; grid-template-columns: minmax(0, 1fr) minmax(330px, 410px); background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-panel); overflow: clip; }
+.co-stage { border-right: 1px solid var(--line); min-width: 0; }
+.co-sticky { position: sticky; top: 0; }
+.co-view { position: relative; aspect-ratio: 16 / 10; background: linear-gradient(180deg, #bfe0f2, #e4f1ee 62%, #fde8cf); overflow: hidden; }
+.co-view img, .co-view canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; }
+.co-view canvas { touch-action: none; cursor: grab; }
+.co-view canvas:active { cursor: grabbing; }
+.co-badge { position: absolute; left: 12px; top: 12px; background: var(--yolk); color: #2e1a12; font-weight: 700; font-size: 13.5px; padding: 4px 10px; border-radius: var(--r-chip); }
+.co-gl-note { position: absolute; left: 12px; right: 12px; bottom: 60px; margin: 0; background: var(--paper); color: var(--ink); padding: 8px 12px; border-radius: var(--r-field); font-size: 14.5px; }
+.co-start { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); display: inline-flex; gap: 8px; align-items: center; background: #2e1a12; color: #fff; border: 0; border-radius: 999px; padding: 11px 18px; font: inherit; font-weight: 600; font-size: 15.5px; cursor: pointer; box-shadow: 0 6px 18px rgba(46, 26, 18, .3); }
+.co-start svg { width: 18px; height: 18px; }
+.co-start[disabled] { opacity: .8; cursor: progress; }
+.co-tags { position: absolute; inset: 0; pointer-events: none; }
+.co-tag { position: absolute; left: 0; top: 0; white-space: nowrap; font-size: 13.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: rgba(255, 255, 255, .95); color: #2e1a12; box-shadow: 0 1px 0 rgba(46, 26, 18, .25); }
+.co-tag-fail { background: #c63d2f; color: #fff; }
+.co-tag-check { background: #ffb000; color: #2e1a12; }
+.co-tag-fits { background: #9bc53d; color: #2e1a12; }
+.co-toolbar { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; padding: 10px 14px; border-top: 1px solid var(--line); background: var(--paper-2); }
+.co-seg { display: inline-flex; border: 1px solid var(--line-2); border-radius: var(--r-field); overflow: hidden; }
+.co-seg button { font: inherit; font-size: 14.5px; font-weight: 600; padding: 7px 11px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+.co-seg button + button { border-left: 1px solid var(--line-2); }
+.co-seg button[aria-pressed="true"] { background: var(--choc); color: var(--paper); }
+.co-sun { display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 600; }
+.co-sun input[type="range"] { width: 130px; accent-color: var(--yolk); }
+.co-sun output { min-width: 3.2em; font-variant-numeric: tabular-nums; }
+.co-henbtn { font: inherit; font-size: 14.5px; font-weight: 600; padding: 7px 12px; border-radius: var(--r-field); border: 1.5px solid var(--yolk); background: transparent; color: var(--ink); cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.co-henbtn svg { width: 18px; height: 18px; color: var(--choc); }
+.co-toolbar[hidden] { display: none; }
+
+/* the title block under the view: what this design is, and how its checks came out */
+.co-title { padding: 14px 16px 16px; display: grid; gap: 10px; }
+.co-title h2 { font-size: clamp(23px, 2.3vw, 29px); margin: 0; }
+.co-title p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
+.co-counts { display: flex; flex-wrap: wrap; gap: 8px; }
+.co-count { display: inline-flex; color: var(--ink); gap: 6px; align-items: baseline; padding: 4px 10px; border-radius: var(--r-chip); font-size: 14.5px; font-weight: 600; border: 1px solid var(--line-2); }
+.co-count b { font-size: 18px; }
+.co-count.ct-fits { background: color-mix(in oklab, var(--leaf) 30%, var(--paper)); }
+.co-count.ct-check { background: color-mix(in oklab, var(--yolk) 30%, var(--paper)); }
+.co-count.ct-fail { background: color-mix(in oklab, var(--fox) 20%, var(--paper)); }
+.co-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13.5px; color: var(--ink-2); }
+
+/* ---------- the form ---------- */
+.co-form { padding: 6px 16px 18px; display: grid; gap: 4px; align-content: start; }
+.co-step { border: 0; padding: 12px 0 14px; margin: 0; border-bottom: 1px solid var(--line); }
+.co-step:last-child { border-bottom: 0; }
+.co-step > legend { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 20px; padding: 0; margin: 0 0 10px; color: var(--choc); }
+.co-step-n { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50% 50% 46% 46% / 58% 58% 42% 42%; background: var(--egg-3); color: #2e1a12; font-family: var(--sans); font-size: 15px; font-weight: 700; }
+.co-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 12px; }
+.co-field { display: grid; gap: 4px; align-content: start; font-size: 14.5px; font-weight: 600; min-width: 0; }
+.co-field.wide { grid-column: 1 / -1; }
+.co-field small { font-weight: 400; color: var(--ink-2); font-size: 13.5px; line-height: 1.35; }
+.co-in { position: relative; display: flex; align-items: center; }
+.co-in input { padding-right: 38px; }
+.co-in i { position: absolute; right: 10px; font-style: normal; font-weight: 500; font-size: 14px; color: var(--ink-2); pointer-events: none; }
+.co-form input[type="number"], .co-form input[type="text"], .co-form select, .co-shop input, .co-pro input[type="text"] {
+  width: 100%; min-width: 0; font: inherit; font-size: 16px; font-weight: 500; padding: 9px 10px; border: 1px solid var(--line-2); border-radius: var(--r-field); background: var(--paper); color: var(--ink); }
+.co-form input:focus, .co-form select:focus, .co-shop input:focus { outline: none; border-color: var(--olive); box-shadow: 0 0 0 3px color-mix(in oklab, var(--olive) 24%, transparent); }
+.co-row { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
+.co-check { display: flex; gap: 8px; align-items: flex-start; font-size: 14.5px; font-weight: 500; }
+.co-check input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--olive); flex: none; }
+.co-auto { margin: 2px 0 10px; padding: 9px 11px; border-radius: var(--r-field); background: var(--paper-2); border: 1px dashed var(--line-2); }
+.co-pro-tag { display: inline-block; font-size: 12.5px; font-weight: 700; padding: 1px 7px; border-radius: 5px; background: var(--yolk); color: #2e1a12; margin-left: 6px; vertical-align: 1px; }
+[data-show][hidden] { display: none !important; }
+@media (max-width: 960px) { .co-bench { grid-template-columns: 1fr; } .co-stage { border-right: 0; border-bottom: 1px solid var(--line); } .co-sticky { position: static; } }
+
+/* ---------- actions ---------- */
+.co-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 16px 0 6px; }
+.co-actions .hint { font-size: 14px; color: var(--ink-2); }
+.co-sample-note { margin: 0 0 10px; font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- sections, tables ---------- */
+.co-sec { margin: clamp(30px, 5vw, 56px) 0 0; }
+.co-sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 20px; margin-bottom: 10px; }
+.co-sec-head p { margin: 0; color: var(--ink-2); font-size: 14.5px; }
+.co-card { background: var(--paper); border: 1px solid var(--line-2); border-radius: 14px; }
+.co-table { width: 100%; border-collapse: collapse; background: var(--paper); border: 1px solid var(--line-2); border-radius: 14px; overflow: hidden; font-size: 15.5px; }
+.co-table caption { caption-side: top; text-align: left; padding: 0 0 8px; color: var(--ink-2); font-size: 14.5px; }
+.co-table th, .co-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.co-table thead th { font-size: 13.5px; font-weight: 700; color: var(--ink-2); background: var(--paper-2); }
+.co-table tbody tr:last-child td { border-bottom: 0; }
+.co-table .num { text-align: right; white-space: nowrap; }
+.co-group td { background: var(--paper-2); font-weight: 700; font-size: 14px; color: var(--ink-2); }
+.co-st { white-space: nowrap; font-weight: 700; font-size: 14px; }
+.co-st span { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: var(--r-chip); }
+.co-st svg { width: 13px; height: 13px; }
+.st-fits span { background: #9bc53d; color: #2e1a12; }
+.st-check span { background: #ffb000; color: #2e1a12; }
+.st-fail span { background: var(--fox); color: var(--fox-ink); }
+.st-info span { background: var(--egg-2); color: var(--ink); }
+.co-why { color: var(--ink-2); font-size: 14.5px; }
+.co-src { font-size: 13.5px; color: var(--ink-2); }
+.co-src a { white-space: normal; }
+.co-shop input { max-width: 110px; text-align: right; padding: 6px 8px; font-size: 15px; }
+.co-total td { font-weight: 700; background: var(--paper-2); }
+@media (max-width: 760px) {
+  .co-table, .co-table tbody, .co-table tr, .co-table td, .co-table caption { display: block; width: 100%; }
+  .co-table thead { display: none; }
+  .co-table caption { padding: 10px 12px 8px; }
+  .co-table tr { border-bottom: 1px solid var(--line); padding: 8px 0; }
+  .co-table td { border: 0; padding: 4px 12px; }
+  .co-table td[data-h]::before { content: attr(data-h); display: block; font-size: 12.5px; font-weight: 700; color: var(--ink-2); }
+  .co-table .num { text-align: left; }
+  .co-shop input { max-width: 100%; text-align: left; }
+}
+
+/* ---------- Pro ---------- */
+.co-pro { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr); gap: 0; background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-panel); overflow: clip; }
+.co-pro-l { padding: clamp(18px, 2.6vw, 30px); display: grid; gap: 14px; align-content: start; min-width: 0; }
+.co-pro-r { padding: clamp(18px, 2.6vw, 30px); background: #2e1a12; color: #f6efe7; display: grid; gap: 12px; align-content: start; }
+.co-pro-r p { color: #e4d8cc; margin: 0; font-size: 14.5px; }
+.co-pro-r .btn-ghost { color: #fff; border-color: rgba(255, 255, 255, .5); }
+.co-pro-r .btn-ghost[aria-busy="true"] { cursor: progress; opacity: .85; }
+.co-pro-r .co-price { font-family: var(--display); font-size: 46px; font-weight: 800; color: #fff; margin: 0; line-height: 1; }
+.co-price small { font-family: var(--sans); font-size: 15px; font-weight: 500; color: #e4d8cc; }
+.co-locked { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.co-locked li { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 10px; align-items: start; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.co-locked svg { width: 16px; height: 16px; margin-top: 3px; color: var(--choc-2); }
+.co-locked b { display: block; font-weight: 700; }
+.co-locked span { display: block; color: var(--ink-2); font-size: 14.5px; }
+.co-locked em { font-style: normal; font-size: 12.5px; font-weight: 700; padding: 2px 8px; border-radius: 5px; background: var(--egg-2); color: var(--ink); }
+.co-locked li.is-open em { background: #9bc53d; color: #2e1a12; }
+.co-pro-out { margin: 0; }
+.co-pro-out img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid var(--line-2); background: #fff; }
+.co-pro-out figcaption { font-size: 13.5px; color: var(--ink-2); margin-top: 6px; }
+.co-pro-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.co-addons { border: 1px solid var(--line-2); border-radius: 12px; padding: 12px 14px; display: grid; gap: 8px; margin: 0; }
+.co-addons legend { font-weight: 700; padding: 0 4px; }
+.co-addons[disabled] { opacity: .62; }
+.co-saved { display: grid; gap: 8px; }
+.co-saved ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.co-saved li { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; font-size: 14.5px; }
+.co-saved li button { font: inherit; font-size: 13.5px; padding: 4px 9px; border-radius: 6px; border: 1px solid var(--line-2); background: var(--paper); color: var(--ink); cursor: pointer; }
+.co-pro-work { display: grid; gap: 14px; }
+.co-pro-work[hidden] { display: none; }
+.co-diagram { width: 100%; height: auto; display: block; background: var(--paper); }
+.co-board { margin: 0 0 6px; }
+.co-board figcaption { font-size: 13.5px; color: var(--ink-2); }
+@media (max-width: 860px) { .co-pro { grid-template-columns: 1fr; } }
+
+/* ---------- guides, FAQ, sources ---------- */
+.co-guides { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0; border-top: 3px solid var(--choc); }
+.co-guides li { border-bottom: 1px solid var(--line-2); }
+.co-guides a { display: grid; gap: 2px; padding: 14px 12px 14px 0; text-decoration: none; color: var(--ink); }
+.co-guides b { font-family: var(--display); font-weight: 700; font-size: 19px; line-height: 1.15; }
+.co-guides span { color: var(--ink-2); font-size: 14.5px; }
+.co-guides a:hover b { color: var(--olive); }
+.co-faq details { border-bottom: 1px solid var(--line-2); padding: 12px 0; }
+.co-faq summary { cursor: pointer; font-weight: 700; font-size: 17.5px; }
+.co-faq .answer p { margin: 8px 0 0; }
+.co-sources { font-size: 14.5px; }
+.co-sources ol { margin: 0; padding-left: 22px; display: grid; gap: 4px; }
+.co-sources li span { color: var(--ink-2); }
+
+/* ---------- guide pages ---------- */
+.co-article { max-width: 780px; }
+.co-article h2 { margin-top: 34px; }
+.co-figure { margin: 18px 0; }
+.co-figure img { width: 100%; height: auto; display: block; border-radius: 14px; border: 1px solid var(--line-2); }
+.co-figure figcaption { font-size: 14px; color: var(--ink-2); margin-top: 6px; }
+.co-callout { background: var(--paper); border: 1px solid var(--line-2); border-left: 5px solid var(--yolk); border-radius: 12px; padding: 14px 16px; margin: 16px 0; }
+.co-callout p { margin: 0; }
+.co-open { display: inline-flex; margin-top: 8px; }
+.co-guide-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(18px, 4vw, 48px); align-items: center; padding: clamp(10px, 2vw, 22px) 0 6px; }
+.co-guide-hero img { width: 100%; height: auto; display: block; border-radius: 16px; border: 1px solid var(--line-2); aspect-ratio: 16 / 10; object-fit: cover; }
+.co-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--paper); overflow: hidden; margin: 16px 0; }
+.co-facts div { padding: 12px 14px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.co-facts b { display: block; font-family: var(--display); font-size: 24px; font-weight: 800; line-height: 1.1; }
+.co-facts span { font-size: 14px; color: var(--ink-2); }
+@media (max-width: 860px) { .co-guide-hero { grid-template-columns: 1fr; } }
+.co-table tr[id] { scroll-margin-top: 84px; }
+.co-table tr:target td { background: color-mix(in oklab, var(--yolk) 26%, var(--paper)); }
+.co-jump { list-style: none; margin: 10px 0 16px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.co-jump a { display: inline-flex; align-items: center; justify-content: center; min-width: 48px; min-height: 44px; padding: 0 12px; border: 1px solid var(--line-2); border-radius: var(--r-chip); background: var(--paper); color: var(--ink); font-weight: 700; text-decoration: none; }
+.co-jump a:hover { border-color: var(--olive); color: var(--olive); }
+.co-table th[scope="row"] { font-weight: 700; }
+/* compact number tables (.co-numgrid) stay a table on a phone: few, short columns */
+@media (max-width: 760px) {
+  .co-table.co-numgrid { display: table; font-size: 14.5px; }
+  .co-table.co-numgrid caption { display: table-caption; }
+  .co-table.co-numgrid thead { display: table-header-group; }
+  .co-table.co-numgrid tbody { display: table-row-group; }
+  .co-table.co-numgrid tr { display: table-row; padding: 0; }
+  .co-table.co-numgrid th, .co-table.co-numgrid td { display: table-cell; width: auto; padding: 8px 5px; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+  .co-table.co-numgrid thead th { font-size: 13px; line-height: 1.25; white-space: normal; vertical-align: bottom; }
+  .co-table.co-numgrid td[data-h]::before { content: none; }
+  .co-table.co-numgrid .num { text-align: right; }
+  .co-table.co-kv td:first-child { width: 36%; }
+  .co-table.co-kv .co-group td { padding-top: 10px; }
+}
+
+/* ---------- print: the shopping list only ---------- */
+@media print {
+  body.co-print-shop .site-head, body.co-print-shop .site-foot, body.co-print-shop main > *:not(#shop), body.co-print-shop .skip { display: none !important; }
+  body.co-print-shop #shop { margin: 0; }
+  body.co-print-shop .co-shop input { border: 0; padding: 0; }
+  body.co-page { background: #fff; }
+}
+@media (prefers-reduced-motion: reduce) { .co-page * { scroll-behavior: auto !important; transition: none !important; } }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","@id":"https://peakappsstudio.com/coop-designer/#app","name":"Coop Designer","url":"https://peakappsstudio.com/coop-designer/","applicationCategory":"DesignApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Pro (one-time)","price":"19","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/coop-designer-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Coop Designer","item":"https://peakappsstudio.com/coop-designer/"},{"@type":"ListItem","position":3,"name":"How big should a chicken coop be?","item":"https://peakappsstudio.com/coop-designer/how-big-should-a-chicken-coop-be/"}]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"How big should a chicken coop be for 6 chickens?","acceptedAnswer":{"@type":"Answer","text":"18 to 24 sq ft of floor inside and 60 sq ft of run, at Virginia Tech's 3 to 4 and 10 sq ft a hen. The tool builds a 5 ft x 5 ft hen house on legs over a run 12 ft long: 25 sq ft inside and 60 sq ft of run."}},
+  {"@type":"Question","name":"How much space do bantams need in a coop?","acceptedAnswer":{"@type":"Answer","text":"2 to 3 sq ft each inside and 5 to 8 sq ft in the run (Virginia Tech, 2023). The older minimums are 1 sq ft inside and 4 in the run (Penn State, Maryland)."}},
+  {"@type":"Question","name":"Does the run count toward coop space?","acceptedAnswer":{"@type":"Answer","text":"No. The guides give a figure for inside the house and a separate one for the run. The one exception they make is a coop with no run at all, which needs more room inside: Oregon State gives 8 to 10 sq ft a bird."}}
+ ]}
+]}
+</script>
+</head>
+<body class="co-page" style="--accent:#56701a">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a href="/tumbler-template/" class="hide-sm">Tumbler templates</a>
+      <a href="/name-cut-files/" class="hide-sm">Name cut files</a>
+      <a href="/kdp-coloring-book/" class="hide-sm">KDP coloring books</a>
+      <a href="/sewing-pattern-printer/" class="hide-sm">Sewing pattern printer</a>
+      <a href="/quilt-label-maker/" class="hide-sm">Quilt labels</a>
+      <a href="/etsy-tax-summary/" class="hide-sm">Etsy tax summary</a>
+      <a href="/pay-gap-report/" class="hide-sm">Pay gap report</a>
+      <a href="/equality-action-plan/" class="hide-sm">Equality action plan</a>
+      <a href="/job-evaluation/" class="hide-sm">Job evaluation</a>
+      <a href="/pay-transparency/" class="hide-sm">Pay transparency</a>
+      <a href="/menopause-adjustments/" class="hide-sm">Menopause adjustments</a>
+      <a href="/without-planning/" class="hide-sm">Without planning</a>
+      <a href="/dropped-kerb/" class="hide-sm">Dropped kerb</a>
+      <a href="/catio-designer/" class="hide-sm">Catio designer</a>
+      <a href="/coop-designer/" aria-current="page">Coop designer</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/coop-designer/">Coop Designer</a></li><li aria-current="page">How big should a chicken coop be?</li></ol></nav>
+  <header class="co-guide-hero">
+    <div>
+      <h1>How big should a chicken coop be?</h1>
+      <p class="lede" style="margin-top:14px">Give each standard hen 3 to 4 sq ft of floor inside the coop and 10 sq ft in the run; give each bantam 2 to 3 sq ft inside and 5 to 8 sq ft outside. Those are the figures in Virginia Tech's 2023 extension table, so six hens need 18 to 24 sq ft of coop and 60 sq ft of run.</p>
+      <a class="btn btn-primary co-open" href="/coop-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoiaG91c2UiLCJ1bml0cyI6ImltcGVyaWFsIiwibmFtZSI6IkhlbiBob3VzZSBmb3IgNiBoZW5zIiwiYmlyZHMiOjYsImNvb3AiOnsidyI6MTUyNCwiZCI6MTUyNCwiaCI6MTIxOS4yLCJoMiI6OTY1LjJ9LCJydW4iOnsibCI6MzY1Ny42fSwibmVzdHMiOjJ9">Size a coop for your flock</a>
+    </div>
+    <img src="/coop-designer/img/hero-size-960.webp" srcset="/coop-designer/img/hero-size-480.webp 480w, /coop-designer/img/hero-size-960.webp 960w, /coop-designer/img/hero-size-1440.webp 1440w" sizes="(max-width: 860px) 100vw, 52vw" width="1440" height="900" fetchpriority="high" decoding="async" alt="A hen house for eight hens in 3D: a 5 ft 6 in by 6 ft house on legs with a corrugated roof, over a hardware-cloth run, with hens on the lawn in morning light.">
+  </header>
+  <svg class="co-eggs" viewBox="0 0 1200 46" preserveAspectRatio="xMinYMid slice" aria-hidden="true"><defs><radialGradient id="co-egg-shine" cx="36%" cy="30%" r="72%"><stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#2e1a12" stop-opacity=".22"/></radialGradient><path id="co-egg" d="M0-19c-8.6 0-14 13.2-14 22.4C-14 11.6-7.7 17 0 17s14-5.4 14-13.6C14-5.8 8.6-19 0-19z"/><path id="co-cup" d="M-34 26h68c-2 9-10 15-18 15h-32c-8 0-16-6-18-15z"/></defs><use href="#co-cup" x="38" y="0" class="co-cup"/><use href="#co-egg" x="38" y="22" fill="#f6f1e7"/><use href="#co-egg" x="38" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="113" y="0" class="co-cup"/><use href="#co-egg" x="113" y="22" fill="#b9ded7"/><use href="#co-egg" x="113" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="188" y="0" class="co-cup"/><use href="#co-egg" x="188" y="22" fill="#6d3b23"/><use href="#co-egg" x="188" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="263" y="0" class="co-cup"/><use href="#co-egg" x="263" y="22" fill="#ead2b0"/><use href="#co-egg" x="263" y="22" fill="url(#co-egg-shine)"/><g fill="#5a3a22" opacity=".5"><circle cx="258" cy="14" r="1.1"/><circle cx="267" cy="9" r=".9"/><circle cx="269" cy="22" r="1.2"/><circle cx="261" cy="27" r=".8"/><circle cx="264" cy="31" r="1"/><circle cx="255" cy="23" r=".7"/></g><use href="#co-cup" x="338" y="0" class="co-cup"/><use href="#co-egg" x="338" y="22" fill="#97a466"/><use href="#co-egg" x="338" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="413" y="0" class="co-cup"/><use href="#co-egg" x="413" y="22" fill="#f3e3d3"/><use href="#co-egg" x="413" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="488" y="0" class="co-cup"/><use href="#co-egg" x="488" y="22" fill="#c78f5f"/><use href="#co-egg" x="488" y="22" fill="url(#co-egg-shine)"/><g fill="#5a3a22" opacity=".5"><circle cx="483" cy="14" r="1.1"/><circle cx="492" cy="9" r=".9"/><circle cx="494" cy="22" r="1.2"/><circle cx="486" cy="27" r=".8"/><circle cx="489" cy="31" r="1"/><circle cx="480" cy="23" r=".7"/></g><use href="#co-cup" x="563" y="0" class="co-cup"/><use href="#co-egg" x="563" y="22" fill="#a8d3cb"/><use href="#co-egg" x="563" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="638" y="0" class="co-cup"/><use href="#co-egg" x="638" y="22" fill="#4e2617"/><use href="#co-egg" x="638" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="713" y="0" class="co-cup"/><use href="#co-egg" x="713" y="22" fill="#efe2cc"/><use href="#co-egg" x="713" y="22" fill="url(#co-egg-shine)"/><g fill="#5a3a22" opacity=".5"><circle cx="708" cy="14" r="1.1"/><circle cx="717" cy="9" r=".9"/><circle cx="719" cy="22" r="1.2"/><circle cx="711" cy="27" r=".8"/><circle cx="714" cy="31" r="1"/><circle cx="705" cy="23" r=".7"/></g><use href="#co-cup" x="788" y="0" class="co-cup"/><use href="#co-egg" x="788" y="22" fill="#86935a"/><use href="#co-egg" x="788" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="863" y="0" class="co-cup"/><use href="#co-egg" x="863" y="22" fill="#e6c4a8"/><use href="#co-egg" x="863" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="938" y="0" class="co-cup"/><use href="#co-egg" x="938" y="22" fill="#d6a676"/><use href="#co-egg" x="938" y="22" fill="url(#co-egg-shine)"/><g fill="#5a3a22" opacity=".5"><circle cx="933" cy="14" r="1.1"/><circle cx="942" cy="9" r=".9"/><circle cx="944" cy="22" r="1.2"/><circle cx="936" cy="27" r=".8"/><circle cx="939" cy="31" r="1"/><circle cx="930" cy="23" r=".7"/></g><use href="#co-cup" x="1013" y="0" class="co-cup"/><use href="#co-egg" x="1013" y="22" fill="#c2e2db"/><use href="#co-egg" x="1013" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="1088" y="0" class="co-cup"/><use href="#co-egg" x="1088" y="22" fill="#7a4a2c"/><use href="#co-egg" x="1088" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="1163" y="0" class="co-cup"/><use href="#co-egg" x="1163" y="22" fill="#f8f4ec"/><use href="#co-egg" x="1163" y="22" fill="url(#co-egg-shine)"/></svg>
+  <article class="co-article">
+
+    <h2>What the extension guides say</h2>
+    <p>No two guides give quite the same number, because some publish minimums and others recommendations. <a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener">Penn State's table</a> is headed minimum space requirements; <a href="https://www.pubs.ext.vt.edu/2902/2902-1092/2902-1092.html" rel="noopener">Virginia Tech's 2023 table</a> is headed recommended space, and adds that you can never provide too much. Here is what each guide we read says, in its own terms.</p>
+    <table class="co-table ">
+      <caption>Space for each bird in the published guides, read on 12 October 2026 and 13 October 2026.</caption>
+      <thead><tr><th scope="col">Guide</th><th scope="col">What it says</th></tr></thead>
+      <tbody>
+        <tr><td data-h="Guide"><a href="https://www.pubs.ext.vt.edu/2902/2902-1092/2902-1092.html" rel="noopener">Virginia Tech 2902-1092</a></td><td data-h="What it says">Laying hens: 3 to 4 sq ft inside and 10 sq ft in the run. Bantams: 2 to 3 sq ft inside and 5 to 8 sq ft in the run.</td></tr>
+        <tr><td data-h="Guide"><a href="https://poultry.extension.org/articles/getting-started-with-small-and-backyard-poultry/housing-for-small-and-backyard-poultry-flocks/space-allowances-in-housing-for-small-and-backyard-poultry-flocks/" rel="noopener">Poultry Extension, space</a></td><td data-h="What it says">Laying hens: a minimum of 3 to 4 sq ft indoors and 10 sq ft outdoors is recommended, though it notes that runs that big are not practical in many town yards.</td></tr>
+        <tr><td data-h="Guide"><a href="https://extension.oregonstate.edu/catalog/ec-1644-living-land-backyard-chicken-coop-design" rel="noopener">Oregon State EC 1644</a></td><td data-h="What it says">At least 3 sq ft a bird when the hens can get out to a run, and 8 to 10 sq ft a bird when they cannot.</td></tr>
+        <tr><td data-h="Guide"><a href="https://ask.ifas.ufl.edu/publication/an239" rel="noopener">UF/IFAS AN239</a></td><td data-h="What it says">A house of at least 3 sq ft of floor a bird; a run of 8 to 10 sq ft a bird.</td></tr>
+        <tr><td data-h="Guide"><a href="https://www.udel.edu/academics/colleges/canr/cooperative-extension/fact-sheets/steam-team-chicken-housing-and-coop-maintenance/" rel="noopener">Delaware Extension</a></td><td data-h="What it says">At least 2 to 3 sq ft a chicken inside, and another 8 to 10 sq ft in the run.</td></tr>
+        <tr><td data-h="Guide"><a href="https://warren.cce.cornell.edu/agriculture/backyard-chickens" rel="noopener">Cornell, Warren County</a></td><td data-h="What it says">A minimum of 2.5 to 3.5 sq ft a bird inside, and another 4 to 5 sq ft in the fenced area outside.</td></tr>
+        <tr><td data-h="Guide"><a href="https://extension.umaine.edu/4h/egg-business-project/housing-your-pullets/" rel="noopener">Maine Extension</a></td><td data-h="What it says">About 3 sq ft a bird for hens, or 2 to 3 sq ft, which can include an outside run.</td></tr>
+        <tr><td data-h="Guide"><a href="https://poultry.extension.org/articles/getting-started-with-small-and-backyard-poultry/housing-for-small-and-backyard-poultry-flocks/small-scale-poultry-housing/" rel="noopener">Poultry Extension, housing</a></td><td data-h="What it says">From 0.75 to 1 sq ft a bird for small breeds to 3 to 3.5 sq ft for larger ones.</td></tr>
+        <tr><td data-h="Guide"><a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener">Penn State Extension, housing</a></td><td data-h="What it says">Minimums: laying hens 1.5 sq ft inside and 8 in the run; large chickens 2 and 10; bantams 1 and 4.</td></tr>
+        <tr><td data-h="Guide"><a href="https://extension.umd.edu/resource/housing-requirements" rel="noopener">Maryland Extension, housing</a></td><td data-h="What it says">The same minimums, from Clauer (2009): 1.5 and 8 for laying hens, 2 and 10 for large chickens, 1 and 4 for bantams.</td></tr>
+      </tbody>
+    </table>
+    <p>Read together, 3 sq ft a hen inside is where most of them meet, and 4 sq ft is the generous end. The 1.5 sq ft minimums come paired with a run of 8 sq ft or more, and Oregon State's 8 to 10 sq ft for hens with no run at all shows how much of the load the run carries. In the run, 10 sq ft a hen is the common recommendation and 4 sq ft the smallest figure anyone gives.</p>
+
+    <h2 id="sizes">Coop and run size for 3 to 30 chickens</h2>
+    <p>The grid below multiplies Virginia Tech's 2023 figures by the size of the flock. Each row has its own address, so a link to <a href="#for-10-chickens">#for-10-chickens</a> opens on the row for ten. Go to a flock of:</p>
+    <ul class="co-jump">
+      <li><a href="#for-3-chickens">3</a></li>
+      <li><a href="#for-4-chickens">4</a></li>
+      <li><a href="#for-6-chickens">6</a></li>
+      <li><a href="#for-8-chickens">8</a></li>
+      <li><a href="#for-10-chickens">10</a></li>
+      <li><a href="#for-12-chickens">12</a></li>
+      <li><a href="#for-15-chickens">15</a></li>
+      <li><a href="#for-20-chickens">20</a></li>
+      <li><a href="#for-25-chickens">25</a></li>
+      <li><a href="#for-30-chickens">30</a></li>
+    </ul>
+    <table class="co-table co-numgrid">
+      <caption>Square feet for the whole flock: coop floor and run, standard hens and bantams, at 3 to 4 and 10 sq ft a hen, 2 to 3 and 5 to 8 sq ft a bantam.</caption>
+      <thead><tr><th scope="col">Birds</th><th scope="col" class="num">Coop, hens</th><th scope="col" class="num">Run, hens</th><th scope="col" class="num">Coop, bantams</th><th scope="col" class="num">Run, bantams</th></tr></thead>
+      <tbody>
+        <tr id="for-3-chickens"><td data-h="Birds"><b>3</b></td><td class="num" data-h="Coop, hens">9–12</td><td class="num" data-h="Run, hens">30</td><td class="num" data-h="Coop, bantams">6–9</td><td class="num" data-h="Run, bantams">15–24</td></tr>
+        <tr id="for-4-chickens"><td data-h="Birds"><b>4</b></td><td class="num" data-h="Coop, hens">12–16</td><td class="num" data-h="Run, hens">40</td><td class="num" data-h="Coop, bantams">8–12</td><td class="num" data-h="Run, bantams">20–32</td></tr>
+        <tr id="for-5-chickens"><td data-h="Birds"><b>5</b></td><td class="num" data-h="Coop, hens">15–20</td><td class="num" data-h="Run, hens">50</td><td class="num" data-h="Coop, bantams">10–15</td><td class="num" data-h="Run, bantams">25–40</td></tr>
+        <tr id="for-6-chickens"><td data-h="Birds"><b>6</b></td><td class="num" data-h="Coop, hens">18–24</td><td class="num" data-h="Run, hens">60</td><td class="num" data-h="Coop, bantams">12–18</td><td class="num" data-h="Run, bantams">30–48</td></tr>
+        <tr id="for-7-chickens"><td data-h="Birds"><b>7</b></td><td class="num" data-h="Coop, hens">21–28</td><td class="num" data-h="Run, hens">70</td><td class="num" data-h="Coop, bantams">14–21</td><td class="num" data-h="Run, bantams">35–56</td></tr>
+        <tr id="for-8-chickens"><td data-h="Birds"><b>8</b></td><td class="num" data-h="Coop, hens">24–32</td><td class="num" data-h="Run, hens">80</td><td class="num" data-h="Coop, bantams">16–24</td><td class="num" data-h="Run, bantams">40–64</td></tr>
+        <tr id="for-9-chickens"><td data-h="Birds"><b>9</b></td><td class="num" data-h="Coop, hens">27–36</td><td class="num" data-h="Run, hens">90</td><td class="num" data-h="Coop, bantams">18–27</td><td class="num" data-h="Run, bantams">45–72</td></tr>
+        <tr id="for-10-chickens"><td data-h="Birds"><b>10</b></td><td class="num" data-h="Coop, hens">30–40</td><td class="num" data-h="Run, hens">100</td><td class="num" data-h="Coop, bantams">20–30</td><td class="num" data-h="Run, bantams">50–80</td></tr>
+        <tr id="for-11-chickens"><td data-h="Birds"><b>11</b></td><td class="num" data-h="Coop, hens">33–44</td><td class="num" data-h="Run, hens">110</td><td class="num" data-h="Coop, bantams">22–33</td><td class="num" data-h="Run, bantams">55–88</td></tr>
+        <tr id="for-12-chickens"><td data-h="Birds"><b>12</b></td><td class="num" data-h="Coop, hens">36–48</td><td class="num" data-h="Run, hens">120</td><td class="num" data-h="Coop, bantams">24–36</td><td class="num" data-h="Run, bantams">60–96</td></tr>
+        <tr id="for-13-chickens"><td data-h="Birds"><b>13</b></td><td class="num" data-h="Coop, hens">39–52</td><td class="num" data-h="Run, hens">130</td><td class="num" data-h="Coop, bantams">26–39</td><td class="num" data-h="Run, bantams">65–104</td></tr>
+        <tr id="for-14-chickens"><td data-h="Birds"><b>14</b></td><td class="num" data-h="Coop, hens">42–56</td><td class="num" data-h="Run, hens">140</td><td class="num" data-h="Coop, bantams">28–42</td><td class="num" data-h="Run, bantams">70–112</td></tr>
+        <tr id="for-15-chickens"><td data-h="Birds"><b>15</b></td><td class="num" data-h="Coop, hens">45–60</td><td class="num" data-h="Run, hens">150</td><td class="num" data-h="Coop, bantams">30–45</td><td class="num" data-h="Run, bantams">75–120</td></tr>
+        <tr id="for-16-chickens"><td data-h="Birds"><b>16</b></td><td class="num" data-h="Coop, hens">48–64</td><td class="num" data-h="Run, hens">160</td><td class="num" data-h="Coop, bantams">32–48</td><td class="num" data-h="Run, bantams">80–128</td></tr>
+        <tr id="for-17-chickens"><td data-h="Birds"><b>17</b></td><td class="num" data-h="Coop, hens">51–68</td><td class="num" data-h="Run, hens">170</td><td class="num" data-h="Coop, bantams">34–51</td><td class="num" data-h="Run, bantams">85–136</td></tr>
+        <tr id="for-18-chickens"><td data-h="Birds"><b>18</b></td><td class="num" data-h="Coop, hens">54–72</td><td class="num" data-h="Run, hens">180</td><td class="num" data-h="Coop, bantams">36–54</td><td class="num" data-h="Run, bantams">90–144</td></tr>
+        <tr id="for-19-chickens"><td data-h="Birds"><b>19</b></td><td class="num" data-h="Coop, hens">57–76</td><td class="num" data-h="Run, hens">190</td><td class="num" data-h="Coop, bantams">38–57</td><td class="num" data-h="Run, bantams">95–152</td></tr>
+        <tr id="for-20-chickens"><td data-h="Birds"><b>20</b></td><td class="num" data-h="Coop, hens">60–80</td><td class="num" data-h="Run, hens">200</td><td class="num" data-h="Coop, bantams">40–60</td><td class="num" data-h="Run, bantams">100–160</td></tr>
+        <tr id="for-21-chickens"><td data-h="Birds"><b>21</b></td><td class="num" data-h="Coop, hens">63–84</td><td class="num" data-h="Run, hens">210</td><td class="num" data-h="Coop, bantams">42–63</td><td class="num" data-h="Run, bantams">105–168</td></tr>
+        <tr id="for-22-chickens"><td data-h="Birds"><b>22</b></td><td class="num" data-h="Coop, hens">66–88</td><td class="num" data-h="Run, hens">220</td><td class="num" data-h="Coop, bantams">44–66</td><td class="num" data-h="Run, bantams">110–176</td></tr>
+        <tr id="for-23-chickens"><td data-h="Birds"><b>23</b></td><td class="num" data-h="Coop, hens">69–92</td><td class="num" data-h="Run, hens">230</td><td class="num" data-h="Coop, bantams">46–69</td><td class="num" data-h="Run, bantams">115–184</td></tr>
+        <tr id="for-24-chickens"><td data-h="Birds"><b>24</b></td><td class="num" data-h="Coop, hens">72–96</td><td class="num" data-h="Run, hens">240</td><td class="num" data-h="Coop, bantams">48–72</td><td class="num" data-h="Run, bantams">120–192</td></tr>
+        <tr id="for-25-chickens"><td data-h="Birds"><b>25</b></td><td class="num" data-h="Coop, hens">75–100</td><td class="num" data-h="Run, hens">250</td><td class="num" data-h="Coop, bantams">50–75</td><td class="num" data-h="Run, bantams">125–200</td></tr>
+        <tr id="for-26-chickens"><td data-h="Birds"><b>26</b></td><td class="num" data-h="Coop, hens">78–104</td><td class="num" data-h="Run, hens">260</td><td class="num" data-h="Coop, bantams">52–78</td><td class="num" data-h="Run, bantams">130–208</td></tr>
+        <tr id="for-27-chickens"><td data-h="Birds"><b>27</b></td><td class="num" data-h="Coop, hens">81–108</td><td class="num" data-h="Run, hens">270</td><td class="num" data-h="Coop, bantams">54–81</td><td class="num" data-h="Run, bantams">135–216</td></tr>
+        <tr id="for-28-chickens"><td data-h="Birds"><b>28</b></td><td class="num" data-h="Coop, hens">84–112</td><td class="num" data-h="Run, hens">280</td><td class="num" data-h="Coop, bantams">56–84</td><td class="num" data-h="Run, bantams">140–224</td></tr>
+        <tr id="for-29-chickens"><td data-h="Birds"><b>29</b></td><td class="num" data-h="Coop, hens">87–116</td><td class="num" data-h="Run, hens">290</td><td class="num" data-h="Coop, bantams">58–87</td><td class="num" data-h="Run, bantams">145–232</td></tr>
+        <tr id="for-30-chickens"><td data-h="Birds"><b>30</b></td><td class="num" data-h="Coop, hens">90–120</td><td class="num" data-h="Run, hens">300</td><td class="num" data-h="Coop, bantams">60–90</td><td class="num" data-h="Run, bantams">150–240</td></tr>
+      </tbody>
+    </table>
+    <p>In metric, that is 0.28 to 0.37 m² of coop floor and 0.93 m² of run for each standard hen, and 0.19 to 0.28 m² inside and 0.46 to 0.74 m² outside for each bantam. The tool works in either unit.</p>
+
+    <h2>A coop the tool builds for each flock</h2>
+    <p>Typing a flock into Coop Designer sizes the coop at 4 sq ft a hen and the run at 10 sq ft, then checks the result against the guides above. These are the designs it makes for ten flock sizes, a hen house on legs up to eight hens and a walk-in coop above that. Each opens in the tool, where you can change any size.</p>
+    <table class="co-table ">
+      <caption>Designs from Coop Designer, 13 October 2026. Coop floor first, then the run.</caption>
+      <thead><tr><th scope="col">Hens</th><th scope="col">The design</th><th scope="col">Coop; run</th><th scope="col">On the ground</th><th scope="col" class="num">Nest boxes</th><th scope="col">In the tool</th></tr></thead>
+      <tbody>
+        <tr><td data-h="Hens"><b>3</b></td><td data-h="The design">Hen house 3 ft x 4 ft on 2 ft legs, over a run 8 ft long</td><td data-h="Coop; run">12 sq ft; 32 sq ft</td><td data-h="On the ground">9 ft x 4 ft</td><td class="num" data-h="Nest boxes">1</td><td data-h="In the tool"><a href="/coop-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoiaG91c2UiLCJ1bml0cyI6ImltcGVyaWFsIiwibmFtZSI6IkhlbiBob3VzZSBmb3IgMyBoZW5zIiwiYmlyZHMiOjMsImNvb3AiOnsidyI6OTE0LjR9LCJydW4iOnsibCI6MjQzOC40fX0">Open it</a></td></tr>
+        <tr><td data-h="Hens"><b>4</b></td><td data-h="The design">Hen house 4 ft x 4 ft on 2 ft legs, over a run 10 ft long</td><td data-h="Coop; run">16 sq ft; 40 sq ft</td><td data-h="On the ground">11 ft x 4 ft</td><td class="num" data-h="Nest boxes">1</td><td data-h="In the tool"><a href="/coop-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoiaG91c2UiLCJ1bml0cyI6ImltcGVyaWFsIiwibmFtZSI6IkhlbiBob3VzZSBmb3IgNCBoZW5zIn0">Open it</a></td></tr>
+        <tr><td data-h="Hens"><b>6</b></td><td data-h="The design">Hen house 5 ft x 5 ft on 2 ft legs, over a run 12 ft long</td><td data-h="Coop; run">25 sq ft; 60 sq ft</td><td data-h="On the ground">13 ft x 5 ft</td><td class="num" data-h="Nest boxes">2</td><td data-h="In the tool"><a href="/coop-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoiaG91c2UiLCJ1bml0cyI6ImltcGVyaWFsIiwibmFtZSI6IkhlbiBob3VzZSBmb3IgNiBoZW5zIiwiYmlyZHMiOjYsImNvb3AiOnsidyI6MTUyNCwiZCI6MTUyNCwiaCI6MTIxOS4yLCJoMiI6OTY1LjJ9LCJydW4iOnsibCI6MzY1Ny42fSwibmVzdHMiOjJ9">Open it</a></td></tr>
+        <tr><td data-h="Hens"><b>8</b></td><td data-h="The design">Hen house 5 ft 6 in x 6 ft on 2 ft legs, over a run 14 ft long</td><td data-h="Coop; run">33 sq ft; 84 sq ft</td><td data-h="On the ground">15 ft x 6 ft</td><td class="num" data-h="Nest boxes">2</td><td data-h="In the tool"><a href="/coop-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoiaG91c2UiLCJ1bml0cyI6ImltcGVyaWFsIiwibmFtZSI6IkhlbiBob3VzZSBmb3IgOCBoZW5zIiwiYmlyZHMiOjgsInlhcmQiOnsidyI6NzAxMC40fSwiY29vcCI6eyJ3IjoxNjc2LjQsImQiOjE4MjguOCwiaCI6MTIxOS4yLCJoMiI6OTE0LjR9LCJydW4iOnsibCI6NDI2Ny4yfSwibmVzdHMiOjJ9">Open it</a></td></tr>
+        <tr><td data-h="Hens"><b>10</b></td><td data-h="The design">Walk-in coop 7 ft x 6 ft, beside a run 17 ft x 6 ft</td><td data-h="Coop; run">42 sq ft; 102 sq ft</td><td data-h="On the ground">24 ft x 6 ft</td><td class="num" data-h="Nest boxes">3</td><td data-h="In the tool"><a href="/coop-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoid2Fsa2luIiwidW5pdHMiOiJpbXBlcmlhbCIsIm5hbWUiOiJXYWxrLWluIGNvb3AgZm9yIDEwIGhlbnMiLCJiaXJkcyI6MTAsInlhcmQiOnsidyI6NzkyNC44LCJkIjo0ODc2Ljh9LCJjb29wIjp7InciOjIxMzMuNn0sInJ1biI6eyJsIjo1MTgxLjZ9LCJuZXN0cyI6M30">Open it</a></td></tr>
+        <tr><td data-h="Hens"><b>12</b></td><td data-h="The design">Walk-in coop 8 ft x 6 ft, beside a run 20 ft x 6 ft</td><td data-h="Coop; run">48 sq ft; 120 sq ft</td><td data-h="On the ground">28 ft x 6 ft</td><td class="num" data-h="Nest boxes">3</td><td data-h="In the tool"><a href="/coop-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoid2Fsa2luIiwidW5pdHMiOiJpbXBlcmlhbCIsIm5hbWUiOiJXYWxrLWluIGNvb3AgZm9yIDEyIGhlbnMiLCJiaXJkcyI6MTIsInlhcmQiOnsidyI6OTE0NCwiZCI6NDg3Ni44fSwiY29vcCI6eyJ3IjoyNDM4LjR9LCJydW4iOnsibCI6NjA5Nn0sIm5lc3RzIjozfQ">Open it</a></td></tr>
+        <tr><td data-h="Hens"><b>15</b></td><td data-h="The design">Walk-in coop 7 ft 6 in x 8 ft, beside a run 19 ft x 8 ft</td><td data-h="Coop; run">60 sq ft; 152 sq ft</td><td data-h="On the ground">26 ft 6 in x 8 ft</td><td class="num" data-h="Nest boxes">4</td><td data-h="In the tool"><a href="/coop-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoid2Fsa2luIiwidW5pdHMiOiJpbXBlcmlhbCIsIm5hbWUiOiJXYWxrLWluIGNvb3AgZm9yIDE1IGhlbnMiLCJiaXJkcyI6MTUsInlhcmQiOnsidyI6MTAzNjMuMiwiZCI6NDg3Ni44fSwiY29vcCI6eyJ3IjoyMjg2LCJkIjoyNDM4LjQsImgiOjIzODcuNn0sInJ1biI6eyJsIjo1NzkxLjJ9LCJuZXN0cyI6NH0">Open it</a></td></tr>
+        <tr><td data-h="Hens"><b>20</b></td><td data-h="The design">Walk-in coop 10 ft x 8 ft, beside a run 25 ft x 8 ft</td><td data-h="Coop; run">80 sq ft; 200 sq ft</td><td data-h="On the ground">35 ft x 8 ft</td><td class="num" data-h="Nest boxes">5</td><td data-h="In the tool"><a href="/coop-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoid2Fsa2luIiwidW5pdHMiOiJpbXBlcmlhbCIsIm5hbWUiOiJXYWxrLWluIGNvb3AgZm9yIDIwIGhlbnMiLCJiaXJkcyI6MjAsInlhcmQiOnsidyI6MTI4MDEuNiwiZCI6NDg3Ni44fSwiY29vcCI6eyJ3IjozMDQ4LCJkIjoyNDM4LjQsImgiOjIzODcuNn0sInJ1biI6eyJsIjo3NjIwfSwibmVzdHMiOjV9">Open it</a></td></tr>
+        <tr><td data-h="Hens"><b>25</b></td><td data-h="The design">Walk-in coop 10 ft x 10 ft, beside a run 25 ft x 10 ft</td><td data-h="Coop; run">100 sq ft; 250 sq ft</td><td data-h="On the ground">35 ft x 10 ft</td><td class="num" data-h="Nest boxes">7</td><td data-h="In the tool"><a href="/coop-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoid2Fsa2luIiwidW5pdHMiOiJpbXBlcmlhbCIsIm5hbWUiOiJXYWxrLWluIGNvb3AgZm9yIDI1IGhlbnMiLCJiaXJkcyI6MjUsInlhcmQiOnsidyI6MTUyNDAsImQiOjczMTUuMn0sImNvb3AiOnsidyI6MzA0OCwiZCI6MzA0OCwiaCI6MjQ4OS4yfSwicnVuIjp7ImwiOjc2MjB9LCJuZXN0cyI6N30">Open it</a></td></tr>
+        <tr><td data-h="Hens"><b>30</b></td><td data-h="The design">Walk-in coop 12 ft x 10 ft, beside a run 30 ft x 10 ft</td><td data-h="Coop; run">120 sq ft; 300 sq ft</td><td data-h="On the ground">42 ft x 10 ft</td><td class="num" data-h="Nest boxes">8</td><td data-h="In the tool"><a href="/coop-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoid2Fsa2luIiwidW5pdHMiOiJpbXBlcmlhbCIsIm5hbWUiOiJXYWxrLWluIGNvb3AgZm9yIDMwIGhlbnMiLCJiaXJkcyI6MzAsInlhcmQiOnsidyI6MTc2NzguNCwiZCI6NzMxNS4yfSwiY29vcCI6eyJ3IjozNjU3LjYsImQiOjMwNDgsImgiOjI0ODkuMn0sInJ1biI6eyJsIjo5MTQ0fSwibmVzdHMiOjh9">Open it</a></td></tr>
+      </tbody>
+    </table>
+
+    <h2>What counts as coop floor</h2>
+    <p>The tool counts the floor inside the hen house walls, where the hens sleep, lay and wait out bad weather. Nest boxes hung on the outside of a wall take none of it, and roost bars above the floor leave it whole. Under a hen house raised on legs, the ground stays part of the run, shaded and dry, so the tool counts it toward the run and tells you how much of the run it is.</p>
+
+    <h2>Bantams need less, but not half</h2>
+    <p>Bantams are a half to a quarter of the size of a standard chicken (<a href="https://ask.ifas.ufl.edu/publication/an239" rel="noopener">UF/IFAS AN239</a>), yet the 2023 table still gives them 2 to 3 sq ft inside, against 3 to 4 for laying hens. Twelve bantams fit a 6 ft x 6 ft hen house on legs with 36 sq ft of floor; twelve standard hens need the 8 ft x 6 ft walk-in with 48 sq ft. Their roosts are shorter and lower too: 4 in of bar a bird, 12 to 18 in above the floor, against 6 in and 18 to 24 in for standard hens (<a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener">Penn State Extension, housing</a>).</p>
+
+    <h2>Height</h2>
+    <p>None of the guides sets a height for the house, but they set one for what goes in it. Roosts go 18 to 24 in above the floor and never higher than 4 ft, so heavy hens do not hurt their legs jumping down (<a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener">Penn State Extension, housing</a>); nest boxes go at least 2 ft off the ground (<a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener">Penn State Extension, housing</a>). A walk-in coop needs headroom for you instead: the tool makes its run 6 ft tall, with a full-height door.</p>
+
+    <div class="co-callout"><p>Your yard decides the rest. Type its size into the tool and it keeps the coop and the run inside it, and says when the flock is too big for the space. <a href="/coop-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoiaG91c2UiLCJ1bml0cyI6ImltcGVyaWFsIiwibmFtZSI6IkhlbiBob3VzZSBmb3IgNiBoZW5zIiwiYmlyZHMiOjYsImNvb3AiOnsidyI6MTUyNCwiZCI6MTUyNCwiaCI6MTIxOS4yLCJoMiI6OTY1LjJ9LCJydW4iOnsibCI6MzY1Ny42fSwibmVzdHMiOjJ9">Open the design for six hens</a>.</p></div>
+
+  </article>
+
+  <section class="co-sec co-article co-faq-sec" aria-labelledby="faq-h">
+    <h2 id="faq-h">Questions</h2>
+    <div class="co-faq">
+      <details><summary>How big should a chicken coop be for 6 chickens?</summary><div class="answer"><p>18 to 24 sq ft of floor inside and 60 sq ft of run, at Virginia Tech's 3 to 4 and 10 sq ft a hen. The tool builds a 5 ft x 5 ft hen house on legs over a run 12 ft long: 25 sq ft inside and 60 sq ft of run.</p></div></details>
+      <details><summary>How much space do bantams need in a coop?</summary><div class="answer"><p>2 to 3 sq ft each inside and 5 to 8 sq ft in the run (Virginia Tech, 2023). The older minimums are 1 sq ft inside and 4 in the run (Penn State, Maryland).</p></div></details>
+      <details><summary>Does the run count toward coop space?</summary><div class="answer"><p>No. The guides give a figure for inside the house and a separate one for the run. The one exception they make is a coop with no run at all, which needs more room inside: Oregon State gives 8 to 10 sq ft a bird.</p></div></details>
+    </div>
+  </section>
+
+  <section class="co-sec" aria-labelledby="more-h">
+    <h2 id="more-h">More before you build</h2>
+    <ul class="co-guides">
+      <li><a href="/coop-designer/"><b>Coop Designer</b></a></li>
+      <li><a href="/coop-designer/designs-for-6-chickens/"><b>Coop designs for 6 chickens</b></a></li>
+      <li><a href="/coop-designer/designs-for-10-chickens/"><b>Coop designs for 10 chickens</b></a></li>
+      <li><a href="/coop-designer/how-many-nesting-boxes/"><b>How many nesting boxes?</b></a></li>
+      <li><a href="/coop-designer/chicken-coop-cost/"><b>What a chicken coop costs</b></a></li>
+    </ul>
+  </section>
+
+  <nav class="home-block" aria-labelledby="home-title">
+  <p class="home-title" id="home-title">Home project tools</p>
+  <ul class="home-list">
+    <li><a href="/without-planning/" style="--tool:#1f48c7"><strong>Without Planning</strong><span>Check a home extension, garden room or heat pump in 3D against England’s permitted development rules and Ireland’s 2026 exemptions.</span></a></li>
+    <li><a href="/dropped-kerb/" style="--tool:#0b6f80"><strong>Dropped Kerb Check</strong><span>Check a driveway in 3D against your council’s dropped kerb rules, with the planning answer and the fees, before you pay to apply.</span></a></li>
+    <li><a href="/catio-designer/" style="--tool:#b0501a"><strong>Catio Designer</strong><span>Design a catio for your window, wall or balcony in 3D, with the mesh and shelf checks and every board and roll of mesh to buy.</span></a></li>
+    <li><a href="/coop-designer/" style="--tool:#56701a" aria-current="page"><strong>Coop Designer</strong><span>Design a chicken coop and run for your flock and your yard in 3D, with the space, nest box and hardware-cloth checks and every board to buy.</span></a></li>
+  </ul>
+</nav>
+
+
+  <section class="co-sec co-sources" aria-labelledby="src-h">
+    <h2 id="src-h">Sources</h2>
+    <ol>
+      <li><a href="https://www.pubs.ext.vt.edu/2902/2902-1092/2902-1092.html" rel="noopener">Virginia Cooperative Extension: Small-scale Poultry Housing, 2902-1092 (APSC-186NP), Leonie Jacobs and Phillip J. Clauer, 28 April 2023</a> <span>(read 13 October 2026)</span></li>
+      <li><a href="https://poultry.extension.org/articles/getting-started-with-small-and-backyard-poultry/housing-for-small-and-backyard-poultry-flocks/space-allowances-in-housing-for-small-and-backyard-poultry-flocks/" rel="noopener">Small and Backyard Poultry (extension.org): Space Allowances in Housing for Small and Backyard Poultry Flocks</a> <span>(read 13 October 2026)</span></li>
+      <li><a href="https://extension.oregonstate.edu/catalog/ec-1644-living-land-backyard-chicken-coop-design" rel="noopener">Oregon State University Extension: Living on the land, Backyard chicken coop design, EC 1644 (April 2014, reviewed 2023)</a> <span>(read 13 October 2026)</span></li>
+      <li><a href="https://ask.ifas.ufl.edu/publication/an239" rel="noopener">University of Florida IFAS Extension: AN239, Raising Backyard Chickens for Eggs (Mary E. Henry and others)</a> <span>(read 13 October 2026)</span></li>
+      <li><a href="https://www.udel.edu/academics/colleges/canr/cooperative-extension/fact-sheets/steam-team-chicken-housing-and-coop-maintenance/" rel="noopener">University of Delaware Cooperative Extension: Steam Team, Chicken Housing and Coop Maintenance (Twila Parish-Short, May 2025)</a> <span>(read 13 October 2026)</span></li>
+      <li><a href="https://warren.cce.cornell.edu/agriculture/backyard-chickens" rel="noopener">Cornell Cooperative Extension of Warren County: Backyard Chickens (last updated 14 November 2022)</a> <span>(read 13 October 2026)</span></li>
+      <li><a href="https://extension.umaine.edu/4h/egg-business-project/housing-your-pullets/" rel="noopener">University of Maine Cooperative Extension: Housing Your Pullets, Four Options and Other Considerations (Richard Brzozowski)</a> <span>(read 13 October 2026)</span></li>
+      <li><a href="https://poultry.extension.org/articles/getting-started-with-small-and-backyard-poultry/housing-for-small-and-backyard-poultry-flocks/small-scale-poultry-housing/" rel="noopener">Small and Backyard Poultry (extension.org): Small-Scale Poultry Housing, Overview (Jacquie Jacob, University of Kentucky)</a> <span>(read 13 October 2026)</span></li>
+      <li><a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener">Penn State Extension: Small Scale Poultry Housing (Phillip Clauer; reviewed by Gregory P. Martin; updated 25 June 2026)</a> <span>(read 13 October 2026)</span></li>
+      <li><a href="https://extension.umd.edu/resource/housing-requirements" rel="noopener">University of Maryland Extension: Housing Requirements (Jonathan Moyle; updated 11 May 2022)</a> <span>(read 13 October 2026)</span></li>
+    </ol>
+    <p class="co-small">Guidance for a hobby build, not an engineering guarantee. Not affiliated with any maker, retailer or university named here.</p>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools that each do one job well. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a>.<br>Write to <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
+        <li><a href="/name-cut-files/">Name Cut Files</a></li>
+        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
+        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
+        <li><a href="/quilt-label-maker/">Quilt Label Maker</a></li>
+        <li><a href="/etsy-tax-summary/">Etsy Tax Summary</a></li>
+        <li><a href="/menopause-adjustments/">Menopause Adjustments at Work</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Home project tools</h2>
+      <ul>
+        <li><a href="/without-planning/">Without Planning</a></li>
+        <li><a href="/dropped-kerb/">Dropped Kerb Check</a></li>
+        <li><a href="/catio-designer/">Catio Designer</a></li>
+        <li><a href="/coop-designer/">Coop Designer</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Pay equity tools</h2>
+      <ul>
+        <li><a href="/pay-gap-report/">Pay Gap Report</a></li>
+        <li><a href="/equality-action-plan/">Equality Action Plan</a></li>
+        <li><a href="/job-evaluation/">Job Evaluation</a></li>
+        <li><a href="/pay-transparency/">Pay Transparency Kit</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+</html>
