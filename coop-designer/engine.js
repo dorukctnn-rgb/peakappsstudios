@@ -994,7 +994,7 @@
         reason = me.open[0] <= 6.4 ? 'Hardware cloth of 1/4 in keeps out rats and young rodents too; Utah State recommends 1/4 to 1/2 in. The smallest weasels can still pass a 1/4 in hole (extension.org).' : 'Hardware cloth of 1/4 to 1/2 in gives the best protection (Utah State), and openings under 1 in stop a raccoon reaching through (UNH). The smallest weasels can pass a 1/4 in hole (extension.org).';
       }
       row('mesh', 'predators', st, 'Run walls', me.label, pr === 'low' ? 'Hardware cloth; openings under 1 in' : 'Hardware cloth, 1/4 to 1/2 in', reason,
-        me.kind === 'poultry' ? ['usu', 'uconn', 'csuBoulder', 'ufAN239'] : ['usu', 'unh', 'csuPredators', 'pecPredators']);
+        me.kind === 'poultry' ? ['usu', 'uconn', 'csuBoulder', 'ufAN239'] : me.open[0] > RU.openMax + 0.5 ? ['unh', 'umdPredation', 'csuPredators'] : ['usu', 'unh', 'csuPredators', 'pecPredators']);
     }
     if (m.type === 'tractor') row('apron', 'predators', 'info', 'Digging', 'A mobile tractor: no apron', 'Move it; shut the house at night',
       'A tractor sits on fresh grass, so it has no buried apron; extension.org describes floorless pens moved round the pasture, often daily. Shut the hens in the house every night and check that nothing has dug under the skids.', ['pecPredators', 'unh']);

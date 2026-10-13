@@ -238,6 +238,9 @@ body.co-page {
 .co-sources { font-size: 14.5px; }
 .co-sources ol { margin: 0; padding-left: 22px; display: grid; gap: 4px; }
 .co-sources li span { color: var(--ink-2); }
+.co-srclist { margin: 10px 0; }
+.co-srclist summary { cursor: pointer; font-weight: 700; padding: 10px 0; min-height: 44px; }
+.co-srclist[open] summary { margin-bottom: 6px; }
 
 /* ---------- guide pages ---------- */
 .co-article { max-width: 780px; }

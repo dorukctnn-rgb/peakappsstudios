@@ -16,6 +16,7 @@
 <meta name="theme-color" content="#dcefea">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/coop-designer/fonts/geologica-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/coop-designer/fonts/parkinsans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" href="/coop-designer/img/poster-960.webp" imagesrcset="/coop-designer/img/poster-480.webp 480w, /coop-designer/img/poster-960.webp 960w, /coop-designer/img/poster-1440.webp 1440w" imagesizes="(max-width: 960px) 100vw, 64vw" fetchpriority="high">
 <link rel="stylesheet" href="/assets/tools.css">
 <style data-from="/coop-designer/tool.css">
@@ -259,6 +260,9 @@ body.co-page {
 .co-sources { font-size: 14.5px; }
 .co-sources ol { margin: 0; padding-left: 22px; display: grid; gap: 4px; }
 .co-sources li span { color: var(--ink-2); }
+.co-srclist { margin: 10px 0; }
+.co-srclist summary { cursor: pointer; font-weight: 700; padding: 10px 0; min-height: 44px; }
+.co-srclist[open] summary { margin-bottom: 6px; }
 
 /* ---------- guide pages ---------- */
 .co-article { max-width: 780px; }
@@ -612,6 +616,7 @@ body.co-page {
     <h2 id="sources-h">Sources</h2>
 <!-- @sources:start -->
     <p class="co-small">Every figure the tool uses, with the page it comes from. Each was read on 12 October 2026. Lumber and sheet sizes are facts from the standards and from merchants' listings; hardware-cloth specs are from retailers' listings, without prices; the space, nest box, roost and apron figures are the extension services', cited, not copied. Where they disagree, the checks show the range.</p>
+    <details class="co-srclist"><summary>All 40 sources, each read on 12 October 2026</summary>
     <ol>
       <li><a href="https://www.nist.gov/document/ps-20-25-final" rel="noopener">American Softwood Lumber Standard, Voluntary Product Standard PS 20-25 (NIST, January 2025), Table 3, nominal and minimum-dressed sizes of boards, dimension and timbers</a> <span>(read 12 October 2026)</span></li>
       <li><a href="https://www.nist.gov/document/ps-20-25-final" rel="noopener">American Softwood Lumber Standard PS 20-25, section 5.3.1: standard lengths are multiples of 1 ft or 2 ft, as the grading rules specify</a> <span>(read 12 October 2026)</span></li>
@@ -654,6 +659,7 @@ body.co-page {
       <li><a href="https://www.palram.com/au/wp-content/uploads/sites/3/2019/07/SUNTUFF_Roofing_Installation_Guide-.pdf" rel="noopener">Palram Australia: SUNTUF Roofing Installation Guide (pitch, purlin spacing, side lap)</a> <span>(read 12 October 2026)</span></li>
       <li><a href="https://github.com/mourner/suncalc" rel="noopener">SunCalc 1.9.0 by Vladimir Agafonkin (BSD-2-Clause), sun position from date, time and latitude</a> <span>(read 12 October 2026)</span></li>
     </ol>
+    </details>
     <p class="co-small">Not affiliated with any maker, retailer or university named here.</p>
 <!-- @sources:end -->
   </section>

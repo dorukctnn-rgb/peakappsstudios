@@ -259,6 +259,9 @@ body.co-page {
 .co-sources { font-size: 14.5px; }
 .co-sources ol { margin: 0; padding-left: 22px; display: grid; gap: 4px; }
 .co-sources li span { color: var(--ink-2); }
+.co-srclist { margin: 10px 0; }
+.co-srclist summary { cursor: pointer; font-weight: 700; padding: 10px 0; min-height: 44px; }
+.co-srclist[open] summary { margin-bottom: 6px; }
 
 /* ---------- guide pages ---------- */
 .co-article { max-width: 780px; }
@@ -312,7 +315,7 @@ body.co-page {
  {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Coop Designer","item":"https://peakappsstudio.com/coop-designer/"},{"@type":"ListItem","position":3,"name":"Designs for 12 chickens","item":"https://peakappsstudio.com/coop-designer/designs-for-12-chickens/"}]},
  {"@type":"FAQPage","mainEntity":[
   {"@type":"Question","name":"How big a coop for 12 chickens?","acceptedAnswer":{"@type":"Answer","text":"36 to 48 sq ft inside and 120 sq ft of run for standard hens (Virginia Tech, 2023); 24 to 36 sq ft and 60 to 96 sq ft for bantams."}},
-  {"@type":"Question","name":"How many nesting boxes for 12 hens?","acceptedAnswer":{"@type":"Answer","text":"Three at one per four (Oregon State), from three to four at one per three to four (Delaware), and 4 by Penn State's rule."}},
+  {"@type":"Question","name":"How many nesting boxes for 12 hens?","acceptedAnswer":{"@type":"Answer","text":"Three at one per four (Oregon State), three or four at one per three to four hens (Delaware), and 4 by Penn State's rule."}},
   {"@type":"Question","name":"What roosts are best in a cold climate?","acceptedAnswer":{"@type":"Answer","text":"Wide ones: a 2x4 laid flat lets the hens cover their toes against frostbite (Colorado State). Use wood, not metal or plastic."}}
  ]}
 ]}
@@ -392,7 +395,7 @@ body.co-page {
     <p><a class="btn btn-primary co-open" href="/coop-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoid2Fsa2luIiwidW5pdHMiOiJpbXBlcmlhbCIsIm5hbWUiOiJXYWxrLWluIGNvb3AgZm9yIDEyIGhlbnMiLCJiaXJkcyI6MTIsInlhcmQiOnsidyI6OTc1My42LCJkIjo0ODc2Ljh9LCJjb29wIjp7InciOjI0MzguNH0sInJ1biI6eyJsIjo2MDk2fSwibmVzdHMiOjN9">Open this design in the tool</a></p>
 
     <h2>Twelve is where the breed decides the coop</h2>
-    <p>The same twelve birds need very different coops depending on their size. Bantams are a half to a quarter of the size of a standard chicken (<a href="https://ask.ifas.ufl.edu/publication/an239" rel="noopener">UF/IFAS AN239</a>), and the guides give them less room: 2 to 3 sq ft inside and 5 to 8 sq ft of run against 3 to 4 and 10 for laying hens (<a href="https://www.pubs.ext.vt.edu/2902/2902-1092/2902-1092.html" rel="noopener">Virginia Tech 2902-1092</a>). So twelve bantams fit a hen house on legs, while twelve standard hens need the walk-in above.</p>
+    <p>The same twelve birds need very different coops depending on their size. Bantams are a half to a quarter of the size of a standard chicken (<a href="https://ask.ifas.ufl.edu/publication/an239" rel="noopener">Florida</a>), and the guides give them less room: 2 to 3 sq ft inside and 5 to 8 sq ft of run against 3 to 4 and 10 for laying hens (<a href="https://www.pubs.ext.vt.edu/2902/2902-1092/2902-1092.html" rel="noopener">Virginia Tech</a>). So twelve bantams fit a hen house on legs, while twelve standard hens need the walk-in above.</p>
     <table class="co-table ">
       <caption>Twelve standard hens, twelve bantams, and twelve hens in a cold climate, from the tool.</caption>
       <thead><tr><th scope="col">Design</th><th scope="col">On the ground</th><th scope="col">Coop floor</th><th scope="col">Run</th><th scope="col" class="num">Boards</th><th scope="col" class="num">Rolls</th><th scope="col">Checks</th><th scope="col">In the tool</th></tr></thead>
@@ -402,13 +405,13 @@ body.co-page {
         <tr><td data-h="Design"><b>Walk-in, cold winters</b></td><td data-h="On the ground">28 ft x 6 ft</td><td data-h="Coop floor">48 sq ft</td><td data-h="Run">120 sq ft</td><td class="num" data-h="Boards">103</td><td class="num" data-h="Rolls">5</td><td data-h="Checks"><span class="co-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><ellipse cx="8" cy="8.6" rx="5.4" ry="6.4" fill="currentColor"/></svg>Fits</span></span></td><td data-h="In the tool"><a href="/coop-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoid2Fsa2luIiwidW5pdHMiOiJpbXBlcmlhbCIsIm5hbWUiOiJXYWxrLWluIGNvb3AgZm9yIDEyIGhlbnMsIGNvbGQgd2ludGVycyIsImJpcmRzIjoxMiwiY2xpbWF0ZSI6ImNvbGQiLCJ5YXJkIjp7InciOjk3NTMuNiwiZCI6NDg3Ni44fSwiY29vcCI6eyJ3IjoyNDM4LjR9LCJydW4iOnsibCI6NjA5Nn0sIm5lc3RzIjozfQ">Open it</a></td></tr>
       </tbody>
     </table>
-    <p>The bantam house is 6 ft square on legs with 36 sq ft of floor, and its roosts sit 15 in up, inside the 12 to 18 in <a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener">Penn State Extension, housing</a> gives bantams, with 4 in of bar each as the least. It takes 60 boards against 103 for the walk-in.</p>
+    <p>The bantam house is 6 ft square on legs with 36 sq ft of floor, and its roosts sit 15 in up, inside the 12 to 18 in that <a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener">Penn State</a> gives bantams, which need only 4 in of bar each. It takes 60 boards against 103 for the walk-in.</p>
 
     <h2>Hard winters</h2>
-    <p>Set the climate to cold winters and the walk-in keeps its size, but the roosts change: the tool lays 2x4 bars flat, wide face up, so the hens can cover their toes with their feathers against frostbite (<a href="https://boulder.extension.colostate.edu/wp-content/uploads/sites/7/2019/11/How-to-Care-for-Adult-Chickens-2018.pdf" rel="noopener">Colorado State, Boulder County</a>). The vents stay open all winter, because a coop needs air even in frigid weather to carry out moisture and ammonia (<a href="https://www.uaex.uada.edu/media-resources/news/2024/january/1-11-2024-ark-cold-backyard-poultry.aspx" rel="noopener">Arkansas Extension, cold</a>). Wooden bars, not metal or plastic, which hold the cold (<a href="https://www.uaex.uada.edu/media-resources/news/2024/january/1-11-2024-ark-cold-backyard-poultry.aspx" rel="noopener">Arkansas Extension, cold</a>). A heat lamp is a fire risk.</p>
+    <p>Set the climate to cold winters and the walk-in keeps its size, but the roosts change: the tool lays 2x4 bars flat, wide face up, so the hens can cover their toes with their feathers against frostbite (<a href="https://boulder.extension.colostate.edu/wp-content/uploads/sites/7/2019/11/How-to-Care-for-Adult-Chickens-2018.pdf" rel="noopener">Colorado State</a>). The vents stay open all winter, because a coop needs air even in frigid weather to carry out moisture and ammonia (<a href="https://www.uaex.uada.edu/media-resources/news/2024/january/1-11-2024-ark-cold-backyard-poultry.aspx" rel="noopener">Arkansas</a>). Wooden bars, not metal or plastic, which hold the cold (<a href="https://www.uaex.uada.edu/media-resources/news/2024/january/1-11-2024-ark-cold-backyard-poultry.aspx" rel="noopener">Arkansas</a>). A heat lamp is a fire risk.</p>
 
     <h2>Nests and roosts for twelve</h2>
-    <p>Three nest boxes at one per four hens (<a href="https://extension.oregonstate.edu/catalog/ec-1644-living-land-backyard-chicken-coop-design" rel="noopener">Oregon State EC 1644</a>), and 4 by <a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener">Penn State Extension, housing</a>'s rule. Two roost bars of 71 in give 11 in a hen at 30 in above the floor, and the tool keeps them above the nest boxes so the hens sleep on the bars, not in the boxes, as <a href="https://extension.umd.edu/resource/housing-requirements" rel="noopener">Maryland Extension, housing</a> advises; <a href="https://extension.oregonstate.edu/catalog/ec-1644-living-land-backyard-chicken-coop-design" rel="noopener">Oregon State EC 1644</a> sees it the other way round, so read the nest box guide if you build them yourself.</p>
+    <p>Three nest boxes at one per four hens (<a href="https://extension.oregonstate.edu/catalog/ec-1644-living-land-backyard-chicken-coop-design" rel="noopener">Oregon State</a>), or 4 by <a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener">Penn State</a>'s rule. Two roost bars of 71 in give 11 in a hen at 30 in above the floor, and the tool keeps them above the nest boxes so the hens sleep on the bars, not in the boxes, as <a href="https://extension.umd.edu/resource/housing-requirements" rel="noopener">Maryland</a> advises; <a href="https://extension.oregonstate.edu/catalog/ec-1644-living-land-backyard-chicken-coop-design" rel="noopener">Oregon State</a> sees it the other way round, so read the nest box guide if you build them yourself.</p>
 
     <h2>The material list</h2>
     <table class="co-table co-shop co-numgrid">
@@ -445,7 +448,7 @@ body.co-page {
     <h2 id="faq-h">Questions</h2>
     <div class="co-faq">
       <details><summary>How big a coop for 12 chickens?</summary><div class="answer"><p>36 to 48 sq ft inside and 120 sq ft of run for standard hens (Virginia Tech, 2023); 24 to 36 sq ft and 60 to 96 sq ft for bantams.</p></div></details>
-      <details><summary>How many nesting boxes for 12 hens?</summary><div class="answer"><p>Three at one per four (Oregon State), from three to four at one per three to four (Delaware), and 4 by Penn State's rule.</p></div></details>
+      <details><summary>How many nesting boxes for 12 hens?</summary><div class="answer"><p>Three at one per four (Oregon State), three or four at one per three to four hens (Delaware), and 4 by Penn State's rule.</p></div></details>
       <details><summary>What roosts are best in a cold climate?</summary><div class="answer"><p>Wide ones: a 2x4 laid flat lets the hens cover their toes against frostbite (Colorado State). Use wood, not metal or plastic.</p></div></details>
     </div>
   </section>
