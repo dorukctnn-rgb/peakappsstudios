@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How much does it cost to build a chicken coop? Price it</title>
+<meta name="description" content="What a chicken coop costs to build: dated bills of materials for an A-frame, a hen house on legs and a walk-in, with a column for your own prices.">
+<link rel="canonical" href="https://peakappsstudio.com/coop-designer/chicken-coop-cost/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="How much does it cost to build a chicken coop?">
+<meta property="og:description" content="What a chicken coop costs to build: dated bills of materials for an A-frame, a hen house on legs and a walk-in, with a column for your own prices.">
+<meta property="og:url" content="https://peakappsstudio.com/coop-designer/chicken-coop-cost/">
+<meta property="og:image" content="https://peakappsstudio.com/coop-designer/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#dcefea">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/coop-designer/fonts/geologica-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="/coop-designer/img/hero-cost-960.webp" imagesrcset="/coop-designer/img/hero-cost-480.webp 480w, /coop-designer/img/hero-cost-960.webp 960w, /coop-designer/img/hero-cost-1440.webp 1440w" imagesizes="(max-width: 860px) 100vw, 52vw" fetchpriority="high">
+<link rel="stylesheet" href="/assets/tools.css">
+<style data-from="/coop-designer/tool.css">
+/* Coop Designer: the tool's own identity, scoped to body.co-page (the shared header and footer keep their structure).
+ * Taken from the eggs a backyard flock lays: a duck-egg page (the blue eggs), chocolate ink (the darkest brown eggs),
+ * yolk for Pro and "check", an olive-egg green for links and focus, a garden-leaf green for "fits", a fox red for
+ * "fail", pine for wood only. Type: Parkinsans (plump and sturdy, headings only) and Geologica (everything read,
+ * tabular figures). Signature: a carton row of real egg colours, used once under the hero. */
+
+@font-face { font-family: "Parkinsans"; src: url("/coop-designer/fonts/parkinsans-latin.woff2") format("woff2"); font-weight: 600 800; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Parkinsans"; src: url("/coop-designer/fonts/parkinsans-latin-ext.woff2") format("woff2"); font-weight: 600 800; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Geologica"; src: url("/coop-designer/fonts/geologica-latin.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Geologica"; src: url("/coop-designer/fonts/geologica-latin-ext.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+/* fallbacks sized to the web fonts' average widths and heights (from _build/fonts.py), so the swap does not move the layout */
+@font-face { font-family: "Geologica Fallback"; src: local("Arial"), local("Helvetica Neue"), local("Helvetica"); size-adjust: 108.6%; ascent-override: 89.8%; descent-override: 25.3%; line-gap-override: 0%; }
+@font-face { font-family: "Parkinsans Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Helvetica Neue Bold"); font-weight: 600 800; size-adjust: 108.7%; ascent-override: 96.6%; descent-override: 32.2%; line-gap-override: 0%; }
+
+body.co-page {
+  --egg: #dcefea; --egg-2: #c9e6df; --egg-3: #b3d9d0; --paper: #ffffff; --paper-2: #f2f9f6;
+  --choc: #2e1a12; --choc-2: #5f4a3e; --choc-3: #8a776b;
+  --yolk: #ffb000; --olive: #56701a; --leaf: #9bc53d; --fox: #c63d2f; --fox-ink: #ffffff; --pine: #d9a35f;
+  --card: var(--paper); --ink: var(--choc); --ink-2: var(--choc-2); --muted: var(--choc-2);
+  --line: rgba(46, 26, 18, .13); --line-2: rgba(46, 26, 18, .26);
+  --accent: var(--choc); --accent-ink: #ffffff; --ok: var(--olive); --warn: #8a5200;
+  --btn: var(--choc); --btn-ink: #ffffff; --link: var(--olive);
+  --sans: "Geologica", "Geologica Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: var(--sans);
+  --display: "Parkinsans", "Parkinsans Fallback", sans-serif;
+  --r-panel: 20px; --r-field: 10px; --r-chip: 8px;
+  background: var(--egg); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.58; font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.co-page {
+    --egg: #1b1410; --egg-2: #2a1f18; --egg-3: #3a2b21; --paper: #241a14; --paper-2: #2c2019;
+    --choc: #f4ede4; --choc-2: #d2c4b6; --choc-3: #a8988a;
+    --olive: #b8d36b; --leaf: #a8d45a; --fox: #ff7a6b; --fox-ink: #2a0905; --warn: #ffc15a;
+    --btn: #f4ede4; --btn-ink: #1b1410; --link: #b8d36b;
+    --card: var(--paper); --line: rgba(244, 237, 228, .13); --line-2: rgba(244, 237, 228, .26);
+  }
+}
+:root[data-theme="dark"] body.co-page {
+  --egg: #1b1410; --egg-2: #2a1f18; --egg-3: #3a2b21; --paper: #241a14; --paper-2: #2c2019;
+  --choc: #f4ede4; --choc-2: #d2c4b6; --choc-3: #a8988a;
+  --olive: #b8d36b; --leaf: #a8d45a; --fox: #ff7a6b; --fox-ink: #2a0905; --warn: #ffc15a;
+  --btn: #f4ede4; --btn-ink: #1b1410; --link: #b8d36b;
+  --card: var(--paper); --line: rgba(244, 237, 228, .13); --line-2: rgba(244, 237, 228, .26);
+}
+
+/* ---------- type ---------- */
+.co-page h1, .co-page h2, .co-page h3 { font-family: var(--display); font-weight: 800; letter-spacing: -0.015em; line-height: 1.03; text-wrap: balance; color: var(--choc); }
+.co-page h1 { font-size: clamp(38px, 5.2vw, 68px); margin: 0; max-width: 15ch; }
+.co-page h2 { font-size: clamp(27px, 3vw, 40px); font-weight: 800; margin: 0 0 12px; }
+.co-page h3 { font-size: 21px; font-weight: 700; margin: 0 0 6px; letter-spacing: -0.005em; }
+.co-page p { max-width: 68ch; }
+.co-page .lede { font-size: clamp(18px, 1.5vw, 20px); color: var(--ink); margin: 0; }
+.co-page a { color: var(--choc); text-decoration-color: var(--olive); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.co-page a:hover { color: var(--olive); }
+.co-page table a, .co-page .co-card a { color: var(--link); text-decoration-thickness: 1px; }
+.co-page :focus-visible { outline: 3px solid var(--olive); outline-offset: 2px; border-radius: 4px; }
+.co-page ::selection { background: var(--yolk); color: #2e1a12; }
+.co-page .btn { border-radius: var(--r-field); font-weight: 600; font-size: 16px; padding: 12px 18px; }
+.co-page .btn-primary { background: var(--btn); border-color: var(--btn); color: var(--btn-ink); }
+.co-page .btn-primary:hover { background: color-mix(in oklab, var(--btn) 84%, var(--olive)); border-color: color-mix(in oklab, var(--btn) 84%, var(--olive)); color: var(--btn-ink); }
+.co-page .btn-yolk { background: var(--yolk); border-color: var(--yolk); color: #2e1a12; }
+.co-page .btn-yolk:hover { background: #f2a400; border-color: #f2a400; color: #2e1a12; }
+.co-page .btn-ghost { background: transparent; }
+.co-small { font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- hero ---------- */
+.co-hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(18px, 4vw, 56px); align-items: end; padding: clamp(12px, 2.4vw, 28px) 0 clamp(12px, 1.6vw, 18px); }
+.co-hero-side { display: grid; gap: 16px; }
+/* the signature: one carton row of eggs in the colours a mixed flock lays */
+.co-eggs { display: block; width: 100%; height: 44px; margin: 2px 0 18px; }
+.co-eggs .co-cup { fill: var(--egg-3); }
+@media (max-width: 600px) { .co-eggs { height: 34px; margin-bottom: 14px; } }
+
+/* the four types, as line drawings */
+.co-types { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; border: 0; padding: 0; margin: 0; }
+.co-types legend { font-weight: 600; font-size: 15px; margin-bottom: 8px; padding: 0; }
+.co-type { position: relative; display: grid; justify-items: center; gap: 4px; padding: 10px 6px 9px; border-radius: 12px; border: 1.5px solid var(--line-2); background: color-mix(in oklab, var(--paper) 50%, transparent); cursor: pointer; text-align: center; font-size: 14px; font-weight: 600; line-height: 1.2; color: var(--ink); }
+.co-type input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.co-type svg { width: 66px; height: 46px; color: var(--choc-2); }
+.co-type:has(input:checked) { border-color: var(--choc); background: var(--paper); box-shadow: inset 0 -4px 0 var(--yolk); }
+.co-type:has(input:checked) svg { color: var(--choc); }
+.co-type:has(input:focus-visible) { outline: 3px solid var(--olive); outline-offset: 2px; }
+.co-type .wood { color: var(--pine); }
+@media (max-width: 900px) { .co-hero { grid-template-columns: 1fr; align-items: start; } }
+@media (max-width: 460px) { .co-types { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------- the bench: the 3D view beside the form ---------- */
+.co-bench { display: grid; grid-template-columns: minmax(0, 1fr) minmax(330px, 410px); background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-panel); overflow: clip; }
+.co-stage { border-right: 1px solid var(--line); min-width: 0; }
+.co-sticky { position: sticky; top: 0; }
+.co-view { position: relative; aspect-ratio: 16 / 10; background: linear-gradient(180deg, #bfe0f2, #e4f1ee 62%, #fde8cf); overflow: hidden; }
+.co-view img, .co-view canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; }
+.co-view canvas { touch-action: none; cursor: grab; }
+.co-view canvas:active { cursor: grabbing; }
+.co-badge { position: absolute; left: 12px; top: 12px; background: var(--yolk); color: #2e1a12; font-weight: 700; font-size: 13.5px; padding: 4px 10px; border-radius: var(--r-chip); }
+.co-gl-note { position: absolute; left: 12px; right: 12px; bottom: 60px; margin: 0; background: var(--paper); color: var(--ink); padding: 8px 12px; border-radius: var(--r-field); font-size: 14.5px; }
+.co-start { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); display: inline-flex; gap: 8px; align-items: center; background: #2e1a12; color: #fff; border: 0; border-radius: 999px; padding: 11px 18px; font: inherit; font-weight: 600; font-size: 15.5px; cursor: pointer; box-shadow: 0 6px 18px rgba(46, 26, 18, .3); }
+.co-start svg { width: 18px; height: 18px; }
+.co-start[disabled] { opacity: .8; cursor: progress; }
+.co-tags { position: absolute; inset: 0; pointer-events: none; }
+.co-tag { position: absolute; left: 0; top: 0; white-space: nowrap; font-size: 13.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: rgba(255, 255, 255, .95); color: #2e1a12; box-shadow: 0 1px 0 rgba(46, 26, 18, .25); }
+.co-tag-fail { background: #c63d2f; color: #fff; }
+.co-tag-check { background: #ffb000; color: #2e1a12; }
+.co-tag-fits { background: #9bc53d; color: #2e1a12; }
+.co-toolbar { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; padding: 10px 14px; border-top: 1px solid var(--line); background: var(--paper-2); }
+.co-seg { display: inline-flex; border: 1px solid var(--line-2); border-radius: var(--r-field); overflow: hidden; }
+.co-seg button { font: inherit; font-size: 14.5px; font-weight: 600; padding: 7px 11px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+.co-seg button + button { border-left: 1px solid var(--line-2); }
+.co-seg button[aria-pressed="true"] { background: var(--choc); color: var(--paper); }
+.co-sun { display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 600; }
+.co-sun input[type="range"] { width: 130px; accent-color: var(--yolk); }
+.co-sun output { min-width: 3.2em; font-variant-numeric: tabular-nums; }
+.co-henbtn { font: inherit; font-size: 14.5px; font-weight: 600; padding: 7px 12px; border-radius: var(--r-field); border: 1.5px solid var(--yolk); background: transparent; color: var(--ink); cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.co-henbtn svg { width: 18px; height: 18px; color: var(--choc); }
+.co-toolbar[hidden] { display: none; }
+
+/* the title block under the view: what this design is, and how its checks came out */
+.co-title { padding: 14px 16px 16px; display: grid; gap: 10px; }
+.co-title h2 { font-size: clamp(23px, 2.3vw, 29px); margin: 0; }
+.co-title p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
+.co-counts { display: flex; flex-wrap: wrap; gap: 8px; }
+.co-count { display: inline-flex; color: var(--ink); gap: 6px; align-items: baseline; padding: 4px 10px; border-radius: var(--r-chip); font-size: 14.5px; font-weight: 600; border: 1px solid var(--line-2); }
+.co-count b { font-size: 18px; }
+.co-count.ct-fits { background: color-mix(in oklab, var(--leaf) 30%, var(--paper)); }
+.co-count.ct-check { background: color-mix(in oklab, var(--yolk) 30%, var(--paper)); }
+.co-count.ct-fail { background: color-mix(in oklab, var(--fox) 20%, var(--paper)); }
+.co-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13.5px; color: var(--ink-2); }
+
+/* ---------- the form ---------- */
+.co-form { padding: 6px 16px 18px; display: grid; gap: 4px; align-content: start; }
+.co-step { border: 0; padding: 12px 0 14px; margin: 0; border-bottom: 1px solid var(--line); }
+.co-step:last-child { border-bottom: 0; }
+.co-step > legend { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 20px; padding: 0; margin: 0 0 10px; color: var(--choc); }
+.co-step-n { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50% 50% 46% 46% / 58% 58% 42% 42%; background: var(--egg-3); color: #2e1a12; font-family: var(--sans); font-size: 15px; font-weight: 700; }
+.co-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 12px; }
+.co-field { display: grid; gap: 4px; align-content: start; font-size: 14.5px; font-weight: 600; min-width: 0; }
+.co-field.wide { grid-column: 1 / -1; }
+.co-field small { font-weight: 400; color: var(--ink-2); font-size: 13.5px; line-height: 1.35; }
+.co-in { position: relative; display: flex; align-items: center; }
+.co-in input { padding-right: 38px; }
+.co-in i { position: absolute; right: 10px; font-style: normal; font-weight: 500; font-size: 14px; color: var(--ink-2); pointer-events: none; }
+.co-form input[type="number"], .co-form input[type="text"], .co-form select, .co-shop input, .co-pro input[type="text"] {
+  width: 100%; min-width: 0; font: inherit; font-size: 16px; font-weight: 500; padding: 9px 10px; border: 1px solid var(--line-2); border-radius: var(--r-field); background: var(--paper); color: var(--ink); }
+.co-form input:focus, .co-form select:focus, .co-shop input:focus { outline: none; border-color: var(--olive); box-shadow: 0 0 0 3px color-mix(in oklab, var(--olive) 24%, transparent); }
+.co-row { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
+.co-check { display: flex; gap: 8px; align-items: flex-start; font-size: 14.5px; font-weight: 500; }
+.co-check input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--olive); flex: none; }
+.co-auto { margin: 2px 0 10px; padding: 9px 11px; border-radius: var(--r-field); background: var(--paper-2); border: 1px dashed var(--line-2); }
+.co-pro-tag { display: inline-block; font-size: 12.5px; font-weight: 700; padding: 1px 7px; border-radius: 5px; background: var(--yolk); color: #2e1a12; margin-left: 6px; vertical-align: 1px; }
+[data-show][hidden] { display: none !important; }
+@media (max-width: 960px) { .co-bench { grid-template-columns: 1fr; } .co-stage { border-right: 0; border-bottom: 1px solid var(--line); } .co-sticky { position: static; } }
+
+/* ---------- actions ---------- */
+.co-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 16px 0 6px; }
+.co-actions .hint { font-size: 14px; color: var(--ink-2); }
+.co-sample-note { margin: 0 0 10px; font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- sections, tables ---------- */
+.co-sec { margin: clamp(30px, 5vw, 56px) 0 0; }
+.co-sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 20px; margin-bottom: 10px; }
+.co-sec-head p { margin: 0; color: var(--ink-2); font-size: 14.5px; }
+.co-card { background: var(--paper); border: 1px solid var(--line-2); border-radius: 14px; }
+.co-table { width: 100%; border-collapse: collapse; background: var(--paper); border: 1px solid var(--line-2); border-radius: 14px; overflow: hidden; font-size: 15.5px; }
+.co-table caption { caption-side: top; text-align: left; padding: 0 0 8px; color: var(--ink-2); font-size: 14.5px; }
+.co-table th, .co-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.co-table thead th { font-size: 13.5px; font-weight: 700; color: var(--ink-2); background: var(--paper-2); }
+.co-table tbody tr:last-child td { border-bottom: 0; }
+.co-table .num { text-align: right; white-space: nowrap; }
+.co-group td { background: var(--paper-2); font-weight: 700; font-size: 14px; color: var(--ink-2); }
+.co-st { white-space: nowrap; font-weight: 700; font-size: 14px; }
+.co-st span { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: var(--r-chip); }
+.co-st svg { width: 13px; height: 13px; }
+.st-fits span { background: #9bc53d; color: #2e1a12; }
+.st-check span { background: #ffb000; color: #2e1a12; }
+.st-fail span { background: var(--fox); color: var(--fox-ink); }
+.st-info span { background: var(--egg-2); color: var(--ink); }
+.co-why { color: var(--ink-2); font-size: 14.5px; }
+.co-src { font-size: 13.5px; color: var(--ink-2); }
+.co-src a { white-space: normal; }
+.co-shop input { max-width: 110px; text-align: right; padding: 6px 8px; font-size: 15px; }
+.co-total td { font-weight: 700; background: var(--paper-2); }
+@media (max-width: 760px) {
+  .co-table, .co-table tbody, .co-table tr, .co-table td, .co-table caption { display: block; width: 100%; }
+  .co-table thead { display: none; }
+  .co-table caption { padding: 10px 12px 8px; }
+  .co-table tr { border-bottom: 1px solid var(--line); padding: 8px 0; }
+  .co-table td { border: 0; padding: 4px 12px; }
+  .co-table td[data-h]::before { content: attr(data-h); display: block; font-size: 12.5px; font-weight: 700; color: var(--ink-2); }
+  .co-table .num { text-align: left; }
+  .co-shop input { max-width: 100%; text-align: left; }
+}
+
+/* ---------- Pro ---------- */
+.co-pro { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr); gap: 0; background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-panel); overflow: clip; }
+.co-pro-l { padding: clamp(18px, 2.6vw, 30px); display: grid; gap: 14px; align-content: start; min-width: 0; }
+.co-pro-r { padding: clamp(18px, 2.6vw, 30px); background: #2e1a12; color: #f6efe7; display: grid; gap: 12px; align-content: start; }
+.co-pro-r p { color: #e4d8cc; margin: 0; font-size: 14.5px; }
+.co-pro-r .btn-ghost { color: #fff; border-color: rgba(255, 255, 255, .5); }
+.co-pro-r .btn-ghost[aria-busy="true"] { cursor: progress; opacity: .85; }
+.co-pro-r .co-price { font-family: var(--display); font-size: 46px; font-weight: 800; color: #fff; margin: 0; line-height: 1; }
+.co-price small { font-family: var(--sans); font-size: 15px; font-weight: 500; color: #e4d8cc; }
+.co-locked { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.co-locked li { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 10px; align-items: start; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.co-locked svg { width: 16px; height: 16px; margin-top: 3px; color: var(--choc-2); }
+.co-locked b { display: block; font-weight: 700; }
+.co-locked span { display: block; color: var(--ink-2); font-size: 14.5px; }
+.co-locked em { font-style: normal; font-size: 12.5px; font-weight: 700; padding: 2px 8px; border-radius: 5px; background: var(--egg-2); color: var(--ink); }
+.co-locked li.is-open em { background: #9bc53d; color: #2e1a12; }
+.co-pro-out { margin: 0; }
+.co-pro-out img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid var(--line-2); background: #fff; }
+.co-pro-out figcaption { font-size: 13.5px; color: var(--ink-2); margin-top: 6px; }
+.co-pro-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.co-addons { border: 1px solid var(--line-2); border-radius: 12px; padding: 12px 14px; display: grid; gap: 8px; margin: 0; }
+.co-addons legend { font-weight: 700; padding: 0 4px; }
+.co-addons[disabled] { opacity: .62; }
+.co-saved { display: grid; gap: 8px; }
+.co-saved ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.co-saved li { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; font-size: 14.5px; }
+.co-saved li button { font: inherit; font-size: 13.5px; padding: 4px 9px; border-radius: 6px; border: 1px solid var(--line-2); background: var(--paper); color: var(--ink); cursor: pointer; }
+.co-pro-work { display: grid; gap: 14px; }
+.co-pro-work[hidden] { display: none; }
+.co-diagram { width: 100%; height: auto; display: block; background: var(--paper); }
+.co-board { margin: 0 0 6px; }
+.co-board figcaption { font-size: 13.5px; color: var(--ink-2); }
+@media (max-width: 860px) { .co-pro { grid-template-columns: 1fr; } }
+
+/* ---------- guides, FAQ, sources ---------- */
+.co-guides { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0; border-top: 3px solid var(--choc); }
+.co-guides li { border-bottom: 1px solid var(--line-2); }
+.co-guides a { display: grid; gap: 2px; padding: 14px 12px 14px 0; text-decoration: none; color: var(--ink); }
+.co-guides b { font-family: var(--display); font-weight: 700; font-size: 19px; line-height: 1.15; }
+.co-guides span { color: var(--ink-2); font-size: 14.5px; }
+.co-guides a:hover b { color: var(--olive); }
+.co-faq details { border-bottom: 1px solid var(--line-2); padding: 12px 0; }
+.co-faq summary { cursor: pointer; font-weight: 700; font-size: 17.5px; }
+.co-faq .answer p { margin: 8px 0 0; }
+.co-sources { font-size: 14.5px; }
+.co-sources ol { margin: 0; padding-left: 22px; display: grid; gap: 4px; }
+.co-sources li span { color: var(--ink-2); }
+.co-srclist { margin: 10px 0; }
+.co-srclist summary { cursor: pointer; font-weight: 700; padding: 10px 0; min-height: 44px; }
+.co-srclist[open] summary { margin-bottom: 6px; }
+
+/* ---------- guide pages ---------- */
+.co-article { max-width: 780px; }
+.co-article h2 { margin-top: 34px; }
+.co-figure { margin: 18px 0; }
+.co-figure img { width: 100%; height: auto; display: block; border-radius: 14px; border: 1px solid var(--line-2); }
+.co-figure figcaption { font-size: 14px; color: var(--ink-2); margin-top: 6px; }
+.co-callout { background: var(--paper); border: 1px solid var(--line-2); border-left: 5px solid var(--yolk); border-radius: 12px; padding: 14px 16px; margin: 16px 0; }
+.co-callout p { margin: 0; }
+.co-open { display: inline-flex; margin-top: 8px; }
+.co-guide-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(18px, 4vw, 48px); align-items: center; padding: clamp(10px, 2vw, 22px) 0 6px; }
+.co-guide-hero img { width: 100%; height: auto; display: block; border-radius: 16px; border: 1px solid var(--line-2); aspect-ratio: 16 / 10; object-fit: cover; }
+.co-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--paper); overflow: hidden; margin: 16px 0; }
+.co-facts div { padding: 12px 14px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.co-facts b { display: block; font-family: var(--display); font-size: 24px; font-weight: 800; line-height: 1.1; }
+.co-facts span { font-size: 14px; color: var(--ink-2); }
+@media (max-width: 860px) { .co-guide-hero { grid-template-columns: 1fr; } }
+.co-table tr[id] { scroll-margin-top: 84px; }
+.co-table tr:target td { background: color-mix(in oklab, var(--yolk) 26%, var(--paper)); }
+.co-jump { list-style: none; margin: 10px 0 16px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.co-jump a { display: inline-flex; align-items: center; justify-content: center; min-width: 48px; min-height: 44px; padding: 0 12px; border: 1px solid var(--line-2); border-radius: var(--r-chip); background: var(--paper); color: var(--ink); font-weight: 700; text-decoration: none; }
+.co-jump a:hover { border-color: var(--olive); color: var(--olive); }
+.co-table th[scope="row"] { font-weight: 700; }
+/* compact number tables (.co-numgrid) stay a table on a phone: few, short columns */
+@media (max-width: 760px) {
+  .co-table.co-numgrid { display: table; font-size: 14.5px; }
+  .co-table.co-numgrid caption { display: table-caption; }
+  .co-table.co-numgrid thead { display: table-header-group; }
+  .co-table.co-numgrid tbody { display: table-row-group; }
+  .co-table.co-numgrid tr { display: table-row; padding: 0; }
+  .co-table.co-numgrid th, .co-table.co-numgrid td { display: table-cell; width: auto; padding: 8px 5px; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+  .co-table.co-numgrid thead th { font-size: 13px; line-height: 1.25; white-space: normal; vertical-align: bottom; }
+  .co-table.co-numgrid td[data-h]::before { content: none; }
+  .co-table.co-numgrid .num { text-align: right; }
+  .co-table.co-kv td:first-child { width: 36%; }
+  .co-table.co-kv .co-group td { padding-top: 10px; }
+}
+
+/* ---------- print: the shopping list only ---------- */
+@media print {
+  body.co-print-shop .site-head, body.co-print-shop .site-foot, body.co-print-shop main > *:not(#shop), body.co-print-shop .skip { display: none !important; }
+  body.co-print-shop #shop { margin: 0; }
+  body.co-print-shop .co-shop input { border: 0; padding: 0; }
+  body.co-page { background: #fff; }
+}
+@media (prefers-reduced-motion: reduce) { .co-page * { scroll-behavior: auto !important; transition: none !important; } }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","@id":"https://peakappsstudio.com/coop-designer/#app","name":"Coop Designer","url":"https://peakappsstudio.com/coop-designer/","applicationCategory":"DesignApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Pro (one-time)","price":"19","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/coop-designer-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Coop Designer","item":"https://peakappsstudio.com/coop-designer/"},{"@type":"ListItem","position":3,"name":"What a chicken coop costs","item":"https://peakappsstudio.com/coop-designer/chicken-coop-cost/"}]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"What does a chicken coop cost to build?","acceptedAnswer":{"@type":"Answer","text":"The sum of its materials at your prices. For quantities: the A-frame for 4 hens here takes 18 boards and 2 rolls of hardware cloth; the walk-in for 12 takes 103 boards and 5 rolls."}},
+  {"@type":"Question","name":"Why does the tool not show prices?","acceptedAnswer":{"@type":"Answer","text":"Prices change by store, town and week, and a price that is out of date is worse than none. The tool counts what to buy and adds up the prices you type."}}
+ ]}
+]}
+</script>
+</head>
+<body class="co-page" style="--accent:#56701a">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a href="/tumbler-template/" class="hide-sm">Tumbler templates</a>
+      <a href="/name-cut-files/" class="hide-sm">Name cut files</a>
+      <a href="/kdp-coloring-book/" class="hide-sm">KDP coloring books</a>
+      <a href="/sewing-pattern-printer/" class="hide-sm">Sewing pattern printer</a>
+      <a href="/quilt-label-maker/" class="hide-sm">Quilt labels</a>
+      <a href="/etsy-tax-summary/" class="hide-sm">Etsy tax summary</a>
+      <a href="/pay-gap-report/" class="hide-sm">Pay gap report</a>
+      <a href="/equality-action-plan/" class="hide-sm">Equality action plan</a>
+      <a href="/job-evaluation/" class="hide-sm">Job evaluation</a>
+      <a href="/pay-transparency/" class="hide-sm">Pay transparency</a>
+      <a href="/menopause-adjustments/" class="hide-sm">Menopause adjustments</a>
+      <a href="/without-planning/" class="hide-sm">Without planning</a>
+      <a href="/dropped-kerb/" class="hide-sm">Dropped kerb</a>
+      <a href="/catio-designer/" class="hide-sm">Catio designer</a>
+      <a href="/coop-designer/" aria-current="page">Coop designer</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/coop-designer/">Coop Designer</a></li><li aria-current="page">What a chicken coop costs</li></ol></nav>
+  <header class="co-guide-hero">
+    <div>
+      <h1>How much does it cost to build a chicken coop?</h1>
+      <p class="lede" style="margin-top:14px">As much as its lumber, plywood, hardware cloth, roof panels and fixings cost where you buy them. Here are the quantities for three coops from the tool, dated 13 October 2026: an A-frame for 4 hens, a hen house on legs for 6 and a walk-in for 12. Type your store's prices and each list adds up.</p>
+      <a class="btn btn-primary co-open" href="/coop-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoiaG91c2UiLCJ1bml0cyI6ImltcGVyaWFsIiwibmFtZSI6IkhlbiBob3VzZSBmb3IgNiBoZW5zIiwiYmlyZHMiOjYsImNvb3AiOnsidyI6MTUyNCwiZCI6MTUyNCwiaCI6MTIxOS4yLCJoMiI6OTY1LjJ9LCJydW4iOnsibCI6MzY1Ny42fSwibmVzdHMiOjJ9">Price your own coop in the tool</a>
+    </div>
+    <img src="/coop-designer/img/hero-cost-960.webp" srcset="/coop-designer/img/hero-cost-480.webp 480w, /coop-designer/img/hero-cost-960.webp 960w, /coop-designer/img/hero-cost-1440.webp 1440w" sizes="(max-width: 860px) 100vw, 52vw" width="1440" height="900" fetchpriority="high" decoding="async" alt="The A-frame coop for four hens in 3D: a 8 ft 6 in timber A-frame with a corrugated roof over the house end, a nest box and a hardware-cloth run, with hens and a basket of eggs.">
+  </header>
+  <svg class="co-eggs" viewBox="0 0 1200 46" preserveAspectRatio="xMinYMid slice" aria-hidden="true"><defs><radialGradient id="co-egg-shine" cx="36%" cy="30%" r="72%"><stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#2e1a12" stop-opacity=".22"/></radialGradient><path id="co-egg" d="M0-19c-8.6 0-14 13.2-14 22.4C-14 11.6-7.7 17 0 17s14-5.4 14-13.6C14-5.8 8.6-19 0-19z"/><path id="co-cup" d="M-34 26h68c-2 9-10 15-18 15h-32c-8 0-16-6-18-15z"/></defs><use href="#co-cup" x="38" y="0" class="co-cup"/><use href="#co-egg" x="38" y="22" fill="#f6f1e7"/><use href="#co-egg" x="38" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="113" y="0" class="co-cup"/><use href="#co-egg" x="113" y="22" fill="#b9ded7"/><use href="#co-egg" x="113" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="188" y="0" class="co-cup"/><use href="#co-egg" x="188" y="22" fill="#6d3b23"/><use href="#co-egg" x="188" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="263" y="0" class="co-cup"/><use href="#co-egg" x="263" y="22" fill="#ead2b0"/><use href="#co-egg" x="263" y="22" fill="url(#co-egg-shine)"/><g fill="#5a3a22" opacity=".5"><circle cx="258" cy="14" r="1.1"/><circle cx="267" cy="9" r=".9"/><circle cx="269" cy="22" r="1.2"/><circle cx="261" cy="27" r=".8"/><circle cx="264" cy="31" r="1"/><circle cx="255" cy="23" r=".7"/></g><use href="#co-cup" x="338" y="0" class="co-cup"/><use href="#co-egg" x="338" y="22" fill="#97a466"/><use href="#co-egg" x="338" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="413" y="0" class="co-cup"/><use href="#co-egg" x="413" y="22" fill="#f3e3d3"/><use href="#co-egg" x="413" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="488" y="0" class="co-cup"/><use href="#co-egg" x="488" y="22" fill="#c78f5f"/><use href="#co-egg" x="488" y="22" fill="url(#co-egg-shine)"/><g fill="#5a3a22" opacity=".5"><circle cx="483" cy="14" r="1.1"/><circle cx="492" cy="9" r=".9"/><circle cx="494" cy="22" r="1.2"/><circle cx="486" cy="27" r=".8"/><circle cx="489" cy="31" r="1"/><circle cx="480" cy="23" r=".7"/></g><use href="#co-cup" x="563" y="0" class="co-cup"/><use href="#co-egg" x="563" y="22" fill="#a8d3cb"/><use href="#co-egg" x="563" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="638" y="0" class="co-cup"/><use href="#co-egg" x="638" y="22" fill="#4e2617"/><use href="#co-egg" x="638" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="713" y="0" class="co-cup"/><use href="#co-egg" x="713" y="22" fill="#efe2cc"/><use href="#co-egg" x="713" y="22" fill="url(#co-egg-shine)"/><g fill="#5a3a22" opacity=".5"><circle cx="708" cy="14" r="1.1"/><circle cx="717" cy="9" r=".9"/><circle cx="719" cy="22" r="1.2"/><circle cx="711" cy="27" r=".8"/><circle cx="714" cy="31" r="1"/><circle cx="705" cy="23" r=".7"/></g><use href="#co-cup" x="788" y="0" class="co-cup"/><use href="#co-egg" x="788" y="22" fill="#86935a"/><use href="#co-egg" x="788" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="863" y="0" class="co-cup"/><use href="#co-egg" x="863" y="22" fill="#e6c4a8"/><use href="#co-egg" x="863" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="938" y="0" class="co-cup"/><use href="#co-egg" x="938" y="22" fill="#d6a676"/><use href="#co-egg" x="938" y="22" fill="url(#co-egg-shine)"/><g fill="#5a3a22" opacity=".5"><circle cx="933" cy="14" r="1.1"/><circle cx="942" cy="9" r=".9"/><circle cx="944" cy="22" r="1.2"/><circle cx="936" cy="27" r=".8"/><circle cx="939" cy="31" r="1"/><circle cx="930" cy="23" r=".7"/></g><use href="#co-cup" x="1013" y="0" class="co-cup"/><use href="#co-egg" x="1013" y="22" fill="#c2e2db"/><use href="#co-egg" x="1013" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="1088" y="0" class="co-cup"/><use href="#co-egg" x="1088" y="22" fill="#7a4a2c"/><use href="#co-egg" x="1088" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="1163" y="0" class="co-cup"/><use href="#co-egg" x="1163" y="22" fill="#f8f4ec"/><use href="#co-egg" x="1163" y="22" fill="url(#co-egg-shine)"/></svg>
+  <article class="co-article">
+
+    <h2>Why this page has no prices</h2>
+    <p>A coop costs what its boards, sheets, rolls, panels and screws cost at your store this week, and those prices change by town and by season. So the three lists below give the quantities, made by the tool on 13 October 2026, and leave the price column for you. Type a unit price once and it fills the same item in the other lists too; each total adds up on this page, and nothing you type is saved or sent anywhere.</p>
+
+    <h2>Three bills of materials</h2>
+    <h3>A-frame for 4 hens</h3>
+    <p class="co-small">A-frame coop, 9 ft 6 in by 5 ft on the ground: 18 boards of 2x3, 5 sheets of plywood, 2 rolls of hardware cloth and 3 roof panels. <a href="/coop-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoiYWZyYW1lIiwidW5pdHMiOiJpbXBlcmlhbCIsIm5hbWUiOiJBLWZyYW1lIGZvciA0IGhlbnMifQ">Open this design</a></p>
+    <table class="co-table co-shop" data-bom="0">
+      <caption>Bill of materials from Coop Designer, 13 October 2026. Type your store's prices to see the total.</caption>
+      <thead><tr><th scope="col">Item</th><th scope="col" class="num">Quantity</th><th scope="col" class="num">Your unit price</th><th scope="col" class="num">Cost</th></tr></thead>
+      <tbody>
+        <tr><td data-h="Item">2x3 x 8 ft</td><td class="num" data-h="Quantity">17 boards</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="lumber:2x3:2438" data-qty="17" aria-label="Unit price for 2x3 x 8 ft"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">2x2 x 8 ft, for the roost bars</td><td class="num" data-h="Quantity">1 board</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="lumber:2x2:2438" data-qty="1" aria-label="Unit price for 2x2 x 8 ft, for the roost bars"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">4 x 8 ft exterior plywood, 15/32 in</td><td class="num" data-h="Quantity">4 sheets</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="sheet:wall" data-qty="4" aria-label="Unit price for 4 x 8 ft exterior plywood, 15/32 in"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">4 x 8 ft exterior plywood, 23/32 in</td><td class="num" data-h="Quantity">1 sheet</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="sheet:floor" data-qty="1" aria-label="Unit price for 4 x 8 ft exterior plywood, 23/32 in"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">1/2 in hardware cloth, 19 gauge, galvanized, roll 36 in x 50 ft</td><td class="num" data-h="Quantity">2 rolls</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="mesh:hc12-19:914x15240" data-qty="2" aria-label="Unit price for 1/2 in hardware cloth, 19 gauge, galvanized, roll 36 in x 50 ft"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Opaque corrugated panels, 26 in x 8 ft</td><td class="num" data-h="Quantity">3 panels</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="panel:solid" data-qty="3" aria-label="Unit price for Opaque corrugated panels, 26 in x 8 ft"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Roofing screws with sealing washers</td><td class="num" data-h="Quantity">72 screws</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="roofscrews" data-qty="72" aria-label="Unit price for Roofing screws with sealing washers"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Exterior wood screws, 3 in</td><td class="num" data-h="Quantity">124 screws</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="screws-frame" data-qty="124" aria-label="Unit price for Exterior wood screws, 3 in"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Exterior wood screws for the plywood, 1 1/4 in</td><td class="num" data-h="Quantity">165 screws</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="screws-ply" data-qty="165" aria-label="Unit price for Exterior wood screws for the plywood, 1 1/4 in"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Staples, 1/2 in or longer, for a heavy-duty stapler</td><td class="num" data-h="Quantity">325 staples</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="staples" data-qty="325" aria-label="Unit price for Staples, 1/2 in or longer, for a heavy-duty stapler"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Washer-head screws or screws with fender washers, 1 1/4 in</td><td class="num" data-h="Quantity">138 screws</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="washers" data-qty="138" aria-label="Unit price for Washer-head screws or screws with fender washers, 1 1/4 in"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Hog rings or stainless zip ties</td><td class="num" data-h="Quantity">73 rings</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="rings" data-qty="73" aria-label="Unit price for Hog rings or stainless zip ties"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Exterior hinges</td><td class="num" data-h="Quantity">6 hinges</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="hinges" data-qty="6" aria-label="Unit price for Exterior hinges"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Latches that need two actions to open, or hasps with snap hooks</td><td class="num" data-h="Quantity">4 latches</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="latches" data-qty="4" aria-label="Unit price for Latches that need two actions to open, or hasps with snap hooks"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Pop door 12 in x 14 in in a pair of grooved runners, or a bought one</td><td class="num" data-h="Quantity">1 door</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="popdoor" data-qty="1" aria-label="Unit price for Pop door 12 in x 14 in in a pair of grooved runners, or a bought one"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr class="co-total"><td colspan="3">Total of the prices you entered</td><td class="num" data-total></td></tr>
+      </tbody>
+    </table>
+    <h3>Hen house on legs for 6 hens</h3>
+    <p class="co-small">Hen house on legs with a run, 13 ft by 5 ft on the ground: 50 boards of 2x3, 9 sheets of plywood, 2 rolls of hardware cloth and 3 roof panels. <a href="/coop-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoiaG91c2UiLCJ1bml0cyI6ImltcGVyaWFsIiwibmFtZSI6IkhlbiBob3VzZSBmb3IgNiBoZW5zIiwiYmlyZHMiOjYsImNvb3AiOnsidyI6MTUyNCwiZCI6MTUyNCwiaCI6MTIxOS4yLCJoMiI6OTY1LjJ9LCJydW4iOnsibCI6MzY1Ny42fSwibmVzdHMiOjJ9">Open this design</a></p>
+    <table class="co-table co-shop" data-bom="1">
+      <caption>Bill of materials from Coop Designer, 13 October 2026. Type your store's prices to see the total.</caption>
+      <thead><tr><th scope="col">Item</th><th scope="col" class="num">Quantity</th><th scope="col" class="num">Your unit price</th><th scope="col" class="num">Cost</th></tr></thead>
+      <tbody>
+        <tr><td data-h="Item">2x3 x 8 ft</td><td class="num" data-h="Quantity">48 boards</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="lumber:2x3:2438" data-qty="48" aria-label="Unit price for 2x3 x 8 ft"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">2x2 x 8 ft, for the roost bars</td><td class="num" data-h="Quantity">2 boards</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="lumber:2x2:2438" data-qty="2" aria-label="Unit price for 2x2 x 8 ft, for the roost bars"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">4 x 8 ft exterior plywood, 15/32 in</td><td class="num" data-h="Quantity">7 sheets</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="sheet:wall" data-qty="7" aria-label="Unit price for 4 x 8 ft exterior plywood, 15/32 in"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">4 x 8 ft exterior plywood, 23/32 in</td><td class="num" data-h="Quantity">2 sheets</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="sheet:floor" data-qty="2" aria-label="Unit price for 4 x 8 ft exterior plywood, 23/32 in"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">1/2 in hardware cloth, 19 gauge, galvanized, roll 36 in x 50 ft</td><td class="num" data-h="Quantity">2 rolls</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="mesh:hc12-19:914x15240" data-qty="2" aria-label="Unit price for 1/2 in hardware cloth, 19 gauge, galvanized, roll 36 in x 50 ft"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Opaque corrugated panels, 26 in x 8 ft</td><td class="num" data-h="Quantity">3 panels</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="panel:solid" data-qty="3" aria-label="Unit price for Opaque corrugated panels, 26 in x 8 ft"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Roofing screws with sealing washers</td><td class="num" data-h="Quantity">36 screws</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="roofscrews" data-qty="36" aria-label="Unit price for Roofing screws with sealing washers"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Exterior wood screws, 3 in</td><td class="num" data-h="Quantity">414 screws</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="screws-frame" data-qty="414" aria-label="Unit price for Exterior wood screws, 3 in"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Exterior wood screws for the plywood, 1 1/4 in</td><td class="num" data-h="Quantity">267 screws</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="screws-ply" data-qty="267" aria-label="Unit price for Exterior wood screws for the plywood, 1 1/4 in"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Staples, 1/2 in or longer, for a heavy-duty stapler</td><td class="num" data-h="Quantity">650 staples</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="staples" data-qty="650" aria-label="Unit price for Staples, 1/2 in or longer, for a heavy-duty stapler"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Washer-head screws or screws with fender washers, 1 1/4 in</td><td class="num" data-h="Quantity">160 screws</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="washers" data-qty="160" aria-label="Unit price for Washer-head screws or screws with fender washers, 1 1/4 in"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Hog rings or stainless zip ties</td><td class="num" data-h="Quantity">135 rings</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="rings" data-qty="135" aria-label="Unit price for Hog rings or stainless zip ties"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Exterior hinges</td><td class="num" data-h="Quantity">6 hinges</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="hinges" data-qty="6" aria-label="Unit price for Exterior hinges"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Latches that need two actions to open, or hasps with snap hooks</td><td class="num" data-h="Quantity">4 latches</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="latches" data-qty="4" aria-label="Unit price for Latches that need two actions to open, or hasps with snap hooks"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Pop door 12 in x 14 in in a pair of grooved runners, or a bought one</td><td class="num" data-h="Quantity">1 door</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="popdoor" data-qty="1" aria-label="Unit price for Pop door 12 in x 14 in in a pair of grooved runners, or a bought one"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr class="co-total"><td colspan="3">Total of the prices you entered</td><td class="num" data-total></td></tr>
+      </tbody>
+    </table>
+    <h3>Walk-in coop for 12 hens</h3>
+    <p class="co-small">Walk-in coop with a run, 28 ft by 6 ft on the ground: 103 boards of 2x4, 12 sheets of plywood, 5 rolls of hardware cloth and 5 roof panels. <a href="/coop-designer/#prefill=eyJ2IjoxLCJ0eXBlIjoid2Fsa2luIiwidW5pdHMiOiJpbXBlcmlhbCIsIm5hbWUiOiJXYWxrLWluIGNvb3AgZm9yIDEyIGhlbnMiLCJiaXJkcyI6MTIsInlhcmQiOnsidyI6OTc1My42LCJkIjo0ODc2Ljh9LCJjb29wIjp7InciOjI0MzguNH0sInJ1biI6eyJsIjo2MDk2fSwibmVzdHMiOjN9">Open this design</a></p>
+    <table class="co-table co-shop" data-bom="2">
+      <caption>Bill of materials from Coop Designer, 13 October 2026. Type your store's prices to see the total.</caption>
+      <thead><tr><th scope="col">Item</th><th scope="col" class="num">Quantity</th><th scope="col" class="num">Your unit price</th><th scope="col" class="num">Cost</th></tr></thead>
+      <tbody>
+        <tr><td data-h="Item">2x4 x 8 ft</td><td class="num" data-h="Quantity">101 boards</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="lumber:2x4:2438" data-qty="101" aria-label="Unit price for 2x4 x 8 ft"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">2x2 x 8 ft, for the roost bars</td><td class="num" data-h="Quantity">2 boards</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="lumber:2x2:2438" data-qty="2" aria-label="Unit price for 2x2 x 8 ft, for the roost bars"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">4 x 8 ft exterior plywood, 15/32 in</td><td class="num" data-h="Quantity">10 sheets</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="sheet:wall" data-qty="10" aria-label="Unit price for 4 x 8 ft exterior plywood, 15/32 in"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">4 x 8 ft exterior plywood, 23/32 in</td><td class="num" data-h="Quantity">2 sheets</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="sheet:floor" data-qty="2" aria-label="Unit price for 4 x 8 ft exterior plywood, 23/32 in"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">1/2 in hardware cloth, 19 gauge, galvanized, roll 36 in x 50 ft</td><td class="num" data-h="Quantity">5 rolls</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="mesh:hc12-19:914x15240" data-qty="5" aria-label="Unit price for 1/2 in hardware cloth, 19 gauge, galvanized, roll 36 in x 50 ft"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Opaque corrugated panels, 26 in x 8 ft</td><td class="num" data-h="Quantity">5 panels</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="panel:solid" data-qty="5" aria-label="Unit price for Opaque corrugated panels, 26 in x 8 ft"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Roofing screws with sealing washers</td><td class="num" data-h="Quantity">75 screws</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="roofscrews" data-qty="75" aria-label="Unit price for Roofing screws with sealing washers"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Exterior wood screws, 3 1/2 in</td><td class="num" data-h="Quantity">568 screws</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="screws-frame" data-qty="568" aria-label="Unit price for Exterior wood screws, 3 1/2 in"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Exterior wood screws for the plywood, 1 1/4 in</td><td class="num" data-h="Quantity">448 screws</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="screws-ply" data-qty="448" aria-label="Unit price for Exterior wood screws for the plywood, 1 1/4 in"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Staples, 1/2 in or longer, for a heavy-duty stapler</td><td class="num" data-h="Quantity">1417 staples</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="staples" data-qty="1417" aria-label="Unit price for Staples, 1/2 in or longer, for a heavy-duty stapler"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Washer-head screws or screws with fender washers, 1 1/4 in</td><td class="num" data-h="Quantity">230 screws</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="washers" data-qty="230" aria-label="Unit price for Washer-head screws or screws with fender washers, 1 1/4 in"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Hog rings or stainless zip ties</td><td class="num" data-h="Quantity">341 rings</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="rings" data-qty="341" aria-label="Unit price for Hog rings or stainless zip ties"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Exterior hinges</td><td class="num" data-h="Quantity">5 hinges</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="hinges" data-qty="5" aria-label="Unit price for Exterior hinges"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Latches that need two actions to open, or hasps with snap hooks</td><td class="num" data-h="Quantity">3 latches</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="latches" data-qty="3" aria-label="Unit price for Latches that need two actions to open, or hasps with snap hooks"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr><td data-h="Item">Pop door 12 in x 14 in in a pair of grooved runners, or a bought one</td><td class="num" data-h="Quantity">1 door</td><td class="num" data-h="Your unit price"><input type="number" inputmode="decimal" min="0" step="0.01" data-item="popdoor" data-qty="1" aria-label="Unit price for Pop door 12 in x 14 in in a pair of grooved runners, or a bought one"></td><td class="num" data-h="Cost" data-cost></td></tr>
+        <tr class="co-total"><td colspan="3">Total of the prices you entered</td><td class="num" data-total></td></tr>
+      </tbody>
+    </table>
+
+    <h2>What makes one coop cost more than another</h2>
+    <ul>
+      <li><b>The lumber count.</b> 18 boards for the A-frame, 50 for the hen house on legs and 103 for the walk-in. The walk-in also steps up from 2x3 to 2x4 for its taller walls and door.</li>
+      <li><b>The hardware cloth.</b> 2, 2 and 5 rolls, the apron included. A taller run and a longer apron add rolls faster than a bigger house does.</li>
+      <li><b>The plywood.</b> 5, 9 and 12 sheets for the siding, the floor, the boxes and the ramp.</li>
+      <li><b>The fixings.</b> Screws, staples, washers and hog rings come in boxes, so the counts here are what to buy at least. The tool adds a tenth spare to the screws.</li>
+      <li><b>What is not on any list.</b> Paint or stain, pavers or blocks under the legs, the feeder and drinker, bedding and the tools. Plan for them as well.</li>
+    </ul>
+    <p>To price your own design, open it in the tool and type your prices into its shopping list; they stay in the share link, so the person you send it to sees the same total. Pro adds the cut list board by board, so you know which piece comes from which board.</p>
+
+  </article>
+
+  <section class="co-sec co-article co-faq-sec" aria-labelledby="faq-h">
+    <h2 id="faq-h">Questions</h2>
+    <div class="co-faq">
+      <details><summary>What does a chicken coop cost to build?</summary><div class="answer"><p>The sum of its materials at your prices. For quantities: the A-frame for 4 hens here takes 18 boards and 2 rolls of hardware cloth; the walk-in for 12 takes 103 boards and 5 rolls.</p></div></details>
+      <details><summary>Why does the tool not show prices?</summary><div class="answer"><p>Prices change by store, town and week, and a price that is out of date is worse than none. The tool counts what to buy and adds up the prices you type.</p></div></details>
+    </div>
+  </section>
+
+  <section class="co-sec" aria-labelledby="more-h">
+    <h2 id="more-h">More before you build</h2>
+    <ul class="co-guides">
+      <li><a href="/coop-designer/"><b>Coop Designer</b></a></li>
+      <li><a href="/coop-designer/designs-for-4-chickens/"><b>Coop designs for 4 chickens</b></a></li>
+      <li><a href="/coop-designer/designs-for-6-chickens/"><b>Coop designs for 6 chickens</b></a></li>
+      <li><a href="/coop-designer/designs-for-12-chickens/"><b>Coop designs for 12 chickens</b></a></li>
+      <li><a href="/coop-designer/hardware-cloth-chicken-run/"><b>Hardware cloth for the run</b></a></li>
+    </ul>
+  </section>
+
+  <nav class="home-block" aria-labelledby="home-title">
+  <p class="home-title" id="home-title">Home project tools</p>
+  <ul class="home-list">
+    <li><a href="/without-planning/" style="--tool:#1f48c7"><strong>Without Planning</strong><span>Check a home extension, garden room or heat pump in 3D against England’s permitted development rules and Ireland’s 2026 exemptions.</span></a></li>
+    <li><a href="/dropped-kerb/" style="--tool:#0b6f80"><strong>Dropped Kerb Check</strong><span>Check a driveway in 3D against your council’s dropped kerb rules, with the planning answer and the fees, before you pay to apply.</span></a></li>
+    <li><a href="/catio-designer/" style="--tool:#b0501a"><strong>Catio Designer</strong><span>Design a catio for your window, wall or balcony in 3D, with the mesh and shelf checks and every board and roll of mesh to buy.</span></a></li>
+    <li><a href="/coop-designer/" style="--tool:#56701a" aria-current="page"><strong>Coop Designer</strong><span>Design a chicken coop and run for your flock and your yard in 3D, with the space, nest box and hardware-cloth checks and every board to buy.</span></a></li>
+  </ul>
+</nav>
+
+
+  <section class="co-sec co-sources" aria-labelledby="src-h">
+    <h2 id="src-h">Sources</h2>
+    <ol>
+      <li><a href="https://www.epa.gov/ingredients-used-pesticide-products/overview-wood-preservative-chemicals" rel="noopener">US EPA: Overview of Wood Preservative Chemicals</a> <span>(read 12 October 2026)</span></li>
+    </ol>
+    <p class="co-small">Guidance for a hobby build, not an engineering guarantee. Not affiliated with any maker, retailer or university named here.</p>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools that each do one job well. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a>.<br>Write to <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Tools</h2>
+      <ul>
+        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
+        <li><a href="/name-cut-files/">Name Cut Files</a></li>
+        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
+        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
+        <li><a href="/quilt-label-maker/">Quilt Label Maker</a></li>
+        <li><a href="/etsy-tax-summary/">Etsy Tax Summary</a></li>
+        <li><a href="/menopause-adjustments/">Menopause Adjustments at Work</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Home project tools</h2>
+      <ul>
+        <li><a href="/without-planning/">Without Planning</a></li>
+        <li><a href="/dropped-kerb/">Dropped Kerb Check</a></li>
+        <li><a href="/catio-designer/">Catio Designer</a></li>
+        <li><a href="/coop-designer/">Coop Designer</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Pay equity tools</h2>
+      <ul>
+        <li><a href="/pay-gap-report/">Pay Gap Report</a></li>
+        <li><a href="/equality-action-plan/">Equality Action Plan</a></li>
+        <li><a href="/job-evaluation/">Job Evaluation</a></li>
+        <li><a href="/pay-transparency/">Pay Transparency Kit</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var tables = document.querySelectorAll('table[data-bom]');
+  var fmt = function (x) { return x.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
+  function total(t) {
+    var sum = 0, any = false;
+    t.querySelectorAll('input[data-qty]').forEach(function (i) {
+      var cell = i.closest('tr').querySelector('[data-cost]'), p = Number(i.value);
+      if (i.value !== '' && p >= 0) { var c = p * Number(i.dataset.qty); cell.textContent = fmt(c); sum += c; any = true; } else cell.textContent = '';
+    });
+    t.querySelector('[data-total]').textContent = any ? fmt(sum) : '';
+  }
+  document.addEventListener('input', function (e) {
+    var i = e.target; if (!i.matches || !i.matches('table[data-bom] input[data-item]')) return;
+    document.querySelectorAll('table[data-bom] input[data-item]').forEach(function (o) { if (o !== i && o.dataset.item === i.dataset.item) o.value = i.value; });
+    tables.forEach(total);
+  });
+})();
+</script>
+</body>
+</html>
