@@ -5,7 +5,10 @@
  * Body: segment lengths scaled from the US Army's ANSUR II survey (2012, 6,068 adults), by linear fits we made from its
  * public data. Materials: PS 20-25 and PS 1-19 for US lumber and plywood; merchants' listings for metric timber and
  * sheets; RS PRO's datasheet for 40-series aluminium profile. Nothing here is a price, and no maker's bolt pattern is
- * stored: hole patterns are typed by the user. Works in the browser (window.SimRigData) and in Node for the tests. */
+ * stored: hole patterns are typed by the user. Works in the browser (window.SimRigData) and in Node for the tests.
+ * The editions in other languages add their own market (MARKETS below): the metric timber, its lengths and the sheets
+ * sold there, and a local profile shop for the 40-series aluminium, from listings read on LOCAL_CHECKED, each with its
+ * source in LOCAL_SOURCES; English keeps the tables it always had. */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();
   else root.SimRigData = factory();
@@ -166,5 +169,58 @@
     },
   };
 
-  return { CHECKED, IN, FT, SOURCES, BODY, MODEL, LUMBER, STOCK, SWAP, SHEETS, PROFILES, PROFILE_STOCK, ASPECTS, RULES, STYLES, SEATS, GEAR };
+  // ---------- The editions' markets: timber, lengths, sheets and aluminium profile sold in each country ----------
+  // Every size is one a retailer lists, read on LOCAL_CHECKED, never a size we expect to exist. t and w are the planed
+  // section in mm (thickness, width); lengths are those the section is sold in. A market may also name its own pages for
+  // a source the checks cite (alias: the same publisher's article in the local language, with the same figures).
+  const LOCAL_CHECKED = '2026-10-14';
+  const L = (short, title, url) => ({ short, title, url, checked: LOCAL_CHECKED });
+  const OD = 'https://www.obi.de/p', DM = 'https://www.dold-mechatronik.de', FD = 'https://www.fanatec.com/eu/de/explorer/products';
+  const LOCAL_SOURCES = {
+    // Germany: OBI's planed, chamfered spruce/fir framing timber and its sheets; DOLD Mechatronik's I-type profile
+    obiR4570a: L('OBI, Rahmenholz 45 x 70 mm, 2,1 m', 'OBI: Rahmenholz Fichte/Tanne gehobelt gefast 45 mm x 70 mm x 2100 mm', `${OD}/6165450/rahmenholz-fichte-tanne-gehobelt-gefast-45-mm-x-70-mm-x-2100-mm`),
+    obiR4570b: L('OBI, Rahmenholz 45 x 70 mm, 3,0 m', 'OBI: Rahmenholz Fichte/Tanne gehobelt gefast 45 mm x 70 mm x 3000 mm', `${OD}/6165740/rahmenholz-fichte-tanne-gehobelt-gefast-45-mm-x-70-mm-x-3000-mm`),
+    obiR5474a: L('OBI, Rahmenholz 54 x 74 mm, 2,0 m', 'OBI: Rahmenholz Fichte/Tanne gehobelt gefast 54 mm x 74 mm x 2000 mm', `${OD}/3261187/rahmenholz-fichte-tanne-gehobelt-gefast-54-mm-x-74-mm-x-2000-mm`),
+    obiR5474b: L('OBI, Rahmenholz 54 x 74 mm, 2,5 m', 'OBI: Rahmenholz Fichte/Tanne gehobelt gefast 74 mm x 54 mm x 2500 mm', `${OD}/8003378/rahmenholz-fichte-tanne-gehobelt-gefast-74-mm-x-54-mm-x-2500-mm`),
+    obiR5474c: L('OBI, Rahmenholz 54 x 74 mm, 3,0 m', 'OBI: Rahmenholz Fichte/Tanne gehobelt gefast 54 mm x 74 mm x 3000 mm', `${OD}/3261260/rahmenholz-fichte-tanne-gehobelt-gefast-54-mm-x-74-mm-x-3000-mm`),
+    obiMpx18: L('OBI, Multiplex Birke 18 mm', 'OBI: Multiplex Platte Birke 250 cm x 125 cm x 1,8 cm, Zuschnitt im Markt', `${OD}/4560678/multiplex-platte-birke-250-cm-x-125-cm-x-1-8-cm-braun-zuschnitt`),
+    obiSieb18: L('OBI, Siebdruckplatte 18 mm', 'OBI: Siebdruckplatte Birke D+D 250 cm x 125 cm x 1,8 cm, Zuschnitt im Markt', `${OD}/4559985/siebdruckplatte-birke-d-d-250-cm-x-125-cm-x-1-8-cm-braun-zuschnitt`),
+    obiMdf22: L('OBI, MDF-Platte 22 mm', 'OBI: MDF-Platte Analog E1 280 cm x 207 cm x 2,2 cm, Zuschnitt im Markt', `${OD}/4562518/mdf-platte-analog-e1-280-cm-x-207-cm-x-2-2-cm-braun-zuschnitt`),
+    doldP4040: L('DOLD, Aluprofil 40x40L Nut 8', 'DOLD Mechatronik: Aluminiumprofil 40x40L I-Typ Nut 8 (leicht), Nutbreite 8 mm, Kernbohrung 6,8 mm für M8, 1,759 kg/m, Zuschnitt 50 bis 6000 mm', `${DM}/Aluminiumprofil-40x40L-I-Typ-Nut-8`),
+    doldP4080: L('DOLD, Aluprofil 40x80L Nut 8', 'DOLD Mechatronik: Aluminiumprofil 40x80L I-Typ Nut 8 (leicht), Nutbreite 8 mm, 3,133 kg/m, Zuschnitt 50 bis 6000 mm', `${DM}/Aluminiumprofil-40x80L-I-Typ-Nut-8`),
+    doldB10: L('DOLD, Aluprofil 40x40L B-Typ Nut 10', 'DOLD Mechatronik: Aluminiumprofil 40x40L B-Typ Nut 10 (leicht), Nutbreite 10 mm, Kernbohrung 10,2 mm für M12: die 40er-Profile nach B-Typ haben eine 10-mm-Nut, die nach I-Typ eine 8-mm-Nut', `${DM}/Aluminiumprofil-40x40L-B-Typ-Nut-10`),
+    doldWinkel: L('DOLD, Winkel 40 Nut 8', 'DOLD Mechatronik: Winkel 40 I-Typ Nut 8 (auch als Winkel 40x80 I-Typ Nut 8)', `${DM}/Winkel-40-I-Typ-Nut-8`),
+    doldGelenk: L('DOLD, Gelenkwinkel 40 Nut 8', 'DOLD Mechatronik: Gelenkwinkel 40 I-Typ Nut 8', `${DM}/Gelenkwinkel-40-I-Typ-Nut-8`),
+    doldNutenstein: L('DOLD, Nutenstein M8 Nut 8', 'DOLD Mechatronik: Nutenstein schwer M8 mit Steg I-Typ Nut 8', `${DM}/Nutenstein-schwer-M8-mit-Steg-I-Typ-Nut-8`),
+    doldKappe: L('DOLD, Profilabdeckkappen', 'DOLD Mechatronik: Profilabdeckkappe 40x40 I-Typ Nut 8 und Profilabdeckkappe 40x80 I-Typ Nut 8', `${DM}/Abdeckkappen-und-profile-40-I-Typ-Nut-8`),
+    // Fanatec's own articles in German, with the same figures as the English ones the checks cite
+    fanatecGTde: L('Fanatec, Pedalposition GT', 'Fanatec: Beste Pedalposition für GT-Sim-Rennen (deutsche Fassung des Artikels vom 19. Dezember 2024)', `${FD}/pedals/best-sim-racing-pedal-position-for-gt-sim-racing/`),
+    fanatecF1de: L('Fanatec, Sitzposition F1', 'Fanatec: Was ist die beste Sitzposition für F1-Sim-Racing? (deutsche Fassung des Artikels vom 12. November 2024)', `${FD}/cockpit/best-seat-position-for-f1-sim-racing/`),
+    fanatecFormulaDe: L('Fanatec, Pedalposition Formel', 'Fanatec: Beste Pedalposition für Sim-Racing bei Formel-Rennen (deutsche Fassung des Artikels vom 20. Dezember 2024)', `${FD}/pedals/best-sim-racing-pedal-position-for-formula-racing/`),
+  };
+  const M = (id, t, w, sources, lengths) => ({ id, t, w, source: sources[0], also: sources.slice(1), lengths });
+  const MARKETS = {
+    // English: the tables above, unchanged (OBI and UK listings for the metric sizes)
+    en: { units: 'imperial', lumber: LUMBER.metric, stock: STOCK.metric.map(s => s.mm), sheets: SHEETS.metric, lumberDefault: '45x95', stockDefault: 2400, sheetDefault: 'ply2440', swap: SWAP, profiles: {}, alias: {}, hardware: {} },
+    // Germany: OBI's Rahmenholz Fichte/Tanne, 45 x 70 mm in 2,1 and 3,0 m and 54 x 74 mm in 2,0, 2,5 and 3,0 m; birch
+    // Multiplex and Siebdruck at 250 x 125 cm, 18 mm, and MDF at 280 x 207 cm, 22 mm; DOLD's I-type profile, 8 mm slot
+    // the sample: the English one (three 27 in screens, direct drive, load cell pedals, a shifter), metric, in 54 x 74 mm
+    // Rahmenholz and birch Multiplex, for a driver of 180 cm
+    de: {
+      units: 'metric', sample: { driver: { h: 1800, inseam: 0 } },
+      lumber: [M('de-45x70', 45, 70, ['obiR4570a', 'obiR4570b'], [2100, 3000]), M('de-54x74', 54, 74, ['obiR5474a', 'obiR5474b', 'obiR5474c'], [2000, 2500, 3000])],
+      stock: [2000, 2100, 2500, 3000], lumberDefault: 'de-54x74', stockDefault: 3000, sheetDefault: 'de-mpx18',
+      sheets: [
+        { id: 'de-mpx18', kind: 'plywood', t: 18, w: 1250, l: 2500, source: 'obiMpx18' },
+        { id: 'de-sieb18', kind: 'film', t: 18, w: 1250, l: 2500, source: 'obiSieb18' },
+        { id: 'de-mdf22', kind: 'MDF', t: 22, w: 2070, l: 2800, source: 'obiMdf22' },
+      ],
+      swap: { '2x3': 'de-45x70', '2x4': 'de-54x74', 'de-45x70': '2x3', 'de-54x74': '2x4', '45x70': 'de-45x70', '45x95': 'de-54x74' },
+      profiles: { p4040: { kg: 1.759, source: 'doldP4040', also: ['doldB10'] }, p4080: { kg: 3.133, source: 'doldP4080' } },
+      hardware: { brackets: 'doldWinkel', hinges: 'doldGelenk', tnuts: 'doldNutenstein', caps4040: 'doldKappe', caps4080: 'doldKappe' },
+      alias: { fanatecGT: 'fanatecGTde', fanatecF1: 'fanatecF1de', fanatecFormula: 'fanatecFormulaDe' },
+    },
+  };
+
+  return { CHECKED, LOCAL_CHECKED, IN, FT, SOURCES, LOCAL_SOURCES, BODY, MODEL, LUMBER, STOCK, SWAP, SHEETS, PROFILES, PROFILE_STOCK, ASPECTS, RULES, STYLES, SEATS, GEAR, MARKETS };
 });

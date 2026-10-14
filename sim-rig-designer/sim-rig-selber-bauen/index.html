@@ -6,8 +6,8 @@
 <title>Sim Rig selber bauen: Holz-Anleitung mit Maßen</title>
 <meta name="description" content="Sim Rig aus Holz selber bauen: Zuschnittliste für 45 x 70 mm Rahmenholz, Multiplex-Platten, Schrauben und Maße für Sitz, Pedale und Lenkrad.">
 <link rel="canonical" href="https://peakappsstudio.com/sim-rig-designer/sim-rig-selber-bauen/">
-<link rel="alternate" hreflang="de" href="https://peakappsstudio.com/sim-rig-designer/sim-rig-selber-bauen/">
 <link rel="alternate" hreflang="en" href="https://peakappsstudio.com/sim-rig-designer/diy-sim-rig-plans-wood/">
+<link rel="alternate" hreflang="de" href="https://peakappsstudio.com/sim-rig-designer/sim-rig-selber-bauen/">
 <link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/sim-rig-designer/diy-sim-rig-plans-wood/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Peak Apps Tools">
@@ -15,7 +15,7 @@
 <meta property="og:title" content="Sim Rig selber bauen: Anleitung für einen Rahmen aus Holz">
 <meta property="og:description" content="Sim Rig aus Holz selber bauen: Zuschnittliste für 45 x 70 mm Rahmenholz, Multiplex-Platten, Schrauben und Maße für Sitz, Pedale und Lenkrad.">
 <meta property="og:url" content="https://peakappsstudio.com/sim-rig-designer/sim-rig-selber-bauen/">
-<meta property="og:image" content="https://peakappsstudio.com/sim-rig-designer/og.png">
+<meta property="og:image" content="https://peakappsstudio.com/sim-rig-designer/og-de.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#f1f2f6">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
@@ -89,6 +89,16 @@ body.sr-page {
 .sr-page .btn-yellow:hover { background: #f5c51f; border-color: #f5c51f; color: #17151d; }
 .sr-page .btn-ghost { background: transparent; }
 .sr-small { font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- the breadcrumb and the language switch, on one line ---------- */
+.sr-topline { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin: 22px 0 0; }
+.sr-topline .crumbs { margin: 0; }
+.sr-langs { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.sr-langs a { font-size: 13.5px; font-weight: 600; line-height: 1.2; text-decoration: none; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--ink-2); background: var(--paper); }
+.sr-langs a:hover { border-color: var(--sector); color: var(--ink); }
+.sr-langs a[aria-current="true"] { background: var(--carbon); border-color: var(--carbon); color: var(--paddock); }
+/* long German compounds break at a hyphenation point rather than run out of a narrow column */
+html[lang="de"] .sr-page :is(h1, h2, h3, .lede, td, th, .sr-field > span, .sr-facts b) { hyphens: auto; -webkit-hyphens: auto; overflow-wrap: break-word; }
 
 /* ---------- hero ---------- */
 .sr-hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(18px, 4vw, 56px); align-items: end; padding: clamp(12px, 2.4vw, 28px) 0 clamp(12px, 1.6vw, 18px); }
@@ -332,54 +342,42 @@ body.sr-page {
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
- {"@type":"WebApplication","@id":"https://peakappsstudio.com/sim-rig-designer/#app","name":"Sim Rig Designer","url":"https://peakappsstudio.com/sim-rig-designer/","applicationCategory":"DesignApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Pro (one-time)","price":"19","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/sim-rig-designer-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
- {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Sim Rig Designer","item":"https://peakappsstudio.com/sim-rig-designer/"},{"@type":"ListItem","position":3,"name":"Sim Rig selber bauen","item":"https://peakappsstudio.com/sim-rig-designer/sim-rig-selber-bauen/"}]},
+ {"@type":"WebApplication","@id":"https://peakappsstudio.com/de/sim-rig/#app","name":"Sim Rig Designer","url":"https://peakappsstudio.com/de/sim-rig/","inLanguage":"de","applicationCategory":"DesignApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Kostenlos","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Pro (einmalige Zahlung)","price":"19","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/sim-rig-designer-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Werkzeuge","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Sim Rig Designer","item":"https://peakappsstudio.com/de/sim-rig/"},{"@type":"ListItem","position":3,"name":"Sim Rig selber bauen","item":"https://peakappsstudio.com/sim-rig-designer/sim-rig-selber-bauen/"}]},
  {"@type":"FAQPage","inLanguage":"de","mainEntity":[
-  {"@type":"Question","name":"Welches Holz eignet sich für ein Sim Rig?","acceptedAnswer":{"@type":"Answer","text":"Gehobeltes Rahmenholz aus Fichte oder Tanne, 45 x 70 mm oder 45 x 95 mm, möglichst gerade und mit wenigen Ästen. Für Pedal- und Lenkradplatte eignet sich 18 mm Birken-Multiplex, weil sich Schrauben darin gut halten."}},
+  {"@type":"Question","name":"Welches Holz eignet sich für ein Sim Rig?","acceptedAnswer":{"@type":"Answer","text":"Gehobeltes Rahmenholz aus Fichte oder Tanne, 45 x 70 mm oder 54 x 74 mm, möglichst gerade und mit wenigen Ästen. Für Pedal- und Lenkradplatte eignet sich 18 mm Birken-Multiplex, weil sich Schrauben darin gut halten."}},
   {"@type":"Question","name":"Was kostet ein Sim Rig aus Holz?","acceptedAnswer":{"@type":"Answer","text":"Das hängt vom Markt und vom Tag ab, deshalb nennen wir keine Preise. Die Einkaufsliste im Werkzeug zeigt die Mengen; trägst du deine Preise ein, rechnet es die Summe aus."}},
   {"@type":"Question","name":"Wie hoch muss das Lenkrad sein?","acceptedAnswer":{"@type":"Answer","text":"Asetek empfiehlt die Lenkradmitte etwa zwischen Brust- und Schulterhöhe, mit lockeren Schultern und leicht gebeugten Ellbogen; Qubic System setzt sie bei GT-Haltung etwa auf Höhe des Halsansatzes. Für 180 cm liegt sie in diesem Entwurf 449 mm über dem Hüftpunkt."}},
-  {"@type":"Question","name":"Gibt es die Anleitung als PDF?","acceptedAnswer":{"@type":"Answer","text":"Ja, mit Pro: ein Bauplan als PDF mit Zuschnittliste, Schnittplan, Maßzeichnungen, Bauschritten und Bohrschablonen in Originalgröße, auf A4 und metrisch. Der Text des Plans ist auf Englisch."}}
+  {"@type":"Question","name":"Gibt es die Anleitung als PDF?","acceptedAnswer":{"@type":"Answer","text":"Ja, mit Pro: ein Bauplan als PDF mit Zuschnittliste, Schnittplan, Maßzeichnungen, Bauschritten und Bohrschablonen in Originalgröße, auf A4, metrisch und auf Deutsch. Was im Bauplan steht."}}
  ]}
 ]}
 </script>
 </head>
 <body class="sr-page" style="--accent:#6a2ee8">
-<a class="skip" href="#main">Skip to content</a>
+<a class="skip" href="#main">Zum Inhalt</a>
 <header class="site-head">
   <div class="wrap">
-    <a class="brand" href="/tools/" aria-label="Peak Apps Tools home">
+    <a class="brand" href="/tools/" hreflang="en" aria-label="Peak Apps Tools, alle Werkzeuge (auf Englisch)">
       <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
       <span>Peak Apps</span><span class="brand-sub">Tools</span>
     </a>
-    <nav class="head-nav" aria-label="Tools">
-      <a href="/tumbler-template/" class="hide-sm">Tumbler templates</a>
-      <a href="/name-cut-files/" class="hide-sm">Name cut files</a>
-      <a href="/kdp-coloring-book/" class="hide-sm">KDP coloring books</a>
-      <a href="/sewing-pattern-printer/" class="hide-sm">Sewing pattern printer</a>
-      <a href="/quilt-label-maker/" class="hide-sm">Quilt labels</a>
-      <a href="/etsy-tax-summary/" class="hide-sm">Etsy tax summary</a>
-      <a href="/pay-gap-report/" class="hide-sm">Pay gap report</a>
-      <a href="/equality-action-plan/" class="hide-sm">Equality action plan</a>
-      <a href="/job-evaluation/" class="hide-sm">Job evaluation</a>
-      <a href="/pay-transparency/" class="hide-sm">Pay transparency</a>
-      <a href="/menopause-adjustments/" class="hide-sm">Menopause adjustments</a>
-      <a href="/without-planning/" class="hide-sm">Without planning</a>
-      <a href="/dropped-kerb/" class="hide-sm">Dropped kerb</a>
-      <a href="/catio-designer/" class="hide-sm">Catio designer</a>
-      <a href="/coop-designer/" class="hide-sm">Coop designer</a>
-      <a href="/sim-rig-designer/" aria-current="page">Sim rig designer</a>
-      <a href="/tools/">All tools</a>
+    <nav class="head-nav" aria-label="Werkzeuge">
+      <a href="/de/sim-rig/" aria-current="page">Sim Rig Designer</a>
+      <a href="/tools/" hreflang="en">Alle Werkzeuge</a>
     </nav>
   </div>
 </header>
 
 <main id="main" class="wrap">
-  <nav class="crumbs" aria-label="Brotkrumen"><ol><li><a href="/tools/">Tools</a></li><li><a href="/sim-rig-designer/">Sim Rig Designer</a></li><li aria-current="page">Sim Rig selber bauen</li></ol></nav>
+  <div class="sr-topline">
+    <nav class="crumbs" aria-label="Brotkrümelnavigation"><ol><li><a href="/tools/" hreflang="en">Werkzeuge</a></li><li><a href="/de/sim-rig/">Sim Rig Designer</a></li><li aria-current="page">Sim Rig selber bauen</li></ol></nav>
+    <nav class="sr-langs" aria-label="Sprache"><a href="/sim-rig-designer/diy-sim-rig-plans-wood/" hreflang="en" lang="en">English</a><a href="/sim-rig-designer/sim-rig-selber-bauen/" aria-current="true" hreflang="de" lang="de">Deutsch</a></nav>
+  </div>
   <header class="sr-guide-hero">
     <div>
       <h1>Sim Rig selber bauen: Anleitung für einen Rahmen aus Holz</h1>
       <p class="lede" style="margin-top:14px">Ein GT-Cockpit aus 45 x 70 mm Rahmenholz und 18 mm Birken-Multiplex, eingepasst für 180 cm Körpergröße: Sitz, Pedale, Lenkrad und Monitor stehen dort, wo die Gelenkwinkel stimmen. Öffne den Entwurf im Werkzeug, gib deine eigene Größe ein, und alle Maße werden neu berechnet.</p>
-      <a class="btn btn-primary sr-open" href="/sim-rig-designer/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoiZ3QiLCJuYW1lIjoiU2ltIFJpZyBhdXMgSG9seiwgMTgwIGNtIiwiZHJpdmVyIjp7ImgiOjE4MDB9LCJyaWciOnsic2VhdEgiOjQ4MiwiaDMwIjozNDksImw1MyI6Njc0LCJ3aGVlbFVwIjo0NDksIndoZWVsUmVhY2giOjM3OSwic2NyZWVuRGlzdCI6ODY0fSwibHVtYmVyIjoiNDV4NzAiLCJzdG9jayI6MzAwMCwic2hlZXQiOiJwbHkyNTAwIn0">Entwurf im Werkzeug öffnen</a>
+      <a class="btn btn-primary sr-open" href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoiZ3QiLCJuYW1lIjoiU2ltIFJpZyBhdXMgSG9seiwgMTgwIGNtIiwiZHJpdmVyIjp7ImgiOjE4MDB9LCJyaWciOnsic2VhdEgiOjQ4MiwiaDMwIjozNDksImw1MyI6Njc0LCJ3aGVlbFVwIjo0NDksIndoZWVsUmVhY2giOjM3OSwic2NyZWVuRGlzdCI6ODY0fSwibHVtYmVyIjoiZGUtNDV4NzAifQ">Entwurf im Werkzeug öffnen</a>
     </div>
     <img src="/sim-rig-designer/img/hero-de-960.webp" srcset="/sim-rig-designer/img/hero-de-480.webp 480w, /sim-rig-designer/img/hero-de-960.webp 960w, /sim-rig-designer/img/hero-de-1440.webp 1440w" sizes="(max-width: 860px) 100vw, 52vw" width="1440" height="900" fetchpriority="high" decoding="async" alt="Das Sim Rig dieser Seite in 3D: Rahmen aus Rahmenholz, Schalensitz, Pedalbrett, Lenkradplatte mit Streben und ein Monitor auf seinem Ständer">
   </header>
@@ -387,7 +385,7 @@ body.sr-page {
   <article class="sr-article">
     <div class="sr-facts">
       <div><b>1,36 x 1,01 m</b><span>Stellfläche mit Monitorständer</span></div>
-      <div><b>6</b><span>Bretter 45 x 70 mm, je 3,0 m</span></div>
+      <div><b>6</b><span>Kanthölzer 45 x 70 mm, je 3,0 m</span></div>
       <div><b>1</b><span>Platte Multiplex 18 mm, 250 x 125 cm</span></div>
       <div><b>232</b><span>Holzschrauben 5 x 80 mm</span></div>
       <div><b>482 mm</b><span>vom Boden bis zum Hüftpunkt</span></div>
@@ -395,12 +393,12 @@ body.sr-page {
     </div>
 
     <h2>Holz und Platten aus dem Baumarkt</h2>
-    <p>Der Rahmen ist aus gehobeltem Rahmenholz Fichte/Tanne, 45 x 70 mm, wie es OBI in 2,1 m und 3,0 m Länge führt. Dieses Rig braucht 6 Bretter zu 3,0 m: zusammen 16,8 m Zuschnitt, der Rest ist Verschnitt. Wer 45 x 95 mm bekommt, baut steifer; das Werkzeug rechnet mit beiden Querschnitten und mit 2,1 bis 3,6 m Länge.</p>
+    <p>Der Rahmen ist aus gehobeltem Rahmenholz Fichte/Tanne, 45 x 70 mm, wie es OBI in 2,1 m und 3,0 m Länge führt. Dieses Rig braucht 6 Kanthölzer zu 3,0 m: zusammen 16,8 m Zuschnitt, der Rest ist Verschnitt. Wer steifer bauen will, nimmt Rahmenholz 54 x 74 mm, bei OBI in 2,0, 2,5 und 3,0 m; das Werkzeug rechnet mit beiden Querschnitten und genau diesen Längen.</p>
     <p>Für die Platten reicht eine Birken-Multiplexplatte, 18 mm stark, 250 x 125 cm, die sich OBI im Markt zuschneiden lässt. Dazu 232 Holzschrauben 5 x 80 mm für den Rahmen, 33 Schrauben 4 x 40 mm für Platten und Blende, Holzleim und M8-Schrauben mit Muttern für den Sitz.</p>
 
     <h2>Zuschnittliste</h2>
     <table class="sr-table">
-      <caption>Alle 31 Teile aus 45 x 70 mm, auf den Millimeter aufgerundet. In Pro verteilt das Werkzeug sie mit Schnittplan auf die Bretter.</caption>
+      <caption>Alle 31 Teile aus 45 x 70 mm, auf den Millimeter aufgerundet. In Pro verteilt das Werkzeug sie mit Schnittplan auf die Hölzer.</caption>
       <thead><tr><th scope="col">Teil</th><th scope="col" class="num">Anzahl</th><th scope="col" class="num">Länge</th></tr></thead>
       <tbody>
         <tr class="sr-group"><td colspan="3">Grundrahmen</td></tr>
@@ -408,19 +406,19 @@ body.sr-page {
         <tr><td data-h="Teil">Längsträger rechts</td><td class="num" data-h="Anzahl">1</td><td class="num" data-h="Länge"><b>1360 mm</b></td></tr>
         <tr><td data-h="Teil">Querstrebe</td><td class="num" data-h="Anzahl">4</td><td class="num" data-h="Länge"><b>560 mm</b></td></tr>
         <tr class="sr-group"><td colspan="3">Sitzhalterung</td></tr>
-        <tr><td data-h="Teil">Querriegel über den Längsträgern (flach)</td><td class="num" data-h="Anzahl">2</td><td class="num" data-h="Länge"><b>650 mm</b></td></tr>
+        <tr><td data-h="Teil">Querriegel über den Längsträgern (flach liegend)</td><td class="num" data-h="Anzahl">2</td><td class="num" data-h="Länge"><b>650 mm</b></td></tr>
         <tr><td data-h="Teil">Stütze</td><td class="num" data-h="Anzahl">4</td><td class="num" data-h="Länge"><b>227 mm</b></td></tr>
-        <tr class="sr-group"><td colspan="3">Pedalbrett</td></tr>
+        <tr class="sr-group"><td colspan="3">Pedalaufnahme</td></tr>
         <tr><td data-h="Teil">Querstrebe</td><td class="num" data-h="Anzahl">1</td><td class="num" data-h="Länge"><b>560 mm</b></td></tr>
-        <tr><td data-h="Teil">Träger (flach, Enden im Winkel geschnitten)</td><td class="num" data-h="Anzahl">2</td><td class="num" data-h="Länge"><b>510 mm</b></td></tr>
+        <tr><td data-h="Teil">Träger (flach liegend, Enden im Winkel geschnitten)</td><td class="num" data-h="Anzahl">2</td><td class="num" data-h="Länge"><b>510 mm</b></td></tr>
         <tr><td data-h="Teil">Distanzklotz, oben im Winkel geschnitten</td><td class="num" data-h="Anzahl">2</td><td class="num" data-h="Länge"><b>24 mm</b></td></tr>
-        <tr class="sr-group"><td colspan="3">Lenkradplatte</td></tr>
-        <tr><td data-h="Teil">Pfosten, oben im Winkel der Platte</td><td class="num" data-h="Anzahl">2</td><td class="num" data-h="Länge"><b>619 mm</b></td></tr>
-        <tr><td data-h="Teil">Strebe (beide Enden im Winkel)</td><td class="num" data-h="Anzahl">2</td><td class="num" data-h="Länge"><b>477 mm</b></td></tr>
-        <tr><td data-h="Teil">Auflage hochkant</td><td class="num" data-h="Anzahl">2</td><td class="num" data-h="Länge"><b>290 mm</b></td></tr>
+        <tr class="sr-group"><td colspan="3">Lenkradhalterung</td></tr>
+        <tr><td data-h="Teil">Pfosten, oben im Winkel der Platte geschnitten</td><td class="num" data-h="Anzahl">2</td><td class="num" data-h="Länge"><b>619 mm</b></td></tr>
+        <tr><td data-h="Teil">Strebe (beide Enden im Winkel geschnitten)</td><td class="num" data-h="Anzahl">2</td><td class="num" data-h="Länge"><b>477 mm</b></td></tr>
+        <tr><td data-h="Teil">Auflage hochkant, Enden rechtwinklig dazu geschnitten</td><td class="num" data-h="Anzahl">2</td><td class="num" data-h="Länge"><b>290 mm</b></td></tr>
         <tr class="sr-group"><td colspan="3">Schaltung</td></tr>
         <tr><td data-h="Teil">Pfosten</td><td class="num" data-h="Anzahl">1</td><td class="num" data-h="Länge"><b>579 mm</b></td></tr>
-        <tr><td data-h="Teil">Strebe (beide Enden im Winkel)</td><td class="num" data-h="Anzahl">1</td><td class="num" data-h="Länge"><b>263 mm</b></td></tr>
+        <tr><td data-h="Teil">Strebe (beide Enden im Winkel geschnitten)</td><td class="num" data-h="Anzahl">1</td><td class="num" data-h="Länge"><b>263 mm</b></td></tr>
         <tr><td data-h="Teil">Ausleger vom Grundrahmen (hochkant)</td><td class="num" data-h="Anzahl">1</td><td class="num" data-h="Länge"><b>180 mm</b></td></tr>
         <tr class="sr-group"><td colspan="3">Monitorständer</td></tr>
         <tr><td data-h="Teil">Pfosten</td><td class="num" data-h="Anzahl">2</td><td class="num" data-h="Länge"><b>1219 mm</b></td></tr>
@@ -430,12 +428,12 @@ body.sr-page {
     </table>
     <table class="sr-table">
       <caption>Zuschnitt aus der Multiplexplatte.</caption>
-      <thead><tr><th scope="col">Teil</th><th scope="col" class="num">Maße</th></tr></thead>
+      <thead><tr><th scope="col">Teil</th><th scope="col" class="num">Anzahl</th><th scope="col" class="num">Maße</th></tr></thead>
       <tbody>
-        <tr><td data-h="Teil">Blende zwischen den Pfosten (über den Knien)</td><td class="num" data-h="Maße">143 x 560 mm</td></tr>
-        <tr><td data-h="Teil">Lenkradplatte</td><td class="num" data-h="Maße">290 x 650 mm</td></tr>
-        <tr><td data-h="Teil">Pedalplatte</td><td class="num" data-h="Maße">510 x 650 mm</td></tr>
-        <tr><td data-h="Teil">Platte für die Schaltung</td><td class="num" data-h="Maße">140 x 160 mm</td></tr>
+        <tr><td data-h="Teil">Lenkradhalterung, Blende zwischen den Pfosten (über den Knien)</td><td class="num" data-h="Anzahl">1</td><td class="num" data-h="Maße">143 mm x 560 mm</td></tr>
+        <tr><td data-h="Teil">Lenkradplatte</td><td class="num" data-h="Anzahl">1</td><td class="num" data-h="Maße">290 mm x 650 mm</td></tr>
+        <tr><td data-h="Teil">Pedalplatte</td><td class="num" data-h="Anzahl">1</td><td class="num" data-h="Maße">510 mm x 650 mm</td></tr>
+        <tr><td data-h="Teil">Schaltplatte</td><td class="num" data-h="Anzahl">1</td><td class="num" data-h="Maße">140 mm x 160 mm</td></tr>
       </tbody>
     </table>
 
@@ -451,16 +449,16 @@ body.sr-page {
         <tr><td data-h="Maß"><b>Hüftpunkt über dem Boden</b></td><td data-h="Wert">482 mm</td></tr>
         <tr><td data-h="Maß"><b>Hüftpunkt über dem Fersenpunkt (H30)</b></td><td data-h="Wert">349 mm</td></tr>
         <tr><td data-h="Maß"><b>Fersenpunkt vor dem Hüftpunkt (L53)</b></td><td data-h="Wert">674 mm</td></tr>
-        <tr><td data-h="Maß"><b>Rückenlehne, aus der Senkrechten</b></td><td data-h="Wert">18°</td></tr>
-        <tr><td data-h="Maß"><b>Pedalbrett, Neigung</b></td><td data-h="Wert">3°</td></tr>
+        <tr><td data-h="Maß"><b>Lehne aus der Senkrechten</b></td><td data-h="Wert">18°</td></tr>
+        <tr><td data-h="Maß"><b>Neigung der Pedalplatte</b></td><td data-h="Wert">3°</td></tr>
         <tr><td data-h="Maß"><b>Lenkradmitte über dem Hüftpunkt</b></td><td data-h="Wert">449 mm</td></tr>
         <tr><td data-h="Maß"><b>Lenkradmitte vor dem Hüftpunkt</b></td><td data-h="Wert">379 mm</td></tr>
-        <tr><td data-h="Maß"><b>Lenkrad, Neigung aus der Senkrechten</b></td><td data-h="Wert">18°</td></tr>
+        <tr><td data-h="Maß"><b>Lenkradneigung aus der Senkrechten</b></td><td data-h="Wert">18°</td></tr>
         <tr><td data-h="Maß"><b>Augen bis zum Bildschirm</b></td><td data-h="Wert">864 mm</td></tr>
         <tr><td data-h="Maß"><b>Knie, Hüfte, Ellbogen</b></td><td data-h="Wert">117°, 97°, 105°</td></tr>
       </tbody>
     </table>
-    <p>Die Winkel stammen aus der Studie von Porter und Gyi (1998), in der 55 Fahrer einen verstellbaren Fahrersitz selbst einstellten, und aus den Sim-Racing-Ratgebern von Fanatec, Asetek und Qubic System. Für GT ergibt das eine Lehne zwischen 5° und 25° aus der Senkrechten und ein Knie, das auch beim Vollbremsen leicht gebeugt bleibt. Die Körpermaße schätzt das Werkzeug aus der US-Studie ANSUR II; mit deiner Schrittlänge passt es sie genauer an.</p>
+    <p>Die Winkel stammen aus der Studie von Porter und Gyi (1998), in der 55 Fahrer einen verstellbaren Fahrersitz selbst einstellten, und aus den Sim-Racing-Ratgebern von Fanatec, Asetek und Qubic System. Für GT ergibt das eine Lehne zwischen 5° und 25° aus der Senkrechten und ein Knie, das auch beim Vollbremsen leicht gebeugt bleibt. Die Körpermaße schätzt das Werkzeug aus der US-Studie ANSUR II; mit deiner Schrittlänge passt es sie genauer an. <a href="/de/sim-rig/sim-rig-masse/">Die Maße für 160 bis 195 cm</a> stehen in eigenen Tabellen.</p>
 
     <h2>Bauanleitung in sieben Schritten</h2>
     <ol>
@@ -475,108 +473,93 @@ body.sr-page {
 
     <h2>Hält Holz ein Direct-Drive-Lenkrad?</h2>
     <p>Für die Steifigkeit einer Lenkradplatte gibt es keine veröffentlichte Zahl, und das Werkzeug erfindet keine. Es stützt die Pfosten mit Streben nach vorn ab, verbindet sie über den Knien mit der Multiplex-Blende und bittet dich bei einer Direct-Drive-Base um einen einfachen Test: Lenkrad fest greifen und kräftig verdrehen. Bewegt sich die Platte, kommt eine weitere Strebe dazu, bevor du fährst. Asetek weist in seinem Ergonomie-Ratgeber darauf hin, dass starkes Force Feedback jede Nachgiebigkeit im Aufbau spürbar macht.</p>
-    <div class="sr-callout"><p>Das Werkzeug selbst ist auf Englisch. Die Maße sind metrisch, sobald du oben „Metric“ wählst; dieser Entwurf öffnet sich bereits so.</p></div>
-    <a class="btn btn-primary sr-open" href="/sim-rig-designer/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoiZ3QiLCJuYW1lIjoiU2ltIFJpZyBhdXMgSG9seiwgMTgwIGNtIiwiZHJpdmVyIjp7ImgiOjE4MDB9LCJyaWciOnsic2VhdEgiOjQ4MiwiaDMwIjozNDksImw1MyI6Njc0LCJ3aGVlbFVwIjo0NDksIndoZWVsUmVhY2giOjM3OSwic2NyZWVuRGlzdCI6ODY0fSwibHVtYmVyIjoiNDV4NzAiLCJzdG9jayI6MzAwMCwic2hlZXQiOiJwbHkyNTAwIn0">Diesen Entwurf im Werkzeug öffnen</a>
+    <div class="sr-callout"><p>Das Werkzeug gibt es jetzt auf Deutsch, mit den Hölzern und Platten von OBI: Der Entwurf dieser Seite öffnet sich dort metrisch, und auch der Pro-Bauplan ist auf Deutsch.</p></div>
+    <a class="btn btn-primary sr-open" href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoiZ3QiLCJuYW1lIjoiU2ltIFJpZyBhdXMgSG9seiwgMTgwIGNtIiwiZHJpdmVyIjp7ImgiOjE4MDB9LCJyaWciOnsic2VhdEgiOjQ4MiwiaDMwIjozNDksImw1MyI6Njc0LCJ3aGVlbFVwIjo0NDksIndoZWVsUmVhY2giOjM3OSwic2NyZWVuRGlzdCI6ODY0fSwibHVtYmVyIjoiZGUtNDV4NzAifQ">Diesen Entwurf im Werkzeug öffnen</a>
   </article>
 
   <section class="sr-sec sr-article" aria-labelledby="faq-h">
     <h2 id="faq-h">Häufige Fragen</h2>
     <div class="sr-faq">
-      <details><summary>Welches Holz eignet sich für ein Sim Rig?</summary><div class="answer"><p>Gehobeltes Rahmenholz aus Fichte oder Tanne, 45 x 70 mm oder 45 x 95 mm, möglichst gerade und mit wenigen Ästen. Für Pedal- und Lenkradplatte eignet sich 18 mm Birken-Multiplex, weil sich Schrauben darin gut halten.</p></div></details>
+      <details><summary>Welches Holz eignet sich für ein Sim Rig?</summary><div class="answer"><p>Gehobeltes Rahmenholz aus Fichte oder Tanne, 45 x 70 mm oder 54 x 74 mm, möglichst gerade und mit wenigen Ästen. Für Pedal- und Lenkradplatte eignet sich 18 mm Birken-Multiplex, weil sich Schrauben darin gut halten.</p></div></details>
       <details><summary>Was kostet ein Sim Rig aus Holz?</summary><div class="answer"><p>Das hängt vom Markt und vom Tag ab, deshalb nennen wir keine Preise. Die Einkaufsliste im Werkzeug zeigt die Mengen; trägst du deine Preise ein, rechnet es die Summe aus.</p></div></details>
       <details><summary>Wie hoch muss das Lenkrad sein?</summary><div class="answer"><p>Asetek empfiehlt die Lenkradmitte etwa zwischen Brust- und Schulterhöhe, mit lockeren Schultern und leicht gebeugten Ellbogen; Qubic System setzt sie bei GT-Haltung etwa auf Höhe des Halsansatzes. Für 180 cm liegt sie in diesem Entwurf 449 mm über dem Hüftpunkt.</p></div></details>
-      <details><summary>Gibt es die Anleitung als PDF?</summary><div class="answer"><p>Ja, mit Pro: ein Bauplan als PDF mit Zuschnittliste, Schnittplan, Maßzeichnungen, Bauschritten und Bohrschablonen in Originalgröße, auf A4 und metrisch. Der Text des Plans ist auf Englisch.</p></div></details>
+      <details><summary>Gibt es die Anleitung als PDF?</summary><div class="answer"><p>Ja, mit Pro: ein Bauplan als PDF mit Zuschnittliste, Schnittplan, Maßzeichnungen, Bauschritten und Bohrschablonen in Originalgröße, auf A4, metrisch und auf Deutsch. <a href="/de/sim-rig/sim-rig-bauplan-pdf/">Was im Bauplan steht</a>.</p></div></details>
     </div>
   </section>
 
   <section class="sr-sec" aria-labelledby="more-h">
     <h2 id="more-h">Mehr vor dem Bau</h2>
     <ul class="sr-guides">
-      <li><a href="/sim-rig-designer/"><b>Sim Rig Designer, das Werkzeug</b><span>Dein Rig in 3D, für deinen Körper (auf Englisch)</span></a></li>
-      <li><a href="/sim-rig-designer/diy-sim-rig-plans-wood/"><b>DIY sim rig plans in 2x4</b><span>A GT rig in 2x4 and plywood, every piece and its length</span></a></li>
-      <li><a href="/sim-rig-designer/aluminum-sim-rig-plans/"><b>Aluminum sim rig plans</b><span>40 x 80 and 40 x 40 profile, cut by cut, with the brackets and T-nuts</span></a></li>
-      <li><a href="/sim-rig-designer/sim-racing-cockpit-dimensions/"><b>Cockpit dimensions by height</b><span>Seat, pedals, wheel and screen for drivers of 155 to 195 cm</span></a></li>
-      <li><a href="/sim-rig-designer/sim-rig-cnc-plans/"><b>CNC plans for the plates</b><span>The wheel, pedal and shifter plates as DXF files, or cut by hand</span></a></li>
+      <li><a href="/de/sim-rig/"><b>Sim Rig Designer, das Werkzeug</b><span>Dein Rig in 3D, für deinen Körper</span></a></li>
+      <li><a href="/de/sim-rig/sim-rig-masse/"><b>Maße nach Körpergröße</b><span>Sitz, Pedale, Lenkrad und Monitor für 160 bis 195 cm</span></a></li>
+      <li><a href="/de/sim-rig/sim-rig-aluprofil/"><b>Sim Rig aus Aluprofil</b><span>40 x 80 und 40 x 40 mit Nut 8: Stückliste, Winkel, Nutensteine</span></a></li>
+      <li><a href="/de/sim-rig/sim-rig-bauplan-pdf/"><b>Bauplan als PDF</b><span>Was im Pro-Bauplan steht und was kostenlos bleibt</span></a></li>
+      <li><a href="/de/sim-rig/lenkradhalterung-selber-bauen/"><b>Lenkradhalterung selber bauen</b><span>Ein Lenkradständer aus Multiplex für den Schreibtischstuhl</span></a></li>
     </ul>
   </section>
-
-  <nav class="home-block" aria-labelledby="home-title">
-  <p class="home-title" id="home-title">Home project tools</p>
-  <ul class="home-list">
-    <li><a href="/without-planning/" style="--tool:#1f48c7"><strong>Without Planning</strong><span>Check a home extension, garden room or heat pump in 3D against England’s permitted development rules and Ireland’s 2026 exemptions.</span></a></li>
-    <li><a href="/dropped-kerb/" style="--tool:#0b6f80"><strong>Dropped Kerb Check</strong><span>Check a driveway in 3D against your council’s dropped kerb rules, with the planning answer and the fees, before you pay to apply.</span></a></li>
-    <li><a href="/catio-designer/" style="--tool:#b0501a"><strong>Catio Designer</strong><span>Design a catio for your window, wall or balcony in 3D, with the mesh and shelf checks and every board and roll of mesh to buy.</span></a></li>
-    <li><a href="/coop-designer/" style="--tool:#56701a"><strong>Coop Designer</strong><span>Design a chicken coop and run for your flock and your yard in 3D, with the space, nest box and hardware-cloth checks and every board to buy.</span></a></li>
-    <li><a href="/sim-rig-designer/" style="--tool:#6a2ee8" aria-current="page"><strong>Sim Rig Designer</strong><span>Design a sim racing cockpit around your own body in 3D, in 2x4, metric lumber or aluminium profile, with the angle checks and every board and bracket to buy.</span></a></li>
-  </ul>
-</nav>
-
 
   <section class="sr-sec sr-sources" aria-labelledby="src-h">
     <h2 id="src-h">Quellen</h2>
     <ol>
-      <li><a href="https://www.obi.de/p/6165450/rahmenholz-fichte-tanne-gehobelt-gefast-45-mm-x-70-mm-x-2100-mm" rel="noopener">OBI: Rahmenholz Fichte/Tanne gehobelt gefast 45 mm x 70 mm x 2100 mm (also sold at 3000 mm), Güteklasse 1, for interior work</a> <span>(gelesen am 14. Oktober 2026)</span></li>
-      <li><a href="https://www.obi.de/p/4560678/multiplex-platte-birke-250-cm-x-125-cm-x-1-8-cm-braun-zuschnitt" rel="noopener">OBI: Multiplex Platte Birke 250 cm x 125 cm x 1,8 cm, cut to size in store (Zuschnitt)</a> <span>(gelesen am 14. Oktober 2026)</span></li>
-      <li><a href="https://www.jewson.co.uk/p/fsc-c16-regularised-timber-treated-kiln-dried-45-x-95mm-FVRT4595" rel="noopener">Jewson: FSC C16 Regularised Timber Treated Kiln Dried 45 x 95mm (FVRT4595), planed, sold from 2.4 m to 4.8 m</a> <span>(gelesen am 14. Oktober 2026)</span></li>
-      <li><a href="https://repository.lboro.ac.uk/articles/journal_contribution/Exploring_the_optimum_posture_for_driver_comfort/9349361" rel="noopener">Porter, J.M. and Gyi, D.E. (1998), Exploring the optimum posture for driver comfort, International Journal of Vehicle Design 19(3), 255-266: Table 2, comfortable angles observed in 55 drivers against Rebiffé (1969) and Grandjean (1980); Table 7, the rig dimensions they chose (Loughborough University repository)</a> <span>(gelesen am 14. Oktober 2026)</span></li>
-      <li><a href="https://law.resource.org/pub/us/cfr/ibr/005/sae.j1100.2001.html" rel="noopener">SAE J1100, Motor Vehicle Dimensions, Surface Vehicle Recommended Practice, revised February 2001 (public copy at law.resource.org): the definitions of H30, L40, L42, L44, L46 and L53, and the two classes of driver seating, Class A (H30 127 to 405 mm, torso angle 5 to 40 degrees) and Class B (heavy trucks and buses: H30 405 to 530 mm, torso angle 11 to 18 degrees)</a> <span>(gelesen am 14. Oktober 2026)</span></li>
-      <li><a href="https://fanatec.com/us/en/explorer/products/pedals/best-sim-racing-pedal-position-for-gt-sim-racing/" rel="noopener">Fanatec: Best sim racing pedal position for GT sim racing (19 December 2024)</a> <span>(gelesen am 14. Oktober 2026)</span></li>
-      <li><a href="https://www.asetek.com/simsports/guides/sim-racing-ergonomics-tips-for-a-comfortable-and-effective-setup/" rel="noopener">Asetek SimSports: Sim Racing Ergonomics, The Complete Guide to Comfort, Control and Performance (14 March 2024, updated 19 August 2026)</a> <span>(gelesen am 14. Oktober 2026)</span></li>
-      <li><a href="https://www.asetek.com/simsports/guides/simsports-guides-sim-racing-wheel-position/" rel="noopener">Asetek SimSports: Sim Racing Wheel Position, Height, Distance and Control (11 August 2026)</a> <span>(gelesen am 14. Oktober 2026)</span></li>
-      <li><a href="https://qubicsystem.com/2023/01/gt-proper-seating-position/" rel="noopener">Qubic System: GT proper seating position (5 January 2023, updated 27 November 2025)</a> <span>(gelesen am 14. Oktober 2026)</span></li>
-      <li><a href="https://www.openlab.psu.edu/ansur2/" rel="noopener">Anthropometric Survey of US Army Personnel (ANSUR II), 2012: public data for 4,082 men and 1,986 women, published by the Penn State OPEN Design Lab; methods in Gordon et al. (2015), NATICK/TR-15/007</a> <span>(gelesen am 14. Oktober 2026)</span></li>
+      <li><a href="https://www.obi.de/p/6165450/rahmenholz-fichte-tanne-gehobelt-gefast-45-mm-x-70-mm-x-2100-mm" rel="noopener">OBI: Rahmenholz Fichte/Tanne gehobelt gefast 45 mm x 70 mm x 2100 mm</a> <span>(gelesen am 14. Oktober 2026)</span></li>
+      <li><a href="https://www.obi.de/p/6165740/rahmenholz-fichte-tanne-gehobelt-gefast-45-mm-x-70-mm-x-3000-mm" rel="noopener">OBI: Rahmenholz Fichte/Tanne gehobelt gefast 45 mm x 70 mm x 3000 mm</a> <span>(gelesen am 14. Oktober 2026)</span></li>
+      <li><a href="https://www.obi.de/p/3261187/rahmenholz-fichte-tanne-gehobelt-gefast-54-mm-x-74-mm-x-2000-mm" rel="noopener">OBI: Rahmenholz Fichte/Tanne gehobelt gefast 54 mm x 74 mm x 2000 mm</a> <span>(gelesen am 14. Oktober 2026)</span></li>
+      <li><a href="https://www.obi.de/p/4560678/multiplex-platte-birke-250-cm-x-125-cm-x-1-8-cm-braun-zuschnitt" rel="noopener">OBI: Multiplex Platte Birke 250 cm x 125 cm x 1,8 cm, Zuschnitt im Markt</a> <span>(gelesen am 14. Oktober 2026)</span></li>
+      <li><a href="https://repository.lboro.ac.uk/articles/journal_contribution/Exploring_the_optimum_posture_for_driver_comfort/9349361" rel="noopener" lang="en" hreflang="en">Porter, J.M. and Gyi, D.E. (1998), Exploring the optimum posture for driver comfort, International Journal of Vehicle Design 19(3), 255-266: Table 2, comfortable angles observed in 55 drivers against Rebiffé (1969) and Grandjean (1980); Table 7, the rig dimensions they chose (Loughborough University repository)</a> <span>(gelesen am 14. Oktober 2026)</span></li>
+      <li><a href="https://law.resource.org/pub/us/cfr/ibr/005/sae.j1100.2001.html" rel="noopener" lang="en" hreflang="en">SAE J1100, Motor Vehicle Dimensions, Surface Vehicle Recommended Practice, revised February 2001 (public copy at law.resource.org): the definitions of H30, L40, L42, L44, L46 and L53, and the two classes of driver seating, Class A (H30 127 to 405 mm, torso angle 5 to 40 degrees) and Class B (heavy trucks and buses: H30 405 to 530 mm, torso angle 11 to 18 degrees)</a> <span>(gelesen am 14. Oktober 2026)</span></li>
+      <li><a href="https://www.fanatec.com/eu/de/explorer/products/pedals/best-sim-racing-pedal-position-for-gt-sim-racing/" rel="noopener">Fanatec: Beste Pedalposition für GT-Sim-Rennen (deutsche Fassung des Artikels vom 19. Dezember 2024)</a> <span>(gelesen am 14. Oktober 2026)</span></li>
+      <li><a href="https://www.asetek.com/simsports/guides/sim-racing-ergonomics-tips-for-a-comfortable-and-effective-setup/" rel="noopener" lang="en" hreflang="en">Asetek SimSports: Sim Racing Ergonomics, The Complete Guide to Comfort, Control and Performance (14 March 2024, updated 19 August 2026)</a> <span>(gelesen am 14. Oktober 2026)</span></li>
+      <li><a href="https://www.asetek.com/simsports/guides/simsports-guides-sim-racing-wheel-position/" rel="noopener" lang="en" hreflang="en">Asetek SimSports: Sim Racing Wheel Position, Height, Distance and Control (11 August 2026)</a> <span>(gelesen am 14. Oktober 2026)</span></li>
+      <li><a href="https://qubicsystem.com/2023/01/gt-proper-seating-position/" rel="noopener" lang="en" hreflang="en">Qubic System: GT proper seating position (5 January 2023, updated 27 November 2025)</a> <span>(gelesen am 14. Oktober 2026)</span></li>
+      <li><a href="https://www.openlab.psu.edu/ansur2/" rel="noopener" lang="en" hreflang="en">Anthropometric Survey of US Army Personnel (ANSUR II), 2012: public data for 4,082 men and 1,986 women, published by the Penn State OPEN Design Lab; methods in Gordon et al. (2015), NATICK/TR-15/007</a> <span>(gelesen am 14. Oktober 2026)</span></li>
     </ol>
-    <p class="sr-small">Eine Anleitung für den Hobbybau, keine technische Garantie. Keine Verbindung zu den genannten Herstellern, Händlern, Normungsgremien oder Hochschulen.</p>
+    <p class="sr-small">Hinweise für ein Selbstbauprojekt, keine technische Garantie. Keine Verbindung zu den hier genannten Herstellern, Händlern, Normungsgremien oder Hochschulen.</p>
   </section>
 </main>
 <footer class="site-foot">
   <div class="wrap cols">
     <div>
       <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
-      <p style="margin:0;max-width:44ch">Small, careful tools that each do one job well. Your files are processed in your browser and never uploaded.</p>
-      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a>.<br>Write to <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+      <p style="margin:0;max-width:44ch">Kleine, sorgfältige Werkzeuge, jedes für eine Aufgabe. Deine Entwürfe werden in deinem Browser berechnet und nie gesendet.</p>
+      <p style="margin:12px 0 0">Gemacht von <a href="https://peakappsstudio.com/">Peak Apps Studio</a>.<br>Schreib uns an <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
     </div>
     <div>
-      <h2>Tools</h2>
+      <h2>Sim Rig Designer</h2>
       <ul>
-        <li><a href="/tumbler-template/">Tumbler Template Generator</a></li>
-        <li><a href="/name-cut-files/">Name Cut Files</a></li>
-        <li><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></li>
-        <li><a href="/sewing-pattern-printer/">Print Only Your Size</a></li>
-        <li><a href="/quilt-label-maker/">Quilt Label Maker</a></li>
-        <li><a href="/etsy-tax-summary/">Etsy Tax Summary</a></li>
-        <li><a href="/menopause-adjustments/">Menopause Adjustments at Work</a></li>
+        <li><a href="/de/sim-rig/">Ein Sim Rig planen</a></li>
+        <li><a href="/de/sim-rig/lenkradhalterung-selber-bauen/">Lenkradhalterung selber bauen: ein Ständer aus Multiplex</a></li>
+        <li><a href="/de/sim-rig/sim-rig-aluprofil/">Sim Rig aus Aluprofil: Stückliste für 40 x 80 und 40 x 40</a></li>
+        <li><a href="/de/sim-rig/sim-rig-bauplan-pdf/">Sim Rig Bauplan als PDF: was drinsteht und was kostenlos bleibt</a></li>
+        <li><a href="/de/sim-rig/sim-rig-masse/">Sim Rig Maße nach Körpergröße</a></li>
+        <li><a href="/sim-rig-designer/sim-rig-selber-bauen/">Sim Rig selber bauen: Anleitung für einen Rahmen aus Holz</a></li>
       </ul>
     </div>
     <div>
-      <h2>Home project tools</h2>
+      <h2>Andere Sprachen</h2>
       <ul>
-        <li><a href="/without-planning/">Without Planning</a></li>
-        <li><a href="/dropped-kerb/">Dropped Kerb Check</a></li>
-        <li><a href="/catio-designer/">Catio Designer</a></li>
-        <li><a href="/coop-designer/">Coop Designer</a></li>
-        <li><a href="/sim-rig-designer/">Sim Rig Designer</a></li>
+        <li><a href="/sim-rig-designer/" hreflang="en" lang="en">Sim Rig Designer (English)</a></li>
       </ul>
     </div>
     <div>
-      <h2>Pay equity tools</h2>
+      <h2>Werkzeuge für Haus und Garten (auf Englisch)</h2>
       <ul>
-        <li><a href="/pay-gap-report/">Pay Gap Report</a></li>
-        <li><a href="/equality-action-plan/">Equality Action Plan</a></li>
-        <li><a href="/job-evaluation/">Job Evaluation</a></li>
-        <li><a href="/pay-transparency/">Pay Transparency Kit</a></li>
+        <li><a href="/without-planning/" hreflang="en" lang="en">Without Planning</a></li>
+        <li><a href="/dropped-kerb/" hreflang="en" lang="en">Dropped Kerb Check</a></li>
+        <li><a href="/catio-designer/" hreflang="en" lang="en">Catio Designer</a></li>
+        <li><a href="/coop-designer/" hreflang="en" lang="en">Coop Designer</a></li>
       </ul>
     </div>
     <div>
-      <h2>About</h2>
+      <h2>Über uns</h2>
       <ul>
-        <li><a href="/tools/">All tools</a></li>
-        <li><a href="/tools/privacy/">Privacy &amp; licenses</a></li>
-        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+        <li><a href="/tools/" hreflang="en">Alle Werkzeuge (auf Englisch)</a></li>
+        <li><a href="/tools/privacy/" hreflang="en">Datenschutz und Lizenzen (auf Englisch)</a></li>
+        <li><a href="https://peakappsstudio.com/">Das Studio</a></li>
       </ul>
     </div>
   </div>
 </footer>
+
 
 </body>
 </html>

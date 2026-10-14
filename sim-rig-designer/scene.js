@@ -163,6 +163,7 @@ export function createScene(canvas, opts = {}) {
   function build(res) {
     disposeTree(world); world.clear(); glow.clear(); labels = []; angleTags = []; frameInst = []; fitPts = [];
     const d = res.design, m = res.m, E = res.E, p = res.posture, Lo = d.lay, b = res.body;
+    const T = (k, o) => (E.t ? E.t(k, o) : k);
     for (const k of ['room', 'frame', 'plates', 'gear', 'seat', 'screens', 'driver', 'angles']) { groups[k] = new THREE.Group(); groups[k].name = k; world.add(groups[k]); }
     const V = (x, y, z = 0) => new THREE.Vector3(x * K, y * K, z * K);
     const X1 = d.parts.len, W = d.parts.W;
@@ -476,21 +477,21 @@ export function createScene(canvas, opts = {}) {
       const dir = (a2, c2) => pts[c2].clone().sub(pts[a2]).normalize();
       const st = id => { const row = res.checks.find(x => x.id === id); return row ? row.status : 'info'; };
       const tags = [];
-      tags.push({ p: arc(pts.H, new THREE.Vector3(0, 1, 0), dir('H', 'S'), 0.2, 1.25).add(new THREE.Vector3(-0.05, 0.02, 0)), text: `Back ${Math.round(p.back)}°`, tone: st('torso') });
-      tags.push({ p: arc(pts.H, dir('H', 'S'), dir('H', 'K'), 0.1, 1.9), text: `Hip ${Math.round(p.hip)}°`, tone: st('hip') });
-      tags.push({ p: arc(pts.K, dir('K', 'H'), dir('K', 'A'), 0.09), text: `Knee ${Math.round(p.rest.knee)}°`, tone: st('knee') });
-      tags.push({ p: arc(pts.A, dir('A', 'K'), dir('P', 'B'), 0.07), text: `Ankle ${Math.round(p.rest.ankle)}°`, tone: st('ankle') });
-      if (pts.Eb) tags.push({ p: arc(pts.Eb, pts.Sh.clone().sub(pts.Eb).normalize(), pts.Gr.clone().sub(pts.Eb).normalize(), 0.08), text: `Elbow ${Math.round(p.elbow)}°`, tone: st('elbow') });
+      tags.push({ p: arc(pts.H, new THREE.Vector3(0, 1, 0), dir('H', 'S'), 0.2, 1.25).add(new THREE.Vector3(-0.05, 0.02, 0)), text: T('g3.back', { v: Math.round(p.back) }), tone: st('torso') });
+      tags.push({ p: arc(pts.H, dir('H', 'S'), dir('H', 'K'), 0.1, 1.9), text: T('g3.hip', { v: Math.round(p.hip) }), tone: st('hip') });
+      tags.push({ p: arc(pts.K, dir('K', 'H'), dir('K', 'A'), 0.09), text: T('g3.knee', { v: Math.round(p.rest.knee) }), tone: st('knee') });
+      tags.push({ p: arc(pts.A, dir('A', 'K'), dir('P', 'B'), 0.07), text: T('g3.ankle', { v: Math.round(p.rest.ankle) }), tone: st('ankle') });
+      if (pts.Eb) tags.push({ p: arc(pts.Eb, pts.Sh.clone().sub(pts.Eb).normalize(), pts.Gr.clone().sub(pts.Eb).normalize(), 0.08), text: T('g3.elbow', { v: Math.round(p.elbow) }), tone: st('elbow') });
       for (const k of ['S', 'H', 'K', 'A', 'Eb']) if (pts[k]) { const dot = new THREE.Mesh(new THREE.SphereGeometry(0.011, 12, 8), new THREE.MeshBasicMaterial({ color: 0xffffff, depthTest: false })); dot.position.copy(pts[k]); dot.renderOrder = 11; groups.angles.add(dot); }
       angleTags = tags.map(t => ({ p: t.p, text: t.text, tone: t.tone, priority: t.tone === 'fail' ? 9 : t.tone === 'check' ? 7 : 5 }));
     }
 
     // ---- dimension labels (frame view) ----
     const fp = d.full;
-    labels.push({ p: V(X1 / 2, 0, W / 2 + 80), text: `${E.len(X1, m.units, 'dim')} long`, tone: 'dim', priority: 3 });
-    labels.push({ p: V(X1 + 60, 0, 0), text: `${E.len(W, m.units, 'dim')} wide`, tone: 'dim', priority: 3 });
-    labels.push({ p: V(Lo.wheel[0], Lo.wheel[1] + g.rim / 2 + 40, 0), text: `Wheel centre ${E.len(Lo.wheel[1], m.units, 'dim')} up`, tone: 'dim', priority: 2 });
-    labels.push({ p: V(Lo.H[0], Lo.H[1] - 120, W / 2), text: `Hip point ${E.len(Lo.H[1], m.units, 'dim')} up`, tone: 'dim', priority: 2 });
+    labels.push({ p: V(X1 / 2, 0, W / 2 + 80), text: T('g3.long', { len: E.len(X1, m.units, 'dim') }), tone: 'dim', priority: 3 });
+    labels.push({ p: V(X1 + 60, 0, 0), text: T('g3.wide', { len: E.len(W, m.units, 'dim') }), tone: 'dim', priority: 3 });
+    labels.push({ p: V(Lo.wheel[0], Lo.wheel[1] + g.rim / 2 + 40, 0), text: T('g3.wheelUp', { len: E.len(Lo.wheel[1], m.units, 'dim') }), tone: 'dim', priority: 2 });
+    labels.push({ p: V(Lo.H[0], Lo.H[1] - 120, W / 2), text: T('g3.hipUp', { len: E.len(Lo.H[1], m.units, 'dim') }), tone: 'dim', priority: 2 });
     void fp;
     applyShow(); placeKey();
     dirty = true;

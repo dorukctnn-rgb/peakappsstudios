@@ -9,19 +9,26 @@
   // permalink. Fail closed: while this is 'PENDING' (or empty) Pro never turns on, whatever the browser has stored.
   const SIM_RIG_PRO_PRODUCT_ID = 'yb6_8YJbgaJd7pqqWCYxMw==';
   const PRO_READY = !!SIM_RIG_PRO_PRODUCT_ID && SIM_RIG_PRO_PRODUCT_ID !== 'PENDING';
+  // One licence for every language: the same product, the same key in this browser (tool: 'sim-rig-designer'). The
+  // page's language (its <html lang>) picks the words and the market; English unless a dictionary for it is loaded.
+  const E = window.SimRigEngine, D = window.SimRigData, V = window.SimRigView;
+  const pageLang = (document.documentElement.lang || 'en').slice(0, 2).toLowerCase();
+  E.setLang(E.I.LANGS.includes(pageLang) ? pageLang : 'en');
+  const T = (k, p) => E.t(k, p);
   const LICENSE = {
     tool: 'sim-rig-designer',
     productId: PRO_READY ? SIM_RIG_PRO_PRODUCT_ID : 'PENDING',
     permalink: 'sim-rig-designer-pro',
     buyUrl: 'https://dorukctn.gumroad.com/l/sim-rig-designer-pro',
-    pitch: 'Pro writes the build plan for this exact rig: the optimised cut list with a diagram per board, the aluminium bill of materials cut by cut, DXF files for the wheel, pedal and shifter plates, a step-by-step PDF with your angles and every dimension, saved designs, GLB and OBJ files and large renders. $19, once.',
+    pitch: T('t.pitch'),
   };
+  // the licence dialog in the page's language (English keeps license.js's own words)
+  if (E.getLang() !== 'en') Object.assign(LICENSE, { strings: Object.fromEntries(['title', 'buy', 'keyLabel', 'verify', 'close', 'checking', 'badKey', 'network', 'ok', 'refunded', 'rejected', 'active'].map(k => [k, T(`lic.${k}`)])), localMessages: true });
   const PDFLIB_SRC = '/pay-gap-report/vendor/pdf-lib.min.js';
   const JSZIP_SRC = '/name-cut-files/vendor/jszip.min.js';
   const REPORT_SRC = '/sim-rig-designer/report.js';
   const SCENE_SRC = '/sim-rig-designer/scene.js';
 
-  const E = window.SimRigEngine, D = window.SimRigData, V = window.SimRigView;
   const $ = id => document.getElementById(id);
   const esc = s => V.esc(s);
   const form = $('form');
@@ -34,9 +41,9 @@
   // ---------- the selects that depend on the units ----------
   function fillSelects() {
     const u = model.units;
-    $('lumber').innerHTML = D.LUMBER[u].map(l => `<option value="${esc(l.id)}">${esc(l.label)}</option>`).join('');
-    $('stock').innerHTML = D.STOCK[u].map(s => `<option value="${s.mm}">${esc(s.label)}</option>`).join('');
-    $('sheet').innerHTML = D.SHEETS[u].map(s => `<option value="${esc(s.id)}">${esc(s.label)}</option>`).join('');
+    $('lumber').innerHTML = E.lumberOptions(u).map(l => `<option value="${esc(l.id)}">${esc(l.label)}</option>`).join('');
+    $('stock').innerHTML = E.stockOptions(u, model.lumber).map(s => `<option value="${s.mm}">${esc(s.label)}</option>`).join('');
+    $('sheet').innerHTML = E.sheetOptions(u).map(s => `<option value="${esc(s.id)}">${esc(s.label)}</option>`).join('');
   }
   // ---------- model to form, form to model ----------
   function fillOne(el) {
@@ -50,8 +57,8 @@
     form.querySelectorAll('[data-seg]').forEach(seg => { const v = String(get(model, seg.dataset.seg)); seg.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === v))); });
     document.querySelectorAll('input[name="build"]').forEach(r => { r.checked = r.value === model.build; });
     document.querySelectorAll('[data-unit]').forEach(i => { i.textContent = model.units === 'metric' ? 'cm' : 'in'; });
-    const L = E.lumberOf(model); $('lumber-actual').textContent = `Actual size ${L.actual}`;
-    $('auto-note').textContent = model.auto ? '' : '(off: you set the positions)';
+    const L = E.lumberOf(model); $('lumber-actual').textContent = T('t.actual', { actual: L.actual });
+    $('auto-note').textContent = model.auto ? '' : T('t.autoOff');
     $('h-note').textContent = model.units === 'metric' ? '' : E.height(model.driver.h, 'imperial');
   }
   function readField(el) {
@@ -93,6 +100,13 @@
     renderShop();
     proRender();
     queueScene();
+    langLinks();
+  }
+  // the language switch keeps the design: the other edition opens it with its own units and materials
+  function langLinks() {
+    const out = model && !model.sample && model.name === T('sample.name') ? Object.assign({}, model, { name: '' }) : model;
+    const code = model && !model.sample ? `#design=${E.encode(out)}&from=${E.getLang()}` : '';
+    document.querySelectorAll('a[data-lang-switch]').forEach(a => { a.href = a.getAttribute('data-lang-switch') + code; });
   }
   function renderShop() {
     const sig = V.shopSig(res, model.units);
@@ -102,7 +116,7 @@
       $('shop-total').textContent = res.shop.priced ? V.money(res.shop.total) : '';
     }
     const missing = res.shop.items.length - res.shop.priced;
-    $('shop-note').textContent = res.shop.priced ? `${res.shop.priced} of ${res.shop.items.length} lines priced${missing ? `; ${missing} still blank` : ''}.` : 'Prices you type stay in this browser and in your share link.';
+    $('shop-note').textContent = res.shop.priced ? T('t.priced', { priced: res.shop.priced, n: res.shop.items.length, missing }) : T('t.pricesStay');
     $('shop-cap').textContent = V.shopCaption(res, model, E);
   }
   $('shop-rows').addEventListener('input', e => {
@@ -119,7 +133,7 @@
   function start3d() {
     if (scene || sceneLoading || glBroken) return sceneLoading || Promise.resolve(scene);
     if (!webgl()) { glBroken = true; $('gl-note').hidden = false; $('start3d').hidden = true; return Promise.resolve(null); }
-    $('start3d').disabled = true; $('start3d').lastChild.textContent = 'Loading the 3D view';
+    $('start3d').disabled = true; $('start3d').lastChild.textContent = T('t.loading3d');
     ensureRes();
     sceneLoading = import(SCENE_SRC).then(mod => {
       const canvas = $('canvas'); canvas.hidden = false;
@@ -158,6 +172,8 @@
     const el = e.target; if (!(el.dataset && el.dataset.k)) return;
     readField(el);
     model = model.auto ? sized(model) : E.normalize(model);
+    // a section sold in other lengths: the length select offers its own (the design keeps the nearest)
+    if (el.dataset.k === 'lumber') fillSelects();
     fillForm(); visible(); render();
   });
   form.addEventListener('click', e => {
@@ -170,14 +186,18 @@
     model = model.auto ? sized(model) : E.normalize(model);
     fillForm(); visible(); render();
   });
-  function switchUnits(u) {
-    const o = model;
+  // a design in the other system of units: the driver, the gear and the positions kept, the materials moved to their
+  // nearest equivalent in this market
+  function converted(o, u) {
     const n = E.fresh(o.build, u, o.style);
-    // keep the driver, the gear and the positions; move the materials to their nearest equivalent in the other system
     for (const k of ['driver', 'seat', 'gear', 'screen', 'room', 'rig', 'addons']) n[k] = JSON.parse(JSON.stringify(o[k]));
     for (const k of ['auto', 'name', 'plate']) n[k] = o[k];
-    n.lumber = D.SWAP[o.lumber] || n.lumber;
-    model = n.auto ? sized(n) : E.normalize(n); model.sample = false;
+    n.lumber = E.swapLumber(o.lumber, u) || n.lumber;
+    const m = n.auto ? sized(n) : E.normalize(n); m.sample = false;
+    return m;
+  }
+  function switchUnits(u) {
+    model = converted(model, u);
     shopRendered = '';
     fillSelects(); fillForm(); visible(); render();
   }
@@ -193,19 +213,19 @@
     start3d();
   }));
   $('start3d').addEventListener('click', () => start3d());
-  $('sample').addEventListener('click', () => { model = E.sample(); shopRendered = ''; fillSelects(); fillForm(); visible(); render(); PeakUI.toast('Sample design loaded.'); });
+  $('sample').addEventListener('click', () => { model = E.sample(); shopRendered = ''; fillSelects(); fillForm(); visible(); render(); PeakUI.toast(T('t.sampleLoaded')); });
   $('fresh').addEventListener('click', () => {
     const o = model; const n = E.fresh(o.build, o.units, o.style);
     n.room = Object.assign({}, o.room);
     model = sized(n); shopRendered = ''; fillSelects(); fillForm(); visible(); render();
-    PeakUI.toast('Your own design: start with your height in step 1.');
+    PeakUI.toast(T('t.fresh'));
     const first = form.querySelector('[data-k="driver.h"]'); if (first) first.focus();
   });
   $('share').addEventListener('click', async () => {
     const url = `${location.origin}${location.pathname}#design=${E.encode(model)}`;
     history.replaceState(null, '', url);
-    try { await navigator.clipboard.writeText(url); PeakUI.toast('Share link copied. It holds this design; nothing was uploaded.'); }
-    catch (e) { PeakUI.toast('The link is in the address bar. Copy it from there.'); }
+    try { await navigator.clipboard.writeText(url); PeakUI.toast(T('t.shared')); }
+    catch (e) { PeakUI.toast(T('t.sharedBar')); }
   });
   $('print').addEventListener('click', () => {
     document.body.classList.add('sr-print-shop');
@@ -229,7 +249,7 @@
     return Promise.all([pdfLibPromise, reportPromise]);
   }
   const today = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
-  const stem = () => `sim-rig-${model.build}-${model.style}-${today()}`;
+  const stem = () => T('t.file.stem', { build: model.build, style: model.style, date: today() });
   const needPro = why => { if (!PRO_READY) { PeakLicense.open(why); return false; } return PeakLicense.requirePro(why); };
   async function shots(s) {
     if (!s) return { views: [], steps: [] };
@@ -241,37 +261,37 @@
     return { views, steps };
   }
   async function doPdf() {
-    if (!needPro('The build plan PDF is part of Pro. The design, the checks and the shopping list stay free.')) return;
+    if (!needPro(T('t.pro.pdf'))) return;
     const btn = $('x-pdf'), text = btn.textContent;
     try {
-      btn.disabled = true; btn.textContent = 'Preparing the plan';
+      btn.disabled = true; btn.textContent = T('t.preparing');
       const [PDFLib, X] = await loadPdf();
       const s = await start3d();
       const pics = await shots(s);
       const bytes = await X.pdf(PDFLib, { res, E, D, shots: pics, both: $('both-units').checked });
-      PeakUI.download(new Blob([bytes], { type: 'application/pdf' }), `${stem()}-build-plan.pdf`);
-      PeakUI.toast('Build plan downloaded.');
-    } catch (e) { console.error(e); PeakUI.toast('The PDF could not be made. Try again, or email us so we can look into it.'); }
+      PeakUI.download(new Blob([bytes], { type: 'application/pdf' }), T('t.file.plan', { stem: stem() }));
+      PeakUI.toast(T('t.planDone'));
+    } catch (e) { console.error(e); PeakUI.toast(T('t.pdfFail')); }
     finally { btn.disabled = false; btn.textContent = text; }
   }
   async function doDxf() {
-    if (!needPro('The DXF files for the plates are part of Pro.')) return;
+    if (!needPro(T('t.pro.dxf'))) return;
     try {
       if (!zipPromise) zipPromise = loadScript(JSZIP_SRC, () => window.JSZip).catch(e => { zipPromise = null; throw e; });
       const JSZip = await zipPromise;
       const zip = new JSZip(), inch = $('dxf-inch').checked;
       const plates = res.design.plates;
-      for (const pl of plates) zip.file(`${pl.id}-plate${inch ? '-inches' : '-mm'}.dxf`, E.dxf(pl, { units: inch ? 'in' : 'mm' }));
-      const lines = plates.map(pl => `${pl.label}: ${E.len(pl.w, model.units)} x ${E.len(pl.d, model.units)}, ${pl.holes.length} gear ${pl.holes.length === 1 ? 'hole' : 'holes'}${pl.holes.some(h => h.slot) ? ' (slots)' : ''}, ${pl.fixings.length} fixings to the frame. Pattern ${pl.measured ? 'as you measured it' : 'an EXAMPLE: measure your gear first'}.`);
-      zip.file('README.txt', [`Sim Rig Designer plates, ${today()}`, `Units: ${inch ? 'inches' : 'millimetres'} (DXF R12). Layers: CUT_OUTLINE, CUT_HOLES, and NOTES (do not cut).`, '', ...lines, '', 'By hand: cut each plate to its size, then drill the gear holes through the full-size drilling templates at the back of the Pro build plan PDF.', 'Check every hole against your gear before you cut. Guidance for a hobby build, not an engineering guarantee.', 'Made with Sim Rig Designer: peakappsstudio.com/sim-rig-designer/'].join('\r\n'));
+      for (const pl of plates) zip.file(T('t.file.dxf', { id: pl.id, inch }), E.dxf(pl, { units: inch ? 'in' : 'mm' }));
+      const lines = plates.map(pl => T('t.readme.plate', { label: pl.label, w: E.len(pl.w, model.units), d: E.len(pl.d, model.units), n: pl.holes.length, slots: pl.holes.some(h => h.slot), fix: pl.fixings.length, measured: pl.measured }));
+      zip.file(T('t.readme.file'), [T('t.readme.head', { date: today() }), T('t.readme.units', { inch }), '', ...lines, '', T('t.readme.hand'), T('t.readme.check'), T('t.readme.made', { url: T('r.url') })].join('\r\n'));
       const blob = await zip.generateAsync({ type: 'blob' });
-      PeakUI.download(blob, `${stem()}-plates-dxf.zip`);
-      PeakUI.toast(`${plates.length} DXF files downloaded in a zip.`);
-    } catch (e) { console.error(e); PeakUI.toast('The DXF files could not be made. Try again.'); }
+      PeakUI.download(blob, T('t.file.zip', { stem: stem() }));
+      PeakUI.toast(T('t.dxfDone', { n: plates.length }));
+    } catch (e) { console.error(e); PeakUI.toast(T('t.dxfFail')); }
   }
   async function doExport(kind) {
-    if (!needPro('The 3D files are part of Pro.')) return;
-    const s = await start3d(); if (!s) { PeakUI.toast('This browser cannot draw 3D, so the 3D files cannot be made here.'); return; }
+    if (!needPro(T('t.pro.3d'))) return;
+    const s = await start3d(); if (!s) { PeakUI.toast(T('t.no3d')); return; }
     try {
       const obj = s.exportObject();
       if (kind === 'glb') {
@@ -282,15 +302,15 @@
         const { OBJExporter } = await import('/catio-designer/vendor/OBJExporter.js');
         PeakUI.download(new Blob([new OBJExporter().parse(obj)], { type: 'text/plain' }), `${stem()}.obj`);
       }
-      PeakUI.toast(`${kind.toUpperCase()} downloaded. Units are metres.`);
-    } catch (e) { console.error(e); PeakUI.toast('The file could not be made. Try again.'); }
+      PeakUI.toast(T('t.exported', { kind: kind.toUpperCase() }));
+    } catch (e) { console.error(e); PeakUI.toast(T('t.fileFail')); }
   }
   async function doRender() {
-    if (!needPro('Large renders are part of Pro.')) return;
+    if (!needPro(T('t.pro.render'))) return;
     const s = await start3d(); if (!s) return;
     const shot = s.snapshot({ width: 2400, height: 1500, view: 'hero', type: 'image/png', theta: -0.8, phi: 1.18, mood: 'dusk' });
     const blob = await (await fetch(shot.url)).blob();
-    PeakUI.download(blob, `${stem()}-render.png`);
+    PeakUI.download(blob, T('t.file.render', { stem: stem() }));
   }
   $('x-pdf').addEventListener('click', doPdf);
   $('x-dxf').addEventListener('click', doDxf);
@@ -300,26 +320,26 @@
 
   // saved designs: Pro, kept in this browser only
   const SAVE_KEY = 'sim-rig-designer:saved';
-  const store = { get() { try { return JSON.parse(localStorage.getItem(SAVE_KEY) || '[]'); } catch (e) { return []; } }, set(v) { try { localStorage.setItem(SAVE_KEY, JSON.stringify(v)); } catch (e) { PeakUI.toast('This browser will not keep saved designs (private mode?).'); } } };
+  const store = { get() { try { return JSON.parse(localStorage.getItem(SAVE_KEY) || '[]'); } catch (e) { return []; } }, set(v) { try { localStorage.setItem(SAVE_KEY, JSON.stringify(v)); } catch (e) { PeakUI.toast(T('t.noStore')); } } };
   function renderSaved() {
     const list = store.get();
-    $('saved-list').innerHTML = list.length ? list.map((x, i) => `<li><span>${esc(x.name)} <span class="sr-small">${esc(x.at)}</span></span><span><button type="button" data-load="${i}">Open</button> <button type="button" data-del="${i}">Delete</button></span></li>`).join('') : '<li>No saved designs yet.</li>';
+    $('saved-list').innerHTML = list.length ? list.map((x, i) => `<li><span>${esc(x.name)} <span class="sr-small">${esc(x.at)}</span></span><span><button type="button" data-load="${i}">${esc(T('t.open'))}</button> <button type="button" data-del="${i}">${esc(T('t.delete'))}</button></span></li>`).join('') : `<li>${esc(T('t.noSaved'))}</li>`;
   }
   $('save').addEventListener('click', () => {
-    if (!needPro('Saved designs are part of Pro.')) return;
+    if (!needPro(T('t.pro.saved'))) return;
     const name = ($('save-name').value || model.name || `${E.BUILD_NAME[model.build]} ${today()}`).slice(0, 60);
     const list = store.get().filter(x => x.name !== name);
     list.unshift({ name, code: E.encode(Object.assign({}, model, { name })), at: today() });
-    store.set(list.slice(0, 30)); renderSaved(); PeakUI.toast(`Saved as ${name}.`);
+    store.set(list.slice(0, 30)); renderSaved(); PeakUI.toast(T('t.savedAs', { name }));
   });
   $('saved-list').addEventListener('click', e => {
     const l = e.target.dataset.load, d = e.target.dataset.del;
     if (l == null && d == null) return;
-    if (!needPro('Saved designs are part of Pro.')) return;
+    if (!needPro(T('t.pro.saved'))) return;
     const list = store.get();
     if (d != null) { list.splice(Number(d), 1); store.set(list); renderSaved(); return; }
     const m = E.decode(list[Number(l)].code); if (!m) return;
-    model = m; shopRendered = ''; fillSelects(); fillForm(); visible(); render(); PeakUI.toast(`Opened ${m.name}.`);
+    model = m; shopRendered = ''; fillSelects(); fillForm(); visible(); render(); PeakUI.toast(T('t.opened', { name: m.name }));
   });
 
   // the cut list (wood) or the cuts by profile (aluminium), and the plates, drawn on the page for Pro
@@ -330,7 +350,7 @@
     const sc = (W - 10) / maxStock;
     let y = 4; const parts = [];
     for (const b of boards) {
-      parts.push(`<text x="0" y="${y + 11}" font-size="12" fill="currentColor">Board ${b.n}, ${esc(r.design.lumber.label)} x ${esc(E.stockLabel(b.stock, u))}: ${b.cuts.length} ${b.cuts.length === 1 ? 'cut' : 'cuts'}, ${esc(E.len(b.leftover, u))} left over</text>`);
+      parts.push(`<text x="0" y="${y + 11}" font-size="12" fill="currentColor">${esc(T('t.svgBoard', { n: b.n, lumber: r.design.lumber.label, stock: E.stockLabel(b.stock, u), cuts: b.cuts.length, left: E.len(b.leftover, u) }))}</text>`);
       y += 16; let x = 0;
       for (const c of b.cuts) {
         const w = c.len * sc;
@@ -342,30 +362,30 @@
       if (lw > 1) parts.push(`<rect x="${x.toFixed(1)}" y="${y}" width="${lw.toFixed(1)}" height="${rowH}" fill="url(#sr-hatch)" stroke="#77748a" stroke-width="0.8"/>`);
       y += rowH + 10;
     }
-    return `<svg class="sr-diagram" viewBox="0 0 ${W} ${y}" role="img" aria-label="Cutting diagram: each board drawn to scale with its cuts"><defs><pattern id="sr-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#f6f6fa"/><line x1="0" y1="0" x2="0" y2="6" stroke="#77748a" stroke-width="1.2"/></pattern></defs>${parts.join('')}</svg>`;
+    return `<svg class="sr-diagram" viewBox="0 0 ${W} ${y}" role="img" aria-label="${esc(T('t.svgAria'))}"><defs><pattern id="sr-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#f6f6fa"/><line x1="0" y1="0" x2="0" y2="6" stroke="#77748a" stroke-width="1.2"/></pattern></defs>${parts.join('')}</svg>`;
   }
   function aluTable(r) {
     const u = r.m.units, rows = [];
     for (const s of r.bom.sections) {
-      rows.push(`<tr class="sr-group"><td colspan="3">${esc(s.profile.label)}: ${(s.total / 1000).toFixed(2)} m in ${s.n} pieces, about ${s.kg.toFixed(1)} kg</td></tr>`);
-      for (const c of s.cuts) rows.push(`<tr><td><b>${esc(E.len(c.len, u))}</b>${c.angled ? ' <span class="sr-small">(angled ends)</span>' : ''}</td><td data-h="Pieces" class="num">${c.qty}</td><td data-h="Where">${esc(c.where)}</td></tr>`);
+      rows.push(`<tr class="sr-group"><td colspan="3">${esc(T('r.bomSec', { label: s.profile.label, m: s.total / 1000, n: s.n, kg: s.kg }))}</td></tr>`);
+      for (const c of s.cuts) rows.push(`<tr><td><b>${esc(E.len(c.len, u))}</b>${c.angled ? ` <span class="sr-small">${esc(T('t.angledEnds'))}</span>` : ''}</td><td data-h="${esc(T('r.h.pieces'))}" class="num">${c.qty}</td><td data-h="${esc(T('r.h.where'))}">${esc(c.where)}</td></tr>`);
     }
-    return `<table class="sr-table"><caption>Order these cut to length, or cut them from 1, 2 and 3 m lengths with a 3 mm kerf.</caption><thead><tr><th scope="col">Length</th><th scope="col" class="num">Pieces</th><th scope="col">Where</th></tr></thead><tbody>${rows.join('')}</tbody></table>`;
+    return `<table class="sr-table"><caption>${esc(T('t.aluCap'))}</caption><thead><tr><th scope="col">${esc(T('r.h.length'))}</th><th scope="col" class="num">${esc(T('r.h.pieces'))}</th><th scope="col">${esc(T('r.h.where'))}</th></tr></thead><tbody>${rows.join('')}</tbody></table>`;
   }
   function svgPlate(pl) {
     const sc = 240 / Math.max(pl.w, pl.d), w = pl.w * sc, h = pl.d * sc;
     const holes = pl.holes.concat(pl.fixings).map(hh => hh.slot ? `<rect x="${((hh.x - hh.d / 2) * sc).toFixed(1)}" y="${(h - (hh.y + hh.slot / 2 + hh.d / 2) * sc).toFixed(1)}" width="${(hh.d * sc).toFixed(1)}" height="${((hh.slot + hh.d) * sc).toFixed(1)}" rx="${(hh.d / 2 * sc).toFixed(1)}" fill="#fff" stroke="#17151d" stroke-width="0.8"/>` : `<circle cx="${(hh.x * sc).toFixed(1)}" cy="${(h - hh.y * sc).toFixed(1)}" r="${Math.max(1, hh.d / 2 * sc).toFixed(1)}" fill="#fff" stroke="#17151d" stroke-width="0.8"/>`).join('');
-    return `<figure class="sr-plate"><svg class="sr-diagram" viewBox="-4 -4 ${(w + 8).toFixed(1)} ${(h + 8).toFixed(1)}" style="max-width:${Math.round(w + 8)}px" role="img" aria-label="${esc(pl.label)}, ${Math.round(pl.w)} by ${Math.round(pl.d)} mm"><rect x="0" y="0" width="${w.toFixed(1)}" height="${h.toFixed(1)}" rx="${(pl.r * sc).toFixed(1)}" fill="#e8cfa3" stroke="#17151d" stroke-width="1"/>${holes}</svg><figcaption>${esc(pl.label)}: ${esc(E.len(pl.w, model.units))} x ${esc(E.len(pl.d, model.units))}${pl.measured ? '' : ', example holes'}</figcaption></figure>`;
+    return `<figure class="sr-plate"><svg class="sr-diagram" viewBox="-4 -4 ${(w + 8).toFixed(1)} ${(h + 8).toFixed(1)}" style="max-width:${Math.round(w + 8)}px" role="img" aria-label="${esc(T('t.plateAria', { label: pl.label, w: Math.round(pl.w), d: Math.round(pl.d) }))}"><rect x="0" y="0" width="${w.toFixed(1)}" height="${h.toFixed(1)}" rx="${(pl.r * sc).toFixed(1)}" fill="#e8cfa3" stroke="#17151d" stroke-width="1"/>${holes}</svg><figcaption>${esc(T('t.plateCap', { label: pl.label, w: E.len(pl.w, model.units), d: E.len(pl.d, model.units), measured: pl.measured }))}</figcaption></figure>`;
   }
   function proRender() {
     if (!pro || !res) return;
     const u = model.units;
-    if (model.build === 'alu') $('cut-diagrams').innerHTML = `<h3>Aluminium profile: ${res.bom.sections.reduce((a, s) => a + s.n, 0)} pieces</h3>${aluTable(res)}<p class="sr-small">${res.bom.brackets} corner brackets, ${res.bom.hinges} angle brackets for the braces, ${res.bom.tnuts} T-nuts and ${res.bom.bolts} bolts, ${res.bom.caps.p4040 + res.bom.caps.p4080} end caps.</p>`;
-    else $('cut-diagrams').innerHTML = `<h3>Cut list: ${res.cut.boards.length} boards</h3><p class="sr-small">Packed first-fit decreasing with a ${esc(E.len(res.cut.kerf, u))} saw kerf, keeping ${esc(E.len(res.cut.trim, u))} on each board to square its end; ${Math.round(res.cut.waste * 100)}% of the wood bought is left over, in the hatched ends.</p>${svgBoards(res)}`;
-    $('plate-diagrams').innerHTML = `<h3>Plates: ${res.design.plates.length} DXF files</h3><div class="sr-plates">${res.design.plates.map(svgPlate).join('')}</div>`;
+    if (model.build === 'alu') $('cut-diagrams').innerHTML = `<h3>${esc(T('t.aluH', { n: res.bom.sections.reduce((a, s) => a + s.n, 0) }))}</h3>${aluTable(res)}<p class="sr-small">${esc(T('t.aluHw', { brackets: res.bom.brackets, hinges: res.bom.hinges, tnuts: res.bom.tnuts, bolts: res.bom.bolts, caps: res.bom.caps.p4040 + res.bom.caps.p4080 }))}</p>`;
+    else $('cut-diagrams').innerHTML = `<h3>${esc(T('t.cutH', { n: res.cut.boards.length }))}</h3><p class="sr-small">${esc(T('t.cutNote', { kerf: E.len(res.cut.kerf, u), trim: E.len(res.cut.trim, u), waste: Math.round(res.cut.waste * 100) }))}</p>${svgBoards(res)}`;
+    $('plate-diagrams').innerHTML = `<h3>${esc(T('t.platesH', { n: res.design.plates.length }))}</h3><div class="sr-plates">${res.design.plates.map(svgPlate).join('')}</div>`;
   }
   function proState() {
-    $('locked').querySelectorAll('li').forEach(li => { li.classList.toggle('is-open', pro); li.querySelector('em').textContent = pro ? 'Active' : 'Pro'; });
+    $('locked').querySelectorAll('li').forEach(li => { li.classList.toggle('is-open', pro); li.querySelector('em').textContent = pro ? T('t.active') : 'Pro'; });
     $('pro-work').hidden = !pro;
     if (pro) renderSaved();
   }
@@ -374,7 +394,17 @@
   function initial() {
     const h = location.hash.slice(1);
     const share = h.match(/(?:^|&)(?:design|prefill)=([A-Za-z0-9_-]+)/);
-    if (share) { const m = E.decode(share[1]); if (m) return { m, auto: true }; }
+    if (share) {
+      let m = E.decode(share[1]);
+      // a design brought over by the language switch: in this edition's units and materials, without the other
+      // edition's sample name
+      const from = (h.match(/(?:^|&)from=([a-z]{2})/) || [])[1];
+      if (m && from && from !== E.getLang()) {
+        if (m.units !== E.market().units) m = converted(m, E.market().units);
+        if (E.I.LANGS.some(l => E.I.t('sample.name', {}, l) === m.name)) m.name = '';
+      }
+      if (m) return { m, auto: true };
+    }
     return { m: E.sample(), auto: false };
   }
   const init = initial();
@@ -386,7 +416,7 @@
   window.SimRigReady = true;
   document.querySelectorAll('[data-enter-key][aria-busy]').forEach(b => b.removeAttribute('aria-busy'));
   if (window.SimRigWantsKey) { window.SimRigWantsKey = false; PeakLicense.open(); }
-  fillSelects(); fillForm(); visible();
+  fillSelects(); fillForm(); visible(); langLinks();
   // the page arrives with the sample already written in (by the build): work it out again only when the browser is
   // idle, so the first paint waits for no script; anything else (a shared link) renders now
   const pre = !init.auto && !pro && $('check-rows').dataset.pre === 'sample';

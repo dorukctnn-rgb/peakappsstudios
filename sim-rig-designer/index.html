@@ -6,6 +6,9 @@
 <title>Sim rig designer: free 3D cockpit plans fitted to you</title>
 <meta name="description" content="Design a sim racing rig in 3D for your height, seat and gear: wood, 40-series aluminium or a plywood stand, with knee, hip and elbow checks and a cut list.">
 <link rel="canonical" href="https://peakappsstudio.com/sim-rig-designer/">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/sim-rig-designer/">
+<link rel="alternate" hreflang="de" href="https://peakappsstudio.com/de/sim-rig/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/sim-rig-designer/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Peak Apps Tools">
 <meta property="og:title" content="Sim rig designer: free 3D cockpit plans fitted to you">
@@ -86,6 +89,16 @@ body.sr-page {
 .sr-page .btn-yellow:hover { background: #f5c51f; border-color: #f5c51f; color: #17151d; }
 .sr-page .btn-ghost { background: transparent; }
 .sr-small { font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- the breadcrumb and the language switch, on one line ---------- */
+.sr-topline { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin: 22px 0 0; }
+.sr-topline .crumbs { margin: 0; }
+.sr-langs { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.sr-langs a { font-size: 13.5px; font-weight: 600; line-height: 1.2; text-decoration: none; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--ink-2); background: var(--paper); }
+.sr-langs a:hover { border-color: var(--sector); color: var(--ink); }
+.sr-langs a[aria-current="true"] { background: var(--carbon); border-color: var(--carbon); color: var(--paddock); }
+/* long German compounds break at a hyphenation point rather than run out of a narrow column */
+html[lang="de"] .sr-page :is(h1, h2, h3, .lede, td, th, .sr-field > span, .sr-facts b) { hyphens: auto; -webkit-hyphens: auto; overflow-wrap: break-word; }
 
 /* ---------- hero ---------- */
 .sr-hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(18px, 4vw, 56px); align-items: end; padding: clamp(12px, 2.4vw, 28px) 0 clamp(12px, 1.6vw, 18px); }
@@ -387,7 +400,10 @@ body.sr-page {
 </header>
 
 <main id="main" class="wrap">
-  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li aria-current="page">Sim Rig Designer</li></ol></nav>
+  <div class="sr-topline">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li aria-current="page">Sim Rig Designer</li></ol></nav>
+    <nav class="sr-langs" aria-label="Language"><a href="/sim-rig-designer/" aria-current="true" hreflang="en" lang="en">English</a><a href="/de/sim-rig/" data-lang-switch="/de/sim-rig/" hreflang="de" lang="de">Deutsch</a></nav>
+  </div>
 
   <header class="sr-hero">
     <div>
@@ -752,7 +768,7 @@ body.sr-page {
 /* The page arrives with the sample already in it, so its scripts wait for the first paint: they are added in order
    once the browser reports it (or after 3 s at the latest, or at once if the licence button is pressed first). */
 (function () {
-  var src = ['/assets/site.js', '/assets/license.js', '/sim-rig-designer/data.js', '/sim-rig-designer/engine.js', '/sim-rig-designer/view.js', '/sim-rig-designer/tool.js'];
+  var src = ['/assets/site.js', '/assets/license.js', '/sim-rig-designer/i18n/en.js', '/sim-rig-designer/i18n.js', '/sim-rig-designer/data.js', '/sim-rig-designer/engine.js', '/sim-rig-designer/view.js', '/sim-rig-designer/tool.js'];
   var done = false;
   function add() { if (done) return; done = true; src.forEach(function (u) { var el = document.createElement('script'); el.src = u; el.async = false; document.body.appendChild(el); }); }
   window.SimRigLoad = add;
