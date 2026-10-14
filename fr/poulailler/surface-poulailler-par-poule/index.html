@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Surface d’un poulailler par poule : les m² de 2 à 30 poules</title>
+<meta name="description" content="La surface de poulailler et d’enclos par poule : les chiffres des guides, avec leurs sources, en m² de 2 à 30 poules, et un poulailler pour chaque taille.">
+<link rel="canonical" href="https://peakappsstudio.com/fr/poulailler/surface-poulailler-par-poule/">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/coop-designer/how-big-should-a-chicken-coop-be/">
+<link rel="alternate" hreflang="fr" href="https://peakappsstudio.com/fr/poulailler/surface-poulailler-par-poule/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/coop-designer/how-big-should-a-chicken-coop-be/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Quelle surface de poulailler par poule ?">
+<meta property="og:description" content="La surface de poulailler et d’enclos par poule : les chiffres des guides, avec leurs sources, en m² de 2 à 30 poules, et un poulailler pour chaque taille.">
+<meta property="og:url" content="https://peakappsstudio.com/fr/poulailler/surface-poulailler-par-poule/">
+<meta property="og:image" content="https://peakappsstudio.com/coop-designer/og-fr.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#dcefea">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/coop-designer/fonts/geologica-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="/coop-designer/img/hero-size-960.webp" imagesrcset="/coop-designer/img/hero-size-480.webp 480w, /coop-designer/img/hero-size-960.webp 960w, /coop-designer/img/hero-size-1440.webp 1440w" imagesizes="(max-width: 860px) 100vw, 52vw" fetchpriority="high">
+<link rel="stylesheet" href="/assets/tools.css">
+<style data-from="/coop-designer/tool.css">
+/* Coop Designer: the tool's own identity, scoped to body.co-page (the shared header and footer keep their structure).
+ * Taken from the eggs a backyard flock lays: a duck-egg page (the blue eggs), chocolate ink (the darkest brown eggs),
+ * yolk for Pro and "check", an olive-egg green for links and focus, a garden-leaf green for "fits", a fox red for
+ * "fail", pine for wood only. Type: Parkinsans (plump and sturdy, headings only) and Geologica (everything read,
+ * tabular figures). Signature: a carton row of real egg colours, used once under the hero. */
+
+@font-face { font-family: "Parkinsans"; src: url("/coop-designer/fonts/parkinsans-latin.woff2") format("woff2"); font-weight: 600 800; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Parkinsans"; src: url("/coop-designer/fonts/parkinsans-latin-ext.woff2") format("woff2"); font-weight: 600 800; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Geologica"; src: url("/coop-designer/fonts/geologica-latin.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Geologica"; src: url("/coop-designer/fonts/geologica-latin-ext.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+/* fallbacks sized to the web fonts' average widths and heights (from _build/fonts.py), so the swap does not move the layout */
+@font-face { font-family: "Geologica Fallback"; src: local("Arial"), local("Helvetica Neue"), local("Helvetica"); size-adjust: 108.6%; ascent-override: 89.8%; descent-override: 25.3%; line-gap-override: 0%; }
+@font-face { font-family: "Parkinsans Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Helvetica Neue Bold"); font-weight: 600 800; size-adjust: 108.7%; ascent-override: 96.6%; descent-override: 32.2%; line-gap-override: 0%; }
+
+body.co-page {
+  --egg: #dcefea; --egg-2: #c9e6df; --egg-3: #b3d9d0; --paper: #ffffff; --paper-2: #f2f9f6;
+  --choc: #2e1a12; --choc-2: #5f4a3e; --choc-3: #8a776b;
+  --yolk: #ffb000; --olive: #56701a; --leaf: #9bc53d; --fox: #c63d2f; --fox-ink: #ffffff; --pine: #d9a35f;
+  --card: var(--paper); --ink: var(--choc); --ink-2: var(--choc-2); --muted: var(--choc-2);
+  --line: rgba(46, 26, 18, .13); --line-2: rgba(46, 26, 18, .26);
+  --accent: var(--choc); --accent-ink: #ffffff; --ok: var(--olive); --warn: #8a5200;
+  --btn: var(--choc); --btn-ink: #ffffff; --link: var(--olive);
+  --sans: "Geologica", "Geologica Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: var(--sans);
+  --display: "Parkinsans", "Parkinsans Fallback", sans-serif;
+  --r-panel: 20px; --r-field: 10px; --r-chip: 8px;
+  background: var(--egg); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.58; font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.co-page {
+    --egg: #1b1410; --egg-2: #2a1f18; --egg-3: #3a2b21; --paper: #241a14; --paper-2: #2c2019;
+    --choc: #f4ede4; --choc-2: #d2c4b6; --choc-3: #a8988a;
+    --olive: #b8d36b; --leaf: #a8d45a; --fox: #ff7a6b; --fox-ink: #2a0905; --warn: #ffc15a;
+    --btn: #f4ede4; --btn-ink: #1b1410; --link: #b8d36b;
+    --card: var(--paper); --line: rgba(244, 237, 228, .13); --line-2: rgba(244, 237, 228, .26);
+  }
+}
+:root[data-theme="dark"] body.co-page {
+  --egg: #1b1410; --egg-2: #2a1f18; --egg-3: #3a2b21; --paper: #241a14; --paper-2: #2c2019;
+  --choc: #f4ede4; --choc-2: #d2c4b6; --choc-3: #a8988a;
+  --olive: #b8d36b; --leaf: #a8d45a; --fox: #ff7a6b; --fox-ink: #2a0905; --warn: #ffc15a;
+  --btn: #f4ede4; --btn-ink: #1b1410; --link: #b8d36b;
+  --card: var(--paper); --line: rgba(244, 237, 228, .13); --line-2: rgba(244, 237, 228, .26);
+}
+
+/* ---------- type ---------- */
+.co-page h1, .co-page h2, .co-page h3 { font-family: var(--display); font-weight: 800; letter-spacing: -0.015em; line-height: 1.03; text-wrap: balance; color: var(--choc); }
+.co-page h1 { font-size: clamp(38px, 5.2vw, 68px); margin: 0; max-width: 15ch; }
+.co-page h2 { font-size: clamp(27px, 3vw, 40px); font-weight: 800; margin: 0 0 12px; }
+/* the site footer keeps its own small column headings (the rule above would make them section titles) */
+.co-page .site-foot h2 { font-family: var(--sans); font-size: 15px; font-weight: 600; letter-spacing: 0; line-height: 1.35; color: var(--ink); margin: 0 0 10px; }
+.co-page h3 { font-size: 21px; font-weight: 700; margin: 0 0 6px; letter-spacing: -0.005em; }
+.co-page p { max-width: 68ch; }
+.co-page .lede { font-size: clamp(18px, 1.5vw, 20px); color: var(--ink); margin: 0; }
+.co-page a { color: var(--choc); text-decoration-color: var(--olive); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.co-page a:hover { color: var(--olive); }
+.co-page table a, .co-page .co-card a { color: var(--link); text-decoration-thickness: 1px; }
+.co-page :focus-visible { outline: 3px solid var(--olive); outline-offset: 2px; border-radius: 4px; }
+.co-page ::selection { background: var(--yolk); color: #2e1a12; }
+.co-page .btn { border-radius: var(--r-field); font-weight: 600; font-size: 16px; padding: 12px 18px; }
+.co-page .btn-primary { background: var(--btn); border-color: var(--btn); color: var(--btn-ink); }
+.co-page .btn-primary:hover { background: color-mix(in oklab, var(--btn) 84%, var(--olive)); border-color: color-mix(in oklab, var(--btn) 84%, var(--olive)); color: var(--btn-ink); }
+.co-page .btn-yolk { background: var(--yolk); border-color: var(--yolk); color: #2e1a12; }
+.co-page .btn-yolk:hover { background: #f2a400; border-color: #f2a400; color: #2e1a12; }
+.co-page .btn-ghost { background: transparent; }
+.co-small { font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- the language switch, on the coop pages only (English, French, Spanish editions) ---------- */
+.co-topline { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin: 22px 0 0; }
+.co-topline .crumbs { margin: 0; }
+.co-langs { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.co-langs a { font-size: 13.5px; font-weight: 600; line-height: 1.2; text-decoration: none; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--ink-2); background: color-mix(in oklab, var(--paper) 60%, transparent); }
+.co-langs a:hover { border-color: var(--olive); color: var(--ink); }
+.co-langs a[aria-current="true"] { background: var(--choc); border-color: var(--choc); color: var(--paper); }
+
+/* ---------- hero ---------- */
+.co-hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(18px, 4vw, 56px); align-items: end; padding: clamp(12px, 2.4vw, 28px) 0 clamp(12px, 1.6vw, 18px); }
+.co-hero-side { display: grid; gap: 16px; }
+/* the signature: one carton row of eggs in the colours a mixed flock lays */
+.co-eggs { display: block; width: 100%; height: 44px; margin: 2px 0 18px; }
+.co-eggs .co-cup { fill: var(--egg-3); }
+@media (max-width: 600px) { .co-eggs { height: 34px; margin-bottom: 14px; } }
+
+/* the four types, as line drawings */
+.co-types { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; border: 0; padding: 0; margin: 0; }
+.co-types legend { font-weight: 600; font-size: 15px; margin-bottom: 8px; padding: 0; }
+.co-type { position: relative; display: grid; justify-items: center; gap: 4px; padding: 10px 6px 9px; border-radius: 12px; border: 1.5px solid var(--line-2); background: color-mix(in oklab, var(--paper) 50%, transparent); cursor: pointer; text-align: center; font-size: 14px; font-weight: 600; line-height: 1.2; color: var(--ink); }
+.co-type input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.co-type svg { width: 66px; height: 46px; color: var(--choc-2); }
+.co-type:has(input:checked) { border-color: var(--choc); background: var(--paper); box-shadow: inset 0 -4px 0 var(--yolk); }
+.co-type:has(input:checked) svg { color: var(--choc); }
+.co-type:has(input:focus-visible) { outline: 3px solid var(--olive); outline-offset: 2px; }
+.co-type .wood { color: var(--pine); }
+@media (max-width: 900px) { .co-hero { grid-template-columns: 1fr; align-items: start; } }
+@media (max-width: 460px) { .co-types { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------- the bench: the 3D view beside the form ---------- */
+.co-bench { display: grid; grid-template-columns: minmax(0, 1fr) minmax(330px, 410px); background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-panel); overflow: clip; }
+.co-stage { border-right: 1px solid var(--line); min-width: 0; }
+.co-sticky { position: sticky; top: 0; }
+.co-view { position: relative; aspect-ratio: 16 / 10; background: linear-gradient(180deg, #bfe0f2, #e4f1ee 62%, #fde8cf); overflow: hidden; }
+.co-view img, .co-view canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; }
+.co-view canvas { touch-action: none; cursor: grab; }
+.co-view canvas:active { cursor: grabbing; }
+.co-badge { position: absolute; left: 12px; top: 12px; background: var(--yolk); color: #2e1a12; font-weight: 700; font-size: 13.5px; padding: 4px 10px; border-radius: var(--r-chip); }
+.co-gl-note { position: absolute; left: 12px; right: 12px; bottom: 60px; margin: 0; background: var(--paper); color: var(--ink); padding: 8px 12px; border-radius: var(--r-field); font-size: 14.5px; }
+.co-start { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); display: inline-flex; gap: 8px; align-items: center; background: #2e1a12; color: #fff; border: 0; border-radius: 999px; padding: 11px 18px; font: inherit; font-weight: 600; font-size: 15.5px; cursor: pointer; box-shadow: 0 6px 18px rgba(46, 26, 18, .3); }
+.co-start svg { width: 18px; height: 18px; }
+.co-start[disabled] { opacity: .8; cursor: progress; }
+.co-tags { position: absolute; inset: 0; pointer-events: none; }
+.co-tag { position: absolute; left: 0; top: 0; white-space: nowrap; font-size: 13.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: rgba(255, 255, 255, .95); color: #2e1a12; box-shadow: 0 1px 0 rgba(46, 26, 18, .25); }
+.co-tag-fail { background: #c63d2f; color: #fff; }
+.co-tag-check { background: #ffb000; color: #2e1a12; }
+.co-tag-fits { background: #9bc53d; color: #2e1a12; }
+.co-toolbar { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; padding: 10px 14px; border-top: 1px solid var(--line); background: var(--paper-2); }
+.co-seg { display: inline-flex; border: 1px solid var(--line-2); border-radius: var(--r-field); overflow: hidden; }
+.co-seg button { font: inherit; font-size: 14.5px; font-weight: 600; padding: 7px 11px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+.co-seg button + button { border-left: 1px solid var(--line-2); }
+.co-seg button[aria-pressed="true"] { background: var(--choc); color: var(--paper); }
+.co-sun { display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 600; }
+.co-sun input[type="range"] { width: 130px; accent-color: var(--yolk); }
+.co-sun output { min-width: 3.2em; font-variant-numeric: tabular-nums; }
+.co-henbtn { font: inherit; font-size: 14.5px; font-weight: 600; padding: 7px 12px; border-radius: var(--r-field); border: 1.5px solid var(--yolk); background: transparent; color: var(--ink); cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.co-henbtn svg { width: 18px; height: 18px; color: var(--choc); }
+.co-toolbar[hidden] { display: none; }
+
+/* the title block under the view: what this design is, and how its checks came out */
+.co-title { padding: 14px 16px 16px; display: grid; gap: 10px; }
+.co-title h2 { font-size: clamp(23px, 2.3vw, 29px); margin: 0; }
+.co-title p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
+.co-counts { display: flex; flex-wrap: wrap; gap: 8px; }
+.co-count { display: inline-flex; color: var(--ink); gap: 6px; align-items: baseline; padding: 4px 10px; border-radius: var(--r-chip); font-size: 14.5px; font-weight: 600; border: 1px solid var(--line-2); }
+.co-count b { font-size: 18px; }
+.co-count.ct-fits { background: color-mix(in oklab, var(--leaf) 30%, var(--paper)); }
+.co-count.ct-check { background: color-mix(in oklab, var(--yolk) 30%, var(--paper)); }
+.co-count.ct-fail { background: color-mix(in oklab, var(--fox) 20%, var(--paper)); }
+.co-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13.5px; color: var(--ink-2); }
+
+/* ---------- the form ---------- */
+.co-form { padding: 6px 16px 18px; display: grid; gap: 4px; align-content: start; }
+.co-step { border: 0; padding: 12px 0 14px; margin: 0; border-bottom: 1px solid var(--line); }
+.co-step:last-child { border-bottom: 0; }
+.co-step > legend { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 20px; padding: 0; margin: 0 0 10px; color: var(--choc); }
+.co-step-n { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50% 50% 46% 46% / 58% 58% 42% 42%; background: var(--egg-3); color: #2e1a12; font-family: var(--sans); font-size: 15px; font-weight: 700; }
+.co-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 12px; }
+.co-field { display: grid; gap: 4px; align-content: start; font-size: 14.5px; font-weight: 600; min-width: 0; }
+.co-field.wide { grid-column: 1 / -1; }
+.co-field small { font-weight: 400; color: var(--ink-2); font-size: 13.5px; line-height: 1.35; }
+.co-in { position: relative; display: flex; align-items: center; }
+.co-in input { padding-right: 38px; }
+.co-in i { position: absolute; right: 10px; font-style: normal; font-weight: 500; font-size: 14px; color: var(--ink-2); pointer-events: none; }
+.co-form input[type="number"], .co-form input[type="text"], .co-form select, .co-shop input, .co-pro input[type="text"] {
+  width: 100%; min-width: 0; font: inherit; font-size: 16px; font-weight: 500; padding: 9px 10px; border: 1px solid var(--line-2); border-radius: var(--r-field); background: var(--paper); color: var(--ink); }
+.co-form input:focus, .co-form select:focus, .co-shop input:focus { outline: none; border-color: var(--olive); box-shadow: 0 0 0 3px color-mix(in oklab, var(--olive) 24%, transparent); }
+.co-row { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
+.co-check { display: flex; gap: 8px; align-items: flex-start; font-size: 14.5px; font-weight: 500; }
+.co-check input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--olive); flex: none; }
+.co-auto { margin: 2px 0 10px; padding: 9px 11px; border-radius: var(--r-field); background: var(--paper-2); border: 1px dashed var(--line-2); }
+.co-pro-tag { display: inline-block; font-size: 12.5px; font-weight: 700; padding: 1px 7px; border-radius: 5px; background: var(--yolk); color: #2e1a12; margin-left: 6px; vertical-align: 1px; }
+[data-show][hidden] { display: none !important; }
+@media (max-width: 960px) { .co-bench { grid-template-columns: 1fr; } .co-stage { border-right: 0; border-bottom: 1px solid var(--line); } .co-sticky { position: static; } }
+
+/* ---------- actions ---------- */
+.co-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 16px 0 6px; }
+.co-actions .hint { font-size: 14px; color: var(--ink-2); }
+.co-sample-note { margin: 0 0 10px; font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- sections, tables ---------- */
+.co-sec { margin: clamp(30px, 5vw, 56px) 0 0; }
+.co-sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 20px; margin-bottom: 10px; }
+.co-sec-head p { margin: 0; color: var(--ink-2); font-size: 14.5px; }
+.co-card { background: var(--paper); border: 1px solid var(--line-2); border-radius: 14px; }
+.co-table { width: 100%; border-collapse: collapse; background: var(--paper); border: 1px solid var(--line-2); border-radius: 14px; overflow: hidden; font-size: 15.5px; }
+.co-table caption { caption-side: top; text-align: left; padding: 0 0 8px; color: var(--ink-2); font-size: 14.5px; }
+.co-table th, .co-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.co-table thead th { font-size: 13.5px; font-weight: 700; color: var(--ink-2); background: var(--paper-2); }
+.co-table tbody tr:last-child td { border-bottom: 0; }
+.co-table .num { text-align: right; white-space: nowrap; }
+.co-group td { background: var(--paper-2); font-weight: 700; font-size: 14px; color: var(--ink-2); }
+.co-st { white-space: nowrap; font-weight: 700; font-size: 14px; }
+.co-st span { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: var(--r-chip); }
+.co-st svg { width: 13px; height: 13px; }
+.st-fits span { background: #9bc53d; color: #2e1a12; }
+.st-check span { background: #ffb000; color: #2e1a12; }
+.st-fail span { background: var(--fox); color: var(--fox-ink); }
+.st-info span { background: var(--egg-2); color: var(--ink); }
+.co-why { color: var(--ink-2); font-size: 14.5px; }
+.co-src { font-size: 13.5px; color: var(--ink-2); }
+.co-src a { white-space: normal; }
+.co-shop input { max-width: 110px; text-align: right; padding: 6px 8px; font-size: 15px; }
+.co-total td { font-weight: 700; background: var(--paper-2); }
+@media (max-width: 760px) {
+  .co-table, .co-table tbody, .co-table tr, .co-table td, .co-table caption { display: block; width: 100%; }
+  .co-table thead { display: none; }
+  .co-table caption { padding: 10px 12px 8px; }
+  .co-table tr { border-bottom: 1px solid var(--line); padding: 8px 0; }
+  .co-table td { border: 0; padding: 4px 12px; }
+  .co-table td[data-h]::before { content: attr(data-h); display: block; font-size: 12.5px; font-weight: 700; color: var(--ink-2); }
+  .co-table .num { text-align: left; }
+  .co-shop input { max-width: 100%; text-align: left; }
+}
+
+/* ---------- Pro ---------- */
+.co-pro { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr); gap: 0; background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-panel); overflow: clip; }
+.co-pro-l { padding: clamp(18px, 2.6vw, 30px); display: grid; gap: 14px; align-content: start; min-width: 0; }
+.co-pro-r { padding: clamp(18px, 2.6vw, 30px); background: #2e1a12; color: #f6efe7; display: grid; gap: 12px; align-content: start; }
+.co-pro-r p { color: #e4d8cc; margin: 0; font-size: 14.5px; }
+.co-pro-r .btn-ghost { color: #fff; border-color: rgba(255, 255, 255, .5); }
+.co-pro-r .btn-ghost[aria-busy="true"] { cursor: progress; opacity: .85; }
+.co-pro-r .co-price { font-family: var(--display); font-size: 46px; font-weight: 800; color: #fff; margin: 0; line-height: 1; }
+.co-price small { font-family: var(--sans); font-size: 15px; font-weight: 500; color: #e4d8cc; }
+.co-locked { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.co-locked li { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 10px; align-items: start; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.co-locked svg { width: 16px; height: 16px; margin-top: 3px; color: var(--choc-2); }
+.co-locked b { display: block; font-weight: 700; }
+.co-locked span { display: block; color: var(--ink-2); font-size: 14.5px; }
+.co-locked em { font-style: normal; font-size: 12.5px; font-weight: 700; padding: 2px 8px; border-radius: 5px; background: var(--egg-2); color: var(--ink); }
+.co-locked li.is-open em { background: #9bc53d; color: #2e1a12; }
+.co-pro-out { margin: 0; }
+.co-pro-out img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid var(--line-2); background: #fff; }
+.co-pro-out figcaption { font-size: 13.5px; color: var(--ink-2); margin-top: 6px; }
+.co-pro-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.co-addons { border: 1px solid var(--line-2); border-radius: 12px; padding: 12px 14px; display: grid; gap: 8px; margin: 0; }
+.co-addons legend { font-weight: 700; padding: 0 4px; }
+.co-addons[disabled] { opacity: .62; }
+.co-saved { display: grid; gap: 8px; }
+.co-saved ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.co-saved li { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; font-size: 14.5px; }
+.co-saved li button { font: inherit; font-size: 13.5px; padding: 4px 9px; border-radius: 6px; border: 1px solid var(--line-2); background: var(--paper); color: var(--ink); cursor: pointer; }
+.co-pro-work { display: grid; gap: 14px; }
+.co-pro-work[hidden] { display: none; }
+.co-diagram { width: 100%; height: auto; display: block; background: var(--paper); }
+.co-board { margin: 0 0 6px; }
+.co-board figcaption { font-size: 13.5px; color: var(--ink-2); }
+@media (max-width: 860px) { .co-pro { grid-template-columns: 1fr; } }
+
+/* ---------- guides, FAQ, sources ---------- */
+.co-guides { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0; border-top: 3px solid var(--choc); }
+.co-guides li { border-bottom: 1px solid var(--line-2); }
+.co-guides a { display: grid; gap: 2px; padding: 14px 12px 14px 0; text-decoration: none; color: var(--ink); }
+.co-guides b { font-family: var(--display); font-weight: 700; font-size: 19px; line-height: 1.15; }
+.co-guides span { color: var(--ink-2); font-size: 14.5px; }
+.co-guides a:hover b { color: var(--olive); }
+.co-faq details { border-bottom: 1px solid var(--line-2); padding: 12px 0; }
+.co-faq summary { cursor: pointer; font-weight: 700; font-size: 17.5px; }
+.co-faq .answer p { margin: 8px 0 0; }
+.co-sources { font-size: 14.5px; }
+.co-sources ol { margin: 0; padding-left: 22px; display: grid; gap: 4px; }
+.co-sources li span { color: var(--ink-2); }
+.co-srclist { margin: 10px 0; }
+.co-srclist summary { cursor: pointer; font-weight: 700; padding: 10px 0; min-height: 44px; }
+.co-srclist[open] summary { margin-bottom: 6px; }
+
+/* ---------- guide pages ---------- */
+.co-article { max-width: 780px; }
+.co-article h2 { margin-top: 34px; }
+.co-figure { margin: 18px 0; }
+.co-figure img { width: 100%; height: auto; display: block; border-radius: 14px; border: 1px solid var(--line-2); }
+.co-figure figcaption { font-size: 14px; color: var(--ink-2); margin-top: 6px; }
+.co-callout { background: var(--paper); border: 1px solid var(--line-2); border-left: 5px solid var(--yolk); border-radius: 12px; padding: 14px 16px; margin: 16px 0; }
+.co-callout p { margin: 0; }
+/* the build steps on a support page, numbered */
+.co-steplist { margin: 12px 0 0; padding-left: 1.5em; display: grid; gap: 10px; }
+.co-steplist li { padding-left: 4px; }
+.co-steplist b { color: var(--choc); }
+/* a smaller picture inside a support page */
+.co-fig { margin: 16px 0; max-width: 560px; }
+/* a support page's sources: short names in a row, the full title on hover */
+.co-srcshort { list-style: none; padding: 0; margin: 4px 0 14px; display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 15px; }
+.co-fig img { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line-2); aspect-ratio: 16 / 10; object-fit: cover; }
+.co-fig figcaption { margin-top: 6px; font-size: 14px; color: var(--ink-2); }
+.co-open { display: inline-flex; margin-top: 8px; }
+.co-guide-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(18px, 4vw, 48px); align-items: center; padding: clamp(10px, 2vw, 22px) 0 6px; }
+.co-guide-hero img { width: 100%; height: auto; display: block; border-radius: 16px; border: 1px solid var(--line-2); aspect-ratio: 16 / 10; object-fit: cover; }
+.co-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--paper); overflow: hidden; margin: 16px 0; }
+.co-facts div { padding: 12px 14px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.co-facts b { display: block; font-family: var(--display); font-size: 24px; font-weight: 800; line-height: 1.1; }
+.co-facts span { font-size: 14px; color: var(--ink-2); }
+@media (max-width: 860px) { .co-guide-hero { grid-template-columns: 1fr; } }
+.co-table tr[id] { scroll-margin-top: 84px; }
+.co-table tr:target td { background: color-mix(in oklab, var(--yolk) 26%, var(--paper)); }
+.co-jump { list-style: none; margin: 10px 0 16px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.co-jump a { display: inline-flex; align-items: center; justify-content: center; min-width: 48px; min-height: 44px; padding: 0 12px; border: 1px solid var(--line-2); border-radius: var(--r-chip); background: var(--paper); color: var(--ink); font-weight: 700; text-decoration: none; }
+.co-jump a:hover { border-color: var(--olive); color: var(--olive); }
+.co-table th[scope="row"] { font-weight: 700; }
+/* compact number tables (.co-numgrid) stay a table on a phone: few, short columns */
+@media (max-width: 760px) {
+  .co-table.co-numgrid { display: table; font-size: 14.5px; }
+  .co-table.co-numgrid caption { display: table-caption; }
+  .co-table.co-numgrid thead { display: table-header-group; }
+  .co-table.co-numgrid tbody { display: table-row-group; }
+  .co-table.co-numgrid tr { display: table-row; padding: 0; }
+  .co-table.co-numgrid th, .co-table.co-numgrid td { display: table-cell; width: auto; padding: 8px 5px; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+  .co-table.co-numgrid thead th { font-size: 13px; line-height: 1.25; white-space: normal; vertical-align: bottom; }
+  .co-table.co-numgrid td[data-h]::before { content: none; }
+  .co-table.co-numgrid .num { text-align: right; }
+  .co-table.co-kv td:first-child { width: 36%; }
+  .co-table.co-kv .co-group td { padding-top: 10px; }
+}
+
+/* ---------- print: the shopping list only ---------- */
+@media print {
+  body.co-print-shop .site-head, body.co-print-shop .site-foot, body.co-print-shop main > *:not(#shop), body.co-print-shop .skip { display: none !important; }
+  body.co-print-shop #shop { margin: 0; }
+  body.co-print-shop .co-shop input { border: 0; padding: 0; }
+  body.co-page { background: #fff; }
+  /* a support page printed as a plan (its Print button): the plan without the page around it */
+  body.co-print-plan .site-head, body.co-print-plan .site-foot, body.co-print-plan .skip, body.co-print-plan .co-topline, body.co-print-plan .co-eggs, body.co-print-plan .co-open, body.co-print-plan [data-print], body.co-print-plan .co-more, body.co-print-plan .co-faq-sec { display: none !important; }
+  body.co-print-plan .co-guide-hero { grid-template-columns: 1fr 1fr; }
+  body.co-print-plan .co-table tr { break-inside: avoid; }
+}
+@media (prefers-reduced-motion: reduce) { .co-page * { scroll-behavior: auto !important; transition: none !important; } }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","@id":"https://peakappsstudio.com/fr/poulailler/#app","name":"Coop Designer","url":"https://peakappsstudio.com/fr/poulailler/","inLanguage":"fr","applicationCategory":"DesignApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Gratuit","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Pro (paiement unique)","price":"19","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/coop-designer-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Outils","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Poulailler en 3D","item":"https://peakappsstudio.com/fr/poulailler/"},{"@type":"ListItem","position":3,"name":"Surface par poule","item":"https://peakappsstudio.com/fr/poulailler/surface-poulailler-par-poule/"}]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Quelle surface pour 5 poules ?","acceptedAnswer":{"@type":"Answer","text":"De 1,4 à 1,9 m² dans l’abri et 4,6 m² d’enclos, aux chiffres de Virginia Tech. Pour cinq poules, l’outil dessine un poulailler sur pieds de 1,3 m x 1,5 m : 1,95 m² à l’intérieur et 4,95 m² d’enclos."}},
+  {"@type":"Question","name":"Quelle surface pour des poules naines ?","acceptedAnswer":{"@type":"Answer","text":"0,19 à 0,28 m² chacune dans l’abri et 0,46 à 0,74 m² dans l’enclos (Virginia Tech, 2023). Les minimums plus anciens sont de 0,09 m² dedans et 0,37 m² dehors (Penn State, Maryland)."}},
+  {"@type":"Question","name":"Les 4 m² par poule, c’est obligatoire ?","acceptedAnswer":{"@type":"Answer","text":"Non, pas pour une basse-cour : c’est la règle des élevages qui vendent des œufs plein air, sur un parcours en herbe (fiche des Chambres d’agriculture). Les guides de basse-cour donnent moins d’un mètre carré d’enclos par poule ; offrir plus, ou laisser les poules sortir au jardin, ne gâte rien."}},
+  {"@type":"Question","name":"Pour six poules, combien de place ?","acceptedAnswer":{"@type":"Answer","text":"De 1,7 à 2,2 m² d’abri et 5,6 m² d’enclos. Le projet de l’outil pour six poules en offre 2,25 m² et 5,85 m², sur 4,2 m x 1,5 m au sol."}}
+ ]}
+]}
+</script>
+</head>
+<body class="co-page" style="--accent:#56701a">
+<a class="skip" href="#main">Aller au contenu</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" hreflang="en" aria-label="Peak Apps Tools, tous les outils (en anglais)">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Outils">
+      <a href="/fr/poulailler/" aria-current="page">Poulailler en 3D</a>
+      <a href="/tools/" hreflang="en">Tous les outils</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <div class="co-topline">
+    <nav class="crumbs" aria-label="Fil d’Ariane"><ol><li><a href="/tools/" hreflang="en">Outils</a></li><li><a href="/fr/poulailler/">Poulailler en 3D</a></li><li aria-current="page">Surface par poule</li></ol></nav>
+    <nav class="co-langs" aria-label="Langue"><a href="/coop-designer/how-big-should-a-chicken-coop-be/" hreflang="en" lang="en">English</a><a href="/fr/poulailler/surface-poulailler-par-poule/" aria-current="true" hreflang="fr" lang="fr">Français</a><a href="/es/gallinero/" hreflang="es" lang="es">Español</a></nav>
+  </div>
+  <header class="co-guide-hero">
+    <div>
+      <h1>Quelle surface de poulailler par poule ?</h1>
+      <p class="lede" style="margin-top:14px">Comptez de 0,28 à 0,37 m² de sol par poule dans le poulailler et 0,93 m² par poule dans l’enclos. Ce sont les chiffres du tableau publié en 2023 par Virginia Tech, convertis en mètres carrés : six poules demandent donc de 1,7 à 2,2 m² d’abri et 5,6 m² d’enclos.</p>
+      <a class="btn btn-primary co-open" href="/fr/poulailler/#prefill=eyJ2IjoxLCJ0eXBlIjoiaG91c2UiLCJ1bml0cyI6Im1ldHJpYyIsIm5hbWUiOiJQb3VsYWlsbGVyIHN1ciBwaWVkcyBwb3VyIDYgcG91bGVzIiwiYmlyZHMiOjYsImNvb3AiOnsidyI6MTUwMCwiZCI6MTUwMCwiaCI6MTIyMCwiaDIiOjk4MH0sInJ1biI6eyJsIjozOTAwfSwic3RvY2siOjQwMDAsIm5lc3RzIjoyfQ">Calculer la surface pour vos poules</a>
+    </div>
+    <img src="/coop-designer/img/hero-size-960.webp" srcset="/coop-designer/img/hero-size-480.webp 480w, /coop-designer/img/hero-size-960.webp 960w, /coop-designer/img/hero-size-1440.webp 1440w" sizes="(max-width: 860px) 100vw, 52vw" width="1440" height="900" fetchpriority="high" decoding="async" alt="Un poulailler sur pieds pour huit poules en 3D : l’abri bleu-vert au toit de plaques ondulées, un pondoir sur le côté, au-dessus d’un enclos en grillage soudé, avec des poules sur la pelouse au soleil du matin.">
+  </header>
+  <svg class="co-eggs" viewBox="0 0 1200 46" preserveAspectRatio="xMinYMid slice" aria-hidden="true"><defs><radialGradient id="co-egg-shine" cx="36%" cy="30%" r="72%"><stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#2e1a12" stop-opacity=".22"/></radialGradient><path id="co-egg" d="M0-19c-8.6 0-14 13.2-14 22.4C-14 11.6-7.7 17 0 17s14-5.4 14-13.6C14-5.8 8.6-19 0-19z"/><path id="co-cup" d="M-34 26h68c-2 9-10 15-18 15h-32c-8 0-16-6-18-15z"/></defs><use href="#co-cup" x="38" y="0" class="co-cup"/><use href="#co-egg" x="38" y="22" fill="#f6f1e7"/><use href="#co-egg" x="38" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="113" y="0" class="co-cup"/><use href="#co-egg" x="113" y="22" fill="#b9ded7"/><use href="#co-egg" x="113" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="188" y="0" class="co-cup"/><use href="#co-egg" x="188" y="22" fill="#6d3b23"/><use href="#co-egg" x="188" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="263" y="0" class="co-cup"/><use href="#co-egg" x="263" y="22" fill="#ead2b0"/><use href="#co-egg" x="263" y="22" fill="url(#co-egg-shine)"/><g fill="#5a3a22" opacity=".5"><circle cx="258" cy="14" r="1.1"/><circle cx="267" cy="9" r=".9"/><circle cx="269" cy="22" r="1.2"/><circle cx="261" cy="27" r=".8"/><circle cx="264" cy="31" r="1"/><circle cx="255" cy="23" r=".7"/></g><use href="#co-cup" x="338" y="0" class="co-cup"/><use href="#co-egg" x="338" y="22" fill="#97a466"/><use href="#co-egg" x="338" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="413" y="0" class="co-cup"/><use href="#co-egg" x="413" y="22" fill="#f3e3d3"/><use href="#co-egg" x="413" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="488" y="0" class="co-cup"/><use href="#co-egg" x="488" y="22" fill="#c78f5f"/><use href="#co-egg" x="488" y="22" fill="url(#co-egg-shine)"/><g fill="#5a3a22" opacity=".5"><circle cx="483" cy="14" r="1.1"/><circle cx="492" cy="9" r=".9"/><circle cx="494" cy="22" r="1.2"/><circle cx="486" cy="27" r=".8"/><circle cx="489" cy="31" r="1"/><circle cx="480" cy="23" r=".7"/></g><use href="#co-cup" x="563" y="0" class="co-cup"/><use href="#co-egg" x="563" y="22" fill="#a8d3cb"/><use href="#co-egg" x="563" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="638" y="0" class="co-cup"/><use href="#co-egg" x="638" y="22" fill="#4e2617"/><use href="#co-egg" x="638" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="713" y="0" class="co-cup"/><use href="#co-egg" x="713" y="22" fill="#efe2cc"/><use href="#co-egg" x="713" y="22" fill="url(#co-egg-shine)"/><g fill="#5a3a22" opacity=".5"><circle cx="708" cy="14" r="1.1"/><circle cx="717" cy="9" r=".9"/><circle cx="719" cy="22" r="1.2"/><circle cx="711" cy="27" r=".8"/><circle cx="714" cy="31" r="1"/><circle cx="705" cy="23" r=".7"/></g><use href="#co-cup" x="788" y="0" class="co-cup"/><use href="#co-egg" x="788" y="22" fill="#86935a"/><use href="#co-egg" x="788" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="863" y="0" class="co-cup"/><use href="#co-egg" x="863" y="22" fill="#e6c4a8"/><use href="#co-egg" x="863" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="938" y="0" class="co-cup"/><use href="#co-egg" x="938" y="22" fill="#d6a676"/><use href="#co-egg" x="938" y="22" fill="url(#co-egg-shine)"/><g fill="#5a3a22" opacity=".5"><circle cx="933" cy="14" r="1.1"/><circle cx="942" cy="9" r=".9"/><circle cx="944" cy="22" r="1.2"/><circle cx="936" cy="27" r=".8"/><circle cx="939" cy="31" r="1"/><circle cx="930" cy="23" r=".7"/></g><use href="#co-cup" x="1013" y="0" class="co-cup"/><use href="#co-egg" x="1013" y="22" fill="#c2e2db"/><use href="#co-egg" x="1013" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="1088" y="0" class="co-cup"/><use href="#co-egg" x="1088" y="22" fill="#7a4a2c"/><use href="#co-egg" x="1088" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="1163" y="0" class="co-cup"/><use href="#co-egg" x="1163" y="22" fill="#f8f4ec"/><use href="#co-egg" x="1163" y="22" fill="url(#co-egg-shine)"/></svg>
+  <article class="co-article">
+
+    <h2>Les chiffres, guide par guide</h2>
+    <p>Les guides ne s’accordent pas sur un chiffre unique : les uns publient un minimum, les autres une recommandation. Le tableau de <a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener" hreflang="en">Penn State</a> donne des minimums ; celui de <a href="https://www.pubs.ext.vt.edu/2902/2902-1092/2902-1092.html" rel="noopener" hreflang="en">Virginia Tech</a>, publié en 2023, une place recommandée, en ajoutant qu’on n’en donne jamais trop. Nous les avons convertis des pieds carrés en mètres carrés, arrondis au centième.</p>
+    <table class="co-table ">
+      <caption>Place par poule dans les guides publiés, lus le 12 et le 13 octobre 2026.</caption>
+      <thead><tr><th scope="col">Source</th><th scope="col">Ce qu’elle dit</th></tr></thead>
+      <tbody>
+        <tr><td data-h="Source"><a href="https://www.pubs.ext.vt.edu/2902/2902-1092/2902-1092.html" rel="noopener" hreflang="en">Virginia Tech</a></td><td data-h="Ce qu’elle dit">Pondeuses : 0,28 à 0,37 m² dans le poulailler et 0,93 m² dans l’enclos. Poules naines : 0,19 à 0,28 m² et 0,46 à 0,74 m².</td></tr>
+        <tr><td data-h="Source"><a href="https://poultry.extension.org/articles/getting-started-with-small-and-backyard-poultry/housing-for-small-and-backyard-poultry-flocks/space-allowances-in-housing-for-small-and-backyard-poultry-flocks/" rel="noopener" hreflang="en">extension.org</a></td><td data-h="Ce qu’elle dit">Pondeuses : au moins 0,28 à 0,37 m² dedans et 0,93 m² dehors, tout en notant qu’un enclos de cette taille est rarement possible dans un jardin de ville.</td></tr>
+        <tr><td data-h="Source"><a href="https://extension.oregonstate.edu/catalog/ec-1644-living-land-backyard-chicken-coop-design" rel="noopener" hreflang="en">Oregon State</a></td><td data-h="Ce qu’elle dit">Au moins 0,28 m² par poule quand elle sort dans un enclos, et 0,74 à 0,93 m² quand elle n’en a pas.</td></tr>
+        <tr><td data-h="Source"><a href="https://ask.ifas.ufl.edu/publication/an239" rel="noopener" hreflang="en">Floride</a></td><td data-h="Ce qu’elle dit">Un abri d’au moins 0,28 m² de sol par poule, et un enclos de 0,74 à 0,93 m².</td></tr>
+        <tr><td data-h="Source"><a href="https://www.udel.edu/academics/colleges/canr/cooperative-extension/fact-sheets/steam-team-chicken-housing-and-coop-maintenance/" rel="noopener" hreflang="en">Delaware</a></td><td data-h="Ce qu’elle dit">Au moins 0,19 à 0,28 m² par poule à l’intérieur, et 0,74 à 0,93 m² de plus dans l’enclos.</td></tr>
+        <tr><td data-h="Source"><a href="https://warren.cce.cornell.edu/agriculture/backyard-chickens" rel="noopener" hreflang="en">Cornell, comté de Warren</a></td><td data-h="Ce qu’elle dit">Au minimum 0,23 à 0,33 m² dedans, et 0,37 à 0,46 m² dans la partie grillagée.</td></tr>
+        <tr><td data-h="Source"><a href="https://extension.umaine.edu/4h/egg-business-project/housing-your-pullets/" rel="noopener" hreflang="en">Maine</a></td><td data-h="Ce qu’elle dit">Environ 0,28 m² par poule, ou 0,19 à 0,28 m², l’enclos pouvant compter dedans.</td></tr>
+        <tr><td data-h="Source"><a href="https://poultry.extension.org/articles/getting-started-with-small-and-backyard-poultry/housing-for-small-and-backyard-poultry-flocks/small-scale-poultry-housing/" rel="noopener" hreflang="en">Kentucky, sur extension.org</a></td><td data-h="Ce qu’elle dit">De 0,07 à 0,09 m² pour les petites races jusqu’à 0,28 à 0,33 m² pour les grandes.</td></tr>
+        <tr><td data-h="Source"><a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener" hreflang="en">Penn State</a></td><td data-h="Ce qu’elle dit">Minimums : pondeuses 0,14 m² dedans et 0,74 m² dehors ; grandes races 0,19 et 0,93 ; poules naines 0,09 et 0,37.</td></tr>
+        <tr><td data-h="Source"><a href="https://extension.umd.edu/resource/housing-requirements" rel="noopener" hreflang="en">Maryland</a></td><td data-h="Ce qu’elle dit">Les mêmes minimums, repris de Clauer (2009).</td></tr>
+        <tr><td data-h="Source"><a href="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:31999L0074" rel="noopener">directive 1999/74/CE</a></td><td data-h="Ce qu’elle dit">Élevages de 350 poules et plus : au plus 9 poules par m² de surface utilisable, soit 0,11 m² chacune.</td></tr>
+        <tr><td data-h="Source"><a href="https://oaba.fr/PDF/Fiche_regl.pdf" rel="noopener">fiche des Chambres d’agriculture</a></td><td data-h="Ce qu’elle dit">Œufs plein air : 4 m² de parcours par poule, une prairie et non un enclos grillagé.</td></tr>
+      </tbody>
+    </table>
+    <p>Lus ensemble, les guides de basse-cour se rejoignent autour de 0,28 m² par poule dans l’abri, 0,37 m² étant le haut de la fourchette. Les minimums de 0,14 m² vont toujours avec un enclos d’au moins 0,74 m², et les 0,74 à 0,93 m² qu’Oregon State demande sans enclos montrent la part de l’effort que l’enclos porte. Les deux chiffres européens visent des élevages : 9 poules par m² dans un bâtiment de ponte, 4 m² de prairie par poule pour vendre des œufs plein air. Ni l’un ni l’autre ne dit quoi construire au fond d’un jardin.</p>
+
+    <h2 id="tableau">La surface pour 2 à 30 poules</h2>
+    <p>Le tableau multiplie les chiffres de Virginia Tech par le nombre de poules, en m² pour tout le groupe. Chaque ligne a son adresse : un lien vers <a href="#pour-10-poules">#pour-10-poules</a> ouvre la page sur la ligne des dix poules. Aller directement à :</p>
+    <ul class="co-jump">
+      <li><a href="#pour-2-poules">2</a></li>
+      <li><a href="#pour-4-poules">4</a></li>
+      <li><a href="#pour-6-poules">6</a></li>
+      <li><a href="#pour-8-poules">8</a></li>
+      <li><a href="#pour-10-poules">10</a></li>
+      <li><a href="#pour-12-poules">12</a></li>
+      <li><a href="#pour-15-poules">15</a></li>
+      <li><a href="#pour-20-poules">20</a></li>
+      <li><a href="#pour-25-poules">25</a></li>
+      <li><a href="#pour-30-poules">30</a></li>
+    </ul>
+    <table class="co-table co-numgrid">
+      <caption>Surface totale en m² : poulailler et enclos, pour des poules standard (0,28 à 0,37 et 0,93 m² chacune) et des poules naines (0,19 à 0,28 et 0,46 à 0,74 m² chacune).</caption>
+      <thead><tr><th scope="col">Poules</th><th scope="col" class="num">Abri, standard</th><th scope="col" class="num">Enclos, standard</th><th scope="col" class="num">Abri, naines</th><th scope="col" class="num">Enclos, naines</th></tr></thead>
+      <tbody>
+        <tr id="pour-2-poules"><td data-h="Poules"><b>2</b></td><td class="num" data-h="Abri, standard">0,6–0,7</td><td class="num" data-h="Enclos, standard">1,9</td><td class="num" data-h="Abri, naines">0,4–0,6</td><td class="num" data-h="Enclos, naines">0,9–1,5</td></tr>
+        <tr id="pour-3-poules"><td data-h="Poules"><b>3</b></td><td class="num" data-h="Abri, standard">0,8–1,1</td><td class="num" data-h="Enclos, standard">2,8</td><td class="num" data-h="Abri, naines">0,6–0,8</td><td class="num" data-h="Enclos, naines">1,4–2,2</td></tr>
+        <tr id="pour-4-poules"><td data-h="Poules"><b>4</b></td><td class="num" data-h="Abri, standard">1,1–1,5</td><td class="num" data-h="Enclos, standard">3,7</td><td class="num" data-h="Abri, naines">0,7–1,1</td><td class="num" data-h="Enclos, naines">1,9–3</td></tr>
+        <tr id="pour-5-poules"><td data-h="Poules"><b>5</b></td><td class="num" data-h="Abri, standard">1,4–1,9</td><td class="num" data-h="Enclos, standard">4,6</td><td class="num" data-h="Abri, naines">0,9–1,4</td><td class="num" data-h="Enclos, naines">2,3–3,7</td></tr>
+        <tr id="pour-6-poules"><td data-h="Poules"><b>6</b></td><td class="num" data-h="Abri, standard">1,7–2,2</td><td class="num" data-h="Enclos, standard">5,6</td><td class="num" data-h="Abri, naines">1,1–1,7</td><td class="num" data-h="Enclos, naines">2,8–4,5</td></tr>
+        <tr id="pour-7-poules"><td data-h="Poules"><b>7</b></td><td class="num" data-h="Abri, standard">2–2,6</td><td class="num" data-h="Enclos, standard">6,5</td><td class="num" data-h="Abri, naines">1,3–2</td><td class="num" data-h="Enclos, naines">3,3–5,2</td></tr>
+        <tr id="pour-8-poules"><td data-h="Poules"><b>8</b></td><td class="num" data-h="Abri, standard">2,2–3</td><td class="num" data-h="Enclos, standard">7,4</td><td class="num" data-h="Abri, naines">1,5–2,2</td><td class="num" data-h="Enclos, naines">3,7–5,9</td></tr>
+        <tr id="pour-9-poules"><td data-h="Poules"><b>9</b></td><td class="num" data-h="Abri, standard">2,5–3,3</td><td class="num" data-h="Enclos, standard">8,4</td><td class="num" data-h="Abri, naines">1,7–2,5</td><td class="num" data-h="Enclos, naines">4,2–6,7</td></tr>
+        <tr id="pour-10-poules"><td data-h="Poules"><b>10</b></td><td class="num" data-h="Abri, standard">2,8–3,7</td><td class="num" data-h="Enclos, standard">9,3</td><td class="num" data-h="Abri, naines">1,9–2,8</td><td class="num" data-h="Enclos, naines">4,6–7,4</td></tr>
+        <tr id="pour-11-poules"><td data-h="Poules"><b>11</b></td><td class="num" data-h="Abri, standard">3,1–4,1</td><td class="num" data-h="Enclos, standard">10,2</td><td class="num" data-h="Abri, naines">2–3,1</td><td class="num" data-h="Enclos, naines">5,1–8,2</td></tr>
+        <tr id="pour-12-poules"><td data-h="Poules"><b>12</b></td><td class="num" data-h="Abri, standard">3,3–4,5</td><td class="num" data-h="Enclos, standard">11,1</td><td class="num" data-h="Abri, naines">2,2–3,3</td><td class="num" data-h="Enclos, naines">5,6–8,9</td></tr>
+        <tr id="pour-13-poules"><td data-h="Poules"><b>13</b></td><td class="num" data-h="Abri, standard">3,6–4,8</td><td class="num" data-h="Enclos, standard">12,1</td><td class="num" data-h="Abri, naines">2,4–3,6</td><td class="num" data-h="Enclos, naines">6–9,7</td></tr>
+        <tr id="pour-14-poules"><td data-h="Poules"><b>14</b></td><td class="num" data-h="Abri, standard">3,9–5,2</td><td class="num" data-h="Enclos, standard">13</td><td class="num" data-h="Abri, naines">2,6–3,9</td><td class="num" data-h="Enclos, naines">6,5–10,4</td></tr>
+        <tr id="pour-15-poules"><td data-h="Poules"><b>15</b></td><td class="num" data-h="Abri, standard">4,2–5,6</td><td class="num" data-h="Enclos, standard">13,9</td><td class="num" data-h="Abri, naines">2,8–4,2</td><td class="num" data-h="Enclos, naines">7–11,1</td></tr>
+        <tr id="pour-16-poules"><td data-h="Poules"><b>16</b></td><td class="num" data-h="Abri, standard">4,5–5,9</td><td class="num" data-h="Enclos, standard">14,9</td><td class="num" data-h="Abri, naines">3–4,5</td><td class="num" data-h="Enclos, naines">7,4–11,9</td></tr>
+        <tr id="pour-17-poules"><td data-h="Poules"><b>17</b></td><td class="num" data-h="Abri, standard">4,7–6,3</td><td class="num" data-h="Enclos, standard">15,8</td><td class="num" data-h="Abri, naines">3,2–4,7</td><td class="num" data-h="Enclos, naines">7,9–12,6</td></tr>
+        <tr id="pour-18-poules"><td data-h="Poules"><b>18</b></td><td class="num" data-h="Abri, standard">5–6,7</td><td class="num" data-h="Enclos, standard">16,7</td><td class="num" data-h="Abri, naines">3,3–5</td><td class="num" data-h="Enclos, naines">8,4–13,4</td></tr>
+        <tr id="pour-19-poules"><td data-h="Poules"><b>19</b></td><td class="num" data-h="Abri, standard">5,3–7,1</td><td class="num" data-h="Enclos, standard">17,7</td><td class="num" data-h="Abri, naines">3,5–5,3</td><td class="num" data-h="Enclos, naines">8,8–14,1</td></tr>
+        <tr id="pour-20-poules"><td data-h="Poules"><b>20</b></td><td class="num" data-h="Abri, standard">5,6–7,4</td><td class="num" data-h="Enclos, standard">18,6</td><td class="num" data-h="Abri, naines">3,7–5,6</td><td class="num" data-h="Enclos, naines">9,3–14,9</td></tr>
+        <tr id="pour-21-poules"><td data-h="Poules"><b>21</b></td><td class="num" data-h="Abri, standard">5,9–7,8</td><td class="num" data-h="Enclos, standard">19,5</td><td class="num" data-h="Abri, naines">3,9–5,9</td><td class="num" data-h="Enclos, naines">9,8–15,6</td></tr>
+        <tr id="pour-22-poules"><td data-h="Poules"><b>22</b></td><td class="num" data-h="Abri, standard">6,1–8,2</td><td class="num" data-h="Enclos, standard">20,4</td><td class="num" data-h="Abri, naines">4,1–6,1</td><td class="num" data-h="Enclos, naines">10,2–16,4</td></tr>
+        <tr id="pour-23-poules"><td data-h="Poules"><b>23</b></td><td class="num" data-h="Abri, standard">6,4–8,5</td><td class="num" data-h="Enclos, standard">21,4</td><td class="num" data-h="Abri, naines">4,3–6,4</td><td class="num" data-h="Enclos, naines">10,7–17,1</td></tr>
+        <tr id="pour-24-poules"><td data-h="Poules"><b>24</b></td><td class="num" data-h="Abri, standard">6,7–8,9</td><td class="num" data-h="Enclos, standard">22,3</td><td class="num" data-h="Abri, naines">4,5–6,7</td><td class="num" data-h="Enclos, naines">11,1–17,8</td></tr>
+        <tr id="pour-25-poules"><td data-h="Poules"><b>25</b></td><td class="num" data-h="Abri, standard">7–9,3</td><td class="num" data-h="Enclos, standard">23,2</td><td class="num" data-h="Abri, naines">4,6–7</td><td class="num" data-h="Enclos, naines">11,6–18,6</td></tr>
+        <tr id="pour-26-poules"><td data-h="Poules"><b>26</b></td><td class="num" data-h="Abri, standard">7,2–9,7</td><td class="num" data-h="Enclos, standard">24,2</td><td class="num" data-h="Abri, naines">4,8–7,2</td><td class="num" data-h="Enclos, naines">12,1–19,3</td></tr>
+        <tr id="pour-27-poules"><td data-h="Poules"><b>27</b></td><td class="num" data-h="Abri, standard">7,5–10</td><td class="num" data-h="Enclos, standard">25,1</td><td class="num" data-h="Abri, naines">5–7,5</td><td class="num" data-h="Enclos, naines">12,5–20,1</td></tr>
+        <tr id="pour-28-poules"><td data-h="Poules"><b>28</b></td><td class="num" data-h="Abri, standard">7,8–10,4</td><td class="num" data-h="Enclos, standard">26</td><td class="num" data-h="Abri, naines">5,2–7,8</td><td class="num" data-h="Enclos, naines">13–20,8</td></tr>
+        <tr id="pour-29-poules"><td data-h="Poules"><b>29</b></td><td class="num" data-h="Abri, standard">8,1–10,8</td><td class="num" data-h="Enclos, standard">26,9</td><td class="num" data-h="Abri, naines">5,4–8,1</td><td class="num" data-h="Enclos, naines">13,5–21,6</td></tr>
+        <tr id="pour-30-poules"><td data-h="Poules"><b>30</b></td><td class="num" data-h="Abri, standard">8,4–11,1</td><td class="num" data-h="Enclos, standard">27,9</td><td class="num" data-h="Abri, naines">5,6–8,4</td><td class="num" data-h="Enclos, naines">13,9–22,3</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Le poulailler que l’outil dessine pour chaque nombre de poules</h2>
+    <p>Quand vous indiquez vos poules dans Coop Designer, il donne 0,37 m² de sol par poule dans l’abri et 0,93 m² dans l’enclos, en bois du commerce, puis vérifie le résultat avec les guides ci-dessus. Jusqu’à huit poules, il propose un poulailler sur pieds au-dessus de son enclos ; au-delà, une cabane où l’on entre debout, à côté de l’enclos. Chaque projet s’ouvre dans l’outil, où vous changez n’importe quelle cote.</p>
+    <table class="co-table ">
+      <caption>Projets calculés par Coop Designer le 14 octobre 2026. La surface de l’abri d’abord, puis celle de l’enclos.</caption>
+      <thead><tr><th scope="col">Poules</th><th scope="col">Le projet</th><th scope="col">Abri ; enclos</th><th scope="col">Au sol</th><th scope="col" class="num">Pondoirs</th><th scope="col">Dans l’outil</th></tr></thead>
+      <tbody>
+        <tr><td data-h="Poules"><b>2</b></td><td data-h="Le projet">Poulailler 90 cm x 90 cm sur pieds, au-dessus d’un enclos de 2,1 m</td><td data-h="Abri ; enclos">0,81 m² ; 1,89 m²</td><td data-h="Au sol">2,4 m x 90 cm</td><td class="num" data-h="Pondoirs">1</td><td data-h="Dans l’outil"><a href="/fr/poulailler/#prefill=eyJ2IjoxLCJ0eXBlIjoiaG91c2UiLCJ1bml0cyI6Im1ldHJpYyIsIm5hbWUiOiJQb3VsYWlsbGVyIHN1ciBwaWVkcyBwb3VyIDIgcG91bGVzIiwiYmlyZHMiOjIsImNvb3AiOnsidyI6OTAwLCJkIjo5MDAsImgyIjo5MjB9LCJydW4iOnsibCI6MjEwMH0sInN0b2NrIjo0MDAwfQ">L’ouvrir</a></td></tr>
+        <tr><td data-h="Poules"><b>4</b></td><td data-h="Le projet">Poulailler 1,3 m x 1,2 m sur pieds, au-dessus d’un enclos de 3,3 m</td><td data-h="Abri ; enclos">1,56 m² ; 3,96 m²</td><td data-h="Au sol">3,6 m x 1,2 m</td><td class="num" data-h="Pondoirs">1</td><td data-h="Dans l’outil"><a href="/fr/poulailler/#prefill=eyJ2IjoxLCJ0eXBlIjoiaG91c2UiLCJ1bml0cyI6Im1ldHJpYyIsIm5hbWUiOiJQb3VsYWlsbGVyIHN1ciBwaWVkcyBwb3VyIDQgcG91bGVzIiwic3RvY2siOjQwMDB9">L’ouvrir</a></td></tr>
+        <tr><td data-h="Poules"><b>5</b></td><td data-h="Le projet">Poulailler 1,3 m x 1,5 m sur pieds, au-dessus d’un enclos de 3,3 m</td><td data-h="Abri ; enclos">1,95 m² ; 4,95 m²</td><td data-h="Au sol">3,6 m x 1,5 m</td><td class="num" data-h="Pondoirs">2</td><td data-h="Dans l’outil"><a href="/fr/poulailler/#prefill=eyJ2IjoxLCJ0eXBlIjoiaG91c2UiLCJ1bml0cyI6Im1ldHJpYyIsIm5hbWUiOiJQb3VsYWlsbGVyIHN1ciBwaWVkcyBwb3VyIDUgcG91bGVzIiwiYmlyZHMiOjUsImNvb3AiOnsiZCI6MTUwMCwiaCI6MTIyMCwiaDIiOjk4MH0sInN0b2NrIjo0MDAwLCJuZXN0cyI6Mn0">L’ouvrir</a></td></tr>
+        <tr><td data-h="Poules"><b>6</b></td><td data-h="Le projet">Poulailler 1,5 m x 1,5 m sur pieds, au-dessus d’un enclos de 3,9 m</td><td data-h="Abri ; enclos">2,25 m² ; 5,85 m²</td><td data-h="Au sol">4,2 m x 1,5 m</td><td class="num" data-h="Pondoirs">2</td><td data-h="Dans l’outil"><a href="/fr/poulailler/#prefill=eyJ2IjoxLCJ0eXBlIjoiaG91c2UiLCJ1bml0cyI6Im1ldHJpYyIsIm5hbWUiOiJQb3VsYWlsbGVyIHN1ciBwaWVkcyBwb3VyIDYgcG91bGVzIiwiYmlyZHMiOjYsImNvb3AiOnsidyI6MTUwMCwiZCI6MTUwMCwiaCI6MTIyMCwiaDIiOjk4MH0sInJ1biI6eyJsIjozOTAwfSwic3RvY2siOjQwMDAsIm5lc3RzIjoyfQ">L’ouvrir</a></td></tr>
+        <tr><td data-h="Poules"><b>8</b></td><td data-h="Le projet">Poulailler 1,7 m x 1,8 m sur pieds, au-dessus d’un enclos de 4,2 m</td><td data-h="Abri ; enclos">3,06 m² ; 7,56 m²</td><td data-h="Au sol">4,5 m x 1,8 m</td><td class="num" data-h="Pondoirs">2</td><td data-h="Dans l’outil"><a href="/fr/poulailler/#prefill=eyJ2IjoxLCJ0eXBlIjoiaG91c2UiLCJ1bml0cyI6Im1ldHJpYyIsIm5hbWUiOiJQb3VsYWlsbGVyIHN1ciBwaWVkcyBwb3VyIDggcG91bGVzIiwiYmlyZHMiOjgsInlhcmQiOnsidyI6NzAwMH0sImNvb3AiOnsidyI6MTcwMCwiZCI6MTgwMCwiaCI6MTIyMCwiaDIiOjkzMH0sInJ1biI6eyJsIjo0MjAwfSwibmVzdHMiOjJ9">L’ouvrir</a></td></tr>
+        <tr><td data-h="Poules"><b>10</b></td><td data-h="Le projet">Cabane 2,1 m x 1,8 m, à côté d’un enclos de 5,4 m x 1,8 m</td><td data-h="Abri ; enclos">3,78 m² ; 9,72 m²</td><td data-h="Au sol">7,5 m x 1,8 m</td><td class="num" data-h="Pondoirs">3</td><td data-h="Dans l’outil"><a href="/fr/poulailler/#prefill=eyJ2IjoxLCJ0eXBlIjoid2Fsa2luIiwidW5pdHMiOiJtZXRyaWMiLCJuYW1lIjoiQ2FiYW5lIHBvdXIgMTAgcG91bGVzIiwiYmlyZHMiOjEwLCJ5YXJkIjp7InciOjgwMDAsImQiOjUwMDB9LCJjb29wIjp7InciOjIxMDB9LCJydW4iOnsibCI6NTQwMH0sInN0b2NrIjo0MDAwLCJuZXN0cyI6M30">L’ouvrir</a></td></tr>
+        <tr><td data-h="Poules"><b>12</b></td><td data-h="Le projet">Cabane 2,5 m x 1,8 m, à côté d’un enclos de 6,3 m x 1,8 m</td><td data-h="Abri ; enclos">4,50 m² ; 11,34 m²</td><td data-h="Au sol">8,8 m x 1,8 m</td><td class="num" data-h="Pondoirs">3</td><td data-h="Dans l’outil"><a href="/fr/poulailler/#prefill=eyJ2IjoxLCJ0eXBlIjoid2Fsa2luIiwidW5pdHMiOiJtZXRyaWMiLCJuYW1lIjoiQ2FiYW5lIHBvdXIgMTIgcG91bGVzIiwiYmlyZHMiOjEyLCJ5YXJkIjp7InciOjkwMDAsImQiOjUwMDB9LCJjb29wIjp7InciOjI1MDB9LCJydW4iOnsibCI6NjMwMH0sInN0b2NrIjo0MDAwLCJuZXN0cyI6M30">L’ouvrir</a></td></tr>
+        <tr><td data-h="Poules"><b>15</b></td><td data-h="Le projet">Cabane 2,4 m x 2,4 m, à côté d’un enclos de 6 m x 2,4 m</td><td data-h="Abri ; enclos">5,76 m² ; 14,40 m²</td><td data-h="Au sol">8,4 m x 2,4 m</td><td class="num" data-h="Pondoirs">4</td><td data-h="Dans l’outil"><a href="/fr/poulailler/#prefill=eyJ2IjoxLCJ0eXBlIjoid2Fsa2luIiwidW5pdHMiOiJtZXRyaWMiLCJuYW1lIjoiQ2FiYW5lIHBvdXIgMTUgcG91bGVzIiwiYmlyZHMiOjE1LCJ5YXJkIjp7InciOjExMDAwLCJkIjo1MDAwfSwiY29vcCI6eyJ3IjoyNDAwLCJkIjoyNDAwLCJoIjoyMzcwfSwicnVuIjp7ImwiOjYwMDB9LCJzdG9jayI6NDAwMCwibmVzdHMiOjR9">L’ouvrir</a></td></tr>
+        <tr><td data-h="Poules"><b>20</b></td><td data-h="Le projet">Cabane 3,1 m x 2,4 m, à côté d’un enclos de 7,8 m x 2,4 m</td><td data-h="Abri ; enclos">7,44 m² ; 18,72 m²</td><td data-h="Au sol">10,9 m x 2,4 m</td><td class="num" data-h="Pondoirs">5</td><td data-h="Dans l’outil"><a href="/fr/poulailler/#prefill=eyJ2IjoxLCJ0eXBlIjoid2Fsa2luIiwidW5pdHMiOiJtZXRyaWMiLCJuYW1lIjoiQ2FiYW5lIHBvdXIgMjAgcG91bGVzIiwiYmlyZHMiOjIwLCJ5YXJkIjp7InciOjEzMDAwLCJkIjo1MDAwfSwiY29vcCI6eyJ3IjozMTAwLCJkIjoyNDAwLCJoIjoyMzcwfSwicnVuIjp7ImwiOjc4MDB9LCJzdG9jayI6NDAwMCwibmVzdHMiOjV9">L’ouvrir</a></td></tr>
+        <tr><td data-h="Poules"><b>30</b></td><td data-h="Le projet">Cabane 3,8 m x 3 m, à côté d’un enclos de 9,3 m x 3 m</td><td data-h="Abri ; enclos">11,40 m² ; 27,90 m²</td><td data-h="Au sol">13,1 m x 3 m</td><td class="num" data-h="Pondoirs">8</td><td data-h="Dans l’outil"><a href="/fr/poulailler/#prefill=eyJ2IjoxLCJ0eXBlIjoid2Fsa2luIiwidW5pdHMiOiJtZXRyaWMiLCJuYW1lIjoiQ2FiYW5lIHBvdXIgMzAgcG91bGVzIiwiYmlyZHMiOjMwLCJ5YXJkIjp7InciOjE4MDAwLCJkIjo3MDAwfSwiY29vcCI6eyJ3IjozODAwLCJkIjozMDAwLCJoIjoyNDYwfSwicnVuIjp7ImwiOjkzMDB9LCJzdG9jayI6NDAwMCwibmVzdHMiOjh9">L’ouvrir</a></td></tr>
+      </tbody>
+    </table>
+
+    <h2>Ce qui compte comme surface</h2>
+    <p>L’outil compte le plancher à l’intérieur des murs, là où les poules dorment, pondent et attendent la fin d’une averse. Les pondoirs accrochés dehors n’en prennent rien, les perchoirs au-dessus du plancher non plus. Sous un poulailler monté sur pieds, le sol reste aux poules : ombragé et à l’abri de la pluie, il compte pour l’enclos, et l’outil indique combien il en représente.</p>
+
+    <h2>Pour des poules naines</h2>
+    <p>Une poule naine fait de la moitié au quart du poids d’une poule standard (<a href="https://ask.ifas.ufl.edu/publication/an239" rel="noopener" hreflang="en">Floride</a>), mais le tableau de 2023 lui laisse encore 0,19 à 0,28 m² dans l’abri, contre 0,28 à 0,37 m² pour une pondeuse. Douze poules naines tiennent dans un poulailler sur pieds de 1,9 m x 1,8 m, soit 3,42 m² de plancher ; douze poules standard demandent une cabane de 2,5 m x 1,8 m, avec 4,50 m². Leurs perchoirs sont plus courts et plus bas : 10 cm de barre par poule, à 30 à 45 cm du plancher, contre 15 cm et 45 à 60 cm pour une poule standard (<a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener" hreflang="en">Penn State</a>).</p>
+
+    <h2>Et en hauteur ?</h2>
+    <p>Aucun guide ne fixe la hauteur de l’abri lui-même ; ils en fixent une pour ce qu’il contient. Les perchoirs vont à 45 à 60 cm du plancher et jamais plus haut que 1,20 m, pour que les poules lourdes ne se blessent pas en sautant (<a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener" hreflang="en">Penn State</a>), et les pondoirs à environ 60 cm du sol. Une cabane où l’on entre demande surtout de la hauteur pour vous : l’outil monte son enclos à 1,80 m, avec une porte à votre taille.</p>
+
+    <div class="co-callout"><p>C’est ensuite votre terrain qui décide. Indiquez sa taille dans l’outil : il y garde le poulailler et l’enclos, et vous prévient si les poules sont trop nombreuses pour la place. <a href="/fr/poulailler/#prefill=eyJ2IjoxLCJ0eXBlIjoiaG91c2UiLCJ1bml0cyI6Im1ldHJpYyIsIm5hbWUiOiJQb3VsYWlsbGVyIHN1ciBwaWVkcyBwb3VyIDYgcG91bGVzIiwiYmlyZHMiOjYsImNvb3AiOnsidyI6MTUwMCwiZCI6MTUwMCwiaCI6MTIyMCwiaDIiOjk4MH0sInJ1biI6eyJsIjozOTAwfSwic3RvY2siOjQwMDAsIm5lc3RzIjoyfQ">Ouvrir le projet pour six poules</a>.</p></div>
+
+  </article>
+
+  <section class="co-sec co-article co-faq-sec" aria-labelledby="faq-h">
+    <h2 id="faq-h">Questions</h2>
+    <div class="co-faq">
+      <details><summary>Quelle surface pour 5 poules ?</summary><div class="answer"><p>De 1,4 à 1,9 m² dans l’abri et 4,6 m² d’enclos, aux chiffres de Virginia Tech. Pour cinq poules, l’outil dessine un poulailler sur pieds de 1,3 m x 1,5 m : 1,95 m² à l’intérieur et 4,95 m² d’enclos.</p></div></details>
+      <details><summary>Quelle surface pour des poules naines ?</summary><div class="answer"><p>0,19 à 0,28 m² chacune dans l’abri et 0,46 à 0,74 m² dans l’enclos (Virginia Tech, 2023). Les minimums plus anciens sont de 0,09 m² dedans et 0,37 m² dehors (Penn State, Maryland).</p></div></details>
+      <details><summary>Les 4 m² par poule, c’est obligatoire ?</summary><div class="answer"><p>Non, pas pour une basse-cour : c’est la règle des élevages qui vendent des œufs plein air, sur un parcours en herbe (fiche des Chambres d’agriculture). Les guides de basse-cour donnent moins d’un mètre carré d’enclos par poule ; offrir plus, ou laisser les poules sortir au jardin, ne gâte rien.</p></div></details>
+      <details><summary>Pour six poules, combien de place ?</summary><div class="answer"><p>De 1,7 à 2,2 m² d’abri et 5,6 m² d’enclos. Le projet de l’outil pour six poules en offre 2,25 m² et 5,85 m², sur 4,2 m x 1,5 m au sol.</p></div></details>
+    </div>
+  </section>
+
+  <section class="co-sec co-more" aria-labelledby="more-h">
+    <h2 id="more-h">Avant de construire</h2>
+    <ul class="co-guides">
+      <li><a href="/fr/poulailler/"><b>Concevoir un poulailler en 3D</b></a></li>
+      <li><a href="/fr/poulailler/construire-un-poulailler-pour-4-poules/"><b>Construire pour 4 poules</b><span>Un abri sur pieds, le bois à acheter et le montage.</span></a></li>
+      <li><a href="/fr/poulailler/plan-poulailler-10-poules/"><b>Plan pour 10 poules</b><span>Une cabane où l’on entre debout, à imprimer en PDF.</span></a></li>
+      <li><a href="/fr/poulailler/plan-poulailler-mobile/"><b>Plan de poulailler mobile</b><span>L’abri sur roues au bout d’un enclos que l’on déplace.</span></a></li>
+    </ul>
+  </section>
+
+  <section class="co-sec co-sources" aria-labelledby="src-h">
+    <h2 id="src-h">Sources</h2>
+    <p class="co-small">Lues le 13 octobre 2026 :</p>
+    <ul class="co-srcshort">
+      <li><a href="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:31999L0074" rel="noopener" title="Directive 1999/74/CE du Conseil du 19 juillet 1999 établissant les normes minimales relatives à la protection des poules pondeuses (article 1 et annexe)">Directive 1999/74/CE</a></li>
+      <li><a href="https://oaba.fr/PDF/Fiche_regl.pdf" rel="noopener" title="Chambres d’agriculture de Bretagne et des Pays de la Loire : Fiche Poules pondeuses n° 1, Réglementation bien-être sur l’élevage des poules pondeuses (juin 2011)">Chambres d’agriculture, fiche poules pondeuses</a></li>
+    </ul>
+    <p class="co-small">Lues le 12 octobre 2026 :</p>
+    <ul class="co-srcshort">
+      <li><a href="https://www.pubs.ext.vt.edu/2902/2902-1092/2902-1092.html" rel="noopener" title="Virginia Cooperative Extension: Small-scale Poultry Housing, 2902-1092 (APSC-186NP), Leonie Jacobs and Phillip J. Clauer, 28 April 2023" hreflang="en" lang="en">Virginia Tech 2902-1092</a></li>
+      <li><a href="https://poultry.extension.org/articles/getting-started-with-small-and-backyard-poultry/housing-for-small-and-backyard-poultry-flocks/space-allowances-in-housing-for-small-and-backyard-poultry-flocks/" rel="noopener" title="Small and Backyard Poultry (extension.org): Space Allowances in Housing for Small and Backyard Poultry Flocks" hreflang="en">Poultry Extension, surfaces</a></li>
+      <li><a href="https://extension.oregonstate.edu/catalog/ec-1644-living-land-backyard-chicken-coop-design" rel="noopener" title="Oregon State University Extension: Living on the land, Backyard chicken coop design, EC 1644 (April 2014, reviewed 2023)" hreflang="en" lang="en">Oregon State EC 1644</a></li>
+      <li><a href="https://ask.ifas.ufl.edu/publication/an239" rel="noopener" title="University of Florida IFAS Extension: AN239, Raising Backyard Chickens for Eggs (Mary E. Henry and others)" hreflang="en" lang="en">UF/IFAS AN239</a></li>
+      <li><a href="https://www.udel.edu/academics/colleges/canr/cooperative-extension/fact-sheets/steam-team-chicken-housing-and-coop-maintenance/" rel="noopener" title="University of Delaware Cooperative Extension: Steam Team, Chicken Housing and Coop Maintenance (Twila Parish-Short, May 2025)" hreflang="en" lang="en">Delaware Extension</a></li>
+      <li><a href="https://warren.cce.cornell.edu/agriculture/backyard-chickens" rel="noopener" title="Cornell Cooperative Extension of Warren County: Backyard Chickens (last updated 14 November 2022)" hreflang="en">Cornell, comté de Warren</a></li>
+      <li><a href="https://extension.umaine.edu/4h/egg-business-project/housing-your-pullets/" rel="noopener" title="University of Maine Cooperative Extension: Housing Your Pullets, Four Options and Other Considerations (Richard Brzozowski)" hreflang="en" lang="en">Maine Extension</a></li>
+      <li><a href="https://poultry.extension.org/articles/getting-started-with-small-and-backyard-poultry/housing-for-small-and-backyard-poultry-flocks/small-scale-poultry-housing/" rel="noopener" title="Small and Backyard Poultry (extension.org): Small-Scale Poultry Housing, Overview (Jacquie Jacob, University of Kentucky)" hreflang="en">Poultry Extension, logement</a></li>
+      <li><a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener" title="Penn State Extension: Small Scale Poultry Housing (Phillip Clauer; reviewed by Gregory P. Martin; updated 25 June 2026)" hreflang="en">Penn State, logement des volailles</a></li>
+      <li><a href="https://extension.umd.edu/resource/housing-requirements" rel="noopener" title="University of Maryland Extension: Housing Requirements (Jonathan Moyle; updated 11 May 2022)" hreflang="en">Maryland, logement</a></li>
+    </ul>
+    <p class="co-small">Des conseils pour un projet de bricolage, pas une garantie d’ingénierie. Sans lien avec les fabricants, les enseignes, les universités ni les administrations cités ici.</p>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">De petits outils soignés, chacun pour une tâche précise. Vos projets sont calculés dans votre navigateur et ne sont jamais envoyés.</p>
+      <p style="margin:12px 0 0">Conçu par <a href="https://peakappsstudio.com/">Peak Apps Studio</a>.<br>Écrivez-nous à <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Poulailler en 3D</h2>
+      <ul>
+        <li><a href="/fr/poulailler/">Concevoir un poulailler</a></li>
+        <li><a href="/fr/poulailler/construire-un-poulailler-pour-4-poules/">Construire un poulailler pour 4 poules</a></li>
+        <li><a href="/fr/poulailler/plan-poulailler-10-poules/">Plan de poulailler pour 10 poules</a></li>
+        <li><a href="/fr/poulailler/plan-poulailler-mobile/">Plan de poulailler mobile</a></li>
+        <li><a href="/fr/poulailler/surface-poulailler-par-poule/">Quelle surface de poulailler par poule ?</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Autres langues</h2>
+      <ul>
+        <li><a href="/coop-designer/" hreflang="en" lang="en">Coop Designer (English)</a></li>
+        <li><a href="/es/gallinero/" hreflang="es" lang="es">Gallinero en 3D (español)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Outils pour la maison (en anglais)</h2>
+      <ul>
+        <li><a href="/without-planning/" hreflang="en" lang="en">Without Planning</a></li>
+        <li><a href="/dropped-kerb/" hreflang="en" lang="en">Dropped Kerb Check</a></li>
+        <li><a href="/catio-designer/" hreflang="en" lang="en">Catio Designer</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>À propos</h2>
+      <ul>
+        <li><a href="/tools/" hreflang="en">Tous les outils (en anglais)</a></li>
+        <li><a href="/tools/privacy/" hreflang="en">Confidentialité et licences (en anglais)</a></li>
+        <li><a href="https://peakappsstudio.com/">Le studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+</html>

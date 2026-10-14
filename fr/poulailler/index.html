@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plan de poulailler gratuit en 3D, avec la liste de matériaux</title>
+<meta name="description" content="Dessinez votre poulailler en ligne, gratuitement : sur pieds, cabane, en A ou mobile, à la taille de vos poules, en 3D, vérifié et avec la liste de matériaux.">
+<link rel="canonical" href="https://peakappsstudio.com/fr/poulailler/">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/coop-designer/">
+<link rel="alternate" hreflang="fr" href="https://peakappsstudio.com/fr/poulailler/">
+<link rel="alternate" hreflang="es" href="https://peakappsstudio.com/es/gallinero/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/coop-designer/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Plan de poulailler gratuit en 3D, avec la liste de matériaux">
+<meta property="og:description" content="Indiquez vos poules et votre terrain : le poulailler et l’enclos en 3D, la place par poule, les pondoirs, les perchoirs et le grillage vérifiés, et chaque barre et chaque rouleau à acheter. Gratuit, sans compte.">
+<meta property="og:url" content="https://peakappsstudio.com/fr/poulailler/">
+<meta property="og:image" content="https://peakappsstudio.com/coop-designer/og-fr.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#dcefea">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/coop-designer/fonts/geologica-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/coop-designer/fonts/parkinsans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="/coop-designer/img/poster-960.webp" imagesrcset="/coop-designer/img/poster-480.webp 480w, /coop-designer/img/poster-960.webp 960w, /coop-designer/img/poster-1440.webp 1440w" imagesizes="(max-width: 960px) 100vw, 64vw" fetchpriority="high">
+<link rel="stylesheet" href="/assets/tools.css">
+<style data-from="/coop-designer/tool.css">
+/* Coop Designer: the tool's own identity, scoped to body.co-page (the shared header and footer keep their structure).
+ * Taken from the eggs a backyard flock lays: a duck-egg page (the blue eggs), chocolate ink (the darkest brown eggs),
+ * yolk for Pro and "check", an olive-egg green for links and focus, a garden-leaf green for "fits", a fox red for
+ * "fail", pine for wood only. Type: Parkinsans (plump and sturdy, headings only) and Geologica (everything read,
+ * tabular figures). Signature: a carton row of real egg colours, used once under the hero. */
+
+@font-face { font-family: "Parkinsans"; src: url("/coop-designer/fonts/parkinsans-latin.woff2") format("woff2"); font-weight: 600 800; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Parkinsans"; src: url("/coop-designer/fonts/parkinsans-latin-ext.woff2") format("woff2"); font-weight: 600 800; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Geologica"; src: url("/coop-designer/fonts/geologica-latin.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Geologica"; src: url("/coop-designer/fonts/geologica-latin-ext.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+/* fallbacks sized to the web fonts' average widths and heights (from _build/fonts.py), so the swap does not move the layout */
+@font-face { font-family: "Geologica Fallback"; src: local("Arial"), local("Helvetica Neue"), local("Helvetica"); size-adjust: 108.6%; ascent-override: 89.8%; descent-override: 25.3%; line-gap-override: 0%; }
+@font-face { font-family: "Parkinsans Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Helvetica Neue Bold"); font-weight: 600 800; size-adjust: 108.7%; ascent-override: 96.6%; descent-override: 32.2%; line-gap-override: 0%; }
+
+body.co-page {
+  --egg: #dcefea; --egg-2: #c9e6df; --egg-3: #b3d9d0; --paper: #ffffff; --paper-2: #f2f9f6;
+  --choc: #2e1a12; --choc-2: #5f4a3e; --choc-3: #8a776b;
+  --yolk: #ffb000; --olive: #56701a; --leaf: #9bc53d; --fox: #c63d2f; --fox-ink: #ffffff; --pine: #d9a35f;
+  --card: var(--paper); --ink: var(--choc); --ink-2: var(--choc-2); --muted: var(--choc-2);
+  --line: rgba(46, 26, 18, .13); --line-2: rgba(46, 26, 18, .26);
+  --accent: var(--choc); --accent-ink: #ffffff; --ok: var(--olive); --warn: #8a5200;
+  --btn: var(--choc); --btn-ink: #ffffff; --link: var(--olive);
+  --sans: "Geologica", "Geologica Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: var(--sans);
+  --display: "Parkinsans", "Parkinsans Fallback", sans-serif;
+  --r-panel: 20px; --r-field: 10px; --r-chip: 8px;
+  background: var(--egg); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.58; font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.co-page {
+    --egg: #1b1410; --egg-2: #2a1f18; --egg-3: #3a2b21; --paper: #241a14; --paper-2: #2c2019;
+    --choc: #f4ede4; --choc-2: #d2c4b6; --choc-3: #a8988a;
+    --olive: #b8d36b; --leaf: #a8d45a; --fox: #ff7a6b; --fox-ink: #2a0905; --warn: #ffc15a;
+    --btn: #f4ede4; --btn-ink: #1b1410; --link: #b8d36b;
+    --card: var(--paper); --line: rgba(244, 237, 228, .13); --line-2: rgba(244, 237, 228, .26);
+  }
+}
+:root[data-theme="dark"] body.co-page {
+  --egg: #1b1410; --egg-2: #2a1f18; --egg-3: #3a2b21; --paper: #241a14; --paper-2: #2c2019;
+  --choc: #f4ede4; --choc-2: #d2c4b6; --choc-3: #a8988a;
+  --olive: #b8d36b; --leaf: #a8d45a; --fox: #ff7a6b; --fox-ink: #2a0905; --warn: #ffc15a;
+  --btn: #f4ede4; --btn-ink: #1b1410; --link: #b8d36b;
+  --card: var(--paper); --line: rgba(244, 237, 228, .13); --line-2: rgba(244, 237, 228, .26);
+}
+
+/* ---------- type ---------- */
+.co-page h1, .co-page h2, .co-page h3 { font-family: var(--display); font-weight: 800; letter-spacing: -0.015em; line-height: 1.03; text-wrap: balance; color: var(--choc); }
+.co-page h1 { font-size: clamp(38px, 5.2vw, 68px); margin: 0; max-width: 15ch; }
+.co-page h2 { font-size: clamp(27px, 3vw, 40px); font-weight: 800; margin: 0 0 12px; }
+/* the site footer keeps its own small column headings (the rule above would make them section titles) */
+.co-page .site-foot h2 { font-family: var(--sans); font-size: 15px; font-weight: 600; letter-spacing: 0; line-height: 1.35; color: var(--ink); margin: 0 0 10px; }
+.co-page h3 { font-size: 21px; font-weight: 700; margin: 0 0 6px; letter-spacing: -0.005em; }
+.co-page p { max-width: 68ch; }
+.co-page .lede { font-size: clamp(18px, 1.5vw, 20px); color: var(--ink); margin: 0; }
+.co-page a { color: var(--choc); text-decoration-color: var(--olive); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.co-page a:hover { color: var(--olive); }
+.co-page table a, .co-page .co-card a { color: var(--link); text-decoration-thickness: 1px; }
+.co-page :focus-visible { outline: 3px solid var(--olive); outline-offset: 2px; border-radius: 4px; }
+.co-page ::selection { background: var(--yolk); color: #2e1a12; }
+.co-page .btn { border-radius: var(--r-field); font-weight: 600; font-size: 16px; padding: 12px 18px; }
+.co-page .btn-primary { background: var(--btn); border-color: var(--btn); color: var(--btn-ink); }
+.co-page .btn-primary:hover { background: color-mix(in oklab, var(--btn) 84%, var(--olive)); border-color: color-mix(in oklab, var(--btn) 84%, var(--olive)); color: var(--btn-ink); }
+.co-page .btn-yolk { background: var(--yolk); border-color: var(--yolk); color: #2e1a12; }
+.co-page .btn-yolk:hover { background: #f2a400; border-color: #f2a400; color: #2e1a12; }
+.co-page .btn-ghost { background: transparent; }
+.co-small { font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- the language switch, on the coop pages only (English, French, Spanish editions) ---------- */
+.co-topline { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin: 22px 0 0; }
+.co-topline .crumbs { margin: 0; }
+.co-langs { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.co-langs a { font-size: 13.5px; font-weight: 600; line-height: 1.2; text-decoration: none; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--ink-2); background: color-mix(in oklab, var(--paper) 60%, transparent); }
+.co-langs a:hover { border-color: var(--olive); color: var(--ink); }
+.co-langs a[aria-current="true"] { background: var(--choc); border-color: var(--choc); color: var(--paper); }
+
+/* ---------- hero ---------- */
+.co-hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(18px, 4vw, 56px); align-items: end; padding: clamp(12px, 2.4vw, 28px) 0 clamp(12px, 1.6vw, 18px); }
+.co-hero-side { display: grid; gap: 16px; }
+/* the signature: one carton row of eggs in the colours a mixed flock lays */
+.co-eggs { display: block; width: 100%; height: 44px; margin: 2px 0 18px; }
+.co-eggs .co-cup { fill: var(--egg-3); }
+@media (max-width: 600px) { .co-eggs { height: 34px; margin-bottom: 14px; } }
+
+/* the four types, as line drawings */
+.co-types { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; border: 0; padding: 0; margin: 0; }
+.co-types legend { font-weight: 600; font-size: 15px; margin-bottom: 8px; padding: 0; }
+.co-type { position: relative; display: grid; justify-items: center; gap: 4px; padding: 10px 6px 9px; border-radius: 12px; border: 1.5px solid var(--line-2); background: color-mix(in oklab, var(--paper) 50%, transparent); cursor: pointer; text-align: center; font-size: 14px; font-weight: 600; line-height: 1.2; color: var(--ink); }
+.co-type input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.co-type svg { width: 66px; height: 46px; color: var(--choc-2); }
+.co-type:has(input:checked) { border-color: var(--choc); background: var(--paper); box-shadow: inset 0 -4px 0 var(--yolk); }
+.co-type:has(input:checked) svg { color: var(--choc); }
+.co-type:has(input:focus-visible) { outline: 3px solid var(--olive); outline-offset: 2px; }
+.co-type .wood { color: var(--pine); }
+@media (max-width: 900px) { .co-hero { grid-template-columns: 1fr; align-items: start; } }
+@media (max-width: 460px) { .co-types { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------- the bench: the 3D view beside the form ---------- */
+.co-bench { display: grid; grid-template-columns: minmax(0, 1fr) minmax(330px, 410px); background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-panel); overflow: clip; }
+.co-stage { border-right: 1px solid var(--line); min-width: 0; }
+.co-sticky { position: sticky; top: 0; }
+.co-view { position: relative; aspect-ratio: 16 / 10; background: linear-gradient(180deg, #bfe0f2, #e4f1ee 62%, #fde8cf); overflow: hidden; }
+.co-view img, .co-view canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; }
+.co-view canvas { touch-action: none; cursor: grab; }
+.co-view canvas:active { cursor: grabbing; }
+.co-badge { position: absolute; left: 12px; top: 12px; background: var(--yolk); color: #2e1a12; font-weight: 700; font-size: 13.5px; padding: 4px 10px; border-radius: var(--r-chip); }
+.co-gl-note { position: absolute; left: 12px; right: 12px; bottom: 60px; margin: 0; background: var(--paper); color: var(--ink); padding: 8px 12px; border-radius: var(--r-field); font-size: 14.5px; }
+.co-start { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); display: inline-flex; gap: 8px; align-items: center; background: #2e1a12; color: #fff; border: 0; border-radius: 999px; padding: 11px 18px; font: inherit; font-weight: 600; font-size: 15.5px; cursor: pointer; box-shadow: 0 6px 18px rgba(46, 26, 18, .3); }
+.co-start svg { width: 18px; height: 18px; }
+.co-start[disabled] { opacity: .8; cursor: progress; }
+.co-tags { position: absolute; inset: 0; pointer-events: none; }
+.co-tag { position: absolute; left: 0; top: 0; white-space: nowrap; font-size: 13.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: rgba(255, 255, 255, .95); color: #2e1a12; box-shadow: 0 1px 0 rgba(46, 26, 18, .25); }
+.co-tag-fail { background: #c63d2f; color: #fff; }
+.co-tag-check { background: #ffb000; color: #2e1a12; }
+.co-tag-fits { background: #9bc53d; color: #2e1a12; }
+.co-toolbar { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; padding: 10px 14px; border-top: 1px solid var(--line); background: var(--paper-2); }
+.co-seg { display: inline-flex; border: 1px solid var(--line-2); border-radius: var(--r-field); overflow: hidden; }
+.co-seg button { font: inherit; font-size: 14.5px; font-weight: 600; padding: 7px 11px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+.co-seg button + button { border-left: 1px solid var(--line-2); }
+.co-seg button[aria-pressed="true"] { background: var(--choc); color: var(--paper); }
+.co-sun { display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 600; }
+.co-sun input[type="range"] { width: 130px; accent-color: var(--yolk); }
+.co-sun output { min-width: 3.2em; font-variant-numeric: tabular-nums; }
+.co-henbtn { font: inherit; font-size: 14.5px; font-weight: 600; padding: 7px 12px; border-radius: var(--r-field); border: 1.5px solid var(--yolk); background: transparent; color: var(--ink); cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.co-henbtn svg { width: 18px; height: 18px; color: var(--choc); }
+.co-toolbar[hidden] { display: none; }
+
+/* the title block under the view: what this design is, and how its checks came out */
+.co-title { padding: 14px 16px 16px; display: grid; gap: 10px; }
+.co-title h2 { font-size: clamp(23px, 2.3vw, 29px); margin: 0; }
+.co-title p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
+.co-counts { display: flex; flex-wrap: wrap; gap: 8px; }
+.co-count { display: inline-flex; color: var(--ink); gap: 6px; align-items: baseline; padding: 4px 10px; border-radius: var(--r-chip); font-size: 14.5px; font-weight: 600; border: 1px solid var(--line-2); }
+.co-count b { font-size: 18px; }
+.co-count.ct-fits { background: color-mix(in oklab, var(--leaf) 30%, var(--paper)); }
+.co-count.ct-check { background: color-mix(in oklab, var(--yolk) 30%, var(--paper)); }
+.co-count.ct-fail { background: color-mix(in oklab, var(--fox) 20%, var(--paper)); }
+.co-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13.5px; color: var(--ink-2); }
+
+/* ---------- the form ---------- */
+.co-form { padding: 6px 16px 18px; display: grid; gap: 4px; align-content: start; }
+.co-step { border: 0; padding: 12px 0 14px; margin: 0; border-bottom: 1px solid var(--line); }
+.co-step:last-child { border-bottom: 0; }
+.co-step > legend { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 20px; padding: 0; margin: 0 0 10px; color: var(--choc); }
+.co-step-n { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50% 50% 46% 46% / 58% 58% 42% 42%; background: var(--egg-3); color: #2e1a12; font-family: var(--sans); font-size: 15px; font-weight: 700; }
+.co-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 12px; }
+.co-field { display: grid; gap: 4px; align-content: start; font-size: 14.5px; font-weight: 600; min-width: 0; }
+.co-field.wide { grid-column: 1 / -1; }
+.co-field small { font-weight: 400; color: var(--ink-2); font-size: 13.5px; line-height: 1.35; }
+.co-in { position: relative; display: flex; align-items: center; }
+.co-in input { padding-right: 38px; }
+.co-in i { position: absolute; right: 10px; font-style: normal; font-weight: 500; font-size: 14px; color: var(--ink-2); pointer-events: none; }
+.co-form input[type="number"], .co-form input[type="text"], .co-form select, .co-shop input, .co-pro input[type="text"] {
+  width: 100%; min-width: 0; font: inherit; font-size: 16px; font-weight: 500; padding: 9px 10px; border: 1px solid var(--line-2); border-radius: var(--r-field); background: var(--paper); color: var(--ink); }
+.co-form input:focus, .co-form select:focus, .co-shop input:focus { outline: none; border-color: var(--olive); box-shadow: 0 0 0 3px color-mix(in oklab, var(--olive) 24%, transparent); }
+.co-row { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
+.co-check { display: flex; gap: 8px; align-items: flex-start; font-size: 14.5px; font-weight: 500; }
+.co-check input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--olive); flex: none; }
+.co-auto { margin: 2px 0 10px; padding: 9px 11px; border-radius: var(--r-field); background: var(--paper-2); border: 1px dashed var(--line-2); }
+.co-pro-tag { display: inline-block; font-size: 12.5px; font-weight: 700; padding: 1px 7px; border-radius: 5px; background: var(--yolk); color: #2e1a12; margin-left: 6px; vertical-align: 1px; }
+[data-show][hidden] { display: none !important; }
+@media (max-width: 960px) { .co-bench { grid-template-columns: 1fr; } .co-stage { border-right: 0; border-bottom: 1px solid var(--line); } .co-sticky { position: static; } }
+
+/* ---------- actions ---------- */
+.co-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 16px 0 6px; }
+.co-actions .hint { font-size: 14px; color: var(--ink-2); }
+.co-sample-note { margin: 0 0 10px; font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- sections, tables ---------- */
+.co-sec { margin: clamp(30px, 5vw, 56px) 0 0; }
+.co-sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 20px; margin-bottom: 10px; }
+.co-sec-head p { margin: 0; color: var(--ink-2); font-size: 14.5px; }
+.co-card { background: var(--paper); border: 1px solid var(--line-2); border-radius: 14px; }
+.co-table { width: 100%; border-collapse: collapse; background: var(--paper); border: 1px solid var(--line-2); border-radius: 14px; overflow: hidden; font-size: 15.5px; }
+.co-table caption { caption-side: top; text-align: left; padding: 0 0 8px; color: var(--ink-2); font-size: 14.5px; }
+.co-table th, .co-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.co-table thead th { font-size: 13.5px; font-weight: 700; color: var(--ink-2); background: var(--paper-2); }
+.co-table tbody tr:last-child td { border-bottom: 0; }
+.co-table .num { text-align: right; white-space: nowrap; }
+.co-group td { background: var(--paper-2); font-weight: 700; font-size: 14px; color: var(--ink-2); }
+.co-st { white-space: nowrap; font-weight: 700; font-size: 14px; }
+.co-st span { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: var(--r-chip); }
+.co-st svg { width: 13px; height: 13px; }
+.st-fits span { background: #9bc53d; color: #2e1a12; }
+.st-check span { background: #ffb000; color: #2e1a12; }
+.st-fail span { background: var(--fox); color: var(--fox-ink); }
+.st-info span { background: var(--egg-2); color: var(--ink); }
+.co-why { color: var(--ink-2); font-size: 14.5px; }
+.co-src { font-size: 13.5px; color: var(--ink-2); }
+.co-src a { white-space: normal; }
+.co-shop input { max-width: 110px; text-align: right; padding: 6px 8px; font-size: 15px; }
+.co-total td { font-weight: 700; background: var(--paper-2); }
+@media (max-width: 760px) {
+  .co-table, .co-table tbody, .co-table tr, .co-table td, .co-table caption { display: block; width: 100%; }
+  .co-table thead { display: none; }
+  .co-table caption { padding: 10px 12px 8px; }
+  .co-table tr { border-bottom: 1px solid var(--line); padding: 8px 0; }
+  .co-table td { border: 0; padding: 4px 12px; }
+  .co-table td[data-h]::before { content: attr(data-h); display: block; font-size: 12.5px; font-weight: 700; color: var(--ink-2); }
+  .co-table .num { text-align: left; }
+  .co-shop input { max-width: 100%; text-align: left; }
+}
+
+/* ---------- Pro ---------- */
+.co-pro { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr); gap: 0; background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-panel); overflow: clip; }
+.co-pro-l { padding: clamp(18px, 2.6vw, 30px); display: grid; gap: 14px; align-content: start; min-width: 0; }
+.co-pro-r { padding: clamp(18px, 2.6vw, 30px); background: #2e1a12; color: #f6efe7; display: grid; gap: 12px; align-content: start; }
+.co-pro-r p { color: #e4d8cc; margin: 0; font-size: 14.5px; }
+.co-pro-r .btn-ghost { color: #fff; border-color: rgba(255, 255, 255, .5); }
+.co-pro-r .btn-ghost[aria-busy="true"] { cursor: progress; opacity: .85; }
+.co-pro-r .co-price { font-family: var(--display); font-size: 46px; font-weight: 800; color: #fff; margin: 0; line-height: 1; }
+.co-price small { font-family: var(--sans); font-size: 15px; font-weight: 500; color: #e4d8cc; }
+.co-locked { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.co-locked li { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 10px; align-items: start; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.co-locked svg { width: 16px; height: 16px; margin-top: 3px; color: var(--choc-2); }
+.co-locked b { display: block; font-weight: 700; }
+.co-locked span { display: block; color: var(--ink-2); font-size: 14.5px; }
+.co-locked em { font-style: normal; font-size: 12.5px; font-weight: 700; padding: 2px 8px; border-radius: 5px; background: var(--egg-2); color: var(--ink); }
+.co-locked li.is-open em { background: #9bc53d; color: #2e1a12; }
+.co-pro-out { margin: 0; }
+.co-pro-out img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid var(--line-2); background: #fff; }
+.co-pro-out figcaption { font-size: 13.5px; color: var(--ink-2); margin-top: 6px; }
+.co-pro-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.co-addons { border: 1px solid var(--line-2); border-radius: 12px; padding: 12px 14px; display: grid; gap: 8px; margin: 0; }
+.co-addons legend { font-weight: 700; padding: 0 4px; }
+.co-addons[disabled] { opacity: .62; }
+.co-saved { display: grid; gap: 8px; }
+.co-saved ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.co-saved li { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; font-size: 14.5px; }
+.co-saved li button { font: inherit; font-size: 13.5px; padding: 4px 9px; border-radius: 6px; border: 1px solid var(--line-2); background: var(--paper); color: var(--ink); cursor: pointer; }
+.co-pro-work { display: grid; gap: 14px; }
+.co-pro-work[hidden] { display: none; }
+.co-diagram { width: 100%; height: auto; display: block; background: var(--paper); }
+.co-board { margin: 0 0 6px; }
+.co-board figcaption { font-size: 13.5px; color: var(--ink-2); }
+@media (max-width: 860px) { .co-pro { grid-template-columns: 1fr; } }
+
+/* ---------- guides, FAQ, sources ---------- */
+.co-guides { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0; border-top: 3px solid var(--choc); }
+.co-guides li { border-bottom: 1px solid var(--line-2); }
+.co-guides a { display: grid; gap: 2px; padding: 14px 12px 14px 0; text-decoration: none; color: var(--ink); }
+.co-guides b { font-family: var(--display); font-weight: 700; font-size: 19px; line-height: 1.15; }
+.co-guides span { color: var(--ink-2); font-size: 14.5px; }
+.co-guides a:hover b { color: var(--olive); }
+.co-faq details { border-bottom: 1px solid var(--line-2); padding: 12px 0; }
+.co-faq summary { cursor: pointer; font-weight: 700; font-size: 17.5px; }
+.co-faq .answer p { margin: 8px 0 0; }
+.co-sources { font-size: 14.5px; }
+.co-sources ol { margin: 0; padding-left: 22px; display: grid; gap: 4px; }
+.co-sources li span { color: var(--ink-2); }
+.co-srclist { margin: 10px 0; }
+.co-srclist summary { cursor: pointer; font-weight: 700; padding: 10px 0; min-height: 44px; }
+.co-srclist[open] summary { margin-bottom: 6px; }
+
+/* ---------- guide pages ---------- */
+.co-article { max-width: 780px; }
+.co-article h2 { margin-top: 34px; }
+.co-figure { margin: 18px 0; }
+.co-figure img { width: 100%; height: auto; display: block; border-radius: 14px; border: 1px solid var(--line-2); }
+.co-figure figcaption { font-size: 14px; color: var(--ink-2); margin-top: 6px; }
+.co-callout { background: var(--paper); border: 1px solid var(--line-2); border-left: 5px solid var(--yolk); border-radius: 12px; padding: 14px 16px; margin: 16px 0; }
+.co-callout p { margin: 0; }
+/* the build steps on a support page, numbered */
+.co-steplist { margin: 12px 0 0; padding-left: 1.5em; display: grid; gap: 10px; }
+.co-steplist li { padding-left: 4px; }
+.co-steplist b { color: var(--choc); }
+/* a smaller picture inside a support page */
+.co-fig { margin: 16px 0; max-width: 560px; }
+/* a support page's sources: short names in a row, the full title on hover */
+.co-srcshort { list-style: none; padding: 0; margin: 4px 0 14px; display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 15px; }
+.co-fig img { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line-2); aspect-ratio: 16 / 10; object-fit: cover; }
+.co-fig figcaption { margin-top: 6px; font-size: 14px; color: var(--ink-2); }
+.co-open { display: inline-flex; margin-top: 8px; }
+.co-guide-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(18px, 4vw, 48px); align-items: center; padding: clamp(10px, 2vw, 22px) 0 6px; }
+.co-guide-hero img { width: 100%; height: auto; display: block; border-radius: 16px; border: 1px solid var(--line-2); aspect-ratio: 16 / 10; object-fit: cover; }
+.co-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--paper); overflow: hidden; margin: 16px 0; }
+.co-facts div { padding: 12px 14px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.co-facts b { display: block; font-family: var(--display); font-size: 24px; font-weight: 800; line-height: 1.1; }
+.co-facts span { font-size: 14px; color: var(--ink-2); }
+@media (max-width: 860px) { .co-guide-hero { grid-template-columns: 1fr; } }
+.co-table tr[id] { scroll-margin-top: 84px; }
+.co-table tr:target td { background: color-mix(in oklab, var(--yolk) 26%, var(--paper)); }
+.co-jump { list-style: none; margin: 10px 0 16px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.co-jump a { display: inline-flex; align-items: center; justify-content: center; min-width: 48px; min-height: 44px; padding: 0 12px; border: 1px solid var(--line-2); border-radius: var(--r-chip); background: var(--paper); color: var(--ink); font-weight: 700; text-decoration: none; }
+.co-jump a:hover { border-color: var(--olive); color: var(--olive); }
+.co-table th[scope="row"] { font-weight: 700; }
+/* compact number tables (.co-numgrid) stay a table on a phone: few, short columns */
+@media (max-width: 760px) {
+  .co-table.co-numgrid { display: table; font-size: 14.5px; }
+  .co-table.co-numgrid caption { display: table-caption; }
+  .co-table.co-numgrid thead { display: table-header-group; }
+  .co-table.co-numgrid tbody { display: table-row-group; }
+  .co-table.co-numgrid tr { display: table-row; padding: 0; }
+  .co-table.co-numgrid th, .co-table.co-numgrid td { display: table-cell; width: auto; padding: 8px 5px; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+  .co-table.co-numgrid thead th { font-size: 13px; line-height: 1.25; white-space: normal; vertical-align: bottom; }
+  .co-table.co-numgrid td[data-h]::before { content: none; }
+  .co-table.co-numgrid .num { text-align: right; }
+  .co-table.co-kv td:first-child { width: 36%; }
+  .co-table.co-kv .co-group td { padding-top: 10px; }
+}
+
+/* ---------- print: the shopping list only ---------- */
+@media print {
+  body.co-print-shop .site-head, body.co-print-shop .site-foot, body.co-print-shop main > *:not(#shop), body.co-print-shop .skip { display: none !important; }
+  body.co-print-shop #shop { margin: 0; }
+  body.co-print-shop .co-shop input { border: 0; padding: 0; }
+  body.co-page { background: #fff; }
+  /* a support page printed as a plan (its Print button): the plan without the page around it */
+  body.co-print-plan .site-head, body.co-print-plan .site-foot, body.co-print-plan .skip, body.co-print-plan .co-topline, body.co-print-plan .co-eggs, body.co-print-plan .co-open, body.co-print-plan [data-print], body.co-print-plan .co-more, body.co-print-plan .co-faq-sec { display: none !important; }
+  body.co-print-plan .co-guide-hero { grid-template-columns: 1fr 1fr; }
+  body.co-print-plan .co-table tr { break-inside: avoid; }
+}
+@media (prefers-reduced-motion: reduce) { .co-page * { scroll-behavior: auto !important; transition: none !important; } }
+</style>
+<script>
+/* Le bouton de licence fonctionne avant l’arrivée des scripts de la page : un clic précoce lance leur chargement et ouvre
+   la fenêtre de licence dès que le code de licence est prêt. */
+(function () {
+  document.addEventListener('click', function (e) {
+    var b = e.target && e.target.closest ? e.target.closest('[data-enter-key]') : null;
+    if (!b || window.CoopReady) return;
+    e.preventDefault(); e.stopPropagation();
+    window.CoopWantsKey = true;
+    b.setAttribute('aria-busy', 'true');
+    if (window.CoopLoad) window.CoopLoad();
+  }, true);
+})();
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","@id":"https://peakappsstudio.com/fr/poulailler/#app","name":"Coop Designer","alternateName":"Concepteur de poulailler en 3D","url":"https://peakappsstudio.com/fr/poulailler/","inLanguage":"fr","description":"Conçoit un poulailler de jardin et son enclos pour vos poules et votre terrain : le construit en 3D avec du bois du commerce, vérifie la place par poule au poulailler et dans l’enclos, les pondoirs, les perchoirs, l’aération, le grillage et le grillage enterré d’après les guides de vulgarisation des universités et les règles françaises et européennes, et liste chaque barre, chaque panneau, chaque rouleau de grillage et chaque fixation à acheter. Des conseils sourcés et datés, pas une garantie d’ingénierie.","applicationCategory":"DesignApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Gratuit","price":"0","priceCurrency":"USD","description":"Le projet en 3D, les vérifications avec leurs sources, la liste d’achats avec vos propres prix, un lien de partage et une liste imprimable."},{"@type":"Offer","name":"Pro (paiement unique)","price":"19","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/coop-designer-pro","description":"La liste de débit optimisée avec un schéma par barre, le plan du grillage pour la largeur de votre rouleau avec la partie enterrée, un plan de construction pas à pas en PDF, les options (pondoirs en plus, planche à fientes, deuxième partie d’enclos, porte d’enclos, cabane sur pieds), les projets enregistrés, les unités métriques et impériales, l’export GLB et OBJ et les grands rendus."}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Outils","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Poulailler en 3D","item":"https://peakappsstudio.com/fr/poulailler/"}]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Quelle surface pour un poulailler ?","acceptedAnswer":{"@type":"Answer","text":"Les guides de vulgarisation que nous avons lus donnent de 0,14 à 0,37 m² de sol par poule de taille standard et de 0,07 à 0,28 m² par poule naine, plus 0,37 à 0,93 m² d’enclos par poule. Le tableau le plus récent, celui de Virginia Tech (2023), donne 0,28 à 0,37 m² à l’intérieur et 0,93 m² dehors pour des pondeuses. Coop Designer dimensionne un nouveau poulailler à 0,37 m² et l’enclos à 0,93 m² par poule. La surface pour 2 à 30 poules"}},
+  {"@type":"Question","name":"Combien de pondoirs faut-il ?","acceptedAnswer":{"@type":"Answer","text":"Un pour 3 à 5 poules : un pour 4 à 5 (Maryland, Virginia Tech), un pour 4 (Oregon State), un pour 5 (Maine, Floride). Faites chaque pondoir d’environ 30 cm de côté, à 60 cm du sol environ, avec le perchoir plus haut pour que les poules dorment dessus et pas dans les pondoirs."}},
+  {"@type":"Question","name":"Grillage soudé ou grillage à poules ?","acceptedAnswer":{"@type":"Answer","text":"Du grillage soudé. Le spécialiste de la faune de l’université d’État de l’Utah écrit que le grillage à poules n’arrête pas les prédateurs et recommande du grillage soudé de 6 à 13 mm ; UConn Extension conseille de fermer les poulaillers avec du grillage soudé plutôt qu’avec du grillage à poules. Enterrez-le sur au moins 30 cm, ou posez-le 30 cm vers le bas et 30 cm vers l’extérieur, en L (Colorado State)."}},
+  {"@type":"Question","name":"Faut-il déclarer ses poules à la mairie ?","acceptedAnswer":{"@type":"Answer","text":"Oui. Une basse-cour se déclare à la mairie de la commune, selon l’arrêté du 24 février 2006, avec le formulaire Cerfa 15472 ou en ligne (la démarche sur Service Public). Quand le risque d’influenza aviaire est élevé, le ministère de l’Agriculture demande aussi de confiner les volailles ou de couvrir la basse-cour d’un filet. Votre commune, votre copropriété ou votre bail peuvent ajouter leurs propres règles."}},
+  {"@type":"Question","name":"Où acheter le bois et le grillage ?","acceptedAnswer":{"@type":"Answer","text":"L’outil part des sections et des longueurs vendues en France : demi-chevrons de 38 x 63 mm en 3 et 4 m et chevrons de 63 x 75 mm de 2,4 à 5 m chez Brico Dépôt, tasseaux de 2,40 m chez Castorama, panneaux OSB 3 de 244 x 122 cm, grillage soudé en rouleaux de 1 m de haut. Il ne fournit aucun prix : saisissez ceux de votre magasin dans la liste d’achats. Le bois d’un poulailler pour 4 poules"}},
+  {"@type":"Question","name":"Mes données sont-elles envoyées à un serveur ?","acceptedAnswer":{"@type":"Answer","text":"Non. Le projet, les vérifications et le modèle 3D sont calculés dans votre navigateur. Le lien de partage garde le projet après le signe #, que les navigateurs n’envoient pas aux serveurs. Si vous achetez Pro, seule la clé de licence part chez Gumroad pour être vérifiée."}},
+  {"@type":"Question","name":"Le poulailler résiste-t-il à la neige et au vent ?","acceptedAnswer":{"@type":"Answer","text":"L’outil ne dimensionne pas l’ossature pour la neige ni pour le vent. Si vous avez de fortes chutes de neige ou des vents violents, demandez conseil à un charpentier, ancrez le poulailler et déneigez le toit."}}
+ ]}
+]}
+</script>
+</head>
+<body class="co-page" style="--accent:#56701a">
+<a class="skip" href="#main">Aller au contenu</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" hreflang="en" aria-label="Peak Apps Tools, tous les outils (en anglais)">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Outils">
+      <a href="/fr/poulailler/" aria-current="page">Poulailler en 3D</a>
+      <a href="/tools/" hreflang="en">Tous les outils</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <div class="co-topline">
+    <nav class="crumbs" aria-label="Fil d’Ariane"><ol><li><a href="/tools/" hreflang="en">Outils</a></li><li aria-current="page">Poulailler en 3D</li></ol></nav>
+    <nav class="co-langs" aria-label="Langue"><a href="/coop-designer/" data-lang-switch="/coop-designer/" hreflang="en" lang="en">English</a><a href="/fr/poulailler/" aria-current="true" hreflang="fr" lang="fr">Français</a><a href="/es/gallinero/" data-lang-switch="/es/gallinero/" hreflang="es" lang="es">Español</a></nav>
+  </div>
+
+  <header class="co-hero">
+    <div>
+      <h1>Concevez un poulailler pour vos poules et votre jardin</h1>
+    </div>
+    <div class="co-hero-side">
+      <p class="lede">Coop Designer est un outil gratuit pour dessiner un poulailler en ligne. Indiquez vos poules et votre terrain : il construit le poulailler et l’enclos en 3D avec des chevrons et des panneaux du commerce, vérifie la place par poule, les pondoirs, les perchoirs et le grillage, et liste chaque barre et chaque rouleau à acheter.</p>
+      <fieldset class="co-types" id="types">
+        <legend>Que construisez-vous ?</legend>
+        <label class="co-type"><input type="radio" name="type" value="house"><svg viewBox="0 0 64 44" aria-hidden="true"><path d="M2 42h60" stroke="currentColor" stroke-width="2"/><path class="wood" d="M7 42V25M25 42V25M5 25h22V12H5zM3 13 29 8" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M27 21h33v21M27 21v21" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M33 21v21M39 21v21M45 21v21M51 21v21M57 21v21M27 28h33M27 35h33" stroke="currentColor" stroke-width=".8" opacity=".55"/><ellipse cx="3" cy="22" rx="1.6" ry="2" fill="currentColor"/></svg><span>Sur pieds</span></label>
+        <label class="co-type"><input type="radio" name="type" value="walkin"><svg viewBox="0 0 64 44" aria-hidden="true"><path d="M2 42h60" stroke="currentColor" stroke-width="2"/><path class="wood" d="M4 42V10h22v32M2 11l26-5" fill="none" stroke="currentColor" stroke-width="2.2"/><rect x="11" y="22" width="9" height="20" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M26 14h34v28" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M32 14v28M38 14v28M44 14v28M50 14v28M56 14v28M26 21h34M26 28h34M26 35h34" stroke="currentColor" stroke-width=".8" opacity=".55"/></svg><span>Cabane</span></label>
+        <label class="co-type"><input type="radio" name="type" value="aframe"><svg viewBox="0 0 64 44" aria-hidden="true"><path d="M2 42h60" stroke="currentColor" stroke-width="2"/><path class="wood" d="M6 42 32 6l26 36M19 24h26" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M24 17h16M27 13h10" stroke="currentColor" stroke-width="1.6" opacity=".8"/><path d="M14 31v11M20 24v18M26 24v18M32 24v18M38 24v18M44 24v18M50 31v11M10 36h44" stroke="currentColor" stroke-width=".8" opacity=".55"/></svg><span>En A</span></label>
+        <label class="co-type"><input type="radio" name="type" value="tractor"><svg viewBox="0 0 64 44" aria-hidden="true"><path d="M2 42h60" stroke="currentColor" stroke-width="2"/><path class="wood" d="M8 34h46V20H8zM8 20V10h16v10M6 11l20-3M54 26l8-3" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M30 20v14M36 20v14M42 20v14M48 20v14M24 27h30" stroke="currentColor" stroke-width=".8" opacity=".55"/><circle cx="11" cy="37" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>Mobile</span></label>
+      </fieldset>
+    </div>
+  </header>
+  <svg class="co-eggs" viewBox="0 0 1200 46" preserveAspectRatio="xMinYMid slice" aria-hidden="true"><defs><radialGradient id="co-egg-shine" cx="36%" cy="30%" r="72%"><stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#2e1a12" stop-opacity=".22"/></radialGradient><path id="co-egg" d="M0-19c-8.6 0-14 13.2-14 22.4C-14 11.6-7.7 17 0 17s14-5.4 14-13.6C14-5.8 8.6-19 0-19z"/><path id="co-cup" d="M-34 26h68c-2 9-10 15-18 15h-32c-8 0-16-6-18-15z"/></defs><use href="#co-cup" x="38" y="0" class="co-cup"/><use href="#co-egg" x="38" y="22" fill="#f6f1e7"/><use href="#co-egg" x="38" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="113" y="0" class="co-cup"/><use href="#co-egg" x="113" y="22" fill="#b9ded7"/><use href="#co-egg" x="113" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="188" y="0" class="co-cup"/><use href="#co-egg" x="188" y="22" fill="#6d3b23"/><use href="#co-egg" x="188" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="263" y="0" class="co-cup"/><use href="#co-egg" x="263" y="22" fill="#ead2b0"/><use href="#co-egg" x="263" y="22" fill="url(#co-egg-shine)"/><g fill="#5a3a22" opacity=".5"><circle cx="258" cy="14" r="1.1"/><circle cx="267" cy="9" r=".9"/><circle cx="269" cy="22" r="1.2"/><circle cx="261" cy="27" r=".8"/><circle cx="264" cy="31" r="1"/><circle cx="255" cy="23" r=".7"/></g><use href="#co-cup" x="338" y="0" class="co-cup"/><use href="#co-egg" x="338" y="22" fill="#97a466"/><use href="#co-egg" x="338" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="413" y="0" class="co-cup"/><use href="#co-egg" x="413" y="22" fill="#f3e3d3"/><use href="#co-egg" x="413" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="488" y="0" class="co-cup"/><use href="#co-egg" x="488" y="22" fill="#c78f5f"/><use href="#co-egg" x="488" y="22" fill="url(#co-egg-shine)"/><g fill="#5a3a22" opacity=".5"><circle cx="483" cy="14" r="1.1"/><circle cx="492" cy="9" r=".9"/><circle cx="494" cy="22" r="1.2"/><circle cx="486" cy="27" r=".8"/><circle cx="489" cy="31" r="1"/><circle cx="480" cy="23" r=".7"/></g><use href="#co-cup" x="563" y="0" class="co-cup"/><use href="#co-egg" x="563" y="22" fill="#a8d3cb"/><use href="#co-egg" x="563" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="638" y="0" class="co-cup"/><use href="#co-egg" x="638" y="22" fill="#4e2617"/><use href="#co-egg" x="638" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="713" y="0" class="co-cup"/><use href="#co-egg" x="713" y="22" fill="#efe2cc"/><use href="#co-egg" x="713" y="22" fill="url(#co-egg-shine)"/><g fill="#5a3a22" opacity=".5"><circle cx="708" cy="14" r="1.1"/><circle cx="717" cy="9" r=".9"/><circle cx="719" cy="22" r="1.2"/><circle cx="711" cy="27" r=".8"/><circle cx="714" cy="31" r="1"/><circle cx="705" cy="23" r=".7"/></g><use href="#co-cup" x="788" y="0" class="co-cup"/><use href="#co-egg" x="788" y="22" fill="#86935a"/><use href="#co-egg" x="788" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="863" y="0" class="co-cup"/><use href="#co-egg" x="863" y="22" fill="#e6c4a8"/><use href="#co-egg" x="863" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="938" y="0" class="co-cup"/><use href="#co-egg" x="938" y="22" fill="#d6a676"/><use href="#co-egg" x="938" y="22" fill="url(#co-egg-shine)"/><g fill="#5a3a22" opacity=".5"><circle cx="933" cy="14" r="1.1"/><circle cx="942" cy="9" r=".9"/><circle cx="944" cy="22" r="1.2"/><circle cx="936" cy="27" r=".8"/><circle cx="939" cy="31" r="1"/><circle cx="930" cy="23" r=".7"/></g><use href="#co-cup" x="1013" y="0" class="co-cup"/><use href="#co-egg" x="1013" y="22" fill="#c2e2db"/><use href="#co-egg" x="1013" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="1088" y="0" class="co-cup"/><use href="#co-egg" x="1088" y="22" fill="#7a4a2c"/><use href="#co-egg" x="1088" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="1163" y="0" class="co-cup"/><use href="#co-egg" x="1163" y="22" fill="#f8f4ec"/><use href="#co-egg" x="1163" y="22" fill="url(#co-egg-shine)"/></svg>
+
+  <section class="co-bench" id="tool" aria-label="Concepteur de poulailler">
+    <div class="co-stage">
+      <div class="co-sticky">
+        <div class="co-view" id="view">
+          <img id="poster" src="/coop-designer/img/poster-960.webp" srcset="/coop-designer/img/poster-480.webp 480w, /coop-designer/img/poster-960.webp 960w, /coop-designer/img/poster-1440.webp 1440w" sizes="(max-width: 960px) 100vw, 64vw" width="1440" height="900" fetchpriority="high" decoding="async" alt="Le projet d’exemple en 3D sur une pelouse au matin : un poulailler bleu œuf de cane sur des pieds de 60 cm au-dessus d’un enclos en grillage soudé, une rampe sous la trappe, un pondoir au bout du poulailler, couvercle ouvert sur quatre œufs de couleurs différentes, et des poules dans l’enclos et dans l’herbe près d’un potager.">
+          <canvas id="canvas" tabindex="0" aria-label="Modèle 3D de votre poulailler. Faites-le tourner en le glissant, zoomez à la molette ou en pinçant, ou utilisez les flèches du clavier." role="img" hidden></canvas>
+          <div class="co-tags" id="tags" aria-hidden="true"></div>
+          <span class="co-badge" id="badge">Exemple</span>
+          <p class="co-gl-note" id="gl-note" hidden>Ce navigateur ne peut pas afficher la 3D (WebGL est désactivé). Les vérifications et la liste d’achats fonctionnent quand même.</p>
+          <button type="button" class="co-start" id="start3d"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2 3 6v8l7 4 7-4V6z M3 6l7 4 7-4 M10 10v8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span>Tourner en 3D</span></button>
+        </div>
+        <div class="co-toolbar" id="toolbar" hidden>
+          <div class="co-seg" role="group" aria-label="Afficher" id="modes">
+            <button type="button" data-mode="full" aria-pressed="true">Poulailler entier</button>
+            <button type="button" data-mode="frame" aria-pressed="false">Ossature seule</button>
+            <button type="button" data-mode="steps" aria-pressed="false">Étapes</button>
+          </div>
+          <label class="co-sun" for="sun">Soleil <input type="range" id="sun" min="6" max="20" step="0.5" value="9"><output id="sun-out" for="sun">09:00</output></label>
+          <button type="button" class="co-henbtn" id="henpath"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 15c-2.5 0-4-2-4-4.5C2 7 4.5 5 7.5 5c1 0 1.8.2 2.5.6.6-1.6 2-2.6 3.5-2.6 2 0 3.5 1.6 3.5 3.5l2 .8-2 .9c-.2 3.6-2.6 6.8-6.5 6.8z" fill="currentColor"/><path d="M8 15v3M11 15v3" stroke="currentColor" stroke-width="1.4"/></svg>Suivre le trajet de la poule</button>
+        </div>
+        <div class="co-title" id="titleblock" aria-live="polite">
+          <h2 id="design-title">Poulailler d’exemple</h2>
+          <p id="design-sub"><!-- @pre:sub -->Poulailler de 1,5 m sur 1,5 m monté sur des pieds de 61 cm, au-dessus d’un enclos de 3,9 m, ossature en demi-chevron 38 x 63 mm, 6 poules<!-- @pre:end --></p>
+          <div class="co-counts" id="counts"><!-- @pre:counts --><span class="co-count ct-fits"><b>13</b><span>conviennent</span></span><span class="co-count ct-check"><b>0</b><span>à vérifier</span></span><span class="co-count ct-fail"><b>0</b><span>ne convient pas</span></span></div>
+          <div class="co-meta"><span>Sources lues les <strong>12 et 13 octobre 2026</strong></span><span>Calculé dans votre navigateur</span></div>
+        </div>
+      </div>
+    </div>
+
+    <form class="co-form" id="form" autocomplete="off" novalidate onsubmit="return false">
+      <fieldset class="co-step">
+        <legend><span class="co-step-n">1</span>Vos poules</legend>
+        <div class="co-grid">
+          <label class="co-field"><span>Poules</span><input type="number" inputmode="numeric" step="1" min="1" max="40" data-k="birds" data-t="int"></label>
+          <label class="co-field"><span>Leur gabarit</span><select data-k="size"><option value="standard">Races standard</option><option value="bantam">Poules naines</option></select></label>
+          <label class="co-field"><span>Votre climat</span><select data-k="climate"><option value="mild">Doux</option><option value="cold">Hivers froids</option><option value="hot">Étés chauds</option></select></label>
+          <label class="co-field"><span>Prédateurs alentour</span><select data-k="predators"><option value="low">Peu</option><option value="medium">Quelques-uns</option><option value="high">Beaucoup, et ils creusent</option></select><small>Renards, fouines, rapaces, chiens</small></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="co-step">
+        <legend><span class="co-step-n">2</span>Votre terrain</legend>
+        <div class="co-row" style="margin-bottom:10px">
+          <div class="co-seg co-units" role="group" aria-label="Unités" data-seg="units"><button type="button" data-v="metric" aria-pressed="true">Mètres</button><button type="button" data-v="imperial" aria-pressed="false">Pouces (Amérique du Nord)</button></div>
+        </div>
+        <div class="co-grid">
+          <label class="co-field"><span>Place disponible, dans un sens</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="yard.w" data-t="len"><i data-unit>cm</i></span></label>
+          <label class="co-field"><span>Dans l’autre sens</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="yard.d" data-t="len"><i data-unit>cm</i></span></label>
+        </div>
+        <label class="co-check co-auto" style="margin-top:10px"><input type="checkbox" data-k="auto" data-t="bool"><span>Dimensionner le poulailler et l’enclos pour mes poules et ce terrain <small id="auto-note"></small></span></label>
+      </fieldset>
+
+      <fieldset class="co-step">
+        <legend><span class="co-step-n">3</span>Dimensions du poulailler et de l’enclos</legend>
+        <div class="co-grid" data-show="type=house|type=walkin">
+          <label class="co-field"><span data-label="cw">Largeur du poulailler</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="coop.w" data-t="len" data-size><i data-unit>cm</i></span></label>
+          <label class="co-field"><span>Profondeur, poulailler et enclos</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="coop.d" data-t="len" data-size><i data-unit>cm</i></span></label>
+          <label class="co-field"><span>Hauteur du mur arrière</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="coop.h" data-t="len" data-size><i data-unit>cm</i></span></label>
+          <label class="co-field"><span>Et à l’avant</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="coop.h2" data-t="len" data-size><i data-unit>cm</i></span><small>Plus bas, pour que le toit évacue la pluie</small></label>
+          <label class="co-field" data-show="type=house"><span>Hauteur du plancher (les pieds)</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="coop.legs" data-t="len" data-size><i data-unit>cm</i></span></label>
+          <label class="co-field"><span data-label="rl">Longueur de l’enclos</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="run.l" data-t="len" data-size><i data-unit>cm</i></span></label>
+          <label class="co-field"><span>Hauteur de l’enclos</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="run.h" data-t="len" data-size><i data-unit>cm</i></span></label>
+        </div>
+        <div class="co-grid" data-show="type=aframe">
+          <label class="co-field"><span>Longueur</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="af.l" data-t="len" data-size><i data-unit>cm</i></span></label>
+          <label class="co-field"><span>Largeur à la base</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="af.w" data-t="len" data-size><i data-unit>cm</i></span></label>
+          <label class="co-field"><span>Hauteur au faîtage</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="af.h" data-t="len" data-size><i data-unit>cm</i></span></label>
+          <label class="co-field"><span>Hauteur du plancher de l’abri</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="af.f" data-t="len" data-size><i data-unit>cm</i></span></label>
+          <label class="co-field wide"><span>Longueur de l’abri (le reste est l’enclos)</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="af.hl" data-t="len" data-size><i data-unit>cm</i></span></label>
+        </div>
+        <div class="co-grid" data-show="type=tractor">
+          <label class="co-field"><span>Longueur</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="tr.l" data-t="len" data-size><i data-unit>cm</i></span></label>
+          <label class="co-field"><span>Largeur</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="tr.w" data-t="len" data-size><i data-unit>cm</i></span></label>
+          <label class="co-field"><span>Hauteur de l’enclos</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="tr.rh" data-t="len" data-size><i data-unit>cm</i></span></label>
+          <label class="co-field"><span>Hauteur du plancher de l’abri</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="tr.f" data-t="len" data-size><i data-unit>cm</i></span></label>
+          <label class="co-field"><span>Longueur de l’abri</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="tr.hl" data-t="len" data-size><i data-unit>cm</i></span></label>
+          <label class="co-field"><span>Hauteur des murs de l’abri</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="tr.th" data-t="len" data-size><i data-unit>cm</i></span></label>
+        </div>
+        <div class="co-grid" style="margin-top:10px">
+          <label class="co-field"><span>Pondoirs</span><input type="number" inputmode="numeric" step="1" min="0" max="12" data-k="nests" data-t="int" data-size></label>
+          <label class="co-field"><span>Hauteur des perchoirs au-dessus du plancher</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="roostH" data-t="len" data-size><i data-unit>cm</i></span></label>
+          <label class="co-check wide" data-show="type=house|type=walkin" style="grid-column:1/-1"><input type="checkbox" data-k="window" data-t="bool"><span>Une fenêtre grillagée pour l’air de l’été</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="co-step">
+        <legend><span class="co-step-n">4</span>Bois, grillage et toit</legend>
+        <div class="co-grid">
+          <label class="co-field wide"><span>Bois de l’ossature</span><select data-k="lumber" id="lumber"></select><small id="lumber-actual"></small></label>
+          <label class="co-field"><span>Longueur des barres achetées</span><select data-k="stock" data-t="num" id="stock"></select></label>
+          <label class="co-field"><span>Montants espacés au plus de</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="spacing" data-t="len"><i data-unit>cm</i></span></label>
+          <label class="co-field wide"><span>Murs de l’enclos</span><select data-k="mesh" id="mesh"></select></label>
+          <label class="co-field"><span>Largeur du rouleau</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="roll.w" data-t="len"><i data-unit>cm</i></span></label>
+          <label class="co-field"><span>Longueur du rouleau</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="roll.l" data-t="len"><i data-unit>cm</i></span><small id="roll-note"></small></label>
+          <label class="co-field wide" data-show="!type=tractor"><span>Grillage enterré contre les fouisseurs</span><select data-k="apron.kind"><option value="lshape">En L : vers le bas, puis vers l’extérieur</option><option value="buried">Droit, pied replié vers l’extérieur</option><option value="skirt">Jupe à plat sur le sol (sans creuser)</option><option value="none">Pas de grillage enterré</option></select></label>
+          <label class="co-field" data-show="apron.kind=lshape|apron.kind=buried"><span>Profondeur dans le sol</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="apron.depth" data-t="len"><i data-unit>cm</i></span></label>
+          <label class="co-field"><span>Toit du poulailler</span><select data-k="roof"><option value="solid">Plaques opaques</option><option value="poly">Polycarbonate</option></select></label>
+          <label class="co-field" data-show="type=house|type=walkin"><span>Dessus de l’enclos</span><select data-k="top"><option value="mesh">Grillage soudé</option><option value="solid">Plaques opaques</option><option value="poly">Polycarbonate</option><option value="open">Sans toit</option></select></label>
+          <label class="co-field"><span>Largeur des plaques</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="panel.w" data-t="len"><i data-unit>cm</i></span></label>
+          <label class="co-field"><span>Longueur des plaques</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="panel.l" data-t="len"><i data-unit>cm</i></span><small>Tailles d’exemple : indiquez la plaque que vous achetez</small></label>
+        </div>
+      </fieldset>
+    </form>
+  </section>
+
+  <div class="co-actions">
+    <button type="button" class="btn btn-primary" id="share">Copier le lien de partage</button>
+    <button type="button" class="btn" id="sample">Charger le projet d’exemple</button>
+    <button type="button" class="btn" id="fresh">Commencer mon projet</button>
+    <span class="hint">Le lien contient tout votre projet après le signe #. Rien n’est envoyé à un serveur.</span>
+  </div>
+  <p class="co-sample-note" id="sample-note">Ceci est un exemple : un poulailler sur pieds au-dessus d’un enclos en grillage soudé pour six poules de taille standard, dans un terrain de 6 m sur 4 m. Changez les poules ou le terrain pour en faire le vôtre.</p>
+
+  <section class="co-sec" id="checks" aria-labelledby="checks-h">
+    <div class="co-sec-head"><h2 id="checks-h">Les vérifications, avec leurs sources</h2><p>Les conseils des services de vulgarisation des universités américaines, lus le 12 octobre 2026, et les règles françaises et européennes, lues le 13 octobre 2026. Quand les guides divergent, la ligne donne la fourchette et les sources.</p></div>
+    <table class="co-table" id="check-table">
+      <caption>Convient : dans les guides. À vérifier : à regarder de plus près. Ne convient pas : à changer avant de construire.</caption>
+      <thead><tr><th scope="col">Résultat</th><th scope="col">Vérification</th><th scope="col">Votre projet</th><th scope="col">Repère</th><th scope="col">Pourquoi</th></tr></thead>
+      <tbody id="check-rows" data-pre="sample"><!-- @pre:checks --><tr class="co-group"><td colspan="5">La place pour les poules</td></tr><tr data-id="coop-area" class="is-fits"><td class="co-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><ellipse cx="8" cy="8.6" rx="5.4" ry="6.4" fill="currentColor"/></svg>Convient</span></td><td><b>Sol du poulailler par poule</b></td><td data-h="Votre projet">0,38 m² chacune (2,25 m² pour 6)</td><td data-h="Repère">0,14 à 0,37 m² par poule ; 0,28 m² ou plus convient</td><td data-h="Pourquoi" class="co-why">Au moins 0,28 m², le bas de la fourchette du tableau 2023 de Virginia Tech pour les pondeuses (0,28 à 0,37 m²). Les guides vont de 0,14 à 0,37 m² par poule ; un élevage professionnel peut descendre à 9 poules par m² de surface utilisable, soit 0,11 m² chacune (directive 1999/74/CE, qui ne s’applique pas sous 350 poules).<span class="co-src"> <a href="https://www.pubs.ext.vt.edu/2902/2902-1092/2902-1092.html" rel="noopener" target="_blank" title="Virginia Cooperative Extension: Small-scale Poultry Housing, 2902-1092 (APSC-186NP), Leonie Jacobs and Phillip J. Clauer, 28 April 2023, lu le 12 octobre 2026">Virginia Tech 2902-1092</a>, <a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener" target="_blank" title="Penn State Extension: Small Scale Poultry Housing (Phillip Clauer; reviewed by Gregory P. Martin; updated 25 June 2026), lu le 12 octobre 2026">Penn State, logement des volailles</a>, <a href="https://extension.oregonstate.edu/catalog/ec-1644-living-land-backyard-chicken-coop-design" rel="noopener" target="_blank" title="Oregon State University Extension: Living on the land, Backyard chicken coop design, EC 1644 (April 2014, reviewed 2023), lu le 12 octobre 2026">Oregon State EC 1644</a>, <a href="https://poultry.extension.org/articles/getting-started-with-small-and-backyard-poultry/housing-for-small-and-backyard-poultry-flocks/space-allowances-in-housing-for-small-and-backyard-poultry-flocks/" rel="noopener" target="_blank" title="Small and Backyard Poultry (extension.org): Space Allowances in Housing for Small and Backyard Poultry Flocks, lu le 12 octobre 2026">Poultry Extension, surfaces</a>, <a href="https://oaba.fr/PDF/Fiche_regl.pdf" rel="noopener" target="_blank" title="Chambres d’agriculture de Bretagne et des Pays de la Loire : Fiche Poules pondeuses n° 1, Réglementation bien-être sur l’élevage des poules pondeuses (juin 2011), lu le 13 octobre 2026">Chambres d’agriculture, fiche poules pondeuses</a>, <a href="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:31999L0074" rel="noopener" target="_blank" title="Directive 1999/74/CE du Conseil du 19 juillet 1999 établissant les normes minimales relatives à la protection des poules pondeuses (article 1 et annexe), lu le 13 octobre 2026">Directive 1999/74/CE</a></span></td></tr><tr data-id="run-area" class="is-fits"><td class="co-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><ellipse cx="8" cy="8.6" rx="5.4" ry="6.4" fill="currentColor"/></svg>Convient</span></td><td><b>Enclos par poule</b></td><td data-h="Votre projet">0,97 m² chacune (5,85 m², dont 2,25 m² sous le poulailler)</td><td data-h="Repère">0,37 à 0,93 m² par poule ; 0,93 m² ou plus convient</td><td data-h="Pourquoi" class="co-why">Au moins 0,93 m², le chiffre de Virginia Tech et du Poultry Extension Collaborative pour les pondeuses, et de Penn State pour les grandes races. Les 4 m² par poule souvent cités en France sont la règle d’un parcours pour les œufs plein air, une prairie et non un enclos grillagé (fiche des Chambres d’agriculture).<span class="co-src"> <a href="https://www.pubs.ext.vt.edu/2902/2902-1092/2902-1092.html" rel="noopener" target="_blank" title="Virginia Cooperative Extension: Small-scale Poultry Housing, 2902-1092 (APSC-186NP), Leonie Jacobs and Phillip J. Clauer, 28 April 2023, lu le 12 octobre 2026">Virginia Tech 2902-1092</a>, <a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener" target="_blank" title="Penn State Extension: Small Scale Poultry Housing (Phillip Clauer; reviewed by Gregory P. Martin; updated 25 June 2026), lu le 12 octobre 2026">Penn State, logement des volailles</a>, <a href="https://poultry.extension.org/articles/getting-started-with-small-and-backyard-poultry/housing-for-small-and-backyard-poultry-flocks/space-allowances-in-housing-for-small-and-backyard-poultry-flocks/" rel="noopener" target="_blank" title="Small and Backyard Poultry (extension.org): Space Allowances in Housing for Small and Backyard Poultry Flocks, lu le 12 octobre 2026">Poultry Extension, surfaces</a>, <a href="https://warren.cce.cornell.edu/agriculture/backyard-chickens" rel="noopener" target="_blank" title="Cornell Cooperative Extension of Warren County: Backyard Chickens (last updated 14 November 2022), lu le 12 octobre 2026">Cornell, comté de Warren</a>, <a href="https://oaba.fr/PDF/Fiche_regl.pdf" rel="noopener" target="_blank" title="Chambres d’agriculture de Bretagne et des Pays de la Loire : Fiche Poules pondeuses n° 1, Réglementation bien-être sur l’élevage des poules pondeuses (juin 2011), lu le 13 octobre 2026">Chambres d’agriculture, fiche poules pondeuses</a></span></td></tr><tr data-id="yard" class="is-fits"><td class="co-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><ellipse cx="8" cy="8.6" rx="5.4" ry="6.4" fill="currentColor"/></svg>Convient</span></td><td><b>Tient dans votre terrain</b></td><td data-h="Votre projet">4,2 m sur 1,5 m avec les pondoirs</td><td data-h="Repère">Votre place : 6 m sur 4 m</td><td data-h="Pourquoi" class="co-why">L’emprise tient dans la place indiquée. Gardez de quoi en faire le tour, ouvrir les portes et atteindre les pondoirs.</td></tr><tr class="co-group"><td colspan="5">Pondoirs</td></tr><tr data-id="nests" class="is-fits"><td class="co-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><ellipse cx="8" cy="8.6" rx="5.4" ry="6.4" fill="currentColor"/></svg>Convient</span></td><td><b>Pondoirs</b></td><td data-h="Votre projet">2 pour 6 poules</td><td data-h="Repère">2 à 3 pour 6 : un pour 3 à 5 poules</td><td data-h="Pourquoi" class="co-why">Les poules se partagent les pondoirs. Les guides en demandent un pour 4 à 5 poules (Maryland, Virginia Tech), un pour 4 (Oregon State), un pour 5 (Maine, Floride) ou un pour 3 à 4 (Delaware) ; Penn State, deux pour les quatre premières et un par groupe de quatre en plus (3 ici). La directive européenne exige au moins un nid pour 7 poules dans les élevages de 350 poules et plus.<span class="co-src"> <a href="https://extension.oregonstate.edu/catalog/ec-1644-living-land-backyard-chicken-coop-design" rel="noopener" target="_blank" title="Oregon State University Extension: Living on the land, Backyard chicken coop design, EC 1644 (April 2014, reviewed 2023), lu le 12 octobre 2026">Oregon State EC 1644</a>, <a href="https://extension.umd.edu/resource/housing-requirements" rel="noopener" target="_blank" title="University of Maryland Extension: Housing Requirements (Jonathan Moyle; updated 11 May 2022), lu le 12 octobre 2026">Maryland, logement</a>, <a href="https://www.pubs.ext.vt.edu/2902/2902-1092/2902-1092.html" rel="noopener" target="_blank" title="Virginia Cooperative Extension: Small-scale Poultry Housing, 2902-1092 (APSC-186NP), Leonie Jacobs and Phillip J. Clauer, 28 April 2023, lu le 12 octobre 2026">Virginia Tech 2902-1092</a>, <a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener" target="_blank" title="Penn State Extension: Small Scale Poultry Housing (Phillip Clauer; reviewed by Gregory P. Martin; updated 25 June 2026), lu le 12 octobre 2026">Penn State, logement des volailles</a>, <a href="https://www.udel.edu/academics/colleges/canr/cooperative-extension/fact-sheets/steam-team-chicken-housing-and-coop-maintenance/" rel="noopener" target="_blank" title="University of Delaware Cooperative Extension: Steam Team, Chicken Housing and Coop Maintenance (Twila Parish-Short, May 2025), lu le 12 octobre 2026">Delaware Extension</a>, <a href="https://oaba.fr/PDF/Fiche_regl.pdf" rel="noopener" target="_blank" title="Chambres d’agriculture de Bretagne et des Pays de la Loire : Fiche Poules pondeuses n° 1, Réglementation bien-être sur l’élevage des poules pondeuses (juin 2011), lu le 13 octobre 2026">Chambres d’agriculture, fiche poules pondeuses</a>, <a href="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:31999L0074" rel="noopener" target="_blank" title="Directive 1999/74/CE du Conseil du 19 juillet 1999 établissant les normes minimales relatives à la protection des poules pondeuses (article 1 et annexe), lu le 13 octobre 2026">Directive 1999/74/CE</a></span></td></tr><tr data-id="nest-size" class="is-fits"><td class="co-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><ellipse cx="8" cy="8.6" rx="5.4" ry="6.4" fill="currentColor"/></svg>Convient</span></td><td><b>Taille des pondoirs</b></td><td data-h="Votre projet">305 mm de côté, 305 mm de haut</td><td data-h="Repère">Au moins 30 x 30 cm (Penn State) ; 30 x 30 x 30 cm (Oregon State, Floride)</td><td data-h="Pourquoi" class="co-why">La taille que donnent les guides. Un rebord de 8 à 10 cm à l’avant garde la litière en place (Penn State).<span class="co-src"> <a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener" target="_blank" title="Penn State Extension: Small Scale Poultry Housing (Phillip Clauer; reviewed by Gregory P. Martin; updated 25 June 2026), lu le 12 octobre 2026">Penn State, logement des volailles</a>, <a href="https://extension.oregonstate.edu/catalog/ec-1644-living-land-backyard-chicken-coop-design" rel="noopener" target="_blank" title="Oregon State University Extension: Living on the land, Backyard chicken coop design, EC 1644 (April 2014, reviewed 2023), lu le 12 octobre 2026">Oregon State EC 1644</a>, <a href="https://ask.ifas.ufl.edu/publication/an239" rel="noopener" target="_blank" title="University of Florida IFAS Extension: AN239, Raising Backyard Chickens for Eggs (Mary E. Henry and others), lu le 12 octobre 2026">UF/IFAS AN239</a></span></td></tr><tr data-id="nest-height" class="is-fits"><td class="co-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><ellipse cx="8" cy="8.6" rx="5.4" ry="6.4" fill="currentColor"/></svg>Convient</span></td><td><b>Hauteur des pondoirs</b></td><td data-h="Votre projet">Fond du pondoir à 610 mm du sol ; perchoir à 1220 mm</td><td data-h="Repère">Environ 60 cm du sol, le perchoir plus haut</td><td data-h="Pourquoi" class="co-why">Environ 60 cm du sol (Penn State, Floride ; Maryland : 60 cm au-dessus du plancher). Le Maryland met le perchoir plus haut pour que les poules y dorment et non dans les pondoirs ; Oregon State préfère des pondoirs qui ne soient pas plus bas que les perchoirs, pour qu’ils restent propres, et Penn State les écarte de 1,20 m. L’outil suit le Maryland.<span class="co-src"> <a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener" target="_blank" title="Penn State Extension: Small Scale Poultry Housing (Phillip Clauer; reviewed by Gregory P. Martin; updated 25 June 2026), lu le 12 octobre 2026">Penn State, logement des volailles</a>, <a href="https://ask.ifas.ufl.edu/publication/an239" rel="noopener" target="_blank" title="University of Florida IFAS Extension: AN239, Raising Backyard Chickens for Eggs (Mary E. Henry and others), lu le 12 octobre 2026">UF/IFAS AN239</a>, <a href="https://extension.umd.edu/resource/housing-requirements" rel="noopener" target="_blank" title="University of Maryland Extension: Housing Requirements (Jonathan Moyle; updated 11 May 2022), lu le 12 octobre 2026">Maryland, logement</a>, <a href="https://extension.oregonstate.edu/catalog/ec-1644-living-land-backyard-chicken-coop-design" rel="noopener" target="_blank" title="Oregon State University Extension: Living on the land, Backyard chicken coop design, EC 1644 (April 2014, reviewed 2023), lu le 12 octobre 2026">Oregon State EC 1644</a></span></td></tr><tr class="co-group"><td colspan="5">Perchoirs</td></tr><tr data-id="roost-length" class="is-fits"><td class="co-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><ellipse cx="8" cy="8.6" rx="5.4" ry="6.4" fill="currentColor"/></svg>Convient</span></td><td><b>Longueur de perchoir</b></td><td data-h="Votre projet">2,85 m sur 2 barres : 475 mm par poule</td><td data-h="Repère">127 mm à 254 mm par poule ; 203 mm ou plus convient</td><td data-h="Pourquoi" class="co-why">Au moins les 20 à 25 cm du tableau 2023 de Virginia Tech : toutes les poules peuvent se percher en même temps, côte à côte. La directive européenne demande au moins 15 cm par poule dans les élevages de 350 poules et plus.<span class="co-src"> <a href="https://www.pubs.ext.vt.edu/2902/2902-1092/2902-1092.html" rel="noopener" target="_blank" title="Virginia Cooperative Extension: Small-scale Poultry Housing, 2902-1092 (APSC-186NP), Leonie Jacobs and Phillip J. Clauer, 28 April 2023, lu le 12 octobre 2026">Virginia Tech 2902-1092</a>, <a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener" target="_blank" title="Penn State Extension: Small Scale Poultry Housing (Phillip Clauer; reviewed by Gregory P. Martin; updated 25 June 2026), lu le 12 octobre 2026">Penn State, logement des volailles</a>, <a href="https://extension.umd.edu/resource/housing-requirements" rel="noopener" target="_blank" title="University of Maryland Extension: Housing Requirements (Jonathan Moyle; updated 11 May 2022), lu le 12 octobre 2026">Maryland, logement</a>, <a href="https://extension.oregonstate.edu/catalog/ec-1644-living-land-backyard-chicken-coop-design" rel="noopener" target="_blank" title="Oregon State University Extension: Living on the land, Backyard chicken coop design, EC 1644 (April 2014, reviewed 2023), lu le 12 octobre 2026">Oregon State EC 1644</a>, <a href="https://oaba.fr/PDF/Fiche_regl.pdf" rel="noopener" target="_blank" title="Chambres d’agriculture de Bretagne et des Pays de la Loire : Fiche Poules pondeuses n° 1, Réglementation bien-être sur l’élevage des poules pondeuses (juin 2011), lu le 13 octobre 2026">Chambres d’agriculture, fiche poules pondeuses</a>, <a href="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:31999L0074" rel="noopener" target="_blank" title="Directive 1999/74/CE du Conseil du 19 juillet 1999 établissant les normes minimales relatives à la protection des poules pondeuses (article 1 et annexe), lu le 13 octobre 2026">Directive 1999/74/CE</a></span></td></tr><tr data-id="roost-height" class="is-fits"><td class="co-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><ellipse cx="8" cy="8.6" rx="5.4" ry="6.4" fill="currentColor"/></svg>Convient</span></td><td><b>Hauteur des perchoirs</b></td><td data-h="Votre projet">610 mm au-dessus du plancher, barres écartées de 305 mm</td><td data-h="Repère">457 mm à 1219 mm au-dessus du plancher</td><td data-h="Pourquoi" class="co-why">Penn State donne 45 à 60 cm pour les poules standard et jamais plus de 1,20 m ; Oregon State, 60 cm, avec 25 cm entre les barres. En élevage, la directive européenne écarte les perchoirs de 30 cm entre eux et de 20 cm du mur.<span class="co-src"> <a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener" target="_blank" title="Penn State Extension: Small Scale Poultry Housing (Phillip Clauer; reviewed by Gregory P. Martin; updated 25 June 2026), lu le 12 octobre 2026">Penn State, logement des volailles</a>, <a href="https://extension.oregonstate.edu/catalog/ec-1644-living-land-backyard-chicken-coop-design" rel="noopener" target="_blank" title="Oregon State University Extension: Living on the land, Backyard chicken coop design, EC 1644 (April 2014, reviewed 2023), lu le 12 octobre 2026">Oregon State EC 1644</a>, <a href="https://oaba.fr/PDF/Fiche_regl.pdf" rel="noopener" target="_blank" title="Chambres d’agriculture de Bretagne et des Pays de la Loire : Fiche Poules pondeuses n° 1, Réglementation bien-être sur l’élevage des poules pondeuses (juin 2011), lu le 13 octobre 2026">Chambres d’agriculture, fiche poules pondeuses</a></span></td></tr><tr data-id="roost-bar" class="is-info"><td class="co-st st-info"><span><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Note</span></td><td><b>Barres de perchoir</b></td><td data-h="Votre projet">44 x 44 mm, arêtes du dessus arrondies</td><td data-h="Repère">2,5 à 5 cm, arêtes arrondies</td><td data-h="Pourquoi" class="co-why">Oregon State conseille du bois carré de 2,5 à 5 cm, arêtes du dessus arrondies ; le Maryland, des barres ou des branches d’au moins 5 cm de diamètre. Prenez du bois : le métal et le plastique gardent le froid (Arkansas).<span class="co-src"> <a href="https://extension.oregonstate.edu/catalog/ec-1644-living-land-backyard-chicken-coop-design" rel="noopener" target="_blank" title="Oregon State University Extension: Living on the land, Backyard chicken coop design, EC 1644 (April 2014, reviewed 2023), lu le 12 octobre 2026">Oregon State EC 1644</a>, <a href="https://extension.umd.edu/resource/housing-requirements" rel="noopener" target="_blank" title="University of Maryland Extension: Housing Requirements (Jonathan Moyle; updated 11 May 2022), lu le 12 octobre 2026">Maryland, logement</a>, <a href="https://www.uaex.uada.edu/media-resources/news/2024/january/1-11-2024-ark-cold-backyard-poultry.aspx" rel="noopener" target="_blank" title="University of Arkansas Division of Agriculture: Backyard poultry coops prepped for cold still require good ventilation (11 January 2024), lu le 12 octobre 2026">Arkansas Extension, froid</a></span></td></tr><tr class="co-group"><td colspan="5">Air et climat</td></tr><tr data-id="vent" class="is-fits"><td class="co-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><ellipse cx="8" cy="8.6" rx="5.4" ry="6.4" fill="currentColor"/></svg>Convient</span></td><td><b>Aération</b></td><td data-h="Votre projet">2250 cm² d’aérations en haut des murs, 10 % du sol</td><td data-h="Repère">Aérations hautes, loin du perchoir ; pas de courant d’air sur les poules</td><td data-h="Pourquoi" class="co-why">Aucun des guides de vulgarisation que nous avons lus ne donne une surface d’aération pour un poulailler de jardin. Ils demandent des fenêtres ou des aérations en hauteur sur un côté, assez pour que la litière reste sèche et qu’il n’y ait pas d’odeur d’ammoniac, sans courant d’air sur les poules perchées. L’outil part de 1 m² d’aération pour 10 m² de sol, une règle courante chez les éleveurs amateurs que nous n’avons pas pu rattacher à un guide de vulgarisation ; ouvrez davantage si la litière devient humide.<span class="co-src"> <a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener" target="_blank" title="Penn State Extension: Small Scale Poultry Housing (Phillip Clauer; reviewed by Gregory P. Martin; updated 25 June 2026), lu le 12 octobre 2026">Penn State, logement des volailles</a>, <a href="https://poultry.extension.org/articles/getting-started-with-small-and-backyard-poultry/housing-for-small-and-backyard-poultry-flocks/small-scale-poultry-housing/" rel="noopener" target="_blank" title="Small and Backyard Poultry (extension.org): Small-Scale Poultry Housing, Overview (Jacquie Jacob, University of Kentucky), lu le 12 octobre 2026">Poultry Extension, logement</a>, <a href="https://www.uaex.uada.edu/media-resources/news/2024/january/1-11-2024-ark-cold-backyard-poultry.aspx" rel="noopener" target="_blank" title="University of Arkansas Division of Agriculture: Backyard poultry coops prepped for cold still require good ventilation (11 January 2024), lu le 12 octobre 2026">Arkansas Extension, froid</a></span></td></tr><tr class="co-group"><td colspan="5">Prédateurs</td></tr><tr data-id="mesh" class="is-fits"><td class="co-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><ellipse cx="8" cy="8.6" rx="5.4" ry="6.4" fill="currentColor"/></svg>Convient</span></td><td><b>Murs de l’enclos</b></td><td data-h="Votre projet">Grillage soudé maille 13 x 13 mm, galvanisé et plastifié</td><td data-h="Repère">Grillage soudé, mailles de 6 à 13 mm</td><td data-h="Pourquoi" class="co-why">Un grillage soudé de 6 à 13 mm protège le mieux (Utah State), et des mailles de moins de 2,5 cm empêchent un raton laveur de passer la patte (UNH). Les plus petites belettes passent par un trou de 6 mm (extension.org).<span class="co-src"> <a href="https://www.usu.edu/today/story/is-there-a-correlation-between-backyard-chickens-and-increased-rodents" rel="noopener" target="_blank" title="Utah State University: Is There a Correlation between Backyard Chickens and Increased Rodents? (Terry Messmer, Extension wildlife specialist; 24 August 2018), lu le 12 octobre 2026">Utah State, rongeurs et grillage</a>, <a href="https://extension.unh.edu/blog/2019/02/what-are-best-ways-protect-my-chickens-predators" rel="noopener" target="_blank" title="UNH Extension: What are the best ways to protect my chickens from predators? (26 February 2019), lu le 12 octobre 2026">UNH Extension, prédateurs</a>, <a href="https://extension.colostate.edu/resource/chickens-and-predators/" rel="noopener" target="_blank" title="Colorado State University Extension: Chickens and Predators, lu le 12 octobre 2026">Colorado State, prédateurs</a>, <a href="https://poultry.extension.org/articles/poultry-management/predator-management-for-small-and-backyard-poultry-flocks/" rel="noopener" target="_blank" title="Small and Backyard Poultry (extension.org): Predator Management for Small and Backyard Poultry Flocks, lu le 12 octobre 2026">Poultry Extension, prédateurs</a></span></td></tr><tr data-id="apron" class="is-fits"><td class="co-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><ellipse cx="8" cy="8.6" rx="5.4" ry="6.4" fill="currentColor"/></svg>Convient</span></td><td><b>Grillage enterré contre les fouisseurs</b></td><td data-h="Votre projet">300 mm vers le bas, 700 mm vers l’extérieur</td><td data-h="Repère">30 cm de profondeur, pied replié ; ou 30 cm vers le bas et 30 cm vers l’extérieur</td><td data-h="Pourquoi" class="co-why">Colorado State : enterrez le grillage 30 cm vers le bas et 30 cm vers l’extérieur, en L, pour que rien ne creuse dessous ; la Floride, 30 à 45 cm en L. L’outil couche le reste de la largeur du rouleau à plat, sans rien couper dans la longueur.<span class="co-src"> <a href="https://boulder.extension.colostate.edu/wp-content/uploads/sites/7/2019/11/How-to-Care-for-Adult-Chickens-2018.pdf" rel="noopener" target="_blank" title="Colorado State University Extension, Boulder County: How to Care for Adult Chickens and Solve Common Problems (2018, PDF), lu le 12 octobre 2026">Colorado State, comté de Boulder</a>, <a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener" target="_blank" title="Penn State Extension: Small Scale Poultry Housing (Phillip Clauer; reviewed by Gregory P. Martin; updated 25 June 2026), lu le 12 octobre 2026">Penn State, logement des volailles</a>, <a href="https://www.pubs.ext.vt.edu/2902/2902-1092/2902-1092.html" rel="noopener" target="_blank" title="Virginia Cooperative Extension: Small-scale Poultry Housing, 2902-1092 (APSC-186NP), Leonie Jacobs and Phillip J. Clauer, 28 April 2023, lu le 12 octobre 2026">Virginia Tech 2902-1092</a>, <a href="https://poultry.extension.org/articles/poultry-management/predator-management-for-small-and-backyard-poultry-flocks/" rel="noopener" target="_blank" title="Small and Backyard Poultry (extension.org): Predator Management for Small and Backyard Poultry Flocks, lu le 12 octobre 2026">Poultry Extension, prédateurs</a>, <a href="https://extension.oregonstate.edu/catalog/ec-1644-living-land-backyard-chicken-coop-design" rel="noopener" target="_blank" title="Oregon State University Extension: Living on the land, Backyard chicken coop design, EC 1644 (April 2014, reviewed 2023), lu le 12 octobre 2026">Oregon State EC 1644</a></span></td></tr><tr data-id="run-top" class="is-fits"><td class="co-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><ellipse cx="8" cy="8.6" rx="5.4" ry="6.4" fill="currentColor"/></svg>Convient</span></td><td><b>Dessus de l’enclos</b></td><td data-h="Votre projet">Grillage soudé</td><td data-h="Repère">Couvert</td><td data-h="Pourquoi" class="co-why">Un enclos couvert est la protection la plus simple contre les rapaces (extension.org, UNH) ; un rapace passe par le moindre point lâche, fixez donc bien la couverture. Quand le risque d’influenza aviaire est élevé, le ministère de l’Agriculture demande de confiner les volailles ou de poser des filets sur la basse-cour : un enclos couvert de grillage répond à cette demande.<span class="co-src"> <a href="https://poultry.extension.org/articles/poultry-management/predator-management-for-small-and-backyard-poultry-flocks/" rel="noopener" target="_blank" title="Small and Backyard Poultry (extension.org): Predator Management for Small and Backyard Poultry Flocks, lu le 12 octobre 2026">Poultry Extension, prédateurs</a>, <a href="https://extension.unh.edu/blog/2019/02/what-are-best-ways-protect-my-chickens-predators" rel="noopener" target="_blank" title="UNH Extension: What are the best ways to protect my chickens from predators? (26 February 2019), lu le 12 octobre 2026">UNH Extension, prédateurs</a>, <a href="https://extension.umd.edu/resource/prevention-predation" rel="noopener" target="_blank" title="University of Maryland Extension: Prevention of Predation (Jennifer L. Rhodes; updated 21 June 2022), lu le 12 octobre 2026">Maryland, prédateurs</a></span></td></tr><tr class="co-group"><td colspan="5">Toit</td></tr><tr data-id="roof-pitch-coop" class="is-fits"><td class="co-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><ellipse cx="8" cy="8.6" rx="5.4" ry="6.4" fill="currentColor"/></svg>Convient</span></td><td><b>Pente : toit du poulailler</b></td><td data-h="Votre projet">9,1 degrés</td><td data-h="Repère">Au moins 5 degrés pour des plaques ondulées</td><td data-h="Pourquoi" class="co-why">Assez pentu pour que la pluie s’écoule sur des plaques ondulées ; le guide Palram demande au moins 5 degrés. Suivez la notice du fabricant de vos plaques.<span class="co-src"> <a href="https://www.palram.com/au/wp-content/uploads/sites/3/2019/07/SUNTUFF_Roofing_Installation_Guide-.pdf" rel="noopener" target="_blank" title="Palram Australia: SUNTUF Roofing Installation Guide (pitch, purlin spacing, side lap), lu le 12 octobre 2026">Palram, guide des plaques ondulées</a></span></td></tr><tr data-id="snow" class="is-info"><td class="co-st st-info"><span><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Note</span></td><td><b>Neige et vent</b></td><td data-h="Votre projet">Plaques ondulées opaques</td><td data-h="Repère">À vérifier sur place</td><td data-h="Pourquoi" class="co-why">Cet outil ne dimensionne pas l’ossature pour la neige ni pour le vent. Si vous avez de fortes chutes de neige ou des vents violents, demandez conseil à un charpentier, ancrez le poulailler et déneigez le toit.</td></tr><tr class="co-group"><td colspan="5">Matériaux</td></tr><tr data-id="lumber" class="is-info"><td class="co-st st-info"><span><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Note</span></td><td><b>Bois</b></td><td data-h="Votre projet">Demi-chevron 38 x 63 mm, épicéa traité classe 2</td><td data-h="Repère">Bois traité seulement au contact du sol</td><td data-h="Pourquoi" class="co-why">Le bois traité est imprégné d’un pesticide, et de vieilles planches traitées à l’arsenic (CCA) circulent encore d’occasion (US EPA). Réservez le bois traité pour le contact avec le sol aux endroits où l’ossature touche la terre, et placez le bois traité hors de portée du bec des poules.<span class="co-src"> <a href="https://www.epa.gov/ingredients-used-pesticide-products/overview-wood-preservative-chemicals" rel="noopener" target="_blank" title="US EPA: Overview of Wood Preservative Chemicals, lu le 12 octobre 2026">US EPA, produits de préservation du bois</a></span></td></tr><tr class="co-group"><td colspan="5">Avant de construire</td></tr><tr data-id="rules" class="is-info"><td class="co-st st-info"><span><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Note</span></td><td><b>Règles locales</b></td><td data-h="Votre projet">6 poules</td><td data-h="Repère">À vérifier avant de construire</td><td data-h="Pourquoi" class="co-why">Toute basse-cour se déclare à la mairie (arrêté du 24 février 2006), avec le formulaire Cerfa 15472 ou en ligne. Le règlement sanitaire de votre département, votre mairie, votre copropriété ou votre bail peuvent aussi limiter le nombre de poules, interdire le coq ou fixer une distance aux voisins : renseignez-vous avant de construire. Cet outil ne donne pas de conseil juridique.<span class="co-src"> <a href="https://agriculture.gouv.fr/telecharger/85930" rel="noopener" target="_blank" title="Ministère de l’Agriculture : Renforcement des mesures de biosécurité pour lutter contre l’influenza aviaire dans les basses-cours (dépliant, décembre 2021), lu le 13 octobre 2026">Ministère de l’Agriculture, basses-cours</a>, <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/R42501" rel="noopener" target="_blank" title="Service Public : formulaire Cerfa 15472, déclaration de détention de volailles ou d’oiseaux captifs, particulier ou professionnel (page vérifiée le 9 octobre 2026), lu le 13 octobre 2026">Service Public, Cerfa 15472</a></span></td></tr></tbody>
+    </table>
+  </section>
+
+  <section class="co-sec" id="shop" aria-labelledby="shop-h">
+    <div class="co-sec-head"><h2 id="shop-h">Liste d’achats</h2><p>Saisissez les prix de votre magasin pour voir un total. L’outil ne fournit aucun prix.</p></div>
+    <table class="co-table co-shop" id="shop-table">
+      <caption id="shop-cap"><!-- @pre:shopcap -->Quantités pour ce projet : 37 barres de demi-chevron 38 x 63 mm en 3 m et 2 barres de tasseau raboté 44 x 44 mm en 2,4 m, le grillage avec sa partie enterrée, et un dixième de vis en plus.<!-- @pre:end --></caption>
+      <thead><tr><th scope="col">Article</th><th scope="col" class="num">Quantité</th><th scope="col" class="num">Votre prix unitaire</th><th scope="col" class="num">Coût</th></tr></thead>
+      <tbody id="shop-rows"><!-- @pre:shop --><tr class="co-group"><td colspan="4">Bois</td></tr><tr data-item="lumber:fr-38x63:3000"><td><b>Demi-chevron 38 x 63 mm x 3 m</b><span class="co-src" style="display:block">Épicéa traité classe 2. Prenez du bois traité pour le contact avec le sol là où l’ossature touche la terre.</span></td><td data-h="Quantité" class="num">37 barres</td><td data-h="Votre prix unitaire" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="lumber:fr-38x63:3000" aria-label="Prix unitaire de Demi-chevron 38 x 63 mm x 3 m" value=""></td><td data-h="Coût" class="num" data-cost="lumber:fr-38x63:3000"></td></tr><tr data-item="lumber:fr-44x44:2400"><td><b>Tasseau raboté 44 x 44 mm x 2,4 m, pour les perchoirs</b><span class="co-src" style="display:block">Arrondissez les arêtes du dessus.</span></td><td data-h="Quantité" class="num">2 barres</td><td data-h="Votre prix unitaire" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="lumber:fr-44x44:2400" aria-label="Prix unitaire de Tasseau raboté 44 x 44 mm x 2,4 m, pour les perchoirs" value=""></td><td data-h="Coût" class="num" data-cost="lumber:fr-44x44:2400"></td></tr><tr class="co-group"><td colspan="4">Panneaux</td></tr><tr data-item="sheet:wall"><td><b>Panneau OSB 3 de 2440 x 1220 mm, 12 mm</b><span class="co-src" style="display:block">Bardage, pondoirs, rampe et éventuelle planche à fientes.</span></td><td data-h="Quantité" class="num">7 panneaux</td><td data-h="Votre prix unitaire" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="sheet:wall" aria-label="Prix unitaire de Panneau OSB 3 de 2440 x 1220 mm, 12 mm" value=""></td><td data-h="Coût" class="num" data-cost="sheet:wall"></td></tr><tr data-item="sheet:floor"><td><b>Panneau OSB 3 de 2440 x 1220 mm, 18 mm</b><span class="co-src" style="display:block">Le plancher du poulailler.</span></td><td data-h="Quantité" class="num">2 panneaux</td><td data-h="Votre prix unitaire" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="sheet:floor" aria-label="Prix unitaire de Panneau OSB 3 de 2440 x 1220 mm, 18 mm" value=""></td><td data-h="Coût" class="num" data-cost="sheet:floor"></td></tr><tr class="co-group"><td colspan="4">Grillage</td></tr><tr data-item="mesh:fr-soude13:1000x5000"><td><b>Grillage soudé maille 13 x 13 mm, galvanisé et plastifié, rouleau de 1000 mm x 5 m</b><span class="co-src" style="display:block">30,05 m de bandes, grillage enterré compris, avec des recouvrements de 25 mm.</span></td><td data-h="Quantité" class="num">7 rouleaux</td><td data-h="Votre prix unitaire" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="mesh:fr-soude13:1000x5000" aria-label="Prix unitaire de Grillage soudé maille 13 x 13 mm, galvanisé et plastifié, rouleau de 1000 mm x 5 m" value=""></td><td data-h="Coût" class="num" data-cost="mesh:fr-soude13:1000x5000"></td></tr><tr class="co-group"><td colspan="4">Toiture</td></tr><tr data-item="panel:solid"><td><b>Plaques ondulées opaques, 855 mm x 2 m</b><span class="co-src" style="display:block">Recouvrement latéral de 75 mm.</span></td><td data-h="Quantité" class="num">3 plaques</td><td data-h="Votre prix unitaire" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="panel:solid" aria-label="Prix unitaire de Plaques ondulées opaques, 855 mm x 2 m" value=""></td><td data-h="Coût" class="num" data-cost="panel:solid"></td></tr><tr class="co-group"><td colspan="4">Fixations</td></tr><tr data-item="roofscrews"><td><b>Vis de couverture à rondelle d’étanchéité</b><span class="co-src" style="display:block">Une estimation : environ trois par colonne de plaques à chaque chevron. Suivez le plan de fixation du fabricant.</span></td><td data-h="Quantité" class="num">36 vis</td><td data-h="Votre prix unitaire" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="roofscrews" aria-label="Prix unitaire de Vis de couverture à rondelle d’étanchéité" value=""></td><td data-h="Coût" class="num" data-cost="roofscrews"></td></tr><tr data-item="screws-frame"><td><b>Vis à bois pour l’extérieur, 75 mm</b><span class="co-src" style="display:block">Deux à chaque bout de chaque pièce, plus un dixième de réserve.</span></td><td data-h="Quantité" class="num">414 vis</td><td data-h="Votre prix unitaire" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="screws-frame" aria-label="Prix unitaire de Vis à bois pour l’extérieur, 75 mm" value=""></td><td data-h="Coût" class="num" data-cost="screws-frame"></td></tr><tr data-item="screws-ply"><td><b>Vis à bois pour les panneaux, 32 mm</b><span class="co-src" style="display:block">Environ une tous les 20 cm sur le pourtour de chaque panneau.</span></td><td data-h="Quantité" class="num">267 vis</td><td data-h="Votre prix unitaire" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="screws-ply" aria-label="Prix unitaire de Vis à bois pour les panneaux, 32 mm" value=""></td><td data-h="Coût" class="num" data-cost="screws-ply"></td></tr><tr data-item="staples"><td><b>Agrafes de 13 mm ou plus, pour agrafeuse robuste</b><span class="co-src" style="display:block">Environ une tous les 75 mm le long de chaque pièce sous le grillage.</span></td><td data-h="Quantité" class="num">671 agrafes</td><td data-h="Votre prix unitaire" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="staples" aria-label="Prix unitaire de Agrafes de 13 mm ou plus, pour agrafeuse robuste" value=""></td><td data-h="Coût" class="num" data-cost="staples"></td></tr><tr data-item="washers"><td><b>Vis à tête large ou vis avec rondelles larges, 30 mm</b><span class="co-src" style="display:block">Une tous les 300 mm sur le bord de chaque lé, entre les agrafes.</span></td><td data-h="Quantité" class="num">166 vis</td><td data-h="Votre prix unitaire" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="washers" aria-label="Prix unitaire de Vis à tête large ou vis avec rondelles larges, 30 mm" value=""></td><td data-h="Coût" class="num" data-cost="washers"></td></tr><tr data-item="rings"><td><b>Anneaux d’agrafage (hog rings) ou colliers en inox</b><span class="co-src" style="display:block">Un tous les 15 cm le long des recouvrements entre deux pièces et là où le grillage enterré rejoint les murs.</span></td><td data-h="Quantité" class="num">145 anneaux</td><td data-h="Votre prix unitaire" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="rings" aria-label="Prix unitaire de Anneaux d’agrafage (hog rings) ou colliers en inox" value=""></td><td data-h="Coût" class="num" data-cost="rings"></td></tr><tr class="co-group"><td colspan="4">Quincaillerie</td></tr><tr data-item="hinges"><td><b>Charnières pour l’extérieur</b><span class="co-src" style="display:block">Les portes, la porte de nettoyage, le couvercle des pondoirs et l’éventuel volet de fenêtre.</span></td><td data-h="Quantité" class="num">6 charnières</td><td data-h="Votre prix unitaire" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="hinges" aria-label="Prix unitaire de Charnières pour l’extérieur" value=""></td><td data-h="Coût" class="num" data-cost="hinges"></td></tr><tr data-item="latches"><td><b>Loquets qui s’ouvrent en deux gestes, ou moraillons avec mousqueton</b><span class="co-src" style="display:block">Chaque porte, chaque couvercle et la trappe. Un loquet simple s’ouvre trop facilement.</span></td><td data-h="Quantité" class="num">4 loquets</td><td data-h="Votre prix unitaire" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="latches" aria-label="Prix unitaire de Loquets qui s’ouvrent en deux gestes, ou moraillons avec mousqueton" value=""></td><td data-h="Coût" class="num" data-cost="latches"></td></tr><tr data-item="popdoor"><td><b>Trappe de 305 mm x 356 mm dans deux coulisses rainurées, ou trappe du commerce</b><span class="co-src" style="display:block">Fermez-la chaque soir.</span></td><td data-h="Quantité" class="num">1 trappe</td><td data-h="Votre prix unitaire" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="popdoor" aria-label="Prix unitaire de Trappe de 305 mm x 356 mm dans deux coulisses rainurées, ou trappe du commerce" value=""></td><td data-h="Coût" class="num" data-cost="popdoor"></td></tr><tr class="co-total"><td colspan="3">Total des prix saisis</td><td class="num" id="shop-total"></td></tr></tbody>
+    </table>
+    <div class="co-actions"><button type="button" class="btn" id="print">Imprimer la liste d’achats</button><span class="hint" id="shop-note"></span></div>
+  </section>
+
+  <section class="co-sec" id="pro" aria-labelledby="pro-h">
+    <div class="co-pro">
+      <div class="co-pro-l">
+        <h2 id="pro-h">Le plan de construction de ce poulailler précis</h2>
+        <p>Pro transforme votre projet en plan prêt à construire : chaque barre avec ses coupes, le grillage coupé pour votre rouleau avec la partie enterrée, et les étapes dans l’ordre.</p>
+        <ul class="co-locked" id="locked">
+          <li data-pro="cut"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><div><b>Liste de débit optimisée</b><span>Chaque barre par longueur avec ses coupes, rangées pour perdre le moins possible, un schéma par barre et les chutes</span></div><em>Pro</em></li>
+          <li data-pro="mesh"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><div><b>Plan du grillage avec la partie enterrée</b><span>Chaque mur découpé en bandes pour la largeur de votre rouleau, la partie enterrée à côté, les recouvrements et le nombre de rouleaux</span></div><em>Pro</em></li>
+          <li data-pro="pdf"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><div><b>Plan de construction pas à pas (PDF)</b><span>Élévations cotées, une vue éclatée par étape, l’ordre de montage, le pondoir et le détail du grillage enterré</span></div><em>Pro</em></li>
+          <li data-pro="addons"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><div><b>Options</b><span>Pondoirs en plus, planche à fientes, deuxième partie d’enclos, porte d’enclos où l’on entre debout, cabane sur pieds</span></div><em>Pro</em></li>
+          <li data-pro="saved"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><div><b>Projets enregistrés et deux systèmes d’unités</b><span>Plusieurs projets gardés dans ce navigateur ; le plan en millimètres et en pouces à la fois</span></div><em>Pro</em></li>
+          <li data-pro="export"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><div><b>Fichiers 3D et rendus</b><span>GLB et OBJ pour SketchUp ou Blender, et une image haute définition à montrer à la famille ou aux voisins</span></div><em>Pro</em></li>
+        </ul>
+        <figure class="co-pro-out">
+          <img src="/coop-designer/img/pro-cutlist-fr-960.webp" srcset="/coop-designer/img/pro-cutlist-fr-480.webp 480w, /coop-designer/img/pro-cutlist-fr-960.webp 960w, /coop-designer/img/pro-cutlist-fr-1440.webp 1440w" sizes="(max-width: 860px) 100vw, 56vw" width="1440" height="1018" loading="lazy" decoding="async" alt="La page de la liste de débit du plan Pro du poulailler d’exemple : chaque demi-chevron de 3 m dessiné à l’échelle, ses coupes en millimètres et la chute hachurée au bout.">
+          <figcaption>Une vraie page du plan Pro du projet d’exemple : la liste de débit, barre par barre.</figcaption>
+        </figure>
+        <fieldset class="co-addons" id="addons" disabled>
+          <legend>Options <span class="co-pro-tag">Pro</span></legend>
+          <label class="co-check"><input type="checkbox" data-k="addons.nests.on" data-t="bool"><span>Pondoirs en plus</span></label>
+          <div class="co-grid" data-show="addons.nests.on"><label class="co-field"><span>Combien en plus</span><input type="number" inputmode="numeric" step="1" min="1" max="4" data-k="addons.nests.n" data-t="int"></label></div>
+          <label class="co-check"><input type="checkbox" data-k="addons.droppings.on" data-t="bool"><span>Une planche à fientes sous les perchoirs</span></label>
+          <label class="co-check" data-show="!type=tractor"><input type="checkbox" data-k="addons.run2.on" data-t="bool"><span>Une deuxième partie d’enclos</span></label>
+          <div class="co-grid" data-show="addons.run2.on"><label class="co-field"><span>Sa longueur</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="addons.run2.l" data-t="len"><i data-unit>cm</i></span></label></div>
+          <label class="co-check" data-show="type=house|type=aframe"><input type="checkbox" data-k="addons.walkDoor.on" data-t="bool"><span>Une porte d’enclos où l’on entre debout</span></label>
+          <label class="co-check" data-show="type=walkin"><input type="checkbox" data-k="addons.legs.on" data-t="bool"><span>La cabane surélevée sur pieds, l’espace dessous rattaché à l’enclos</span></label>
+          <div class="co-grid" data-show="addons.legs.on"><label class="co-field"><span>Hauteur du plancher</span><span class="co-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="addons.legs.h" data-t="len"><i data-unit>cm</i></span></label></div>
+        </fieldset>
+        <div class="co-pro-work" id="pro-work" hidden>
+          <div class="co-pro-btns">
+            <button type="button" class="btn btn-primary" id="x-pdf">Télécharger le plan de construction (PDF)</button>
+            <button type="button" class="btn" id="x-glb">Télécharger le GLB</button>
+            <button type="button" class="btn" id="x-obj">Télécharger l’OBJ</button>
+            <button type="button" class="btn" id="x-png">Télécharger un grand rendu</button>
+          </div>
+          <label class="co-check"><input type="checkbox" id="both-units"><span>Afficher millimètres et pouces ensemble dans le plan</span></label>
+          <div class="co-saved" id="saved"><h3>Projets enregistrés</h3><div class="co-row"><input type="text" id="save-name" placeholder="Nommez ce projet" style="max-width:260px;font:inherit;padding:8px 10px;border:1px solid var(--line-2);border-radius:9px"><button type="button" class="btn" id="save">Enregistrer ce projet</button></div><ul id="saved-list"></ul></div>
+          <div id="cut-diagrams"></div>
+          <div id="mesh-diagrams"></div>
+        </div>
+      </div>
+      <div class="co-pro-r">
+        <p class="co-price">19 USD <small>une seule fois</small></p>
+        <a class="btn btn-yolk" data-buy-pro href="https://dorukctn.gumroad.com/l/coop-designer-pro" target="_blank" rel="noopener">Acheter Pro sur Gumroad</a>
+        <button type="button" class="btn btn-ghost" data-enter-key>Saisir la clé de licence</button>
+        <p>Gumroad gère le paiement et les remboursements, en dollars américains. Votre clé active Pro dans ce navigateur, et la même clé sert aussi en anglais et en espagnol.</p>
+        <p>Le plan est un guide pour un projet de bricolage, pas une garantie d’ingénierie.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- @guides:start -->
+  <section class="co-sec" id="guides" aria-labelledby="guides-h">
+    <h2 id="guides-h">Avant de construire</h2>
+    <ul class="co-guides">
+      <li><a href="/fr/poulailler/surface-poulailler-par-poule/"><b>Quelle surface par poule ?</b><span>Les m² de poulailler et d’enclos, de 2 à 30 poules.</span></a></li>
+      <li><a href="/fr/poulailler/construire-un-poulailler-pour-4-poules/"><b>Construire pour 4 poules</b><span>Un abri sur pieds, le bois à acheter et le montage.</span></a></li>
+      <li><a href="/fr/poulailler/plan-poulailler-10-poules/"><b>Plan pour 10 poules</b><span>Une cabane où l’on entre debout, à imprimer en PDF.</span></a></li>
+      <li><a href="/fr/poulailler/plan-poulailler-mobile/"><b>Plan de poulailler mobile</b><span>L’abri sur roues au bout d’un enclos que l’on déplace.</span></a></li>
+    </ul>
+  </section>
+<!-- @guides:end -->
+
+  <section class="co-sec" id="faq" aria-labelledby="faq-h">
+    <h2 id="faq-h">Questions</h2>
+    <div class="co-faq">
+      <!-- @faq -->
+      <details><summary>Quelle surface pour un poulailler ?</summary><div class="answer"><p>Les guides de vulgarisation que nous avons lus donnent de 0,14 à 0,37 m² de sol par poule de taille standard et de 0,07 à 0,28 m² par poule naine, plus 0,37 à 0,93 m² d’enclos par poule. Le tableau le plus récent, celui de Virginia Tech (2023), donne 0,28 à 0,37 m² à l’intérieur et 0,93 m² dehors pour des pondeuses. Coop Designer dimensionne un nouveau poulailler à 0,37 m² et l’enclos à 0,93 m² par poule. <a href="/fr/poulailler/surface-poulailler-par-poule/">La surface pour 2 à 30 poules</a></p></div></details>
+      <details><summary>Combien de pondoirs faut-il ?</summary><div class="answer"><p>Un pour 3 à 5 poules : un pour 4 à 5 (Maryland, Virginia Tech), un pour 4 (Oregon State), un pour 5 (Maine, Floride). Faites chaque pondoir d’environ 30 cm de côté, à 60 cm du sol environ, avec le perchoir plus haut pour que les poules dorment dessus et pas dans les pondoirs.</p></div></details>
+      <details><summary>Grillage soudé ou grillage à poules ?</summary><div class="answer"><p>Du grillage soudé. Le spécialiste de la faune de l’université d’État de l’Utah écrit que le grillage à poules n’arrête pas les prédateurs et recommande du grillage soudé de 6 à 13 mm ; UConn Extension conseille de fermer les poulaillers avec du grillage soudé plutôt qu’avec du grillage à poules. Enterrez-le sur au moins 30 cm, ou posez-le 30 cm vers le bas et 30 cm vers l’extérieur, en L (Colorado State).</p></div></details>
+      <details><summary>Faut-il déclarer ses poules à la mairie ?</summary><div class="answer"><p>Oui. Une basse-cour se déclare à la mairie de la commune, selon l’arrêté du 24 février 2006, avec le formulaire Cerfa 15472 ou en ligne (<a href="https://www.service-public.gouv.fr/particuliers/vosdroits/R42501" rel="noopener">la démarche sur Service Public</a>). Quand le risque d’influenza aviaire est élevé, le ministère de l’Agriculture demande aussi de confiner les volailles ou de couvrir la basse-cour d’un filet. Votre commune, votre copropriété ou votre bail peuvent ajouter leurs propres règles.</p></div></details>
+      <details><summary>Où acheter le bois et le grillage ?</summary><div class="answer"><p>L’outil part des sections et des longueurs vendues en France : demi-chevrons de 38 x 63 mm en 3 et 4 m et chevrons de 63 x 75 mm de 2,4 à 5 m chez Brico Dépôt, tasseaux de 2,40 m chez Castorama, panneaux OSB 3 de 244 x 122 cm, grillage soudé en rouleaux de 1 m de haut. Il ne fournit aucun prix : saisissez ceux de votre magasin dans la liste d’achats. <a href="/fr/poulailler/construire-un-poulailler-pour-4-poules/">Le bois d’un poulailler pour 4 poules</a></p></div></details>
+      <details><summary>Mes données sont-elles envoyées à un serveur ?</summary><div class="answer"><p>Non. Le projet, les vérifications et le modèle 3D sont calculés dans votre navigateur. Le lien de partage garde le projet après le signe #, que les navigateurs n’envoient pas aux serveurs. Si vous achetez Pro, seule la clé de licence part chez Gumroad pour être vérifiée.</p></div></details>
+      <details><summary>Le poulailler résiste-t-il à la neige et au vent ?</summary><div class="answer"><p>L’outil ne dimensionne pas l’ossature pour la neige ni pour le vent. Si vous avez de fortes chutes de neige ou des vents violents, demandez conseil à un charpentier, ancrez le poulailler et déneigez le toit.</p></div></details>
+    </div>
+  </section>
+
+  <section class="co-sec co-sources" id="sources" aria-labelledby="sources-h">
+    <h2 id="sources-h">Sources</h2>
+<!-- @sources:start -->
+    <p class="co-small">Chaque chiffre de l’outil, avec la page d’où il vient. Les sections de bois, les panneaux, le grillage et les plaques de toit viennent des fiches de Brico Dépôt et de Castorama, lues le 13 octobre 2026, sans aucun prix ; les surfaces, les pondoirs, les perchoirs et le grillage enterré viennent des guides des services de vulgarisation des universités américaines, lus le 12 octobre 2026, cités et non recopiés ; les règles françaises et européennes viennent du ministère de l’Agriculture, de Service Public, des Chambres d’agriculture et d’EUR-Lex. Les guides américains donnent leurs chiffres en pieds et en pouces : nous les convertissons en mètres. Quand les guides divergent, les vérifications montrent la fourchette.</p>
+    <details class="co-srclist"><summary>Les 41 sources, chacune avec sa date de lecture</summary>
+    <ol>
+      <li><a href="https://www.bricodepot.fr/produits/materiau-et-gros-oeuvre/toiture-et-facade/bois-de-charpente-et-ossature-bois/chevrons" rel="noopener">Brico Dépôt : rayon Chevrons. Chevrons en épicéa traité classe 2 de 63 x 75 mm en 2,4, 3, 4 et 5 m ; de 50 x 75 mm en 4 m ; demi-chevrons de 38 x 63 mm en 3 et 4 m</a> <span>(lu le 13 octobre 2026)</span></li>
+      <li><a href="https://www.castorama.fr/tasseau-bois-rabote/cat_id_0005160.cat" rel="noopener">Castorama : rayon Tasseau bois raboté. Tasseaux rabotés de 44 x 44 mm et 44 x 70 mm, bois tendre séché au four, pour l’intérieur ; tasseau en sapin traité de 45 x 45 mm ; tous en 2,40 m</a> <span>(lu le 13 octobre 2026)</span></li>
+      <li><a href="https://www.castorama.fr/panneau-osb-3-244-x-122-cm-ep-12-mm-vendu-au-panneau-/3663602840176_CAFR.prd" rel="noopener">Castorama : panneaux OSB 3 de 244 x 122 cm, en 9, 12, 15, 18 et 22 mm d’épaisseur</a> <span>(lu le 13 octobre 2026)</span></li>
+      <li><a href="https://www.bricodepot.fr/p/3663602731221/rouleau-grillage-soude-l-5-x-h-1-m" rel="noopener">Brico Dépôt : Rouleau grillage soudé l. 5 x h. 1 m, maille 13 x 13 mm, fil galvanisé avec revêtement plastique (diamètre du fil non indiqué)</a> <span>(lu le 13 octobre 2026)</span></li>
+      <li><a href="https://www.bricodepot.fr/p/3663602731276/grillage-soude-galvanise-l-10-x-h-1-m-maille-25-x-25-mm" rel="noopener">Brico Dépôt : Grillage soudé galvanisé L. 10 x H. 1 m, maille 25 x 25 mm (diamètre du fil non indiqué)</a> <span>(lu le 13 octobre 2026)</span></li>
+      <li><a href="https://www.bricodepot.fr/p/3663602731122/grillage-triple-torsion-galvanise-l-10-x-h-1-m-x-maille-25-x-25-mm" rel="noopener">Brico Dépôt : Grillage triple torsion galvanisé L. 10 x H. 1 m, maille 25 x 25 mm, maillage hexagonal</a> <span>(lu le 13 octobre 2026)</span></li>
+      <li><a href="https://www.bricodepot.fr/p/3467670010567/plaque-bitumineuse-ondulee-9-ondes-rouge-200-x-85-5-cm" rel="noopener">Brico Dépôt : Plaque bitumineuse ondulée 9 ondes, 200 x 85,5 cm</a> <span>(lu le 13 octobre 2026)</span></li>
+      <li><a href="https://oaba.fr/PDF/Fiche_regl.pdf" rel="noopener">Chambres d’agriculture de Bretagne et des Pays de la Loire : Fiche Poules pondeuses n° 1, Réglementation bien-être sur l’élevage des poules pondeuses (juin 2011)</a> <span>(lu le 13 octobre 2026)</span></li>
+      <li><a href="https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:31999L0074" rel="noopener">Directive 1999/74/CE du Conseil du 19 juillet 1999 établissant les normes minimales relatives à la protection des poules pondeuses (article 1 et annexe)</a> <span>(lu le 13 octobre 2026)</span></li>
+      <li><a href="https://agriculture.gouv.fr/telecharger/85930" rel="noopener">Ministère de l’Agriculture : Renforcement des mesures de biosécurité pour lutter contre l’influenza aviaire dans les basses-cours (dépliant, décembre 2021)</a> <span>(lu le 13 octobre 2026)</span></li>
+      <li><a href="https://www.service-public.gouv.fr/particuliers/vosdroits/R42501" rel="noopener">Service Public : formulaire Cerfa 15472, déclaration de détention de volailles ou d’oiseaux captifs, particulier ou professionnel (page vérifiée le 9 octobre 2026)</a> <span>(lu le 13 octobre 2026)</span></li>
+      <li><a href="https://www.nist.gov/document/ps-20-25-final" rel="noopener" lang="en" hreflang="en">American Softwood Lumber Standard, Voluntary Product Standard PS 20-25 (NIST, January 2025), Table 3, nominal and minimum-dressed sizes of boards, dimension and timbers</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://www.nist.gov/document/ps-20-25-final" rel="noopener" lang="en" hreflang="en">American Softwood Lumber Standard PS 20-25, section 5.3.1: standard lengths are multiples of 1 ft or 2 ft, as the grading rules specify</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://www.nist.gov/document/doc-ps-1-19-structural-plywood" rel="noopener" lang="en" hreflang="en">Structural Plywood, Voluntary Product Standard PS 1-19 (NIST, December 2019): section 5.4 states its grade rules for 1220 by 2440 mm (48 x 96 in) panels; its thickness table lists the 15/32 and 23/32 Performance Categories</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://www.newegg.com/p/2AC-00N9-01G12" rel="noopener" lang="en" hreflang="en">Newegg (VEVOR): Hardware Cloth, 1/2 inch, 36in x 50 ft, 19 Gauge, Hot Dipped Galvanized, model SS12123650G; mesh 0.5 x 0.5 in (12.7 x 12.7 mm); also sold 24 in x 100 ft</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://www.doitbest.com/product/717834/do-it-1-2-in-x-36-in-h-x-100-ft-l-19-ga-hardware-cloth-717834/" rel="noopener" lang="en" hreflang="en">Do it Best: Do it 1/2 In. Mesh x 36 In. H. x 100 Ft. L. 19-Ga. Hardware Cloth, item 717834; mesh spacing 1/2 x 1/2 in, galvanized after welded</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://www.doitbest.com/product/735884/do-it-1-4-in-x-48-in-h-x-100-ft-l-23-ga-hardware-cloth-735884/" rel="noopener" lang="en" hreflang="en">Do it Best: Agway 1/4 In. Mesh x 48 In. H. x 100 Ft. L. 23-Ga. Hardware Cloth, item 735884; mesh spacing 0.25 x 0.25 in, galvanized after welded</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://www.doitbest.com/product/718003/48-in-h-x-100-ft-l-1x2-zinc-coated-galvanized-welded-wire-fence-718003/" rel="noopener" lang="en" hreflang="en">Do it Best: 48 In. H. x 100 Ft. L. (1x2) Zinc-Coated Galvanized Welded Wire Fence, item 718003; gauge 14, mesh spacing 1 x 2 in, galvanized before welded</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://www.doitbest.com/product/711517/48-in-h-x-100-ft-l-2x4-galvanized-welded-wire-fence-711517/" rel="noopener" lang="en" hreflang="en">Do it Best: 48 In. H. x 100 Ft. L. (2x4) Galvanized Welded Wire Fence, item 711517; gauge 14, mesh spacing 2 x 4 in, galvanized before welded</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://www.aih.com/Product/FENPN36150" rel="noopener" lang="en" hreflang="en">Alaska Industrial Hardware: Grip-Rite PN36150 Poultry Netting, 1 in hexagonal mesh, 50 ft L x 36 in H, 20 gauge, galvanized</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://extension.psu.edu/small-scale-poultry-housing" rel="noopener" lang="en" hreflang="en">Penn State Extension: Small Scale Poultry Housing (Phillip Clauer; reviewed by Gregory P. Martin; updated 25 June 2026)</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://extension.umd.edu/resource/housing-requirements" rel="noopener" lang="en" hreflang="en">University of Maryland Extension: Housing Requirements (Jonathan Moyle; updated 11 May 2022)</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://extension.umd.edu/resource/prevention-predation" rel="noopener" lang="en" hreflang="en">University of Maryland Extension: Prevention of Predation (Jennifer L. Rhodes; updated 21 June 2022)</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://extension.oregonstate.edu/catalog/ec-1644-living-land-backyard-chicken-coop-design" rel="noopener" lang="en" hreflang="en">Oregon State University Extension: Living on the land, Backyard chicken coop design, EC 1644 (April 2014, reviewed 2023)</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://www.pubs.ext.vt.edu/2902/2902-1092/2902-1092.html" rel="noopener" lang="en" hreflang="en">Virginia Cooperative Extension: Small-scale Poultry Housing, 2902-1092 (APSC-186NP), Leonie Jacobs and Phillip J. Clauer, 28 April 2023</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://poultry.extension.org/articles/getting-started-with-small-and-backyard-poultry/housing-for-small-and-backyard-poultry-flocks/space-allowances-in-housing-for-small-and-backyard-poultry-flocks/" rel="noopener" lang="en" hreflang="en">Small and Backyard Poultry (extension.org): Space Allowances in Housing for Small and Backyard Poultry Flocks</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://poultry.extension.org/articles/getting-started-with-small-and-backyard-poultry/housing-for-small-and-backyard-poultry-flocks/small-scale-poultry-housing/" rel="noopener" lang="en" hreflang="en">Small and Backyard Poultry (extension.org): Small-Scale Poultry Housing, Overview (Jacquie Jacob, University of Kentucky)</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://poultry.extension.org/articles/poultry-management/predator-management-for-small-and-backyard-poultry-flocks/" rel="noopener" lang="en" hreflang="en">Small and Backyard Poultry (extension.org): Predator Management for Small and Backyard Poultry Flocks</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://www.udel.edu/academics/colleges/canr/cooperative-extension/fact-sheets/steam-team-chicken-housing-and-coop-maintenance/" rel="noopener" lang="en" hreflang="en">University of Delaware Cooperative Extension: Steam Team, Chicken Housing and Coop Maintenance (Twila Parish-Short, May 2025)</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://warren.cce.cornell.edu/agriculture/backyard-chickens" rel="noopener" lang="en" hreflang="en">Cornell Cooperative Extension of Warren County: Backyard Chickens (last updated 14 November 2022)</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://extension.umaine.edu/4h/egg-business-project/housing-your-pullets/" rel="noopener" lang="en" hreflang="en">University of Maine Cooperative Extension: Housing Your Pullets, Four Options and Other Considerations (Richard Brzozowski)</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://ask.ifas.ufl.edu/publication/an239" rel="noopener" lang="en" hreflang="en">University of Florida IFAS Extension: AN239, Raising Backyard Chickens for Eggs (Mary E. Henry and others)</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://today.uconn.edu/2025/03/ask-uconn-extension-what-to-know-about-raising-backyard-poultry/" rel="noopener" lang="en" hreflang="en">UConn Today: Ask UConn Extension, What to Know about Raising Backyard Poultry (Indu Upadhyaya, 14 March 2025)</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://www.usu.edu/today/story/is-there-a-correlation-between-backyard-chickens-and-increased-rodents" rel="noopener" lang="en" hreflang="en">Utah State University: Is There a Correlation between Backyard Chickens and Increased Rodents? (Terry Messmer, Extension wildlife specialist; 24 August 2018)</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://extension.colostate.edu/resource/chickens-and-predators/" rel="noopener" lang="en" hreflang="en">Colorado State University Extension: Chickens and Predators</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://boulder.extension.colostate.edu/wp-content/uploads/sites/7/2019/11/How-to-Care-for-Adult-Chickens-2018.pdf" rel="noopener" lang="en" hreflang="en">Colorado State University Extension, Boulder County: How to Care for Adult Chickens and Solve Common Problems (2018, PDF)</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://extension.unh.edu/blog/2019/02/what-are-best-ways-protect-my-chickens-predators" rel="noopener" lang="en" hreflang="en">UNH Extension: What are the best ways to protect my chickens from predators? (26 February 2019)</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://www.uaex.uada.edu/media-resources/news/2024/january/1-11-2024-ark-cold-backyard-poultry.aspx" rel="noopener" lang="en" hreflang="en">University of Arkansas Division of Agriculture: Backyard poultry coops prepped for cold still require good ventilation (11 January 2024)</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://www.epa.gov/ingredients-used-pesticide-products/overview-wood-preservative-chemicals" rel="noopener" lang="en" hreflang="en">US EPA: Overview of Wood Preservative Chemicals</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://www.palram.com/au/wp-content/uploads/sites/3/2019/07/SUNTUFF_Roofing_Installation_Guide-.pdf" rel="noopener" lang="en" hreflang="en">Palram Australia: SUNTUF Roofing Installation Guide (pitch, purlin spacing, side lap)</a> <span>(lu le 12 octobre 2026)</span></li>
+      <li><a href="https://github.com/mourner/suncalc" rel="noopener" lang="en" hreflang="en">SunCalc 1.9.0 by Vladimir Agafonkin (BSD-2-Clause), sun position from date, time and latitude</a> <span>(lu le 12 octobre 2026)</span></li>
+    </ol>
+    </details>
+    <p class="co-small">Sans lien avec les fabricants, les enseignes, les universités ni les administrations cités ici.</p>
+<!-- @sources:end -->
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">De petits outils soignés, chacun pour une tâche précise. Vos projets sont calculés dans votre navigateur et ne sont jamais envoyés.</p>
+      <p style="margin:12px 0 0">Conçu par <a href="https://peakappsstudio.com/">Peak Apps Studio</a>.<br>Écrivez-nous à <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Poulailler en 3D</h2>
+      <ul>
+        <li><a href="/fr/poulailler/">Concevoir un poulailler</a></li>
+        <li><a href="/fr/poulailler/construire-un-poulailler-pour-4-poules/">Construire un poulailler pour 4 poules</a></li>
+        <li><a href="/fr/poulailler/plan-poulailler-10-poules/">Plan de poulailler pour 10 poules</a></li>
+        <li><a href="/fr/poulailler/plan-poulailler-mobile/">Plan de poulailler mobile</a></li>
+        <li><a href="/fr/poulailler/surface-poulailler-par-poule/">Quelle surface de poulailler par poule ?</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Autres langues</h2>
+      <ul>
+        <li><a href="/coop-designer/" hreflang="en" lang="en">Coop Designer (English)</a></li>
+        <li><a href="/es/gallinero/" hreflang="es" lang="es">Gallinero en 3D (español)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Outils pour la maison (en anglais)</h2>
+      <ul>
+        <li><a href="/without-planning/" hreflang="en" lang="en">Without Planning</a></li>
+        <li><a href="/dropped-kerb/" hreflang="en" lang="en">Dropped Kerb Check</a></li>
+        <li><a href="/catio-designer/" hreflang="en" lang="en">Catio Designer</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>À propos</h2>
+      <ul>
+        <li><a href="/tools/" hreflang="en">Tous les outils (en anglais)</a></li>
+        <li><a href="/tools/privacy/" hreflang="en">Confidentialité et licences (en anglais)</a></li>
+        <li><a href="https://peakappsstudio.com/">Le studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* La page arrive avec l’exemple déjà en place : ses scripts attendent le premier affichage et sont ajoutés dans l’ordre
+   dès que le navigateur le signale (au plus tard après 3 s, ou tout de suite si l’on appuie d’abord sur le bouton de licence). */
+(function () {
+  var src = ['/assets/site.js', '/assets/license.js', '/catio-designer/vendor/suncalc.js', '/coop-designer/data.js', '/coop-designer/i18n/fr.js', '/coop-designer/i18n.js', '/coop-designer/engine.js', '/coop-designer/view.js', '/coop-designer/tool.js'];
+  var done = false;
+  function add() { if (done) return; done = true; src.forEach(function (u) { var el = document.createElement('script'); el.src = u; el.async = false; document.body.appendChild(el); }); }
+  window.CoopLoad = add;
+  if (window.CoopWantsKey) add();
+  try { new PerformanceObserver(function (l) { if (l.getEntriesByName('first-contentful-paint').length) setTimeout(add, 0); }).observe({ type: 'paint', buffered: true }); } catch (e) { requestAnimationFrame(function () { setTimeout(add, 0); }); }
+  setTimeout(add, 3000);
+})();
+</script>
+</body>
+</html>

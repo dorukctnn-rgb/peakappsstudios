@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gallinero para 20 gallinas: medidas, materiales y normas</title>
+<meta name="description" content="Gallinero para 20 gallinas: una caseta de 3,1 m x 2,4 m con su corral, los materiales, la ventilación para el calor y el registro de autoconsumo.">
+<link rel="canonical" href="https://peakappsstudio.com/es/gallinero/gallinero-para-20-gallinas/">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/coop-designer/designs-for-20-chickens/">
+<link rel="alternate" hreflang="es" href="https://peakappsstudio.com/es/gallinero/gallinero-para-20-gallinas/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/coop-designer/designs-for-20-chickens/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:locale" content="es_ES">
+<meta property="og:title" content="Gallinero para 20 gallinas">
+<meta property="og:description" content="Gallinero para 20 gallinas: una caseta de 3,1 m x 2,4 m con su corral, los materiales, la ventilación para el calor y el registro de autoconsumo.">
+<meta property="og:url" content="https://peakappsstudio.com/es/gallinero/gallinero-para-20-gallinas/">
+<meta property="og:image" content="https://peakappsstudio.com/coop-designer/og-es.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#dcefea">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/coop-designer/fonts/geologica-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="/coop-designer/img/hero-20-960.webp" imagesrcset="/coop-designer/img/hero-20-480.webp 480w, /coop-designer/img/hero-20-960.webp 960w, /coop-designer/img/hero-20-1440.webp 1440w" imagesizes="(max-width: 860px) 100vw, 52vw" fetchpriority="high">
+<link rel="stylesheet" href="/assets/tools.css">
+<style data-from="/coop-designer/tool.css">
+/* Coop Designer: the tool's own identity, scoped to body.co-page (the shared header and footer keep their structure).
+ * Taken from the eggs a backyard flock lays: a duck-egg page (the blue eggs), chocolate ink (the darkest brown eggs),
+ * yolk for Pro and "check", an olive-egg green for links and focus, a garden-leaf green for "fits", a fox red for
+ * "fail", pine for wood only. Type: Parkinsans (plump and sturdy, headings only) and Geologica (everything read,
+ * tabular figures). Signature: a carton row of real egg colours, used once under the hero. */
+
+@font-face { font-family: "Parkinsans"; src: url("/coop-designer/fonts/parkinsans-latin.woff2") format("woff2"); font-weight: 600 800; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Parkinsans"; src: url("/coop-designer/fonts/parkinsans-latin-ext.woff2") format("woff2"); font-weight: 600 800; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Geologica"; src: url("/coop-designer/fonts/geologica-latin.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Geologica"; src: url("/coop-designer/fonts/geologica-latin-ext.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+/* fallbacks sized to the web fonts' average widths and heights (from _build/fonts.py), so the swap does not move the layout */
+@font-face { font-family: "Geologica Fallback"; src: local("Arial"), local("Helvetica Neue"), local("Helvetica"); size-adjust: 108.6%; ascent-override: 89.8%; descent-override: 25.3%; line-gap-override: 0%; }
+@font-face { font-family: "Parkinsans Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Helvetica Neue Bold"); font-weight: 600 800; size-adjust: 108.7%; ascent-override: 96.6%; descent-override: 32.2%; line-gap-override: 0%; }
+
+body.co-page {
+  --egg: #dcefea; --egg-2: #c9e6df; --egg-3: #b3d9d0; --paper: #ffffff; --paper-2: #f2f9f6;
+  --choc: #2e1a12; --choc-2: #5f4a3e; --choc-3: #8a776b;
+  --yolk: #ffb000; --olive: #56701a; --leaf: #9bc53d; --fox: #c63d2f; --fox-ink: #ffffff; --pine: #d9a35f;
+  --card: var(--paper); --ink: var(--choc); --ink-2: var(--choc-2); --muted: var(--choc-2);
+  --line: rgba(46, 26, 18, .13); --line-2: rgba(46, 26, 18, .26);
+  --accent: var(--choc); --accent-ink: #ffffff; --ok: var(--olive); --warn: #8a5200;
+  --btn: var(--choc); --btn-ink: #ffffff; --link: var(--olive);
+  --sans: "Geologica", "Geologica Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: var(--sans);
+  --display: "Parkinsans", "Parkinsans Fallback", sans-serif;
+  --r-panel: 20px; --r-field: 10px; --r-chip: 8px;
+  background: var(--egg); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.58; font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.co-page {
+    --egg: #1b1410; --egg-2: #2a1f18; --egg-3: #3a2b21; --paper: #241a14; --paper-2: #2c2019;
+    --choc: #f4ede4; --choc-2: #d2c4b6; --choc-3: #a8988a;
+    --olive: #b8d36b; --leaf: #a8d45a; --fox: #ff7a6b; --fox-ink: #2a0905; --warn: #ffc15a;
+    --btn: #f4ede4; --btn-ink: #1b1410; --link: #b8d36b;
+    --card: var(--paper); --line: rgba(244, 237, 228, .13); --line-2: rgba(244, 237, 228, .26);
+  }
+}
+:root[data-theme="dark"] body.co-page {
+  --egg: #1b1410; --egg-2: #2a1f18; --egg-3: #3a2b21; --paper: #241a14; --paper-2: #2c2019;
+  --choc: #f4ede4; --choc-2: #d2c4b6; --choc-3: #a8988a;
+  --olive: #b8d36b; --leaf: #a8d45a; --fox: #ff7a6b; --fox-ink: #2a0905; --warn: #ffc15a;
+  --btn: #f4ede4; --btn-ink: #1b1410; --link: #b8d36b;
+  --card: var(--paper); --line: rgba(244, 237, 228, .13); --line-2: rgba(244, 237, 228, .26);
+}
+
+/* ---------- type ---------- */
+.co-page h1, .co-page h2, .co-page h3 { font-family: var(--display); font-weight: 800; letter-spacing: -0.015em; line-height: 1.03; text-wrap: balance; color: var(--choc); }
+.co-page h1 { font-size: clamp(38px, 5.2vw, 68px); margin: 0; max-width: 15ch; }
+.co-page h2 { font-size: clamp(27px, 3vw, 40px); font-weight: 800; margin: 0 0 12px; }
+/* the site footer keeps its own small column headings (the rule above would make them section titles) */
+.co-page .site-foot h2 { font-family: var(--sans); font-size: 15px; font-weight: 600; letter-spacing: 0; line-height: 1.35; color: var(--ink); margin: 0 0 10px; }
+.co-page h3 { font-size: 21px; font-weight: 700; margin: 0 0 6px; letter-spacing: -0.005em; }
+.co-page p { max-width: 68ch; }
+.co-page .lede { font-size: clamp(18px, 1.5vw, 20px); color: var(--ink); margin: 0; }
+.co-page a { color: var(--choc); text-decoration-color: var(--olive); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.co-page a:hover { color: var(--olive); }
+.co-page table a, .co-page .co-card a { color: var(--link); text-decoration-thickness: 1px; }
+.co-page :focus-visible { outline: 3px solid var(--olive); outline-offset: 2px; border-radius: 4px; }
+.co-page ::selection { background: var(--yolk); color: #2e1a12; }
+.co-page .btn { border-radius: var(--r-field); font-weight: 600; font-size: 16px; padding: 12px 18px; }
+.co-page .btn-primary { background: var(--btn); border-color: var(--btn); color: var(--btn-ink); }
+.co-page .btn-primary:hover { background: color-mix(in oklab, var(--btn) 84%, var(--olive)); border-color: color-mix(in oklab, var(--btn) 84%, var(--olive)); color: var(--btn-ink); }
+.co-page .btn-yolk { background: var(--yolk); border-color: var(--yolk); color: #2e1a12; }
+.co-page .btn-yolk:hover { background: #f2a400; border-color: #f2a400; color: #2e1a12; }
+.co-page .btn-ghost { background: transparent; }
+.co-small { font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- the language switch, on the coop pages only (English, French, Spanish editions) ---------- */
+.co-topline { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin: 22px 0 0; }
+.co-topline .crumbs { margin: 0; }
+.co-langs { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.co-langs a { font-size: 13.5px; font-weight: 600; line-height: 1.2; text-decoration: none; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--ink-2); background: color-mix(in oklab, var(--paper) 60%, transparent); }
+.co-langs a:hover { border-color: var(--olive); color: var(--ink); }
+.co-langs a[aria-current="true"] { background: var(--choc); border-color: var(--choc); color: var(--paper); }
+
+/* ---------- hero ---------- */
+.co-hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(18px, 4vw, 56px); align-items: end; padding: clamp(12px, 2.4vw, 28px) 0 clamp(12px, 1.6vw, 18px); }
+.co-hero-side { display: grid; gap: 16px; }
+/* the signature: one carton row of eggs in the colours a mixed flock lays */
+.co-eggs { display: block; width: 100%; height: 44px; margin: 2px 0 18px; }
+.co-eggs .co-cup { fill: var(--egg-3); }
+@media (max-width: 600px) { .co-eggs { height: 34px; margin-bottom: 14px; } }
+
+/* the four types, as line drawings */
+.co-types { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; border: 0; padding: 0; margin: 0; }
+.co-types legend { font-weight: 600; font-size: 15px; margin-bottom: 8px; padding: 0; }
+.co-type { position: relative; display: grid; justify-items: center; gap: 4px; padding: 10px 6px 9px; border-radius: 12px; border: 1.5px solid var(--line-2); background: color-mix(in oklab, var(--paper) 50%, transparent); cursor: pointer; text-align: center; font-size: 14px; font-weight: 600; line-height: 1.2; color: var(--ink); }
+.co-type input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.co-type svg { width: 66px; height: 46px; color: var(--choc-2); }
+.co-type:has(input:checked) { border-color: var(--choc); background: var(--paper); box-shadow: inset 0 -4px 0 var(--yolk); }
+.co-type:has(input:checked) svg { color: var(--choc); }
+.co-type:has(input:focus-visible) { outline: 3px solid var(--olive); outline-offset: 2px; }
+.co-type .wood { color: var(--pine); }
+@media (max-width: 900px) { .co-hero { grid-template-columns: 1fr; align-items: start; } }
+@media (max-width: 460px) { .co-types { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------- the bench: the 3D view beside the form ---------- */
+.co-bench { display: grid; grid-template-columns: minmax(0, 1fr) minmax(330px, 410px); background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-panel); overflow: clip; }
+.co-stage { border-right: 1px solid var(--line); min-width: 0; }
+.co-sticky { position: sticky; top: 0; }
+.co-view { position: relative; aspect-ratio: 16 / 10; background: linear-gradient(180deg, #bfe0f2, #e4f1ee 62%, #fde8cf); overflow: hidden; }
+.co-view img, .co-view canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; }
+.co-view canvas { touch-action: none; cursor: grab; }
+.co-view canvas:active { cursor: grabbing; }
+.co-badge { position: absolute; left: 12px; top: 12px; background: var(--yolk); color: #2e1a12; font-weight: 700; font-size: 13.5px; padding: 4px 10px; border-radius: var(--r-chip); }
+.co-gl-note { position: absolute; left: 12px; right: 12px; bottom: 60px; margin: 0; background: var(--paper); color: var(--ink); padding: 8px 12px; border-radius: var(--r-field); font-size: 14.5px; }
+.co-start { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); display: inline-flex; gap: 8px; align-items: center; background: #2e1a12; color: #fff; border: 0; border-radius: 999px; padding: 11px 18px; font: inherit; font-weight: 600; font-size: 15.5px; cursor: pointer; box-shadow: 0 6px 18px rgba(46, 26, 18, .3); }
+.co-start svg { width: 18px; height: 18px; }
+.co-start[disabled] { opacity: .8; cursor: progress; }
+.co-tags { position: absolute; inset: 0; pointer-events: none; }
+.co-tag { position: absolute; left: 0; top: 0; white-space: nowrap; font-size: 13.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: rgba(255, 255, 255, .95); color: #2e1a12; box-shadow: 0 1px 0 rgba(46, 26, 18, .25); }
+.co-tag-fail { background: #c63d2f; color: #fff; }
+.co-tag-check { background: #ffb000; color: #2e1a12; }
+.co-tag-fits { background: #9bc53d; color: #2e1a12; }
+.co-toolbar { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; padding: 10px 14px; border-top: 1px solid var(--line); background: var(--paper-2); }
+.co-seg { display: inline-flex; border: 1px solid var(--line-2); border-radius: var(--r-field); overflow: hidden; }
+.co-seg button { font: inherit; font-size: 14.5px; font-weight: 600; padding: 7px 11px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+.co-seg button + button { border-left: 1px solid var(--line-2); }
+.co-seg button[aria-pressed="true"] { background: var(--choc); color: var(--paper); }
+.co-sun { display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 600; }
+.co-sun input[type="range"] { width: 130px; accent-color: var(--yolk); }
+.co-sun output { min-width: 3.2em; font-variant-numeric: tabular-nums; }
+.co-henbtn { font: inherit; font-size: 14.5px; font-weight: 600; padding: 7px 12px; border-radius: var(--r-field); border: 1.5px solid var(--yolk); background: transparent; color: var(--ink); cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.co-henbtn svg { width: 18px; height: 18px; color: var(--choc); }
+.co-toolbar[hidden] { display: none; }
+
+/* the title block under the view: what this design is, and how its checks came out */
+.co-title { padding: 14px 16px 16px; display: grid; gap: 10px; }
+.co-title h2 { font-size: clamp(23px, 2.3vw, 29px); margin: 0; }
+.co-title p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
+.co-counts { display: flex; flex-wrap: wrap; gap: 8px; }
+.co-count { display: inline-flex; color: var(--ink); gap: 6px; align-items: baseline; padding: 4px 10px; border-radius: var(--r-chip); font-size: 14.5px; font-weight: 600; border: 1px solid var(--line-2); }
+.co-count b { font-size: 18px; }
+.co-count.ct-fits { background: color-mix(in oklab, var(--leaf) 30%, var(--paper)); }
+.co-count.ct-check { background: color-mix(in oklab, var(--yolk) 30%, var(--paper)); }
+.co-count.ct-fail { background: color-mix(in oklab, var(--fox) 20%, var(--paper)); }
+.co-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13.5px; color: var(--ink-2); }
+
+/* ---------- the form ---------- */
+.co-form { padding: 6px 16px 18px; display: grid; gap: 4px; align-content: start; }
+.co-step { border: 0; padding: 12px 0 14px; margin: 0; border-bottom: 1px solid var(--line); }
+.co-step:last-child { border-bottom: 0; }
+.co-step > legend { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 20px; padding: 0; margin: 0 0 10px; color: var(--choc); }
+.co-step-n { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50% 50% 46% 46% / 58% 58% 42% 42%; background: var(--egg-3); color: #2e1a12; font-family: var(--sans); font-size: 15px; font-weight: 700; }
+.co-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 12px; }
+.co-field { display: grid; gap: 4px; align-content: start; font-size: 14.5px; font-weight: 600; min-width: 0; }
+.co-field.wide { grid-column: 1 / -1; }
+.co-field small { font-weight: 400; color: var(--ink-2); font-size: 13.5px; line-height: 1.35; }
+.co-in { position: relative; display: flex; align-items: center; }
+.co-in input { padding-right: 38px; }
+.co-in i { position: absolute; right: 10px; font-style: normal; font-weight: 500; font-size: 14px; color: var(--ink-2); pointer-events: none; }
+.co-form input[type="number"], .co-form input[type="text"], .co-form select, .co-shop input, .co-pro input[type="text"] {
+  width: 100%; min-width: 0; font: inherit; font-size: 16px; font-weight: 500; padding: 9px 10px; border: 1px solid var(--line-2); border-radius: var(--r-field); background: var(--paper); color: var(--ink); }
+.co-form input:focus, .co-form select:focus, .co-shop input:focus { outline: none; border-color: var(--olive); box-shadow: 0 0 0 3px color-mix(in oklab, var(--olive) 24%, transparent); }
+.co-row { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
+.co-check { display: flex; gap: 8px; align-items: flex-start; font-size: 14.5px; font-weight: 500; }
+.co-check input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--olive); flex: none; }
+.co-auto { margin: 2px 0 10px; padding: 9px 11px; border-radius: var(--r-field); background: var(--paper-2); border: 1px dashed var(--line-2); }
+.co-pro-tag { display: inline-block; font-size: 12.5px; font-weight: 700; padding: 1px 7px; border-radius: 5px; background: var(--yolk); color: #2e1a12; margin-left: 6px; vertical-align: 1px; }
+[data-show][hidden] { display: none !important; }
+@media (max-width: 960px) { .co-bench { grid-template-columns: 1fr; } .co-stage { border-right: 0; border-bottom: 1px solid var(--line); } .co-sticky { position: static; } }
+
+/* ---------- actions ---------- */
+.co-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 16px 0 6px; }
+.co-actions .hint { font-size: 14px; color: var(--ink-2); }
+.co-sample-note { margin: 0 0 10px; font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- sections, tables ---------- */
+.co-sec { margin: clamp(30px, 5vw, 56px) 0 0; }
+.co-sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 20px; margin-bottom: 10px; }
+.co-sec-head p { margin: 0; color: var(--ink-2); font-size: 14.5px; }
+.co-card { background: var(--paper); border: 1px solid var(--line-2); border-radius: 14px; }
+.co-table { width: 100%; border-collapse: collapse; background: var(--paper); border: 1px solid var(--line-2); border-radius: 14px; overflow: hidden; font-size: 15.5px; }
+.co-table caption { caption-side: top; text-align: left; padding: 0 0 8px; color: var(--ink-2); font-size: 14.5px; }
+.co-table th, .co-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.co-table thead th { font-size: 13.5px; font-weight: 700; color: var(--ink-2); background: var(--paper-2); }
+.co-table tbody tr:last-child td { border-bottom: 0; }
+.co-table .num { text-align: right; white-space: nowrap; }
+.co-group td { background: var(--paper-2); font-weight: 700; font-size: 14px; color: var(--ink-2); }
+.co-st { white-space: nowrap; font-weight: 700; font-size: 14px; }
+.co-st span { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: var(--r-chip); }
+.co-st svg { width: 13px; height: 13px; }
+.st-fits span { background: #9bc53d; color: #2e1a12; }
+.st-check span { background: #ffb000; color: #2e1a12; }
+.st-fail span { background: var(--fox); color: var(--fox-ink); }
+.st-info span { background: var(--egg-2); color: var(--ink); }
+.co-why { color: var(--ink-2); font-size: 14.5px; }
+.co-src { font-size: 13.5px; color: var(--ink-2); }
+.co-src a { white-space: normal; }
+.co-shop input { max-width: 110px; text-align: right; padding: 6px 8px; font-size: 15px; }
+.co-total td { font-weight: 700; background: var(--paper-2); }
+@media (max-width: 760px) {
+  .co-table, .co-table tbody, .co-table tr, .co-table td, .co-table caption { display: block; width: 100%; }
+  .co-table thead { display: none; }
+  .co-table caption { padding: 10px 12px 8px; }
+  .co-table tr { border-bottom: 1px solid var(--line); padding: 8px 0; }
+  .co-table td { border: 0; padding: 4px 12px; }
+  .co-table td[data-h]::before { content: attr(data-h); display: block; font-size: 12.5px; font-weight: 700; color: var(--ink-2); }
+  .co-table .num { text-align: left; }
+  .co-shop input { max-width: 100%; text-align: left; }
+}
+
+/* ---------- Pro ---------- */
+.co-pro { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr); gap: 0; background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-panel); overflow: clip; }
+.co-pro-l { padding: clamp(18px, 2.6vw, 30px); display: grid; gap: 14px; align-content: start; min-width: 0; }
+.co-pro-r { padding: clamp(18px, 2.6vw, 30px); background: #2e1a12; color: #f6efe7; display: grid; gap: 12px; align-content: start; }
+.co-pro-r p { color: #e4d8cc; margin: 0; font-size: 14.5px; }
+.co-pro-r .btn-ghost { color: #fff; border-color: rgba(255, 255, 255, .5); }
+.co-pro-r .btn-ghost[aria-busy="true"] { cursor: progress; opacity: .85; }
+.co-pro-r .co-price { font-family: var(--display); font-size: 46px; font-weight: 800; color: #fff; margin: 0; line-height: 1; }
+.co-price small { font-family: var(--sans); font-size: 15px; font-weight: 500; color: #e4d8cc; }
+.co-locked { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.co-locked li { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 10px; align-items: start; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.co-locked svg { width: 16px; height: 16px; margin-top: 3px; color: var(--choc-2); }
+.co-locked b { display: block; font-weight: 700; }
+.co-locked span { display: block; color: var(--ink-2); font-size: 14.5px; }
+.co-locked em { font-style: normal; font-size: 12.5px; font-weight: 700; padding: 2px 8px; border-radius: 5px; background: var(--egg-2); color: var(--ink); }
+.co-locked li.is-open em { background: #9bc53d; color: #2e1a12; }
+.co-pro-out { margin: 0; }
+.co-pro-out img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid var(--line-2); background: #fff; }
+.co-pro-out figcaption { font-size: 13.5px; color: var(--ink-2); margin-top: 6px; }
+.co-pro-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.co-addons { border: 1px solid var(--line-2); border-radius: 12px; padding: 12px 14px; display: grid; gap: 8px; margin: 0; }
+.co-addons legend { font-weight: 700; padding: 0 4px; }
+.co-addons[disabled] { opacity: .62; }
+.co-saved { display: grid; gap: 8px; }
+.co-saved ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.co-saved li { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; font-size: 14.5px; }
+.co-saved li button { font: inherit; font-size: 13.5px; padding: 4px 9px; border-radius: 6px; border: 1px solid var(--line-2); background: var(--paper); color: var(--ink); cursor: pointer; }
+.co-pro-work { display: grid; gap: 14px; }
+.co-pro-work[hidden] { display: none; }
+.co-diagram { width: 100%; height: auto; display: block; background: var(--paper); }
+.co-board { margin: 0 0 6px; }
+.co-board figcaption { font-size: 13.5px; color: var(--ink-2); }
+@media (max-width: 860px) { .co-pro { grid-template-columns: 1fr; } }
+
+/* ---------- guides, FAQ, sources ---------- */
+.co-guides { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0; border-top: 3px solid var(--choc); }
+.co-guides li { border-bottom: 1px solid var(--line-2); }
+.co-guides a { display: grid; gap: 2px; padding: 14px 12px 14px 0; text-decoration: none; color: var(--ink); }
+.co-guides b { font-family: var(--display); font-weight: 700; font-size: 19px; line-height: 1.15; }
+.co-guides span { color: var(--ink-2); font-size: 14.5px; }
+.co-guides a:hover b { color: var(--olive); }
+.co-faq details { border-bottom: 1px solid var(--line-2); padding: 12px 0; }
+.co-faq summary { cursor: pointer; font-weight: 700; font-size: 17.5px; }
+.co-faq .answer p { margin: 8px 0 0; }
+.co-sources { font-size: 14.5px; }
+.co-sources ol { margin: 0; padding-left: 22px; display: grid; gap: 4px; }
+.co-sources li span { color: var(--ink-2); }
+.co-srclist { margin: 10px 0; }
+.co-srclist summary { cursor: pointer; font-weight: 700; padding: 10px 0; min-height: 44px; }
+.co-srclist[open] summary { margin-bottom: 6px; }
+
+/* ---------- guide pages ---------- */
+.co-article { max-width: 780px; }
+.co-article h2 { margin-top: 34px; }
+.co-figure { margin: 18px 0; }
+.co-figure img { width: 100%; height: auto; display: block; border-radius: 14px; border: 1px solid var(--line-2); }
+.co-figure figcaption { font-size: 14px; color: var(--ink-2); margin-top: 6px; }
+.co-callout { background: var(--paper); border: 1px solid var(--line-2); border-left: 5px solid var(--yolk); border-radius: 12px; padding: 14px 16px; margin: 16px 0; }
+.co-callout p { margin: 0; }
+/* the build steps on a support page, numbered */
+.co-steplist { margin: 12px 0 0; padding-left: 1.5em; display: grid; gap: 10px; }
+.co-steplist li { padding-left: 4px; }
+.co-steplist b { color: var(--choc); }
+/* a smaller picture inside a support page */
+.co-fig { margin: 16px 0; max-width: 560px; }
+/* a support page's sources: short names in a row, the full title on hover */
+.co-srcshort { list-style: none; padding: 0; margin: 4px 0 14px; display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 15px; }
+.co-fig img { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line-2); aspect-ratio: 16 / 10; object-fit: cover; }
+.co-fig figcaption { margin-top: 6px; font-size: 14px; color: var(--ink-2); }
+.co-open { display: inline-flex; margin-top: 8px; }
+.co-guide-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(18px, 4vw, 48px); align-items: center; padding: clamp(10px, 2vw, 22px) 0 6px; }
+.co-guide-hero img { width: 100%; height: auto; display: block; border-radius: 16px; border: 1px solid var(--line-2); aspect-ratio: 16 / 10; object-fit: cover; }
+.co-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--paper); overflow: hidden; margin: 16px 0; }
+.co-facts div { padding: 12px 14px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.co-facts b { display: block; font-family: var(--display); font-size: 24px; font-weight: 800; line-height: 1.1; }
+.co-facts span { font-size: 14px; color: var(--ink-2); }
+@media (max-width: 860px) { .co-guide-hero { grid-template-columns: 1fr; } }
+.co-table tr[id] { scroll-margin-top: 84px; }
+.co-table tr:target td { background: color-mix(in oklab, var(--yolk) 26%, var(--paper)); }
+.co-jump { list-style: none; margin: 10px 0 16px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.co-jump a { display: inline-flex; align-items: center; justify-content: center; min-width: 48px; min-height: 44px; padding: 0 12px; border: 1px solid var(--line-2); border-radius: var(--r-chip); background: var(--paper); color: var(--ink); font-weight: 700; text-decoration: none; }
+.co-jump a:hover { border-color: var(--olive); color: var(--olive); }
+.co-table th[scope="row"] { font-weight: 700; }
+/* compact number tables (.co-numgrid) stay a table on a phone: few, short columns */
+@media (max-width: 760px) {
+  .co-table.co-numgrid { display: table; font-size: 14.5px; }
+  .co-table.co-numgrid caption { display: table-caption; }
+  .co-table.co-numgrid thead { display: table-header-group; }
+  .co-table.co-numgrid tbody { display: table-row-group; }
+  .co-table.co-numgrid tr { display: table-row; padding: 0; }
+  .co-table.co-numgrid th, .co-table.co-numgrid td { display: table-cell; width: auto; padding: 8px 5px; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+  .co-table.co-numgrid thead th { font-size: 13px; line-height: 1.25; white-space: normal; vertical-align: bottom; }
+  .co-table.co-numgrid td[data-h]::before { content: none; }
+  .co-table.co-numgrid .num { text-align: right; }
+  .co-table.co-kv td:first-child { width: 36%; }
+  .co-table.co-kv .co-group td { padding-top: 10px; }
+}
+
+/* ---------- print: the shopping list only ---------- */
+@media print {
+  body.co-print-shop .site-head, body.co-print-shop .site-foot, body.co-print-shop main > *:not(#shop), body.co-print-shop .skip { display: none !important; }
+  body.co-print-shop #shop { margin: 0; }
+  body.co-print-shop .co-shop input { border: 0; padding: 0; }
+  body.co-page { background: #fff; }
+  /* a support page printed as a plan (its Print button): the plan without the page around it */
+  body.co-print-plan .site-head, body.co-print-plan .site-foot, body.co-print-plan .skip, body.co-print-plan .co-topline, body.co-print-plan .co-eggs, body.co-print-plan .co-open, body.co-print-plan [data-print], body.co-print-plan .co-more, body.co-print-plan .co-faq-sec { display: none !important; }
+  body.co-print-plan .co-guide-hero { grid-template-columns: 1fr 1fr; }
+  body.co-print-plan .co-table tr { break-inside: avoid; }
+}
+@media (prefers-reduced-motion: reduce) { .co-page * { scroll-behavior: auto !important; transition: none !important; } }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","@id":"https://peakappsstudio.com/es/gallinero/#app","name":"Coop Designer","url":"https://peakappsstudio.com/es/gallinero/","inLanguage":"es","applicationCategory":"DesignApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Gratis","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Pro (pago único)","price":"19","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/coop-designer-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Herramientas","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Gallinero en 3D","item":"https://peakappsstudio.com/es/gallinero/"},{"@type":"ListItem","position":3,"name":"Para 20 gallinas","item":"https://peakappsstudio.com/es/gallinero/gallinero-para-20-gallinas/"}]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"¿Qué tamaño de gallinero para 20 gallinas?","acceptedAnswer":{"@type":"Answer","text":"De 5,6 a 7,4 m² bajo techo y 18,6 m² de corral (Virginia Tech, 2023). La caseta de esta página da 7,44 m² y 18,72 m²."}},
+  {"@type":"Question","name":"¿Cuántos ponederos para 20 gallinas?","acceptedAnswer":{"@type":"Answer","text":"De cuatro a cinco: uno por cada 4 o 5 gallinas (Maryland, Virginia Tech). El diseño lleva 5."}},
+  {"@type":"Question","name":"¿Veinte gallinas son ya una granja?","acceptedAnswer":{"@type":"Answer","text":"No. Hasta unas 30 gallinas ponedoras, sin vender huevos ni carne, es una explotación de autoconsumo, pero hay que comunicarla a tu comunidad autónoma para el registro y tener un veterinario de referencia (Real Decreto 637/2021)."}}
+ ]}
+]}
+</script>
+</head>
+<body class="co-page" style="--accent:#56701a">
+<a class="skip" href="#main">Ir al contenido</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" hreflang="en" aria-label="Peak Apps Tools, todas las herramientas (en inglés)">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Herramientas">
+      <a href="/es/gallinero/" aria-current="page">Gallinero en 3D</a>
+      <a href="/tools/" hreflang="en">Todas las herramientas</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <div class="co-topline">
+    <nav class="crumbs" aria-label="Ruta de navegación"><ol><li><a href="/tools/" hreflang="en">Herramientas</a></li><li><a href="/es/gallinero/">Gallinero en 3D</a></li><li aria-current="page">Para 20 gallinas</li></ol></nav>
+    <nav class="co-langs" aria-label="Idioma"><a href="/coop-designer/designs-for-20-chickens/" hreflang="en" lang="en">English</a><a href="/fr/poulailler/" hreflang="fr" lang="fr">Français</a><a href="/es/gallinero/gallinero-para-20-gallinas/" aria-current="true" hreflang="es" lang="es">Español</a></nav>
+  </div>
+  <header class="co-guide-hero">
+    <div>
+      <h1>Gallinero para 20 gallinas</h1>
+      <p class="lede" style="margin-top:14px">Veinte gallinas necesitan al menos 5,6 m² bajo techo y 18,6 m² de corral. Coop Designer las aloja en una caseta de 3,1 m por 2,4 m junto a un corral de 7,8 m, con sitio para que entres a limpiar y a recoger los huevos de sus 5 ponederos.</p>
+      <a class="btn btn-primary co-open" href="/es/gallinero/#prefill=eyJ2IjoxLCJ0eXBlIjoid2Fsa2luIiwidW5pdHMiOiJtZXRyaWMiLCJuYW1lIjoiR2FsbGluZXJvIGNhc2V0YSBwYXJhIDIwIGdhbGxpbmFzIiwiYmlyZHMiOjIwLCJ5YXJkIjp7InciOjEyMDAwLCJkIjo3MDAwfSwiY29vcCI6eyJ3IjozMTAwLCJkIjoyNDAwLCJoIjoyMzcwfSwicnVuIjp7ImwiOjc4MDB9LCJuZXN0cyI6NX0">Abrir esta caseta en la herramienta</a>
+    </div>
+    <img src="/coop-designer/img/hero-20-960.webp" srcset="/coop-designer/img/hero-20-480.webp 480w, /coop-designer/img/hero-20-960.webp 960w, /coop-designer/img/hero-20-1440.webp 1440w" sizes="(max-width: 860px) 100vw, 52vw" width="1440" height="900" fetchpriority="high" decoding="async" alt="Una caseta grande para veinte gallinas en 3D: la caseta de madera con revestimiento verde agua y tejado de placas onduladas, una puerta a la altura de una persona y un corral de malla muy largo, con gallinas en la hierba.">
+  </header>
+  <svg class="co-eggs" viewBox="0 0 1200 46" preserveAspectRatio="xMinYMid slice" aria-hidden="true"><defs><radialGradient id="co-egg-shine" cx="36%" cy="30%" r="72%"><stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#2e1a12" stop-opacity=".22"/></radialGradient><path id="co-egg" d="M0-19c-8.6 0-14 13.2-14 22.4C-14 11.6-7.7 17 0 17s14-5.4 14-13.6C14-5.8 8.6-19 0-19z"/><path id="co-cup" d="M-34 26h68c-2 9-10 15-18 15h-32c-8 0-16-6-18-15z"/></defs><use href="#co-cup" x="38" y="0" class="co-cup"/><use href="#co-egg" x="38" y="22" fill="#f6f1e7"/><use href="#co-egg" x="38" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="113" y="0" class="co-cup"/><use href="#co-egg" x="113" y="22" fill="#b9ded7"/><use href="#co-egg" x="113" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="188" y="0" class="co-cup"/><use href="#co-egg" x="188" y="22" fill="#6d3b23"/><use href="#co-egg" x="188" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="263" y="0" class="co-cup"/><use href="#co-egg" x="263" y="22" fill="#ead2b0"/><use href="#co-egg" x="263" y="22" fill="url(#co-egg-shine)"/><g fill="#5a3a22" opacity=".5"><circle cx="258" cy="14" r="1.1"/><circle cx="267" cy="9" r=".9"/><circle cx="269" cy="22" r="1.2"/><circle cx="261" cy="27" r=".8"/><circle cx="264" cy="31" r="1"/><circle cx="255" cy="23" r=".7"/></g><use href="#co-cup" x="338" y="0" class="co-cup"/><use href="#co-egg" x="338" y="22" fill="#97a466"/><use href="#co-egg" x="338" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="413" y="0" class="co-cup"/><use href="#co-egg" x="413" y="22" fill="#f3e3d3"/><use href="#co-egg" x="413" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="488" y="0" class="co-cup"/><use href="#co-egg" x="488" y="22" fill="#c78f5f"/><use href="#co-egg" x="488" y="22" fill="url(#co-egg-shine)"/><g fill="#5a3a22" opacity=".5"><circle cx="483" cy="14" r="1.1"/><circle cx="492" cy="9" r=".9"/><circle cx="494" cy="22" r="1.2"/><circle cx="486" cy="27" r=".8"/><circle cx="489" cy="31" r="1"/><circle cx="480" cy="23" r=".7"/></g><use href="#co-cup" x="563" y="0" class="co-cup"/><use href="#co-egg" x="563" y="22" fill="#a8d3cb"/><use href="#co-egg" x="563" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="638" y="0" class="co-cup"/><use href="#co-egg" x="638" y="22" fill="#4e2617"/><use href="#co-egg" x="638" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="713" y="0" class="co-cup"/><use href="#co-egg" x="713" y="22" fill="#efe2cc"/><use href="#co-egg" x="713" y="22" fill="url(#co-egg-shine)"/><g fill="#5a3a22" opacity=".5"><circle cx="708" cy="14" r="1.1"/><circle cx="717" cy="9" r=".9"/><circle cx="719" cy="22" r="1.2"/><circle cx="711" cy="27" r=".8"/><circle cx="714" cy="31" r="1"/><circle cx="705" cy="23" r=".7"/></g><use href="#co-cup" x="788" y="0" class="co-cup"/><use href="#co-egg" x="788" y="22" fill="#86935a"/><use href="#co-egg" x="788" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="863" y="0" class="co-cup"/><use href="#co-egg" x="863" y="22" fill="#e6c4a8"/><use href="#co-egg" x="863" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="938" y="0" class="co-cup"/><use href="#co-egg" x="938" y="22" fill="#d6a676"/><use href="#co-egg" x="938" y="22" fill="url(#co-egg-shine)"/><g fill="#5a3a22" opacity=".5"><circle cx="933" cy="14" r="1.1"/><circle cx="942" cy="9" r=".9"/><circle cx="944" cy="22" r="1.2"/><circle cx="936" cy="27" r=".8"/><circle cx="939" cy="31" r="1"/><circle cx="930" cy="23" r=".7"/></g><use href="#co-cup" x="1013" y="0" class="co-cup"/><use href="#co-egg" x="1013" y="22" fill="#c2e2db"/><use href="#co-egg" x="1013" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="1088" y="0" class="co-cup"/><use href="#co-egg" x="1088" y="22" fill="#7a4a2c"/><use href="#co-egg" x="1088" y="22" fill="url(#co-egg-shine)"/><use href="#co-cup" x="1163" y="0" class="co-cup"/><use href="#co-egg" x="1163" y="22" fill="#f8f4ec"/><use href="#co-egg" x="1163" y="22" fill="url(#co-egg-shine)"/></svg>
+  <article class="co-article">
+
+    <div class="co-facts">
+      <div><b>10,9 m x 2,4 m</b><span>de planta</span></div>
+      <div><b>7,44 m²</b><span>bajo techo</span></div>
+      <div><b>18,72 m²</b><span>de corral</span></div>
+      <div><b>5</b><span>ponederos</span></div>
+      <div><b>7,39 m</b><span>de aseladero</span></div>
+      <div><b>125</b><span>piezas de listón de abeto de 45 x 90 mm</span></div>
+    </div>
+    <h2>Las medidas</h2>
+    <p>Veinte gallinas piden al menos 5,6 m² bajo techo y 18,6 m² de corral (<a href="https://www.pubs.ext.vt.edu/2902/2902-1092/2902-1092.html" rel="noopener" hreflang="en">Virginia Tech</a>). Coop Designer les da una caseta de 3,1 m por 2,4 m, de 2,37 m de alto en la pared trasera, y un corral de 7,8 m por 2,4 m: 7,44 m² y 18,72 m². Dentro van 5 ponederos y 3 barras de aseladero de 2,46 m; como el listón de 45 x 45 mm solo se vende en 2,4 m, cada barra se hace de dos piezas con un poste debajo de la junta.</p>
+    <table class="co-table co-numgrid co-kv">
+      <caption>La caseta para 20 gallinas, calculada por Coop Designer el 14 de octubre de 2026.</caption>
+      <thead><tr><th scope="col">Parte</th><th scope="col">Medidas</th></tr></thead>
+      <tbody>
+        <tr><td data-h="Parte"><b>Caseta</b></td><td data-h="Medidas">3,1 m x 2,4 m, de 2,37 m a 1,98 m de alto, suelo a 20 cm sobre durmientes</td></tr>
+        <tr><td data-h="Parte"><b>Puerta de la caseta</b></td><td data-h="Medidas">76 cm x 1,83 m</td></tr>
+        <tr><td data-h="Parte"><b>Corral</b></td><td data-h="Medidas">7,8 m x 2,4 m, 1,8 m de alto, con su puerta</td></tr>
+        <tr><td data-h="Parte"><b>Planta</b></td><td data-h="Medidas">10,9 m x 2,4 m</td></tr>
+        <tr><td data-h="Parte"><b>Por gallina</b></td><td data-h="Medidas">0,37 m² bajo techo, 0,94 m² de corral</td></tr>
+        <tr><td data-h="Parte"><b>Ponederos</b></td><td data-h="Medidas">5 de 30,5 cm de lado, fondo a 61 cm del suelo, dentro, sobre un soporte</td></tr>
+        <tr><td data-h="Parte"><b>Aseladeros</b></td><td data-h="Medidas">3 barras de 2,46 m, a 76,5 cm del suelo</td></tr>
+        <tr><td data-h="Parte"><b>Ventilación</b></td><td data-h="Medidas">7440 cm² en lo alto de las paredes</td></tr>
+        <tr><td data-h="Parte"><b>Trampilla</b></td><td data-h="Medidas">30,5 cm x 35,6 cm, rampa de 34,9 cm</td></tr>
+        <tr><td data-h="Parte"><b>Estructura</b></td><td data-h="Medidas">125 piezas de listón de abeto de 45 x 90 mm de 2,4 m y 3 m</td></tr>
+        <tr><td data-h="Parte"><b>Malla electrosoldada</b></td><td data-h="Medidas">17 rollos de 1 m x 5 m</td></tr>
+        <tr><td data-h="Parte"><b>Malla enterrada</b></td><td data-h="Medidas">30 cm hacia abajo, 70 cm hacia fuera</td></tr>
+        <tr><td data-h="Parte"><b>Comprobaciones</b></td><td data-h="Medidas">13 de 13 cumplen</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Si el verano aprieta</h2>
+    <p>Las gallinas llevan peor el calor que el frío: pueden morir a 40 °C (<a href="https://boulder.extension.colostate.edu/wp-content/uploads/sites/7/2019/11/How-to-Care-for-Adult-Chickens-2018.pdf" rel="noopener" hreflang="en">Colorado State</a>), y <a href="https://extension.oregonstate.edu/catalog/ec-1644-living-land-backyard-chicken-coop-design" rel="noopener" hreflang="en">Oregon State</a> aconseja ventiladores cuando hace calor húmedo. Con el clima de veranos calurosos, la herramienta añade a la caseta una ventana de malla en la pared trasera, además de la franja de ventilación bajo el alero, y recuerda dar sombra a parte del corral y dejar el agua fuera del sol.</p>
+    <table class="co-table ">
+      <caption>La caseta para 20 gallinas, con y sin ventana de verano, calculada el 14 de octubre de 2026.</caption>
+      <thead><tr><th scope="col">Diseño</th><th scope="col">Planta</th><th scope="col">Bajo techo</th><th scope="col">Corral</th><th scope="col" class="num">Piezas</th><th scope="col" class="num">Rollos</th><th scope="col">Comprobaciones</th><th scope="col">En la herramienta</th></tr></thead>
+      <tbody>
+        <tr><td data-h="Diseño"><b>Clima templado</b></td><td data-h="Planta">10,9 m x 2,4 m</td><td data-h="Bajo techo">7,44 m²</td><td data-h="Corral">18,72 m²</td><td class="num" data-h="Piezas">125</td><td class="num" data-h="Rollos">17</td><td data-h="Comprobaciones"><span class="co-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><ellipse cx="8" cy="8.6" rx="5.4" ry="6.4" fill="currentColor"/></svg>Cumple</span></span></td><td data-h="En la herramienta"><a href="/es/gallinero/#prefill=eyJ2IjoxLCJ0eXBlIjoid2Fsa2luIiwidW5pdHMiOiJtZXRyaWMiLCJuYW1lIjoiR2FsbGluZXJvIGNhc2V0YSBwYXJhIDIwIGdhbGxpbmFzIiwiYmlyZHMiOjIwLCJ5YXJkIjp7InciOjEyMDAwLCJkIjo3MDAwfSwiY29vcCI6eyJ3IjozMTAwLCJkIjoyNDAwLCJoIjoyMzcwfSwicnVuIjp7ImwiOjc4MDB9LCJuZXN0cyI6NX0">Abrirlo</a></td></tr>
+        <tr><td data-h="Diseño"><b>Veranos calurosos</b></td><td data-h="Planta">10,9 m x 2,4 m</td><td data-h="Bajo techo">7,44 m²</td><td data-h="Corral">18,72 m²</td><td class="num" data-h="Piezas">126</td><td class="num" data-h="Rollos">17</td><td data-h="Comprobaciones"><span class="co-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><ellipse cx="8" cy="8.6" rx="5.4" ry="6.4" fill="currentColor"/></svg>Cumple</span></span></td><td data-h="En la herramienta"><a href="/es/gallinero/#prefill=eyJ2IjoxLCJ0eXBlIjoid2Fsa2luIiwidW5pdHMiOiJtZXRyaWMiLCJuYW1lIjoiR2FsbGluZXJvIGNhc2V0YSBwYXJhIDIwIGdhbGxpbmFzLCB2ZXJhbm9zIGNhbHVyb3NvcyIsImJpcmRzIjoyMCwiY2xpbWF0ZSI6ImhvdCIsInlhcmQiOnsidyI6MTIwMDAsImQiOjcwMDB9LCJjb29wIjp7InciOjMxMDAsImQiOjI0MDAsImgiOjIzNzB9LCJydW4iOnsibCI6NzgwMH0sIm5lc3RzIjo1LCJ3aW5kb3ciOnRydWV9">Abrirlo</a></td></tr>
+      </tbody>
+    </table>
+
+    <h2>Materiales</h2>
+    <table class="co-table co-shop co-numgrid">
+      <caption>Lista de la compra de la caseta para 20 gallinas, a 14 de octubre de 2026. Sin precios: la herramienta suma los que escribas.</caption>
+      <thead><tr><th scope="col">Artículo</th><th scope="col" class="num">Cantidad</th></tr></thead>
+      <tbody>
+        <tr class="co-group"><td colspan="2">Madera</td></tr>
+        <tr><td data-h="Artículo">Listón de abeto de 45 x 90 mm x 2,4 m</td><td class="num" data-h="Cantidad">105 listones</td></tr>
+        <tr><td data-h="Artículo">Listón de abeto de 45 x 90 mm x 3 m</td><td class="num" data-h="Cantidad">20 listones</td></tr>
+        <tr><td data-h="Artículo">Listón de abeto de 45 x 45 mm x 2,4 m, para los aseladeros</td><td class="num" data-h="Cantidad">6 listones</td></tr>
+        <tr class="co-group"><td colspan="2">Tableros</td></tr>
+        <tr><td data-h="Artículo">Tablero OSB 3 WBP de 2500 x 1250 mm, 10 mm</td><td class="num" data-h="Cantidad">14 tableros</td></tr>
+        <tr><td data-h="Artículo">Tablero contrachapado WBP de pino de 2440 x 1220 mm, 18 mm</td><td class="num" data-h="Cantidad">4 tableros</td></tr>
+        <tr class="co-group"><td colspan="2">Malla</td></tr>
+        <tr><td data-h="Artículo">Malla electrosoldada galvanizada de 12,7 x 12,7 mm, alambre de 0,8 mm, rollo de 1000 mm x 5 m</td><td class="num" data-h="Cantidad">17 rollos</td></tr>
+        <tr class="co-group"><td colspan="2">Tejado</td></tr>
+        <tr><td data-h="Artículo">Placas onduladas opacas, 1050 mm x 2 m</td><td class="num" data-h="Cantidad">6 placas</td></tr>
+        <tr class="co-group"><td colspan="2">Fijaciones</td></tr>
+        <tr><td data-h="Artículo">Tornillos para cubierta con arandela de estanqueidad</td><td class="num" data-h="Cantidad">72 tornillos</td></tr>
+        <tr><td data-h="Artículo">Tornillos para madera de exterior, 90 mm</td><td class="num" data-h="Cantidad">700 tornillos</td></tr>
+        <tr><td data-h="Artículo">Tornillos para madera para los tableros, 32 mm</td><td class="num" data-h="Cantidad">622 tornillos</td></tr>
+        <tr><td data-h="Artículo">Grapas de 13 mm o más, para grapadora de uso intensivo</td><td class="num" data-h="Cantidad">1885 grapas</td></tr>
+        <tr><td data-h="Artículo">Tornillos de cabeza ancha o tornillos con arandela ancha, 30 mm</td><td class="num" data-h="Cantidad">284 tornillos</td></tr>
+        <tr><td data-h="Artículo">Anillas de grapado (hog rings) o bridas de acero inoxidable</td><td class="num" data-h="Cantidad">428 anillas</td></tr>
+        <tr class="co-group"><td colspan="2">Herrajes</td></tr>
+        <tr><td data-h="Artículo">Bisagras para exterior</td><td class="num" data-h="Cantidad">5 bisagras</td></tr>
+        <tr><td data-h="Artículo">Pestillos que se abren con dos gestos, o portacandados con mosquetón</td><td class="num" data-h="Cantidad">3 pestillos</td></tr>
+        <tr><td data-h="Artículo">Trampilla de 305 mm x 356 mm en dos guías ranuradas, o una comprada</td><td class="num" data-h="Cantidad">1 trampilla</td></tr>
+      </tbody>
+    </table>
+
+    <h2>¿Por qué no un gallinero elevado o uno móvil?</h2>
+    <p>Para veinte gallinas, un gallinero elevado tendría que medir 4,2 m de largo y el conjunto llegaría a 10,8 m, sin que puedas entrar ni en el gallinero ni en el corral. Uno móvil no llega: con el largo máximo que la herramienta admite para poder moverlo, cada gallina tendría 0,36 m² de corral, menos que la cifra más baja de las guías, y la comprobación sale como No cumple.</p>
+    <table class="co-table ">
+      <caption>Tres formas de alojar veinte gallinas, calculadas el 14 de octubre de 2026.</caption>
+      <thead><tr><th scope="col">Diseño</th><th scope="col">Planta</th><th scope="col">Bajo techo</th><th scope="col">Corral</th><th scope="col" class="num">Piezas</th><th scope="col" class="num">Rollos</th><th scope="col">Comprobaciones</th><th scope="col">En la herramienta</th></tr></thead>
+      <tbody>
+        <tr><td data-h="Diseño"><b>Caseta</b></td><td data-h="Planta">10,9 m x 2,4 m</td><td data-h="Bajo techo">7,44 m²</td><td data-h="Corral">18,72 m²</td><td class="num" data-h="Piezas">125</td><td class="num" data-h="Rollos">17</td><td data-h="Comprobaciones"><span class="co-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><ellipse cx="8" cy="8.6" rx="5.4" ry="6.4" fill="currentColor"/></svg>Cumple</span></span></td><td data-h="En la herramienta"><a href="/es/gallinero/#prefill=eyJ2IjoxLCJ0eXBlIjoid2Fsa2luIiwidW5pdHMiOiJtZXRyaWMiLCJuYW1lIjoiR2FsbGluZXJvIGNhc2V0YSBwYXJhIDIwIGdhbGxpbmFzIiwiYmlyZHMiOjIwLCJ5YXJkIjp7InciOjEyMDAwLCJkIjo3MDAwfSwiY29vcCI6eyJ3IjozMTAwLCJkIjoyNDAwLCJoIjoyMzcwfSwicnVuIjp7ImwiOjc4MDB9LCJuZXN0cyI6NX0">Abrirlo</a></td></tr>
+        <tr><td data-h="Diseño"><b>Elevado</b></td><td data-h="Planta">10,8 m x 1,8 m</td><td data-h="Bajo techo">7,56 m²</td><td data-h="Corral">18,90 m²</td><td class="num" data-h="Piezas">94</td><td class="num" data-h="Rollos">14</td><td data-h="Comprobaciones"><span class="co-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><ellipse cx="8" cy="8.6" rx="5.4" ry="6.4" fill="currentColor"/></svg>Cumple</span></span></td><td data-h="En la herramienta"><a href="/es/gallinero/#prefill=eyJ2IjoxLCJ0eXBlIjoiaG91c2UiLCJ1bml0cyI6Im1ldHJpYyIsIm5hbWUiOiJHYWxsaW5lcm8gZWxldmFkbyBwYXJhIDIwIGdhbGxpbmFzIiwiYmlyZHMiOjIwLCJ5YXJkIjp7InciOjEyMDAwLCJkIjo3MDAwfSwiY29vcCI6eyJ3Ijo0MjAwLCJkIjoxODAwLCJoIjoxMjIwLCJoMiI6OTMwfSwicnVuIjp7ImwiOjEwNTAwfSwibmVzdHMiOjV9">Abrirlo</a></td></tr>
+        <tr><td data-h="Diseño"><b>Móvil</b></td><td data-h="Planta">5,56 m x 1,6 m</td><td data-h="Bajo techo">6,75 m²</td><td data-h="Corral">7,20 m²</td><td class="num" data-h="Piezas">54</td><td class="num" data-h="Rollos">3</td><td data-h="Comprobaciones"><span class="co-st st-fail"><span><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" fill="currentColor"/></svg>No cumple</span></span></td><td data-h="En la herramienta"><a href="/es/gallinero/#prefill=eyJ2IjoxLCJ0eXBlIjoidHJhY3RvciIsInVuaXRzIjoibWV0cmljIiwibmFtZSI6IkdhbGxpbmVybyBtw7N2aWwgcGFyYSAyMCBnYWxsaW5hcyIsImJpcmRzIjoyMCwieWFyZCI6eyJ3IjoxMjAwMCwiZCI6NzAwMH0sInRyIjp7ImwiOjQ4MDAsInciOjE1MDAsImhsIjo0NTAwfSwibmVzdHMiOjV9">Abrirlo</a></td></tr>
+      </tbody>
+    </table>
+
+    <h2>Veinte gallinas y la normativa</h2>
+    <p>Hasta 0,15 UGM, unas 30 gallinas ponedoras, y sin vender huevos ni carne, el <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2021-12609" rel="noopener">Real Decreto 637/2021</a> considera el gallinero una explotación de autoconsumo: basta con comunicarlo a tu comunidad autónoma para el Registro General de Explotaciones Ganaderas y tener un veterinario de referencia. Por encima de ese límite pasa a ser una explotación reducida, con autorización previa. Las cifras del <a href="https://www.boe.es/eli/es/rd/2002/01/11/3/con" rel="noopener">Real Decreto 3/2002</a>, como un nido por cada 7 gallinas o 15 cm de aseladero por gallina, se aplican a partir de 350 gallinas.</p>
+
+    <div class="co-callout"><p>Cambia el número de gallinas, el clima o el terreno en la herramienta y la caseta se recalcula con sus materiales. <a href="/es/gallinero/#prefill=eyJ2IjoxLCJ0eXBlIjoid2Fsa2luIiwidW5pdHMiOiJtZXRyaWMiLCJuYW1lIjoiR2FsbGluZXJvIGNhc2V0YSBwYXJhIDIwIGdhbGxpbmFzIiwiYmlyZHMiOjIwLCJ5YXJkIjp7InciOjEyMDAwLCJkIjo3MDAwfSwiY29vcCI6eyJ3IjozMTAwLCJkIjoyNDAwLCJoIjoyMzcwfSwicnVuIjp7ImwiOjc4MDB9LCJuZXN0cyI6NX0">Abrir la caseta para veinte gallinas</a>.</p></div>
+
+  </article>
+
+  <section class="co-sec co-article co-faq-sec" aria-labelledby="faq-h">
+    <h2 id="faq-h">Preguntas</h2>
+    <div class="co-faq">
+      <details><summary>¿Qué tamaño de gallinero para 20 gallinas?</summary><div class="answer"><p>De 5,6 a 7,4 m² bajo techo y 18,6 m² de corral (Virginia Tech, 2023). La caseta de esta página da 7,44 m² y 18,72 m².</p></div></details>
+      <details><summary>¿Cuántos ponederos para 20 gallinas?</summary><div class="answer"><p>De cuatro a cinco: uno por cada 4 o 5 gallinas (Maryland, Virginia Tech). El diseño lleva 5.</p></div></details>
+      <details><summary>¿Veinte gallinas son ya una granja?</summary><div class="answer"><p>No. Hasta unas 30 gallinas ponedoras, sin vender huevos ni carne, es una explotación de autoconsumo, pero hay que comunicarla a tu comunidad autónoma para el registro y tener un veterinario de referencia (Real Decreto 637/2021).</p></div></details>
+    </div>
+  </section>
+
+  <section class="co-sec co-more" aria-labelledby="more-h">
+    <h2 id="more-h">Antes de construir</h2>
+    <ul class="co-guides">
+      <li><a href="/es/gallinero/"><b>Diseñar un gallinero en 3D</b></a></li>
+      <li><a href="/es/gallinero/gallinero-para-10-gallinas/"><b>Gallinero para 10 gallinas</b><span>Una caseta en la que se entra de pie, o la elevada.</span></a></li>
+      <li><a href="/es/gallinero/gallinero-para-6-gallinas/"><b>Gallinero para 6 gallinas</b><span>El elevado con su corral, listón por listón.</span></a></li>
+      <li><a href="/es/gallinero/planos-de-gallineros-pdf/"><b>Planos de gallineros en PDF</b><span>Cuatro modelos con sus medidas, para imprimir gratis.</span></a></li>
+    </ul>
+  </section>
+
+  <section class="co-sec co-sources" aria-labelledby="src-h">
+    <h2 id="src-h">Fuentes</h2>
+    <p class="co-small">Leídas el 13 de octubre de 2026:</p>
+    <ul class="co-srcshort">
+      <li><a href="https://www.boe.es/buscar/act.php?id=BOE-A-2021-12609" rel="noopener" title="Real Decreto 637/2021, de 27 de julio, por el que se establecen las normas básicas de ordenación de las granjas avícolas (BOE-A-2021-12609, texto consolidado, última actualización del 23 de abril de 2025)">Real Decreto 637/2021</a></li>
+      <li><a href="https://www.boe.es/eli/es/rd/2002/01/11/3/con" rel="noopener" title="Real Decreto 3/2002, de 11 de enero, por el que se establecen las normas mínimas de protección de las gallinas ponedoras (BOE-A-2002-831, texto consolidado, última actualización del 8 de marzo de 2023)">Real Decreto 3/2002</a></li>
+      <li><a href="https://www.bricoking.es/maderas-y-revestimientos/listonaje" rel="noopener" title="Bricoking: listones de abeto de 45 x 45, 70 x 45 y 90 x 45 mm en 2400 mm (ref. 176.15759, 176.15773 y 176.15776)">Bricoking, listones</a></li>
+      <li><a href="https://www.bricoking.es/maderas-y-revestimientos/carpinteria" rel="noopener" title="Bricoking: tablero OSB 3 WBP de 250 x 125 cm y 10 mm; tablero contrachapado WBP de pino de 244 x 122 cm y 18 mm">Bricoking, tableros</a></li>
+      <li><a href="https://www.bricoking.es/jardin/cierre-y-ocultacion/mallas-y-enrejados/malla-metalica-electrosoldada-galvanizado-12-1x5m" rel="noopener" title="Bricoking: malla metálica electrosoldada galvanizada FENSANET 12, 1 x 5 m, luz de 12,7 x 12,7 mm, alambre de 0,8 mm (ref. 177.10949)">Bricoking, malla de 12 mm</a></li>
+      <li><a href="https://www.bricoking.es/construccion/cubricion-y-accesorios/cubricion-y-accesorios/placa-ibiza-terracota-200x105cm" rel="noopener" title="Bricoking: placa Ibiza de 200 x 105 cm, ondulada de material termoplástico, para pequeñas cubiertas (ref. 52085.17)">Bricoking, placa ondulada</a></li>
+    </ul>
+    <p class="co-small">Leídas el 12 de octubre de 2026:</p>
+    <ul class="co-srcshort">
+      <li><a href="https://www.pubs.ext.vt.edu/2902/2902-1092/2902-1092.html" rel="noopener" title="Virginia Cooperative Extension: Small-scale Poultry Housing, 2902-1092 (APSC-186NP), Leonie Jacobs and Phillip J. Clauer, 28 April 2023" hreflang="en" lang="en">Virginia Tech 2902-1092</a></li>
+      <li><a href="https://extension.umd.edu/resource/housing-requirements" rel="noopener" title="University of Maryland Extension: Housing Requirements (Jonathan Moyle; updated 11 May 2022)" hreflang="en">Maryland, alojamiento</a></li>
+      <li><a href="https://boulder.extension.colostate.edu/wp-content/uploads/sites/7/2019/11/How-to-Care-for-Adult-Chickens-2018.pdf" rel="noopener" title="Colorado State University Extension, Boulder County: How to Care for Adult Chickens and Solve Common Problems (2018, PDF)" hreflang="en">Colorado State, condado de Boulder</a></li>
+      <li><a href="https://extension.oregonstate.edu/catalog/ec-1644-living-land-backyard-chicken-coop-design" rel="noopener" title="Oregon State University Extension: Living on the land, Backyard chicken coop design, EC 1644 (April 2014, reviewed 2023)" hreflang="en" lang="en">Oregon State EC 1644</a></li>
+    </ul>
+    <p class="co-small">Orientación para un proyecto de bricolaje, sin garantía de ingeniería. Sin relación con los fabricantes, las tiendas, las universidades ni las administraciones citadas aquí.</p>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Herramientas pequeñas y cuidadas, cada una para una tarea concreta. Tus diseños se calculan en tu navegador y nunca se envían.</p>
+      <p style="margin:12px 0 0">Hecho por <a href="https://peakappsstudio.com/">Peak Apps Studio</a>.<br>Escríbenos a <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Gallinero en 3D</h2>
+      <ul>
+        <li><a href="/es/gallinero/">Diseñar un gallinero</a></li>
+        <li><a href="/es/gallinero/gallinero-para-10-gallinas/">Gallinero para 10 gallinas</a></li>
+        <li><a href="/es/gallinero/gallinero-para-20-gallinas/">Gallinero para 20 gallinas</a></li>
+        <li><a href="/es/gallinero/gallinero-para-6-gallinas/">Gallinero para 6 gallinas</a></li>
+        <li><a href="/es/gallinero/planos-de-gallineros-pdf/">Planos de gallineros en PDF, gratis</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Otros idiomas</h2>
+      <ul>
+        <li><a href="/coop-designer/" hreflang="en" lang="en">Coop Designer (English)</a></li>
+        <li><a href="/fr/poulailler/" hreflang="fr" lang="fr">Poulailler en 3D (français)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Herramientas para casa (en inglés)</h2>
+      <ul>
+        <li><a href="/without-planning/" hreflang="en" lang="en">Without Planning</a></li>
+        <li><a href="/dropped-kerb/" hreflang="en" lang="en">Dropped Kerb Check</a></li>
+        <li><a href="/catio-designer/" hreflang="en" lang="en">Catio Designer</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Quiénes somos</h2>
+      <ul>
+        <li><a href="/tools/" hreflang="en">Todas las herramientas (en inglés)</a></li>
+        <li><a href="/tools/privacy/" hreflang="en">Privacidad y licencias (en inglés)</a></li>
+        <li><a href="https://peakappsstudio.com/">El estudio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+</html>

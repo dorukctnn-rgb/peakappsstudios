@@ -9,18 +9,23 @@
   // permalink. Fail closed: while this is 'PENDING' (or empty) Pro never turns on, whatever the browser has stored.
   const COOP_PRO_PRODUCT_ID = 'WcX4Mrulv7hK9DysZs-tqA==';
   const PRO_READY = !!COOP_PRO_PRODUCT_ID && COOP_PRO_PRODUCT_ID !== 'PENDING';
+  // One licence for every language: the same product, the same key in this browser (tool: 'coop-designer').
+  const E = window.CoopEngine, D = window.CoopData, V = window.CoopView;
+  E.setLang(['fr', 'es'].includes(document.documentElement.lang) ? document.documentElement.lang : 'en');
+  const T = (k, p) => E.t(k, p);
   const LICENSE = {
     tool: 'coop-designer',
     productId: PRO_READY ? COOP_PRO_PRODUCT_ID : 'PENDING',
     permalink: 'coop-designer-pro',
     buyUrl: 'https://dorukctn.gumroad.com/l/coop-designer-pro',
-    pitch: 'Pro writes the build plan for this exact coop: the optimised cut list with a diagram per board, the hardware cloth cut to your roll with the apron, a step-by-step PDF with elevations and exploded views, the add-ons, saved designs, GLB and OBJ files and large renders. $19, once.',
+    pitch: T('t.pitch'),
+    strings: Object.fromEntries(['title', 'buy', 'keyLabel', 'verify', 'close', 'checking', 'badKey', 'network', 'ok', 'refunded', 'rejected', 'active'].map(k => [k, T(`lic.${k}`)])),
+    localMessages: E.getLang() !== 'en',
   };
   const PDFLIB_SRC = '/pay-gap-report/vendor/pdf-lib.min.js';
   const REPORT_SRC = '/coop-designer/report.js';
   const SCENE_SRC = '/coop-designer/scene.js';
 
-  const E = window.CoopEngine, D = window.CoopData, V = window.CoopView;
   const $ = id => document.getElementById(id);
   const esc = s => V.esc(s);
   const form = $('form');
@@ -34,9 +39,9 @@
   // ---------- the selects that depend on the units ----------
   function fillSelects() {
     const u = model.units;
-    $('lumber').innerHTML = D.LUMBER[u].map(l => `<option value="${esc(l.id)}">${esc(l.label)}</option>`).join('');
-    $('stock').innerHTML = D.STOCK[u].map(s => `<option value="${s.mm}">${esc(s.label)}</option>`).join('');
-    $('mesh').innerHTML = D.MESH.map(me => `<option value="${esc(me.id)}">${esc(me.label)}</option>`).join('');
+    $('lumber').innerHTML = E.lumberOptions(u).map(l => `<option value="${esc(l.id)}">${esc(l.label)}</option>`).join('');
+    $('stock').innerHTML = E.stockOptions(u, model.lumber).map(s => `<option value="${s.mm}">${esc(s.label)}</option>`).join('');
+    $('mesh').innerHTML = E.meshOptions().map(me => `<option value="${esc(me.id)}">${esc(me.label)}</option>`).join('');
   }
   // ---------- model to form, form to model ----------
   function fillOne(el) {
@@ -50,14 +55,14 @@
     document.querySelectorAll('#addons [data-k]').forEach(el => { if (el !== skip) fillOne(el); });
     form.querySelectorAll('[data-seg]').forEach(seg => { const v = String(get(model, seg.dataset.seg)); seg.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === v))); });
     document.querySelectorAll('input[name="type"]').forEach(r => { r.checked = r.value === model.type; });
-    document.querySelectorAll('[data-unit]').forEach(i => { i.textContent = model.units === 'metric' ? 'cm' : 'in'; });
-    const L = E.lumberOf(model); $('lumber-actual').textContent = `Actual size ${L.actual}`;
+    document.querySelectorAll('[data-unit]').forEach(i => { i.textContent = T(model.units === 'metric' ? 't.unitCm' : 't.unitIn'); });
+    const L = E.lumberOf(model); $('lumber-actual').textContent = T('t.actual', { actual: L.actual, label: L.label });
     const me = E.meshOf(model);
-    const native = r => (Math.abs(r[0] / 25.4 - Math.round(r[0] / 25.4)) > 1e-6 ? `${Math.round(r[0])} mm x ${r[1] / 1000} m` : `${E.len(r[0], 'imperial')} x ${E.len(r[1], 'imperial', 'dim')}`);
-    $('roll-note').textContent = me && me.rolls.length ? `Listed rolls: ${me.rolls.map(native).join(', ')}` : 'Enter the roll you buy';
-    document.querySelector('[data-label="rl"]').textContent = model.type === 'house' ? 'Run length, the house end included' : 'Run length beside the coop';
-    document.querySelector('[data-label="cw"]').textContent = model.type === 'house' ? 'Hen house width' : 'Coop width';
-    $('auto-note').textContent = model.auto ? '' : '(off: you set the sizes)';
+    const native = r => (Math.abs(r[0] / 25.4 - Math.round(r[0] / 25.4)) > 1e-6 ? T('t.rollMetric', { w: Math.round(r[0]), l: E.I.dec(String(r[1] / 1000)) }) : `${E.len(r[0], 'imperial')} x ${E.len(r[1], 'imperial', 'dim')}`);
+    $('roll-note').textContent = me && me.rolls.length ? T('t.listedRolls', { list: me.rolls.map(native).join(', ') }) : T('t.enterRoll');
+    document.querySelector('[data-label="rl"]').textContent = T(model.type === 'house' ? 't.rl.house' : 't.rl.other');
+    document.querySelector('[data-label="cw"]').textContent = T(model.type === 'house' ? 't.cw.house' : 't.cw.other');
+    $('auto-note').textContent = model.auto ? '' : T('t.autoOff');
   }
   function readField(el) {
     const k = el.dataset.k, t = el.dataset.t;
@@ -101,6 +106,12 @@
     renderShop();
     proRender();
     queueScene();
+    langLinks();
+  }
+  // the language switch keeps the design: the other edition opens it with its own materials
+  function langLinks() {
+    const code = model && !model.sample ? `#design=${E.encode(model)}&from=${E.getLang()}` : '';
+    document.querySelectorAll('a[data-lang-switch]').forEach(a => { a.href = a.getAttribute('data-lang-switch') + code; });
   }
   function renderShop() {
     const sig = V.shopSig(res, model.units);
@@ -110,7 +121,7 @@
       $('shop-total').textContent = res.shop.priced ? V.money(res.shop.total) : '';
     }
     const missing = res.shop.items.length - res.shop.priced;
-    $('shop-note').textContent = res.shop.priced ? `${res.shop.priced} of ${res.shop.items.length} lines priced${missing ? `; ${missing} still blank` : ''}.` : 'Prices you type stay in this browser and in your share link.';
+    $('shop-note').textContent = res.shop.priced ? T('t.priced', { priced: res.shop.priced, n: res.shop.items.length, missing }) : T('t.pricesStay');
     $('shop-cap').textContent = V.shopCaption(res, model, E);
   }
   $('shop-rows').addEventListener('input', e => {
@@ -127,7 +138,7 @@
   function start3d() {
     if (scene || sceneLoading || glBroken) return sceneLoading || Promise.resolve(scene);
     if (!webgl()) { glBroken = true; $('gl-note').hidden = false; $('start3d').hidden = true; return Promise.resolve(null); }
-    $('start3d').disabled = true; $('start3d').lastChild.textContent = 'Loading the 3D view';
+    $('start3d').disabled = true; $('start3d').lastChild.textContent = T('t.loading3d');
     ensureRes();
     sceneLoading = import(SCENE_SRC).then(mod => {
       const canvas = $('canvas'); canvas.hidden = false;
@@ -164,14 +175,14 @@
     const st = id => { const r = res.checks.find(x => x.id === id); return r ? r.status : 'info'; };
     const d = res.design, u = model.units;
     const tags = {
-      ramp: d.ramp ? { text: `Ramp ${Math.round(d.ramp.angle)} degrees`, tone: 'dim' } : null,
-      pop: { text: `Pop door ${E.len(d.pop.w, u)} x ${E.len(d.pop.h, u)}`, tone: 'dim' },
-      nest: { text: `Nest box ${E.len(d.nests ? d.nests.y : 0, u)} up`, tone: st('nest-height') },
-      roost: { text: `Roost ${E.len(d.roosts ? d.roosts.h : 0, u)} up`, tone: st('roost-height') },
+      ramp: d.ramp ? { text: T('t.tag.ramp', { a: Math.round(d.ramp.angle) }), tone: 'dim' } : null,
+      pop: { text: T('t.tag.pop', { w: E.len(d.pop.w, u), h: E.len(d.pop.h, u) }), tone: 'dim' },
+      nest: { text: T('t.tag.nest', { y: E.len(d.nests ? d.nests.y : 0, u) }), tone: st('nest-height') },
+      roost: { text: T('t.tag.roost', { h: E.len(d.roosts ? d.roosts.h : 0, u) }), tone: st('roost-height') },
     };
     s.walkHen(tags);
     const flagged = ['nest-height', 'roost-height', 'roost-length'].filter(id => ['check', 'fail'].includes(st(id)));
-    PeakUI.toast(flagged.length ? `The hen path has ${flagged.length} ${flagged.length === 1 ? 'step' : 'steps'} to look at: ${flagged.map(id => res.checks.find(x => x.id === id).title.toLowerCase()).join(', ')}.` : 'The hen walks up the ramp, lays in the nest box and roosts above it: every step fits the guides.');
+    PeakUI.toast(flagged.length ? T('t.henFlag', { n: flagged.length, list: flagged.map(id => res.checks.find(x => x.id === id).title.toLowerCase()).join(', ') }) : T('t.henOk'));
   }));
 
   // ---------- events ----------
@@ -182,30 +193,32 @@
     const el = e.target; if (!(el.dataset && el.dataset.k)) return;
     readField(el);
     model = model.auto ? sized(model) : E.normalize(model);
-    if (el.dataset.k === 'mesh') fillSelects();
+    if (el.dataset.k === 'mesh' || el.dataset.k === 'lumber') fillSelects();
     fillForm(); visible(); render();
   });
   $('addons').addEventListener('change', e => {
     const el = e.target; if (!(el.dataset && el.dataset.k)) return;
-    if (!(PRO_READY && PeakLicense.requirePro('The add-ons are part of Pro. The design, the checks and the shopping list stay free.'))) { fillForm(); return; }
+    if (!(PRO_READY && PeakLicense.requirePro(T('t.pro.addons')))) { fillForm(); return; }
     readField(el); model = model.auto ? sized(model) : E.normalize(model); fillForm(); visible(); render();
   });
   form.addEventListener('click', e => {
     const b = e.target.closest('[data-seg] button'); if (!b) return;
     if (b.dataset.v !== model.units) switchUnits(b.dataset.v);
   });
-  function switchUnits(u) {
-    const o = model;
+  // a design in the other system of units: keep the flock, the yard and the sizes; move the materials to their nearest
+  // equivalent in the other system
+  function converted(o, u) {
     const n = E.fresh(o.type, u);
-    // keep the flock, the yard and the sizes; move the materials to their nearest equivalent in the other system
     for (const k of ['birds', 'size', 'climate', 'predators', 'auto', 'nests', 'roostH', 'roof', 'top', 'window', 'name']) n[k] = o[k];
     for (const k of ['yard', 'coop', 'run', 'af', 'tr', 'apron']) n[k] = JSON.parse(JSON.stringify(o[k]));
     n.addons = JSON.parse(JSON.stringify(o.addons));
-    n.lumber = D.SWAP[o.lumber] || n.lumber;
-    if (o.mesh === 'hc12-19' && u === 'metric') n.mesh = 'wm13-19'; else if (o.mesh === 'wm13-19' && u === 'imperial') n.mesh = 'hc12-19';
-    else if (o.mesh === 'poultry' && u === 'metric') n.mesh = 'poultry25'; else if (o.mesh === 'poultry25' && u === 'imperial') n.mesh = 'poultry'; else n.mesh = o.mesh;
+    n.lumber = E.swapLumber(o.lumber, u) || n.lumber;
+    n.mesh = E.swapMesh(o.mesh, u);
     n.roll = E.defaultRoll(n.mesh, u);
-    model = n.auto ? sized(n) : E.normalize(n); model.sample = false;
+    return n.auto ? sized(n) : E.normalize(n);
+  }
+  function switchUnits(u) {
+    model = converted(model, u); model.sample = false;
     shopRendered = '';
     fillSelects(); fillForm(); visible(); render();
   }
@@ -213,25 +226,26 @@
     if (!r.checked || r.value === model.type) return;
     const o = model, n = E.fresh(r.value, o.units);
     for (const k of ['birds', 'size', 'climate', 'predators', 'name']) n[k] = o[k];
+    if (o.sample) n.name = '';   // another type is no longer the sample
     n.yard = Object.assign({}, o.yard); n.auto = true;
     model = sized(n); shopRendered = '';
     fillSelects(); fillForm(); visible(); render();
     start3d();
   }));
   $('start3d').addEventListener('click', () => start3d());
-  $('sample').addEventListener('click', () => { model = E.sample(); shopRendered = ''; fillSelects(); fillForm(); visible(); render(); PeakUI.toast('Sample design loaded.'); });
+  $('sample').addEventListener('click', () => { model = E.sample(); shopRendered = ''; fillSelects(); fillForm(); visible(); render(); PeakUI.toast(T('t.sampleLoaded')); });
   $('fresh').addEventListener('click', () => {
     const o = model; const n = E.fresh(o.type, o.units);
     n.yard = Object.assign({}, o.yard); n.climate = o.climate; n.predators = o.predators;
     model = sized(n); shopRendered = ''; fillSelects(); fillForm(); visible(); render();
-    PeakUI.toast('Your own design: start with your flock in step 1.');
+    PeakUI.toast(T('t.fresh'));
     const first = form.querySelector('[data-k="birds"]'); if (first) first.focus();
   });
   $('share').addEventListener('click', async () => {
     const url = `${location.origin}${location.pathname}#design=${E.encode(model)}`;
     history.replaceState(null, '', url);
-    try { await navigator.clipboard.writeText(url); PeakUI.toast('Share link copied. It holds this design; nothing was uploaded.'); }
-    catch (e) { PeakUI.toast('The link is in the address bar. Copy it from there.'); }
+    try { await navigator.clipboard.writeText(url); PeakUI.toast(T('t.shared')); }
+    catch (e) { PeakUI.toast(T('t.sharedBar')); }
   });
   $('print').addEventListener('click', () => {
     document.body.classList.add('co-print-shop');
@@ -255,7 +269,7 @@
     return Promise.all([pdfLibPromise, reportPromise]);
   }
   const today = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
-  const stem = () => `coop-${model.type}-${today()}`;
+  const stem = () => T('t.file.stem', { type: T(`t.file.type.${model.type}`), date: today() });
   const needPro = why => PRO_READY && PeakLicense.requirePro(why);
   async function shots(s) {
     if (!s) return { views: [], steps: [] };
@@ -264,22 +278,22 @@
     return { views, steps };
   }
   async function doPdf() {
-    if (!needPro('The build plan PDF is part of Pro. The design, the checks and the shopping list stay free.')) return;
+    if (!needPro(T('t.pro.pdf'))) return;
     const btn = $('x-pdf'), text = btn.textContent;
     try {
-      btn.disabled = true; btn.textContent = 'Preparing the plan';
+      btn.disabled = true; btn.textContent = T('t.preparing');
       const [PDFLib, X] = await loadPdf();
       const s = await start3d();
       const pics = await shots(s);
       const bytes = await X.pdf(PDFLib, { res, E, D, shots: pics, both: $('both-units').checked });
-      PeakUI.download(new Blob([bytes], { type: 'application/pdf' }), `${stem()}-build-plan.pdf`);
-      PeakUI.toast('Build plan downloaded.');
-    } catch (e) { console.error(e); PeakUI.toast('The PDF could not be made. Try again, or email us so we can look into it.'); }
+      PeakUI.download(new Blob([bytes], { type: 'application/pdf' }), T('t.file.plan', { stem: stem() }));
+      PeakUI.toast(T('t.planDone'));
+    } catch (e) { console.error(e); PeakUI.toast(T('t.pdfFail')); }
     finally { btn.disabled = false; btn.textContent = text; }
   }
   async function doExport(kind) {
-    if (!needPro('The 3D files are part of Pro.')) return;
-    const s = await start3d(); if (!s) { PeakUI.toast('This browser cannot draw 3D, so the 3D files cannot be made here.'); return; }
+    if (!needPro(T('t.pro.3d'))) return;
+    const s = await start3d(); if (!s) { PeakUI.toast(T('t.no3d')); return; }
     try {
       const obj = s.exportObject();
       if (kind === 'glb') {
@@ -290,15 +304,15 @@
         const { OBJExporter } = await import('/catio-designer/vendor/OBJExporter.js');
         PeakUI.download(new Blob([new OBJExporter().parse(obj)], { type: 'text/plain' }), `${stem()}.obj`);
       }
-      PeakUI.toast(`${kind.toUpperCase()} downloaded. Units are metres.`);
-    } catch (e) { console.error(e); PeakUI.toast('The file could not be made. Try again.'); }
+      PeakUI.toast(T('t.exported', { kind: kind.toUpperCase() }));
+    } catch (e) { console.error(e); PeakUI.toast(T('t.fileFail')); }
   }
   async function doRender() {
-    if (!needPro('Large renders are part of Pro.')) return;
+    if (!needPro(T('t.pro.render'))) return;
     const s = await start3d(); if (!s) return;
     const shot = s.snapshot({ width: 2400, height: 1500, view: 'hero', type: 'image/png' });
     const blob = await (await fetch(shot.url)).blob();
-    PeakUI.download(blob, `${stem()}-render.png`);
+    PeakUI.download(blob, T('t.file.render', { stem: stem() }));
   }
   $('x-pdf').addEventListener('click', doPdf);
   $('x-glb').addEventListener('click', () => doExport('glb'));
@@ -307,26 +321,26 @@
 
   // saved designs: Pro, kept in this browser only
   const SAVE_KEY = 'coop-designer:saved';
-  const store = { get() { try { return JSON.parse(localStorage.getItem(SAVE_KEY) || '[]'); } catch (e) { return []; } }, set(v) { try { localStorage.setItem(SAVE_KEY, JSON.stringify(v)); } catch (e) { PeakUI.toast('This browser will not keep saved designs (private mode?).'); } } };
+  const store = { get() { try { return JSON.parse(localStorage.getItem(SAVE_KEY) || '[]'); } catch (e) { return []; } }, set(v) { try { localStorage.setItem(SAVE_KEY, JSON.stringify(v)); } catch (e) { PeakUI.toast(T('t.noStore')); } } };
   function renderSaved() {
     const list = store.get();
-    $('saved-list').innerHTML = list.length ? list.map((x, i) => `<li><span>${esc(x.name)} <span class="co-small">${esc(x.at)}</span></span><span><button type="button" data-load="${i}">Open</button> <button type="button" data-del="${i}">Delete</button></span></li>`).join('') : '<li>No saved designs yet.</li>';
+    $('saved-list').innerHTML = list.length ? list.map((x, i) => `<li><span>${esc(x.name)} <span class="co-small">${esc(x.at)}</span></span><span><button type="button" data-load="${i}">${esc(T('t.open'))}</button> <button type="button" data-del="${i}">${esc(T('t.delete'))}</button></span></li>`).join('') : `<li>${esc(T('t.noSaved'))}</li>`;
   }
   $('save').addEventListener('click', () => {
-    if (!needPro('Saved designs are part of Pro.')) return;
+    if (!needPro(T('t.pro.saved'))) return;
     const name = ($('save-name').value || model.name || `${E.TYPE_NAME[model.type]} ${today()}`).slice(0, 60);
     const list = store.get().filter(x => x.name !== name);
     list.unshift({ name, code: E.encode(Object.assign({}, model, { name })), at: today() });
-    store.set(list.slice(0, 30)); renderSaved(); PeakUI.toast(`Saved as ${name}.`);
+    store.set(list.slice(0, 30)); renderSaved(); PeakUI.toast(T('t.savedAs', { name }));
   });
   $('saved-list').addEventListener('click', e => {
     const l = e.target.dataset.load, d = e.target.dataset.del;
     if (l == null && d == null) return;
-    if (!needPro('Saved designs are part of Pro.')) return;
+    if (!needPro(T('t.pro.saved'))) return;
     const list = store.get();
     if (d != null) { list.splice(Number(d), 1); store.set(list); renderSaved(); return; }
     const m = E.decode(list[Number(l)].code); if (!m) return;
-    model = m; shopRendered = ''; fillSelects(); fillForm(); visible(); render(); PeakUI.toast(`Opened ${m.name}.`);
+    model = m; shopRendered = ''; fillSelects(); fillForm(); visible(); render(); PeakUI.toast(T('t.opened', { name: m.name }));
   });
 
   // the cut list and the hardware-cloth layout, drawn on the page for Pro
@@ -338,7 +352,7 @@
     let y = 4; const parts = [];
     for (const b of boards) {
       const sec = r.cut.sections.find(s => s.sec === b.sec);
-      parts.push(`<text x="0" y="${y + 11}" font-size="12" fill="currentColor">Board ${b.n}, ${esc(sec ? sec.lumber.label : b.sec)} x ${esc(E.stockLabel(b.stock, u))}: ${b.cuts.length} ${b.cuts.length === 1 ? 'cut' : 'cuts'}, ${esc(E.len(b.leftover, u))} left over</text>`);
+      parts.push(`<text x="0" y="${y + 11}" font-size="12" fill="currentColor">${esc(T('t.svgBoard', { n: b.n, lumber: sec ? sec.lumber.label : b.sec, stock: E.stockLabel(b.stock, u), cuts: b.cuts.length, left: E.len(b.leftover, u) }))}</text>`);
       y += 16; let x = 0;
       for (const c of b.cuts) {
         const w = c.len * sc;
@@ -350,7 +364,7 @@
       if (lw > 1) parts.push(`<rect x="${x.toFixed(1)}" y="${y}" width="${lw.toFixed(1)}" height="${rowH}" fill="url(#co-hatch)" stroke="#8a776b" stroke-width="0.8"/>`);
       y += rowH + 10;
     }
-    return `<svg class="co-diagram" viewBox="0 0 ${W} ${y}" role="img" aria-label="Cutting diagram: each board drawn to scale with its cuts"><defs><pattern id="co-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#f2f9f6"/><line x1="0" y1="0" x2="0" y2="6" stroke="#8a776b" stroke-width="1.2"/></pattern></defs>${parts.join('')}</svg>`;
+    return `<svg class="co-diagram" viewBox="0 0 ${W} ${y}" role="img" aria-label="${esc(T('t.svgAria'))}"><defs><pattern id="co-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#f2f9f6"/><line x1="0" y1="0" x2="0" y2="6" stroke="#8a776b" stroke-width="1.2"/></pattern></defs>${parts.join('')}</svg>`;
   }
   function svgMesh(r) {
     const u = r.m.units, out = [];
@@ -361,19 +375,20 @@
         ? `<rect x="${(s.at * sc).toFixed(1)}" y="${(h - s.len * sc).toFixed(1)}" width="${(s.cover * sc).toFixed(1)}" height="${(s.len * sc).toFixed(1)}" fill="${i % 2 ? '#9bc53d40' : '#ffb00040'}" stroke="#2e1a12" stroke-width="0.8"/>`
         : `<rect x="0" y="${(h - (s.at + s.cover) * sc).toFixed(1)}" width="${(s.len * sc).toFixed(1)}" height="${(s.cover * sc).toFixed(1)}" fill="${i % 2 ? '#9bc53d40' : '#ffb00040'}" stroke="#2e1a12" stroke-width="0.8"/>`).join('');
       const outline = `<polygon points="0,${h} ${w},${h} ${w},${(h - rect.h1 * sc).toFixed(1)} 0,${(h - rect.h0 * sc).toFixed(1)}" fill="none" stroke="#d9a35f" stroke-width="2.4"/>`;
-      out.push(`<figure class="co-board"><svg class="co-diagram" viewBox="-4 -4 ${w + 8} ${h + 8}" style="max-width:${Math.round(w + 8)}px" role="img" aria-label="${esc(f.label)}: ${rr.strips.length} ${rr.orient} strips">${strips}${outline}</svg><figcaption>${esc(f.label)}${f.rects.length > 1 ? `, part ${ri + 1}` : ''}: ${rr.strips.length} ${rr.orient} ${rr.strips.length === 1 ? 'strip' : 'strips'} (${rr.strips.map(s => esc(E.len(s.len, u))).join(', ')})</figcaption></figure>`);
+      const cap = T('pdf.face', { label: f.label, part: f.rects.length > 1 ? ri + 1 : 0, n: rr.strips.length, vertical: rr.orient === 'vertical' });
+      out.push(`<figure class="co-board"><svg class="co-diagram" viewBox="-4 -4 ${w + 8} ${h + 8}" style="max-width:${Math.round(w + 8)}px" role="img" aria-label="${esc(cap)}">${strips}${outline}</svg><figcaption>${esc(cap)} (${rr.strips.map(s => esc(E.len(s.len, u))).join(', ')})</figcaption></figure>`);
     }
-    if (r.mesh.apronCuts.length) out.push(`<figure class="co-board"><figcaption><b>Apron (${esc(r.design.apron.label.toLowerCase())}):</b> ${r.mesh.apronCuts.map(c => `${esc(E.len(c.len, u, 'dim'))}, ${esc(c.where.replace(/^Apron, /, ''))}`).join('; ')}</figcaption></figure>`);
+    if (r.mesh.apronCuts.length) out.push(`<figure class="co-board"><figcaption><b>${esc(T('t.apronCap', { label: r.design.apron.label }))}</b> ${r.mesh.apronCuts.map(c => `${esc(E.len(c.len, u, 'dim'))}, ${esc(c.sides)}`).join(T('pdf.semi'))}</figcaption></figure>`);
     return out.join('');
   }
   function proRender() {
     if (!pro || !res) return;
     const u = model.units;
-    $('cut-diagrams').innerHTML = `<h3>Cut list: ${res.cut.boards.length} boards</h3><p class="co-small">Packed first-fit decreasing with a ${esc(E.len(res.cut.kerf, u))} saw kerf, keeping ${esc(E.len(res.cut.trim, u))} on each board to square its end; ${Math.round(res.cut.waste * 100)}% of the wood bought is left over, in the hatched ends.</p>${svgBoards(res)}`;
-    $('mesh-diagrams').innerHTML = `<h3>Hardware cloth: ${res.mesh.count} ${res.mesh.count === 1 ? 'roll' : 'rolls'} of ${esc(E.len(model.roll.w, u))} x ${esc(E.len(model.roll.l, u, 'dim'))}</h3><div style="display:flex;flex-wrap:wrap;gap:12px 20px">${svgMesh(res)}</div>`;
+    $('cut-diagrams').innerHTML = `<h3>${esc(T('t.cutH', { n: res.cut.boards.length }))}</h3><p class="co-small">${esc(T('t.cutNote', { kerf: E.len(res.cut.kerf, u), trim: E.len(res.cut.trim, u), waste: Math.round(res.cut.waste * 100) }))}</p>${svgBoards(res)}`;
+    $('mesh-diagrams').innerHTML = `<h3>${esc(T('t.meshH', { n: res.mesh.count, w: E.len(model.roll.w, u), l: E.len(model.roll.l, u, 'dim') }))}</h3><div style="display:flex;flex-wrap:wrap;gap:12px 20px">${svgMesh(res)}</div>`;
   }
   function proState() {
-    $('locked').querySelectorAll('li').forEach(li => { li.classList.toggle('is-open', pro); li.querySelector('em').textContent = pro ? 'Active' : 'Pro'; });
+    $('locked').querySelectorAll('li').forEach(li => { li.classList.toggle('is-open', pro); li.querySelector('em').textContent = pro ? T('t.active') : 'Pro'; });
     $('addons').disabled = !pro;
     $('pro-work').hidden = !pro;
     if (pro) renderSaved();
@@ -383,7 +398,17 @@
   function initial() {
     const h = location.hash.slice(1);
     const share = h.match(/(?:^|&)(?:design|prefill)=([A-Za-z0-9_-]+)/);
-    if (share) { const m = E.decode(share[1]); if (m) return { m, auto: true }; }
+    if (share) {
+      let m = E.decode(share[1]);
+      // a design brought over by the language switch: in this edition's units and materials, without the other
+      // edition's sample name
+      const from = (h.match(/(?:^|&)from=([a-z]{2})/) || [])[1];
+      if (m && from && from !== E.getLang()) {
+        if (m.units !== E.market().units) m = converted(m, E.market().units);
+        if (['en', 'fr', 'es'].some(l => E.I.t('sample.name', {}, l) === m.name)) m.name = '';
+      }
+      if (m) return { m, auto: true };
+    }
     return { m: E.sample(), auto: false };
   }
   const init = initial();
@@ -395,7 +420,7 @@
   window.CoopReady = true;
   document.querySelectorAll('[data-enter-key][aria-busy]').forEach(b => b.removeAttribute('aria-busy'));
   if (window.CoopWantsKey) { window.CoopWantsKey = false; PeakLicense.open(); }
-  fillSelects(); fillForm(); visible();
+  fillSelects(); fillForm(); visible(); langLinks();
   // the page arrives with the sample already written in (by the build): work it out again only when the browser is
   // idle, so the first paint waits for no script; anything else (a shared link) renders now
   const pre = !init.auto && !pro && $('check-rows').dataset.pre === 'sample';

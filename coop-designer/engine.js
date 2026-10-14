@@ -10,28 +10,51 @@
  *  - the share code kept after the # sign (encode, decode).
  * Lengths are millimetres inside; the page shows inches or millimetres. Coordinates: x along the length (0 at the
  * hen-house end), y up, z across the depth (0 at the back, the front at the far side). Works in the browser
- * (window.CoopEngine) and in Node for the tests. Guidance for a hobby build, never an engineering guarantee. */
+ * (window.CoopEngine) and in Node for the tests. Guidance for a hobby build, never an engineering guarantee.
+ * Every word it writes comes from i18n.js in the page's language; the market of that language (data.js MARKETS)
+ * supplies the metric lumber, sheets, mesh and roof panels sold there. Imperial sizes are the same everywhere. */
 (function (root, factory) {
-  if (typeof module === 'object' && module.exports) module.exports = factory(require('./data.js'));
-  else root.CoopEngine = factory(root.CoopData);
-})(typeof self !== 'undefined' ? self : this, function (D) {
+  if (typeof module === 'object' && module.exports) module.exports = factory(require('./data.js'), require('./i18n.js'));
+  else root.CoopEngine = factory(root.CoopData, root.CoopI18n);
+})(typeof self !== 'undefined' ? self : this, function (D, I) {
   'use strict';
   const IN = D.IN, FT = D.FT, SQFT = D.SQFT;
   const RU = D.RULES;
+  const T = (k, p) => I.t(k, p);
+  const N = (x, d) => I.fixed(x, d);
   const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
   const num = (x, d) => (x === '' || x === null || x === undefined || !Number.isFinite(Number(x)) ? d : Number(x));
   const r1 = x => Math.round(x * 100) / 100;
+  // an object whose values are read from the dictionary each time, so E.TYPE_NAME.house follows the page's language
+  function named(prefix, keys) { const o = {}; for (const k of keys) Object.defineProperty(o, k, { get: () => T(`${prefix}.${k}`), enumerable: true }); return o; }
   const TYPES = ['house', 'walkin', 'aframe', 'tractor'];
-  const TYPE_NAME = { house: 'Hen house on legs with a run', walkin: 'Walk-in coop with a run', aframe: 'A-frame coop', tractor: 'Chicken tractor' };
-  const TYPE_SHORT = { house: 'hen house on legs', walkin: 'walk-in coop', aframe: 'A-frame coop', tractor: 'chicken tractor' };
+  const TYPE_NAME = named('type', TYPES);
+  const TYPE_SHORT = named('typeShort', TYPES);
   const CLIMATES = ['mild', 'cold', 'hot'];
   const PREDATORS = ['low', 'medium', 'high'];
   const ROOFS = ['solid', 'poly'];
-  const ROOF_NAME = { solid: 'Opaque corrugated panels', poly: 'Clear corrugated polycarbonate' };
+  const ROOF_NAME = named('roof', ROOFS);
   const TOPS = ['mesh', 'solid', 'poly', 'open'];
-  const TOP_NAME = { mesh: 'Hardware cloth', solid: 'Opaque corrugated panels', poly: 'Clear corrugated polycarbonate', open: 'Open, no top' };
+  const TOP_NAME = named('top', TOPS);
   const APRONS = ['lshape', 'buried', 'skirt', 'none'];
-  const APRON_NAME = { lshape: 'L-shaped apron, buried', buried: 'Buried straight down, foot turned out', skirt: 'Skirt laid flat on the ground', none: 'No apron' };
+  const APRON_NAME = named('apron', APRONS);
+
+  // ---------- the market: the language's own metric materials (English keeps the tables it always had) ----------
+  const MK = () => D.MARKETS[I.getLang()] || D.MARKETS.en;
+  const lumberAll = units => (units === 'metric' ? MK().lumber : D.LUMBER.imperial);           // every section, roost bars included
+  const lumberList = units => lumberAll(units).filter(l => !l.roostOnly);                       // the sections a frame can be built from
+  const stockList = units => (units === 'metric' ? MK().stock : D.STOCK.imperial);
+  // the lengths a section is sold in, where the market's listings give them per section (the French and Spanish
+  // tables); otherwise every length of the market
+  const lengthsOf = (sec, units) => { const l = lumberAll(units).find(x => x.id === sec); return ((l && l.lengths) || stockList(units).map(s => s.mm)).slice().sort((a, b) => a - b); };
+  // the board a section is cut from: the length chosen for the frame when the section is sold in it, else the next
+  // longer length it is sold in, else its longest
+  const stockFor = (sec, m) => { const ls = lengthsOf(sec, m.units); return ls.includes(m.stock) ? m.stock : (ls.find(x => x >= m.stock) || ls[ls.length - 1]); };
+  const sheetOf = units => (units === 'metric' ? MK().sheet : D.SHEET.imperial);
+  const meshList = () => MK().mesh;
+  // a copy of a table row with its words in the page's language (the tables hold sizes and sources only)
+  const say = (o, kind) => (o ? Object.assign({}, o, { label: T(`${kind}.${o.id}`), actual: kind === 'lumber' ? T(`${kind}.${o.id}.actual`) : undefined }) : o);
+  const lumberById = (id, units) => say(lumberAll(units).find(l => l.id === id) || null, 'lumber');
 
   // ---------- starting designs per type (before sizing): imperial in inches, metric in millimetres ----------
   // house and walkin: c = coop width, depth, back height, front height; legs = floor height; run = length, height.
@@ -49,16 +72,37 @@
     aframe: { a: [3000, 1500, 1500, 600, 1800] },
     tractor: { t: [2400, 1200, 900, 600, 900, 750] },
   };
-  const meshById = id => D.MESH.find(x => x.id === id) || null;
-  const lumberList = units => D.LUMBER[units === 'metric' ? 'metric' : 'imperial'];
-  function lumberOf(m) { const list = lumberList(m.units); return list.find(l => l.id === m.lumber) || list[1]; }
+  const meshRow = id => meshList().find(x => x.id === id) || null;
+  const meshById = id => say(meshRow(id), 'mesh');
+  function lumberOf(m) { const list = lumberList(m.units); return say(list.find(l => l.id === m.lumber) || list[1], 'lumber'); }
   // a roll listed in millimetres (900 x 6000) rather than in inches (914.4 x 15240)
   const isMetricRoll = r => Math.abs(r[0] / IN - Math.round(r[0] / IN)) > 1e-6;
   function defaultRoll(meshId, units) {
-    const me = meshById(meshId);
+    const me = meshRow(meshId);
     const rolls = me && me.rolls.length ? me.rolls.filter(r => (units === 'metric') === isMetricRoll(r)) : [];
-    const pick = rolls.length ? rolls[0] : D.ROLL_DEFAULT[units];
+    const pick = rolls.length ? rolls[0] : (units === 'metric' ? MK().rollDefault : D.ROLL_DEFAULT.imperial);
     return { w: pick[0], l: pick[1] };
+  }
+  // the nearest equivalent in the other system (the unit switch) or in this market (a link made in another language)
+  function swapLumber(id, units) {
+    const list = lumberList(units);
+    if (list.some(l => l.id === id)) return id;
+    const to = (MK().swap || D.SWAP)[id];
+    if (to && list.some(l => l.id === to)) return to;
+    const from = lumberAll(units === 'metric' ? 'imperial' : 'metric').find(l => l.id === id) || D.LUMBER.metric.concat(...Object.values(D.MARKETS).map(x => x.lumber)).find(l => l.id === id);
+    if (!from) return null;
+    return list.reduce((p, q) => (Math.abs(q.t * q.w - from.t * from.w) < Math.abs(p.t * p.w - from.t * from.w) ? q : p)).id;
+  }
+  // a mesh sold in rolls of the other system becomes the same kind with the same opening (within 1.5 mm) when there is
+  // one: 1/2 in hardware cloth and 13 mm welded mesh, 1 in chicken wire and 25 mm netting; otherwise it stays as it is
+  function swapMesh(id, units) {
+    const fit = me => !!me && (units === 'metric') === isMetricRoll(me.rolls[0] || D.ROLL_DEFAULT[units]);
+    const here = meshRow(id);
+    if (here && fit(here)) return id;
+    const from = here || D.MESH.concat(...Object.values(D.MARKETS).map(x => x.mesh)).find(x => x.id === id);
+    const kin = from ? meshList().filter(x => fit(x) && x.kind === from.kind && Math.abs(x.open[0] - from.open[0]) <= 1.5) : [];
+    if (kin.length) return kin.reduce((p, q) => (Math.abs(q.open[0] - from.open[0]) < Math.abs(p.open[0] - from.open[0]) ? q : p)).id;
+    return here ? id : MK().meshDefault;
   }
   const nestSide = size => (size === 'bantam' ? RU.nestSize.bantam : RU.nestSize.standard) * IN;
   const autoNests = birds => Math.max(1, Math.ceil(birds / RU.nestsAuto));
@@ -68,7 +112,7 @@
     const arr = k => (metric ? dm[k] : d[k].map(x => x * IN));
     const o = {
       birds: d.birds, yard: metric ? { w: 6000, d: 4000 } : { w: 20 * FT, d: 12 * FT },
-      lumber: metric ? D.SWAP[d.lumber] : d.lumber, spacing: metric ? 600 : 24 * IN, mesh: metric ? 'wm13-19' : 'hc12-19',
+      lumber: metric ? MK().swap[d.lumber] : d.lumber, spacing: metric ? 600 : 24 * IN, mesh: metric ? MK().meshDefault : 'hc12-19',
       coop: { w: 1200, d: 1200, h: 1050, h2: 900, legs: 600 }, run: { l: 3000, h: 1200 },
       af: { l: 3000, w: 1500, h: 1500, f: 600, hl: 1800 }, tr: { l: 2400, w: 1200, rh: 900, f: 600, hl: 900, th: 750 },
     };
@@ -88,10 +132,10 @@
       birds: b.birds, size: 'standard', climate: 'mild', predators: 'medium',
       yard: b.yard, auto: true,
       coop: b.coop, run: b.run, af: b.af, tr: b.tr,
-      lumber: b.lumber, stock: D.STOCK[units][0].mm, spacing: b.spacing,
+      lumber: b.lumber, stock: units === 'metric' ? MK().stockDefault : D.STOCK.imperial[0].mm, spacing: b.spacing,
       mesh: meshId, roll: defaultRoll(meshId, units), overlap: units === 'metric' ? 25 : 1 * IN,
       roof: 'solid', top: 'mesh',
-      panel: units === 'metric' ? { w: 860, l: 2400, lap: 75 } : { w: 26 * IN, l: 8 * FT, lap: 3 * IN },
+      panel: units === 'metric' ? Object.assign({}, MK().panel) : { w: 26 * IN, l: 8 * FT, lap: 3 * IN },
       nests: autoNests(b.birds), roostH: 24 * IN,
       apron: { kind: type === 'tractor' ? 'none' : 'lshape', depth: units === 'metric' ? 300 : 12 * IN },
       window: false,
@@ -102,10 +146,12 @@
     return normalize(sizeFor(m));
   }
 
-  // The sample: a hen house on legs over a run for six standard hens. Marked "Sample" wherever it shows.
+  // The sample: a hen house on legs over a run for six standard hens. Marked "Sample" wherever it shows. In inches
+  // with a yard of 20 by 12 ft in English; in the metric of the language's market, with a yard of 6 by 4 m, elsewhere.
   function sample() {
-    const m = fresh('house', 'imperial');
-    Object.assign(m, { name: 'Sample hen house', birds: 6, size: 'standard', climate: 'mild', predators: 'medium', yard: { w: 20 * FT, d: 12 * FT }, auto: true, sample: true });
+    const units = MK().units || 'imperial';
+    const m = fresh('house', units);
+    Object.assign(m, { name: T('sample.name'), birds: 6, size: 'standard', climate: 'mild', predators: 'medium', yard: units === 'metric' ? { w: 6000, d: 4000 } : { w: 20 * FT, d: 12 * FT }, auto: true, sample: true });
     return normalize(sizeFor(m));
   }
 
@@ -207,10 +253,10 @@
     m.tr.hl = lim(t.hl, 600, m.tr.l - 300, Math.min(bt.hl, m.tr.l - 300));
     const list = lumberList(units);
     m.lumber = list.some(l => l.id === s.lumber) ? s.lumber : b.lumber;
-    const stocks = D.STOCK[units].map(x => x.mm);
+    const stocks = lengthsOf(m.lumber, units);
     m.stock = stocks.reduce((p, q) => (Math.abs(q - num(s.stock, stocks[0])) < Math.abs(p - num(s.stock, stocks[0])) ? q : p));
     m.spacing = lim(s.spacing, 300, 1220, b.spacing);
-    m.mesh = meshById(s.mesh) ? s.mesh : b.mesh;
+    m.mesh = meshRow(s.mesh) ? s.mesh : b.mesh;
     const roll = s.roll || defaultRoll(m.mesh, units);
     m.roll = { w: lim(roll.w, 300, 3000, 914.4), l: lim(roll.l, 600, 60000, 15240) };
     m.overlap = lim(s.overlap, 0, m.roll.w / 3, 25.4);
@@ -248,23 +294,31 @@
     let n = f, d = step; while (n % 2 === 0 && d > 1) { n /= 2; d /= 2; }
     return whole ? `${whole} ${n}/${d}` : `${n}/${d}`;
   }
-  const fmtIn = mm => `${fracIn(mm)} in`;
+  const fmtIn = mm => T('u.in', { v: fracIn(mm) });
   function fmtFtIn(mm) {
     const inches = Math.round(mm / IN * 8) / 8;
-    if (inches < 24) return `${fracIn(mm)} in`;
+    if (inches < 24) return fmtIn(mm);
     const ftv = Math.floor(inches / 12), rest = inches - ftv * 12;
-    return rest ? `${ftv} ft ${fracIn(rest * IN)} in` : `${ftv} ft`;
+    return rest ? T('u.ftIn', { ft: ftv, in: fracIn(rest * IN) }) : T('u.ft', { v: ftv });
   }
-  const fmtMm = mm => `${Math.round(mm)} mm`;
-  function len(mm, units, kind = 'cut') { return units === 'metric' ? fmtMm(mm) : kind === 'dim' ? fmtFtIn(mm) : fmtIn(mm); }
+  const fmtMm = mm => T('u.mm', { v: N(Math.round(mm), 0) });
+  // overall sizes in metric: millimetres in English, as the tool always wrote them; metres and centimetres in the
+  // French and Spanish editions (1,2 m; 60 cm), where plans give sizes that way. Cut lengths stay in millimetres.
+  const dimM = mm => T('u.dimM', { mm });
+  function len(mm, units, kind = 'cut') { return units === 'metric' ? (kind === 'dim' ? dimM(mm) : fmtMm(mm)) : kind === 'dim' ? fmtFtIn(mm) : fmtIn(mm); }
   const both = (mm, units, kind = 'cut') => (units === 'metric' ? `${fmtMm(mm)} (${fmtIn(mm)})` : `${len(mm, units, kind)} (${fmtMm(mm)})`);
-  function area(m2, units) { return units === 'metric' ? `${(Math.round(m2 * 100) / 100).toFixed(2)} m²` : `${(Math.round(m2 / SQFT * 10) / 10).toFixed(1)} sq ft`; }
+  function area(m2, units) { return units === 'metric' ? T('u.m2', { v: N(m2, 2) }) : T('u.sqft', { v: N(m2 / SQFT, 1) }); }
   const sqft = m2 => m2 / SQFT;
-  function stockLabel(mm, units) { const s = D.STOCK[units].concat(D.STOCK[units === 'metric' ? 'imperial' : 'metric']).find(x => Math.abs(x.mm - mm) < 1); return s ? s.label : len(mm, units, 'dim'); }
+  function stockLabel(mm, units) {
+    if (D.STOCK.imperial.some(x => Math.abs(x.mm - mm) < 1)) return T('u.stockFt', { v: Math.round(mm / FT) });
+    if (stockList('metric').concat(D.STOCK.metric).some(x => Math.abs(x.mm - mm) < 1)) return T('u.stockM', { mm });
+    return len(mm, units, 'dim');
+  }
   function toInput(mm, units) { return units === 'metric' ? String(Math.round(mm) / 10) : String(Math.round(mm / IN * 8) / 8); }
   function fromInput(str, units) { const n = Number(String(str).replace(',', '.')); if (!Number.isFinite(n)) return NaN; return units === 'metric' ? n * 10 : n * IN; }
   const deg = r => r * 180 / Math.PI;
-  const unit = (qty, word) => (qty === 1 ? String(word).replace(/([^s])s$/, '$1').replace(/^boxe$/, 'box') : word);
+  // "2 boards", "1 board": the unit words of the shopping list, with each language's plural
+  const unit = (qty, word) => T(`unit.${word}`, { n: qty });
 
   // ---------- The frame ----------
   // Every member: a box from p0 to p1 (its centre line), a by b in section, a measured along `up`. len is the cut length.
@@ -296,12 +350,12 @@
     };
     const rect = (wid, h0, h1) => ({ w: wid, h0, h1: h1 == null ? h0 : h1 });
     const brace = 6 * IN;
-    const sh = D.SHEET[m.units];
+    const sh = sheetOf(m.units);
     const sz = m.size === 'bantam' ? 'bantam' : 'standard';
     const nW = nestSide(sz), nD = nW, nH = nW;
     const pop = sz === 'bantam' ? { w: 10 * IN, h: 12 * IN } : { w: 12 * IN, h: 14 * IN };
-    const T = m.type;
-    const legsOn = T === 'walkin' && m.addons.legs.on;
+    const TY = m.type;
+    const legsOn = TY === 'walkin' && m.addons.legs.on;
     const runFaces = new Set(['rfront', 'rback', 'rend', 'rtop', 'rdoor', 'rnear', 'legs', 'base', 'aback', 'afront', 'under']);
 
     // a straight wall along x (at z = at) or along z (at x = at), from a to b, rising from y0 to top(s): bottom and
@@ -314,22 +368,22 @@
       studs = [...new Set(studs.map(x => Math.round(x * 100) / 100))].filter(cc => cc - t / 2 >= a - 1 && cc + t / 2 <= b + 1).sort((x, yy) => x - yy);
       const sloped = Math.abs(top(a) - top(b)) > 1;
       for (const [s0, s1] of splitRun(a, b, studs)) {
-        if (!o.noBottom) add('plate', step, P(s0, y0 + t / 2), P(s1, y0 + t / 2), [0, 1, 0], { face, where: `${name}, bottom plate` });
+        if (!o.noBottom) add('plate', step, P(s0, y0 + t / 2), P(s1, y0 + t / 2), [0, 1, 0], { face, where: T('w.bottomPlate', { name }) });
         const ya = top(s0) - t / 2, yb = top(s1) - t / 2;
-        if (!sloped) add('plate', step, P(s0, ya), P(s1, yb), [0, 1, 0], { face, where: `${name}, top plate` });
-        else { const ds = s1 - s0, dy = yb - ya, l = Math.hypot(ds, dy); add('plate', step, P(s0, ya), P(s1, yb), axis === 'x' ? [-dy / l, ds / l, 0] : [0, ds / l, -dy / l], { face, where: `${name}, top plate, ends cut to the slope`, angled: true }); }
+        if (!sloped) add('plate', step, P(s0, ya), P(s1, yb), [0, 1, 0], { face, where: T('w.topPlate', { name }) });
+        else { const ds = s1 - s0, dy = yb - ya, l = Math.hypot(ds, dy); add('plate', step, P(s0, ya), P(s1, yb), axis === 'x' ? [-dy / l, ds / l, 0] : [0, ds / l, -dy / l], { face, where: T('w.topPlateSlope', { name }), angled: true }); }
       }
       for (const cc of studs) {
         const yt = top(cc) - t, yb0 = o.noBottom ? y0 : y0 + t;
-        if (yt - yb0 > 20) add('stud', step, P(cc, yb0), P(cc, yt), axis === 'x' ? [1, 0, 0] : [0, 0, 1], { face, where: `${name}, stud${sloped ? ', top cut to the slope' : ''}`, angled: sloped });
+        if (yt - yb0 > 20) add('stud', step, P(cc, yb0), P(cc, yt), axis === 'x' ? [1, 0, 0] : [0, 0, 1], { face, where: T(sloped ? 'w.studSlope' : 'w.stud', { name }), angled: sloped });
       }
       return studs;
     }
     // a floor frame: rim joists along x at the front and back, joists across z between them, on edge; top at y
     function floorFrame(x0, x1, z0, z1, yTop, step, name) {
       const yc = yTop - w / 2;
-      for (const [a2, b2] of splitRun(x0, x1, [])) for (const zc of [z0 + t / 2, z1 - t / 2]) add('rim', step, [a2, yc, zc], [b2, yc, zc], [0, 1, 0], { face: 'floor', where: `${name}, rim joist`, a: w, b: t });
-      for (const xc of evenly(x0, x1, Math.min(S, 16 * IN), t)) add('joist', step, [xc, yc, z0 + t], [xc, yc, z1 - t], [0, 1, 0], { face: 'floor', where: `${name}, joist`, a: w, b: t });
+      for (const [a2, b2] of splitRun(x0, x1, [])) for (const zc of [z0 + t / 2, z1 - t / 2]) add('rim', step, [a2, yc, zc], [b2, yc, zc], [0, 1, 0], { face: 'floor', where: T('w.rim', { name }), a: w, b: t });
+      for (const xc of evenly(x0, x1, Math.min(S, 16 * IN), t)) add('joist', step, [xc, yc, z0 + t], [xc, yc, z1 - t], [0, 1, 0], { face: 'floor', where: T('w.joist', { name }), a: w, b: t });
     }
     // a header (or sill) across an opening in a wall
     const across = (step, face, name, axis, at, s0, s1, yy) => add('header', step, axis === 'x' ? [s0, yy, at] : [at, yy, s0], axis === 'x' ? [s1, yy, at] : [at, yy, s1], [0, 1, 0], { face, where: name });
@@ -338,26 +392,28 @@
     // x0..x1, z0..z1; floor top at fy; the walls rise h at the back (z0) and h2 at the front (z1) above the floor
     function henHouse(o) {
       const { x0, x1, z0, z1, fy, h, h2, steps } = o;
-      const name = o.name || 'Hen house';
+      const nk = o.name || 'hen';
+      const NM = { name: T(`n.${nk}`), of: T(`n.${nk}.of`) };
+      const name = NM.name;
       const top = z => fy + h + (h2 - h) * clamp((z - z0) / (z1 - z0), 0, 1);
       const W = x1 - x0, Dd = z1 - z0;
-      floorFrame(x0, x1, z0, z1, fy - sh.floor.t, steps.floor, `${name} floor`);
-      sheets.push({ id: 'floor', where: `${name} floor`, w: Dd, l: W, t: 'floor', step: steps.floor, at: [x0, fy - sh.floor.t, z0], dims: [W, sh.floor.t, Dd] });
+      floorFrame(x0, x1, z0, z1, fy - sh.floor.t, steps.floor, T('n.floor', NM));
+      sheets.push({ id: 'floor', where: T('n.floor', NM), w: Dd, l: W, t: 'floor', step: steps.floor, at: [x0, fy - sh.floor.t, z0], dims: [W, sh.floor.t, Dd] });
       const skipFront = [], skipSide = [], skipBack = [];
       if (o.door) skipFront.push([o.door.x0, o.door.x0 + o.door.w]);
       if (o.clean) skipFront.push([o.clean.x0, o.clean.x0 + o.clean.w]);
       if (o.popZ != null) skipSide.push([o.popZ - pop.w / 2, o.popZ + pop.w / 2]);
       if (o.window) skipBack.push([o.window.x0, o.window.x0 + o.window.w]);
-      wall({ axis: 'x', at: z1 - w / 2, a: x0, b: x1, y0: fy, top: () => top(z1), step: steps.walls, face: 'cfront', name: `${name}, front wall`, skip: skipFront });
-      wall({ axis: 'x', at: z0 + w / 2, a: x0, b: x1, y0: fy, top: () => top(z0), step: steps.walls, face: 'cback', name: `${name}, back wall`, skip: skipBack });
-      wall({ axis: 'z', at: x0 + w / 2, a: z0 + w, b: z1 - w, y0: fy, top: z => top(z), step: steps.walls, face: 'cleft', name: `${name}, left wall` });
-      wall({ axis: 'z', at: x1 - w / 2, a: z0 + w, b: z1 - w, y0: fy, top: z => top(z), step: steps.walls, face: 'cright', name: `${name}, right wall`, skip: skipSide });
-      if (o.door) across(steps.walls, 'cfront', `${name}, door header`, 'x', z1 - w / 2, o.door.x0, o.door.x0 + o.door.w, fy + o.door.h + t / 2);
-      if (o.clean && fy + o.clean.h + t < top(z1) - t) across(steps.walls, 'cfront', `${name}, clean-out door header`, 'x', z1 - w / 2, o.clean.x0, o.clean.x0 + o.clean.w, fy + o.clean.h + t / 2);
-      if (o.popZ != null) across(steps.walls, 'cright', `${name}, pop door header`, 'z', x1 - w / 2, o.popZ - pop.w / 2, o.popZ + pop.w / 2, fy + pop.h + t / 2);
+      wall({ axis: 'x', at: z1 - w / 2, a: x0, b: x1, y0: fy, top: () => top(z1), step: steps.walls, face: 'cfront', name: T('n.wall.front', NM), skip: skipFront });
+      wall({ axis: 'x', at: z0 + w / 2, a: x0, b: x1, y0: fy, top: () => top(z0), step: steps.walls, face: 'cback', name: T('n.wall.back', NM), skip: skipBack });
+      wall({ axis: 'z', at: x0 + w / 2, a: z0 + w, b: z1 - w, y0: fy, top: z => top(z), step: steps.walls, face: 'cleft', name: T('n.wall.left', NM) });
+      wall({ axis: 'z', at: x1 - w / 2, a: z0 + w, b: z1 - w, y0: fy, top: z => top(z), step: steps.walls, face: 'cright', name: T('n.wall.right', NM), skip: skipSide });
+      if (o.door) across(steps.walls, 'cfront', T('n.hdr.door', NM), 'x', z1 - w / 2, o.door.x0, o.door.x0 + o.door.w, fy + o.door.h + t / 2);
+      if (o.clean && fy + o.clean.h + t < top(z1) - t) across(steps.walls, 'cfront', T('n.hdr.clean', NM), 'x', z1 - w / 2, o.clean.x0, o.clean.x0 + o.clean.w, fy + o.clean.h + t / 2);
+      if (o.popZ != null) across(steps.walls, 'cright', T('n.hdr.pop', NM), 'z', x1 - w / 2, o.popZ - pop.w / 2, o.popZ + pop.w / 2, fy + pop.h + t / 2);
       if (o.window) {
-        across(steps.walls, 'cback', `${name}, window header`, 'x', z0 + w / 2, o.window.x0, o.window.x0 + o.window.w, o.window.y + o.window.h + t / 2);
-        across(steps.walls, 'cback', `${name}, window sill`, 'x', z0 + w / 2, o.window.x0, o.window.x0 + o.window.w, o.window.y - t / 2);
+        across(steps.walls, 'cback', T('n.hdr.window', NM), 'x', z0 + w / 2, o.window.x0, o.window.x0 + o.window.w, o.window.y + o.window.h + t / 2);
+        across(steps.walls, 'cback', T('n.sill.window', NM), 'x', z0 + w / 2, o.window.x0, o.window.x0 + o.window.w, o.window.y - t / 2);
       }
       // the roof: rafters front to back on edge over the walls, an overhang all round, corrugated panels on top
       const over = metric ? 150 : 6 * IN;
@@ -367,24 +423,24 @@
       const rafters = evenly(x0 - over / 2, x1 + over / 2, Math.min(S, RU.purlinEnd), t);
       for (const xc of rafters) {
         const ya = ry(rz0), yb = ry(rz1), dz = rz1 - rz0, dy = yb - ya, l = Math.hypot(dz, dy);
-        add('rafter', steps.roof, [xc, ya, rz0], [xc, yb, rz1], [0, dz / l, -dy / l], { face: 'roof', where: `${name}, rafter, ends cut to the slope`, angled: true, a: w, b: t });
+        add('rafter', steps.roof, [xc, ya, rz0], [xc, yb, rz1], [0, dz / l, -dy / l], { face: 'roof', where: T('n.rafter', NM), angled: true, a: w, b: t });
       }
       const pitch = deg(Math.atan2(h - h2, Dd));
-      roofs.push({ id: o.roofId || 'coop', label: `${name} roof`, x0: x0 - over, x1: x1 + over, z0: rz0, z1: rz1, y0: ry(rz0) + w / 2, y1: ry(rz1) + w / 2, w: W + 2 * over, slope: Math.hypot(rz1 - rz0, ry(rz1) - ry(rz0)), pitch, kind: m.roof, bars: rafters.length, step: steps.roof });
+      roofs.push({ id: o.roofId || 'coop', label: T('n.roof', NM), x0: x0 - over, x1: x1 + over, z0: rz0, z1: rz1, y0: ry(rz0) + w / 2, y1: ry(rz1) + w / 2, w: W + 2 * over, slope: Math.hypot(rz1 - rz0, ry(rz1) - ry(rz0)), pitch, kind: m.roof, bars: rafters.length, step: steps.roof });
       // siding: one piece per wall, openings cut out of it (the cut-outs make the small doors)
       const back = top(z0) - fy, front = top(z1) - fy;
-      sheets.push({ id: 'side-front', where: `${name}, front siding`, w: front + sh.floor.t, l: W, t: 'wall', step: steps.siding, face: 'cfront' });
-      sheets.push({ id: 'side-back', where: `${name}, back siding`, w: back + sh.floor.t, l: W, t: 'wall', step: steps.siding, face: 'cback' });
-      sheets.push({ id: 'side-left', where: `${name}, left siding (top cut to the slope)`, w: Math.max(back, front) + sh.floor.t, l: Dd, t: 'wall', step: steps.siding, face: 'cleft' });
-      sheets.push({ id: 'side-right', where: `${name}, right siding (top cut to the slope)`, w: Math.max(back, front) + sh.floor.t, l: Dd, t: 'wall', step: steps.siding, face: 'cright' });
+      sheets.push({ id: 'side-front', where: T('n.side.front', NM), w: front + sh.floor.t, l: W, t: 'wall', step: steps.siding, face: 'cfront' });
+      sheets.push({ id: 'side-back', where: T('n.side.back', NM), w: back + sh.floor.t, l: W, t: 'wall', step: steps.siding, face: 'cback' });
+      sheets.push({ id: 'side-left', where: T('n.side.left', NM), w: Math.max(back, front) + sh.floor.t, l: Dd, t: 'wall', step: steps.siding, face: 'cleft' });
+      sheets.push({ id: 'side-right', where: T('n.side.right', NM), w: Math.max(back, front) + sh.floor.t, l: Dd, t: 'wall', step: steps.siding, face: 'cright' });
       // vents: a strip under the eaves of the front and back walls, covered with hardware cloth
       const floorA = W * Dd / 1e6;
       const want = RU.ventStart * floorA * 1e6;
       const vlen = 2 * (W - 2 * t);
       const vh = clamp(want / vlen, 2 * IN, 8 * IN);
       const vents = [
-        { id: 'vent-front', where: 'under the front eave', w: W - 2 * t, h: vh, x0: x0 + t, y: top(z1) - t - vh, z: z1, face: 'cfront' },
-        { id: 'vent-back', where: 'under the back eave', w: W - 2 * t, h: vh, x0: x0 + t, y: top(z0) - t - vh, z: z0, face: 'cback' },
+        { id: 'vent-front', where: T('vent.front'), w: W - 2 * t, h: vh, x0: x0 + t, y: top(z1) - t - vh, z: z1, face: 'cfront' },
+        { id: 'vent-back', where: T('vent.back'), w: W - 2 * t, h: vh, x0: x0 + t, y: top(z0) - t - vh, z: z0, face: 'cback' },
       ];
       const ventPerm = vents.reduce((s2, v) => s2 + v.w * v.h, 0);
       return { x0, x1, z0, z1, fy, h, h2, top, W, D: Dd, floorA, vents, ventPerm, window: o.window || null, name, roofPitch: pitch };
@@ -395,11 +451,11 @@
       if (n <= 0) return null;
       const rowL = n * nW;
       const lip = 4 * IN;
-      sheets.push({ id: 'nest-bottom', where: 'Nest boxes, bottom', w: nD, l: rowL, t: 'wall', step, nest: true });
-      if (!o.outside) sheets.push({ id: 'nest-back', where: 'Nest boxes, back', w: nH, l: rowL, t: 'wall', step, nest: true });
-      sheets.push({ id: 'nest-lip', where: 'Nest boxes, front lip', w: lip, l: rowL, t: 'wall', step, nest: true });
-      for (let i = 0; i <= n; i++) sheets.push({ id: `nest-end-${i}`, where: i === 0 || i === n ? 'Nest boxes, end' : 'Nest boxes, divider', w: nH, l: nD, t: 'wall', step, nest: true });
-      sheets.push({ id: 'nest-lid', where: o.outside ? 'Nest boxes, hinged lid' : 'Nest boxes, sloped top', w: nD + 2 * IN, l: rowL + 2 * IN, t: 'wall', step, nest: true });
+      sheets.push({ id: 'nest-bottom', where: T('nest.bottom'), w: nD, l: rowL, t: 'wall', step, nest: true });
+      if (!o.outside) sheets.push({ id: 'nest-back', where: T('nest.back'), w: nH, l: rowL, t: 'wall', step, nest: true });
+      sheets.push({ id: 'nest-lip', where: T('nest.lip'), w: lip, l: rowL, t: 'wall', step, nest: true });
+      for (let i = 0; i <= n; i++) sheets.push({ id: `nest-end-${i}`, where: T(i === 0 || i === n ? 'nest.end' : 'nest.divider'), w: nH, l: nD, t: 'wall', step, nest: true });
+      sheets.push({ id: 'nest-lid', where: T(o.outside ? 'nest.lid' : 'nest.slopedTop'), w: nD + 2 * IN, l: rowL + 2 * IN, t: 'wall', step, nest: true });
       return { n, x, z, y, outward, w: nW, d: nD, h: nH, rowL, lip, outside: !!o.outside };
     }
     // roost bars along x at the height h above the floor, enough for the flock at the tool's size per bird
@@ -413,44 +469,49 @@
       const maxBars = Math.max(1, Math.floor((depth - 12 * IN) / gap + 0.05) + 1);
       const want = Math.max(1, Math.ceil(need / bl - 1e-9));
       const n = Math.min(maxBars, want);
-      const sec = cold ? (metric ? { a: 38, b: 89, id: '38x89' } : { a: 1.5 * IN, b: 3.5 * IN, id: '2x4' }) : (metric ? { a: 45, b: 45, id: '45x45' } : { a: 1.5 * IN, b: 1.5 * IN, id: '2x2' });
+      // the roost section of the market: 45 x 45 mm or 2x2, and in a cold climate a wide one laid flat (38 x 89 mm, 2x4)
+      const rs = metric ? MK().roost : { std: '2x2', cold: '2x4' };
+      const rl = lumberAll(m.units).find(l => l.id === (cold ? rs.cold : rs.std));
+      const sec = { a: rl.t, b: rl.w, id: rl.id };
+      // a bar longer than its section is sold in is made of pieces with a post under each joint
+      const rstock = (rl.lengths ? stockFor(rl.id, m) : m.stock) - endTrim(m.units);
       const yy = fy + o.h;
       const zs = [];
       for (let i = 0; i < n; i++) {
         const zc = z0 + 12 * IN + i * gap;
         zs.push(zc);
-        const segs = Math.max(1, Math.ceil(bl / (stock - 1) - 1e-9));
+        const segs = Math.max(1, Math.ceil(bl / (rstock - 1) - 1e-9));
         for (let k = 0; k < segs; k++) {
           const sa = x0 + bl * k / segs, sb = x0 + bl * (k + 1) / segs;
-          add('roost', step, [sa, yy - sec.a / 2, zc], [sb, yy - sec.a / 2, zc], [0, 1, 0], { face: 'roost', where: `Roost bar ${i + 1}${segs > 1 ? `, piece ${k + 1} of ${segs}` : ''}${cold ? ', laid flat, wide face up' : ''}`, a: sec.a, b: sec.b, sec: sec.id, roostSec: true });
-          if (k > 0) add('post', step, [sa, fy, zc], [sa, yy - sec.a, zc], [1, 0, 0], { face: 'roost', where: `Roost bar ${i + 1}, support post at the joint` });
+          add('roost', step, [sa, yy - sec.a / 2, zc], [sb, yy - sec.a / 2, zc], [0, 1, 0], { face: 'roost', where: T('roost.bar', { i: i + 1, k: k + 1, segs, flat: cold }), a: sec.a, b: sec.b, sec: sec.id, roostSec: true });
+          if (k > 0) add('post', step, [sa, fy, zc], [sa, yy - sec.a, zc], [1, 0, 0], { face: 'roost', where: T('roost.post', { i: i + 1 }) });
         }
-        for (const xe of [x0 + t / 2, x1 - t / 2]) add('cleat', step, [xe, yy - sec.a - 4 * IN, zc], [xe, yy - sec.a, zc], [1, 0, 0], { face: 'roost', where: `Roost bar ${i + 1}, end cleat` });
+        for (const xe of [x0 + t / 2, x1 - t / 2]) add('cleat', step, [xe, yy - sec.a - 4 * IN, zc], [xe, yy - sec.a, zc], [1, 0, 0], { face: 'roost', where: T('roost.cleat', { i: i + 1 }) });
       }
       return { bars: n, len: bl, total: n * bl, need, h: o.h, flat: cold, zs, x0, x1, fy, short: n < want, sec: sec.id };
     }
     // a run: posts, plates and cross bars on top, wrapped in hardware cloth; a door near the far end of the front side
     function runBox(o) {
       const { x0, x1, z0, z1, h, step } = o;
-      const name = 'Run';
+      const name = T('n.run');
       const dz = o.doorW;
       const dX0 = x1 - (metric ? 300 : 12 * IN) - dz;
-      wall({ axis: 'x', at: z1 - w / 2, a: x0, b: x1, y0: 0, top: () => h, step, face: 'rfront', name: `${name}, front side`, skip: [[dX0, dX0 + dz]] });
-      wall({ axis: 'x', at: z0 + w / 2, a: x0, b: x1, y0: 0, top: () => h, step, face: 'rback', name: `${name}, back side` });
-      wall({ axis: 'z', at: x1 - w / 2, a: z0 + w, b: z1 - w, y0: 0, top: () => h, step, face: 'rend', name: `${name}, far end` });
+      wall({ axis: 'x', at: z1 - w / 2, a: x0, b: x1, y0: 0, top: () => h, step, face: 'rfront', name: T('r.front'), skip: [[dX0, dX0 + dz]] });
+      wall({ axis: 'x', at: z0 + w / 2, a: x0, b: x1, y0: 0, top: () => h, step, face: 'rback', name: T('r.back') });
+      wall({ axis: 'z', at: x1 - w / 2, a: z0 + w, b: z1 - w, y0: 0, top: () => h, step, face: 'rend', name: T('r.end') });
       for (const [za, sx] of [[z1 - w / 2, 1], [z0 + w / 2, 1]]) {
-        add('brace', step, [x1 - t, h - t - brace / Math.SQRT2, za], [x1 - t - brace / Math.SQRT2, h - t, za], null, { face: za > z0 + w ? 'rfront' : 'rback', where: 'Corner brace, 45 degree cuts', angled: true });
-        add('brace', step, [x0 + t, h - t - brace / Math.SQRT2, za], [x0 + t + sx * brace / Math.SQRT2, h - t, za], null, { face: za > z0 + w ? 'rfront' : 'rback', where: 'Corner brace, 45 degree cuts', angled: true });
+        add('brace', step, [x1 - t, h - t - brace / Math.SQRT2, za], [x1 - t - brace / Math.SQRT2, h - t, za], null, { face: za > z0 + w ? 'rfront' : 'rback', where: T('r.brace'), angled: true });
+        add('brace', step, [x0 + t, h - t - brace / Math.SQRT2, za], [x0 + t + sx * brace / Math.SQRT2, h - t, za], null, { face: za > z0 + w ? 'rfront' : 'rback', where: T('r.brace'), angled: true });
       }
       const bars = evenly(x0, x1, Math.min(S, RU.purlinEnd), t);
-      if (o.top !== 'open') for (const xc of bars) add('bar', step, [xc, h + w / 2, z0], [xc, h + w / 2, z1], [0, 1, 0], { face: 'rtop', where: `${name}, top cross bar`, a: w, b: t });
+      if (o.top !== 'open') for (const xc of bars) add('bar', step, [xc, h + w / 2, z0], [xc, h + w / 2, z1], [0, 1, 0], { face: 'rtop', where: T('r.bar'), a: w, b: t });
       const dh = Math.min(h - t - 12, metric ? 1950 : 77 * IN);
-      across(step, 'rfront', `${name}, door header`, 'x', z1 - w / 2, dX0, dX0 + dz, dh + t / 2 + 6);
+      across(step, 'rfront', T('r.doorHdr'), 'x', z1 - w / 2, dX0, dX0 + dz, dh + t / 2 + 6);
       const dx = dX0 + 6, dw = dz - 12, dy0 = t + 6, dhh = dh - t - 12;
-      add('stile', step, [dx + t / 2, dy0, z1 + w / 2 + t / 2], [dx + t / 2, dy0 + dhh, z1 + w / 2 + t / 2], [1, 0, 0], { face: 'rdoor', where: `${name} door, hinge stile` });
-      add('stile', step, [dx + dw - t / 2, dy0, z1 + w / 2 + t / 2], [dx + dw - t / 2, dy0 + dhh, z1 + w / 2 + t / 2], [1, 0, 0], { face: 'rdoor', where: `${name} door, latch stile` });
-      for (const yy of [dy0 + t / 2, dy0 + dhh - t / 2]) add('rail', step, [dx + t, yy, z1 + w / 2 + t / 2], [dx + dw - t, yy, z1 + w / 2 + t / 2], [0, 1, 0], { face: 'rdoor', where: `${name} door, rail` });
-      add('brace', step, [dx + t, dy0 + t, z1 + w / 2 + t / 2], [dx + dw - t, dy0 + dhh - t, z1 + w / 2 + t / 2], null, { face: 'rdoor', where: `${name} door, diagonal brace (hinge side low)`, angled: true });
+      add('stile', step, [dx + t / 2, dy0, z1 + w / 2 + t / 2], [dx + t / 2, dy0 + dhh, z1 + w / 2 + t / 2], [1, 0, 0], { face: 'rdoor', where: T('r.door.hinge') });
+      add('stile', step, [dx + dw - t / 2, dy0, z1 + w / 2 + t / 2], [dx + dw - t / 2, dy0 + dhh, z1 + w / 2 + t / 2], [1, 0, 0], { face: 'rdoor', where: T('r.door.latch') });
+      for (const yy of [dy0 + t / 2, dy0 + dhh - t / 2]) add('rail', step, [dx + t, yy, z1 + w / 2 + t / 2], [dx + dw - t, yy, z1 + w / 2 + t / 2], [0, 1, 0], { face: 'rdoor', where: T('r.door.rail') });
+      add('brace', step, [dx + t, dy0 + t, z1 + w / 2 + t / 2], [dx + dw - t, dy0 + dhh - t, z1 + w / 2 + t / 2], null, { face: 'rdoor', where: T('r.door.brace'), angled: true });
       return { x0, x1, z0, z1, h, L: x1 - x0, D: z1 - z0, bars: bars.length, door: { x0: dX0, w: dz, h: dh, z: z1, leaf: { x0: dx, w: dw, y0: dy0, h: dhh } }, name };
     }
 
@@ -460,141 +521,141 @@
     const angRamp = 35 * Math.PI / 180;
     const rampOf = (x0, y0, z, maxRun, y1 = 0) => { const rise = y0 - y1; if (rise < 3 * IN) return null; const runL = clamp(rise / Math.tan(angRamp), 200, Math.max(200, maxRun)); return { x0, y0, x1: x0 + runL, y1, z, w: pop.w, len: Math.hypot(rise, runL), angle: deg(Math.atan2(rise, runL)) }; };
 
-    if (T === 'house') {
+    if (TY === 'house') {
       // the run spans the whole length; the hen house stands over its near end on four legs
       const C = m.coop, R = m.run;
       const RH = m.addons.walkDoor.on ? Math.max(R.h, metric ? 1830 : 72 * IN) : R.h;
       const RL = R.l + (m.addons.run2.on ? m.addons.run2.l : 0);
       const fy = C.legs, under = fy - sh.floor.t - w;
-      for (const [xc, zc] of [[t / 2, w / 2], [C.w - t / 2, w / 2], [t / 2, C.d - w / 2], [C.w - t / 2, C.d - w / 2]]) add('post', 1, [xc, 0, zc], [xc, under, zc], [1, 0, 0], { face: 'legs', where: 'Leg under the hen house' });
-      for (const [xc, zc, sx] of [[t, w / 2, 1], [C.w - t, w / 2, -1], [t, C.d - w / 2, 1], [C.w - t, C.d - w / 2, -1]]) add('brace', 1, [xc, under - 9 * IN, zc], [xc + sx * 9 * IN, under, zc], null, { face: 'legs', where: 'Leg brace, 45 degree cuts', angled: true });
+      for (const [xc, zc] of [[t / 2, w / 2], [C.w - t / 2, w / 2], [t / 2, C.d - w / 2], [C.w - t / 2, C.d - w / 2]]) add('post', 1, [xc, 0, zc], [xc, under, zc], [1, 0, 0], { face: 'legs', where: T('h.leg') });
+      for (const [xc, zc, sx] of [[t, w / 2, 1], [C.w - t, w / 2, -1], [t, C.d - w / 2, 1], [C.w - t, C.d - w / 2, -1]]) add('brace', 1, [xc, under - 9 * IN, zc], [xc + sx * 9 * IN, under, zc], null, { face: 'legs', where: T('h.legBrace'), angled: true });
       // sills under the house on the three outer sides, for the hardware cloth and the apron
-      for (const [a2, b2] of splitRun(t, C.w - t, [])) for (const zc of [w / 2, C.d - w / 2]) add('sill', 1, [a2, t / 2, zc], [b2, t / 2, zc], [0, 1, 0], { face: 'legs', where: 'Sill under the hen house' });
-      add('sill', 1, [t / 2, t / 2, w], [t / 2, t / 2, C.d - w], [0, 1, 0], { face: 'legs', where: 'Sill under the hen house, end' });
+      for (const [a2, b2] of splitRun(t, C.w - t, [])) for (const zc of [w / 2, C.d - w / 2]) add('sill', 1, [a2, t / 2, zc], [b2, t / 2, zc], [0, 1, 0], { face: 'legs', where: T('h.sill') });
+      add('sill', 1, [t / 2, t / 2, w], [t / 2, t / 2, C.d - w], [0, 1, 0], { face: 'legs', where: T('h.sillEnd') });
       const cw = clamp(C.w - 2 * t - 6 * IN, 12 * IN, metric ? 1200 : 48 * IN);
       const clean = { x0: (C.w - cw) / 2, w: cw, h: Math.max(10 * IN, C.h2 - 6 * IN) };
       coop = henHouse({ x0: 0, x1: C.w, z0: 0, z1: C.d, fy, h: C.h, h2: C.h2, steps: { floor: 2, walls: 3, siding: 3, roof: 4 }, clean, popZ: C.d / 2,
         window: m.window ? { x0: t + 4 * IN, w: Math.min(24 * IN, C.w - 2 * t - 8 * IN), y: fy + 14 * IN, h: Math.max(8 * IN, Math.min(16 * IN, C.h - 24 * IN)) } : null });
       coop.clean = Object.assign({ y0: fy, z: C.d }, clean);
-      for (const yy of [fy + 3 * IN, fy + clean.h - 3 * IN]) add('rail', 3, [clean.x0 + 2 * IN, yy, C.d + sh.wall.t + t / 2], [clean.x0 + clean.w - 2 * IN, yy, C.d + sh.wall.t + t / 2], [0, 0, 1], { face: 'cdoor', where: 'Clean-out door, batten (the door is the siding cut-out)', a: t, b: w });
+      for (const yy of [fy + 3 * IN, fy + clean.h - 3 * IN]) add('rail', 3, [clean.x0 + 2 * IN, yy, C.d + sh.wall.t + t / 2], [clean.x0 + clean.w - 2 * IN, yy, C.d + sh.wall.t + t / 2], [0, 0, 1], { face: 'cdoor', where: T('h.batten'), a: t, b: w });
       coop.pop = { side: 'right', x: C.w, z: C.d / 2, y: fy, w: pop.w, h: pop.h };
       run = runBox({ x0: C.w, x1: RL, z0: 0, z1: C.d, h: RH, step: 5, doorW: m.addons.walkDoor.on ? (metric ? 760 : 30 * IN) : (metric ? 600 : 24 * IN), top: m.top });
       run.L = RL; run.x0 = 0; run.under = { x0: 0, x1: C.w, h: under };
       nests = nestRow({ n: nestN, x: 0, z: C.d / 2, y: fy, outward: -1, outside: true, step: 6 });
       ro = roosts({ x0: t, x1: C.w - t, z0: w, fy, depth: C.d - 2 * w, h: m.roostH, step: 6 });
       ramp = rampOf(C.w, fy, C.d / 2, RL - C.w - 300);
-      if (ramp) sheets.push({ id: 'ramp', where: 'Ramp (glue on cleats every 6 in from offcuts)', w: pop.w, l: ramp.len, t: 'wall', step: 6 });
+      if (ramp) sheets.push({ id: 'ramp', where: T('ramp.sheet'), w: pop.w, l: ramp.len, t: 'wall', step: 6 });
       top = m.top;
-    } else if (T === 'walkin') {
+    } else if (TY === 'walkin') {
       const C = m.coop, R = m.run;
       const fy = legsOn ? m.addons.legs.h : C.legs;
       const below = fy - sh.floor.t - w;
       if (legsOn) {
-        for (const [xc, zc] of [[t / 2, w / 2], [C.w - t / 2, w / 2], [t / 2, C.d - w / 2], [C.w - t / 2, C.d - w / 2]]) add('post', 1, [xc, 0, zc], [xc, below, zc], [1, 0, 0], { face: 'legs', where: 'Leg under the coop' });
-        for (const [a2, b2] of splitRun(t, C.w - t, [])) for (const zc of [w / 2, C.d - w / 2]) add('sill', 1, [a2, t / 2, zc], [b2, t / 2, zc], [0, 1, 0], { face: 'legs', where: 'Sill under the coop' });
-      } else for (const zc of [w / 2, C.d - w / 2]) for (const [a2, b2] of splitRun(0, C.w, [])) add('skid', 1, [a2, below / 2, zc], [b2, below / 2, zc], [0, 1, 0], { face: 'legs', where: 'Skid under the floor, on pavers or blocks', a: Math.max(t, below), b: t });
+        for (const [xc, zc] of [[t / 2, w / 2], [C.w - t / 2, w / 2], [t / 2, C.d - w / 2], [C.w - t / 2, C.d - w / 2]]) add('post', 1, [xc, 0, zc], [xc, below, zc], [1, 0, 0], { face: 'legs', where: T('w.leg') });
+        for (const [a2, b2] of splitRun(t, C.w - t, [])) for (const zc of [w / 2, C.d - w / 2]) add('sill', 1, [a2, t / 2, zc], [b2, t / 2, zc], [0, 1, 0], { face: 'legs', where: T('w.sill') });
+      } else for (const zc of [w / 2, C.d - w / 2]) for (const [a2, b2] of splitRun(0, C.w, [])) add('skid', 1, [a2, below / 2, zc], [b2, below / 2, zc], [0, 1, 0], { face: 'legs', where: T('w.skid'), a: Math.max(t, below), b: t });
       const dw = metric ? 760 : 30 * IN;
       const doorX0 = clamp(C.w * 0.62 - dw / 2, t + 2 * IN, C.w - dw - t - 2 * IN);
       const dh = Math.min(C.h2 - t - 2 * IN, metric ? 1830 : 72 * IN);
       door = { x0: doorX0, w: dw, h: dh, z: C.d };
       coop = henHouse({ x0: 0, x1: C.w, z0: 0, z1: C.d, fy, h: C.h, h2: C.h2, steps: { floor: 1, walls: 2, siding: 3, roof: 4 }, door, popZ: C.d * 0.72,
-        window: m.window ? { x0: t + 8 * IN, w: Math.min(30 * IN, C.w - 2 * t - 16 * IN), y: fy + 30 * IN, h: 20 * IN } : null, name: 'Coop' });
+        window: m.window ? { x0: t + 8 * IN, w: Math.min(30 * IN, C.w - 2 * t - 16 * IN), y: fy + 30 * IN, h: 20 * IN } : null, name: 'coop' });
       coop.pop = { side: 'right', x: C.w, z: C.d * 0.72, y: fy, w: pop.w, h: pop.h };
       coop.door = door;
       const lx = doorX0 + 6, lw = dw - 12, ly = fy + 6, lh = dh - 12, lz = C.d + sh.wall.t + t / 2;
-      add('stile', 5, [lx + t / 2, ly, lz], [lx + t / 2, ly + lh, lz], [1, 0, 0], { face: 'cdoor', where: 'Coop door, hinge stile' });
-      add('stile', 5, [lx + lw - t / 2, ly, lz], [lx + lw - t / 2, ly + lh, lz], [1, 0, 0], { face: 'cdoor', where: 'Coop door, latch stile' });
-      for (const yy of [ly + t / 2, ly + lh / 2, ly + lh - t / 2]) add('rail', 5, [lx + t, yy, lz], [lx + lw - t, yy, lz], [0, 1, 0], { face: 'cdoor', where: 'Coop door, rail' });
-      add('brace', 5, [lx + t, ly + t, lz], [lx + lw - t, ly + lh / 2 - t / 2, lz], null, { face: 'cdoor', where: 'Coop door, diagonal brace (hinge side low)', angled: true });
-      sheets.push({ id: 'door-leaf', where: 'Coop door, siding', w: lw, l: lh, t: 'wall', step: 5 });
+      add('stile', 5, [lx + t / 2, ly, lz], [lx + t / 2, ly + lh, lz], [1, 0, 0], { face: 'cdoor', where: T('d.hinge') });
+      add('stile', 5, [lx + lw - t / 2, ly, lz], [lx + lw - t / 2, ly + lh, lz], [1, 0, 0], { face: 'cdoor', where: T('d.latch') });
+      for (const yy of [ly + t / 2, ly + lh / 2, ly + lh - t / 2]) add('rail', 5, [lx + t, yy, lz], [lx + lw - t, yy, lz], [0, 1, 0], { face: 'cdoor', where: T('d.rail') });
+      add('brace', 5, [lx + t, ly + t, lz], [lx + lw - t, ly + lh / 2 - t / 2, lz], null, { face: 'cdoor', where: T('d.brace'), angled: true });
+      sheets.push({ id: 'door-leaf', where: T('d.siding'), w: lw, l: lh, t: 'wall', step: 5 });
       door.leaf = { x0: lx, w: lw, y0: ly, h: lh };
       // nests inside along the left wall on a stand, about 2 ft off the ground; roosts behind them, higher
       const ny = Math.max(fy + 6 * IN, RU.nestHeight * IN);
       const nz = clamp(C.d * 0.55, nW * nestN / 2 + w, C.d - w - nW * nestN / 2);
       nests = nestRow({ n: nestN, x: w, z: nz, y: ny, outward: 1, outside: false, step: 6 });
-      if (nests) for (const zc of [nz - nests.rowL / 2 + t / 2, nz + nests.rowL / 2 - t / 2]) add('post', 6, [w + nD - t / 2, fy, zc], [w + nD - t / 2, ny - sh.wall.t, zc], [1, 0, 0], { face: 'nest', where: 'Nest stand leg' });
+      if (nests) for (const zc of [nz - nests.rowL / 2 + t / 2, nz + nests.rowL / 2 - t / 2]) add('post', 6, [w + nD - t / 2, fy, zc], [w + nD - t / 2, ny - sh.wall.t, zc], [1, 0, 0], { face: 'nest', where: T('nest.leg') });
       ro = roosts({ x0: nests ? w + nD + 6 * IN : w, x1: C.w - w, z0: w, fy, depth: Math.max(C.d * 0.55, 26 * IN), h: nests ? Math.max(m.roostH, ny + nH - fy + 2 * IN) : m.roostH, step: 6 });
       const RL = R.l + (m.addons.run2.on ? m.addons.run2.l : 0);
       run = runBox({ x0: C.w, x1: C.w + RL, z0: 0, z1: C.d, h: R.h, step: 7, doorW: metric ? 760 : 30 * IN, top: m.top });
       ramp = rampOf(C.w, fy, C.d * 0.72, 1200);
-      if (ramp) sheets.push({ id: 'ramp', where: 'Ramp (glue on cleats every 6 in from offcuts)', w: pop.w, l: ramp.len, t: 'wall', step: 6 });
+      if (ramp) sheets.push({ id: 'ramp', where: T('ramp.sheet'), w: pop.w, l: ramp.len, t: 'wall', step: 6 });
       top = m.top;
-    } else if (T === 'aframe') {
+    } else if (TY === 'aframe') {
       const A = m.af;
       const Lr = A.l + (m.addons.run2.on ? m.addons.run2.l : 0);
       const W = A.w, H = A.h, F = A.f, HL = A.hl;
       const ang = Math.atan2(H, W / 2), slant = Math.hypot(H, W / 2);
       const wf = W * (1 - F / H);
-      for (const zc of [w / 2, W - w / 2]) for (const [a2, b2] of splitRun(0, Lr, [])) add('sill', 1, [a2, t / 2, zc], [b2, t / 2, zc], [0, 1, 0], { face: 'base', where: 'Base sill' });
-      for (const xc of [t / 2, Lr - t / 2]) add('sill', 1, [xc, t / 2, w], [xc, t / 2, W - w], [0, 1, 0], { face: 'base', where: 'Base end' });
+      for (const zc of [w / 2, W - w / 2]) for (const [a2, b2] of splitRun(0, Lr, [])) add('sill', 1, [a2, t / 2, zc], [b2, t / 2, zc], [0, 1, 0], { face: 'base', where: T('a.sill') });
+      for (const xc of [t / 2, Lr - t / 2]) add('sill', 1, [xc, t / 2, w], [xc, t / 2, W - w], [0, 1, 0], { face: 'base', where: T('a.sillEnd') });
       const xs = evenly(0, Lr, S, t);
       for (const xc of xs) for (const side of [-1, 1]) {
         const zb = side < 0 ? w / 2 : W - w / 2;
         const p0 = [xc, t, zb], p1 = [xc, H - 1 * IN, W / 2];
         const dy = p1[1] - p0[1], dz = p1[2] - p0[2], l = Math.hypot(dy, dz);
-        add('rafter', 2, p0, p1, [0, -dz / l, dy / l], { face: side < 0 ? 'aback' : 'afront', where: 'A-frame rafter, both ends cut to the angle', angled: true, a: w, b: t, len: slant - 1 * IN });
+        add('rafter', 2, p0, p1, [0, -dz / l, dy / l], { face: side < 0 ? 'aback' : 'afront', where: T('a.rafter'), angled: true, a: w, b: t, len: slant - 1 * IN });
       }
-      for (const [a2, b2] of splitRun(0, Lr, xs)) add('ridge', 2, [a2, H - 1 * IN - w / 2, W / 2], [b2, H - 1 * IN - w / 2, W / 2], [0, 1, 0], { face: 'ridge', where: 'Ridge board', a: w, b: t });
+      for (const [a2, b2] of splitRun(0, Lr, xs)) add('ridge', 2, [a2, H - 1 * IN - w / 2, W / 2], [b2, H - 1 * IN - w / 2, W / 2], [0, 1, 0], { face: 'ridge', where: T('a.ridge'), a: w, b: t });
       // the house floor: a tie across each A within the house length, on edge, the plywood on top
       const hx = xs.filter(x => x <= HL + 1);
       if (!hx.length || hx[hx.length - 1] < HL - t) hx.push(HL - t / 2);
       const zf0 = (W - wf) / 2, zf1 = (W + wf) / 2;
       const tieY = F - sh.floor.t - w / 2;
-      for (const xc of hx) { const half = (W / 2) * (1 - (tieY - w / 2) / H); add('tie', 3, [xc + (xc < HL / 2 ? t : -t), tieY, W / 2 - half], [xc + (xc < HL / 2 ? t : -t), tieY, W / 2 + half], [0, 1, 0], { face: 'afloor', where: 'House floor tie, ends cut to the angle', angled: true, a: w, b: t }); }
-      sheets.push({ id: 'floor', where: 'House floor', w: wf, l: HL, t: 'floor', step: 3, at: [0, F - sh.floor.t, zf0], dims: [HL, sh.floor.t, wf] });
+      for (const xc of hx) { const half = (W / 2) * (1 - (tieY - w / 2) / H); add('tie', 3, [xc + (xc < HL / 2 ? t : -t), tieY, W / 2 - half], [xc + (xc < HL / 2 ? t : -t), tieY, W / 2 + half], [0, 1, 0], { face: 'afloor', where: T('a.tie'), angled: true, a: w, b: t }); }
+      sheets.push({ id: 'floor', where: T('a.floor'), w: wf, l: HL, t: 'floor', step: 3, at: [0, F - sh.floor.t, zf0], dims: [HL, sh.floor.t, wf] });
       const sideSlant = (H - F) / Math.sin(ang);
-      sheets.push({ id: 'aside-back', where: 'House side, hinged for cleaning', w: sideSlant, l: HL, t: 'wall', step: 4 });
-      sheets.push({ id: 'aside-front', where: 'House side', w: sideSlant, l: HL, t: 'wall', step: 4 });
-      sheets.push({ id: 'aend', where: 'House end, triangle above the floor', w: H - F, l: wf, t: 'wall', step: 4 });
-      sheets.push({ id: 'apart', where: 'House partition with the pop door, triangle', w: H - F, l: wf, t: 'wall', step: 4 });
-      coop = { x0: 0, x1: HL, z0: zf0, z1: zf1, fy: F, h: H - F, h2: 0, W: HL, D: wf, floorA: HL * wf / 1e6, aframe: true, name: 'House' };
-      roofs.push({ id: 'aback', label: 'House roof, back slope', x0: -50, x1: HL + 50, w: HL + 100, slope: sideSlant + 2 * IN, pitch: deg(ang), kind: m.roof, bars: hx.length, step: 4, aframe: -1 });
-      roofs.push({ id: 'afront', label: 'House roof, front slope', x0: -50, x1: HL + 50, w: HL + 100, slope: sideSlant + 2 * IN, pitch: deg(ang), kind: m.roof, bars: hx.length, step: 4, aframe: 1 });
+      sheets.push({ id: 'aside-back', where: T('a.sideHinged'), w: sideSlant, l: HL, t: 'wall', step: 4 });
+      sheets.push({ id: 'aside-front', where: T('a.side'), w: sideSlant, l: HL, t: 'wall', step: 4 });
+      sheets.push({ id: 'aend', where: T('a.end'), w: H - F, l: wf, t: 'wall', step: 4 });
+      sheets.push({ id: 'apart', where: T('a.partition'), w: H - F, l: wf, t: 'wall', step: 4 });
+      coop = { x0: 0, x1: HL, z0: zf0, z1: zf1, fy: F, h: H - F, h2: 0, W: HL, D: wf, floorA: HL * wf / 1e6, aframe: true, name: T('n.house') };
+      roofs.push({ id: 'aback', label: T('a.roofBack'), x0: -50, x1: HL + 50, w: HL + 100, slope: sideSlant + 2 * IN, pitch: deg(ang), kind: m.roof, bars: hx.length, step: 4, aframe: -1 });
+      roofs.push({ id: 'afront', label: T('a.roofFront'), x0: -50, x1: HL + 50, w: HL + 100, slope: sideSlant + 2 * IN, pitch: deg(ang), kind: m.roof, bars: hx.length, step: 4, aframe: 1 });
       // vents: a triangle under the ridge at both house ends, covered with hardware cloth
       const want = RU.ventStart * coop.floorA * 1e6;
       const vh = clamp(Math.sqrt(want / (2 * (W / 2) / H)), 3 * IN, (H - F) * 0.45);
       const vw = 2 * vh * (W / 2) / H;
-      coop.vents = [{ id: 'vent-end', where: 'at the top of the house end', w: vw, h: vh, x0: 0, y: H - vh, z: W / 2, tri: true }, { id: 'vent-part', where: 'at the top of the partition', w: vw, h: vh, x0: HL, y: H - vh, z: W / 2, tri: true }];
+      coop.vents = [{ id: 'vent-end', where: T('vent.end'), w: vw, h: vh, x0: 0, y: H - vh, z: W / 2, tri: true }, { id: 'vent-part', where: T('vent.part'), w: vw, h: vh, x0: HL, y: H - vh, z: W / 2, tri: true }];
       const ends = coop.vents.reduce((s2, v) => s2 + v.w * v.h / 2, 0);
-      if (ends < want - 1) { const rh = clamp((want - ends) / (2 * HL), 1 * IN, 4 * IN); coop.vents.push({ id: 'vent-ridge', where: 'along the ridge, both slopes', w: HL, h: rh * 2, x0: 0, y: H - rh, z: W / 2, ridge: true }); }
+      if (ends < want - 1) { const rh = clamp((want - ends) / (2 * HL), 1 * IN, 4 * IN); coop.vents.push({ id: 'vent-ridge', where: T('vent.ridge'), w: HL, h: rh * 2, x0: 0, y: H - rh, z: W / 2, ridge: true }); }
       coop.ventPerm = coop.vents.reduce((s2, v) => s2 + (v.tri ? v.w * v.h / 2 : v.w * v.h), 0);
       coop.pop = { side: 'part', x: HL, z: W / 2, y: F, w: pop.w, h: pop.h };
       coop.clean = null;
       nests = nestRow({ n: nestN, x: 0, z: W / 2, y: F, outward: -1, outside: true, step: 5 });
       ro = roosts({ x0: t, x1: HL - t, z0: W / 2 - 12 * IN, fy: F, depth: 12 * IN + (RU.roostGap + 2) * IN, h: m.roostH, step: 5 });
       ramp = rampOf(HL, F, W / 2, Lr - HL - 200);
-      if (ramp) sheets.push({ id: 'ramp', where: 'Ramp (glue on cleats every 6 in from offcuts)', w: pop.w, l: ramp.len, t: 'wall', step: 5 });
+      if (ramp) sheets.push({ id: 'ramp', where: T('ramp.sheet'), w: pop.w, l: ramp.len, t: 'wall', step: 5 });
       const big = m.addons.walkDoor.on;
-      run = { x0: 0, x1: Lr, z0: 0, z1: W, h: H, L: Lr, D: W, aframe: true, name: 'Run', bars: xs.length };
+      run = { x0: 0, x1: Lr, z0: 0, z1: W, h: H, L: Lr, D: W, aframe: true, name: T('n.run'), bars: xs.length };
       run.door = { end: 'far', w: Math.min(W * (big ? 0.55 : 0.4), big ? 30 * IN : 20 * IN), h: Math.min(H * (big ? 0.8 : 0.5), big ? 60 * IN : 30 * IN), x: Lr };
-      for (const zc of [W / 2 - run.door.w / 2 - t / 2, W / 2 + run.door.w / 2 + t / 2]) add('stud', 7, [Lr - t / 2, t, zc], [Lr - t / 2, run.door.h + t, zc], [0, 0, 1], { face: 'afar', where: 'Far end, door post' });
-      add('header', 7, [Lr - t / 2, run.door.h + 1.5 * t, W / 2 - run.door.w / 2 - t], [Lr - t / 2, run.door.h + 1.5 * t, W / 2 + run.door.w / 2 + t], [0, 1, 0], { face: 'afar', where: 'Far end, door header' });
+      for (const zc of [W / 2 - run.door.w / 2 - t / 2, W / 2 + run.door.w / 2 + t / 2]) add('stud', 7, [Lr - t / 2, t, zc], [Lr - t / 2, run.door.h + t, zc], [0, 0, 1], { face: 'afar', where: T('a.doorPost') });
+      add('header', 7, [Lr - t / 2, run.door.h + 1.5 * t, W / 2 - run.door.w / 2 - t], [Lr - t / 2, run.door.h + 1.5 * t, W / 2 + run.door.w / 2 + t], [0, 1, 0], { face: 'afar', where: T('a.doorHdr') });
       top = 'mesh';
       parts.aframe = { W, H, F, HL, wf, slant, ang: deg(ang), xs, Lr };
     } else {
       // the tractor: a low run on skids, a hen house over the wheel end, handles at the other end
       const Tr = m.tr;
       const W = Tr.w, Lr = Tr.l, RH = Tr.rh, F = Tr.f, HL = Tr.hl, TH = Tr.th;
-      for (const zc of [w / 2, W - w / 2]) for (const [a2, b2] of splitRun(0, Lr, [])) add('skid', 1, [a2, w / 2, zc], [b2, w / 2, zc], [0, 1, 0], { face: 'base', where: 'Skid (runner), ends cut at 45 degrees to slide', a: w, b: t, angled: true });
-      for (const xc of evenly(0, Lr, Math.min(S, 36 * IN), t)) add('sill', 1, [xc, w / 2, t], [xc, w / 2, W - t], [0, 1, 0], { face: 'base', where: 'Base cross piece', a: w, b: t });
-      wall({ axis: 'x', at: W - w / 2, a: HL, b: Lr, y0: w, top: () => RH, step: 2, face: 'rfront', name: 'Run, front side', noBottom: true });
-      wall({ axis: 'x', at: w / 2, a: HL, b: Lr, y0: w, top: () => RH, step: 2, face: 'rback', name: 'Run, back side', noBottom: true });
-      wall({ axis: 'z', at: Lr - w / 2, a: w, b: W - w, y0: w, top: () => RH, step: 2, face: 'rend', name: 'Run, far end', noBottom: true });
-      for (const xc of evenly(HL, Lr, Math.min(S, RU.purlinEnd), t)) add('bar', 2, [xc, RH + w / 2, 0], [xc, RH + w / 2, W], [0, 1, 0], { face: 'rtop', where: 'Run, top cross bar', a: w, b: t });
+      for (const zc of [w / 2, W - w / 2]) for (const [a2, b2] of splitRun(0, Lr, [])) add('skid', 1, [a2, w / 2, zc], [b2, w / 2, zc], [0, 1, 0], { face: 'base', where: T('t.skid'), a: w, b: t, angled: true });
+      for (const xc of evenly(0, Lr, Math.min(S, 36 * IN), t)) add('sill', 1, [xc, w / 2, t], [xc, w / 2, W - t], [0, 1, 0], { face: 'base', where: T('t.cross'), a: w, b: t });
+      wall({ axis: 'x', at: W - w / 2, a: HL, b: Lr, y0: w, top: () => RH, step: 2, face: 'rfront', name: T('r.front'), noBottom: true });
+      wall({ axis: 'x', at: w / 2, a: HL, b: Lr, y0: w, top: () => RH, step: 2, face: 'rback', name: T('r.back'), noBottom: true });
+      wall({ axis: 'z', at: Lr - w / 2, a: w, b: W - w, y0: w, top: () => RH, step: 2, face: 'rend', name: T('r.end'), noBottom: true });
+      for (const xc of evenly(HL, Lr, Math.min(S, RU.purlinEnd), t)) add('bar', 2, [xc, RH + w / 2, 0], [xc, RH + w / 2, W], [0, 1, 0], { face: 'rtop', where: T('r.bar'), a: w, b: t });
       const under = F - sh.floor.t - w;
-      for (const [xc, zc] of [[t / 2, w / 2], [HL - t / 2, w / 2], [t / 2, W - w / 2], [HL - t / 2, W - w / 2]]) add('post', 3, [xc, w, zc], [xc, under, zc], [1, 0, 0], { face: 'legs', where: 'House post' });
+      for (const [xc, zc] of [[t / 2, w / 2], [HL - t / 2, w / 2], [t / 2, W - w / 2], [HL - t / 2, W - w / 2]]) add('post', 3, [xc, w, zc], [xc, under, zc], [1, 0, 0], { face: 'legs', where: T('t.post') });
       const cw2 = clamp(HL - 2 * t - 6 * IN, 10 * IN, metric ? 1200 : 48 * IN);
       const clean = { x0: (HL - cw2) / 2, w: cw2, h: Math.max(8 * IN, TH - 12 * IN) };
-      coop = henHouse({ x0: 0, x1: HL, z0: 0, z1: W, fy: F, h: TH, h2: TH - (metric ? 150 : 6 * IN), steps: { floor: 3, walls: 3, siding: 4, roof: 4 }, clean, name: 'House' });
+      coop = henHouse({ x0: 0, x1: HL, z0: 0, z1: W, fy: F, h: TH, h2: TH - (metric ? 150 : 6 * IN), steps: { floor: 3, walls: 3, siding: 4, roof: 4 }, clean, name: 'house' });
       coop.clean = Object.assign({ y0: F, z: W }, clean);
       coop.pop = { side: 'floor', x: HL - t - pop.w / 2, z: W / 2, y: F, w: pop.w, h: pop.h };
       nests = nestRow({ n: nestN, x: 0, z: W / 2, y: F, outward: -1, outside: true, step: 5 });
       ro = roosts({ x0: t, x1: HL - t, z0: w, fy: F, depth: W - 2 * w, h: Math.min(m.roostH, TH - 12 * IN), step: 5 });
       ramp = rampOf(HL, F, W / 2, Lr - HL - 300, w);
-      if (ramp) sheets.push({ id: 'ramp', where: 'Ramp (glue on cleats every 6 in from offcuts)', w: pop.w, l: ramp.len, t: 'wall', step: 5 });
-      for (const zc of [w + t / 2, W - w - t / 2]) add('handle', 6, [Lr - 24 * IN, RH * 0.6, zc], [Lr + 18 * IN, RH * 0.6, zc], [0, 1, 0], { face: 'handle', where: 'Handle, bolted to the run frame' });
+      if (ramp) sheets.push({ id: 'ramp', where: T('ramp.sheet'), w: pop.w, l: ramp.len, t: 'wall', step: 5 });
+      for (const zc of [w + t / 2, W - w - t / 2]) add('handle', 6, [Lr - 24 * IN, RH * 0.6, zc], [Lr + 18 * IN, RH * 0.6, zc], [0, 1, 0], { face: 'handle', where: T('t.handle') });
       parts.wheels = { x: 3 * IN, r: 5 * IN, z: [-1.75 * IN, W + 1.75 * IN] };
-      run = { x0: 0, x1: Lr, z0: 0, z1: W, h: RH, L: Lr, D: W, name: 'Run', tractor: true, door: { end: 'far', w: Math.min(W - 2 * w, metric ? 600 : 24 * IN), h: RH - 2 * t, x: Lr } };
+      run = { x0: 0, x1: Lr, z0: 0, z1: W, h: RH, L: Lr, D: W, name: T('n.run'), tractor: true, door: { end: 'far', w: Math.min(W - 2 * w, metric ? 600 : 24 * IN), h: RH - 2 * t, x: Lr } };
       top = 'mesh';
     }
 
@@ -604,62 +665,63 @@
       const z0 = Math.min(...ro.zs) - 8 * IN, z1 = Math.max(...ro.zs) + 8 * IN;
       const yy = ro.fy + Math.max(6 * IN, ro.h - 9 * IN);
       droppings = { x0: ro.x0, x1: ro.x1, z0, z1, y: yy };
-      sheets.push({ id: 'droppings', where: 'Droppings board under the roosts', w: z1 - z0, l: ro.x1 - ro.x0, t: 'wall', step: 6, at: [ro.x0, yy, z0], addon: 'droppings' });
-      for (const zc of [z0 + t / 2, z1 - t / 2]) add('cleat', 6, [ro.x0, yy - w / 2, zc], [ro.x1, yy - w / 2, zc], [0, 1, 0], { face: 'roost', where: 'Droppings board, support cleat', addon: 'droppings' });
+      sheets.push({ id: 'droppings', where: T('x.droppings'), w: z1 - z0, l: ro.x1 - ro.x0, t: 'wall', step: 6, at: [ro.x0, yy, z0], addon: 'droppings' });
+      for (const zc of [z0 + t / 2, z1 - t / 2]) add('cleat', 6, [ro.x0, yy - w / 2, zc], [ro.x1, yy - w / 2, zc], [0, 1, 0], { face: 'roost', where: T('x.droppingsCleat'), addon: 'droppings' });
     }
 
     // ---- hardware-cloth faces ----
-    if (T === 'house') {
+    if (TY === 'house') {
       const C = m.coop, RL = run.L, RH = run.h, un = run.under.h;
-      faces.push({ id: 'rfront', label: 'Run, front side', rects: [rect(RL - C.w, RH)] });
-      faces.push({ id: 'rback', label: 'Run, back side', rects: [rect(RL - C.w, RH)] });
-      faces.push({ id: 'rend', label: 'Run, far end', rects: [rect(C.d, RH)] });
-      faces.push({ id: 'under', label: 'Under the hen house', rects: [rect(C.w, un), rect(C.w, un), rect(C.d, un)] });
-      if (top === 'mesh') faces.push({ id: 'rtop', label: 'Run, top', rects: [rect(RL - C.w, C.d)] });
-      faces.push({ id: 'rdoor', label: 'Run door', rects: [rect(run.door.leaf.w, run.door.leaf.h)] });
-    } else if (T === 'walkin') {
+      faces.push({ id: 'rfront', label: T('r.front'), rects: [rect(RL - C.w, RH)] });
+      faces.push({ id: 'rback', label: T('r.back'), rects: [rect(RL - C.w, RH)] });
+      faces.push({ id: 'rend', label: T('r.end'), rects: [rect(C.d, RH)] });
+      faces.push({ id: 'under', label: T('f.underHouse'), rects: [rect(C.w, un), rect(C.w, un), rect(C.d, un)] });
+      if (top === 'mesh') faces.push({ id: 'rtop', label: T('f.runTop'), rects: [rect(RL - C.w, C.d)] });
+      faces.push({ id: 'rdoor', label: T('f.runDoor'), rects: [rect(run.door.leaf.w, run.door.leaf.h)] });
+    } else if (TY === 'walkin') {
       const RL = run.L, RH = run.h;
-      faces.push({ id: 'rfront', label: 'Run, front side', rects: [rect(RL, RH)] });
-      faces.push({ id: 'rback', label: 'Run, back side', rects: [rect(RL, RH)] });
-      faces.push({ id: 'rend', label: 'Run, far end', rects: [rect(m.coop.d, RH)] });
-      if (top === 'mesh') faces.push({ id: 'rtop', label: 'Run, top', rects: [rect(RL, m.coop.d)] });
-      faces.push({ id: 'rdoor', label: 'Run door', rects: [rect(run.door.leaf.w, run.door.leaf.h)] });
-      if (legsOn) { const hh = m.addons.legs.h - sh.floor.t - w; faces.push({ id: 'under', label: 'Under the coop', rects: [rect(m.coop.w, hh), rect(m.coop.w, hh), rect(m.coop.d, hh)] }); }
-    } else if (T === 'aframe') {
+      faces.push({ id: 'rfront', label: T('r.front'), rects: [rect(RL, RH)] });
+      faces.push({ id: 'rback', label: T('r.back'), rects: [rect(RL, RH)] });
+      faces.push({ id: 'rend', label: T('r.end'), rects: [rect(m.coop.d, RH)] });
+      if (top === 'mesh') faces.push({ id: 'rtop', label: T('f.runTop'), rects: [rect(RL, m.coop.d)] });
+      faces.push({ id: 'rdoor', label: T('f.runDoor'), rects: [rect(run.door.leaf.w, run.door.leaf.h)] });
+      if (legsOn) { const hh = m.addons.legs.h - sh.floor.t - w; faces.push({ id: 'under', label: T('f.underCoop'), rects: [rect(m.coop.w, hh), rect(m.coop.w, hh), rect(m.coop.d, hh)] }); }
+    } else if (TY === 'aframe') {
       const P = parts.aframe;
       const lowSlant = P.F / Math.sin(P.ang * Math.PI / 180);
-      faces.push({ id: 'aback', label: 'Back slope', rects: [rect(P.HL, lowSlant), rect(P.Lr - P.HL, P.slant)] });
-      faces.push({ id: 'afront', label: 'Front slope', rects: [rect(P.HL, lowSlant), rect(P.Lr - P.HL, P.slant)] });
-      faces.push({ id: 'aend', label: 'Near end, under the house', rects: [rect(P.wf, P.F), rect((P.W - P.wf) / 2, 0, P.F), rect((P.W - P.wf) / 2, P.F, 0)] });
-      faces.push({ id: 'afar', label: 'Far end', rects: [rect(P.W / 2, 0, P.H), rect(P.W / 2, P.H, 0)] });
-      faces.push({ id: 'adoor', label: 'Far end door', rects: [rect(run.door.w, run.door.h)] });
+      faces.push({ id: 'aback', label: T('f.backSlope'), rects: [rect(P.HL, lowSlant), rect(P.Lr - P.HL, P.slant)] });
+      faces.push({ id: 'afront', label: T('f.frontSlope'), rects: [rect(P.HL, lowSlant), rect(P.Lr - P.HL, P.slant)] });
+      faces.push({ id: 'aend', label: T('f.nearEnd'), rects: [rect(P.wf, P.F), rect((P.W - P.wf) / 2, 0, P.F), rect((P.W - P.wf) / 2, P.F, 0)] });
+      faces.push({ id: 'afar', label: T('f.farEnd'), rects: [rect(P.W / 2, 0, P.H), rect(P.W / 2, P.H, 0)] });
+      faces.push({ id: 'adoor', label: T('f.farDoor'), rects: [rect(run.door.w, run.door.h)] });
     } else {
       const Tr = m.tr;
-      faces.push({ id: 'rfront', label: 'Run, front side', rects: [rect(Tr.l - Tr.hl, Tr.rh - w), rect(Tr.hl, Tr.f - w)] });
-      faces.push({ id: 'rback', label: 'Run, back side', rects: [rect(Tr.l - Tr.hl, Tr.rh - w), rect(Tr.hl, Tr.f - w)] });
-      faces.push({ id: 'rend', label: 'Run, far end', rects: [rect(Tr.w, Tr.rh - w)] });
-      faces.push({ id: 'under', label: 'Under the house, wheel end', rects: [rect(Tr.w, Tr.f - w)] });
-      faces.push({ id: 'rtop', label: 'Run, top', rects: [rect(Tr.l - Tr.hl, Tr.w)] });
+      faces.push({ id: 'rfront', label: T('r.front'), rects: [rect(Tr.l - Tr.hl, Tr.rh - w), rect(Tr.hl, Tr.f - w)] });
+      faces.push({ id: 'rback', label: T('r.back'), rects: [rect(Tr.l - Tr.hl, Tr.rh - w), rect(Tr.hl, Tr.f - w)] });
+      faces.push({ id: 'rend', label: T('r.end'), rects: [rect(Tr.w, Tr.rh - w)] });
+      faces.push({ id: 'under', label: T('f.underWheel'), rects: [rect(Tr.w, Tr.f - w)] });
+      faces.push({ id: 'rtop', label: T('f.runTop'), rects: [rect(Tr.l - Tr.hl, Tr.w)] });
     }
     // vents and windows are covered with the same hardware cloth
     const ventRects = (coop.vents || []).map(v => rect(v.w + 2 * IN, v.h + 2 * IN));
     if (coop.window) ventRects.push(rect(coop.window.w + 2 * IN, coop.window.h + 2 * IN));
-    if (ventRects.length) faces.push({ id: 'vents', label: coop.window ? 'Vents and window' : 'Vents', rects: ventRects, small: true });
+    if (ventRects.length) faces.push({ id: 'vents', label: T(coop.window ? 'f.ventsWindow' : 'f.vents'), rects: ventRects, small: true });
 
     // ---- run roof panels, when the run is roofed ----
-    if ((T === 'house' || T === 'walkin') && (top === 'solid' || top === 'poly')) {
-      roofs.push({ id: 'run', label: 'Run roof', x0: run.x0 === 0 && T === 'house' ? m.coop.w : run.x0, x1: run.x1, z0: -50, z1: run.D + 50, w: run.x1 - (T === 'house' ? m.coop.w : run.x0), slope: run.D + 100, pitch: 0, kind: top, bars: run.bars, step: 8, flat: true });
-      notes.push('Panels on a flat run top shed water poorly: give the top a slope of at least 5 degrees, or keep hardware cloth there and roof only part of it.');
+    if ((TY === 'house' || TY === 'walkin') && (top === 'solid' || top === 'poly')) {
+      roofs.push({ id: 'run', label: T('f.runRoof'), x0: run.x0 === 0 && TY === 'house' ? m.coop.w : run.x0, x1: run.x1, z0: -50, z1: run.D + 50, w: run.x1 - (TY === 'house' ? m.coop.w : run.x0), slope: run.D + 100, pitch: 0, kind: top, bars: run.bars, step: 8, flat: true });
+      notes.push(T('note.flatRunRoof'));
     }
 
     // ---- the apron, round the run ----
     let apron = null;
     const ak = m.apron.kind;
-    if (T !== 'tractor' && ak !== 'none') {
+    if (TY !== 'tractor' && ak !== 'none') {
       let sides;
-      if (T === 'house') sides = [['front', run.L], ['far end', run.D], ['back', run.L], ['near end', run.D]];
-      else if (T === 'walkin') sides = [['front', run.L], ['far end', run.D], ['back', run.L]].concat(legsOn ? [['under the coop, front', m.coop.w], ['under the coop, end', m.coop.d], ['under the coop, back', m.coop.w]] : []);
-      else sides = [['front', run.L], ['far end', run.D], ['back', run.L], ['near end', run.D]];
+      const sd = k => T(`side.${k}`);
+      if (TY === 'house') sides = [[sd('front'), run.L], [sd('farEnd'), run.D], [sd('back'), run.L], [sd('nearEnd'), run.D]];
+      else if (TY === 'walkin') sides = [[sd('front'), run.L], [sd('farEnd'), run.D], [sd('back'), run.L]].concat(legsOn ? [[sd('underFront'), m.coop.w], [sd('underEnd'), m.coop.d], [sd('underBack'), m.coop.w]] : []);
+      else sides = [[sd('front'), run.L], [sd('farEnd'), run.D], [sd('back'), run.L], [sd('nearEnd'), run.D]];
       const depth = ak === 'skirt' ? 0 : m.apron.depth;
       const rollW = m.roll.w;
       let out, width;
@@ -699,7 +761,6 @@
   function cutList(design) {
     const m = design.m;
     const kerf = m.units === 'metric' ? 3 : IN / 8, trim = endTrim(m.units);
-    const stocks = D.STOCK[m.units].map(s => s.mm);
     const roundUp = x => (m.units === 'metric' ? Math.ceil(x - 0.01) : Math.ceil(x / IN * 16 - 0.01) / 16 * IN);
     const all = design.members.map(mem => ({ id: mem.id, len: roundUp(mem.len), where: mem.where, kind: mem.kind, angled: !!mem.angled, step: mem.step, addon: mem.addon || null, sec: mem.roostSec ? mem.sec : design.lumber.id }));
     const groups = {};
@@ -708,9 +769,9 @@
     let n = 0, total = 0, bought = 0, tooLong = [];
     const order = Object.keys(groups).sort((a, b) => (a === design.lumber.id ? -1 : b === design.lumber.id ? 1 : a.localeCompare(b)));
     for (const sec of order) {
-      const r = ffd(groups[sec], stocks, m.stock, kerf, trim);
+      const r = ffd(groups[sec], lengthsOf(sec, m.units), stockFor(sec, m), kerf, trim);
       r.bins.forEach(b => { b.n = ++n; b.sec = sec; b.cuts.sort((x, y) => y.len - x.len); byStock[`${sec}:${b.stock}`] = (byStock[`${sec}:${b.stock}`] || 0) + 1; });
-      const lum = D.LUMBER[m.units].find(l => l.id === sec) || { id: sec, label: sec, actual: '', source: 'ps20' };
+      const lum = lumberById(sec, m.units) || { id: sec, label: sec, actual: '', source: 'ps20' };
       sections.push({ sec, lumber: lum, boards: r.bins });
       tooLong = tooLong.concat(r.tooLong);
       total += groups[sec].reduce((s, c) => s + c.len, 0);
@@ -726,7 +787,7 @@
     const out = {};
     const kerf = m.units === 'metric' ? 3 : IN / 8;
     for (const kind of ['wall', 'floor']) {
-      const sh = D.SHEET[m.units][kind];
+      const sh = say(sheetOf(m.units)[kind], 'sheet');
       const pieces = [];
       for (const p of design.sheets.filter(x => x.t === kind)) {
         const acr = Math.max(1, Math.ceil(Math.min(p.w, p.l) / sh.w - 1e-9)), alg = Math.max(1, Math.ceil(Math.max(p.w, p.l) / sh.l - 1e-9));
@@ -775,7 +836,7 @@
     const cuts = [];
     for (const f of faces) for (const [ri, r] of f.rects.entries()) for (const [si, s] of r.strips.entries()) {
       let rest = s.len, part = 0;
-      while (rest > 0) { const l = Math.min(rest, m.roll.l); cuts.push({ len: l, where: `${f.label}${f.rects.length > 1 ? `, part ${ri + 1}` : ''}, strip ${si + 1}${part ? ' (continued)' : ''}`, face: f.id }); rest = rest - l > 0 ? rest - l + o : 0; part++; if (part > 20) break; }
+      while (rest > 0) { const l = Math.min(rest, m.roll.l); cuts.push({ len: l, where: T('m.strip', { face: f.label, part: f.rects.length > 1 ? ri + 1 : 0, strip: si + 1, cont: !!part }), face: f.id }); rest = rest - l > 0 ? rest - l + o : 0; part++; if (part > 20) break; }
     }
     // the apron: one length per side, overlapping the next side at the corners; narrow aprons are cut lengthwise,
     // so one length of roll gives perWidth strips (the longest of each group sets the length cut)
@@ -790,7 +851,8 @@
       pieces.sort((a, b) => b.len - a.len);
       for (let i = 0; i < pieces.length; i += ap.perWidth) {
         const g = pieces.slice(i, i + ap.perWidth);
-        apronCuts.push({ len: g[0].len, where: `Apron, ${g.map(x => x.name).join(' and ')}${g.length > 1 ? ' (cut lengthwise)' : ''}`, face: 'apron', parts: g });
+        const sides = T('m.apronSides', { names: g.map(x => x.name), lengthwise: g.length > 1 });
+        apronCuts.push({ len: g[0].len, where: T('m.apron', { sides }), sides, face: 'apron', parts: g });
       }
     }
     const { bins } = ffd(cuts.concat(apronCuts), [m.roll.l], m.roll.l, 0);
@@ -810,8 +872,8 @@
       const cols = Math.max(1, Math.ceil((rc.w - P.lap) / (P.w - P.lap) - 1e-9));
       const need = rc.slope + over;
       for (let c = 0; c < cols; c++) {
-        if (need <= P.l + 1e-6) cuts.push({ len: Math.ceil(need), where: `${rc.label}, column ${c + 1}`, kind: rc.kind });
-        else { const k = Math.ceil((need - endLap) / (P.l - endLap) - 1e-9); for (let i = 0; i < k; i++) cuts.push({ len: i < k - 1 ? P.l : Math.ceil(need - (k - 1) * (P.l - endLap)), where: `${rc.label}, column ${c + 1}, row ${i + 1}`, kind: rc.kind }); }
+        if (need <= P.l + 1e-6) cuts.push({ len: Math.ceil(need), where: T('p.col', { label: rc.label, c: c + 1 }), kind: rc.kind });
+        else { const k = Math.ceil((need - endLap) / (P.l - endLap) - 1e-9); for (let i = 0; i < k; i++) cuts.push({ len: i < k - 1 ? P.l : Math.ceil(need - (k - 1) * (P.l - endLap)), where: T('p.colRow', { label: rc.label, c: c + 1, r: i + 1 }), kind: rc.kind }); }
       }
       fixings += cols * Math.max(2, rc.bars) * 3;
       planes.push({ id: rc.id, label: rc.label, cols, need, pitch: rc.pitch, kind: rc.kind });
@@ -827,42 +889,45 @@
   }
 
   // ---------- The shopping list ----------
+  // gid is the group's id (lumber, sheets, mesh, roof, fasteners, hardware); group is its name in the page's language
   function shopping(design, cut, mesh, sheets, roof) {
     const m = design.m, u = m.units, L = design.lumber;
     const items = [];
-    const push = (id, group, label, qty, unit2, note, source) => { if (qty > 0) items.push({ id, group, label, qty, unit: unit2, note: note || '', source: source || null }); };
+    const push = (id, gid, label, qty, unit2, note, source) => { if (qty > 0) items.push({ id, gid, group: T(`g.${gid}`), label, qty, unit: unit2, note: note || '', source: source || null }); };
+    const inch = v => T('u.in', { v });
     for (const s of cut.sections) {
       const counts = {};
       for (const b of s.boards) counts[b.stock] = (counts[b.stock] || 0) + 1;
       const roostOnly = s.sec !== L.id;
-      for (const [stock, n] of Object.entries(counts).sort((a, b) => a[0] - b[0])) push(`lumber:${s.sec}:${Math.round(stock)}`, 'Lumber', `${s.lumber.label} x ${stockLabel(Number(stock), u)}${roostOnly ? ', for the roost bars' : ''}`, n, 'boards',
-        roostOnly ? (design.roosts && design.roosts.flat ? 'Laid flat, wide face up.' : 'Round the top edges.') : `Actual size ${s.lumber.actual}. Use lumber rated for ground contact where the frame meets the ground.`, s.lumber.source || 'ps20');
+      for (const [stock, n] of Object.entries(counts).sort((a, b) => a[0] - b[0])) push(`lumber:${s.sec}:${Math.round(stock)}`, 'lumber', T('s.lumber', { lumber: s.lumber.label, stock: stockLabel(Number(stock), u), roost: roostOnly }), n, 'boards',
+        roostOnly ? T(design.roosts && design.roosts.flat ? 's.roostFlat' : 's.roostRound') : T('s.lumberNote', { actual: s.lumber.actual, label: s.lumber.label }), s.lumber.source || 'ps20');
     }
-    if (sheets.wall.count) push('sheet:wall', 'Sheet goods', D.SHEET[u].wall.label, sheets.wall.count, 'sheets', 'Siding, nest boxes, ramp and any droppings board.', D.SHEET[u].wall.source);
-    if (sheets.floor.count) push('sheet:floor', 'Sheet goods', D.SHEET[u].floor.label, sheets.floor.count, 'sheets', 'The hen-house floor.', D.SHEET[u].floor.source);
-    if (mesh.count) push(`mesh:${mesh.mesh.id}:${Math.round(m.roll.w)}x${Math.round(m.roll.l)}`, 'Hardware cloth', `${mesh.mesh.label}, roll ${len(m.roll.w, u)} x ${len(m.roll.l, u, 'dim')}`, mesh.count, 'rolls', `${len(mesh.total, u, 'dim')} of strips${design.apron ? ', the apron included' : ''}, with ${len(mesh.overlap, u)} overlaps.`, mesh.mesh.sources[0] || null);
-    if (roof) for (const [kind, r] of Object.entries(roof.byKind)) push(`panel:${kind}`, 'Roof', `${kind === 'poly' ? 'Clear corrugated polycarbonate' : 'Opaque corrugated'} panels, ${len(m.panel.w, u)} x ${len(m.panel.l, u, 'dim')}`, r.count, 'panels', `Side lap ${len(m.panel.lap, u)}.`, 'palram');
-    if (roof) push('roofscrews', 'Fasteners', 'Roofing screws with sealing washers', roof.fixings, 'screws', 'An estimate: about three per panel column at each rafter. Follow the panel maker\'s fixing pattern.', 'palram');
-    const sl = u === 'metric' ? (L.t + L.w > 120 ? '90 mm' : '75 mm') : (L.id === '2x4' ? '3 1/2 in' : '3 in');
-    push('screws-frame', 'Fasteners', `Exterior wood screws, ${sl}`, Math.ceil(design.members.length * 4 * 1.1), 'screws', 'Two at each end of every piece, plus a tenth spare.', null);
+    const SH = sheetOf(u);
+    if (sheets.wall.count) push('sheet:wall', 'sheets', say(SH.wall, 'sheet').label, sheets.wall.count, 'sheets', T('s.wallNote'), SH.wall.source);
+    if (sheets.floor.count) push('sheet:floor', 'sheets', say(SH.floor, 'sheet').label, sheets.floor.count, 'sheets', T('s.floorNote'), SH.floor.source);
+    if (mesh.count) push(`mesh:${mesh.mesh.id}:${Math.round(m.roll.w)}x${Math.round(m.roll.l)}`, 'mesh', T('s.mesh', { mesh: mesh.mesh.label, w: len(m.roll.w, u), l: len(m.roll.l, u, 'dim') }), mesh.count, 'rolls', T('s.meshNote', { total: len(mesh.total, u, 'dim'), apron: !!design.apron, overlap: len(mesh.overlap, u) }), mesh.mesh.sources[0] || null);
+    if (roof) for (const [kind, r] of Object.entries(roof.byKind)) push(`panel:${kind}`, 'roof', T('s.panels', { poly: kind === 'poly', w: len(m.panel.w, u), l: len(m.panel.l, u, 'dim') }), r.count, 'panels', T('s.panelNote', { lap: len(m.panel.lap, u) }), MK().panelSource || 'palram');
+    if (roof) push('roofscrews', 'fasteners', T('s.roofScrews'), roof.fixings, 'screws', T('s.roofScrewsNote'), 'palram');
+    const sl = u === 'metric' ? (L.t + L.w > 120 ? '90 mm' : '75 mm') : inch(L.id === '2x4' ? '3 1/2' : '3');
+    push('screws-frame', 'fasteners', T('s.frameScrews', { len: sl }), Math.ceil(design.members.length * 4 * 1.1), 'screws', T('s.frameScrewsNote'), null);
     const ply = sheets.wall.pieces.concat(sheets.floor.pieces).reduce((s, p) => s + Math.ceil(2 * (p.w + p.l) / (u === 'metric' ? 200 : 8 * IN)), 0);
-    if (ply) push('screws-ply', 'Fasteners', `Exterior wood screws for the plywood, ${u === 'metric' ? '32 mm' : '1 1/4 in'}`, ply, 'screws', 'About one every 8 in (200 mm) round each piece.', null);
+    if (ply) push('screws-ply', 'fasteners', T('s.plyScrews', { len: u === 'metric' ? '32 mm' : inch('1 1/4') }), ply, 'screws', T('s.plyScrewsNote'), null);
     if (mesh.count) {
       const runLen = design.members.filter(x => design.runFaces.has(x.face)).reduce((s, x) => s + x.len, 0);
       const sp = u === 'metric' ? 75 : 3 * IN;
-      push('staples', 'Fasteners', `Staples, ${u === 'metric' ? '13 mm' : '1/2 in'} or longer, for a heavy-duty stapler`, Math.ceil(runLen / sp), 'staples', `About one every ${len(sp, u)} along every member under the hardware cloth.`, null);
+      push('staples', 'fasteners', T('s.staples', { len: u === 'metric' ? '13 mm' : inch('1/2') }), Math.ceil(runLen / sp), 'staples', T('s.staplesNote', { every: len(sp, u) }), null);
       const edge = design.faces.reduce((s, f) => s + f.rects.reduce((a, r) => a + 2 * (r.w + Math.max(r.h0, r.h1)), 0), 0);
-      push('washers', 'Fasteners', `Washer-head screws or screws with fender washers, ${u === 'metric' ? '30 mm' : '1 1/4 in'}`, Math.ceil(edge / (u === 'metric' ? 300 : 12 * IN)), 'screws', `One every ${len(u === 'metric' ? 300 : 12 * IN, u)} round the edge of each piece, between the staples.`, null);
+      push('washers', 'fasteners', T('s.washers', { len: u === 'metric' ? '30 mm' : inch('1 1/4') }), Math.ceil(edge / (u === 'metric' ? 300 : 12 * IN)), 'screws', T('s.washersNote', { every: len(u === 'metric' ? 300 : 12 * IN, u) }), null);
       const ringLen = mesh.seamLen + (design.apron ? design.apron.per : 0);
-      if (ringLen > 0) push('rings', 'Fasteners', 'Hog rings or stainless zip ties', Math.ceil(ringLen / (u === 'metric' ? 150 : 6 * IN)), 'rings', 'One every 6 in (150 mm) along overlaps between members and where the apron meets the walls.', null);
+      if (ringLen > 0) push('rings', 'fasteners', T('s.rings'), Math.ceil(ringLen / (u === 'metric' ? 150 : 6 * IN)), 'rings', T('s.ringsNote'), null);
     }
-    if (design.apron && design.apron.kind === 'skirt') push('pins', 'Fasteners', 'Landscape staples (ground pins)', Math.ceil(design.apron.per / (u === 'metric' ? 300 : 12 * IN)) * 2, 'pins', 'Two rows, about one every 12 in (300 mm), so nothing can lift the skirt.', null);
+    if (design.apron && design.apron.kind === 'skirt') push('pins', 'fasteners', T('s.pins'), Math.ceil(design.apron.per / (u === 'metric' ? 300 : 12 * IN)) * 2, 'pins', T('s.pinsNote'), null);
     const hinges = (design.door ? 3 : 0) + 2 + (design.coop.clean ? 2 : 0) + (design.nests && design.nests.outside ? 2 : 0) + (design.coop.window ? 2 : 0) + (m.type === 'aframe' ? 2 : 0);
-    push('hinges', 'Hardware', 'Exterior hinges', hinges, 'hinges', 'The doors, the clean-out door, the nest lid and any window shutter.', null);
+    push('hinges', 'hardware', T('s.hinges'), hinges, 'hinges', T('s.hingesNote'), null);
     const latches = (design.door ? 1 : 0) + 1 + (design.coop.clean ? 1 : 0) + (design.nests && design.nests.outside ? 1 : 0) + (m.type === 'aframe' ? 1 : 0) + 1;
-    push('latches', 'Hardware', 'Latches that need two actions to open, or hasps with snap hooks', latches, 'latches', 'Every door, lid and the pop door. A raccoon can work a simple latch open.', null);
-    push('popdoor', 'Hardware', `Pop door ${len(design.pop.w, u)} x ${len(design.pop.h, u)} in a pair of grooved runners, or a bought one`, 1, 'door', 'Shut it every night.', null);
-    if (m.type === 'tractor') push('wheels', 'Hardware', 'Wheels about 10 in (250 mm) across, with an axle bolt or threaded rod, washers and nuts', 2, 'wheels', 'At the hen-house end: lift the handles and roll it.', null);
+    push('latches', 'hardware', T('s.latches'), latches, 'latches', T('s.latchesNote'), null);
+    push('popdoor', 'hardware', T('s.popdoor', { w: len(design.pop.w, u), h: len(design.pop.h, u) }), 1, 'door', T('s.popdoorNote'), null);
+    if (m.type === 'tractor') push('wheels', 'hardware', T('s.wheels'), 2, 'wheels', T('s.wheelsNote'), null);
     let total = 0, priced = 0;
     for (const it of items) { const p = m.prices[it.id]; if (p != null) { it.price = p; it.cost = r1(p * it.qty); total += it.cost; priced++; } }
     return { items, total: r1(total), priced };
@@ -888,148 +953,133 @@
   }
 
   // ---------- The checks ----------
-  const SRC = id => (id && D.SOURCES[id] ? Object.assign({ id }, D.SOURCES[id]) : null);
+  // Each row: a status, what was checked, the user's figure, the guide's figure and why, with the sources it rests on.
+  // The thresholds are the same in every language; the words come from the dictionary, and a market can add its own
+  // sources to a row (data.js MARKETS[lang].extra), which its dictionary then cites in the reason.
+  const SRC = id => { const s = id && (D.SOURCES[id] || D.LOCAL_SOURCES[id]); return s ? Object.assign({ id }, s) : null; };
   function checks(m, design) {
     const u = m.units, rows = [];
-    const row = (id, topic, status, title, yours, limit, reason, src) => rows.push({ id, topic, status, title, yours, limit, reason, sources: (src || []).map(SRC).filter(Boolean) });
+    const extra = MK().extra || {};
+    const row = (id, topic, status, title, yours, limit, reason, src) => rows.push({ id, topic, status, title, yours, limit, reason, sources: (src || []).concat(extra[id] || []).map(SRC).filter(Boolean) });
     const sz = m.size === 'bantam' ? 'bantam' : 'standard';
+    const bantam = sz === 'bantam';
     const birds = m.birds;
     const A = areas(design);
-    const sq = x => (u === 'metric' ? `${(x * SQFT).toFixed(2)} m²` : `${(Math.round(x * 10) / 10).toFixed(1)} sq ft`);
-    const sqr = (a, b) => (u === 'metric' ? `${(a * SQFT).toFixed(2)} to ${(b * SQFT).toFixed(2)} m²` : `${a} to ${b} sq ft`);
-    const ins = x => (u === 'metric' ? `${Math.round(x * IN)} mm` : `${fracIn(x * IN)} in`);
-    const bird = sz === 'bantam' ? 'bantam' : 'hen';
+    const dec = x => I.dec(x);
+    const sq = x => (u === 'metric' ? T('u.m2', { v: dec((x * SQFT).toFixed(2)) }) : T('u.sqft', { v: N(x, 1) }));
+    const sqr = (a, b) => (u === 'metric' ? T('u.m2range', { a: dec((a * SQFT).toFixed(2)), b: dec((b * SQFT).toFixed(2)) }) : T('u.sqftRange', { a: dec(String(a)), b: dec(String(b)) }));
+    const ins = x => (u === 'metric' ? T('u.mm', { v: N(Math.round(x * IN), 0) }) : T('u.in', { v: fracIn(x * IN) }));
     // ---- space ----
     const cr = RU.coop[sz], cp = sqft(A.coopA) / birds;
     const cst = cp >= cr.fits - 1e-9 ? 'fits' : cp >= cr.low - 1e-9 ? 'check' : 'fail';
-    row('coop-area', 'space', cst, `Coop floor per ${bird}`, `${sq(cp)} each (${sq(sqft(A.coopA))} for ${birds})`, `${sqr(cr.range[0], cr.range[1])} a bird; ${sq(cr.fits)} or more fits`,
-      cst === 'fits' ? `At or above ${sq(cr.fits)}, the lower end Virginia Tech's 2023 table gives for ${sz === 'bantam' ? 'bantams (2 to 3 sq ft)' : 'laying hens (3 to 4 sq ft)'}. The guides range from ${sqr(cr.range[0], cr.range[1])} a bird.`
-        : cst === 'check' ? `Meets the older, smaller figures (${sz === 'bantam' ? 'Penn State and Maryland: 1 sq ft for bantams; Kentucky: 0.75 to 1 sq ft for small breeds' : 'Penn State and Maryland: 1.5 sq ft for laying hens, 2 for large chickens'}) but not the ${sz === 'bantam' ? '2 to 3' : '3 to 4'} sq ft in Virginia Tech's 2023 table. Give more room if the hens spend whole days inside in bad weather.`
-          : `Below every published figure we read; the smallest is ${sq(cr.low)} a bird. Make the hen house bigger or keep fewer birds.`,
-      sz === 'bantam' ? ['vtHousing', 'psuHousing', 'pecHousing'] : ['vtHousing', 'psuHousing', 'osuCoop', 'pecSpace']);
+    const crange = sqr(cr.range[0], cr.range[1]);
+    row('coop-area', 'space', cst, T('c.coop.title', { bantam }), T('c.coop.yours', { each: sq(cp), all: sq(sqft(A.coopA)), n: birds }), T('c.perBird', { range: crange, fits: sq(cr.fits) }),
+      T(`c.coop.${cst}`, { fits: sq(cr.fits), low: sq(cr.low), range: crange, bantam }),
+      bantam ? ['vtHousing', 'psuHousing', 'pecHousing'] : ['vtHousing', 'psuHousing', 'osuCoop', 'pecSpace']);
     const rr = RU.run[sz], rp = sqft(A.runA) / birds;
     const rst = rp >= rr.fits - 1e-9 ? 'fits' : rp >= rr.low - 1e-9 ? 'check' : 'fail';
-    row('run-area', 'space', rst, `Run per ${bird}`, `${sq(rp)} each (${sq(sqft(A.runA))}${A.under > 0 && m.type !== 'walkin' ? `, ${sq(sqft(A.under))} of it under the hen house` : ''})`, `${sqr(rr.range[0], rr.range[1])} a bird; ${sq(rr.fits)} or more fits`,
-      rst === 'fits' ? `At or above ${sq(rr.fits)}, ${sz === 'bantam' ? 'the low end of Virginia Tech\'s 5 to 8 sq ft for bantams' : 'the figure Virginia Tech and the Poultry Extension Collaborative give for laying hens and Penn State for large chickens'}.`
-        : rst === 'check' ? `Within the published figures (${sz === 'bantam' ? 'Penn State and Maryland: 4 sq ft for bantams' : 'Cornell, Warren County: 4 to 5 sq ft; Penn State: 8 sq ft for laying hens'}) but under the ${sq(rr.fits)} of Virginia Tech's 2023 table. A longer run, or time out of it each day, helps.`
-          : `Below every published figure we read; the smallest is ${sq(rr.low)} a bird. Make the run longer.`,
-      sz === 'bantam' ? ['vtHousing', 'psuHousing', 'umdHousing'] : ['vtHousing', 'psuHousing', 'pecSpace', 'cornellWarren']);
+    row('run-area', 'space', rst, T('c.run.title', { bantam }), T('c.run.yours', { each: sq(rp), all: sq(sqft(A.runA)), under: A.under > 0 && m.type !== 'walkin' ? sq(sqft(A.under)) : '' }), T('c.perBird', { range: sqr(rr.range[0], rr.range[1]), fits: sq(rr.fits) }),
+      T(`c.run.${rst}`, { fits: sq(rr.fits), low: sq(rr.low), bantam }),
+      bantam ? ['vtHousing', 'psuHousing', 'umdHousing'] : ['vtHousing', 'psuHousing', 'pecSpace', 'cornellWarren']);
     const fp = footprint(design), yw = m.yard.w, yd = m.yard.d;
     const fitsYard = (fp.x <= yw + 1 && fp.z <= yd + 1) || (fp.x <= yd + 1 && fp.z <= yw + 1);
-    row('yard', 'space', fitsYard ? 'fits' : 'fail', 'Fits your yard', `${len(fp.x, u, 'dim')} by ${len(fp.z, u, 'dim')}${design.nests && design.nests.outside ? ' with the nest box' : ''}${m.type === 'tractor' ? ' and handles' : ''}`, `Your space: ${len(yw, u, 'dim')} by ${len(yd, u, 'dim')}`,
-      fitsYard ? 'The footprint fits the space you entered. Leave room to walk round it, open the doors and reach the nest box.' : 'Larger than the space you entered. Make the run shorter or narrower, or try another type.', []);
+    row('yard', 'space', fitsYard ? 'fits' : 'fail', T('c.yard.title'), T('c.yard.yours', { x: len(fp.x, u, 'dim'), z: len(fp.z, u, 'dim'), nest: !!(design.nests && design.nests.outside), handles: m.type === 'tractor' }), T('c.yard.limit', { w: len(yw, u, 'dim'), d: len(yd, u, 'dim') }),
+      T(fitsYard ? 'c.yard.fits' : 'c.yard.fail'), []);
     // ---- nests ----
     const n = m.nests + (m.addons.nests.on ? m.addons.nests.n : 0);
     const need5 = Math.ceil(birds / RU.nestsFits), need3 = Math.ceil(birds / 3);
     const psu = birds <= 4 ? 2 : 2 + Math.ceil((birds - 4) / 4);
     const nst = n <= 0 ? 'fail' : n >= need5 ? 'fits' : 'check';
-    row('nests', 'nests', nst, 'Nest boxes', `${n} for ${birds} ${birds === 1 ? 'hen' : 'hens'}`, `${need5} to ${Math.max(need3, psu)} for ${birds}: one per 3 to 5 hens`,
-      nst === 'fits' ? `Hens share nest boxes. The guides ask for one per 4 to 5 hens (Maryland, Virginia Tech), one per 4 (Oregon State), one per 5 (Maine, Florida) or one per 3 to 4 (Delaware); Penn State, two for the first four hens and one for each four more (${psu} here).`
-        : nst === 'check' ? 'Fewer than one per 5 hens, the most generous count in the guides. Add a box.' : 'There is no nest box. Hens lay where they can: add at least one per 5 hens.',
+    row('nests', 'nests', nst, T('c.nests.title'), T('c.nests.yours', { n, birds }), T('c.nests.limit', { a: need5, b: Math.max(need3, psu), birds }),
+      T(`c.nests.${nst}`, { psu, birds }),
       ['osuCoop', 'umdHousing', 'vtHousing', 'psuHousing', 'udel']);
-    row('nest-size', 'nests', 'fits', 'Nest box size', `${ins(RU.nestSize[sz])} square, ${ins(RU.nestSize[sz])} tall`, sz === 'bantam' ? '10 x 10 in (Maryland)' : 'At least 12 x 12 in (Penn State); 12 x 12 x 12 in (Oregon State, Florida)',
-      sz === 'bantam' ? 'The tool uses Maryland\'s 10 x 10 in box for bantams; the other guides size theirs for standard hens. A 3 to 4 in lip at the front keeps the nesting material in (Penn State).' : 'The size the guides give. A 3 to 4 in lip at the front keeps the nesting material in (Penn State).',
-      sz === 'bantam' ? ['umdHousing', 'psuHousing'] : ['psuHousing', 'osuCoop', 'ufAN239']);
+    row('nest-size', 'nests', 'fits', T('c.nestSize.title'), T('c.nestSize.yours', { s: ins(RU.nestSize[sz]) }), T('c.nestSize.limit', { bantam }),
+      T('c.nestSize.reason', { bantam }),
+      bantam ? ['umdHousing', 'psuHousing'] : ['psuHousing', 'osuCoop', 'ufAN239']);
     const nb = design.nests, R2 = design.roosts;
     if (nb && R2) {
       const roostTop = R2.fy + R2.h;
       const nhOK = nb.y >= RU.nestHeight * IN - 12;
       const above = roostTop > nb.y + 1;
       const st = nhOK && above ? 'fits' : 'check';
-      row('nest-height', 'nests', st, 'Nest box height', `Box floor ${len(nb.y, u)} off the ground; roost ${len(roostTop, u)}`, 'About 2 ft off the ground, the roost higher',
-        st === 'fits' ? 'About 2 ft off the ground (Penn State, Florida; Maryland: 24 in above the floor). Maryland keeps the roost higher so the hens sleep on it, not in the nests; Oregon State would rather the boxes were not lower than the roosts, to keep them clean, and Penn State puts the two 4 ft apart. The tool follows Maryland.'
-          : !nhOK ? 'Lower than the 2 ft off the ground the guides give. Raise the boxes on a stand.' : 'Keep the roost higher than the nest boxes so the hens do not sleep in them (Maryland). Raise the roost or lower the boxes.',
+      row('nest-height', 'nests', st, T('c.nestH.title'), T('c.nestH.yours', { y: len(nb.y, u), roost: len(roostTop, u) }), T('c.nestH.limit'),
+        T(st === 'fits' ? 'c.nestH.fits' : !nhOK ? 'c.nestH.low' : 'c.nestH.roost'),
         st === 'fits' ? ['psuHousing', 'ufAN239', 'umdHousing', 'osuCoop'] : ['psuHousing', 'ufAN239', 'umdHousing']);
     }
     // ---- roosts ----
     if (R2) {
       const rr2 = RU.roost[sz];
       const per = R2.total / birds / IN;
-      const st = per >= rr2.fits - 1e-9 ? 'fits' : per >= rr2.low - 1e-9 ? 'check' : sz === 'bantam' ? 'check' : 'fail';
-      row('roost-length', 'roosts', st, 'Roost length', `${len(R2.total, u, 'dim')} on ${R2.bars} ${R2.bars === 1 ? 'bar' : 'bars'}: ${ins(per)} a bird`, sz === 'bantam' ? `${ins(4)} a bantam (Penn State)` : `${ins(5)} to ${ins(10)} a bird; ${ins(8)} or more fits`,
-        st === 'fits' ? (sz === 'bantam' ? 'At or above the 4 in Penn State gives for bantams; Virginia Tech gives 8 to 10 in for chickens in general.' : 'At or above the 8 to 10 in of Virginia Tech\'s 2023 table: every hen can roost at once, side by side.')
-          : st === 'check' ? (sz === 'bantam' ? 'Under the 4 in Penn State gives for bantams. Make the bars longer or add one.' : 'Meets Penn State (6 in), Maryland (6 to 7 in) or the low end of Oregon State (5 to 10 in), not Virginia Tech\'s 8 to 10 in. Add a bar if the hens crowd.')
-            : 'Under the 5 in a bird of the smallest guide: not every hen can roost. Make the bars longer or add one.',
-        sz === 'bantam' ? ['psuHousing', 'vtHousing'] : ['vtHousing', 'psuHousing', 'umdHousing', 'osuCoop']);
+      const st = per >= rr2.fits - 1e-9 ? 'fits' : per >= rr2.low - 1e-9 ? 'check' : bantam ? 'check' : 'fail';
+      row('roost-length', 'roosts', st, T('c.roostL.title'), T('c.roostL.yours', { total: len(R2.total, u, 'dim'), bars: R2.bars, per: ins(per) }), T('c.roostL.limit', { bantam, a: ins(4), lo: ins(5), hi: ins(10), fits: ins(8) }),
+        T(`c.roostL.${st}`, { bantam }),
+        bantam ? ['psuHousing', 'vtHousing'] : ['vtHousing', 'psuHousing', 'umdHousing', 'osuCoop']);
       const hr = RU.roostHeight[sz], hh = R2.h / IN;
       const hst = hh >= hr[0] - 0.3 && hh <= hr[1] + 0.3 ? 'fits' : 'check';
-      row('roost-height', 'roosts', hst, 'Roost height', `${ins(hh)} above the floor${R2.bars > 1 ? `, bars ${ins(RU.roostGap + 2)} apart` : ''}`, `${ins(hr[0])} to ${ins(hr[1])} above the floor`,
-        hst === 'fits' ? `Penn State gives ${sz === 'bantam' ? '12 to 18 in for bantams' : '18 to 24 in for standard hens'} and never more than 4 ft; Oregon State, 2 ft, with 10 in between bars.`
-          : hh < hr[0] ? `Lower than the ${ins(hr[0])} Penn State gives. Raise the bar if the house is tall enough.` : 'Higher than the 4 ft Penn State gives as the most: heavy hens can hurt their feet jumping down.',
+      row('roost-height', 'roosts', hst, T('c.roostH.title'), T('c.roostH.yours', { h: ins(hh), gap: R2.bars > 1 ? ins(RU.roostGap + 2) : '' }), T('c.roostH.limit', { a: ins(hr[0]), b: ins(hr[1]) }),
+        T(hst === 'fits' ? 'c.roostH.fits' : hh < hr[0] ? 'c.roostH.low' : 'c.roostH.high', { bantam, a: ins(hr[0]) }),
         ['psuHousing', 'osuCoop']);
-      row('roost-bar', 'roosts', 'info', 'Roost bars', R2.flat ? `${u === 'metric' ? '38 x 89 mm' : '2x4'} laid flat` : `${u === 'metric' ? '45 x 45 mm' : '2x2'}, top edges rounded`, R2.flat ? 'Wide perches in the cold' : '1 to 2 in, edges rounded',
-        R2.flat ? 'In a cold climate a wide perch lets the hens cover their toes against frostbite (Colorado State). Use wood: metal and plastic hold the cold (Arkansas).' : 'Oregon State suggests 1 to 2 in square lumber with the top edges rounded; Maryland, rods or branches at least 2 in across. Use wood: metal and plastic hold the cold (Arkansas).',
+      const rsec = lumberAll(u).find(l => l.id === R2.sec);
+      const secTxt = u === 'metric' ? T('u.section', { a: N(rsec ? rsec.t : 45, 0), b: N(rsec ? rsec.w : 45, 0) }) : R2.sec;
+      row('roost-bar', 'roosts', 'info', T('c.roostBar.title'), T('c.roostBar.yours', { flat: R2.flat, sec: secTxt }), T('c.roostBar.limit', { flat: R2.flat }),
+        T('c.roostBar.reason', { flat: R2.flat }),
         R2.flat ? ['csuBoulder', 'uaexCold'] : ['osuCoop', 'umdHousing', 'uaexCold']);
     }
     // ---- ventilation ----
     const C = design.coop;
     const vRatio = C.ventPerm / 1e6 / C.floorA;
     const vst = C.ventPerm <= 0 ? 'fail' : vRatio >= RU.ventStart - 1e-6 ? 'fits' : 'check';
-    const ventArea = u === 'metric' ? `${Math.round(C.ventPerm / 100)} cm²` : `${Math.round(C.ventPerm / 645.16)} sq in`;
-    row('vent', 'air', vst, 'Ventilation', `${ventArea} of vents high on the walls, ${Math.round(vRatio * 100)}% of the floor${C.window ? ', and a summer window' : ''}`, 'Vents high, away from the roost; no draft on the birds',
-      (vst === 'fail' ? 'There are no vents. ' : '') + 'None of the extension guides we read gives a vent area for a backyard coop. They ask for windows or vents high on one side, enough that the litter stays dry and there is no ammonia smell, with no draft on the roosting birds. The tool starts every coop with 1 sq ft of vent for each 10 sq ft of floor, a rule common in keepers\' guides that we could not trace to an extension source; open more if the litter gets damp.',
+    const ventArea = u === 'metric' ? T('u.cm2', { v: N(Math.round(C.ventPerm / 100), 0) }) : T('u.sqin', { v: N(Math.round(C.ventPerm / 645.16), 0) });
+    row('vent', 'air', vst, T('c.vent.title'), T('c.vent.yours', { area: ventArea, pct: Math.round(vRatio * 100), window: !!C.window }), T('c.vent.limit'),
+      T('c.vent.reason', { none: vst === 'fail' }),
       ['psuHousing', 'pecHousing', 'uaexCold']);
-    if (m.climate === 'cold') row('climate', 'air', 'info', 'Cold climate', 'Vents open all winter; wide roosts', 'Ventilate in winter too',
-      'Coops need air exchange even in frigid weather, to carry out moisture and ammonia: keep vents in the roof or windows partly open, with burlap over them if you like, and repair any draft (Arkansas). Oregon State says a coop does not need insulation if there are no drafts; Arkansas suggests insulating the walls and 4 to 8 in of wood shavings. A heat lamp is a fire risk.',
-      ['uaexCold', 'osuCoop', 'csuBoulder']);
-    else if (m.climate === 'hot') row('climate', 'air', 'info', 'Hot climate', `${C.window ? 'A hardware-cloth window for summer; ' : ''}shade on the run`, 'More air and shade',
-      `Chickens stress more in heat than cold: give plenty of water and ventilation, especially for heat; chickens can die at ${RU.heatDeath} F (Colorado State). Oregon State suggests fans in hot, humid spells. Roof part of the run for shade and keep the water out of the sun.`,
-      ['csuBoulder', 'osuCoop', 'ufAN239']);
+    if (m.climate === 'cold') row('climate', 'air', 'info', T('c.cold.title'), T('c.cold.yours'), T('c.cold.limit'), T('c.cold.reason'), ['uaexCold', 'osuCoop', 'csuBoulder']);
+    else if (m.climate === 'hot') row('climate', 'air', 'info', T('c.hot.title'), T('c.hot.yours', { window: !!C.window }), T('c.hot.limit'), T('c.hot.reason', { f: RU.heatDeath }), ['csuBoulder', 'osuCoop', 'ufAN239']);
     // ---- hardware cloth and predators ----
     const me = meshOf(m);
     const pr = m.predators;
     if (me) {
-      let st, reason;
-      if (me.kind === 'poultry') {
-        st = pr === 'low' ? 'check' : 'fail';
-        reason = 'Chicken wire keeps hens in but is not a barrier to predators: most can tear through it and rats bite through the thin wire (Utah State); UConn and Colorado State say to use hardware cloth instead. Florida\'s AN239 does say chicken wire gives some protection. It is fine as a top against hawks (Colorado State).';
-      } else if (me.open[0] > RU.openMax + 0.5) {
-        st = pr === 'low' ? 'check' : 'fail';
-        reason = 'Openings over 1 in let a raccoon reach through and pull a bird (UNH, Maryland). Colorado State says you lose fewer birds with 1 x 2 in or smaller welded wire than with 2 x 3 in.';
-      } else if (me.open[1] > RU.openMax + 0.5) {
-        st = pr === 'high' ? 'check' : 'fits';
-        reason = 'Colorado State: you lose fewer birds with 1 x 2 in or smaller welded wire, and Oregon State builds runs of 1 by 2 in mesh. UNH asks for openings smaller than 1 in so nothing can reach through; Utah State, 1/4 to 1/2 in hardware cloth.';
-      } else {
-        st = 'fits';
-        reason = me.open[0] <= 6.4 ? 'Hardware cloth of 1/4 in keeps out rats and young rodents too; Utah State recommends 1/4 to 1/2 in. The smallest weasels can still pass a 1/4 in hole (extension.org).' : 'Hardware cloth of 1/4 to 1/2 in gives the best protection (Utah State), and openings under 1 in stop a raccoon reaching through (UNH). The smallest weasels can pass a 1/4 in hole (extension.org).';
-      }
-      row('mesh', 'predators', st, 'Run walls', me.label, pr === 'low' ? 'Hardware cloth; openings under 1 in' : 'Hardware cloth, 1/4 to 1/2 in', reason,
-        me.kind === 'poultry' ? ['usu', 'uconn', 'csuBoulder', 'ufAN239'] : me.open[0] > RU.openMax + 0.5 ? ['unh', 'umdPredation', 'csuPredators'] : ['usu', 'unh', 'csuPredators', 'pecPredators']);
+      let st, why;
+      if (me.kind === 'poultry') { st = pr === 'low' ? 'check' : 'fail'; why = 'poultry'; }
+      else if (me.open[0] > RU.openMax + 0.5) { st = pr === 'low' ? 'check' : 'fail'; why = 'wide'; }
+      else if (me.open[1] > RU.openMax + 0.5) { st = pr === 'high' ? 'check' : 'fits'; why = 'long'; }
+      // openings over 1/2 in and under 1 in (19 and 25 mm welded mesh): no raccoon paw gets through, but rats and weasels do
+      else if (me.open[0] > RU.openBest + 0.5) { st = pr === 'high' ? 'check' : 'fits'; why = 'mid'; }
+      else { st = 'fits'; why = me.open[0] <= 6.4 ? 'quarter' : 'half'; }
+      row('mesh', 'predators', st, T('c.mesh.title'), me.label, T('c.mesh.limit', { low: pr === 'low' }), T(`c.mesh.${why}`),
+        me.kind === 'poultry' ? ['usu', 'uconn', 'csuBoulder', 'ufAN239'] : why === 'wide' ? ['unh', 'umdPredation', 'csuPredators'] : why === 'mid' ? ['unh', 'usu', 'pecPredators'] : ['usu', 'unh', 'csuPredators', 'pecPredators']);
     }
-    if (m.type === 'tractor') row('apron', 'predators', 'info', 'Digging', 'A mobile tractor: no apron', 'Move it; shut the house at night',
-      'A tractor sits on fresh grass, so it has no buried apron; extension.org describes floorless pens moved round the pasture, often daily. Shut the hens in the house every night and check that nothing has dug under the skids.', ['pecPredators', 'unh']);
+    if (m.type === 'tractor') row('apron', 'predators', 'info', T('c.dig.title'), T('c.dig.yours'), T('c.dig.limit'), T('c.dig.reason'), ['pecPredators', 'unh']);
     else {
       const ap = design.apron, k = m.apron.kind;
       let st, yours, reason;
-      if (k === 'none') { st = pr === 'low' ? 'check' : 'fail'; yours = 'None'; reason = 'Foxes, dogs, raccoons and rats dig under a run. The guides bury the wire at least 12 in deep and turn it out about 6 in (Penn State, Virginia Tech, extension.org), or lay it 1 ft down and 1 ft out in an L (Colorado State).'; }
-      else if (k === 'skirt') { st = 'check'; yours = `${len(ap.width, u)} skirt pinned on the surface`; reason = 'No extension guide we read gives a width for a skirt laid on the ground: they bury the hardware cloth at least 12 in deep (Penn State, UNH, extension.org) or in an L, 1 ft down and 1 ft out (Colorado State). A skirt is the no-dig option; pin it every 12 in and let the grass grow through it.'; }
+      if (k === 'none') { st = pr === 'low' ? 'check' : 'fail'; yours = T('c.apron.noneYours'); reason = T('c.apron.none'); }
+      else if (k === 'skirt') { st = 'check'; yours = T('c.apron.skirtYours', { w: len(ap.width, u) }); reason = T('c.apron.skirt'); }
       else {
         const dd = m.apron.depth / IN;
         const deepOK = dd >= RU.apronDepth - 0.3;
         const outOK = k === 'buried' ? true : ap.out / IN >= RU.apronOut - 0.3;
         st = deepOK && outOK ? 'fits' : dd >= RU.apronLow - 0.3 ? 'check' : 'fail';
-        yours = k === 'lshape' ? `${ins(dd)} down, ${len(ap.out, u)} out` : `${ins(dd)} down, turned out ${ins(RU.apronToe)}`;
-        reason = st === 'fits' ? (k === 'lshape' ? 'Colorado State: bury hardware cloth 1 ft down and one foot out in an L so nothing digs under; Florida, 12 to 18 in in an L. The tool lays the rest of the roll width out flat, so nothing is cut lengthwise.' : 'Bury the wire at least 12 in deep and toe it out about 6 in (Penn State, Virginia Tech, extension.org); Maryland, in a trench 12 in to 1.5 ft deep.')
-          : st === 'check' ? (!outOK && deepOK ? 'The flat part is narrower than the 1 ft out of Colorado State\'s L: use a wider roll or bury it deeper.' : 'Shallower than the 12 in most guides give (Penn State, UNH, extension.org), though within Oregon State\'s 6 in to 1 ft and Cornell\'s at least 6 in.')
-            : 'Shallower than every figure we read; the least is 6 in (Oregon State, Cornell). Dig deeper or lay an L.';
+        yours = k === 'lshape' ? T('c.apron.lYours', { d: ins(dd), out: len(ap.out, u) }) : T('c.apron.bYours', { d: ins(dd), toe: ins(RU.apronToe) });
+        reason = T(st === 'fits' ? (k === 'lshape' ? 'c.apron.fitsL' : 'c.apron.fitsB') : st === 'check' ? (!outOK && deepOK ? 'c.apron.narrow' : 'c.apron.shallow') : 'c.apron.fail');
       }
-      row('apron', 'predators', st, 'Apron against digging', yours, '12 in down, turned out; or 1 ft down and 1 ft out', reason, k === 'skirt' ? ['psuHousing', 'csuBoulder', 'unh'] : ['csuBoulder', 'psuHousing', 'vtHousing', 'pecPredators'].concat(k === 'buried' ? ['umdPredation'] : [], ['osuCoop']));
+      row('apron', 'predators', st, T('c.apron.title'), yours, T('c.apron.limit'), reason, k === 'skirt' ? ['psuHousing', 'csuBoulder', 'unh'] : ['csuBoulder', 'psuHousing', 'vtHousing', 'pecPredators'].concat(k === 'buried' ? ['umdPredation'] : [], ['osuCoop']));
     }
     const open = (m.type === 'house' || m.type === 'walkin') && design.top === 'open';
-    row('run-top', 'predators', open ? (pr === 'low' ? 'check' : 'fail') : 'fits', 'Run top', m.type === 'aframe' ? 'Closed: the sides meet at the ridge' : TOP_NAME[design.top], 'Covered',
-      'A covered run is the easiest protection from hawks and owls (extension.org, UNH); a hawk gets through any loose spot, so fasten the cover well. Raccoons climb, so a top keeps them out too.', ['pecPredators', 'unh', 'umdPredation']);
+    row('run-top', 'predators', open ? (pr === 'low' ? 'check' : 'fail') : 'fits', T('c.top.title'), m.type === 'aframe' ? T('c.top.aframe') : TOP_NAME[design.top], T('c.top.limit'),
+      T('c.top.reason'), ['pecPredators', 'unh', 'umdPredation']);
     // ---- roofs ----
     for (const rc of design.roofs) {
       if (rc.aframe) continue;
-      const p = rc.pitch;
-      row(`roof-pitch-${rc.id}`, 'roof', p >= RU.roofPitchMin - 0.05 ? 'fits' : 'check', `${rc.label} slope`, `${p.toFixed(1)} degrees`, `At least ${RU.roofPitchMin} degrees for corrugated sheet`,
-        p >= RU.roofPitchMin - 0.05 ? 'Steep enough for rain to run off corrugated sheet; Palram\'s guide asks for at least 5 degrees. Follow your panel maker\'s guide.' : 'Corrugated sheet needs a slope of at least 5 degrees (88 mm per metre) to shed water (Palram). Make the back taller than the front.', ['palram']);
+      const p = rc.pitch, ok = p >= RU.roofPitchMin - 0.05;
+      row(`roof-pitch-${rc.id}`, 'roof', ok ? 'fits' : 'check', T('c.pitch.title', { label: rc.label }), T('c.pitch.yours', { v: dec(p.toFixed(1)) }), T('c.pitch.limit', { min: RU.roofPitchMin }),
+        T(ok ? 'c.pitch.fits' : 'c.pitch.check'), ['palram']);
     }
-    row('snow', 'roof', 'info', 'Snow and wind', ROOF_NAME[m.roof], 'Check locally', 'This tool does not size the frame for snow or wind. If you get heavy snow or strong wind, ask a local builder, anchor the coop and keep snow off the roof.', []);
+    row('snow', 'roof', 'info', T('c.snow.title'), ROOF_NAME[m.roof], T('c.snow.limit'), T('c.snow.reason'), []);
     // ---- materials and rules ----
-    row('lumber', 'materials', 'info', 'Lumber', `${design.lumber.label}, actual ${design.lumber.actual}`, 'Treated lumber only where it meets the ground',
-      'Treated lumber is wood impregnated with a pesticide, and old arsenic-treated (CCA) boards still turn up second hand (US EPA). Use lumber rated for ground contact only where the frame meets the ground, and keep treated wood where the hens cannot peck it.', ['epa']);
-    row('rules', 'rules', 'info', 'Local rules', `${birds} ${sz === 'bantam' ? (birds === 1 ? 'bantam' : 'bantams') : (birds === 1 ? 'hen' : 'hens')}`, 'Check before you build', 'Many towns limit the number of hens, ban roosters or set how far a coop must stand from a boundary. Check your town\'s rules and any HOA or lease first. This tool gives no legal advice.', []);
+    row('lumber', 'materials', 'info', T('c.lumber.title'), T('c.lumber.yours', { label: design.lumber.label, actual: design.lumber.actual }), T('c.lumber.limit'),
+      T('c.lumber.reason'), ['epa']);
+    row('rules', 'rules', 'info', T('c.rules.title'), T('c.rules.yours', { n: birds, bantam }), T('c.rules.limit'), T('c.rules.reason', { n: birds }), []);
     return rows;
   }
 
@@ -1043,47 +1093,24 @@
     const roof = roofLayout(design);
     const shop = shopping(design, cut, mesh, sheets, roof);
     const rows = checks(m, design);
+    // a piece longer than any board on sale is left out of the cut list: say so, beside the lumber row
+    if (cut.tooLong.length) {
+      const longest = Math.max(...cut.tooLong.map(c => c.len));
+      const at = rows.findIndex(r => r.id === 'rules');
+      rows.splice(at < 0 ? rows.length : at, 0, { id: 'too-long', topic: 'materials', status: 'check', title: T('c.long.title'), yours: T('c.long.yours', { n: cut.tooLong.length, len: len(longest, m.units) }), limit: T('c.long.limit', { max: stockLabel(Math.max(...cut.tooLong.map(c => Math.max(...lengthsOf(c.sec, m.units)))), m.units) }), reason: T('c.long.reason'), sources: [] });
+    }
     const counts = { fits: 0, check: 0, fail: 0, info: 0 };
     for (const r of rows) counts[r.status]++;
     return { m, design, cut, sheets, mesh, roof, shop, checks: rows, counts, areas: areas(design), footprint: footprint(design), steps: STEPS(design), path: henPath(design) };
   }
 
-  // the assembly order, as the PDF prints it and the exploded view plays it
+  // the assembly order, as the PDF prints it and the exploded view plays it (the steps of each type, then the mesh)
+  const STEP_NS = { house: [1, 2, 3, 4, 5, 6], walkin: [1, 2, 3, 4, 5, 6, 7], aframe: [1, 2, 3, 4, 5, 7], tractor: [1, 2, 3, 4, 5, 6] };
   function STEPS(design) {
-    const m = design.m, T = m.type;
+    const m = design.m, TY = m.type;
     const has = k => design.members.some(x => x.step === k) || design.sheets.some(x => x.step === k);
-    const s = [];
-    if (T === 'house') {
-      s.push({ n: 1, title: 'Legs and sills', text: 'Cut the four legs and the sills that join them at the ground, brace each leg at 45 degrees and stand the frame on pavers, level.' });
-      s.push({ n: 2, title: 'Hen-house floor', text: 'Build the floor frame flat, square it by measuring the diagonals, fix it to the legs and screw the plywood floor down.' });
-      s.push({ n: 3, title: 'Walls and siding', text: 'Build each wall flat with its openings (the clean-out door at the front, the pop door on the run side), stand them on the floor and screw the corners. Fix the siding, leaving the vent strip open under the eaves; the cut-outs make the doors.' });
-      s.push({ n: 4, title: 'Roof', text: 'Fix the rafters on edge across the walls with the overhang all round, then the corrugated panels, overlapped as the maker says, with sealing-washer screws into each rafter.' });
-      s.push({ n: 5, title: 'Run frame and door', text: 'Build the run sides and the far end from the hen house out, square them, fix the top cross bars and hang the run door.' });
-      s.push({ n: 6, title: 'Nest boxes, roosts and ramp', text: 'Build the nest boxes on the outside of the end wall with a hinged lid, fix the roost bars on their cleats, higher than the boxes, and hang the ramp from the pop door.' });
-    } else if (T === 'walkin') {
-      s.push({ n: 1, title: m.addons.legs.on ? 'Legs and floor frame' : 'Skids and floor frame', text: 'Set the skids level on pavers or blocks, build the floor frame on them, square it by the diagonals and screw down the plywood floor.' });
-      s.push({ n: 2, title: 'Walls', text: 'Build each wall flat with its openings (the door, the pop door, any window), stand them up and screw the corners together.' });
-      s.push({ n: 3, title: 'Siding', text: 'Fix the siding to the walls, cutting out the openings and leaving the vent strip open under the eaves.' });
-      s.push({ n: 4, title: 'Roof', text: 'Fix the rafters on edge with the overhang, then the corrugated panels with sealing-washer screws into each rafter.' });
-      s.push({ n: 5, title: 'Door', text: 'Build the door flat with its brace running up from the bottom hinge, side it, hang it on three hinges and fit a latch that needs two actions.' });
-      s.push({ n: 6, title: 'Nest boxes and roosts', text: 'Build the nest boxes on their stand along the side wall and fix the roost bars on cleats, higher than the boxes.' });
-      s.push({ n: 7, title: 'Run', text: 'Build the run sides and the far end against the coop, fix the top cross bars and hang the run door.' });
-    } else if (T === 'aframe') {
-      s.push({ n: 1, title: 'Base', text: 'Build the base frame on level ground and square it by the diagonals.' });
-      s.push({ n: 2, title: 'A-frames and ridge', text: 'Cut the rafters with both ends at the angle, fix each pair to the base, and join their tops with the ridge board.' });
-      s.push({ n: 3, title: 'House floor', text: 'Fix a floor tie across each A-frame at the house end, then the plywood floor on the ties.' });
-      s.push({ n: 4, title: 'House sides, ends and roof', text: 'Fix the plywood sides over the house, one of them hinged for cleaning, the end triangle and the partition with the pop door, then the corrugated panels.' });
-      s.push({ n: 5, title: 'Nest box, roost and ramp', text: 'Hang the nest box on the end, fix the roost inside and the ramp from the pop door to the ground.' });
-      s.push({ n: 7, title: 'Far-end door', text: 'Fix the door posts and header in the far end and hang the door.' });
-    } else {
-      s.push({ n: 1, title: 'Skids and base', text: 'Cut the skids with their ends at 45 degrees so they slide, and join them with the cross pieces.' });
-      s.push({ n: 2, title: 'Run frame', text: 'Stand the posts on the skids, fix the top rails and the cross bars.' });
-      s.push({ n: 3, title: 'Hen-house floor and walls', text: 'Stand the house posts over the wheel end, build the floor on them, then the walls with the clean-out door.' });
-      s.push({ n: 4, title: 'House siding and roof', text: 'Fix the siding and the corrugated roof panels.' });
-      s.push({ n: 5, title: 'Nest box, roost and ramp', text: 'Hang the nest box on the end wall, fix the roost and the ramp from the pop door in the floor.' });
-      s.push({ n: 6, title: 'Wheels and handles', text: 'Bolt the axle and wheels at the house end and the handles at the far end. Lift the handles and roll to move it.' });
-    }
-    s.push({ n: 9, title: 'Hardware cloth and apron', text: design.apron ? `Staple the hardware cloth to the outside of the frame strip by strip with the overlaps the layout shows and add washer-head screws round every edge. Dig the trench and lay the apron (${design.apron.label.toLowerCase()}), tied to the wall mesh with hog rings.` : 'Staple the hardware cloth to the outside of the frame strip by strip with the overlaps the layout shows and add washer-head screws round every edge.' });
+    const s = STEP_NS[TY].map(n => ({ n, title: T(`st.${TY}.${n}.title`, { legs: m.addons.legs.on }), text: T(`st.${TY}.${n}.text`) }));
+    s.push({ n: 9, title: T('st.mesh.title', { apron: design.apron ? design.apron.label : '' }), text: T('st.mesh.text', { apron: design.apron ? design.apron.label : '' }) });
     return s.filter(x => x.n === 9 || has(x.n)).sort((a, b) => a.n - b.n);
   }
 
@@ -1093,11 +1120,11 @@
     const R = design.run, C = design.coop, rp = design.ramp, nb = design.nests, ro = design.roosts;
     if (!C || !R) return out;
     const runX = design.m.type === 'house' ? (C.x1 + R.x1) / 2 : design.m.type === 'walkin' ? (R.x0 + R.x1) / 2 : (C.x1 + R.x1) / 2;
-    out.push({ id: 'run', label: 'Run', p: [runX, design.m.type === 'tractor' ? design.w : 0, (R.z0 + R.z1) / 2] });
-    if (rp) { out.push({ id: 'ramp', label: 'Ramp', p: [rp.x1, rp.y1, rp.z], walk: true }); out.push({ id: 'pop', label: 'Pop door', p: [rp.x0, rp.y0, rp.z], walk: true }); }
-    else if (C.pop) out.push({ id: 'pop', label: 'Pop door', p: [C.pop.x, C.pop.y, C.pop.z], walk: true });
-    if (nb) out.push({ id: 'nest', label: 'Nest box', p: [nb.outside ? nb.x - nb.d / 2 : nb.x + nb.d / 2, nb.y, nb.z] });
-    if (ro) out.push({ id: 'roost', label: 'Roost', p: [(ro.x0 + ro.x1) / 2, ro.fy + ro.h, ro.zs[0]] });
+    out.push({ id: 'run', label: T('path.run'), p: [runX, design.m.type === 'tractor' ? design.w : 0, (R.z0 + R.z1) / 2] });
+    if (rp) { out.push({ id: 'ramp', label: T('path.ramp'), p: [rp.x1, rp.y1, rp.z], walk: true }); out.push({ id: 'pop', label: T('path.pop'), p: [rp.x0, rp.y0, rp.z], walk: true }); }
+    else if (C.pop) out.push({ id: 'pop', label: T('path.pop'), p: [C.pop.x, C.pop.y, C.pop.z], walk: true });
+    if (nb) out.push({ id: 'nest', label: T('path.nest'), p: [nb.outside ? nb.x - nb.d / 2 : nb.x + nb.d / 2, nb.y, nb.z] });
+    if (ro) out.push({ id: 'roost', label: T('path.roost'), p: [(ro.x0 + ro.x1) / 2, ro.fy + ro.h, ro.zs[0]] });
     return out;
   }
 
@@ -1139,7 +1166,16 @@
     } catch (e) { return null; }
   }
 
+  // the tables of the page's market, with their words in its language (the page's selects and the guides use them)
+  const lumberOptions = units => lumberList(units).map(l => say(l, 'lumber'));
+  // the lengths on offer for the frame: those its section is sold in when the listing says (lumber id given)
+  const stockOptions = (units, lumber) => (lumber ? lengthsOf(lumber, units) : stockList(units).map(s => s.mm)).map(mm => ({ mm, label: stockLabel(mm, units) }));
+  const meshOptions = () => meshList().map(me => say(me, 'mesh'));
+  const sheetsOf = units => ({ wall: say(sheetOf(units).wall, 'sheet'), floor: say(sheetOf(units).floor, 'sheet') });
+  const setLang = l => I.setLang(l);
+  const getLang = () => I.getLang();
   return { TYPES, TYPE_NAME, TYPE_SHORT, CLIMATES, PREDATORS, ROOFS, ROOF_NAME, TOPS, TOP_NAME, APRONS, APRON_NAME, IN, FT, SQFT,
     fresh, sample, sizeFor, normalize, lumberOf, meshOf, defaultRoll, autoNests, build, ffd, cutList, sheetLayout, stripsFor, meshLayout, roofLayout, shopping, checks, areas, footprint, evaluate, steps: STEPS, henPath,
-    encode, decode, round, unit, fracIn, fmtIn, fmtFtIn, fmtMm, len, both, area, sqft, stockLabel, toInput, fromInput, D };
+    encode, decode, round, unit, fracIn, fmtIn, fmtFtIn, fmtMm, len, both, area, sqft, stockLabel, toInput, fromInput, D,
+    swapLumber, swapMesh, lumberOptions, stockOptions, meshOptions, sheetsOf, market: MK, t: T, I, setLang, getLang };
 });
