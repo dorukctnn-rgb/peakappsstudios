@@ -11,7 +11,8 @@
   const PRO_READY = !!COOP_PRO_PRODUCT_ID && COOP_PRO_PRODUCT_ID !== 'PENDING';
   // One licence for every language: the same product, the same key in this browser (tool: 'coop-designer').
   const E = window.CoopEngine, D = window.CoopData, V = window.CoopView;
-  E.setLang(['fr', 'es'].includes(document.documentElement.lang) ? document.documentElement.lang : 'en');
+  const pageLang = (document.documentElement.lang || 'en').slice(0, 2).toLowerCase();
+  E.setLang(E.I.LANGS.includes(pageLang) ? pageLang : 'en');
   const T = (k, p) => E.t(k, p);
   const LICENSE = {
     tool: 'coop-designer',
@@ -110,7 +111,9 @@
   }
   // the language switch keeps the design: the other edition opens it with its own materials
   function langLinks() {
-    const code = model && !model.sample ? `#design=${E.encode(model)}&from=${E.getLang()}` : '';
+    // the sample's name is this edition's words: the design goes over without it
+    const out = model && !model.sample && model.name === T('sample.name') ? Object.assign({}, model, { name: '' }) : model;
+    const code = model && !model.sample ? `#design=${E.encode(out)}&from=${E.getLang()}` : '';
     document.querySelectorAll('a[data-lang-switch]').forEach(a => { a.href = a.getAttribute('data-lang-switch') + code; });
   }
   function renderShop() {

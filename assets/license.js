@@ -9,6 +9,8 @@
  * Pages in another language pass setup({ strings: { title, buy, keyLabel, verify, close, checking, badKey, network, ok,
  * refunded, rejected, active }, localMessages: true }); the English words below are the defaults. With localMessages
  * a key Gumroad refuses gets strings.rejected rather than Gumroad's own English message.
+ * The status line carries data-l-status="checking", "active" or "error" (it stays in the page after the dialog closes),
+ * and a success message stays on screen for 2 s before the dialog closes, so tests can wait on either in any language.
  * Verification calls Gumroad's public endpoint (CORS allowed, no secret needed).
  * The verified key is cached locally and re-checked in the background every 7 days.
  */
@@ -93,10 +95,10 @@
     const status = d.querySelector('[data-l-status]');
     d.querySelector('[data-l-verify]').addEventListener('click', async (ev) => {
       ev.preventDefault();
-      status.dataset.state = ''; status.textContent = w('checking');
+      status.dataset.state = ''; status.dataset.lStatus = 'checking'; status.textContent = w('checking');
       const res = await verify(d.querySelector('input[name=key]').value);
-      status.dataset.state = res.ok ? 'ok' : 'err'; status.textContent = res.message;
-      if (res.ok) setTimeout(() => d.close(), 900);
+      status.dataset.state = res.ok ? 'ok' : 'err'; status.dataset.lStatus = res.ok ? 'active' : 'error'; status.textContent = res.message;
+      if (res.ok) setTimeout(() => d.close(), 2000);
     });
     return d;
   }
@@ -105,7 +107,8 @@
     const d = dialog();
     d.querySelector('[data-l-buy]').href = cfg.buyUrl;
     d.querySelector('[data-l-reason]').textContent = reason || cfg.pitch || '';
-    d.querySelector('[data-l-status]').textContent = current() ? w('active') : '';
+    const st = d.querySelector('[data-l-status]');
+    st.textContent = current() ? w('active') : ''; st.dataset.lStatus = current() ? 'active' : '';
     if (typeof d.showModal === 'function') d.showModal(); else window.open(cfg.buyUrl, '_blank', 'noopener');
   }
 
