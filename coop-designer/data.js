@@ -164,7 +164,7 @@
   // the second round of editions (Italian, Brazilian, Dutch, German), read on LOCAL_CHECKED_2
   const LOCAL_CHECKED_2 = '2026-10-14';
   const L2 = (short, title, url) => ({ short, title, url, checked: LOCAL_CHECKED_2 });
-  const OB = 'https://www.obi-italia.it', MM = 'https://www.madeiramadeira.com.br';
+  const OB = 'https://www.obi-italia.it', MM = 'https://www.madeiramadeira.com.br', GM = 'https://www.gamma.nl/assortiment', PX = 'https://www.praxis.nl', OD = 'https://www.obi.de';
   const LOCAL_SOURCES = {
     // France: lumber, panels, mesh and roof sheets
     bdChevrons: L('Brico Dépôt, chevrons', 'Brico Dépôt : rayon Chevrons. Chevrons en épicéa traité classe 2 de 63 x 75 mm en 2,4, 3, 4 et 5 m ; de 50 x 75 mm en 4 m ; demi-chevrons de 38 x 63 mm en 3 et 4 m', `${BD}/produits/materiau-et-gros-oeuvre/toiture-et-facade/bois-de-charpente-et-ossature-bois/chevrons`),
@@ -215,6 +215,34 @@
     embrapaAviario: L2('Embrapa Meio-Norte, aviários caipiras', 'Embrapa Meio-Norte: Aviários para galinhas caipiras na agricultura familiar da Região Nordeste do Brasil (folder, 2ª edição, Teresina, novembro de 2018)', 'https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/1099811/1/FolderAviario.pdf'),
     mapaIN56: L2('IN MAPA nº 56/2007', 'Ministério da Agricultura e Pecuária: Instrução Normativa nº 56, de 4 de dezembro de 2007, procedimentos para registro, fiscalização e controle de estabelecimentos avícolas de reprodução, comerciais e de ensino ou pesquisa (texto consolidado, Anexo I, art. 1º, parágrafo único)', 'https://www.gov.br/agricultura/pt-br/assuntos/sanidade-animal-e-vegetal/saude-animal/programas-de-saude-animal/pnsa/imagens/copy3_of_INSTRUONORMATIVAN56DE4DEDEZEMBRODE2007.pdf'),
     embrapaOvos: L2('Embrapa, legalização da atividade ovícola', 'Embrapa Agroindústria de Alimentos: Legalização da atividade ovícola, Rio de Janeiro (folder, abril de 2024)', 'https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/1163737/1/Legalizacao-da-atividade-ovicola.pdf'),
+    // the Netherlands: Gamma's planed spruce and its OSB3 and bitumen sheets, Praxis's welded mesh and 18 mm OSB; the
+    // directive in Dutch, RVO on hobby poultry keepers and the Rijksoverheid on the shielding order during bird flu
+    gammaGeschaafd: L2('Gamma, vuren geschaafd', 'Gamma: bouwhout vuren geschaafd 44 x 44 mm 330 cm, 44 x 94 mm 300 cm, vuren SLS geschaafd 38 x 89 mm 210 cm (zoeken: geschaafd vurenhout)', `${GM}/zoeken?text=geschaafd%20vurenhout`),
+    gamma4444: L2('Gamma, vuren 44 x 44 mm', 'Gamma: bouwhout vuren geschaafd 44 x 44 mm 210 cm; voordeelpak vuren geschaafd 44 x 44 mm 210 en 390 cm; bouwhout vuren geschaafd 44 x 94 mm 210 cm (zoeken: vuren geschaafd 44x44)', `${GM}/zoeken?text=vuren%20geschaafd%2044x44`),
+    gamma4469: L2('Gamma, vuren 44 x 69 mm', 'Gamma: bouwhout vuren geschaafd 44 x 69 mm 210 cm; voordeelpak vuren geschaafd 44 x 69 mm 270 cm (zoeken: vuren geschaafd 44x69)', `${GM}/zoeken?text=vuren%20geschaafd%2044x69`),
+    gammaOsb: L2('Gamma, OSB3-plaat', 'Gamma: OSB3-plaat 244 x 122 cm, 11 mm, rechte kanten', `${GM}/osb3-plaat-244-x-122-cm-11-mm-met-rechte-kanten/p/B180437`),
+    praxisOsb: L2('Praxis, OSB-plaat 18 mm', 'Praxis: OSB-plaat, tong en groef 2-zijdig, 18 mm, 244 x 122 cm', `${PX}/hout-ramen-trappen-deuren/hout/plaatmateriaal/osb/osb-plaat-tong-groef-2-zijdig-18-mm-244-x-122-cm/5639971`),
+    praxisGaas12: L2('Praxis, gelast gaas 12,7 mm', 'Praxis: Giardino tuingaas, gelast gaas verzinkt, 101 cm x 25 m, maaswijdte 12,7 x 12,7 mm, draaddikte 0,8 mm', `${PX}/tuin-terras-buitenleven/schuttingen-hekwerken-afrastering/gaas-draadpanelen/tuingaas/giardino-tuingaas-gelast-gaas-verzinkt-101-cm-x-25-m/10354402`),
+    praxisGaas19: L2('Praxis, gelast gaas 19 mm', 'Praxis: Giardino vogelgaas, gelast gaas verzinkt, 101 cm x 5 m, maaswijdte 19 x 19 mm, draaddikte 1,45 mm', `${PX}/tuin-terras-buitenleven/schuttingen-hekwerken-afrastering/gaas-draadpanelen/tuingaas/giardino-vogelgaas-gelast-gaas-verzinkt-101-cm-x-5-m/5382269`),
+    praxisGaas25: L2('Praxis, gelast gaas 25 mm', 'Praxis: Giardino vogelgaas, gelast gaas verzinkt, 102 cm x 5 m, maaswijdte 25,4 x 25,4 mm, draaddikte 1,75 mm', `${PX}/tuin-terras-buitenleven/schuttingen-hekwerken-afrastering/gaas-draadpanelen/tuingaas/giardino-vogelgaas-gelast-gaas-verzinkt-102cm-x-5m/5514484`),
+    gammaGolfplaat: L2('Gamma, golfplaat bitumen', 'Gamma: Aquaplan Topline golfplaat bitumen 200 x 86 cm', `${GM}/aquaplan-topline-golfplaat-bitumen-zwart-200-x-86-cm/p/B548870`),
+    dir199974nl: L2('Richtlijn 1999/74/EG', 'Richtlijn 1999/74/EG van de Raad van 19 juli 1999 tot vaststelling van minimumnormen ter bescherming van legkippen (artikel 1 en artikel 4), Nederlandse tekst op EUR-Lex', 'https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=CELEX:31999L0074'),
+    rvoPluimvee: L2('RVO, pluimvee melden', 'Rijksdienst voor Ondernemend Nederland: Pluimvee melden (inhoud gecontroleerd op 15 november 2024)', 'https://www.rvo.nl/onderwerpen/identificatie-en-registratie-dieren/pluimvee-melden'),
+    rvoUbn: L2('RVO, dierlocatie UBN', 'Rijksdienst voor Ondernemend Nederland: Dierlocatie (UBN) registreren en wijzigen (inhoud gecontroleerd op 30 april 2026)', 'https://www.rvo.nl/onderwerpen/identificatie-en-registratie-dieren/dierlocatie-ubn'),
+    eggs2023nl: L2('Verordening (EU) 2023/2465', 'Gedelegeerde Verordening (EU) 2023/2465 van de Commissie van 17 augustus 2023 wat betreft handelsnormen voor eieren (bijlage II, eieren van hennen met vrije uitloop), Nederlandse tekst op EUR-Lex', 'https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=CELEX:32023R2465'),
+    // Germany: OBI's planed spruce/fir framing timber, OSB/3, aviary mesh, hexagonal netting and Onduline sheets; the
+    // directive and the egg marketing standard in German, the livestock traffic ordinance and the avian influenza order
+    obiRahmenholz: L2('OBI, Rahmenholz Fichte/Tanne', 'OBI: Rahmenholz Fichte/Tanne gehobelt, gefast, 44 x 44 und 54 x 54 mm in 2000 und 3000 mm, 45 x 70 mm in 2100 mm, 54 x 74 mm in 2000 und 2500 mm, 74 x 74 mm in 3000 mm (Suche: Rahmenholz gehobelt)', `${OD}/search/rahmenholz%20gehobelt/`),
+    obiOsbDe: L2('OBI, OSB-3-Verlegeplatte', 'OBI: OSB-3-Verlegeplatte stumpf, 250 x 125 cm, 12 mm und 18 mm (Suche: OSB Platte)', `${OD}/search/osb%20platte/`),
+    obiVoliere12: L2('OBI, Volierendraht 12,7 mm', 'OBI: Volierendraht verzinkt, 5 x 1 m, Maschenweite 12,7 x 12,7 mm, Drahtstärke 1 mm', `${OD}/p/4652327/volierengitter-maschenweite-12-7-mm-5-m-x-1-m-staerke-1-mm-verzinkt`),
+    obiVoliere19: L2('OBI, Volierengitter 19 mm', 'OBI: Volierengitter verzinkt, 5 x 1 m, Maschenweite 19 x 19 mm, Drahtstärke 1 mm', `${OD}/p/9562083/volierengitter-maschenweite-19-mm-5-m-x-1-m-staerke-1-mm-verzinkt`),
+    obiSechseck: L2('OBI, Sechseckgeflecht', 'OBI: 6-Eck-Geflecht verzinkt, 25 mm, Draht 0,8 mm, Höhe 1 m, Länge 25 m', `${OD}/p/9562281/6-eck-geflecht-verzinkt-25-mm-x-0-8-mm-hoehe-1-m-laenge-25-m`),
+    obiOndulineDe: L2('OBI, Onduline Bitumenwellplatte', 'OBI: Onduline Base Bitumenwellplatte 2000 x 855 mm', `${OD}/p/5628250/onduline-base-bitumenwellplatte-schwarz-2-000-mm-x-855-mm`),
+    dir199974de: L2('Richtlinie 1999/74/EG', 'Richtlinie 1999/74/EG des Rates vom 19. Juli 1999 zur Festlegung von Mindestanforderungen zum Schutz von Legehennen (Artikel 1 und 4), deutscher Text auf EUR-Lex', 'https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX:31999L0074'),
+    eggs2023de: L2('Verordnung (EU) 2023/2465', 'Delegierte Verordnung (EU) 2023/2465 der Kommission vom 17. August 2023 hinsichtlich der Vermarktungsnormen für Eier (Anhang II, Eier aus Freilandhaltung), deutscher Text auf EUR-Lex', 'https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX:32023R2465'),
+    viehverkv26: L2('ViehVerkV, § 26', 'Viehverkehrsverordnung (ViehVerkV), § 26 Anzeige und Registrierung, auf gesetze-im-internet.de', 'https://www.gesetze-im-internet.de/viehverkv_2007/__26.html'),
+    geflpest13: L2('Geflügelpest-Verordnung, § 13', 'Geflügelpest-Verordnung (GeflPestSchV), § 13 Aufstallung, auf gesetze-im-internet.de', 'https://www.gesetze-im-internet.de/geflpestschv/__13.html'),
+    rijkAfscherm: L2('Rijksoverheid, afschermplicht', 'Rijksoverheid: Welke maatregelen gelden voor mij als particuliere vogelhouder tijdens vogelgriep?', 'https://www.rijksoverheid.nl/onderwerpen/vogelgriep/vraag-en-antwoord/maatregelen-particuliere-vogelhouders'),
   };
 
   // the US meshes stay on offer in every edition, for the inch rolls of Quebec, Mexico or the US
@@ -294,6 +322,40 @@
       swap: { '2x2': 'pt-45x45', '2x3': 'pt-45x45', '2x4': 'pt-45x90', 'pt-45x45': '2x2', 'pt-50x57': '2x3', 'pt-45x90': '2x4', 'pt-50x100': '2x4', '45x45': 'pt-45x45', '38x63': 'pt-45x45', '38x89': 'pt-45x90', '45x90': 'pt-45x90' },
       roost: { std: 'pt-45x45', cold: 'pt-45x90' },
       extra: { 'coop-area': ['embrapaAviario'], 'run-area': ['embrapaAviario'], nests: ['embrapaAviario'], 'nest-size': ['embrapaAviario'], 'roost-length': ['embrapaAviario'], 'roost-height': ['embrapaAviario'], 'roost-bar': ['embrapaAviario'], rules: ['mapaIN56', 'embrapaOvos'] } },
+    // the Netherlands: Gamma's planed spruce (44 x 44 mm in 2,1, 3,3 and 3,9 m; 44 x 69 mm in 2,1 and 2,7 m; 44 x 94 mm in
+    // 2,1 and 3 m; SLS 38 x 89 mm in 2,1 m); OSB3 at 244 x 122 cm (11 mm at Gamma, 18 mm at Praxis); Praxis's welded
+    // galvanized mesh (12,7 mm in 101 cm x 25 m, 19 and 25,4 mm in 5 m); Gamma's bitumen sheets of 200 x 86 cm
+    nl: { units: 'metric',
+      lumber: [M2('nl-44x44', 44, 44, 'gammaGeschaafd', { also: ['gamma4444'], lengths: [2100, 3300, 3900] }), M2('nl-44x69', 44, 69, 'gamma4469', { lengths: [2100, 2700] }),
+        M2('nl-44x94', 44, 94, 'gammaGeschaafd', { also: ['gamma4444'], lengths: [2100, 3000] }), M2('nl-38x89', 38, 89, 'gammaGeschaafd', { lengths: [2100] })],
+      stock: stock([2100, 2700, 3000, 3300, 3900]), stockDefault: 2700,
+      sheet: { wall: { id: 'nl-osb11', w: 1220, l: 2440, t: 11, source: 'gammaOsb' }, floor: { id: 'nl-osb18', w: 1220, l: 2440, t: 18, source: 'praxisOsb' } },
+      mesh: [
+        { id: 'nl-12', kind: 'hardware', open: [12.7, 12.7], gauge: null, mm: 0.8, rolls: [[1010, 25000]], sources: ['praxisGaas12'] },
+        { id: 'nl-19', kind: 'welded', open: [19, 19], gauge: null, mm: 1.45, rolls: [[1010, 5000]], sources: ['praxisGaas19'] },
+        { id: 'nl-25', kind: 'welded', open: [25.4, 25.4], gauge: null, mm: 1.75, rolls: [[1020, 5000]], sources: ['praxisGaas25'] },
+      ].concat(US_MESH),
+      meshDefault: 'nl-12', rollDefault: [1010, 25000], panel: { w: 860, l: 2000, lap: 75 }, panelSource: 'gammaGolfplaat',
+      swap: { '2x2': 'nl-44x44', '2x3': 'nl-44x69', '2x4': 'nl-44x94', 'nl-44x44': '2x2', 'nl-44x69': '2x3', 'nl-44x94': '2x4', 'nl-38x89': '2x4', '45x45': 'nl-44x44', '38x63': 'nl-44x69', '38x89': 'nl-38x89', '45x90': 'nl-44x94' },
+      roost: { std: 'nl-44x44', cold: 'nl-44x69' },
+      extra: { 'coop-area': ['dir199974nl'], 'run-area': ['eggs2023nl'], nests: ['dir199974nl'], 'roost-length': ['dir199974nl'], 'roost-height': ['dir199974nl'], 'run-top': ['rijkAfscherm'], rules: ['rvoPluimvee', 'rvoUbn', 'rijkAfscherm'] } },
+    // Germany: OBI's planed, chamfered spruce/fir framing timber (44 x 44 and 54 x 54 mm in 2 and 3 m, 45 x 70 mm in 2,1 m,
+    // 54 x 74 mm in 2 and 2,5 m, 74 x 74 mm in 3 m for the walk-in); OSB/3 at 250 x 125 cm; aviary mesh of 12,7 and 19 mm in 1 x 5 m, hexagonal netting in
+    // 1 x 25 m (which the checks flag); Onduline sheets of 200 x 85,5 cm
+    de: { units: 'metric',
+      lumber: [M2('de-44x44', 44, 44, 'obiRahmenholz', { lengths: [2000, 3000] }), M2('de-45x70', 45, 70, 'obiRahmenholz', { lengths: [2100] }),
+        M2('de-54x54', 54, 54, 'obiRahmenholz', { lengths: [2000, 3000] }), M2('de-54x74', 54, 74, 'obiRahmenholz', { lengths: [2000, 2500] }), M2('de-74x74', 74, 74, 'obiRahmenholz', { lengths: [3000] })],
+      stock: stock([2000, 2100, 2500, 3000]), stockDefault: 3000,
+      sheet: { wall: { id: 'de-osb12', w: 1250, l: 2500, t: 12, source: 'obiOsbDe' }, floor: { id: 'de-osb18', w: 1250, l: 2500, t: 18, source: 'obiOsbDe' } },
+      mesh: [
+        { id: 'de-12', kind: 'hardware', open: [12.7, 12.7], gauge: null, mm: 1, rolls: [[1000, 5000]], sources: ['obiVoliere12'] },
+        { id: 'de-19', kind: 'welded', open: [19, 19], gauge: null, mm: 1, rolls: [[1000, 5000]], sources: ['obiVoliere19'] },
+        { id: 'de-hex25', kind: 'poultry', open: [25, 25], gauge: null, mm: 0.8, rolls: [[1000, 25000]], sources: ['obiSechseck'] },
+      ].concat(US_MESH),
+      meshDefault: 'de-12', rollDefault: [1000, 5000], panel: { w: 855, l: 2000, lap: 75 }, panelSource: 'obiOndulineDe',
+      swap: { '2x2': 'de-44x44', '2x3': 'de-54x54', '2x4': 'de-74x74', 'de-44x44': '2x2', 'de-45x70': '2x3', 'de-54x54': '2x3', 'de-54x74': '2x4', 'de-74x74': '2x4', '45x45': 'de-44x44', '38x63': 'de-54x54', '38x89': 'de-54x74', '45x90': 'de-74x74' },
+      roost: { std: 'de-44x44', cold: 'de-45x70' },
+      extra: { 'coop-area': ['dir199974de'], 'run-area': ['eggs2023de'], nests: ['dir199974de'], 'roost-length': ['dir199974de'], 'roost-height': ['dir199974de'], 'run-top': ['geflpest13'], rules: ['viehverkv26', 'geflpest13'] } },
   };
 
   return { CHECKED, LOCAL_CHECKED, LOCAL_CHECKED_2, IN, FT, SQFT, SOURCES, LOCAL_SOURCES, LUMBER, STOCK, SWAP, SHEET, MESH, ROLL_DEFAULT, RULES, MARKETS };
