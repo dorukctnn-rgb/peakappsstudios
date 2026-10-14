@@ -87,12 +87,12 @@
   // ---------- Sheet goods: siding and floors ----------
   const SHEET = {
     imperial: {
-      wall: { w: 48 * IN, l: 96 * IN, t: 15 / 32 * IN, label: '4 x 8 ft exterior plywood, 15/32 in', source: 'ps1' },
-      floor: { w: 48 * IN, l: 96 * IN, t: 23 / 32 * IN, label: '4 x 8 ft exterior plywood, 23/32 in', source: 'ps1' },
+      wall: { id: 'us-wall', w: 48 * IN, l: 96 * IN, t: 15 / 32 * IN, label: '4 x 8 ft exterior plywood, 15/32 in', source: 'ps1' },
+      floor: { id: 'us-floor', w: 48 * IN, l: 96 * IN, t: 23 / 32 * IN, label: '4 x 8 ft exterior plywood, 23/32 in', source: 'ps1' },
     },
     metric: {
-      wall: { w: 1220, l: 2440, t: 12, label: '2440 x 1220 mm plywood, 12 mm, exterior glue', source: 'tpPly12' },
-      floor: { w: 1220, l: 2440, t: 18, label: '2440 x 1220 mm plywood, 18 mm', source: 'tpPly18' },
+      wall: { id: 'uk-wall', w: 1220, l: 2440, t: 12, label: '2440 x 1220 mm plywood, 12 mm, exterior glue', source: 'tpPly12' },
+      floor: { id: 'uk-floor', w: 1220, l: 2440, t: 18, label: '2440 x 1220 mm plywood, 18 mm', source: 'tpPly18' },
     },
   };
 
@@ -154,5 +154,86 @@
     heatDeath: 104, // degrees F (Colorado State, Boulder County: chickens can die at 104 F)
   };
 
-  return { CHECKED, IN, FT, SQFT, SOURCES, LUMBER, STOCK, SWAP, SHEET, MESH, ROLL_DEFAULT, RULES };
+  // ---------- The French and Spanish editions: their own materials and sources, read on LOCAL_CHECKED ----------
+  // Sizes only as the retailers' own pages give them (no prices); the guidance stays the extension services' above,
+  // with the European and national rules for laying hens added where they give a figure (they apply to flocks of 350
+  // hens or more, so the tool cites them as a point of comparison, never as the rule for a backyard flock).
+  const LOCAL_CHECKED = '2026-10-13';
+  const L = (short, title, url) => ({ short, title, url, checked: LOCAL_CHECKED });
+  const BD = 'https://www.bricodepot.fr', CA = 'https://www.castorama.fr', BK = 'https://www.bricoking.es';
+  const LOCAL_SOURCES = {
+    // France: lumber, panels, mesh and roof sheets
+    bdChevrons: L('Brico Dépôt, chevrons', 'Brico Dépôt : rayon Chevrons. Chevrons en épicéa traité classe 2 de 63 x 75 mm en 2,4, 3, 4 et 5 m ; de 50 x 75 mm en 4 m ; demi-chevrons de 38 x 63 mm en 3 et 4 m', `${BD}/produits/materiau-et-gros-oeuvre/toiture-et-facade/bois-de-charpente-et-ossature-bois/chevrons`),
+    castoTasseaux: L('Castorama, tasseaux', 'Castorama : rayon Tasseau bois raboté. Tasseaux rabotés de 44 x 44 mm et 44 x 70 mm, bois tendre séché au four, pour l’intérieur ; tasseau en sapin traité de 45 x 45 mm ; tous en 2,40 m', `${CA}/tasseau-bois-rabote/cat_id_0005160.cat`),
+    castoOsb: L('Castorama, OSB 3', 'Castorama : panneaux OSB 3 de 244 x 122 cm, en 9, 12, 15, 18 et 22 mm d’épaisseur', `${CA}/panneau-osb-3-244-x-122-cm-ep-12-mm-vendu-au-panneau-/3663602840176_CAFR.prd`),
+    bdSoude13: L('Brico Dépôt, grillage soudé 13 mm', 'Brico Dépôt : Rouleau grillage soudé l. 5 x h. 1 m, maille 13 x 13 mm, fil galvanisé avec revêtement plastique (diamètre du fil non indiqué)', `${BD}/p/3663602731221/rouleau-grillage-soude-l-5-x-h-1-m`),
+    bdSoude25: L('Brico Dépôt, grillage soudé 25 mm', 'Brico Dépôt : Grillage soudé galvanisé L. 10 x H. 1 m, maille 25 x 25 mm (diamètre du fil non indiqué)', `${BD}/p/3663602731276/grillage-soude-galvanise-l-10-x-h-1-m-maille-25-x-25-mm`),
+    bdTriple25: L('Brico Dépôt, grillage triple torsion', 'Brico Dépôt : Grillage triple torsion galvanisé L. 10 x H. 1 m, maille 25 x 25 mm, maillage hexagonal', `${BD}/p/3663602731122/grillage-triple-torsion-galvanise-l-10-x-h-1-m-x-maille-25-x-25-mm`),
+    bdOndulee: L('Brico Dépôt, plaque ondulée', 'Brico Dépôt : Plaque bitumineuse ondulée 9 ondes, 200 x 85,5 cm', `${BD}/p/3467670010567/plaque-bitumineuse-ondulee-9-ondes-rouge-200-x-85-5-cm`),
+    // France: rules and the professional minimums
+    chambresFiche: L('Chambres d’agriculture, fiche poules pondeuses', 'Chambres d’agriculture de Bretagne et des Pays de la Loire : Fiche Poules pondeuses n° 1, Réglementation bien-être sur l’élevage des poules pondeuses (juin 2011)', 'https://oaba.fr/PDF/Fiche_regl.pdf'),
+    dir199974: L('Directive 1999/74/CE', 'Directive 1999/74/CE du Conseil du 19 juillet 1999 établissant les normes minimales relatives à la protection des poules pondeuses (article 1 et annexe)', 'https://eur-lex.europa.eu/legal-content/FR/TXT/?uri=CELEX:31999L0074'),
+    agriBasseCour: L('Ministère de l’Agriculture, basses-cours', 'Ministère de l’Agriculture : Renforcement des mesures de biosécurité pour lutter contre l’influenza aviaire dans les basses-cours (dépliant, décembre 2021)', 'https://agriculture.gouv.fr/telecharger/85930'),
+    spCerfa: L('Service Public, Cerfa 15472', 'Service Public : formulaire Cerfa 15472, déclaration de détention de volailles ou d’oiseaux captifs, particulier ou professionnel (page vérifiée le 9 octobre 2026)', 'https://www.service-public.gouv.fr/particuliers/vosdroits/R42501'),
+    // Spain: lumber, boards, mesh and roof sheets
+    bkListones: L('Bricoking, listones', 'Bricoking: listones de abeto de 45 x 45, 70 x 45 y 90 x 45 mm en 2400 mm (ref. 176.15759, 176.15773 y 176.15776)', `${BK}/maderas-y-revestimientos/listonaje`),
+    obVigas: L('Obramat, vigas', 'Obramat: vigas de pino macizo con tratamiento autoclave de 3,3 x 7 x 300 cm y 4,5 x 9 x 300 cm (copia del Internet Archive del 17 de junio de 2026)', 'https://web.archive.org/web/20260617035255/https://www.obramat.es/madera/madera-construccion/vigas-de-madera/'),
+    bkTableros: L('Bricoking, tableros', 'Bricoking: tablero OSB 3 WBP de 250 x 125 cm y 10 mm; tablero contrachapado WBP de pino de 244 x 122 cm y 18 mm', `${BK}/maderas-y-revestimientos/carpinteria`),
+    bkMalla06: L('Bricoking, malla de 6 mm', 'Bricoking: malla metálica electrosoldada galvanizada FENSANET 06, 1 x 5 m, luz de 6,4 x 6,4 mm, alambre de 0,6 mm (ref. 177.10948)', `${BK}/jardin/cierre-y-ocultacion/mallas-y-enrejados/malla-metalica-electrosoldada-galvanizado-06-1x5m`),
+    bkMalla12: L('Bricoking, malla de 12 mm', 'Bricoking: malla metálica electrosoldada galvanizada FENSANET 12, 1 x 5 m, luz de 12,7 x 12,7 mm, alambre de 0,8 mm (ref. 177.10949)', `${BK}/jardin/cierre-y-ocultacion/mallas-y-enrejados/malla-metalica-electrosoldada-galvanizado-12-1x5m`),
+    bkMalla19: L('Bricoking, malla de 19 mm', 'Bricoking: malla metálica electrosoldada galvanizada FENSANET 19, 1 x 5 m, luz de 19 x 19 mm, alambre de 1,4 mm (ref. 177.10950)', `${BK}/jardin/cierre-y-ocultacion/mallas-y-enrejados/malla-metalica-electrosoldada-galvanizado-19-1x5m`),
+    bkMalla25: L('Bricoking, malla de 25 mm', 'Bricoking: malla metálica electrosoldada galvanizada FENSANET 25, 1 x 5 m, luz de 25,4 x 25,4 mm, alambre de 1,4 mm aprox. (ref. 177.10951)', `${BK}/jardin/cierre-y-ocultacion/mallas-y-enrejados/malla-metalica-electrosoldada-galvanizado-25-1x5m`),
+    bkHex19: L('Bricoking, malla de triple torsión', 'Bricoking: malla metálica de triple torsión galvanizada GALVANEX 19, 1 x 10 m, luz hexagonal de 19 mm, alambre de 0,7 mm (ref. 177.10955)', `${BK}/jardin/cierre-y-ocultacion/mallas-y-enrejados/malla-metalica-de-triple-torsion-galvanizado-19-1x10m`),
+    bkIbiza: L('Bricoking, placa ondulada', 'Bricoking: placa Ibiza de 200 x 105 cm, ondulada de material termoplástico, para pequeñas cubiertas (ref. 52085.17)', `${BK}/construccion/cubricion-y-accesorios/cubricion-y-accesorios/placa-ibiza-terracota-200x105cm`),
+    // Spain: rules and the professional minimums
+    rd3_2002: L('Real Decreto 3/2002', 'Real Decreto 3/2002, de 11 de enero, por el que se establecen las normas mínimas de protección de las gallinas ponedoras (BOE-A-2002-831, texto consolidado, última actualización del 8 de marzo de 2023)', 'https://www.boe.es/eli/es/rd/2002/01/11/3/con'),
+    rd637_2021: L('Real Decreto 637/2021', 'Real Decreto 637/2021, de 27 de julio, por el que se establecen las normas básicas de ordenación de las granjas avícolas (BOE-A-2021-12609, texto consolidado, última actualización del 23 de abril de 2025)', 'https://www.boe.es/buscar/act.php?id=BOE-A-2021-12609'),
+  };
+
+  // the US meshes stay on offer in every edition, for the inch rolls of Quebec, Mexico or the US
+  const US_MESH = MESH.filter(me => !['wm13-19', 'poultry25'].includes(me.id));
+  const M2 = (id, t, w, source, o = {}) => Object.assign({ id, t, w, source }, o);
+  const stock = list => list.map(mm => ({ mm }));
+  const MARKETS = {
+    // English: the tables above, unchanged (UK and Australian listings for the metric sizes)
+    en: { units: 'imperial', lumber: LUMBER.metric, stock: STOCK.metric, stockDefault: STOCK.metric[0].mm, sheet: SHEET.metric, mesh: MESH, meshDefault: 'wm13-19',
+      rollDefault: ROLL_DEFAULT.metric, panel: { w: 860, l: 2400, lap: 75 }, swap: SWAP, roost: { std: '45x45', cold: '38x89' }, extra: {} },
+    // France: Brico Dépôt's chevrons (63 x 75 mm, 50 x 75 mm, the 38 x 63 mm demi-chevron) and Castorama's battens;
+    // OSB 3 at 244 x 122 cm; welded and hexagonal mesh in 1 m rolls; a 9-wave corrugated sheet of 200 x 85,5 cm
+    fr: { units: 'metric',
+      // lengths per section as listed: demi-chevron 3 and 4 m, chevron 50 x 75 in 4 m, 63 x 75 in 2,4 to 5 m; battens 2,40 m
+      lumber: [M2('fr-38x63', 38, 63, 'bdChevrons', { lengths: [3000, 4000] }), M2('fr-50x75', 50, 75, 'bdChevrons', { lengths: [4000] }), M2('fr-63x75', 63, 75, 'bdChevrons', { lengths: [2400, 3000, 4000, 5000] }),
+        M2('fr-45x45', 45, 45, 'castoTasseaux', { lengths: [2400] }), M2('fr-44x44', 44, 44, 'castoTasseaux', { roostOnly: true, lengths: [2400] }), M2('fr-44x70', 44, 70, 'castoTasseaux', { roostOnly: true, lengths: [2400] })],
+      stock: stock([2400, 3000, 4000, 5000]), stockDefault: 3000,
+      sheet: { wall: { id: 'fr-osb12', w: 1220, l: 2440, t: 12, source: 'castoOsb' }, floor: { id: 'fr-osb18', w: 1220, l: 2440, t: 18, source: 'castoOsb' } },
+      mesh: [
+        { id: 'fr-soude13', kind: 'hardware', open: [13, 13], gauge: null, rolls: [[1000, 5000]], sources: ['bdSoude13'] },
+        { id: 'fr-soude25', kind: 'welded', open: [25, 25], gauge: null, rolls: [[1000, 10000]], sources: ['bdSoude25'] },
+        { id: 'fr-triple25', kind: 'poultry', open: [25, 25], gauge: null, rolls: [[1000, 10000]], sources: ['bdTriple25'] },
+      ].concat(US_MESH),
+      meshDefault: 'fr-soude13', rollDefault: [1000, 5000], panel: { w: 855, l: 2000, lap: 75 }, panelSource: 'bdOndulee',
+      swap: { '2x2': 'fr-45x45', '2x3': 'fr-38x63', '2x4': 'fr-63x75', 'fr-45x45': '2x2', 'fr-38x63': '2x3', 'fr-50x75': '2x4', 'fr-63x75': '2x4', '45x45': 'fr-45x45', '38x63': 'fr-38x63', '38x89': 'fr-50x75', '45x90': 'fr-63x75' },
+      roost: { std: 'fr-44x44', cold: 'fr-44x70' },
+      extra: { 'coop-area': ['chambresFiche', 'dir199974'], 'run-area': ['chambresFiche'], nests: ['chambresFiche', 'dir199974'], 'roost-length': ['chambresFiche', 'dir199974'], 'roost-height': ['chambresFiche'], rules: ['agriBasseCour', 'spCerfa'] } },
+    // Spain: Bricoking's fir battens (45 x 45, 70 x 45, 90 x 45 mm in 2,4 m) and Obramat's autoclave beams in 3 m;
+    // OSB 3 WBP and WBP pine plywood; FENSANET welded mesh and GALVANEX hexagonal mesh; a 200 x 105 cm corrugated sheet
+    es: { units: 'metric',
+      // lengths per section as listed: Bricoking's fir battens in 2,4 m, Obramat's beams in 3 m
+      lumber: [M2('es-45x45', 45, 45, 'bkListones', { lengths: [2400] }), M2('es-45x70', 45, 70, 'bkListones', { lengths: [2400] }), M2('es-45x90', 45, 90, 'bkListones', { also: ['obVigas'], lengths: [2400, 3000] }), M2('es-33x70', 33, 70, 'obVigas', { lengths: [3000] })],
+      stock: stock([2400, 3000]), stockDefault: 2400,
+      sheet: { wall: { id: 'es-osb10', w: 1250, l: 2500, t: 10, source: 'bkTableros' }, floor: { id: 'es-ply18', w: 1220, l: 2440, t: 18, source: 'bkTableros' } },
+      mesh: [
+        { id: 'es-12', kind: 'hardware', open: [12.7, 12.7], gauge: null, mm: 0.8, rolls: [[1000, 5000]], sources: ['bkMalla12'] },
+        { id: 'es-06', kind: 'hardware', open: [6.4, 6.4], gauge: null, mm: 0.6, rolls: [[1000, 5000]], sources: ['bkMalla06'] },
+        { id: 'es-19', kind: 'welded', open: [19, 19], gauge: null, mm: 1.4, rolls: [[1000, 5000]], sources: ['bkMalla19'] },
+        { id: 'es-25', kind: 'welded', open: [25.4, 25.4], gauge: null, mm: 1.4, rolls: [[1000, 5000]], sources: ['bkMalla25'] },
+        { id: 'es-hex19', kind: 'poultry', open: [19, 19], gauge: null, mm: 0.7, rolls: [[1000, 10000]], sources: ['bkHex19'] },
+      ].concat(US_MESH),
+      meshDefault: 'es-12', rollDefault: [1000, 5000], panel: { w: 1050, l: 2000, lap: 75 }, panelSource: 'bkIbiza',
+      swap: { '2x2': 'es-45x45', '2x3': 'es-45x70', '2x4': 'es-45x90', 'es-45x45': '2x2', 'es-45x70': '2x3', 'es-45x90': '2x4', 'es-33x70': '2x3', '45x45': 'es-45x45', '38x63': 'es-45x70', '38x89': 'es-45x90', '45x90': 'es-45x90' },
+      roost: { std: 'es-45x45', cold: 'es-45x90' },
+      extra: { 'coop-area': ['rd3_2002'], nests: ['rd3_2002'], 'roost-length': ['rd3_2002'], 'roost-height': ['rd3_2002'], rules: ['rd637_2021'] } },
+  };
+
+  return { CHECKED, LOCAL_CHECKED, IN, FT, SQFT, SOURCES, LOCAL_SOURCES, LUMBER, STOCK, SWAP, SHEET, MESH, ROLL_DEFAULT, RULES, MARKETS };
 });

@@ -17,9 +17,8 @@
   const ROLES = { regular: ['GeologicaPDF-Regular', 'Helvetica', 'COPDFA'], bold: ['GeologicaPDF-SemiBold', 'Helvetica-Bold', 'COPDFB'], display: ['ParkinsansPDF-ExtraBold', 'Helvetica-Bold', 'COPDFC'] };
   const WIN = '€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ';
   const MAP = { '≤': '<=', '≥': '>=', '−': '-', ' ': ' ', ' ': ' ', ' ': ' ', '²': '2' };
-  const safe = s => String(s == null ? '' : s).replace(/[\s\S]/g, c => { const n = c.charCodeAt(0); if (c === '\n' || (n >= 32 && n < 127) || (n >= 0xa0 && n <= 0xff) || WIN.includes(c)) return c; return MAP[c] != null ? MAP[c] : ''; });
+  const safe = s => String(s == null ? '' : s).replace(/[\s\S]/g, c => { const n = c.charCodeAt(0); if (n === 0xa0 || n === 0x2009 || n === 0x202f) return ' '; if (c === '\n' || (n >= 32 && n < 127) || (n >= 0xa0 && n <= 0xff) || WIN.includes(c)) return c; return MAP[c] != null ? MAP[c] : ''; });
   const localDay = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
-  const longDate = iso => { const [y, m, d] = iso.split('-').map(Number); return `${d} ${['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][m - 1]} ${y}`; };
 
   // ---------- fonts ----------
   const cache = {};
@@ -108,11 +107,15 @@
   // ---------- the document ----------
   async function pdf(PDFLib, ctx) {
     const { res, E, D } = ctx;
+    const T = (k, p) => E.t(k, p), I = E.I;
+    const longDate = iso => I.date(iso);
+    const money = x => I.dec(x.toFixed(2));
+    const short = s => (s.id && I.has(`src.${s.id}`) ? T(`src.${s.id}`) : s.short);
     const m = res.m, d = res.design, u = m.units, both = !!ctx.both;
     const { PDFDocument, rgb, degrees } = PDFLib;
     const doc = await PDFDocument.create();
     const name = m.name || E.TYPE_NAME[m.type];
-    doc.setTitle(safe(`Coop build plan, ${name}`)); doc.setAuthor('Coop Designer, Peak Apps Studio'); doc.setSubject('Step-by-step build plan for a backyard chicken coop'); doc.setCreator('peakappsstudio.com/coop-designer/');
+    doc.setTitle(safe(T('pdf.docTitle', { name }))); doc.setAuthor(T('pdf.author')); doc.setSubject(T('pdf.subject')); doc.setCreator(T('pdf.creator'));
     const F = await fonts(doc, PDFLib);
     const C = { choc: rgb(0.180, 0.102, 0.071), choc2: rgb(0.373, 0.290, 0.243), choc3: rgb(0.541, 0.467, 0.420), egg: rgb(0.863, 0.937, 0.918), egg2: rgb(0.788, 0.902, 0.875), pine: rgb(0.851, 0.639, 0.373), pineLight: rgb(0.925, 0.808, 0.627), olive: rgb(0.337, 0.439, 0.102), leaf: rgb(0.608, 0.773, 0.239), yolk: rgb(1, 0.690, 0), fox: rgb(0.776, 0.239, 0.184), white: rgb(1, 1, 1), line: rgb(0.80, 0.84, 0.82), soil: rgb(0.62, 0.48, 0.34), wire: rgb(0.42, 0.45, 0.48) };
     const [PW, PH] = u === 'metric' ? [595.28, 841.89] : [612, 792];
@@ -126,8 +129,8 @@
       page = doc.addPage([PW, PH]); pageNo++;
       if (section && !api.index[section]) api.index[section] = pageNo;
       page.drawRectangle({ x: 0, y: PH - 8, width: PW, height: 8, color: C.yolk });
-      page.drawText(safe(`Coop build plan, ${name}`), { x: M, y: 22, size: 8.5, font: F.regular, color: C.choc2 });
-      const right = `Page ${pageNo}. Guidance for a hobby build, not an engineering guarantee.`;
+      page.drawText(safe(T('pdf.docTitle', { name })), { x: M, y: 22, size: 8.5, font: F.regular, color: C.choc2 });
+      const right = T('pdf.foot', { n: pageNo });
       page.drawText(safe(right), { x: PW - M - w(right, F.regular, 8.5), y: 22, size: 8.5, font: F.regular, color: C.choc2 });
       y = PH - M - 6;
       if (title) heading(title);
@@ -162,7 +165,7 @@
         if (annots) annots.push(ref); else page.node.set(PDFName.of('Annots'), doc.context.obj([ref]));
       } catch (e) { /* the address is printed anyway */ }
     }
-    const cutNote = c => (c.angled && !/cut|angle/i.test(c.where) ? ' (angled ends)' : '');
+    const cutNote = c => (c.angled && !new RegExp(T('pdf.cutWords'), 'i').test(c.where) ? T('pdf.angled') : '');
     function para(text, o = {}) {
       const f = o.font || F.regular, s = o.size || 10.5, lh = s * 1.42, x = o.x || M, width = o.width || CW;
       for (const ln of lines(text, f, s, width)) { ensure(lh); page.drawText(ln, { x, y: y - s, size: s, font: f, color: o.color || C.choc }); y -= lh; }
@@ -202,51 +205,46 @@
     // ---- 1. cover ----
     newPage('cover');
     page.drawRectangle({ x: 0, y: PH - 220, width: PW, height: 212, color: C.egg });
-    page.drawText(safe('Build plan'), { x: M, y: PH - 80, size: 40, font: F.display, color: C.choc });
-    page.drawText(safe(m.name || `Your ${E.TYPE_SHORT[m.type]}`), { x: M, y: PH - 116, size: 20, font: F.bold, color: C.choc });
+    page.drawText(safe(T('pdf.cover')), { x: M, y: PH - 80, size: 40, font: F.display, color: C.choc });
+    page.drawText(safe(m.name || T('v.your', { type: E.TYPE_SHORT[m.type] })), { x: M, y: PH - 116, size: 20, font: F.bold, color: C.choc });
     const fp = res.footprint;
-    const birds = `${m.birds} ${m.size === 'bantam' ? 'bantams' : 'standard hens'}`;
+    const birds = T('pdf.birds', { n: m.birds, bantam: m.size === 'bantam' });
     y = PH - 140;
-    para(`${E.TYPE_NAME[m.type]} for ${birds}: ${L(fp.x, 'dim')} by ${L(fp.z, 'dim')} on the ground. Coop floor ${E.area(res.areas.coopA, u)}, run ${E.area(res.areas.runA, u)}${res.areas.under > 0 && m.type !== 'walkin' ? ` (${E.area(res.areas.under, u)} of it under the hen house)` : ''}.`, { size: 11.5 });
-    para(`Frame ${d.lumber.label} (actual ${d.lumber.actual}), ${res.cut.boards.length} boards of ${E.stockLabel(m.stock, u)}; ${res.mesh.mesh.label}, ${res.mesh.count} ${res.mesh.count === 1 ? 'roll' : 'rolls'}; ${d.nests ? d.nests.n : 0} nest ${d.nests && d.nests.n === 1 ? 'box' : 'boxes'}; ${d.roosts ? d.roosts.bars : 0} roost ${d.roosts && d.roosts.bars === 1 ? 'bar' : 'bars'}. Made on ${made}.`, { size: 10.5, color: C.choc2 });
+    para(T('pdf.coverLine', { type: E.TYPE_NAME[m.type], birds, x: L(fp.x, 'dim'), z: L(fp.z, 'dim'), coop: E.area(res.areas.coopA, u), run: E.area(res.areas.runA, u), under: res.areas.under > 0 && m.type !== 'walkin' ? E.area(res.areas.under, u) : '' }), { size: 11.5 });
+    para(T('pdf.coverMat', { lumber: d.lumber.label, actual: d.lumber.actual, boards: res.cut.boards.length, stock: E.stockLabel(m.stock, u), frameBoards: res.cut.sections.length ? res.cut.sections[0].boards.length : res.cut.boards.length, frameStock: [...new Set((res.cut.sections.length ? res.cut.sections[0].boards : []).map(b => b.stock))].sort((a, b) => a - b).map(x => E.stockLabel(x, u)).join(T('v.and')) || E.stockLabel(m.stock, u), mesh: res.mesh.mesh.label, rolls: res.mesh.count, nests: d.nests ? d.nests.n : 0, bars: d.roosts ? d.roosts.bars : 0, made }), { size: 10.5, color: C.choc2 });
     y = PH - 236;
-    const gx = M, gw = CW, warn = [
-      'This plan is guidance for a hobby build, not an engineering guarantee. Check every size against your own yard before you cut.',
-      'The tool does not size the frame for snow or wind. If you get heavy snow or strong wind, ask a local builder, anchor the coop and keep snow off the roof.',
-      'Check your local rules before you build: many towns limit the number of hens, ban roosters or set how far a coop stands from a boundary. Check any HOA or lease too. This plan gives no legal advice.',
-      'Use hardware cloth, not chicken wire, where predators can reach, and keep treated lumber where the hens cannot peck it.',
-    ];
+    const gx = M, gw = CW, warn = [1, 2, 3, 4].map(i => T(`pdf.warn${i}`));
     const wl = warn.map(t => lines(t, F.regular, 10, gw - 28));
     const gh = wl.reduce((a, l) => a + l.length * 14 + 4, 0) + 30;
     page.drawRectangle({ x: gx, y: y - gh, width: gw, height: gh, color: C.white, borderColor: C.yolk, borderWidth: 1.4 });
     page.drawRectangle({ x: gx, y: y - gh, width: 6, height: gh, color: C.yolk });
-    page.drawText(safe('Read this first'), { x: gx + 16, y: y - 20, size: 12.5, font: F.bold, color: C.choc });
+    page.drawText(safe(T('pdf.readFirst')), { x: gx + 16, y: y - 20, size: 12.5, font: F.bold, color: C.choc });
     let yy = y - 38;
     for (const l of wl) { for (const ln of l) { page.drawText(ln, { x: gx + 16, y: yy, size: 10, font: F.regular, color: C.choc }); yy -= 14; } yy -= 4; }
     y -= gh + 14;
     const iso = ctx.shots && ctx.shots.views && ctx.shots.views.find(v => v.label === 'iso');
     if (iso) await image(iso.url, CW, y - M - 120);
-    sub2('In this plan');
-    para(['Shopping list', 'Cut list, board by board', 'Hardware cloth and the apron', 'Elevations and plan, dimensioned', 'Build steps', 'Details: the apron, the nest boxes and the roosts', 'The checks, with sources'].join('. ') + '.', { size: 10.5 });
+    sub2(T('pdf.inPlan'));
+    para(T('pdf.toc'), { size: 10.5 });
 
     // ---- 2. shopping list ----
-    newPage('shop', 'Shopping list');
-    para('Quantities for this design. Prices come only from what you typed on the page; the tool ships none.', { color: C.choc2 });
+    newPage('shop', T('pdf.shop'));
+    para(T('pdf.shopNote'), { color: C.choc2 });
     const shopRows = []; let lastG = '';
-    for (const it of res.shop.items) { if (it.group !== lastG) { shopRows.push({ group: it.group }); lastG = it.group; } shopRows.push({ cells: [it.label + (it.note ? `. ${it.note}` : ''), `${it.qty} ${E.unit(it.qty, it.unit)}`, it.price != null ? it.price.toFixed(2) : '', it.cost != null ? it.cost.toFixed(2) : ''] }); }
-    if (res.shop.priced) shopRows.push({ cells: ['Total of the prices you entered', '', '', res.shop.total.toFixed(2)] });
-    table([{ h: 'Item', w: 6 }, { h: 'Quantity', w: 1.6, align: 'right' }, { h: 'Unit price', w: 1.3, align: 'right' }, { h: 'Cost', w: 1.2, align: 'right' }], shopRows);
+    for (const it of res.shop.items) { if (it.group !== lastG) { shopRows.push({ group: it.group }); lastG = it.group; } shopRows.push({ cells: [it.label + (it.note ? `. ${it.note}` : ''), `${it.qty} ${E.unit(it.qty, it.unit)}`, it.price != null ? money(it.price) : '', it.cost != null ? money(it.cost) : ''] }); }
+    if (res.shop.priced) shopRows.push({ cells: [T('v.total'), '', '', money(res.shop.total)] });
+    table([{ h: T('pdf.h.item'), w: 6 }, { h: T('v.h.qty'), w: 1.6, align: 'right' }, { h: T('pdf.h.unitPrice'), w: 1.3, align: 'right' }, { h: T('v.h.cost'), w: 1.2, align: 'right' }], shopRows);
 
     // ---- 3. cut list ----
-    newPage('cut', 'Cut list');
+    newPage('cut', T('pdf.cut'));
     const cut = res.cut;
-    para(`${cut.boards.length} boards: ${cut.sections.map(s => `${s.boards.length} of ${s.lumber.label}${s.lumber.actual ? ` (actual ${s.lumber.actual})` : ''}`).join(', ')}. Packed first-fit decreasing with a ${L(cut.kerf)} saw kerf, keeping ${L(cut.trim)} on each board to square its end: ${Math.round(cut.waste * 100)}% of the wood bought is left over, hatched at the end of each board. Cut the longest pieces first; mark each piece with its board and number.`, { color: C.choc2 });
+    para(T('pdf.cutIntro', { n: cut.boards.length, secs: cut.sections.map(s => T('pdf.cutSec', { n: s.boards.length, lumber: s.lumber.label, actual: s.lumber.actual || '' })).join(', '), kerf: L(cut.kerf), trim: L(cut.trim), waste: Math.round(cut.waste * 100) }), { color: C.choc2 });
     const maxStock = Math.max(...cut.boards.map(b => b.stock));
     const sc = CW / maxStock;
     for (const b of cut.boards) {
       ensure(54);
       const sec = cut.sections.find(s => s.sec === b.sec);
-      const label = `Board ${b.n}: ${sec ? sec.lumber.label : b.sec} x ${E.stockLabel(b.stock, u)}, ${b.cuts.length} ${b.cuts.length === 1 ? 'piece' : 'pieces'}, ${L(b.leftover)} left over`;
+      const label = T('pdf.board', { n: b.n, lumber: sec ? sec.lumber.label : b.sec, stock: E.stockLabel(b.stock, u), pieces: b.cuts.length, left: L(b.leftover) });
       page.drawText(safe(label), { x: M, y: y - 10, size: 9.5, font: F.bold, color: C.choc });
       y -= 16;
       const bh = 20; let x = M;
@@ -260,22 +258,22 @@
       const lw = b.stock * sc - (x - M);
       if (lw > 0.5) { page.drawRectangle({ x, y: y - bh, width: lw, height: bh, color: C.egg, borderColor: C.choc3, borderWidth: 0.6 }); for (let hx = x + 4; hx < x + lw; hx += 6) page.drawLine({ start: { x: hx, y: y - bh }, end: { x: Math.min(hx + 6, x + lw), y: y - 2 }, thickness: 0.5, color: C.choc3 }); }
       y -= bh + 4;
-      para(b.cuts.map((c, i) => `${i + 1}. ${L(c.len)} ${c.where.toLowerCase()}${cutNote(c)}`).join('; '), { size: 8.5, color: C.choc2, after: 8 });
+      para(b.cuts.map((c, i) => `${i + 1}. ${L(c.len)} ${c.where.toLowerCase()}${cutNote(c)}`).join(T('pdf.semi')), { size: 8.5, color: C.choc2, after: 8 });
     }
-    sub2('Sheet pieces');
+    sub2(T('pdf.sheetPieces'));
     const sheetRows = [];
     for (const kind of ['floor', 'wall']) {
       const sl = res.sheets[kind];
       if (!sl.count) continue;
-      sheetRows.push({ group: `${sl.sheet.label}: ${sl.count} ${sl.count === 1 ? 'sheet' : 'sheets'}` });
+      sheetRows.push({ group: T('pdf.sheetGroup', { label: sl.sheet.label, n: sl.count }) });
       for (const p of sl.pieces) sheetRows.push({ cells: [p.where, `${L(Math.min(p.w, p.l))} x ${L(Math.max(p.w, p.l))}`] });
     }
-    table([{ h: 'Piece', w: 6 }, { h: 'Size', w: 3, align: 'right' }], sheetRows, { size: 8.5 });
+    table([{ h: T('pdf.h.piece'), w: 6 }, { h: T('pdf.h.size'), w: 3, align: 'right' }], sheetRows, { size: 8.5 });
 
     // ---- 4. hardware cloth ----
-    newPage('mesh', 'Hardware cloth and the apron');
+    newPage('mesh', T('pdf.mesh'));
     const ml = res.mesh;
-    para(`${ml.mesh.label}. Roll ${L(m.roll.w)} wide by ${L(m.roll.l, 'dim')}: ${ml.count} ${ml.count === 1 ? 'roll' : 'rolls'} for ${L(ml.total, 'dim')} of strips, the apron included. Overlap each strip on the last by ${L(ml.overlap)}, over a frame member where you can; tie overlaps between members with hog rings or stainless zip ties. Staple to the outside of the frame, add washer-head screws round the edges, and cut flush to a wire.`, { color: C.choc2 });
+    para(T('pdf.meshIntro', { mesh: ml.mesh.label, w: L(m.roll.w), l: L(m.roll.l, 'dim'), n: ml.count, total: L(ml.total, 'dim'), overlap: L(ml.overlap) }), { color: C.choc2 });
     const faceRows = [];
     for (const f of ml.faces) for (const [ri, r] of f.rects.entries()) faceRows.push({ f, r, ri });
     const colW = (CW - 20) / 2; let col = 0, rowTop = y, rowH = 0;
@@ -286,14 +284,14 @@
       const need = fh + 44;
       if (col === 0) { if (y - need < M + 24) newPage(); rowTop = y; rowH = 0; }
       const x0 = M + col * (colW + 20), y0 = rowTop - 14;
-      page.drawText(safe(`${f.label}${f.rects.length > 1 ? `, part ${ri + 1}` : ''}: ${r.strips.length} ${r.orient} ${r.strips.length === 1 ? 'strip' : 'strips'}`), { x: x0, y: y0, size: 9.5, font: F.bold, color: C.choc });
+      page.drawText(safe(T('pdf.face', { label: f.label, part: f.rects.length > 1 ? ri + 1 : 0, n: r.strips.length, vertical: r.orient === 'vertical' })), { x: x0, y: y0, size: 9.5, font: F.bold, color: C.choc });
       const base = y0 - 8 - fh;
       r.strips.forEach((s, i) => {
         if (r.orient === 'vertical') page.drawRectangle({ x: x0 + s.at * s2, y: base, width: s.cover * s2, height: s.len * s2, color: i % 2 ? C.egg2 : C.egg, borderColor: C.choc, borderWidth: 0.6, opacity: 0.9 });
         else page.drawRectangle({ x: x0, y: base + s.at * s2, width: s.len * s2, height: s.cover * s2, color: i % 2 ? C.egg2 : C.egg, borderColor: C.choc, borderWidth: 0.6, opacity: 0.9 });
       });
       page.drawSvgPath(`M 0 0 L ${fw} 0 L ${fw} ${-rect.h1 * s2} L 0 ${-rect.h0 * s2} Z`, { x: x0, y: base, borderColor: C.pine, borderWidth: 1.6 });
-      const capL = lines(`Strips: ${r.strips.map(s => L(s.len)).join(', ')}`, F.regular, 8.5, colW);
+      const capL = lines(T('pdf.strips', { list: r.strips.map(s => L(s.len)).join(', ') }), F.regular, 8.5, colW);
       capL.forEach((ln, k) => page.drawText(ln, { x: x0, y: base - 12 - k * 11, size: 8.5, font: F.regular, color: C.choc2 }));
       rowH = Math.max(rowH, need + capL.length * 11);
       col++;
@@ -301,16 +299,16 @@
     }
     if (col === 1) y = rowTop - rowH - 6;
     if (d.apron) {
-      sub2('The apron');
-      para(`${d.apron.label}: ${d.apron.kind === 'skirt' ? `the whole ${L(d.apron.width)} of the roll laid flat on the ground outside the run, pinned every 12 in (300 mm)` : d.apron.kind === 'lshape' ? `${L(d.apron.depth)} down in a trench along the run, then the rest of the roll width, ${L(d.apron.out)}, turned out flat under the soil` : `${L(d.apron.depth)} down in a trench with the foot turned out ${L(d.apron.out)}`}, round ${L(d.apron.per, 'dim')} of the run. Tie its top edge to the wall mesh with hog rings every 6 in (150 mm). ${d.apron.perWidth > 1 ? `The apron is narrower than half the roll, so each length is cut lengthwise into ${d.apron.perWidth} strips.` : ''}`, { size: 10 });
-      table([{ h: 'Apron length cut from the roll', w: 2 }, { h: 'Sides it covers', w: 5 }], ml.apronCuts.map(c => ({ cells: [L(c.len, 'dim'), c.where.replace(/^Apron, /, '')] })));
+      sub2(T('pdf.apron'));
+      para(T('pdf.apronText', { label: d.apron.label, kind: d.apron.kind, width: L(d.apron.width), depth: L(d.apron.depth), out: L(d.apron.out), per: L(d.apron.per, 'dim'), strips: d.apron.perWidth }), { size: 10 });
+      table([{ h: T('pdf.h.apronLen'), w: 2 }, { h: T('pdf.h.apronSides'), w: 5 }], ml.apronCuts.map(c => ({ cells: [L(c.len, 'dim'), c.sides] })));
     }
-    sub2('Cutting the rolls');
-    table([{ h: 'Roll', w: 1 }, { h: 'Strips cut from it, in order', w: 6 }, { h: 'Left', w: 1.4, align: 'right' }], ml.rolls.map((b, i) => ({ cells: [String(i + 1), b.cuts.map(c => `${L(c.len)} (${c.where.toLowerCase()})`).join('; '), L(b.leftover, 'dim')] })));
+    sub2(T('pdf.rolls'));
+    table([{ h: T('pdf.h.roll'), w: 1 }, { h: T('pdf.h.rollStrips'), w: 6 }, { h: T('pdf.h.left'), w: 1.4, align: 'right' }], ml.rolls.map((b, i) => ({ cells: [String(i + 1), b.cuts.map(c => `${L(c.len)} (${c.where.toLowerCase()})`).join(T('pdf.semi')), L(b.leftover, 'dim')] })));
 
     // ---- 5. elevations ----
-    newPage('elev', 'Elevations and plan');
-    const views = [['front', 'Front elevation'], ['side', 'Side elevation, from the far end'], ['plan', 'Plan, from above']];
+    newPage('elev', T('pdf.elev'));
+    const views = [['front', T('pdf.view.front')], ['side', T('pdf.view.side')], ['plan', T('pdf.view.plan')]];
     const mems = d.members;
     const MMPT = 72 / 25.4;
     for (const [v, title] of views) {
@@ -326,7 +324,7 @@
       const k = MMPT / N;
       const dh = (v1 - v0) * k;
       ensure(dh + 60);
-      page.drawText(safe(`${title}. Scale 1:${N} on ${u === 'metric' ? 'A4' : 'Letter'}`), { x: M, y: y - 12, size: 11, font: F.bold, color: C.choc });
+      page.drawText(safe(T('pdf.scale', { title, n: N, a4: u === 'metric' })), { x: M, y: y - 12, size: 11, font: F.bold, color: C.choc });
       const ox = M + 30 + (boxW - (u1 - u0) * k) / 2 - u0 * k, oy = y - 30 - dh - v0 * k;
       polys.sort((a, b) => a.depth - b.depth);
       for (const p of polys) {
@@ -353,55 +351,55 @@
     }
 
     // ---- 6. the steps ----
-    newPage('steps', 'Build steps');
-    para('Build in this order. Each picture shows the pieces of that step lifted out in yolk yellow, where they go, over the work already done. The pieces for each step are listed under it.', { color: C.choc2 });
+    newPage('steps', T('pdf.steps'));
+    para(T('pdf.stepsIntro'), { color: C.choc2 });
     const pics = (ctx.shots && ctx.shots.steps) || [];
     for (const st of res.steps) {
       const parts = res.cut.cuts.filter(c => c.step === st.n);
       const sheetsOf = d.sheets.filter(s => s.step === st.n);
       const pic = pics.find(p => p.n === st.n);
       ensure(pic ? 280 : 90);
-      sub2(`Step ${res.steps.indexOf(st) + 1}. ${st.title}`);
+      sub2(T('pdf.step', { n: res.steps.indexOf(st) + 1, title: st.title }));
       para(st.text, { size: 10.5 });
       if (pic) await image(pic.url, CW * 0.86, 230);
       if (parts.length) {
         // one entry for each kind of piece, its lengths listed: "hen house, left wall, stud, top cut to the slope: 44 1/2, 41 1/2 in"
         const groups = new Map();
         for (const c of parts) { const g = groups.get(c.where) || { c, lens: new Map() }; const k = L(c.len); g.lens.set(k, (g.lens.get(k) || 0) + 1); groups.set(c.where, g); }
-        para(`Pieces: ${[...groups.values()].map(g => `${g.c.where.toLowerCase()}${cutNote(g.c)}: ${[...g.lens].map(([k, n]) => (n > 1 ? `${n} at ${k}` : k)).join(', ')}`).join('; ')}.`, { size: 9, color: C.choc2 });
+        para(T('pdf.pieces', { list: [...groups.values()].map(g => T('pdf.group', { where: g.c.where.toLowerCase() + cutNote(g.c), lens: [...g.lens].map(([k, n]) => (n > 1 ? T('pdf.nAt', { n, len: k }) : k)).join(', ') })).join(T('pdf.semi')) }), { size: 9, color: C.choc2 });
       }
-      if (sheetsOf.length) para(`Plywood: ${sheetsOf.map(s => `${s.where.toLowerCase()} ${L(Math.min(s.w, s.l))} x ${L(Math.max(s.w, s.l))}`).join('; ')}.`, { size: 9, color: C.choc2 });
-      if (st.n === 9) para(`Hardware cloth: ${res.mesh.count} ${res.mesh.count === 1 ? 'roll' : 'rolls'}, cut as the layout shows. Staples about every ${u === 'metric' ? '75 mm' : '3 in'}, washer-head screws about every ${u === 'metric' ? '300 mm' : '12 in'} round each piece.`, { size: 9, color: C.choc2 });
+      if (sheetsOf.length) para(T('pdf.plywood', { list: sheetsOf.map(s => `${s.where.toLowerCase()} ${L(Math.min(s.w, s.l))} x ${L(Math.max(s.w, s.l))}`).join(T('pdf.semi')) }), { size: 9, color: C.choc2 });
+      if (st.n === 9) para(T('pdf.meshStep', { n: res.mesh.count, staple: u === 'metric' ? '75 mm' : T('u.in', { v: '3' }), screw: u === 'metric' ? '300 mm' : T('u.in', { v: '12' }) }), { size: 9, color: C.choc2 });
       y -= 4;
     }
 
     // ---- 7. details: the apron, the nest boxes, the roosts ----
-    newPage('details', 'Details');
+    newPage('details', T('pdf.details'));
     if (d.apron) {
       ensure(220);
-      sub2('The apron, in section');
+      sub2(T('pdf.apronSection'));
       const k2 = 2.6 / 25.4; // 2.6 points to the inch, about 1:28
       const sx = M + 30, gy = y - 86; // the ground line; the wall stands 70 points above it, under the heading
       const dpt = d.apron.depth * k2, outp = Math.min(d.apron.out * k2, CW - 120);
       page.drawRectangle({ x: sx - 10, y: gy - Math.max(dpt, 20) - 30, width: CW - 20, height: Math.max(dpt, 20) + 30, color: rgb(0.93, 0.89, 0.83) });
       page.drawLine({ start: { x: sx - 10, y: gy }, end: { x: sx + CW - 30, y: gy }, thickness: 1.2, color: C.soil });
-      page.drawText(safe('Ground'), { x: sx + CW - 70, y: gy + 4, size: 8.5, font: F.regular, color: C.choc2 });
+      page.drawText(safe(T('pdf.ground')), { x: sx + CW - 70, y: gy + 4, size: 8.5, font: F.regular, color: C.choc2 });
       page.drawRectangle({ x: sx, y: gy, width: d.t * k2, height: 70, color: C.pine, borderColor: C.choc, borderWidth: 0.6 });
-      page.drawText(safe(`Run wall, ${d.lumber.label}`), { x: sx + d.t * k2 + 6, y: gy + 60, size: 8.5, font: F.regular, color: C.choc });
+      page.drawText(safe(T('pdf.runWall', { lumber: d.lumber.label })), { x: sx + d.t * k2 + 6, y: gy + 60, size: 8.5, font: F.regular, color: C.choc });
       const wx = sx + d.t * k2 + 2;
       page.drawLine({ start: { x: wx, y: gy + 70 }, end: { x: wx, y: gy - (d.apron.kind === 'skirt' ? 0 : dpt) }, thickness: 1.6, color: C.wire });
       if (d.apron.kind === 'skirt') page.drawLine({ start: { x: wx, y: gy + 1 }, end: { x: wx + outp, y: gy + 1 }, thickness: 1.6, color: C.wire });
       else page.drawLine({ start: { x: wx, y: gy - dpt }, end: { x: wx + outp, y: gy - dpt }, thickness: 1.6, color: C.wire });
-      const lbl = d.apron.kind === 'skirt' ? `Skirt ${L(d.apron.width)} flat on the ground, pinned` : `${L(d.apron.depth)} down, then ${L(d.apron.out)} out`;
+      const lbl = d.apron.kind === 'skirt' ? T('pdf.skirtLbl', { w: L(d.apron.width) }) : T('pdf.apronLbl', { d: L(d.apron.depth), out: L(d.apron.out) });
       page.drawText(safe(lbl), { x: wx + 8, y: gy - (d.apron.kind === 'skirt' ? -6 : dpt) + 5, size: 9, font: F.bold, color: C.choc });
-      page.drawText(safe('Hardware cloth on the wall, tied to the apron with hog rings'), { x: wx + 8, y: gy + 30, size: 8.5, font: F.regular, color: C.choc2 });
+      page.drawText(safe(T('pdf.wallMesh')), { x: wx + 8, y: gy + 30, size: 8.5, font: F.regular, color: C.choc2 });
       y = gy - Math.max(dpt, 20) - 44;
-      para(d.apron.kind === 'lshape' ? 'Colorado State Extension: bury hardware cloth 1 ft down and one foot out in an L shape to prevent digging under the fence. Florida\'s AN239 gives 12 to 18 in in an L.' : d.apron.kind === 'buried' ? 'Penn State, Virginia Tech and extension.org: bury the wire at least 12 in deep and toe it outward about 6 in.' : 'No extension guide we read gives a width for a skirt laid on the surface; it is the no-dig option. Pin it well and let the grass grow through it.', { size: 9.5, color: C.choc2 });
-    } else para(m.type === 'tractor' ? 'A tractor moves to fresh grass, so it has no buried apron. Shut the hens in the house every night and check that nothing has dug under the skids.' : 'This design has no apron. Predators that dig can get under the run.', { size: 10 });
+      para(T(`pdf.apronWhy.${d.apron.kind}`), { size: 9.5, color: C.choc2 });
+    } else para(T(m.type === 'tractor' ? 'pdf.noApronTractor' : 'pdf.noApron'), { size: 10 });
     if (d.nests) {
       const nb = d.nests;
-      sub2(`Nest boxes: ${nb.n} ${nb.n === 1 ? 'box' : 'boxes'} in a row`);
-      para(`Each box ${L(nb.w)} wide, ${L(nb.d)} deep and ${L(nb.h)} tall, with a ${L(nb.lip)} lip at the front to hold the nesting material; the row is ${L(nb.rowL)} long, its floor ${L(nb.y)} off the ground. ${nb.outside ? 'It hangs on the outside of the end wall, opening from outside under a hinged lid, so you collect eggs without going in.' : 'It stands inside on a stand along the side wall, under a sloped top so the hens do not perch on it.'} Keep the roost higher than the boxes.`, { size: 10 });
+      sub2(T('pdf.nestTitle', { n: nb.n }));
+      para(T('pdf.nestText', { w: L(nb.w), d: L(nb.d), h: L(nb.h), lip: L(nb.lip), row: L(nb.rowL), y: L(nb.y), outside: nb.outside }), { size: 10 });
       ensure(90);
       const bx = M + 20, by = y - 70, s3 = Math.min((CW - 40) / nb.rowL, 60 / nb.h);
       for (let i = 0; i < nb.n; i++) page.drawRectangle({ x: bx + i * nb.w * s3, y: by, width: nb.w * s3, height: nb.h * s3, color: C.egg, borderColor: C.choc, borderWidth: 0.8 });
@@ -410,23 +408,24 @@
     }
     if (d.roosts) {
       const R2 = d.roosts;
-      sub2('Roosts');
-      para(`${R2.bars} ${R2.bars === 1 ? 'bar' : 'bars'} of ${R2.sec}${R2.flat ? ' laid flat, wide face up' : ' with the top edges rounded'}, ${L(R2.len)} long, ${L(R2.h)} above the floor${R2.bars > 1 ? `, ${L((D.RULES.roostGap + 2) * 25.4)} apart` : ''}: ${L(R2.total / m.birds)} for each bird. Each bar sits on a cleat at each end${R2.len > m.stock ? ', with a post where its pieces meet' : ''}.`, { size: 10 });
+      sub2(T('pdf.roosts'));
+      const rsec = res.cut.sections.find(s => s.sec === R2.sec);
+      para(T('pdf.roostText', { bars: R2.bars, secId: R2.sec, sec: rsec ? rsec.lumber.label : R2.sec, flat: R2.flat, len: L(R2.len), h: L(R2.h), gap: R2.bars > 1 ? L((D.RULES.roostGap + 2) * 25.4) : '', per: L(R2.total / m.birds), joint: R2.len > m.stock }), { size: 10 });
     }
-    if (d.pop) para(`Pop door ${L(d.pop.w)} wide by ${L(d.pop.h)} tall${d.ramp ? `, with a ramp ${L(d.ramp.len)} long at ${Math.round(d.ramp.angle)} degrees, cleats every 6 in (150 mm) for grip` : ''}. Shut it every night with a latch that needs two actions to open.`, { size: 10 });
+    if (d.pop) para(T('pdf.popText', { w: L(d.pop.w), h: L(d.pop.h), ramp: d.ramp ? L(d.ramp.len) : '', angle: d.ramp ? Math.round(d.ramp.angle) : 0 }), { size: 10 });
 
     // ---- 8. checks ----
-    newPage('checks', 'The checks, with sources');
-    para('Guidance from the university extension services named in each row, read on 12 October 2026. Where they disagree, the row gives the range and both sources.', { color: C.choc2 });
-    const word = { fits: 'Fits', check: 'Check', fail: 'Fail', info: 'Note' }, col2 = { fits: C.olive, check: rgb(0.54, 0.32, 0), fail: C.fox, info: C.choc2 };
+    newPage('checks', T('pdf.checks'));
+    para(T('pdf.checksIntro'), { color: C.choc2 });
+    const word = { fits: T('v.word.fits'), check: T('v.word.check'), fail: T('v.word.fail'), info: T('v.word.info') }, col2 = { fits: C.olive, check: rgb(0.54, 0.32, 0), fail: C.fox, info: C.choc2 };
     // each row names its sources by number; the numbered list under the table gives every title, address and date once
     const used = [];
     const num = s => { let i = used.findIndex(x => x.url === s.url); if (i < 0) { used.push(s); i = used.length - 1; } return i + 1; };
-    table([{ h: 'Result', w: 1 }, { h: 'Check', w: 2 }, { h: 'Yours', w: 2.4 }, { h: 'Guide', w: 2.2 }, { h: 'Why, and the source', w: 5 }], res.checks.map(r => ({ color: col2[r.status], cells: [word[r.status], r.title, r.yours, r.limit, `${r.reason}${r.sources.length ? ` Sources: ${r.sources.map(s => `${s.short} [${num(s)}]`).join('; ')}.` : ''}`] })), { size: 8.5, boldFirst: true });
+    table([{ h: T('pdf.h.result'), w: 1 }, { h: T('pdf.h.check'), w: 2 }, { h: T('v.h.yours'), w: 2.4 }, { h: T('v.h.guide'), w: 2.2 }, { h: T('pdf.h.why'), w: 5 }], res.checks.map(r => ({ color: col2[r.status], cells: [word[r.status], r.title, r.yours, r.limit, `${r.reason}${r.sources.length ? T('pdf.rowSources', { list: r.sources.map(s => `${short(s)} [${num(s)}]`).join(T('pdf.semi')) }) : ''}`] })), { size: 8.5, boldFirst: true });
     if (used.length) {
-      sub2('Sources');
+      sub2(T('pdf.sourcesTitle'));
       for (const [i, s] of used.entries()) {
-        para(`[${i + 1}] ${s.title}. Read ${longDate(s.checked)}.`, { size: 8.5, after: 0 });
+        para(T('pdf.srcLine', { i: i + 1, title: s.title, date: longDate(s.checked) }), { size: 8.5, after: 0 });
         for (const ln of lines(s.url, F.regular, 8.5, CW - 14)) {
           ensure(12);
           page.drawText(ln, { x: M + 14, y: y - 8.5, size: 8.5, font: F.regular, color: C.olive });
@@ -437,7 +436,7 @@
       }
     }
     const code = E.encode(m);
-    para(`Made with Coop Designer on ${made}: peakappsstudio.com/coop-designer/. Share code of this design: ${code.slice(0, 60)}${code.length > 60 ? '...' : ''}`, { size: 8.5, color: C.choc2 });
+    para(T('pdf.made', { made, code: `${code.slice(0, 60)}${code.length > 60 ? '...' : ''}` }), { size: 8.5, color: C.choc2 });
     return doc.save();
   }
   function pageOf(res, section) { return api.index[section] || 1; }

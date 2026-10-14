@@ -549,9 +549,9 @@ export function createScene(canvas, opts = {}) {
     applyMode(mode, false);
     // dimension labels (frame view)
     const fp = res.footprint;
-    addLabel([x1All / 2, 0.02, runD + 0.08], `${E.len(fp.x, m.units, 'dim')} long`, 'dim', 3);
-    addLabel([x1All + 0.08, 0.02, runD / 2], `${E.len(fp.z, m.units, 'dim')} deep`, 'dim', 3);
-    addLabel([C.x0 * K, hTop + 0.05, runD], `${E.len(hTop / K, m.units, 'dim')} to the top`, 'dim', 2);
+    addLabel([x1All / 2, 0.02, runD + 0.08], E.t('sc.long', { v: E.len(fp.x, m.units, 'dim') }), 'dim', 3);
+    addLabel([x1All + 0.08, 0.02, runD / 2], E.t('sc.deep', { v: E.len(fp.z, m.units, 'dim') }), 'dim', 3);
+    addLabel([C.x0 * K, hTop + 0.05, runD], E.t('sc.top', { v: E.len(hTop / K, m.units, 'dim') }), 'dim', 2);
     dirty = true;
   }
   function placeSun() {
