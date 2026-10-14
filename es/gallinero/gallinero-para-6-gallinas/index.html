@@ -298,6 +298,9 @@ body.co-page {
 .co-open { display: inline-flex; margin-top: 8px; }
 .co-guide-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(18px, 4vw, 48px); align-items: center; padding: clamp(10px, 2vw, 22px) 0 6px; }
 .co-guide-hero img { width: 100%; height: auto; display: block; border-radius: 16px; border: 1px solid var(--line-2); aspect-ratio: 16 / 10; object-fit: cover; }
+/* a long button label wraps on a phone rather than widening the page */
+.co-guide-hero .btn { white-space: normal; max-width: 100%; text-align: center; }
+@media (max-width: 480px) { .co-guide-hero .btn { line-height: 1.25; } }
 .co-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--paper); overflow: hidden; margin: 16px 0; }
 .co-facts div { padding: 12px 14px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .co-facts b { display: block; font-family: var(--display); font-size: 24px; font-weight: 800; line-height: 1.1; }
@@ -367,7 +370,7 @@ body.co-page {
 <main id="main" class="wrap">
   <div class="co-topline">
     <nav class="crumbs" aria-label="Ruta de navegación"><ol><li><a href="/tools/" hreflang="en">Herramientas</a></li><li><a href="/es/gallinero/">Gallinero en 3D</a></li><li aria-current="page">Para 6 gallinas</li></ol></nav>
-    <nav class="co-langs" aria-label="Idioma"><a href="/coop-designer/designs-for-6-chickens/" hreflang="en" lang="en">English</a><a href="/fr/poulailler/" hreflang="fr" lang="fr">Français</a><a href="/es/gallinero/gallinero-para-6-gallinas/" aria-current="true" hreflang="es" lang="es">Español</a></nav>
+    <nav class="co-langs" aria-label="Idioma"><a href="/coop-designer/designs-for-6-chickens/" hreflang="en" lang="en">English</a><a href="/fr/poulailler/" hreflang="fr" lang="fr">Français</a><a href="/es/gallinero/gallinero-para-6-gallinas/" aria-current="true" hreflang="es" lang="es">Español</a><a href="/it/pollaio/" hreflang="it" lang="it">Italiano</a><a href="/pt-br/galinheiro/" hreflang="pt-BR" lang="pt-BR">Português</a></nav>
   </div>
   <header class="co-guide-hero">
     <div>
@@ -531,6 +534,8 @@ body.co-page {
       <ul>
         <li><a href="/coop-designer/" hreflang="en" lang="en">Coop Designer (English)</a></li>
         <li><a href="/fr/poulailler/" hreflang="fr" lang="fr">Poulailler en 3D (français)</a></li>
+        <li><a href="/it/pollaio/" hreflang="it" lang="it">Pollaio in 3D (italiano)</a></li>
+        <li><a href="/pt-br/galinheiro/" hreflang="pt-BR" lang="pt-BR">Galinheiro em 3D (português)</a></li>
       </ul>
     </div>
     <div>
@@ -539,6 +544,7 @@ body.co-page {
         <li><a href="/without-planning/" hreflang="en" lang="en">Without Planning</a></li>
         <li><a href="/dropped-kerb/" hreflang="en" lang="en">Dropped Kerb Check</a></li>
         <li><a href="/catio-designer/" hreflang="en" lang="en">Catio Designer</a></li>
+        <li><a href="/sim-rig-designer/" hreflang="en" lang="en">Sim Rig Designer</a></li>
       </ul>
     </div>
     <div>

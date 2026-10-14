@@ -297,6 +297,9 @@ body.co-page {
 .co-open { display: inline-flex; margin-top: 8px; }
 .co-guide-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(18px, 4vw, 48px); align-items: center; padding: clamp(10px, 2vw, 22px) 0 6px; }
 .co-guide-hero img { width: 100%; height: auto; display: block; border-radius: 16px; border: 1px solid var(--line-2); aspect-ratio: 16 / 10; object-fit: cover; }
+/* a long button label wraps on a phone rather than widening the page */
+.co-guide-hero .btn { white-space: normal; max-width: 100%; text-align: center; }
+@media (max-width: 480px) { .co-guide-hero .btn { line-height: 1.25; } }
 .co-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--paper); overflow: hidden; margin: 16px 0; }
 .co-facts div { padding: 12px 14px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .co-facts b { display: block; font-family: var(--display); font-size: 24px; font-weight: 800; line-height: 1.1; }
@@ -381,7 +384,7 @@ body.co-page {
 <main id="main" class="wrap">
   <div class="co-topline">
     <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/coop-designer/">Coop Designer</a></li><li aria-current="page">Designs for 6 chickens</li></ol></nav>
-    <nav class="co-langs" aria-label="Language"><a href="/coop-designer/designs-for-6-chickens/" aria-current="true" hreflang="en" lang="en">English</a><a href="/fr/poulailler/" hreflang="fr" lang="fr">Français</a><a href="/es/gallinero/gallinero-para-6-gallinas/" hreflang="es" lang="es">Español</a></nav>
+    <nav class="co-langs" aria-label="Language"><a href="/coop-designer/designs-for-6-chickens/" aria-current="true" hreflang="en" lang="en">English</a><a href="/fr/poulailler/" hreflang="fr" lang="fr">Français</a><a href="/es/gallinero/gallinero-para-6-gallinas/" hreflang="es" lang="es">Español</a><a href="/it/pollaio/" hreflang="it" lang="it">Italiano</a><a href="/pt-br/galinheiro/" hreflang="pt-BR" lang="pt-BR">Português</a></nav>
   </div>
   <header class="co-guide-hero">
     <div>

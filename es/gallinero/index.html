@@ -9,6 +9,8 @@
 <link rel="alternate" hreflang="en" href="https://peakappsstudio.com/coop-designer/">
 <link rel="alternate" hreflang="fr" href="https://peakappsstudio.com/fr/poulailler/">
 <link rel="alternate" hreflang="es" href="https://peakappsstudio.com/es/gallinero/">
+<link rel="alternate" hreflang="it" href="https://peakappsstudio.com/it/pollaio/">
+<link rel="alternate" hreflang="pt-BR" href="https://peakappsstudio.com/pt-br/galinheiro/">
 <link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/coop-designer/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Peak Apps Tools">
@@ -300,6 +302,9 @@ body.co-page {
 .co-open { display: inline-flex; margin-top: 8px; }
 .co-guide-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(18px, 4vw, 48px); align-items: center; padding: clamp(10px, 2vw, 22px) 0 6px; }
 .co-guide-hero img { width: 100%; height: auto; display: block; border-radius: 16px; border: 1px solid var(--line-2); aspect-ratio: 16 / 10; object-fit: cover; }
+/* a long button label wraps on a phone rather than widening the page */
+.co-guide-hero .btn { white-space: normal; max-width: 100%; text-align: center; }
+@media (max-width: 480px) { .co-guide-hero .btn { line-height: 1.25; } }
 .co-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--paper); overflow: hidden; margin: 16px 0; }
 .co-facts div { padding: 12px 14px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .co-facts b { display: block; font-family: var(--display); font-size: 24px; font-weight: 800; line-height: 1.1; }
@@ -387,7 +392,7 @@ body.co-page {
 <main id="main" class="wrap">
   <div class="co-topline">
     <nav class="crumbs" aria-label="Ruta de navegación"><ol><li><a href="/tools/" hreflang="en">Herramientas</a></li><li aria-current="page">Gallinero en 3D</li></ol></nav>
-    <nav class="co-langs" aria-label="Idioma"><a href="/coop-designer/" data-lang-switch="/coop-designer/" hreflang="en" lang="en">English</a><a href="/fr/poulailler/" data-lang-switch="/fr/poulailler/" hreflang="fr" lang="fr">Français</a><a href="/es/gallinero/" aria-current="true" hreflang="es" lang="es">Español</a></nav>
+    <nav class="co-langs" aria-label="Idioma"><a href="/coop-designer/" data-lang-switch="/coop-designer/" hreflang="en" lang="en">English</a><a href="/fr/poulailler/" data-lang-switch="/fr/poulailler/" hreflang="fr" lang="fr">Français</a><a href="/es/gallinero/" aria-current="true" hreflang="es" lang="es">Español</a><a href="/it/pollaio/" data-lang-switch="/it/pollaio/" hreflang="it" lang="it">Italiano</a><a href="/pt-br/galinheiro/" data-lang-switch="/pt-br/galinheiro/" hreflang="pt-BR" lang="pt-BR">Português</a></nav>
   </div>
 
   <header class="co-hero">
@@ -584,7 +589,7 @@ body.co-page {
         <p class="co-price">19 USD <small>pago único</small></p>
         <a class="btn btn-yolk" data-buy-pro href="https://dorukctn.gumroad.com/l/coop-designer-pro" target="_blank" rel="noopener">Comprar Pro en Gumroad</a>
         <button type="button" class="btn btn-ghost" data-enter-key>Introducir la clave de licencia</button>
-        <p>Gumroad se encarga del pago y de los reembolsos, en dólares estadounidenses. Tu clave activa Pro en este navegador, y la misma clave vale también en inglés y en francés.</p>
+        <p>Gumroad se encarga del pago y de los reembolsos, en dólares estadounidenses. Tu clave activa Pro en este navegador, y la misma clave vale también en los demás idiomas.</p>
         <p>El plano es una guía para un proyecto de bricolaje, no una garantía de ingeniería.</p>
       </div>
     </div>
@@ -691,6 +696,8 @@ body.co-page {
       <ul>
         <li><a href="/coop-designer/" hreflang="en" lang="en">Coop Designer (English)</a></li>
         <li><a href="/fr/poulailler/" hreflang="fr" lang="fr">Poulailler en 3D (français)</a></li>
+        <li><a href="/it/pollaio/" hreflang="it" lang="it">Pollaio in 3D (italiano)</a></li>
+        <li><a href="/pt-br/galinheiro/" hreflang="pt-BR" lang="pt-BR">Galinheiro em 3D (português)</a></li>
       </ul>
     </div>
     <div>
@@ -699,6 +706,7 @@ body.co-page {
         <li><a href="/without-planning/" hreflang="en" lang="en">Without Planning</a></li>
         <li><a href="/dropped-kerb/" hreflang="en" lang="en">Dropped Kerb Check</a></li>
         <li><a href="/catio-designer/" hreflang="en" lang="en">Catio Designer</a></li>
+        <li><a href="/sim-rig-designer/" hreflang="en" lang="en">Sim Rig Designer</a></li>
       </ul>
     </div>
     <div>

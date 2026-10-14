@@ -161,6 +161,10 @@
   const LOCAL_CHECKED = '2026-10-13';
   const L = (short, title, url) => ({ short, title, url, checked: LOCAL_CHECKED });
   const BD = 'https://www.bricodepot.fr', CA = 'https://www.castorama.fr', BK = 'https://www.bricoking.es';
+  // the second round of editions (Italian, Brazilian, Dutch, German), read on LOCAL_CHECKED_2
+  const LOCAL_CHECKED_2 = '2026-10-14';
+  const L2 = (short, title, url) => ({ short, title, url, checked: LOCAL_CHECKED_2 });
+  const OB = 'https://www.obi-italia.it', MM = 'https://www.madeiramadeira.com.br';
   const LOCAL_SOURCES = {
     // France: lumber, panels, mesh and roof sheets
     bdChevrons: L('Brico Dépôt, chevrons', 'Brico Dépôt : rayon Chevrons. Chevrons en épicéa traité classe 2 de 63 x 75 mm en 2,4, 3, 4 et 5 m ; de 50 x 75 mm en 4 m ; demi-chevrons de 38 x 63 mm en 3 et 4 m', `${BD}/produits/materiau-et-gros-oeuvre/toiture-et-facade/bois-de-charpente-et-ossature-bois/chevrons`),
@@ -188,6 +192,29 @@
     // Spain: rules and the professional minimums
     rd3_2002: L('Real Decreto 3/2002', 'Real Decreto 3/2002, de 11 de enero, por el que se establecen las normas mínimas de protección de las gallinas ponedoras (BOE-A-2002-831, texto consolidado, última actualización del 8 de marzo de 2023)', 'https://www.boe.es/eli/es/rd/2002/01/11/3/con'),
     rd637_2021: L('Real Decreto 637/2021', 'Real Decreto 637/2021, de 27 de julio, por el que se establecen las normas básicas de ordenación de las granjas avícolas (BOE-A-2021-12609, texto consolidado, última actualización del 23 de abril de 2025)', 'https://www.boe.es/buscar/act.php?id=BOE-A-2021-12609'),
+    // Italy: OBI Italia's battens and posts, Leroy Merlin's 2,5 m batten, OSB/3, welded mesh, corrugated sheets; the
+    // European directive in Italian and the national I&R manual for family flocks, as an ASL summarises it
+    obiListelli: L2('OBI Italia, listelli e travetti', 'OBI Italia: listelli in abete piallati sui 4 lati 45 x 45, 45 x 60 e 45 x 95 mm lunghi 2000 mm; travetti in abete massello con angoli arrotondati 70 x 70 e 70 x 90 mm lunghi 3000 mm', `${OB}/search/travetto/`),
+    obiGrezzi: L2('OBI Italia, listelli grezzi', 'OBI Italia: listelli in abete grezzo 40 x 40, 50 x 50 e 50 x 70 mm lunghi 2000 mm', `${OB}/search/legno%20da%20costruzione/`),
+    lmItListelli: L2('Leroy Merlin, listelli', 'Leroy Merlin Italia: listello grezzo in abete 2,5 m x 50 mm, spessore 50 mm (ricerca listello abete)', 'https://www.leroymerlin.it/ricerca?q=listello%20abete'),
+    obiOsb: L2('OBI Italia, pannelli OSB/3', 'OBI Italia: pannello OSB/3 250 x 125 cm, spessore 12 mm; pannello OSB/3 2500 x 1250 x 18 mm', `${OB}/p/2099083/pannello-osb-3-l-250-x-h-125-cm-sp-12-mm-legno-chiaro`),
+    obiRabbit: L2('OBI Italia, rete Rabbit', 'OBI Italia: rete elettrosaldata zincata Rabbit 5 x 1 m, maglia 12,7 x 12,7 mm, filo 0,9 mm, altezza 100 cm, rotolo da 5 m', `${OB}/p/2087641/rete-elettrosaldata-zincata-rabbit-5x1-m-grigio`),
+    obiBirdPlast: L2('OBI Italia, rete Bird Plast', 'OBI Italia: rete elettrosaldata zincata plastificata Bird Plast 5 x 1 m, maglia 12,7 x 12,7 mm, filo 0,90 mm, altezza 100 cm', `${OB}/p/2087690/rete-elettrosaldata-zincata-bird-plast-5x1-m-verde`),
+    obiOnduline: L2('OBI Italia, lastra Onduline', 'OBI Italia: lastra Onduline da copertura 200 x 85 cm', `${OB}/p/5528906/lastra-onduline-da-copertura-200x85-cm-rosso`),
+    dir199974it: L2('Direttiva 1999/74/CE', 'Direttiva 1999/74/CE del Consiglio, del 19 luglio 1999, che stabilisce le norme minime per la protezione delle galline ovaiole (articolo 1 e allegato), testo italiano su EUR-Lex', 'https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=CELEX:31999L0074'),
+    aslSassariIR: L2('ASL Sassari, anagrafe zootecnica', 'ASL n. 1 di Sassari, Servizio di Sanità Animale e Anagrafi Zootecniche: Manuale operativo dell’anagrafe zootecnica, sintesi del Manuale operativo per la gestione del sistema I&R (aprile 2025)', 'https://www.asl1sassari.it/wp-content/uploads/2025/04/Manuale-operativo-dellanagrafe-zootecnica-2025.pdf'),
+    // Brazil: MadeiraMadeira's pine caibros and beam, Telhanorte's autoclave caibro, OSB at 2,44 x 1,22 m, Belgo's welded
+    // mesh (the maker's catalogue page), the hexagonal aviary netting the stores sell, Onduline sheets; Embrapa's leaflet
+    // on caipira poultry houses, the federal registration rule (IN MAPA 56/2007) and Embrapa's note on selling eggs
+    mmCaibros: L2('MadeiraMadeira, caibros de pinus', 'MadeiraMadeira: caibro de pinus aparelhado 4,5 x 4,5 x 300 cm; caibros de pinus tratado 4,5 x 9 cm com 290 e 150 cm; viga de pinus tratado em autoclave 5 x 10 cm com 3 m (busca caibro pinus autoclavado)', `${MM}/busca?q=caibro%20pinus%20autoclavado`),
+    tnCaibro: L2('Telhanorte, caibro autoclavado', 'Telhanorte: Pinus 600 serrado, caibro autoclavado bruto 50 x 57 x 3000 mm (Madvei)', 'https://www.telhanorte.com.br/pinus-600-serrado-caibro-autoclavado-bruto-50-x-57-x-3000-madvei-1528521/p'),
+    mmOsb: L2('MadeiraMadeira, chapas de OSB', 'MadeiraMadeira: chapas de OSB de 2,44 x 1,22 m com 8, 10, 12 e 18 mm (busca chapa osb)', `${MM}/busca?q=chapa%20osb`),
+    belgoSerralheiro: L2('Belgo, tela Serralheiro', 'Belgo Arames, na AECweb: Tela Belgo Serralheiro, tela eletrosoldada galvanizada, malha de 1,5 x 1,5 cm, 2,5 x 2,5 cm ou 5 x 5 cm, fio de 1,65 mm, de 1,50 a 2 mm ou de 2 a 2,76 mm, altura de 1 m a 1,50 m, rolo de 15 m', 'https://www.aecweb.com.br/produto/tela-belgo-serralheiro/36999'),
+    mmViveiro: L2('MadeiraMadeira, tela de viveiro', 'MadeiraMadeira: tela de viveiro de 1/2 polegada, fio 24, malha hexagonal galvanizada, 50 m x 0,80 m (busca tela viveiro malha 1/2)', `${MM}/busca?q=tela%20viveiro%20malha%201%2F2`),
+    mmOnduline: L2('MadeiraMadeira, telha Onduline', 'MadeiraMadeira: telha ecológica Clássica Fit Onduline, 3 mm, 2,00 x 0,75 m (busca telha onduline)', `${MM}/busca?q=telha%20onduline`),
+    embrapaAviario: L2('Embrapa Meio-Norte, aviários caipiras', 'Embrapa Meio-Norte: Aviários para galinhas caipiras na agricultura familiar da Região Nordeste do Brasil (folder, 2ª edição, Teresina, novembro de 2018)', 'https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/1099811/1/FolderAviario.pdf'),
+    mapaIN56: L2('IN MAPA nº 56/2007', 'Ministério da Agricultura e Pecuária: Instrução Normativa nº 56, de 4 de dezembro de 2007, procedimentos para registro, fiscalização e controle de estabelecimentos avícolas de reprodução, comerciais e de ensino ou pesquisa (texto consolidado, Anexo I, art. 1º, parágrafo único)', 'https://www.gov.br/agricultura/pt-br/assuntos/sanidade-animal-e-vegetal/saude-animal/programas-de-saude-animal/pnsa/imagens/copy3_of_INSTRUONORMATIVAN56DE4DEDEZEMBRODE2007.pdf'),
+    embrapaOvos: L2('Embrapa, legalização da atividade ovícola', 'Embrapa Agroindústria de Alimentos: Legalização da atividade ovícola, Rio de Janeiro (folder, abril de 2024)', 'https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/1163737/1/Legalizacao-da-atividade-ovicola.pdf'),
   };
 
   // the US meshes stay on offer in every edition, for the inch rolls of Quebec, Mexico or the US
@@ -233,7 +260,41 @@
       swap: { '2x2': 'es-45x45', '2x3': 'es-45x70', '2x4': 'es-45x90', 'es-45x45': '2x2', 'es-45x70': '2x3', 'es-45x90': '2x4', 'es-33x70': '2x3', '45x45': 'es-45x45', '38x63': 'es-45x70', '38x89': 'es-45x90', '45x90': 'es-45x90' },
       roost: { std: 'es-45x45', cold: 'es-45x90' },
       extra: { 'coop-area': ['rd3_2002'], nests: ['rd3_2002'], 'roost-length': ['rd3_2002'], 'roost-height': ['rd3_2002'], rules: ['rd637_2021'] } },
+    // Italy: OBI's planed fir battens (45 x 45, 45 x 60, 45 x 95 mm in 2 m), sawn battens (50 x 50 in 2 m, and in
+    // 2,5 m at Leroy Merlin; 50 x 70 in 2 m) and fir posts (70 x 70, 70 x 90 mm in 3 m); OSB/3 at 250 x 125 cm; 12,7 mm
+    // welded mesh in 1 x 5 m rolls; Onduline sheets of 200 x 85 cm
+    it: { units: 'metric',
+      lumber: [M2('it-45x45', 45, 45, 'obiListelli', { lengths: [2000] }), M2('it-45x60', 45, 60, 'obiListelli', { lengths: [2000] }), M2('it-50x50', 50, 50, 'obiGrezzi', { also: ['lmItListelli'], lengths: [2000, 2500] }),
+        M2('it-50x70', 50, 70, 'obiGrezzi', { lengths: [2000] }), M2('it-70x70', 70, 70, 'obiListelli', { lengths: [3000] }), M2('it-70x90', 70, 90, 'obiListelli', { lengths: [3000] }), M2('it-45x95', 45, 95, 'obiListelli', { roostOnly: true, lengths: [2000] })],
+      stock: stock([2000, 2500, 3000]), stockDefault: 2500,
+      sheet: { wall: { id: 'it-osb12', w: 1250, l: 2500, t: 12, source: 'obiOsb' }, floor: { id: 'it-osb18', w: 1250, l: 2500, t: 18, source: 'obiOsb' } },
+      mesh: [
+        { id: 'it-12', kind: 'hardware', open: [12.7, 12.7], gauge: null, mm: 0.9, rolls: [[1000, 5000]], sources: ['obiRabbit'] },
+        { id: 'it-12p', kind: 'hardware', open: [12.7, 12.7], gauge: null, mm: 0.9, rolls: [[1000, 5000]], sources: ['obiBirdPlast'] },
+      ].concat(US_MESH),
+      meshDefault: 'it-12', rollDefault: [1000, 5000], panel: { w: 850, l: 2000, lap: 75 }, panelSource: 'obiOnduline',
+      swap: { '2x2': 'it-45x45', '2x3': 'it-50x50', '2x4': 'it-70x90', 'it-45x45': '2x2', 'it-45x60': '2x3', 'it-50x50': '2x3', 'it-50x70': '2x3', 'it-70x70': '2x4', 'it-70x90': '2x4', '45x45': 'it-45x45', '38x63': 'it-50x50', '38x89': 'it-50x70', '45x90': 'it-70x90' },
+      roost: { std: 'it-45x45', cold: 'it-45x95' },
+      extra: { 'coop-area': ['dir199974it'], nests: ['dir199974it'], 'roost-length': ['dir199974it'], 'roost-height': ['dir199974it'], rules: ['aslSassariIR'] } },
+    // Brazil: pine caibros (45 x 45 mm planed in 3 m; 45 x 90 mm treated in 2,9 and 1,5 m; 50 x 57 mm autoclave in 3 m)
+    // and a 50 x 100 mm autoclave beam in 3 m; OSB at 2,44 x 1,22 m; Belgo's 15 mm welded mesh in 15 m rolls, and the
+    // hexagonal aviary netting sold for coops (which the checks flag); Onduline sheets of 2,00 x 0,75 m. The small frames
+    // start in the planed caibro, the one listed without a treatment, as the treated-wood row advises; the walk-in in the
+    // treated 45 x 90 mm, the section nearest a 2x4
+    pt: { units: 'metric',
+      lumber: [M2('pt-45x45', 45, 45, 'mmCaibros', { lengths: [3000] }), M2('pt-50x57', 50, 57, 'tnCaibro', { lengths: [3000] }),
+        M2('pt-45x90', 45, 90, 'mmCaibros', { lengths: [1500, 2900] }), M2('pt-50x100', 50, 100, 'mmCaibros', { lengths: [3000] })],
+      stock: stock([1500, 2900, 3000]), stockDefault: 3000,
+      sheet: { wall: { id: 'pt-osb12', w: 1220, l: 2440, t: 12, source: 'mmOsb' }, floor: { id: 'pt-osb18', w: 1220, l: 2440, t: 18, source: 'mmOsb' } },
+      mesh: [
+        { id: 'pt-15', kind: 'welded', open: [15, 15], gauge: null, mm: 1.65, rolls: [[1000, 15000]], sources: ['belgoSerralheiro'] },
+        { id: 'pt-hex12', kind: 'poultry', open: [12.7, 12.7], gauge: null, rolls: [[800, 50000]], sources: ['mmViveiro'] },
+      ].concat(US_MESH),
+      meshDefault: 'pt-15', rollDefault: [1000, 15000], panel: { w: 750, l: 2000, lap: 75 }, panelSource: 'mmOnduline',
+      swap: { '2x2': 'pt-45x45', '2x3': 'pt-45x45', '2x4': 'pt-45x90', 'pt-45x45': '2x2', 'pt-50x57': '2x3', 'pt-45x90': '2x4', 'pt-50x100': '2x4', '45x45': 'pt-45x45', '38x63': 'pt-45x45', '38x89': 'pt-45x90', '45x90': 'pt-45x90' },
+      roost: { std: 'pt-45x45', cold: 'pt-45x90' },
+      extra: { 'coop-area': ['embrapaAviario'], 'run-area': ['embrapaAviario'], nests: ['embrapaAviario'], 'nest-size': ['embrapaAviario'], 'roost-length': ['embrapaAviario'], 'roost-height': ['embrapaAviario'], 'roost-bar': ['embrapaAviario'], rules: ['mapaIN56', 'embrapaOvos'] } },
   };
 
-  return { CHECKED, LOCAL_CHECKED, IN, FT, SQFT, SOURCES, LOCAL_SOURCES, LUMBER, STOCK, SWAP, SHEET, MESH, ROLL_DEFAULT, RULES, MARKETS };
+  return { CHECKED, LOCAL_CHECKED, LOCAL_CHECKED_2, IN, FT, SQFT, SOURCES, LOCAL_SOURCES, LUMBER, STOCK, SWAP, SHEET, MESH, ROLL_DEFAULT, RULES, MARKETS };
 });
