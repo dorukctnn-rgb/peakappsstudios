@@ -185,7 +185,7 @@
     };
     s.walkHen(tags);
     const flagged = ['nest-height', 'roost-height', 'roost-length'].filter(id => ['check', 'fail'].includes(st(id)));
-    PeakUI.toast(flagged.length ? T('t.henFlag', { n: flagged.length, list: flagged.map(id => res.checks.find(x => x.id === id).title.toLowerCase()).join(', ') }) : T('t.henOk'));
+    PeakUI.toast(flagged.length ? T('t.henFlag', { n: flagged.length, list: flagged.map(id => { const tt = res.checks.find(x => x.id === id).title; return E.getLang() === 'de' ? tt : tt.toLowerCase(); }).join(', ') }) : T('t.henOk'));
   }));
 
   // ---------- events ----------

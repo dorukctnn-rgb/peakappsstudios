@@ -108,6 +108,8 @@
   async function pdf(PDFLib, ctx) {
     const { res, E, D } = ctx;
     const T = (k, p) => E.t(k, p), I = E.I;
+    // piece names read as part of a sentence; German keeps the capital of its nouns
+    const low = x => (E.getLang && E.getLang() === 'de' ? x : x.toLowerCase());
     const longDate = iso => I.date(iso);
     const money = x => I.dec(x.toFixed(2));
     const short = s => (s.id && I.has(`src.${s.id}`) ? T(`src.${s.id}`) : s.short);
@@ -258,7 +260,7 @@
       const lw = b.stock * sc - (x - M);
       if (lw > 0.5) { page.drawRectangle({ x, y: y - bh, width: lw, height: bh, color: C.egg, borderColor: C.choc3, borderWidth: 0.6 }); for (let hx = x + 4; hx < x + lw; hx += 6) page.drawLine({ start: { x: hx, y: y - bh }, end: { x: Math.min(hx + 6, x + lw), y: y - 2 }, thickness: 0.5, color: C.choc3 }); }
       y -= bh + 4;
-      para(b.cuts.map((c, i) => `${i + 1}. ${L(c.len)} ${c.where.toLowerCase()}${cutNote(c)}`).join(T('pdf.semi')), { size: 8.5, color: C.choc2, after: 8 });
+      para(b.cuts.map((c, i) => `${i + 1}. ${L(c.len)} ${low(c.where)}${cutNote(c)}`).join(T('pdf.semi')), { size: 8.5, color: C.choc2, after: 8 });
     }
     sub2(T('pdf.sheetPieces'));
     const sheetRows = [];
@@ -304,7 +306,7 @@
       table([{ h: T('pdf.h.apronLen'), w: 2 }, { h: T('pdf.h.apronSides'), w: 5 }], ml.apronCuts.map(c => ({ cells: [L(c.len, 'dim'), c.sides] })));
     }
     sub2(T('pdf.rolls'));
-    table([{ h: T('pdf.h.roll'), w: 1 }, { h: T('pdf.h.rollStrips'), w: 6 }, { h: T('pdf.h.left'), w: 1.4, align: 'right' }], ml.rolls.map((b, i) => ({ cells: [String(i + 1), b.cuts.map(c => `${L(c.len)} (${c.where.toLowerCase()})`).join(T('pdf.semi')), L(b.leftover, 'dim')] })));
+    table([{ h: T('pdf.h.roll'), w: 1 }, { h: T('pdf.h.rollStrips'), w: 6 }, { h: T('pdf.h.left'), w: 1.4, align: 'right' }], ml.rolls.map((b, i) => ({ cells: [String(i + 1), b.cuts.map(c => `${L(c.len)} (${low(c.where)})`).join(T('pdf.semi')), L(b.leftover, 'dim')] })));
 
     // ---- 5. elevations ----
     newPage('elev', T('pdf.elev'));
@@ -366,9 +368,9 @@
         // one entry for each kind of piece, its lengths listed: "hen house, left wall, stud, top cut to the slope: 44 1/2, 41 1/2 in"
         const groups = new Map();
         for (const c of parts) { const g = groups.get(c.where) || { c, lens: new Map() }; const k = L(c.len); g.lens.set(k, (g.lens.get(k) || 0) + 1); groups.set(c.where, g); }
-        para(T('pdf.pieces', { list: [...groups.values()].map(g => T('pdf.group', { where: g.c.where.toLowerCase() + cutNote(g.c), lens: [...g.lens].map(([k, n]) => (n > 1 ? T('pdf.nAt', { n, len: k }) : k)).join(', ') })).join(T('pdf.semi')) }), { size: 9, color: C.choc2 });
+        para(T('pdf.pieces', { list: [...groups.values()].map(g => T('pdf.group', { where: low(g.c.where) + cutNote(g.c), lens: [...g.lens].map(([k, n]) => (n > 1 ? T('pdf.nAt', { n, len: k }) : k)).join(', ') })).join(T('pdf.semi')) }), { size: 9, color: C.choc2 });
       }
-      if (sheetsOf.length) para(T('pdf.plywood', { list: sheetsOf.map(s => `${s.where.toLowerCase()} ${L(Math.min(s.w, s.l))} x ${L(Math.max(s.w, s.l))}`).join(T('pdf.semi')) }), { size: 9, color: C.choc2 });
+      if (sheetsOf.length) para(T('pdf.plywood', { list: sheetsOf.map(s => `${low(s.where)} ${L(Math.min(s.w, s.l))} x ${L(Math.max(s.w, s.l))}`).join(T('pdf.semi')) }), { size: 9, color: C.choc2 });
       if (st.n === 9) para(T('pdf.meshStep', { n: res.mesh.count, staple: u === 'metric' ? '75 mm' : T('u.in', { v: '3' }), screw: u === 'metric' ? '300 mm' : T('u.in', { v: '12' }) }), { size: 9, color: C.choc2 });
       y -= 4;
     }
