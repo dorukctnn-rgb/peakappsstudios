@@ -90,6 +90,16 @@ body.sr-page {
 .sr-page .btn-ghost { background: transparent; }
 .sr-small { font-size: 14.5px; color: var(--ink-2); }
 
+/* ---------- the breadcrumb and the language switch, on one line ---------- */
+.sr-topline { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin: 22px 0 0; }
+.sr-topline .crumbs { margin: 0; }
+.sr-langs { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.sr-langs a { font-size: 13.5px; font-weight: 600; line-height: 1.2; text-decoration: none; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--ink-2); background: var(--paper); }
+.sr-langs a:hover { border-color: var(--sector); color: var(--ink); }
+.sr-langs a[aria-current="true"] { background: var(--carbon); border-color: var(--carbon); color: var(--paddock); }
+/* long German compounds break at a hyphenation point rather than run out of a narrow column */
+html[lang="de"] .sr-page :is(h1, h2, h3, .lede, td, th, .sr-field > span, .sr-facts b) { hyphens: auto; -webkit-hyphens: auto; overflow-wrap: break-word; }
+
 /* ---------- hero ---------- */
 .sr-hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(18px, 4vw, 56px); align-items: end; padding: clamp(12px, 2.4vw, 28px) 0 clamp(12px, 1.6vw, 18px); }
 .sr-hero-side { display: grid; gap: 16px; }
@@ -374,7 +384,10 @@ body.sr-page {
 </header>
 
 <main id="main" class="wrap">
-  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/sim-rig-designer/">Sim Rig Designer</a></li><li aria-current="page">DIY sim rig plans in 2x4</li></ol></nav>
+  <div class="sr-topline">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/sim-rig-designer/">Sim Rig Designer</a></li><li aria-current="page">DIY sim rig plans in 2x4</li></ol></nav>
+    <nav class="sr-langs" aria-label="Language"><a href="/sim-rig-designer/diy-sim-rig-plans-wood/" aria-current="true" hreflang="en" lang="en">English</a><a href="/sim-rig-designer/sim-rig-selber-bauen/" hreflang="de" lang="de">Deutsch</a></nav>
+  </div>
   <header class="sr-guide-hero">
     <div>
       <h1>DIY sim rig plans in 2x4 wood</h1>

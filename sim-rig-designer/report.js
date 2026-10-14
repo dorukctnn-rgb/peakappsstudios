@@ -5,6 +5,8 @@
  * tiled across pages, to print as jigsaw and drilling templates; the fit and step views are pictures of the live model.
  * Fonts: Anek Latin (expanded) and Instrument Sans, embedded as TrueType with the WinAnsi encoding (fonts/sr-pdf-*.ttf,
  * cut by _build/fonts.py); if they cannot be fetched the plan is set in Helvetica with the same layout.
+ * Every word comes from the page's dictionary (ctx.E.t, keys r.*), so the plan is in the page's language; WinAnsi
+ * covers the letters of every edition (ä, ö, ü, ß, ã, õ, ç, é, è, à, ñ, ¿, ¡...).
  * Works in the browser (window.SimRigReport) and in Node for the tests. */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();
@@ -20,7 +22,6 @@
   const MAP = { '≤': '<=', '≥': '>=', '−': '-', ' ': ' ', ' ': ' ', ' ': ' ', '²': '2' };
   const safe = s => String(s == null ? '' : s).replace(/[\s\S]/g, c => { const n = c.charCodeAt(0); if (c === '\n' || (n >= 32 && n < 127) || (n >= 0xa0 && n <= 0xff) || WIN.includes(c)) return c; return MAP[c] != null ? MAP[c] : ''; });
   const localDay = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
-  const longDate = iso => { const [y, m, d] = iso.split('-').map(Number); return `${d} ${['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][m - 1]} ${y}`; };
   const MMPT = 72 / 25.4;
 
   // ---------- fonts ----------
@@ -118,11 +119,17 @@
   // ---------- the document ----------
   async function pdf(PDFLib, ctx) {
     const { res, E, D } = ctx;
+    const T = (k, o) => E.t(k, o), I = E.I, lang = E.getLang();
+    const longDate = iso => I.date(iso);
+    // a part's name inside a sentence: lower case in English, as written in German (its nouns keep their capitals), the
+    // first letter lowered elsewhere (so MDF and DXF stay as they are)
+    const lc = s => (lang === 'en' ? s.toLowerCase() : lang === 'de' ? s : s.charAt(0).toLowerCase() + s.slice(1));
     const m = res.m, d = res.design, u = m.units, both = !!ctx.both, p = res.posture;
     const { PDFDocument, rgb, degrees } = PDFLib;
     const doc = await PDFDocument.create();
     const name = m.name || E.BUILD_NAME[m.build];
-    doc.setTitle(safe(`Sim rig build plan, ${name}`)); doc.setAuthor('Sim Rig Designer, Peak Apps Studio'); doc.setSubject('Step-by-step build plan for a sim racing cockpit'); doc.setCreator('peakappsstudio.com/sim-rig-designer/');
+    doc.setTitle(safe(T('r.docTitle', { name }))); doc.setAuthor('Sim Rig Designer, Peak Apps Studio'); doc.setSubject(safe(T('r.subject'))); doc.setCreator(T('r.url'));
+    if (lang !== 'en' && doc.setLanguage) doc.setLanguage(I.TAG[lang] || lang);
     const F = await fonts(doc, PDFLib);
     const C = { ink: rgb(0.090, 0.082, 0.114), ink2: rgb(0.298, 0.286, 0.349), ink3: rgb(0.467, 0.455, 0.541), paddock: rgb(0.945, 0.949, 0.965), paddock2: rgb(0.902, 0.906, 0.933), sector: rgb(0.416, 0.180, 0.910), sectorSoft: rgb(0.925, 0.902, 0.992), yellow: rgb(1, 0.824, 0.247), kerb: rgb(0.843, 0.122, 0.153), green: rgb(0.043, 0.478, 0.294), white: rgb(1, 1, 1), line: rgb(0.83, 0.83, 0.87), wood: rgb(0.863, 0.682, 0.447), woodLight: rgb(0.925, 0.808, 0.627), alu: rgb(0.765, 0.780, 0.812), ply: rgb(0.910, 0.812, 0.639) };
     const [PW, PH] = u === 'metric' ? [595.28, 841.89] : [612, 792];
@@ -137,8 +144,8 @@
       page = doc.addPage([pw, ph]); pageNo++;
       if (section && !api.index[section]) api.index[section] = pageNo;
       page.drawRectangle({ x: 0, y: ph - 7, width: pw, height: 7, color: C.sector });
-      page.drawText(safe(`Sim rig build plan, ${name}`), { x: M, y: 22, size: 8.5, font: F.regular, color: C.ink2 });
-      const right = `Page ${pageNo}. Guidance for a hobby build, not an engineering guarantee.`;
+      page.drawText(safe(T('r.docTitle', { name })), { x: M, y: 22, size: 8.5, font: F.regular, color: C.ink2 });
+      const right = T('r.footer', { n: pageNo });
       page.drawText(safe(right), { x: pw - M - w(right, F.regular, 8.5), y: 22, size: 8.5, font: F.regular, color: C.ink2 });
       y = ph - M - 4;
       if (title) heading(title);
@@ -215,104 +222,100 @@
       }
       y -= img.height * sc + 8;
     }
-    const cutNote = c => (c.angled && !/cut|angle/i.test(c.where) ? ' (angled ends)' : '');
+    const cutNote = c => (c.angled && !new RegExp(T('r.angleRe'), 'i').test(c.where) ? T('r.angledEnds') : '');
     // a member's length as the cut list or the bill of materials gives it (wood rounded up to the 1/16 in or the mm)
     const cutLen = new Map((res.cut.cuts || []).map(x => [x.id, x.len]));
     const pieceLen = mem => (cutLen.has(mem.id) ? cutLen.get(mem.id) : Math.round(mem.len));
-    const deg = x => `${Math.round(x)} degrees`;
+    const deg = x => T('u.deg', { v: I.fixed(x, 0) });
+    const sheetsWord = n => T('unit.sheets', { n });
 
     // ---- 1. cover ----
     newPage('cover');
     page.drawRectangle({ x: 0, y: PH - 214, width: PW, height: 207, color: C.paddock });
     for (let i = 0, x = -8; x < PW; i++, x += 26) page.drawSvgPath(`M ${x} 0 L ${x + 23} 0 L ${x + 28} -9 L ${x + 5} -9 Z`, { x: 0, y: PH - 214, color: i % 2 ? C.white : C.kerb });
-    page.drawText(safe('Build plan'), { x: M, y: PH - 80, size: 40, font: F.display, color: C.ink });
-    page.drawText(safe(m.name || `Your ${E.BUILD_SHORT[m.build]}`), { x: M, y: PH - 114, size: 19, font: F.bold, color: C.ink });
+    page.drawText(safe(T('r.cover')), { x: M, y: PH - 80, size: 40, font: F.display, color: C.ink });
+    page.drawText(safe(m.name || T('v.your', { what: E.BUILD_SHORT[m.build] })), { x: M, y: PH - 114, size: 19, font: F.bold, color: C.ink });
     y = PH - 136;
-    para(`${E.STYLE_NAME[m.style]} ${E.BUILD_SHORT[m.build]} for a driver ${E.height(m.driver.h, u)} tall${m.driver.inseam ? ` with a ${L(m.driver.inseam)} inside leg` : ''}: ${L(res.footprint.x, 'dim')} by ${L(res.footprint.z, 'dim')} on the floor${m.screen.stand ? ' with the screen stand' : ''}. Knee ${deg(p.rest.knee)}, hip ${deg(p.hip)}, elbow ${deg(p.elbow)}, seat back ${deg(p.back)}.`, { size: 11.5 });
-    para(`${d.alu ? `${res.bom.sections.map(s => `${(s.total / 1000).toFixed(2)} m of ${s.profile.label}`).join(' and ')}, ${res.bom.brackets} corner brackets` : `${res.cut.boards.length} boards of ${d.lumber.label} x ${E.stockLabel(m.stock, u)}`}; ${res.sheets.count} ${res.sheets.count === 1 ? 'sheet' : 'sheets'} of ${d.sheet.kind}; ${d.plates.length} plates. Made on ${made}.`, { size: 10.5, color: C.ink2 });
+    para(T('r.coverLine', { style: E.STYLE_NAME[m.style], build: E.BUILD_SHORT[m.build], h: E.height(m.driver.h, u), inseam: m.driver.inseam ? L(m.driver.inseam) : '', x: L(res.footprint.x, 'dim'), z: L(res.footprint.z, 'dim'), stand: m.screen.stand, knee: deg(p.rest.knee), hip: deg(p.hip), elbow: deg(p.elbow), back: deg(p.back) }), { size: 11.5 });
+    para(T('r.coverMat', { alu: d.alu, list: d.alu ? res.bom.sections.map(s => T('v.capProfile', { m: s.total / 1000, label: s.profile.label })).join(T('v.and')) : '', brackets: d.alu ? res.bom.brackets : 0, boards: res.cut.boards.length, lumber: d.lumber.label, stock: E.stockLabel(m.stock, u), sheets: res.sheets.count, kind: d.sheet.kindName, plates: d.plates.length, made }), { size: 10.5, color: C.ink2 });
     y = PH - 232;
-    const warn = [
-      'This plan is guidance for a hobby build, not an engineering guarantee. Check every size against your own body, seat and gear before you cut.',
-      'No published figure says how stiff a wheel deck must be. With a direct drive base, grip the rim and twist hard once the rig is built; if the deck moves, add a brace before you race.',
-      `The hole patterns are what you typed${d.plates.every(pl => pl.measured) ? ' and marked as measured' : ', and at least one is still the tool\'s EXAMPLE'}. Hold each plate drawing against your gear before you drill. The tool knows no maker's bolt pattern.`,
-      'Print the drilling templates at the back at 100% (no "fit to page"), and check the 100 mm and 4 in bars on each page with a ruler before you drill.',
-    ];
+    const warn = [T('r.warn1'), T('r.warn2'), T('r.warn3', { measured: d.plates.every(pl => pl.measured) }), T('r.warn4')];
     const wl = warn.map(t => lines(t, F.regular, 10, CW - 28));
     const gh = wl.reduce((a, l) => a + l.length * 14 + 4, 0) + 30;
     page.drawRectangle({ x: M, y: y - gh, width: CW, height: gh, color: C.white, borderColor: C.yellow, borderWidth: 1.4 });
     page.drawRectangle({ x: M, y: y - gh, width: 6, height: gh, color: C.yellow });
-    page.drawText(safe('Read this first'), { x: M + 16, y: y - 20, size: 12.5, font: F.bold, color: C.ink });
+    page.drawText(safe(T('r.readFirst')), { x: M + 16, y: y - 20, size: 12.5, font: F.bold, color: C.ink });
     let yy = y - 38;
     for (const l of wl) { for (const ln of l) { page.drawText(ln, { x: M + 16, y: yy, size: 10, font: F.regular, color: C.ink }); yy -= 14; } yy -= 4; }
     y -= gh + 14;
     // the contents go under the picture once every section has its page (drawn at the end)
-    const TOC = [['fit', 'Your fit, with every angle'], ['shop', 'Shopping list'], ['cut', d.alu ? 'Aluminium bill of materials' : 'Cut list, board by board'], ['plates', 'The plates, dimensioned'], ['elev', 'Side, front and top views, to scale'], ['steps', 'Build steps'], ['checks', 'The checks, with sources'], ['templates', 'Drilling templates at full size']];
+    const TOC = [['fit', T('r.toc.fit')], ['shop', T('r.toc.shop')], ['cut', T(d.alu ? 'r.toc.bom' : 'r.toc.cut')], ['plates', T('r.toc.plates')], ['elev', T('r.toc.elev')], ['steps', T('r.toc.steps')], ['checks', T('r.toc.checks')], ['templates', T('r.toc.templates')]];
     const tocH = 30 + Math.ceil(TOC.length / 2) * 16;
     const iso = ctx.shots && ctx.shots.views && ctx.shots.views.find(v => v.label === 'iso');
     if (iso) await image(iso.url, CW, y - M - 24 - tocH - 8);
     const cover = page, tocY = y;
 
     // ---- 2. your fit ----
-    newPage('fit', 'Your fit');
-    para('The rig is placed around your body: your segment lengths are scaled from the ANSUR II survey by your height and inside leg, and the angles below are worked out from them. The side view shows each angle on the driver; the table gives every position, measured as SAE J1100 does from the hip point and the heel point.', { color: C.ink2 });
+    newPage('fit', T('r.fit'));
+    para(T('r.fitIntro'), { color: C.ink2 });
     const fitShot = ctx.shots && ctx.shots.views && ctx.shots.views.find(v => v.label === 'fit');
     if (fitShot) await image(fitShot.url, CW, 300, fitShot.tags);
     const st = id => { const r = res.checks.find(x => x.id === id); return r ? r.status : 'info'; };
-    const word = { fits: 'Fits', check: 'Check', fail: 'Fail', info: 'Note' }, col2 = { fits: C.green, check: rgb(0.54, 0.36, 0), fail: C.kerb, info: C.ink2 };
+    const word = { fits: T('v.word.fits'), check: T('v.word.check'), fail: T('v.word.fail'), info: T('v.word.info') }, col2 = { fits: C.green, check: rgb(0.54, 0.36, 0), fail: C.kerb, info: C.ink2 };
     const lay = d.lay, rg = m.rig;
-    table([{ h: 'Result', w: 1 }, { h: 'Angle or position', w: 3 }, { h: 'Yours', w: 2.4 }], [
-      { color: col2[st('knee')], cells: [word[st('knee')], 'Knee at rest (L44)', deg(p.rest.knee)] },
-      { color: col2[st('knee-press')], cells: [word[st('knee-press')], `Knee with the brake ${m.gear.travel} degrees down`, deg(p.press.knee)] },
-      { color: col2[st('hip')], cells: [word[st('hip')], 'Hip, torso to thigh (L42)', deg(p.hip)] },
-      { color: col2[st('ankle')], cells: [word[st('ankle')], 'Ankle, shin to foot (L46)', deg(p.rest.ankle)] },
-      { color: col2[st('elbow')], cells: [word[st('elbow')], 'Elbow at 9 and 3 o\'clock', deg(p.elbow)] },
-      { color: col2[st('torso')], cells: [word[st('torso')], 'Seat back from upright (L40)', deg(p.back)] },
-      { cells: ['', 'Hip point above the floor', L(lay.H[1])] },
-      { color: col2[st('h30')], cells: [word[st('h30')], 'Hip point above the heel point (H30)', L(rg.h30)] },
-      { cells: ['', 'Heel point forward of the hip point (L53)', L(rg.l53)] },
-      { cells: ['', 'Pedal deck angle', deg(rg.deck)] },
-      { color: col2[st('wheel-height')], cells: [word[st('wheel-height')], 'Wheel centre above the hip point', L(rg.wheelUp)] },
-      { cells: ['', 'Wheel centre forward of the hip point', L(rg.wheelReach)] },
-      { cells: ['', 'Wheel tilt from upright', deg(rg.tilt)] },
-      { color: col2[st('eye')], cells: [word[st('eye')], 'Eyes to the screen', L(rg.screenDist)] },
-      { cells: ['', 'Field of view to set in the game', `${res.fov.h.toFixed(0)} degrees across, ${res.fov.v.toFixed(0)} high${m.screen.kind === 'triple' ? `; side screens in ${res.fov.side.toFixed(0)} degrees` : ''}`] },
+    table([{ h: T('r.h.result'), w: 1 }, { h: T('r.h.angle'), w: 3 }, { h: T('v.h.yours'), w: 2.4 }], [
+      { color: col2[st('knee')], cells: [word[st('knee')], T('r.f.knee'), deg(p.rest.knee)] },
+      { color: col2[st('knee-press')], cells: [word[st('knee-press')], T('r.f.press', { travel: m.gear.travel }), deg(p.press.knee)] },
+      { color: col2[st('hip')], cells: [word[st('hip')], T('r.f.hip'), deg(p.hip)] },
+      { color: col2[st('ankle')], cells: [word[st('ankle')], T('r.f.ankle'), deg(p.rest.ankle)] },
+      { color: col2[st('elbow')], cells: [word[st('elbow')], T('r.f.elbow'), deg(p.elbow)] },
+      { color: col2[st('torso')], cells: [word[st('torso')], T('r.f.back'), deg(p.back)] },
+      { cells: ['', T('r.f.hipFloor'), L(lay.H[1])] },
+      { color: col2[st('h30')], cells: [word[st('h30')], T('r.f.h30'), L(rg.h30)] },
+      { cells: ['', T('r.f.l53'), L(rg.l53)] },
+      { cells: ['', T('r.f.deck'), deg(rg.deck)] },
+      { color: col2[st('wheel-height')], cells: [word[st('wheel-height')], T('r.f.wheelUp'), L(rg.wheelUp)] },
+      { cells: ['', T('r.f.wheelReach'), L(rg.wheelReach)] },
+      { cells: ['', T('r.f.tilt'), deg(rg.tilt)] },
+      { color: col2[st('eye')], cells: [word[st('eye')], T('r.f.eyes'), L(rg.screenDist)] },
+      { cells: ['', T('r.f.fov'), T('r.f.fovVal', { h: res.fov.h, v: res.fov.v, side: res.fov.side, triple: m.screen.kind === 'triple' })] },
     ], { size: 9, boldFirst: true });
 
     // ---- 3. shopping list ----
-    newPage('shop', 'Shopping list');
-    para('Quantities for this design. Prices come only from what you typed on the page; the tool ships none.', { color: C.ink2 });
+    newPage('shop', T('r.shop'));
+    para(T('r.shopIntro'), { color: C.ink2 });
     const shopRows = []; let lastG = '';
-    for (const it of res.shop.items) { if (it.group !== lastG) { shopRows.push({ group: it.group }); lastG = it.group; } const q = Number.isInteger(it.qty) ? it.qty : it.qty.toFixed(2); shopRows.push({ cells: [it.label + (it.note ? `. ${it.note}` : ''), `${q} ${E.unit(it.qty, it.unit)}`, it.price != null ? it.price.toFixed(2) : '', it.cost != null ? it.cost.toFixed(2) : ''] }); }
-    if (res.shop.priced) shopRows.push({ cells: ['Total of the prices you entered', '', '', res.shop.total.toFixed(2)] });
-    table([{ h: 'Item', w: 6 }, { h: 'Quantity', w: 1.6, align: 'right' }, { h: 'Unit price', w: 1.3, align: 'right' }, { h: 'Cost', w: 1.2, align: 'right' }], shopRows);
+    for (const it of res.shop.items) { if (it.group !== lastG) { shopRows.push({ group: it.group }); lastG = it.group; } const q = Number.isInteger(it.qty) ? it.qty : I.fixed(it.qty, 2); shopRows.push({ cells: [it.label + (it.note ? `. ${it.note}` : ''), `${q} ${E.unit(it.qty, it.unit)}`, it.price != null ? I.fixed(it.price, 2) : '', it.cost != null ? I.fixed(it.cost, 2) : ''] }); }
+    if (res.shop.priced) shopRows.push({ cells: [T('v.total'), '', '', I.fixed(res.shop.total, 2)] });
+    table([{ h: T('r.h.item'), w: 6 }, { h: T('v.h.qty'), w: 1.6, align: 'right' }, { h: T('r.h.unitPrice'), w: 1.3, align: 'right' }, { h: T('v.h.cost'), w: 1.2, align: 'right' }], shopRows);
 
     // ---- 4. cut list or aluminium bill of materials ----
     if (d.alu) {
-      newPage('cut', 'Aluminium bill of materials');
-      para(`Every profile piece by length. Order them cut to length, or cut them yourself from 1, 2 and 3 m lengths with a 3 mm kerf, as packed below. ${res.bom.brackets} corner brackets join the frame (two on each 40 mm face of a joint, four where the face is 80 mm), ${res.bom.hinges} angle brackets hold the braces, and every bracket and plate fixing takes a T-nut and an M8 bolt.`, { color: C.ink2 });
+      newPage('cut', T('r.bom'));
+      para(T('r.bomIntro', { brackets: res.bom.brackets, hinges: res.bom.hinges }), { color: C.ink2 });
       for (const s of res.bom.sections) {
-        sub2(`${s.profile.label}: ${(s.total / 1000).toFixed(2)} m in ${s.n} pieces, about ${s.kg.toFixed(1)} kg`);
-        table([{ h: 'Length', w: 1.4 }, { h: 'Pieces', w: 0.8, align: 'right' }, { h: 'Where', w: 6 }], s.cuts.map(c => ({ cells: [L(c.len) + (c.angled ? ', angled' : ''), String(c.qty), c.where] })), { size: 9 });
-        para(`Cut from stock: ${s.stock.map((b, i) => `length ${i + 1} (${b.stock / 1000} m): ${b.cuts.map(c => L(c.len)).join(', ')}, ${L(b.leftover)} left`).join('; ')}.`, { size: 8.5, color: C.ink2 });
+        sub2(T('r.bomSec', { label: s.profile.label, m: s.total / 1000, n: s.n, kg: s.kg }));
+        table([{ h: T('r.h.length'), w: 1.4 }, { h: T('r.h.pieces'), w: 0.8, align: 'right' }, { h: T('r.h.where'), w: 6 }], s.cuts.map(c => ({ cells: [L(c.len) + (c.angled ? T('r.angled') : ''), String(c.qty), c.where] })), { size: 9 });
+        para(T('r.fromStock', { list: s.stock.map((b, i) => T('r.stockLen', { i: i + 1, m: I.dec(String(b.stock / 1000)), cuts: b.cuts.map(c => L(c.len)).join(', '), left: L(b.leftover) })).join('; ') }), { size: 8.5, color: C.ink2 });
       }
-      sub2('Hardware');
-      table([{ h: 'Item', w: 5 }, { h: 'Quantity', w: 1.4, align: 'right' }], [
-        { cells: ['Corner brackets for 40 mm profile, 8 mm slot', String(res.bom.brackets)] },
-        { cells: ['Hinge or angle brackets for the braces', String(res.bom.hinges)] },
-        { cells: ['T-nuts for 8 mm slot, M8', String(res.bom.tnuts)] },
-        { cells: ['M8 button-head bolts with washers', String(res.bom.bolts)] },
-        { cells: ['End caps, 40 x 40 mm', String(res.bom.caps.p4040)] },
-        { cells: ['End caps, 40 x 80 mm', String(res.bom.caps.p4080)] },
+      sub2(T('r.hardware'));
+      table([{ h: T('r.h.item'), w: 5 }, { h: T('v.h.qty'), w: 1.4, align: 'right' }], [
+        { cells: [T('s.brackets'), String(res.bom.brackets)] },
+        { cells: [T('s.hinges'), String(res.bom.hinges)] },
+        { cells: [T('s.tnuts'), String(res.bom.tnuts)] },
+        { cells: [T('s.bolts'), String(res.bom.bolts)] },
+        { cells: [T('s.caps4040'), String(res.bom.caps.p4040)] },
+        { cells: [T('s.caps4080'), String(res.bom.caps.p4080)] },
       ]);
     } else {
-      newPage('cut', 'Cut list');
+      newPage('cut', T('r.cut'));
       const cut = res.cut;
-      para(`${cut.boards.length} boards of ${d.lumber.label} (actual ${d.lumber.actual}). Packed first-fit decreasing with a ${L(cut.kerf)} saw kerf, keeping ${L(cut.trim)} on each board to square its end: ${Math.round(cut.waste * 100)}% of the wood bought is left over, hatched at the end of each board. Cut the longest pieces first; mark each piece with its board and number.`, { color: C.ink2 });
+      para(T('r.cutIntro', { boards: cut.boards.length, lumber: d.lumber.label, actual: d.lumber.actual, kerf: L(cut.kerf), trim: L(cut.trim), waste: Math.round(cut.waste * 100) }), { color: C.ink2 });
       const maxStock = Math.max(...cut.boards.map(b => b.stock));
       const sc = CW / maxStock;
       for (const b of cut.boards) {
         ensure(54);
-        const label = `Board ${b.n}: ${d.lumber.label} x ${E.stockLabel(b.stock, u)}, ${b.cuts.length} ${b.cuts.length === 1 ? 'piece' : 'pieces'}, ${L(b.leftover)} left over`;
+        const label = T('r.board', { n: b.n, lumber: d.lumber.label, stock: E.stockLabel(b.stock, u), cuts: b.cuts.length, left: L(b.leftover) });
         page.drawText(safe(label), { x: M, y: y - 10, size: 9.5, font: F.bold, color: C.ink });
         y -= 16;
         const bh = 20; let x = M;
@@ -326,20 +329,20 @@
         const lw = b.stock * sc - (x - M);
         if (lw > 0.5) { page.drawRectangle({ x, y: y - bh, width: lw, height: bh, color: C.paddock, borderColor: C.ink3, borderWidth: 0.6 }); for (let hx = x + 4; hx < x + lw; hx += 6) page.drawLine({ start: { x: hx, y: y - bh }, end: { x: Math.min(hx + 6, x + lw), y: y - 2 }, thickness: 0.5, color: C.ink3 }); }
         y -= bh + 4;
-        para(b.cuts.map((c, i) => `${i + 1}. ${L(c.len)} ${c.where.toLowerCase()}${cutNote(c)}`).join('; '), { size: 8.5, color: C.ink2, after: 8 });
+        para(b.cuts.map((c, i) => `${i + 1}. ${L(c.len)} ${lc(c.where)}${cutNote(c)}`).join('; '), { size: 8.5, color: C.ink2, after: 8 });
       }
     }
     if (res.sheets.count) {
-      sub2(`Sheet pieces: ${res.sheets.count} ${res.sheets.count === 1 ? 'sheet' : 'sheets'} of ${d.sheet.label}`);
-      table([{ h: 'Piece', w: 6 }, { h: 'Size', w: 3, align: 'right' }], res.sheets.pieces.map(pc => ({ cells: [pc.where, `${L(Math.min(pc.w, pc.l))} x ${L(Math.max(pc.w, pc.l))}`] })), { size: 8.5 });
+      sub2(T('r.sheetPieces', { n: res.sheets.count, word: sheetsWord(res.sheets.count), label: d.sheet.label }));
+      table([{ h: T('r.h.piece'), w: 6 }, { h: T('r.h.size'), w: 3, align: 'right' }], res.sheets.pieces.map(pc => ({ cells: [pc.where, `${L(Math.min(pc.w, pc.l))} x ${L(Math.max(pc.w, pc.l))}`] })), { size: 8.5 });
     }
 
     // ---- 5. the plates, dimensioned ----
-    newPage('plates', 'The plates');
-    para(`Each plate drawn to scale from its DXF file, with the holes measured from its lower left corner. ${m.plate === 'alu' && d.alu ? 'Send the DXF files to a laser, waterjet or CNC service for 6 mm aluminium.' : `Cut them from the ${d.sheet.kind.toLowerCase()} with a jigsaw or a circular saw, drilling the gear holes through the full-size templates at the back, or on a CNC router from the DXF files.`} Holes for the gear are the patterns you typed; fixings to the frame are ${d.alu ? 'slots over the profile, for M8 bolts into T-nuts' : 'pilot holes for wood screws into the frame below'}.`, { color: C.ink2 });
+    newPage('plates', T('r.plates'));
+    para(T('r.platesIntro', { aluPlate: m.plate === 'alu' && d.alu, kind: d.sheet.kindName, alu: d.alu }), { color: C.ink2 });
     for (const pl of d.plates) {
       ensure(250);
-      sub2(`${pl.label}: ${L(pl.w)} x ${L(pl.d)}${pl.measured ? '' : ' (example hole pattern)'}`);
+      sub2(T('r.plateHead', { label: pl.label, w: L(pl.w), d: L(pl.d), measured: pl.measured }));
       const sc = Math.min((CW - 40) / pl.w, 170 / pl.d), ox = M + 20, oy = y - 10 - pl.d * sc;
       page.drawSvgPath(roundRect(pl.w * sc, pl.d * sc, pl.r * sc), { x: ox, y: oy + pl.d * sc, color: C.ply, borderColor: C.ink, borderWidth: 0.8 });
       for (const h of pl.holes.concat(pl.fixings)) holeShape(page, ox, oy, sc, h, C, false);
@@ -350,14 +353,14 @@
       const td = L(pl.d); page.drawText(safe(td), { x: ox + pl.w * sc + 19, y: oy + pl.d * sc / 2 - w(td, F.regular, 8.5) / 2, size: 8.5, font: F.regular, color: C.sector, rotate: degrees(90) });
       y = oy - 26;
       const gear = pl.holes.map(h => `${L(h.x)}, ${L(h.y)}`).join('; ');
-      para(`Gear holes (${pl.holes.length}, ${Math.round(pl.holeD * 10) / 10} mm${pl.holes.some(h => h.slot) ? `, slotted ${L(pl.holes[0].slot)} front to back` : ''}), centres across and up from the corner: ${gear || 'none'}.`, { size: 8.5, color: C.ink2, after: 2 });
-      para(`Fixings (${pl.fixings.length}): ${pl.fixings.map(h => `${L(h.x)}, ${L(h.y)}`).join('; ')}.`, { size: 8.5, color: C.ink2 });
+      para(T('r.gearHoles', { n: pl.holes.length, hole: I.trim(pl.holeD, 1), slot: pl.holes.some(h => h.slot) ? L(pl.holes[0].slot) : '', list: gear || T('r.none') }), { size: 8.5, color: C.ink2, after: 2 });
+      para(T('r.fixings', { n: pl.fixings.length, list: pl.fixings.map(h => `${L(h.x)}, ${L(h.y)}`).join('; ') }), { size: 8.5, color: C.ink2 });
     }
 
     // ---- 7. elevations ----
-    newPage('elev', 'Side, front and top views');
+    newPage('elev', T('r.elev'));
     const solids = d.members.map(mem => ({ pts: corners(mem), kind: 'member' })).concat(d.slabs.map(s => ({ pts: slabCorners(s), kind: s.mat === 'alu' ? 'alu' : 'sheet' })));
-    for (const [v, title] of [['side', 'Side view, from the right'], ['front', 'Front view, from the screen'], ['plan', 'Top view']]) {
+    for (const [v, title] of [['side', T('r.view.side')], ['front', T('r.view.front')], ['plan', T('r.view.plan')]]) {
       const VV = VIEWS[v];
       const polys = solids.map(sld => ({ pts: hull(sld.pts.map(q => [VV.u(q), VV.v(q)])), depth: Math.max(...sld.pts.map(VV.depth)), kind: sld.kind }));
       let u0 = Infinity, u1 = -Infinity, v0 = Infinity, v1 = -Infinity;
@@ -368,7 +371,7 @@
       const N = scales.find(n => (u1 - u0) / n * MMPT <= boxW && (v1 - v0) / n * MMPT <= boxH) || 120;
       const k = MMPT / N, dh = (v1 - v0) * k;
       ensure(dh + 60);
-      page.drawText(safe(`${title}. Scale 1:${N} on ${u === 'metric' ? 'A4' : 'Letter'}`), { x: M, y: y - 12, size: 11, font: F.bold, color: C.ink });
+      page.drawText(safe(T('r.scale', { title, n: N, paper: u === 'metric' ? 'A4' : 'Letter' })), { x: M, y: y - 12, size: 11, font: F.bold, color: C.ink });
       const ox = M + 30 + (boxW - (u1 - u0) * k) / 2 - u0 * k, oy = y - 30 - dh - v0 * k;
       polys.sort((a, b) => a.depth - b.depth);
       for (const pp of polys) {
@@ -391,7 +394,7 @@
       if (v === 'side') {
         dim(u0, u1, v0 - 9 / k * 1.3, L(u1 - u0, 'dim'), false); dim(0, v1, u1 + 8 / k, L(v1, 'dim'), true);
         // the hip point and the wheel centre, as the table gives them
-        for (const [q, t] of [[lay.H, 'Hip point'], [lay.wheel, 'Wheel centre']]) { page.drawCircle({ x: ox + q[0] * k, y: oy + q[1] * k, size: 2.4, color: C.sector }); page.drawText(safe(t), { x: ox + q[0] * k + 4, y: oy + q[1] * k + 3, size: 7.5, font: F.bold, color: C.sector }); }
+        for (const [q, t] of [[lay.H, T('r.hipPoint')], [lay.wheel, T('r.wheelCentre')]]) { page.drawCircle({ x: ox + q[0] * k, y: oy + q[1] * k, size: 2.4, color: C.sector }); page.drawText(safe(t), { x: ox + q[0] * k + 4, y: oy + q[1] * k + 3, size: 7.5, font: F.bold, color: C.sector }); }
       }
       if (v === 'front') { dim(u0, u1, v0 - 9 / k * 1.3, L(u1 - u0, 'dim'), false); dim(0, v1, u1 + 8 / k, L(v1, 'dim'), true); }
       if (v === 'plan') { dim(u0, u1, v1 + 8 / k, L(u1 - u0, 'dim'), false); dim(v0, v1, u1 + 8 / k, L(v1 - v0, 'dim'), true); }
@@ -399,36 +402,37 @@
     }
 
     // ---- 8. the steps ----
-    newPage('steps', 'Build steps');
-    para('Build in this order. Each picture shows the parts of that step lifted out in yellow, over the work already done. The pieces for each step are listed under it.', { color: C.ink2 });
+    newPage('steps', T('r.steps'));
+    para(T('r.stepsIntro'), { color: C.ink2 });
     const pics = (ctx.shots && ctx.shots.steps) || [];
     for (const stp of res.steps) {
       const parts = d.members.filter(x => x.step === stp.n);
       const slabsOf = d.sheets.filter(s => s.step === stp.n);
       const pic = pics.find(q => q.n === stp.n);
       ensure(pic ? 270 : 90);
-      sub2(`Step ${res.steps.indexOf(stp) + 1}. ${stp.title}`);
+      sub2(T('r.step', { n: res.steps.indexOf(stp) + 1, title: stp.title }));
       para(stp.text, { size: 10.5 });
       if (pic) await image(pic.url, CW * 0.84, 220);
       if (parts.length) {
         const groups = new Map();
         for (const c of parts) { const key = c.where; const g = groups.get(key) || { c, lens: new Map() }; const lk = L(pieceLen(c)); g.lens.set(lk, (g.lens.get(lk) || 0) + 1); groups.set(key, g); }
-        para(`Pieces: ${[...groups.values()].map(g => `${g.c.where.toLowerCase()}${cutNote(g.c)}: ${[...g.lens].map(([kk, n]) => (n > 1 ? `${n} at ${kk}` : kk)).join(', ')}`).join('; ')}.`, { size: 9, color: C.ink2 });
+        para(T('r.pieces', { list: [...groups.values()].map(g => `${lc(g.c.where)}${cutNote(g.c)}: ${[...g.lens].map(([kk, n]) => (n > 1 ? T('r.nAt', { n, len: kk }) : kk)).join(', ')}`).join('; ') }), { size: 9, color: C.ink2 });
       }
-      if (slabsOf.length) para(`${d.sheet.kind}: ${slabsOf.map(s => `${s.where.toLowerCase()} ${L(Math.min(s.w, s.l))} x ${L(Math.max(s.w, s.l))}`).join('; ')}.`, { size: 9, color: C.ink2 });
+      if (slabsOf.length) para(T('r.slabs', { kind: d.sheet.kindName, list: slabsOf.map(s => `${lc(s.where)} ${L(Math.min(s.w, s.l))} x ${L(Math.max(s.w, s.l))}`).join('; ') }), { size: 9, color: C.ink2 });
       y -= 4;
     }
 
     // ---- 9. checks ----
-    newPage('checks', 'The checks, with sources');
-    para('Every check, with the studies, the SAE J1100 figures and the sim-racing guides it rests on, read on 14 October 2026. Where they disagree, the row gives the range and every source.', { color: C.ink2 });
+    newPage('checks', T('r.checks'));
+    para(T('r.checksIntro'), { color: C.ink2 });
     const used = [];
     const num = s => { let i = used.findIndex(x => x.url === s.url); if (i < 0) { used.push(s); i = used.length - 1; } return i + 1; };
-    table([{ h: 'Result', w: 1 }, { h: 'Check', w: 2 }, { h: 'Yours', w: 2.4 }, { h: 'Guide', w: 2.2 }, { h: 'Why, and the source', w: 5 }], res.checks.map(r => ({ color: col2[r.status], cells: [word[r.status], r.title, r.yours, r.limit, `${r.reason}${r.sources.length ? ` Sources: ${r.sources.map(s => `${s.short} [${num(s)}]`).join('; ')}.` : ''}`] })), { size: 8.5, boldFirst: true });
+    const short = s => (s.id && I.has(`src.${s.id}`) ? T(`src.${s.id}`) : s.short);
+    table([{ h: T('r.h.result'), w: 1 }, { h: T('r.h.check'), w: 2 }, { h: T('v.h.yours'), w: 2.4 }, { h: T('v.h.guide'), w: 2.2 }, { h: T('r.h.whySrc'), w: 5 }], res.checks.map(r => ({ color: col2[r.status], cells: [word[r.status], r.title, r.yours, r.limit, `${r.reason}${r.sources.length ? T('r.sources', { list: r.sources.map(s => `${short(s)} [${num(s)}]`).join('; ') }) : ''}`] })), { size: 8.5, boldFirst: true });
     if (used.length) {
-      sub2('Sources');
+      sub2(T('r.srcHead'));
       for (const [i, s] of used.entries()) {
-        para(`[${i + 1}] ${s.title}. Read ${longDate(s.checked)}.`, { size: 8.5, after: 0 });
+        para(T('r.srcLine', { i: i + 1, title: s.title, date: longDate(s.checked) }), { size: 8.5, after: 0 });
         for (const ln of lines(s.url, F.regular, 8.5, CW - 14)) {
           ensure(12);
           page.drawText(ln, { x: M + 14, y: y - 8.5, size: 8.5, font: F.regular, color: C.sector });
@@ -439,17 +443,17 @@
       }
     }
     const code = E.encode(m);
-    para(`Made with Sim Rig Designer on ${made}: peakappsstudio.com/sim-rig-designer/. Share code of this design: ${code.slice(0, 60)}${code.length > 60 ? '...' : ''}`, { size: 8.5, color: C.ink2 });
+    para(T('r.madeWith', { made, url: T('r.url'), code: `${code.slice(0, 60)}${code.length > 60 ? '...' : ''}` }), { size: 8.5, color: C.ink2 });
 
     // ---- 9. drilling templates at full size, at the back so the plan prints without them ----
     const tm = 30, ov = 10;                                    // page margin (points), overlap between pages (mm)
     const gearPlates = d.plates.filter(pl => pl.holes.length);
     if (gearPlates.length) {
-      newPage('templates', 'Drilling templates at full size');
-      para('One template for the gear holes of each plate, at full size. Print these pages at 100% with no scaling, and check the bars at the foot of each page with a ruler.', { color: C.ink2 });
-      para('Cut the plate to size first and draw a line across its middle. Where a template takes more than one page, the pages overlap by 10 mm: lay the black ringed crosses in the overlap on top of each other and tape the pages together. Lay the template with its dashed middle line on yours and its lower edge on the back edge of the plate, centre-punch every cross, then drill.', { color: C.ink2 });
-      para(`Hold the template against your gear before you drill: if a hole does not line up, measure your gear again and change the pattern on the page. The fixings into the frame are not on the templates; the plate drawings on page ${api.index.plates} place them.`, { color: C.ink2 });
-      table([{ h: 'Plate', w: 3 }, { h: 'Holes', w: 3 }, { h: 'Pages', w: 1, align: 'right' }], gearPlates.map(pl => ({ cells: [pl.label, `${pl.holes.length} at ${Math.round(pl.holeD * 10) / 10} mm${pl.holes.some(h => h.slot) ? `, slotted ${L(pl.holes[0].slot)}` : ''}${pl.measured ? '' : ' (example pattern)'}`, String(tileCount(pl))] })));
+      newPage('templates', T('r.templates'));
+      para(T('r.tpl1'), { color: C.ink2 });
+      para(T('r.tpl2'), { color: C.ink2 });
+      para(T('r.tpl3', { page: api.index.plates }), { color: C.ink2 });
+      table([{ h: T('r.h.plate'), w: 3 }, { h: T('r.h.holes'), w: 3 }, { h: T('r.h.pages'), w: 1, align: 'right' }], gearPlates.map(pl => ({ cells: [pl.label, T('r.tplHoles', { n: pl.holes.length, hole: I.trim(pl.holeD, 1), slot: pl.holes.some(h => h.slot) ? L(pl.holes[0].slot) : '', measured: pl.measured }), String(tileCount(pl))] })));
       for (const pl of gearPlates) {
         const t = tiling(pl);
         for (let r = 0; r < t.rows; r++) for (let c = 0; c < t.cols; c++) {
@@ -481,9 +485,9 @@
             for (let xx = left + 20; xx <= left + 2 * t.half - 5; xx += 40) if (xx > x0 + 4 && xx < x0 + ww - 4) ring(ox + xx * MMPT, oy + ys * MMPT);
           }
           const mx = ox + t.cx * MMPT;
-          if (mx > px + 2 && mx < px + ww * MMPT - 12) page.drawText(safe('Middle of the plate'), { x: mx + 11, y: py + wh * MMPT - 92, size: 8.5, font: F.bold, color: C.sector, rotate: degrees(90) });
-          if (y0 === 0) page.drawText(safe('Back edge of the plate: lay this edge on it'), { x: px + 8, y: py + 5, size: 8.5, font: F.bold, color: C.ink });
-          const tag = `${pl.label}, drilling template${t.rows * t.cols > 1 ? `, page ${String.fromCharCode(65 + r)}${c + 1} of ${t.rows * t.cols} (rows A${t.rows > 1 ? ` to ${String.fromCharCode(64 + t.rows)}` : ''} from the back edge)` : ''}`;
+          if (mx > px + 2 && mx < px + ww * MMPT - 12) page.drawText(safe(T('r.middle')), { x: mx + 11, y: py + wh * MMPT - 92, size: 8.5, font: F.bold, color: C.sector, rotate: degrees(90) });
+          if (y0 === 0) page.drawText(safe(T('r.backEdge')), { x: px + 8, y: py + 5, size: 8.5, font: F.bold, color: C.ink });
+          const tag = T('r.tplTag', { label: pl.label, multi: t.rows * t.cols > 1, page: `${String.fromCharCode(65 + r)}${c + 1}`, of: t.rows * t.cols, last: t.rows > 1 ? String.fromCharCode(64 + t.rows) : '' });
           page.drawText(safe(tag), { x: tm, y: t.ph - 26, size: 10, font: F.bold, color: C.ink });
           page.drawRectangle({ x: tm, y: tm + 15, width: 100 * MMPT, height: 4, color: C.ink });
           page.drawText(safe('100 mm'), { x: tm + 100 * MMPT + 6, y: tm + 14.5, size: 8, font: F.regular, color: C.ink });
@@ -510,7 +514,7 @@
     // the contents, on the cover, now that every section has its page
     {
       const list = TOC.filter(([k]) => api.index[k]), rows = Math.ceil(list.length / 2), colW = CW / 2;
-      cover.drawText(safe('In this plan'), { x: M, y: tocY - 14, size: 13.5, font: F.bold, color: C.ink });
+      cover.drawText(safe(T('r.inPlan')), { x: M, y: tocY - 14, size: 13.5, font: F.bold, color: C.ink });
       list.forEach(([k, label], i) => {
         const x = M + (i < rows ? 0 : colW), yy = tocY - 34 - (i % rows) * 16, pg = String(api.index[k]);
         cover.drawText(safe(label), { x, y: yy, size: 10, font: F.regular, color: C.ink });

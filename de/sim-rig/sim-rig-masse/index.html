@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sim Rig Maße: Tabelle nach Körpergröße und Fahrhaltung</title>
+<meta name="description" content="Sitzhöhe, Ferse zur Hüfte, Lehnenwinkel, Lenkradhöhe und Monitorabstand für 160 bis 195 cm, in GT-, Formel- und Rallye-Haltung, berechnet und geprüft.">
+<link rel="canonical" href="https://peakappsstudio.com/de/sim-rig/sim-rig-masse/">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/sim-rig-designer/sim-racing-cockpit-dimensions/">
+<link rel="alternate" hreflang="de" href="https://peakappsstudio.com/de/sim-rig/sim-rig-masse/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/sim-rig-designer/sim-racing-cockpit-dimensions/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:locale" content="de_DE">
+<meta property="og:title" content="Sim Rig Maße nach Körpergröße">
+<meta property="og:description" content="Sitzhöhe, Ferse zur Hüfte, Lehnenwinkel, Lenkradhöhe und Monitorabstand für 160 bis 195 cm, in GT-, Formel- und Rallye-Haltung, berechnet und geprüft.">
+<meta property="og:url" content="https://peakappsstudio.com/de/sim-rig/sim-rig-masse/">
+<meta property="og:image" content="https://peakappsstudio.com/sim-rig-designer/og-de.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f1f2f6">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/sim-rig-designer/fonts/anek-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="/sim-rig-designer/img/hero-de-masse-960.webp" imagesrcset="/sim-rig-designer/img/hero-de-masse-480.webp 480w, /sim-rig-designer/img/hero-de-masse-960.webp 960w, /sim-rig-designer/img/hero-de-masse-1440.webp 1440w" imagesizes="(max-width: 860px) 100vw, 52vw" fetchpriority="high">
+<link rel="stylesheet" href="/assets/tools.css">
+<style data-from="/sim-rig-designer/tool.css">
+/* Sim Rig Designer: the tool's own identity, scoped to body.sr-page (the shared header and footer keep their structure).
+ * Taken from race day: a paddock-grey page, carbon ink, the purple of a fastest sector for buttons, links and the
+ * angle lines, sector yellow for Pro and "check", the marshals' flags for every result (green fits, yellow check,
+ * red fail), and a red and white kerb, used once under the hero. Type: Anek Latin at its widest for headings and the
+ * angle readouts, Instrument Sans for everything read, with tabular figures. */
+
+@font-face { font-family: "Anek Latin Wide"; src: url("/sim-rig-designer/fonts/anek-latin.woff2") format("woff2"); font-weight: 600 800; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Anek Latin Wide"; src: url("/sim-rig-designer/fonts/anek-latin-ext.woff2") format("woff2"); font-weight: 600 800; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Instrument Sans"; src: url("/sim-rig-designer/fonts/instrument-latin.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Instrument Sans"; src: url("/sim-rig-designer/fonts/instrument-latin-ext.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+/* fallbacks sized to the web fonts' average widths and heights (from _build/fonts.py), so the swap does not move the layout */
+@font-face { font-family: "Instrument Sans Fallback"; src: local("Arial"), local("Helvetica Neue"), local("Helvetica"); size-adjust: 102.6%; ascent-override: 94.5%; descent-override: 24.4%; line-gap-override: 0%; }
+@font-face { font-family: "Anek Latin Wide Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Helvetica Neue Bold"); font-weight: 600 800; size-adjust: 118.7%; ascent-override: 75.8%; descent-override: 16.8%; line-gap-override: 0%; }
+
+body.sr-page {
+  --paddock: #f1f2f6; --paddock-2: #e6e7ee; --paddock-3: #d6d7e1; --paper: #ffffff; --paper-2: #f6f6fa;
+  --carbon: #17151d; --carbon-2: #4c4959; --carbon-3: #77748a;
+  --sector: #6a2ee8; --sector-2: #5a22d6; --sector-soft: #ece6fd; --yellow: #ffd23f; --kerb: #d71f27; --flag-green: #0b7a4b;
+  --alcantara: #3b3846; --wood: #dcae72;
+  --card: var(--paper); --ink: var(--carbon); --ink-2: var(--carbon-2); --muted: var(--carbon-2);
+  --line: rgba(23, 21, 29, .12); --line-2: rgba(23, 21, 29, .24);
+  --accent: var(--sector); --accent-ink: #ffffff; --ok: var(--flag-green); --warn: #8a5b00;
+  --btn: var(--sector); --btn-ink: #ffffff; --link: var(--sector-2);
+  --sans: "Instrument Sans", "Instrument Sans Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: var(--sans);
+  --display: "Anek Latin Wide", "Anek Latin Wide Fallback", sans-serif;
+  --r-panel: 18px; --r-field: 10px; --r-chip: 7px;
+  background: var(--paddock); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.56; font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.sr-page {
+    --paddock: #15141a; --paddock-2: #1f1d26; --paddock-3: #2c2a35; --paper: #1d1b23; --paper-2: #24222c;
+    --carbon: #f1f0f6; --carbon-2: #c9c6d6; --carbon-3: #9e9ab0;
+    --sector: #9d7bff; --sector-2: #b39bff; --sector-soft: #2c2445; --flag-green: #3fbf83; --kerb: #ff5a5f;
+    --alcantara: #2a2832; --btn: #8b63ff; --btn-ink: #ffffff; --link: #b39bff;
+    --card: var(--paper); --line: rgba(241, 240, 246, .12); --line-2: rgba(241, 240, 246, .24);
+  }
+}
+:root[data-theme="dark"] body.sr-page {
+  --paddock: #15141a; --paddock-2: #1f1d26; --paddock-3: #2c2a35; --paper: #1d1b23; --paper-2: #24222c;
+  --carbon: #f1f0f6; --carbon-2: #c9c6d6; --carbon-3: #9e9ab0;
+  --sector: #9d7bff; --sector-2: #b39bff; --sector-soft: #2c2445; --flag-green: #3fbf83; --kerb: #ff5a5f;
+  --alcantara: #2a2832; --btn: #8b63ff; --btn-ink: #ffffff; --link: #b39bff;
+  --card: var(--paper); --line: rgba(241, 240, 246, .12); --line-2: rgba(241, 240, 246, .24);
+}
+
+/* ---------- type ---------- */
+.sr-page h1, .sr-page h2, .sr-page h3 { font-family: var(--display); font-weight: 800; letter-spacing: -0.012em; line-height: 1.02; text-wrap: balance; color: var(--carbon); }
+.sr-page h1 { font-size: clamp(36px, 4.8vw, 64px); margin: 0; max-width: 15ch; }
+.sr-page h2 { font-size: clamp(25px, 2.7vw, 36px); margin: 0 0 12px; }
+.sr-page h3 { font-size: 20px; font-weight: 700; margin: 0 0 6px; letter-spacing: 0; }
+.sr-page p { max-width: 68ch; }
+.sr-page .lede { font-size: clamp(17.5px, 1.45vw, 19.5px); color: var(--ink); margin: 0; }
+.sr-page a { color: var(--carbon); text-decoration-color: var(--sector); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.sr-page a:hover { color: var(--sector-2); }
+.sr-page table a, .sr-page .sr-src a { color: var(--link); text-decoration-thickness: 1px; }
+.sr-page :focus-visible { outline: 3px solid var(--sector); outline-offset: 2px; border-radius: 4px; }
+.sr-page ::selection { background: var(--yellow); color: #17151d; }
+.sr-page .btn { border-radius: var(--r-field); font-weight: 600; font-size: 16px; padding: 12px 18px; }
+.sr-page .btn-primary { background: var(--btn); border-color: var(--btn); color: var(--btn-ink); }
+.sr-page .btn-primary:hover { background: var(--sector-2); border-color: var(--sector-2); color: #fff; }
+.sr-page .btn-yellow { background: var(--yellow); border-color: var(--yellow); color: #17151d; }
+.sr-page .btn-yellow:hover { background: #f5c51f; border-color: #f5c51f; color: #17151d; }
+.sr-page .btn-ghost { background: transparent; }
+.sr-small { font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- the breadcrumb and the language switch, on one line ---------- */
+.sr-topline { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin: 22px 0 0; }
+.sr-topline .crumbs { margin: 0; }
+.sr-langs { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.sr-langs a { font-size: 13.5px; font-weight: 600; line-height: 1.2; text-decoration: none; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--ink-2); background: var(--paper); }
+.sr-langs a:hover { border-color: var(--sector); color: var(--ink); }
+.sr-langs a[aria-current="true"] { background: var(--carbon); border-color: var(--carbon); color: var(--paddock); }
+/* long German compounds break at a hyphenation point rather than run out of a narrow column */
+html[lang="de"] .sr-page :is(h1, h2, h3, .lede, td, th, .sr-field > span, .sr-facts b) { hyphens: auto; -webkit-hyphens: auto; overflow-wrap: break-word; }
+
+/* ---------- hero ---------- */
+.sr-hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(18px, 4vw, 56px); align-items: end; padding: clamp(12px, 2.4vw, 28px) 0 clamp(12px, 1.6vw, 18px); }
+.sr-hero-side { display: grid; gap: 16px; }
+/* the signature: a red and white kerb along a strip of track, used once under the hero */
+.sr-kerb { display: block; width: 100%; height: 30px; margin: 4px 0 20px; }
+@media (max-width: 600px) { .sr-kerb { height: 22px; margin-bottom: 14px; } }
+.sr-builds { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; border: 0; padding: 0; margin: 0; }
+.sr-builds legend { font-weight: 600; font-size: 15px; margin-bottom: 8px; padding: 0; }
+.sr-build { position: relative; display: grid; justify-items: center; gap: 4px; padding: 10px 6px 9px; border-radius: 12px; border: 1.5px solid var(--line-2); background: color-mix(in oklab, var(--paper) 55%, transparent); cursor: pointer; text-align: center; font-size: 14px; font-weight: 600; line-height: 1.2; color: var(--ink); }
+.sr-build input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.sr-build svg { width: 66px; height: 46px; color: var(--carbon-2); }
+.sr-build:has(input:checked) { border-color: var(--carbon); background: var(--paper); box-shadow: inset 0 -4px 0 var(--sector); }
+.sr-build:has(input:checked) svg { color: var(--carbon); }
+.sr-build:has(input:focus-visible) { outline: 3px solid var(--sector); outline-offset: 2px; }
+.sr-build .wood { color: #c4935a; }
+@media (max-width: 900px) { .sr-hero { grid-template-columns: 1fr; align-items: start; } }
+@media (max-width: 420px) { .sr-builds { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; } .sr-build { font-size: 13px; padding: 8px 4px; } .sr-build svg { width: 54px; height: 38px; } }
+
+/* ---------- the bench: the 3D view beside the form ---------- */
+.sr-bench { display: grid; grid-template-columns: minmax(0, 1fr) minmax(330px, 410px); background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-panel); overflow: clip; }
+.sr-stage { border-right: 1px solid var(--line); min-width: 0; }
+.sr-sticky { position: sticky; top: 0; }
+.sr-view { position: relative; aspect-ratio: 16 / 10; background: #2a2933; overflow: hidden; }
+.sr-view img, .sr-view canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; }
+.sr-view canvas { touch-action: none; cursor: grab; }
+.sr-view canvas:active { cursor: grabbing; }
+.sr-badge { position: absolute; left: 12px; top: 12px; background: var(--yellow); color: #17151d; font-weight: 700; font-size: 13.5px; padding: 4px 10px; border-radius: var(--r-chip); }
+.sr-gl-note { position: absolute; left: 12px; right: 12px; bottom: 60px; margin: 0; background: var(--paper); color: var(--ink); padding: 8px 12px; border-radius: var(--r-field); font-size: 14.5px; }
+.sr-start { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); display: inline-flex; gap: 8px; align-items: center; background: #6a2ee8; color: #fff; border: 0; border-radius: 999px; padding: 11px 18px; font: inherit; font-weight: 600; font-size: 15.5px; cursor: pointer; box-shadow: 0 6px 18px rgba(23, 21, 29, .35); }
+.sr-start svg { width: 18px; height: 18px; }
+.sr-start[disabled] { opacity: .85; cursor: progress; }
+.sr-tags { position: absolute; inset: 0; pointer-events: none; }
+.sr-tag { position: absolute; left: 0; top: 0; white-space: nowrap; font-size: 13.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: rgba(255, 255, 255, .95); color: #17151d; box-shadow: 0 1px 0 rgba(23, 21, 29, .25); }
+.sr-tag-fits { background: #6a2ee8; color: #fff; }
+.sr-tag-check { background: #ffd23f; color: #17151d; }
+.sr-tag-fail { background: #d71f27; color: #fff; }
+.sr-toolbar { display: flex; flex-wrap: wrap; gap: 10px 12px; align-items: center; padding: 10px 14px; border-top: 1px solid var(--line); background: var(--paper-2); }
+.sr-toolbar[hidden] { display: none; }
+.sr-seg, .sr-toggles { display: inline-flex; border: 1px solid var(--line-2); border-radius: var(--r-field); overflow: hidden; }
+.sr-seg button, .sr-toggles button { font: inherit; font-size: 14.5px; font-weight: 600; padding: 7px 11px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+.sr-seg button + button, .sr-toggles button + button { border-left: 1px solid var(--line-2); }
+.sr-seg button[aria-pressed="true"] { background: var(--carbon); color: var(--paper); }
+.sr-toggles button[aria-pressed="true"] { background: var(--sector-soft); color: var(--carbon); box-shadow: inset 0 -3px 0 var(--sector); }
+.sr-steps { font: inherit; font-size: 14.5px; font-weight: 600; padding: 7px 12px; border-radius: var(--r-field); border: 1.5px solid var(--yellow); background: transparent; color: var(--ink); cursor: pointer; }
+
+/* the title block under the view: what this design is, its angles, and how its checks came out */
+.sr-title { padding: 14px 16px 16px; display: grid; gap: 10px; }
+.sr-title h2 { font-size: clamp(22px, 2.2vw, 28px); margin: 0; }
+.sr-title p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
+.sr-readout { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1px solid var(--line-2); border-radius: 12px; overflow: hidden; background: var(--paper); }
+.sr-read { padding: 8px 10px 9px; border-right: 1px solid var(--line); box-shadow: inset 0 -4px 0 var(--paddock-3); min-width: 0; }
+.sr-read:last-child { border-right: 0; }
+.sr-read b { display: block; font-family: var(--display); font-weight: 800; font-size: clamp(20px, 2.1vw, 28px); line-height: 1.05; white-space: nowrap; }
+.sr-read span { display: block; font-size: 13.5px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sr-read-fits { box-shadow: inset 0 -4px 0 var(--flag-green); }
+.sr-read-check { box-shadow: inset 0 -4px 0 var(--yellow); }
+.sr-read-fail { box-shadow: inset 0 -4px 0 var(--kerb); }
+.sr-read-info { box-shadow: inset 0 -4px 0 var(--sector); }
+@media (max-width: 560px) { .sr-readout { grid-template-columns: repeat(3, minmax(0, 1fr)); } .sr-read:nth-child(3) { border-right: 0; } .sr-read:nth-child(-n+3) { border-bottom: 1px solid var(--line); } .sr-read:last-child { grid-column: span 2; } }
+.sr-counts { display: flex; flex-wrap: wrap; gap: 8px; }
+.sr-count { display: inline-flex; color: var(--ink); gap: 6px; align-items: center; padding: 4px 10px; border-radius: var(--r-chip); font-size: 14.5px; font-weight: 600; border: 1px solid var(--line-2); background: var(--paper); }
+.sr-count svg { width: 15px; height: 15px; }
+.sr-count b { font-size: 17px; }
+.sr-count.ct-fits svg { color: var(--flag-green); }
+.sr-count.ct-check svg { color: #d6a800; }
+.sr-count.ct-fail svg { color: var(--kerb); }
+.sr-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13.5px; color: var(--ink-2); }
+
+/* ---------- the form ---------- */
+.sr-form { padding: 6px 16px 18px; display: grid; gap: 4px; align-content: start; }
+.sr-step { border: 0; padding: 12px 0 14px; margin: 0; border-bottom: 1px solid var(--line); }
+.sr-step > legend { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 19px; padding: 0; margin: 0 0 10px; color: var(--carbon); }
+.sr-step-n { display: inline-grid; place-items: center; width: 30px; height: 26px; border-radius: 6px; background: var(--carbon); color: var(--paper); font-family: var(--display); font-size: 15px; font-weight: 800; transform: skewX(-10deg); }
+.sr-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 12px; }
+.sr-grid3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.sr-field { display: grid; gap: 4px; align-content: start; font-size: 14.5px; font-weight: 600; min-width: 0; }
+.sr-field.wide { grid-column: 1 / -1; }
+.sr-field small { font-weight: 400; color: var(--ink-2); font-size: 13.5px; line-height: 1.35; }
+.sr-in { position: relative; display: flex; align-items: center; }
+.sr-in input { padding-right: 40px; }
+.sr-in i { position: absolute; right: 10px; font-style: normal; font-weight: 500; font-size: 14px; color: var(--ink-2); pointer-events: none; }
+.sr-form input[type="number"], .sr-form input[type="text"], .sr-form select, .sr-shop input, .sr-pro input[type="text"] {
+  width: 100%; min-width: 0; font: inherit; font-size: 16px; font-weight: 500; padding: 9px 10px; border: 1px solid var(--line-2); border-radius: var(--r-field); background: var(--paper); color: var(--ink); }
+.sr-form input:focus, .sr-form select:focus, .sr-shop input:focus { outline: none; border-color: var(--sector); box-shadow: 0 0 0 3px color-mix(in oklab, var(--sector) 24%, transparent); }
+.sr-row { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
+.sr-check { display: flex; gap: 8px; align-items: flex-start; font-size: 14.5px; font-weight: 500; }
+.sr-check input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--sector); flex: none; }
+.sr-styles { display: flex; width: 100%; }
+.sr-styles button { flex: 1; }
+.sr-more { border-bottom: 1px solid var(--line); padding: 4px 0 10px; }
+.sr-more > summary { cursor: pointer; font-family: var(--display); font-weight: 700; font-size: 17px; padding: 10px 0; min-height: 44px; display: flex; align-items: center; }
+.sr-more[open] > summary { margin-bottom: 4px; }
+.sr-auto { margin: 2px 0 10px; padding: 9px 11px; border-radius: var(--r-field); background: var(--paper-2); border: 1px dashed var(--line-2); }
+.sr-helper { margin: 0 0 12px; }
+.sr-helper svg { width: 100%; height: auto; display: block; background: var(--paper-2); border-radius: 10px; border: 1px solid var(--line); }
+.sr-helper figcaption { font-size: 13.5px; color: var(--ink-2); margin-top: 6px; }
+.sr-holes { border-top: 1px solid var(--line); padding: 10px 0; }
+.sr-hole-h { font-weight: 700; margin: 0 0 8px; }
+[data-show][hidden] { display: none !important; }
+@media (max-width: 960px) { .sr-bench { grid-template-columns: 1fr; } .sr-stage { border-right: 0; border-bottom: 1px solid var(--line); } .sr-sticky { position: static; } }
+@media (max-width: 420px) { .sr-grid3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------- actions ---------- */
+.sr-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 16px 0 6px; }
+.sr-actions .hint { font-size: 14px; color: var(--ink-2); }
+.sr-sample-note { margin: 0 0 10px; font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- sections, tables ---------- */
+.sr-sec { margin: clamp(30px, 5vw, 56px) 0 0; }
+.sr-sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 20px; margin-bottom: 10px; }
+.sr-sec-head p { margin: 0; color: var(--ink-2); font-size: 14.5px; }
+.sr-table { width: 100%; border-collapse: collapse; background: var(--paper); border: 1px solid var(--line-2); border-radius: 14px; overflow: hidden; font-size: 15.5px; }
+.sr-table caption { caption-side: top; text-align: left; padding: 0 0 8px; color: var(--ink-2); font-size: 14.5px; }
+.sr-table th, .sr-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.sr-table thead th { font-size: 13.5px; font-weight: 700; color: var(--ink-2); background: var(--paper-2); }
+.sr-table tbody tr:last-child td { border-bottom: 0; }
+.sr-table .num { text-align: right; white-space: nowrap; }
+.sr-group td { background: var(--paper-2); font-weight: 700; font-size: 14px; color: var(--ink-2); }
+.sr-st { white-space: nowrap; font-weight: 700; font-size: 14px; }
+.sr-st span { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px 2px 7px; border-radius: var(--r-chip); }
+.sr-st svg { width: 14px; height: 14px; }
+.st-fits span { background: #0b7a4b; color: #fff; }
+.st-check span { background: #ffd23f; color: #17151d; }
+.st-fail span { background: #d71f27; color: #fff; }
+.st-info span { background: var(--sector-soft); color: var(--ink); }
+.sr-why { color: var(--ink-2); font-size: 14.5px; }
+.sr-src { font-size: 13.5px; color: var(--ink-2); }
+.sr-src a { white-space: normal; }
+.sr-shop input { max-width: 110px; text-align: right; padding: 6px 8px; font-size: 15px; }
+.sr-total td { font-weight: 700; background: var(--paper-2); }
+@media (max-width: 760px) {
+  .sr-table, .sr-table tbody, .sr-table tr, .sr-table td, .sr-table caption { display: block; width: 100%; }
+  .sr-table thead { display: none; }
+  .sr-table caption { padding: 10px 12px 8px; }
+  .sr-table tr { border-bottom: 1px solid var(--line); padding: 8px 0; }
+  .sr-table td { border: 0; padding: 4px 12px; }
+  .sr-table td[data-h]::before { content: attr(data-h); display: block; font-size: 12.5px; font-weight: 700; color: var(--ink-2); }
+  .sr-table .num { text-align: left; }
+  .sr-shop input { max-width: 100%; text-align: left; }
+}
+
+/* ---------- Pro ---------- */
+.sr-pro { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr); background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-panel); overflow: clip; }
+.sr-pro-l { padding: clamp(18px, 2.6vw, 30px); display: grid; gap: 14px; align-content: start; min-width: 0; }
+.sr-pro-r { padding: clamp(18px, 2.6vw, 30px); background: #3b3846; color: #f1f0f6; display: grid; gap: 12px; align-content: start; }
+.sr-pro-r p { color: #d9d6e4; margin: 0; font-size: 14.5px; }
+.sr-pro-r .btn-ghost { color: #fff; border-color: rgba(255, 255, 255, .5); }
+.sr-pro-r .btn-ghost[aria-busy="true"] { cursor: progress; opacity: .85; }
+.sr-pro-r .sr-price { font-family: var(--display); font-size: 46px; font-weight: 800; color: #fff; margin: 0; line-height: 1; }
+.sr-price small { font-family: var(--sans); font-size: 15px; font-weight: 500; color: #d9d6e4; }
+.sr-locked { list-style: none; margin: 0; padding: 0; display: grid; border-top: 1px solid var(--line); }
+.sr-locked li { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 10px; align-items: start; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.sr-locked svg { width: 16px; height: 16px; margin-top: 3px; color: var(--carbon-2); }
+.sr-locked b { display: block; font-weight: 700; }
+.sr-locked span { display: block; color: var(--ink-2); font-size: 14.5px; }
+.sr-locked em { font-style: normal; font-size: 12.5px; font-weight: 700; padding: 2px 8px; border-radius: 5px; background: var(--sector-soft); color: var(--ink); }
+.sr-locked li.is-open em { background: #0b7a4b; color: #fff; }
+.sr-pro-out { margin: 0; }
+.sr-pro-out img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid var(--line-2); background: #fff; }
+.sr-pro-out figcaption { font-size: 13.5px; color: var(--ink-2); margin-top: 6px; }
+.sr-pro-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.sr-saved { display: grid; gap: 8px; }
+.sr-saved input[type="text"] { max-width: 260px; }
+.sr-saved ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.sr-saved li { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; font-size: 14.5px; }
+.sr-saved li button { font: inherit; font-size: 13.5px; padding: 4px 9px; border-radius: 6px; border: 1px solid var(--line-2); background: var(--paper); color: var(--ink); cursor: pointer; }
+.sr-pro-work { display: grid; gap: 14px; }
+.sr-pro-work[hidden] { display: none; }
+.sr-diagram { width: 100%; height: auto; display: block; background: var(--paper); }
+.sr-plates { display: flex; flex-wrap: wrap; gap: 12px 20px; }
+.sr-plate { margin: 0; }
+.sr-plate figcaption { font-size: 13.5px; color: var(--ink-2); }
+@media (max-width: 860px) { .sr-pro { grid-template-columns: 1fr; } }
+
+/* ---------- guides, FAQ, sources ---------- */
+.sr-guides { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); border-top: 3px solid var(--carbon); }
+.sr-guides li { border-bottom: 1px solid var(--line-2); }
+.sr-guides a { display: grid; gap: 2px; padding: 14px 12px 14px 0; text-decoration: none; color: var(--ink); }
+.sr-guides b { font-family: var(--display); font-weight: 700; font-size: 18px; line-height: 1.15; }
+.sr-guides span { color: var(--ink-2); font-size: 14.5px; }
+.sr-guides a:hover b { color: var(--sector-2); }
+.sr-faq details { border-bottom: 1px solid var(--line-2); padding: 12px 0; }
+.sr-faq summary { cursor: pointer; font-weight: 700; font-size: 17.5px; }
+.sr-faq .answer p { margin: 8px 0 0; }
+.sr-sources { font-size: 14.5px; }
+.sr-sources ol { margin: 0; padding-left: 22px; display: grid; gap: 4px; }
+.sr-sources li span { color: var(--ink-2); }
+.sr-srclist { margin: 10px 0; }
+.sr-srclist summary { cursor: pointer; font-weight: 700; padding: 10px 0; min-height: 44px; }
+
+/* ---------- guide pages ---------- */
+.sr-article { max-width: 780px; }
+.sr-article h2 { margin-top: 34px; }
+.sr-article-wide { max-width: 1120px; }
+.sr-article .sr-table { margin: 14px 0 18px; }
+.sr-fig-narrow svg { max-width: 640px; margin: 0 auto; }
+.sr-table td .sr-small { white-space: nowrap; }
+.sr-figure { margin: 18px 0; }
+.sr-figure img, .sr-figure svg { width: 100%; height: auto; display: block; border-radius: 14px; border: 1px solid var(--line-2); background: var(--paper); }
+.sr-figure figcaption { font-size: 14px; color: var(--ink-2); margin-top: 6px; }
+.sr-dl { display: grid; grid-template-columns: minmax(120px, 0.32fr) minmax(0, 1fr); gap: 8px 18px; margin: 16px 0; }
+.sr-dl dt { font-weight: 700; }
+.sr-dl dd { margin: 0; color: var(--ink-2); }
+@media (max-width: 600px) { .sr-dl { grid-template-columns: 1fr; gap: 2px; } .sr-dl dd { margin-bottom: 10px; } }
+.sr-callout { background: var(--paper); border: 1px solid var(--line-2); border-left: 5px solid var(--sector); border-radius: 12px; padding: 14px 16px; margin: 16px 0; }
+.sr-callout p { margin: 0; }
+.sr-open { display: inline-flex; margin-top: 8px; }
+.sr-guide-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(18px, 4vw, 48px); align-items: center; padding: clamp(10px, 2vw, 22px) 0 6px; }
+.sr-guide-hero img { width: 100%; height: auto; display: block; border-radius: 16px; border: 1px solid var(--line-2); aspect-ratio: 16 / 10; object-fit: cover; }
+.sr-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); border: 1px solid var(--line-2); border-radius: 14px; background: var(--paper); overflow: hidden; margin: 16px 0; }
+.sr-facts div { padding: 12px 14px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.sr-facts b { display: block; font-family: var(--display); font-size: 22px; font-weight: 800; line-height: 1.1; }
+.sr-facts span { font-size: 14px; color: var(--ink-2); }
+@media (max-width: 860px) { .sr-guide-hero { grid-template-columns: 1fr; } }
+.sr-table tr[id] { scroll-margin-top: 84px; }
+.sr-table tr:target td { background: color-mix(in oklab, var(--yellow) 26%, var(--paper)); }
+.sr-table th[scope="row"] { font-weight: 700; }
+/* compact number tables (.sr-numgrid) stay a table on a phone: few, short columns */
+@media (max-width: 760px) {
+  .sr-table.sr-numgrid { display: table; font-size: 14.5px; }
+  .sr-table.sr-numgrid caption { display: table-caption; }
+  .sr-table.sr-numgrid thead { display: table-header-group; }
+  .sr-table.sr-numgrid tbody { display: table-row-group; }
+  .sr-table.sr-numgrid tr { display: table-row; padding: 0; }
+  .sr-table.sr-numgrid th, .sr-table.sr-numgrid td { display: table-cell; width: auto; padding: 8px 5px; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+  .sr-table.sr-numgrid thead th { font-size: 13px; line-height: 1.25; white-space: normal; vertical-align: bottom; }
+  .sr-table.sr-numgrid td[data-h]::before { content: none; }
+  .sr-table.sr-numgrid .num { text-align: right; }
+  .sr-table.sr-kv td:first-child { width: 38%; }
+}
+
+/* ---------- print: the shopping list only ---------- */
+@media print {
+  body.sr-print-shop .site-head, body.sr-print-shop .site-foot, body.sr-print-shop main > *:not(#shop), body.sr-print-shop .skip { display: none !important; }
+  body.sr-print-shop #shop { margin: 0; }
+  body.sr-print-shop .sr-shop input { border: 0; padding: 0; }
+  body.sr-page { background: #fff; }
+}
+@media (prefers-reduced-motion: reduce) { .sr-page * { scroll-behavior: auto !important; transition: none !important; } }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","@id":"https://peakappsstudio.com/de/sim-rig/#app","name":"Sim Rig Designer","url":"https://peakappsstudio.com/de/sim-rig/","inLanguage":"de","applicationCategory":"DesignApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Kostenlos","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Pro (einmalige Zahlung)","price":"19","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/sim-rig-designer-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Werkzeuge","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Sim Rig Designer","item":"https://peakappsstudio.com/de/sim-rig/"},{"@type":"ListItem","position":3,"name":"Maße nach Körpergröße","item":"https://peakappsstudio.com/de/sim-rig/sim-rig-masse/"}]},
+ {"@type":"FAQPage","inLanguage":"de","mainEntity":[
+  {"@type":"Question","name":"Wie hoch muss der Sitz im Sim Rig sein?","acceptedAnswer":{"@type":"Answer","text":"Miss vom Fersenpunkt aus, nicht vom Boden. Für GT und Straße wählten die Fahrer in der Studie von Porter und Gyi einen Hüftpunkt 283 bis 335 mm über der Ferse; Formelsitze liegen viel tiefer, Rallye- und Lkw-Sitze höher. Die Höhe über dem Boden folgt dann daraus, wie hoch die Pedalplatte steht: in der GT-Tabelle 451 mm bis 528 mm."}},
+  {"@type":"Question","name":"Wie weit müssen die Pedale vom Sitz entfernt sein?","acceptedAnswer":{"@type":"Answer","text":"So weit, dass das Knie auch bei voll getretener Bremse gebeugt bleibt: Fanatec verlangt auch dann eine leichte Beugung. In der GT-Tabelle liegt der Fersenpunkt für 160 cm etwa 600 mm vor dem Hüftpunkt, für 195 cm etwa 730 mm."}},
+  {"@type":"Question","name":"Wie weit muss der Monitor entfernt sein?","acceptedAnswer":{"@type":"Answer","text":"So nah, wie Lenkrad und Hände es zulassen, mit dem Sichtfeld im Spiel passend zum Bildschirm. Für einen einzelnen 32-Zoll-Monitor setzen ihn die Tabellen 765 mm bis 921 mm vor die Augen, je nach Größe und Haltung."}},
+  {"@type":"Question","name":"Passen diese Maße für mich?","acceptedAnswer":{"@type":"Answer","text":"Sie gelten für einen durchschnittlichen Körperbau bei jeder Größe. Beine und Arme sind unterschiedlich lang: Gib im Werkzeug deine Schrittlänge zusätzlich zur Größe ein, dann passt es das Rig an deine eigenen Proportionen an."}}
+ ]}
+]}
+</script>
+</head>
+<body class="sr-page" style="--accent:#6a2ee8">
+<a class="skip" href="#main">Zum Inhalt</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" hreflang="en" aria-label="Peak Apps Tools, alle Werkzeuge (auf Englisch)">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Werkzeuge">
+      <a href="/de/sim-rig/" aria-current="page">Sim Rig Designer</a>
+      <a href="/tools/" hreflang="en">Alle Werkzeuge</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <div class="sr-topline">
+    <nav class="crumbs" aria-label="Brotkrümelnavigation"><ol><li><a href="/tools/" hreflang="en">Werkzeuge</a></li><li><a href="/de/sim-rig/">Sim Rig Designer</a></li><li aria-current="page">Maße nach Körpergröße</li></ol></nav>
+    <nav class="sr-langs" aria-label="Sprache"><a href="/sim-rig-designer/sim-racing-cockpit-dimensions/" hreflang="en" lang="en">English</a><a href="/de/sim-rig/sim-rig-masse/" aria-current="true" hreflang="de" lang="de">Deutsch</a></nav>
+  </div>
+  <header class="sr-guide-hero">
+    <div>
+      <h1>Sim Rig Maße nach Körpergröße</h1>
+      <p class="lede" style="margin-top:14px">Wo Sitz, Pedale, Lenkrad und Monitor hingehören, für Fahrer von 160 bis 195 cm und drei Fahrhaltungen. Jede Zeile ist ein Rig, das der Sim Rig Designer für diesen Körper gebaut und an veröffentlichten Bereichen zur Sitzhaltung geprüft hat, und jede lässt sich im Werkzeug öffnen.</p>
+      <a class="btn btn-primary sr-open" href="#gt">Zur GT-Tabelle</a>
+    </div>
+    <img src="/sim-rig-designer/img/hero-de-masse-960.webp" srcset="/sim-rig-designer/img/hero-de-masse-480.webp 480w, /sim-rig-designer/img/hero-de-masse-960.webp 960w, /sim-rig-designer/img/hero-de-masse-1440.webp 1440w" sizes="(max-width: 860px) 100vw, 52vw" width="1440" height="900" fetchpriority="high" decoding="async" alt="Seitenansicht eines GT-Rigs mit Fahrer, an seinem Körper die Winkel von Knie, Hüfte, Fußgelenk, Ellbogen und Lehne eingezeichnet">
+  </header>
+  <svg class="sr-kerb" viewBox="0 0 1200 34" preserveAspectRatio="xMinYMid slice" aria-hidden="true"><rect x="0" y="0" width="1200" height="7" fill="#3a3941"/><rect x="0" y="7" width="1200" height="3" fill="#f4f4f1"/><path d="M-10 32 L26 32 L34 11 L-2 11 Z" fill="#d71f27"/><path d="M-2 11 L34 11 L32.4 15 L-3.5999999999999996 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M-10 32 L26 32 L26.799999999999997 30 L-9.2 30 Z" fill="#9f141a"/><path d="M30 32 L66 32 L74 11 L38 11 Z" fill="#ffffff"/><path d="M38 11 L74 11 L72.4 15 L36.4 15 Z" fill="#ffffff" opacity="1"/><path d="M30 32 L66 32 L66.8 30 L30.8 30 Z" fill="#c9c9d2"/><path d="M70 32 L106 32 L114 11 L78 11 Z" fill="#d71f27"/><path d="M78 11 L114 11 L112.4 15 L76.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M70 32 L106 32 L106.8 30 L70.8 30 Z" fill="#9f141a"/><path d="M110 32 L146 32 L154 11 L118 11 Z" fill="#ffffff"/><path d="M118 11 L154 11 L152.4 15 L116.4 15 Z" fill="#ffffff" opacity="1"/><path d="M110 32 L146 32 L146.8 30 L110.8 30 Z" fill="#c9c9d2"/><path d="M150 32 L186 32 L194 11 L158 11 Z" fill="#d71f27"/><path d="M158 11 L194 11 L192.4 15 L156.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M150 32 L186 32 L186.8 30 L150.8 30 Z" fill="#9f141a"/><path d="M190 32 L226 32 L234 11 L198 11 Z" fill="#ffffff"/><path d="M198 11 L234 11 L232.4 15 L196.4 15 Z" fill="#ffffff" opacity="1"/><path d="M190 32 L226 32 L226.8 30 L190.8 30 Z" fill="#c9c9d2"/><path d="M230 32 L266 32 L274 11 L238 11 Z" fill="#d71f27"/><path d="M238 11 L274 11 L272.4 15 L236.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M230 32 L266 32 L266.8 30 L230.8 30 Z" fill="#9f141a"/><path d="M270 32 L306 32 L314 11 L278 11 Z" fill="#ffffff"/><path d="M278 11 L314 11 L312.4 15 L276.4 15 Z" fill="#ffffff" opacity="1"/><path d="M270 32 L306 32 L306.8 30 L270.8 30 Z" fill="#c9c9d2"/><path d="M310 32 L346 32 L354 11 L318 11 Z" fill="#d71f27"/><path d="M318 11 L354 11 L352.4 15 L316.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M310 32 L346 32 L346.8 30 L310.8 30 Z" fill="#9f141a"/><path d="M350 32 L386 32 L394 11 L358 11 Z" fill="#ffffff"/><path d="M358 11 L394 11 L392.4 15 L356.4 15 Z" fill="#ffffff" opacity="1"/><path d="M350 32 L386 32 L386.8 30 L350.8 30 Z" fill="#c9c9d2"/><path d="M390 32 L426 32 L434 11 L398 11 Z" fill="#d71f27"/><path d="M398 11 L434 11 L432.4 15 L396.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M390 32 L426 32 L426.8 30 L390.8 30 Z" fill="#9f141a"/><path d="M430 32 L466 32 L474 11 L438 11 Z" fill="#ffffff"/><path d="M438 11 L474 11 L472.4 15 L436.4 15 Z" fill="#ffffff" opacity="1"/><path d="M430 32 L466 32 L466.8 30 L430.8 30 Z" fill="#c9c9d2"/><path d="M470 32 L506 32 L514 11 L478 11 Z" fill="#d71f27"/><path d="M478 11 L514 11 L512.4 15 L476.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M470 32 L506 32 L506.8 30 L470.8 30 Z" fill="#9f141a"/><path d="M510 32 L546 32 L554 11 L518 11 Z" fill="#ffffff"/><path d="M518 11 L554 11 L552.4 15 L516.4 15 Z" fill="#ffffff" opacity="1"/><path d="M510 32 L546 32 L546.8 30 L510.8 30 Z" fill="#c9c9d2"/><path d="M550 32 L586 32 L594 11 L558 11 Z" fill="#d71f27"/><path d="M558 11 L594 11 L592.4 15 L556.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M550 32 L586 32 L586.8 30 L550.8 30 Z" fill="#9f141a"/><path d="M590 32 L626 32 L634 11 L598 11 Z" fill="#ffffff"/><path d="M598 11 L634 11 L632.4 15 L596.4 15 Z" fill="#ffffff" opacity="1"/><path d="M590 32 L626 32 L626.8 30 L590.8 30 Z" fill="#c9c9d2"/><path d="M630 32 L666 32 L674 11 L638 11 Z" fill="#d71f27"/><path d="M638 11 L674 11 L672.4 15 L636.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M630 32 L666 32 L666.8 30 L630.8 30 Z" fill="#9f141a"/><path d="M670 32 L706 32 L714 11 L678 11 Z" fill="#ffffff"/><path d="M678 11 L714 11 L712.4 15 L676.4 15 Z" fill="#ffffff" opacity="1"/><path d="M670 32 L706 32 L706.8 30 L670.8 30 Z" fill="#c9c9d2"/><path d="M710 32 L746 32 L754 11 L718 11 Z" fill="#d71f27"/><path d="M718 11 L754 11 L752.4 15 L716.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M710 32 L746 32 L746.8 30 L710.8 30 Z" fill="#9f141a"/><path d="M750 32 L786 32 L794 11 L758 11 Z" fill="#ffffff"/><path d="M758 11 L794 11 L792.4 15 L756.4 15 Z" fill="#ffffff" opacity="1"/><path d="M750 32 L786 32 L786.8 30 L750.8 30 Z" fill="#c9c9d2"/><path d="M790 32 L826 32 L834 11 L798 11 Z" fill="#d71f27"/><path d="M798 11 L834 11 L832.4 15 L796.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M790 32 L826 32 L826.8 30 L790.8 30 Z" fill="#9f141a"/><path d="M830 32 L866 32 L874 11 L838 11 Z" fill="#ffffff"/><path d="M838 11 L874 11 L872.4 15 L836.4 15 Z" fill="#ffffff" opacity="1"/><path d="M830 32 L866 32 L866.8 30 L830.8 30 Z" fill="#c9c9d2"/><path d="M870 32 L906 32 L914 11 L878 11 Z" fill="#d71f27"/><path d="M878 11 L914 11 L912.4 15 L876.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M870 32 L906 32 L906.8 30 L870.8 30 Z" fill="#9f141a"/><path d="M910 32 L946 32 L954 11 L918 11 Z" fill="#ffffff"/><path d="M918 11 L954 11 L952.4 15 L916.4 15 Z" fill="#ffffff" opacity="1"/><path d="M910 32 L946 32 L946.8 30 L910.8 30 Z" fill="#c9c9d2"/><path d="M950 32 L986 32 L994 11 L958 11 Z" fill="#d71f27"/><path d="M958 11 L994 11 L992.4 15 L956.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M950 32 L986 32 L986.8 30 L950.8 30 Z" fill="#9f141a"/><path d="M990 32 L1026 32 L1034 11 L998 11 Z" fill="#ffffff"/><path d="M998 11 L1034 11 L1032.4 15 L996.4 15 Z" fill="#ffffff" opacity="1"/><path d="M990 32 L1026 32 L1026.8 30 L990.8 30 Z" fill="#c9c9d2"/><path d="M1030 32 L1066 32 L1074 11 L1038 11 Z" fill="#d71f27"/><path d="M1038 11 L1074 11 L1072.4 15 L1036.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M1030 32 L1066 32 L1066.8 30 L1030.8 30 Z" fill="#9f141a"/><path d="M1070 32 L1106 32 L1114 11 L1078 11 Z" fill="#ffffff"/><path d="M1078 11 L1114 11 L1112.4 15 L1076.4 15 Z" fill="#ffffff" opacity="1"/><path d="M1070 32 L1106 32 L1106.8 30 L1070.8 30 Z" fill="#c9c9d2"/><path d="M1110 32 L1146 32 L1154 11 L1118 11 Z" fill="#d71f27"/><path d="M1118 11 L1154 11 L1152.4 15 L1116.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M1110 32 L1146 32 L1146.8 30 L1110.8 30 Z" fill="#9f141a"/><path d="M1150 32 L1186 32 L1194 11 L1158 11 Z" fill="#ffffff"/><path d="M1158 11 L1194 11 L1192.4 15 L1156.4 15 Z" fill="#ffffff" opacity="1"/><path d="M1150 32 L1186 32 L1186.8 30 L1150.8 30 Z" fill="#c9c9d2"/><path d="M1190 32 L1226 32 L1234 11 L1198 11 Z" fill="#d71f27"/><path d="M1198 11 L1234 11 L1232.4 15 L1196.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M1190 32 L1226 32 L1226.8 30 L1190.8 30 Z" fill="#9f141a"/></svg>
+  <article class="sr-article sr-article-wide">
+    <h2>So liest du die Tabellen</h2>
+    <figure class="sr-figure sr-fig-narrow">
+      <svg viewBox="-10 -10 780 872" role="img" aria-label="Seitenansicht einer GT-Sitzposition mit Hüftpunkt, Fersenpunkt, Lenkradmitte und Auge; dazwischen H30, L53, Lenkradhöhe und Monitorabstand"><defs><marker id="sr-ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 1 L9 5 L0 9 z" fill="#6a2ee8"/></marker></defs><line x1="0" y1="811.6" x2="760" y2="811.6" stroke="#17151d" stroke-width="2"/><path d="M145.0 208.0 L246.7 520.8 L488.7 472.5 L646.4 672.0" fill="none" stroke="#4c4959" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/><path d="M246.7 520.8 L147.0 214.2 L194.3 94.0" fill="none" stroke="#4c4959" stroke-width="7" stroke-linecap="round" opacity=".3"/><line x1="442.0" y1="173.3" x2="496.5" y2="340.9" stroke="#17151d" stroke-width="6" stroke-linecap="round"/><line x1="701.7" y1="-23.0" x2="701.7" y2="211.0" stroke="#17151d" stroke-width="8"/><line x1="220.7" y1="520.8" x2="220.7" y2="725.8" stroke="#6a2ee8" stroke-width="1.6" marker-start="url(#sr-ar)" marker-end="url(#sr-ar)"/><text x="212.7" y="628.3" font-size="15" font-weight="700" fill="#6a2ee8" text-anchor="end">H30</text><line x1="246.7" y1="751.8" x2="642.5" y2="751.8" stroke="#6a2ee8" stroke-width="1.6" marker-start="url(#sr-ar)" marker-end="url(#sr-ar)"/><text x="444.6" y="771.8" font-size="15" font-weight="700" fill="#6a2ee8" text-anchor="middle">L53</text><line x1="246.7" y1="520.8" x2="469.3" y2="520.8" stroke="#6a2ee8" stroke-width="1" stroke-dasharray="4 4"/><line x1="491.3" y1="520.8" x2="491.3" y2="257.1" stroke="#6a2ee8" stroke-width="1.6" marker-start="url(#sr-ar)" marker-end="url(#sr-ar)"/><text x="499.3" y="393.95" font-size="15" font-weight="700" fill="#6a2ee8" text-anchor="start">Lenkrad über Hüfte</text><line x1="194.3" y1="76" x2="701.7" y2="76" stroke="#6a2ee8" stroke-width="1.6" marker-start="url(#sr-ar)" marker-end="url(#sr-ar)"/><text x="448" y="68" font-size="15" font-weight="700" fill="#6a2ee8" text-anchor="middle">Augen bis Monitor</text><circle cx="246.7" cy="520.8" r="6" fill="#ffd23f" stroke="#17151d" stroke-width="1.6"/><text x="258.7" y="546.8" font-size="14.5" fill="#17151d" text-anchor="start">Hüftpunkt</text><circle cx="642.5" cy="725.8" r="6" fill="#ffd23f" stroke="#17151d" stroke-width="1.6"/><text x="652.5" y="713.8" font-size="14.5" fill="#17151d" text-anchor="start">Fersenpunkt</text><circle cx="469.3" cy="257.1" r="6" fill="#ffd23f" stroke="#17151d" stroke-width="1.6"/><text x="479.3" y="243.10000000000002" font-size="14.5" fill="#17151d" text-anchor="start">Lenkradmitte</text><circle cx="194.3" cy="94.0" r="6" fill="#ffd23f" stroke="#17151d" stroke-width="1.6"/><text x="184.3" y="82" font-size="14.5" fill="#17151d" text-anchor="end">Auge</text><text x="151" y="212" font-size="14.5" fill="#17151d">Lehne 18°</text></svg>
+      <figcaption>Das GT-Rig für 180 cm aus der ersten Tabelle, maßstäblich aus dem Modell des Werkzeugs. Gemessen wird von zwei Punkten aus, die die SAE J1100 für Pkw festlegt: dem Hüftpunkt und dem Fersenpunkt.</figcaption>
+    </figure>
+    <dl class="sr-dl">
+      <dt>Hüftpunkt</dt><dd>Das Gelenk zwischen Oberkörper und Oberschenkel im Sitzen, von dem aus die SAE J1100 einen Sitz vermisst. Er liegt etwas über und hinter der tiefsten Stelle des Sitzpolsters.</dd>
+      <dt>Fersenpunkt</dt><dd>Wo deine Ferse auf der Pedalplatte steht, während der Fuß auf dem Gaspedal liegt.</dd>
+      <dt>H30</dt><dd>Wie hoch der Hüftpunkt über dem Fersenpunkt liegt. Diese Zahl entscheidet, ob du wie im Straßenauto, im Lkw oder im Formelwagen sitzt.</dd>
+      <dt>L53</dt><dd>Wie weit der Fersenpunkt vor dem Hüftpunkt liegt. Längere Beine brauchen für denselben Kniewinkel ein längeres L53.</dd>
+      <dt>Lehne</dt><dd>Die Rückenlehne, in Grad aus der Senkrechten.</dd>
+      <dt>Lenkradmitte</dt><dd>Die Mitte des Kranzes, als Höhe über dem Hüftpunkt und Abstand davor.</dd>
+      <dt>Augen bis Monitor</dt><dd>Von deinen Augen geradeaus bis zur Bildschirmmitte.</dd>
+    </dl>
+    <p>Jede Zeile unten ist ein Rig, das das Werkzeug für diesen Körper gebaut und geprüft hat: Knie-, Hüft-, Fuß- und Ellbogenwinkel, Kranz und Halterung frei über den Oberschenkeln, das Lenkrad zur Schulter und der Bildschirm zu den Augen. Keine Zeile fällt durch. Mit „Öffnen“ lädst du die Zeile ins Werkzeug und kannst Sitz, Technik oder Einheiten ändern.</p>
+    <h2 id="gt">GT und Straße</h2>
+    <p>Aufrecht sitzen, die Fersen tief auf einer fast flachen Pedalplatte, das Lenkrad nah. Die Fahrer bei Porter und Gyi stellten einen verstellbaren Versuchsstand selbst ein und wählten eine Lehne 5 bis 25° aus der Senkrechten und einen Hüftpunkt 283 bis 335 mm über der Ferse; Fanatec verlangt für GT ein leicht gebeugtes Knie auch bei voll getretener Bremse.</p>
+    <table class="sr-table">
+      <caption>GT und Straße: Sitz und Pedale nach Körpergröße.</caption>
+      <thead><tr><th scope="col">Größe</th><th scope="col">Hüftpunkt über dem Boden</th><th scope="col">Hüfte über Ferse (H30)</th><th scope="col">Ferse vor Hüfte (L53)</th><th scope="col">Lehne</th><th scope="col">Pedalplatte</th><th scope="col">Knie</th></tr></thead>
+      <tbody>
+        <tr id="gt-160"><td data-h="Größe"><b>160 cm</b></td><td data-h="Hüftpunkt über dem Boden">451 mm</td><td data-h="Hüfte über Ferse (H30)">305 mm</td><td data-h="Ferse vor Hüfte (L53)">603 mm</td><td data-h="Lehne">18°</td><td data-h="Pedalplatte">4°</td><td data-h="Knie">117°</td></tr>
+        <tr id="gt-165"><td data-h="Größe"><b>165 cm</b></td><td data-h="Hüftpunkt über dem Boden">462 mm</td><td data-h="Hüfte über Ferse (H30)">316 mm</td><td data-h="Ferse vor Hüfte (L53)">621 mm</td><td data-h="Lehne">18°</td><td data-h="Pedalplatte">4°</td><td data-h="Knie">117°</td></tr>
+        <tr id="gt-170"><td data-h="Größe"><b>170 cm</b></td><td data-h="Hüftpunkt über dem Boden">473 mm</td><td data-h="Hüfte über Ferse (H30)">327 mm</td><td data-h="Ferse vor Hüfte (L53)">640 mm</td><td data-h="Lehne">18°</td><td data-h="Pedalplatte">4°</td><td data-h="Knie">117°</td></tr>
+        <tr id="gt-175"><td data-h="Größe"><b>175 cm</b></td><td data-h="Hüftpunkt über dem Boden">484 mm</td><td data-h="Hüfte über Ferse (H30)">338 mm</td><td data-h="Ferse vor Hüfte (L53)">656 mm</td><td data-h="Lehne">18°</td><td data-h="Pedalplatte">3°</td><td data-h="Knie">117°</td></tr>
+        <tr id="gt-180"><td data-h="Größe"><b>180 cm</b></td><td data-h="Hüftpunkt über dem Boden">495 mm</td><td data-h="Hüfte über Ferse (H30)">349 mm</td><td data-h="Ferse vor Hüfte (L53)">674 mm</td><td data-h="Lehne">18°</td><td data-h="Pedalplatte">3°</td><td data-h="Knie">117°</td></tr>
+        <tr id="gt-185"><td data-h="Größe"><b>185 cm</b></td><td data-h="Hüftpunkt über dem Boden">506 mm</td><td data-h="Hüfte über Ferse (H30)">360 mm</td><td data-h="Ferse vor Hüfte (L53)">692 mm</td><td data-h="Lehne">18°</td><td data-h="Pedalplatte">3°</td><td data-h="Knie">117°</td></tr>
+        <tr id="gt-190"><td data-h="Größe"><b>190 cm</b></td><td data-h="Hüftpunkt über dem Boden">517 mm</td><td data-h="Hüfte über Ferse (H30)">371 mm</td><td data-h="Ferse vor Hüfte (L53)">710 mm</td><td data-h="Lehne">18°</td><td data-h="Pedalplatte">3°</td><td data-h="Knie">117°</td></tr>
+        <tr id="gt-195"><td data-h="Größe"><b>195 cm</b></td><td data-h="Hüftpunkt über dem Boden">528 mm</td><td data-h="Hüfte über Ferse (H30)">382 mm</td><td data-h="Ferse vor Hüfte (L53)">728 mm</td><td data-h="Lehne">18°</td><td data-h="Pedalplatte">3°</td><td data-h="Knie">117°</td></tr>
+      </tbody>
+    </table>
+    <table class="sr-table">
+      <caption>GT und Straße: Lenkrad und 32-Zoll-Monitor nach Körpergröße.</caption>
+      <thead><tr><th scope="col">Größe</th><th scope="col">Lenkradmitte über dem Hüftpunkt</th><th scope="col">Lenkradmitte davor</th><th scope="col">Lenkradneigung</th><th scope="col">Ellbogen</th><th scope="col">Augen bis Monitor</th><th scope="col">Im Werkzeug</th></tr></thead>
+      <tbody>
+        <tr><td data-h="Größe"><b>160 cm</b></td><td data-h="Lenkradmitte über dem Hüftpunkt">392 mm</td><td data-h="Lenkradmitte davor">333 mm</td><td data-h="Lenkradneigung">18°</td><td data-h="Ellbogen">105°</td><td data-h="Augen bis Monitor">804 mm</td><td data-h="Im Werkzeug"><a href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoiZ3QiLCJuYW1lIjoiR1QtUmlnLCAxNjAgY20iLCJkcml2ZXIiOnsiaCI6MTYwMH0sInJpZyI6eyJzZWF0SCI6NDUxLCJoMzAiOjMwNSwibDUzIjo2MDMsImRlY2siOjQsIndoZWVsVXAiOjM5Miwid2hlZWxSZWFjaCI6MzMzLCJzY3JlZW5EaXN0Ijo4MDR9fQ">Öffnen</a></td></tr>
+        <tr><td data-h="Größe"><b>165 cm</b></td><td data-h="Lenkradmitte über dem Hüftpunkt">406 mm</td><td data-h="Lenkradmitte davor">344 mm</td><td data-h="Lenkradneigung">18°</td><td data-h="Ellbogen">105°</td><td data-h="Augen bis Monitor">819 mm</td><td data-h="Im Werkzeug"><a href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoiZ3QiLCJuYW1lIjoiR1QtUmlnLCAxNjUgY20iLCJkcml2ZXIiOnsiaCI6MTY1MH0sInJpZyI6eyJzZWF0SCI6NDYyLCJoMzAiOjMxNiwibDUzIjo2MjEsImRlY2siOjQsIndoZWVsVXAiOjQwNiwid2hlZWxSZWFjaCI6MzQ0LCJzY3JlZW5EaXN0Ijo4MTl9fQ">Öffnen</a></td></tr>
+        <tr><td data-h="Größe"><b>170 cm</b></td><td data-h="Lenkradmitte über dem Hüftpunkt">420 mm</td><td data-h="Lenkradmitte davor">356 mm</td><td data-h="Lenkradneigung">18°</td><td data-h="Ellbogen">105°</td><td data-h="Augen bis Monitor">834 mm</td><td data-h="Im Werkzeug"><a href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoiZ3QiLCJuYW1lIjoiR1QtUmlnLCAxNzAgY20iLCJkcml2ZXIiOnsiaCI6MTcwMH0sInJpZyI6eyJzZWF0SCI6NDczLCJoMzAiOjMyNywibDUzIjo2NDAsImRlY2siOjQsIndoZWVsVXAiOjQyMCwid2hlZWxSZWFjaCI6MzU2LCJzY3JlZW5EaXN0Ijo4MzR9fQ">Öffnen</a></td></tr>
+        <tr><td data-h="Größe"><b>175 cm</b></td><td data-h="Lenkradmitte über dem Hüftpunkt">435 mm</td><td data-h="Lenkradmitte davor">368 mm</td><td data-h="Lenkradneigung">18°</td><td data-h="Ellbogen">105°</td><td data-h="Augen bis Monitor">849 mm</td><td data-h="Im Werkzeug"><a href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoiZ3QiLCJuYW1lIjoiR1QtUmlnLCAxNzUgY20ifQ">Öffnen</a></td></tr>
+        <tr><td data-h="Größe"><b>180 cm</b></td><td data-h="Lenkradmitte über dem Hüftpunkt">449 mm</td><td data-h="Lenkradmitte davor">379 mm</td><td data-h="Lenkradneigung">18°</td><td data-h="Ellbogen">105°</td><td data-h="Augen bis Monitor">864 mm</td><td data-h="Im Werkzeug"><a href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoiZ3QiLCJuYW1lIjoiR1QtUmlnLCAxODAgY20iLCJkcml2ZXIiOnsiaCI6MTgwMH0sInJpZyI6eyJzZWF0SCI6NDk1LCJoMzAiOjM0OSwibDUzIjo2NzQsIndoZWVsVXAiOjQ0OSwid2hlZWxSZWFjaCI6Mzc5LCJzY3JlZW5EaXN0Ijo4NjR9fQ">Öffnen</a></td></tr>
+        <tr><td data-h="Größe"><b>185 cm</b></td><td data-h="Lenkradmitte über dem Hüftpunkt">463 mm</td><td data-h="Lenkradmitte davor">390 mm</td><td data-h="Lenkradneigung">18°</td><td data-h="Ellbogen">105°</td><td data-h="Augen bis Monitor">879 mm</td><td data-h="Im Werkzeug"><a href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoiZ3QiLCJuYW1lIjoiR1QtUmlnLCAxODUgY20iLCJkcml2ZXIiOnsiaCI6MTg1MH0sInJpZyI6eyJzZWF0SCI6NTA2LCJoMzAiOjM2MCwibDUzIjo2OTIsIndoZWVsVXAiOjQ2Mywid2hlZWxSZWFjaCI6MzkwLCJzY3JlZW5EaXN0Ijo4Nzl9fQ">Öffnen</a></td></tr>
+        <tr><td data-h="Größe"><b>190 cm</b></td><td data-h="Lenkradmitte über dem Hüftpunkt">477 mm</td><td data-h="Lenkradmitte davor">402 mm</td><td data-h="Lenkradneigung">18°</td><td data-h="Ellbogen">105°</td><td data-h="Augen bis Monitor">894 mm</td><td data-h="Im Werkzeug"><a href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoiZ3QiLCJuYW1lIjoiR1QtUmlnLCAxOTAgY20iLCJkcml2ZXIiOnsiaCI6MTkwMH0sInJpZyI6eyJzZWF0SCI6NTE3LCJoMzAiOjM3MSwibDUzIjo3MTAsIndoZWVsVXAiOjQ3Nywid2hlZWxSZWFjaCI6NDAyLCJzY3JlZW5EaXN0Ijo4OTR9fQ">Öffnen</a></td></tr>
+        <tr><td data-h="Größe"><b>195 cm</b></td><td data-h="Lenkradmitte über dem Hüftpunkt">492 mm</td><td data-h="Lenkradmitte davor">413 mm</td><td data-h="Lenkradneigung">18°</td><td data-h="Ellbogen">105°</td><td data-h="Augen bis Monitor">909 mm</td><td data-h="Im Werkzeug"><a href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoiZ3QiLCJuYW1lIjoiR1QtUmlnLCAxOTUgY20iLCJkcml2ZXIiOnsiaCI6MTk1MH0sInJpZyI6eyJzZWF0SCI6NTI4LCJoMzAiOjM4MiwibDUzIjo3MjgsIndoZWVsVXAiOjQ5Miwid2hlZWxSZWFjaCI6NDEzLCJzY3JlZW5EaXN0Ijo5MDl9fQ">Öffnen</a></td></tr>
+      </tbody>
+    </table>
+    <p>Von 160 cm bis 195 cm wandert der Fersenpunkt 125 mm weiter nach vorn, die Lenkradmitte steigt um 100 mm über den Hüftpunkt, und der Monitor rückt 105 mm weiter weg; der Hüftpunkt steigt um 77 mm. Die Winkel ändern sich kaum: Die Anpassung hält das Knie bei etwa 117° und die Lehne bei 18° und verschiebt stattdessen die Teile.</p>
+    <h2 id="formula">Formel</h2>
+    <p>Tief und weit zurückgelehnt sitzen, die Füße hoch, die Pedale steil. Fanatec nennt die Formelposition stark zurückgelehnt, Qubic System setzt Formel-Lehnen näher an 45°; die Fersen kommen zur Hüfte hoch. Das Werkzeug hält den Hüftpunkt weniger als 127 mm über der Ferse, unter dem Minimum der SAE J1100 für einen Pkw-Sitz, und stellt die Lehne auf 40°.</p>
+    <table class="sr-table">
+      <caption>Formel: Sitz und Pedale nach Körpergröße.</caption>
+      <thead><tr><th scope="col">Größe</th><th scope="col">Hüftpunkt über dem Boden</th><th scope="col">Hüfte über Ferse (H30)</th><th scope="col">Ferse vor Hüfte (L53)</th><th scope="col">Lehne</th><th scope="col">Pedalplatte</th><th scope="col">Knie</th></tr></thead>
+      <tbody>
+        <tr id="formula-160"><td data-h="Größe"><b>160 cm</b></td><td data-h="Hüftpunkt über dem Boden">268 mm</td><td data-h="Hüfte über Ferse (H30)">50 mm</td><td data-h="Ferse vor Hüfte (L53)">705 mm</td><td data-h="Lehne">40°</td><td data-h="Pedalplatte">30°</td><td data-h="Knie">125°</td></tr>
+        <tr id="formula-165"><td data-h="Größe"><b>165 cm</b></td><td data-h="Hüftpunkt über dem Boden">268 mm</td><td data-h="Hüfte über Ferse (H30)">50 mm</td><td data-h="Ferse vor Hüfte (L53)">727 mm</td><td data-h="Lehne">40°</td><td data-h="Pedalplatte">30°</td><td data-h="Knie">125°</td></tr>
+        <tr id="formula-170"><td data-h="Größe"><b>170 cm</b></td><td data-h="Hüftpunkt über dem Boden">268 mm</td><td data-h="Hüfte über Ferse (H30)">50 mm</td><td data-h="Ferse vor Hüfte (L53)">748 mm</td><td data-h="Lehne">40°</td><td data-h="Pedalplatte">30°</td><td data-h="Knie">125°</td></tr>
+        <tr id="formula-175"><td data-h="Größe"><b>175 cm</b></td><td data-h="Hüftpunkt über dem Boden">268 mm</td><td data-h="Hüfte über Ferse (H30)">50 mm</td><td data-h="Ferse vor Hüfte (L53)">770 mm</td><td data-h="Lehne">40°</td><td data-h="Pedalplatte">30°</td><td data-h="Knie">125°</td></tr>
+        <tr id="formula-180"><td data-h="Größe"><b>180 cm</b></td><td data-h="Hüftpunkt über dem Boden">268 mm</td><td data-h="Hüfte über Ferse (H30)">50 mm</td><td data-h="Ferse vor Hüfte (L53)">793 mm</td><td data-h="Lehne">40°</td><td data-h="Pedalplatte">31°</td><td data-h="Knie">125°</td></tr>
+        <tr id="formula-185"><td data-h="Größe"><b>185 cm</b></td><td data-h="Hüftpunkt über dem Boden">268 mm</td><td data-h="Hüfte über Ferse (H30)">50 mm</td><td data-h="Ferse vor Hüfte (L53)">815 mm</td><td data-h="Lehne">40°</td><td data-h="Pedalplatte">31°</td><td data-h="Knie">125°</td></tr>
+        <tr id="formula-190"><td data-h="Größe"><b>190 cm</b></td><td data-h="Hüftpunkt über dem Boden">268 mm</td><td data-h="Hüfte über Ferse (H30)">50 mm</td><td data-h="Ferse vor Hüfte (L53)">837 mm</td><td data-h="Lehne">40°</td><td data-h="Pedalplatte">31°</td><td data-h="Knie">125°</td></tr>
+        <tr id="formula-195"><td data-h="Größe"><b>195 cm</b></td><td data-h="Hüftpunkt über dem Boden">268 mm</td><td data-h="Hüfte über Ferse (H30)">50 mm</td><td data-h="Ferse vor Hüfte (L53)">859 mm</td><td data-h="Lehne">40°</td><td data-h="Pedalplatte">31°</td><td data-h="Knie">125°</td></tr>
+      </tbody>
+    </table>
+    <table class="sr-table">
+      <caption>Formel: Lenkrad und 32-Zoll-Monitor nach Körpergröße.</caption>
+      <thead><tr><th scope="col">Größe</th><th scope="col">Lenkradmitte über dem Hüftpunkt</th><th scope="col">Lenkradmitte davor</th><th scope="col">Lenkradneigung</th><th scope="col">Ellbogen</th><th scope="col">Augen bis Monitor</th><th scope="col">Im Werkzeug</th></tr></thead>
+      <tbody>
+        <tr><td data-h="Größe"><b>160 cm</b></td><td data-h="Lenkradmitte über dem Hüftpunkt">475 mm</td><td data-h="Lenkradmitte davor">180 mm</td><td data-h="Lenkradneigung">28°</td><td data-h="Ellbogen">110°</td><td data-h="Augen bis Monitor">809 mm</td><td data-h="Im Werkzeug"><a href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoiZm9ybXVsYSIsIm5hbWUiOiJGb3JtZWwtUmlnLCAxNjAgY20iLCJkcml2ZXIiOnsiaCI6MTYwMH0sInJpZyI6eyJsNTMiOjcwNSwid2hlZWxVcCI6NDc1LCJ3aGVlbFJlYWNoIjoxODAsInNjcmVlbkRpc3QiOjgwOX19">Öffnen</a></td></tr>
+        <tr><td data-h="Größe"><b>165 cm</b></td><td data-h="Lenkradmitte über dem Hüftpunkt">486 mm</td><td data-h="Lenkradmitte davor">187 mm</td><td data-h="Lenkradneigung">28°</td><td data-h="Ellbogen">110°</td><td data-h="Augen bis Monitor">825 mm</td><td data-h="Im Werkzeug"><a href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoiZm9ybXVsYSIsIm5hbWUiOiJGb3JtZWwtUmlnLCAxNjUgY20iLCJkcml2ZXIiOnsiaCI6MTY1MH0sInJpZyI6eyJsNTMiOjcyNywid2hlZWxVcCI6NDg2LCJ3aGVlbFJlYWNoIjoxODcsInNjcmVlbkRpc3QiOjgyNX19">Öffnen</a></td></tr>
+        <tr><td data-h="Größe"><b>170 cm</b></td><td data-h="Lenkradmitte über dem Hüftpunkt">498 mm</td><td data-h="Lenkradmitte davor">195 mm</td><td data-h="Lenkradneigung">28°</td><td data-h="Ellbogen">110°</td><td data-h="Augen bis Monitor">841 mm</td><td data-h="Im Werkzeug"><a href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoiZm9ybXVsYSIsIm5hbWUiOiJGb3JtZWwtUmlnLCAxNzAgY20iLCJkcml2ZXIiOnsiaCI6MTcwMH0sInJpZyI6eyJsNTMiOjc0OCwid2hlZWxVcCI6NDk4LCJ3aGVlbFJlYWNoIjoxOTUsInNjcmVlbkRpc3QiOjg0MX19">Öffnen</a></td></tr>
+        <tr><td data-h="Größe"><b>175 cm</b></td><td data-h="Lenkradmitte über dem Hüftpunkt">499 mm</td><td data-h="Lenkradmitte davor">204 mm</td><td data-h="Lenkradneigung">28°</td><td data-h="Ellbogen">110°</td><td data-h="Augen bis Monitor">858 mm</td><td data-h="Im Werkzeug"><a href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoiZm9ybXVsYSIsIm5hbWUiOiJGb3JtZWwtUmlnLCAxNzUgY20ifQ">Öffnen</a></td></tr>
+        <tr><td data-h="Größe"><b>180 cm</b></td><td data-h="Lenkradmitte über dem Hüftpunkt">511 mm</td><td data-h="Lenkradmitte davor">211 mm</td><td data-h="Lenkradneigung">28°</td><td data-h="Ellbogen">110°</td><td data-h="Augen bis Monitor">874 mm</td><td data-h="Im Werkzeug"><a href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoiZm9ybXVsYSIsIm5hbWUiOiJGb3JtZWwtUmlnLCAxODAgY20iLCJkcml2ZXIiOnsiaCI6MTgwMH0sInJpZyI6eyJsNTMiOjc5MywiZGVjayI6MzEsIndoZWVsVXAiOjUxMSwid2hlZWxSZWFjaCI6MjExLCJzY3JlZW5EaXN0Ijo4NzR9fQ">Öffnen</a></td></tr>
+        <tr><td data-h="Größe"><b>185 cm</b></td><td data-h="Lenkradmitte über dem Hüftpunkt">522 mm</td><td data-h="Lenkradmitte davor">218 mm</td><td data-h="Lenkradneigung">28°</td><td data-h="Ellbogen">110°</td><td data-h="Augen bis Monitor">889 mm</td><td data-h="Im Werkzeug"><a href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoiZm9ybXVsYSIsIm5hbWUiOiJGb3JtZWwtUmlnLCAxODUgY20iLCJkcml2ZXIiOnsiaCI6MTg1MH0sInJpZyI6eyJsNTMiOjgxNSwiZGVjayI6MzEsIndoZWVsVXAiOjUyMiwid2hlZWxSZWFjaCI6MjE4LCJzY3JlZW5EaXN0Ijo4ODl9fQ">Öffnen</a></td></tr>
+        <tr><td data-h="Größe"><b>190 cm</b></td><td data-h="Lenkradmitte über dem Hüftpunkt">523 mm</td><td data-h="Lenkradmitte davor">226 mm</td><td data-h="Lenkradneigung">28°</td><td data-h="Ellbogen">110°</td><td data-h="Augen bis Monitor">906 mm</td><td data-h="Im Werkzeug"><a href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoiZm9ybXVsYSIsIm5hbWUiOiJGb3JtZWwtUmlnLCAxOTAgY20iLCJkcml2ZXIiOnsiaCI6MTkwMH0sInJpZyI6eyJsNTMiOjgzNywiZGVjayI6MzEsIndoZWVsVXAiOjUyMywid2hlZWxSZWFjaCI6MjI2LCJzY3JlZW5EaXN0Ijo5MDZ9fQ">Öffnen</a></td></tr>
+        <tr><td data-h="Größe"><b>195 cm</b></td><td data-h="Lenkradmitte über dem Hüftpunkt">535 mm</td><td data-h="Lenkradmitte davor">233 mm</td><td data-h="Lenkradneigung">28°</td><td data-h="Ellbogen">110°</td><td data-h="Augen bis Monitor">921 mm</td><td data-h="Im Werkzeug"><a href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoiZm9ybXVsYSIsIm5hbWUiOiJGb3JtZWwtUmlnLCAxOTUgY20iLCJkcml2ZXIiOnsiaCI6MTk1MH0sInJpZyI6eyJsNTMiOjg1OSwiZGVjayI6MzEsIndoZWVsVXAiOjUzNSwid2hlZWxSZWFjaCI6MjMzLCJzY3JlZW5EaXN0Ijo5MjF9fQ">Öffnen</a></td></tr>
+      </tbody>
+    </table>
+    <p>Von 160 cm bis 195 cm wandert der Fersenpunkt 154 mm weiter nach vorn, die Lenkradmitte steigt um 60 mm über den Hüftpunkt, und der Monitor rückt 112 mm weiter weg; der Hüftpunkt bleibt auf derselben Höhe. Die Winkel ändern sich kaum: Die Anpassung hält das Knie bei etwa 125° und die Lehne bei 40° und verschiebt stattdessen die Teile.</p>
+    <h2 id="rally">Rallye und Lkw</h2>
+    <p>Die aufrechteste der drei Haltungen: ein hoher Sitz, eine flache Pedalplatte und ein weiter zurückgeneigtes Lenkrad, näher an einem Lkw als an einem Rennwagen. Der Hüftpunkt liegt 388 bis 486 mm über der Ferse, vom oberen Ende des Pkw-Bereichs der SAE J1100 bis in den Bereich, den sie für Lkw angibt.</p>
+    <table class="sr-table">
+      <caption>Rallye und Lkw: Sitz und Pedale nach Körpergröße.</caption>
+      <thead><tr><th scope="col">Größe</th><th scope="col">Hüftpunkt über dem Boden</th><th scope="col">Hüfte über Ferse (H30)</th><th scope="col">Ferse vor Hüfte (L53)</th><th scope="col">Lehne</th><th scope="col">Pedalplatte</th><th scope="col">Knie</th></tr></thead>
+      <tbody>
+        <tr id="rally-160"><td data-h="Größe"><b>160 cm</b></td><td data-h="Hüftpunkt über dem Boden">534 mm</td><td data-h="Hüfte über Ferse (H30)">388 mm</td><td data-h="Ferse vor Hüfte (L53)">540 mm</td><td data-h="Lehne">15°</td><td data-h="Pedalplatte">0°</td><td data-h="Knie">112°</td></tr>
+        <tr id="rally-165"><td data-h="Größe"><b>165 cm</b></td><td data-h="Hüftpunkt über dem Boden">548 mm</td><td data-h="Hüfte über Ferse (H30)">402 mm</td><td data-h="Ferse vor Hüfte (L53)">555 mm</td><td data-h="Lehne">15°</td><td data-h="Pedalplatte">0°</td><td data-h="Knie">112°</td></tr>
+        <tr id="rally-170"><td data-h="Größe"><b>170 cm</b></td><td data-h="Hüftpunkt über dem Boden">562 mm</td><td data-h="Hüfte über Ferse (H30)">416 mm</td><td data-h="Ferse vor Hüfte (L53)">571 mm</td><td data-h="Lehne">15°</td><td data-h="Pedalplatte">0°</td><td data-h="Knie">112°</td></tr>
+        <tr id="rally-175"><td data-h="Größe"><b>175 cm</b></td><td data-h="Hüftpunkt über dem Boden">576 mm</td><td data-h="Hüfte über Ferse (H30)">430 mm</td><td data-h="Ferse vor Hüfte (L53)">586 mm</td><td data-h="Lehne">15°</td><td data-h="Pedalplatte">0°</td><td data-h="Knie">112°</td></tr>
+        <tr id="rally-180"><td data-h="Größe"><b>180 cm</b></td><td data-h="Hüftpunkt über dem Boden">590 mm</td><td data-h="Hüfte über Ferse (H30)">444 mm</td><td data-h="Ferse vor Hüfte (L53)">602 mm</td><td data-h="Lehne">15°</td><td data-h="Pedalplatte">0°</td><td data-h="Knie">112°</td></tr>
+        <tr id="rally-185"><td data-h="Größe"><b>185 cm</b></td><td data-h="Hüftpunkt über dem Boden">604 mm</td><td data-h="Hüfte über Ferse (H30)">458 mm</td><td data-h="Ferse vor Hüfte (L53)">617 mm</td><td data-h="Lehne">15°</td><td data-h="Pedalplatte">0°</td><td data-h="Knie">112°</td></tr>
+        <tr id="rally-190"><td data-h="Größe"><b>190 cm</b></td><td data-h="Hüftpunkt über dem Boden">618 mm</td><td data-h="Hüfte über Ferse (H30)">472 mm</td><td data-h="Ferse vor Hüfte (L53)">633 mm</td><td data-h="Lehne">15°</td><td data-h="Pedalplatte">0°</td><td data-h="Knie">112°</td></tr>
+        <tr id="rally-195"><td data-h="Größe"><b>195 cm</b></td><td data-h="Hüftpunkt über dem Boden">632 mm</td><td data-h="Hüfte über Ferse (H30)">486 mm</td><td data-h="Ferse vor Hüfte (L53)">649 mm</td><td data-h="Lehne">15°</td><td data-h="Pedalplatte">0°</td><td data-h="Knie">112°</td></tr>
+      </tbody>
+    </table>
+    <table class="sr-table">
+      <caption>Rallye und Lkw: Lenkrad und 32-Zoll-Monitor nach Körpergröße.</caption>
+      <thead><tr><th scope="col">Größe</th><th scope="col">Lenkradmitte über dem Hüftpunkt</th><th scope="col">Lenkradmitte davor</th><th scope="col">Lenkradneigung</th><th scope="col">Ellbogen</th><th scope="col">Augen bis Monitor</th><th scope="col">Im Werkzeug</th></tr></thead>
+      <tbody>
+        <tr><td data-h="Größe"><b>160 cm</b></td><td data-h="Lenkradmitte über dem Hüftpunkt">361 mm</td><td data-h="Lenkradmitte davor">326 mm</td><td data-h="Lenkradneigung">30°</td><td data-h="Ellbogen">98°</td><td data-h="Augen bis Monitor">765 mm</td><td data-h="Im Werkzeug"><a href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoicmFsbHkiLCJuYW1lIjoiUmFsbHllLVJpZywgMTYwIGNtIiwiZHJpdmVyIjp7ImgiOjE2MDB9LCJyaWciOnsic2VhdEgiOjUzNCwiaDMwIjozODgsImw1MyI6NTQwLCJ3aGVlbFVwIjozNjEsIndoZWVsUmVhY2giOjMyNiwic2NyZWVuRGlzdCI6NzY1fX0">Öffnen</a></td></tr>
+        <tr><td data-h="Größe"><b>165 cm</b></td><td data-h="Lenkradmitte über dem Hüftpunkt">375 mm</td><td data-h="Lenkradmitte davor">338 mm</td><td data-h="Lenkradneigung">30°</td><td data-h="Ellbogen">98°</td><td data-h="Augen bis Monitor">780 mm</td><td data-h="Im Werkzeug"><a href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoicmFsbHkiLCJuYW1lIjoiUmFsbHllLVJpZywgMTY1IGNtIiwiZHJpdmVyIjp7ImgiOjE2NTB9LCJyaWciOnsic2VhdEgiOjU0OCwiaDMwIjo0MDIsImw1MyI6NTU1LCJ3aGVlbFVwIjozNzUsIndoZWVsUmVhY2giOjMzOCwic2NyZWVuRGlzdCI6NzgwfX0">Öffnen</a></td></tr>
+        <tr><td data-h="Größe"><b>170 cm</b></td><td data-h="Lenkradmitte über dem Hüftpunkt">390 mm</td><td data-h="Lenkradmitte davor">350 mm</td><td data-h="Lenkradneigung">30°</td><td data-h="Ellbogen">98°</td><td data-h="Augen bis Monitor">795 mm</td><td data-h="Im Werkzeug"><a href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoicmFsbHkiLCJuYW1lIjoiUmFsbHllLVJpZywgMTcwIGNtIiwiZHJpdmVyIjp7ImgiOjE3MDB9LCJyaWciOnsic2VhdEgiOjU2MiwiaDMwIjo0MTYsImw1MyI6NTcxLCJ3aGVlbFVwIjozOTAsIndoZWVsUmVhY2giOjM1MCwic2NyZWVuRGlzdCI6Nzk1fX0">Öffnen</a></td></tr>
+        <tr><td data-h="Größe"><b>175 cm</b></td><td data-h="Lenkradmitte über dem Hüftpunkt">404 mm</td><td data-h="Lenkradmitte davor">362 mm</td><td data-h="Lenkradneigung">30°</td><td data-h="Ellbogen">98°</td><td data-h="Augen bis Monitor">809 mm</td><td data-h="Im Werkzeug"><a href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoicmFsbHkiLCJuYW1lIjoiUmFsbHllLVJpZywgMTc1IGNtIn0">Öffnen</a></td></tr>
+        <tr><td data-h="Größe"><b>180 cm</b></td><td data-h="Lenkradmitte über dem Hüftpunkt">419 mm</td><td data-h="Lenkradmitte davor">374 mm</td><td data-h="Lenkradneigung">30°</td><td data-h="Ellbogen">98°</td><td data-h="Augen bis Monitor">824 mm</td><td data-h="Im Werkzeug"><a href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoicmFsbHkiLCJuYW1lIjoiUmFsbHllLVJpZywgMTgwIGNtIiwiZHJpdmVyIjp7ImgiOjE4MDB9LCJyaWciOnsic2VhdEgiOjU5MCwiaDMwIjo0NDQsImw1MyI6NjAyLCJ3aGVlbFVwIjo0MTksIndoZWVsUmVhY2giOjM3NCwic2NyZWVuRGlzdCI6ODI0fX0">Öffnen</a></td></tr>
+        <tr><td data-h="Größe"><b>185 cm</b></td><td data-h="Lenkradmitte über dem Hüftpunkt">433 mm</td><td data-h="Lenkradmitte davor">385 mm</td><td data-h="Lenkradneigung">30°</td><td data-h="Ellbogen">98°</td><td data-h="Augen bis Monitor">838 mm</td><td data-h="Im Werkzeug"><a href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoicmFsbHkiLCJuYW1lIjoiUmFsbHllLVJpZywgMTg1IGNtIiwiZHJpdmVyIjp7ImgiOjE4NTB9LCJyaWciOnsic2VhdEgiOjYwNCwiaDMwIjo0NTgsImw1MyI6NjE3LCJ3aGVlbFVwIjo0MzMsIndoZWVsUmVhY2giOjM4NSwic2NyZWVuRGlzdCI6ODM4fX0">Öffnen</a></td></tr>
+        <tr><td data-h="Größe"><b>190 cm</b></td><td data-h="Lenkradmitte über dem Hüftpunkt">448 mm</td><td data-h="Lenkradmitte davor">397 mm</td><td data-h="Lenkradneigung">30°</td><td data-h="Ellbogen">98°</td><td data-h="Augen bis Monitor">853 mm</td><td data-h="Im Werkzeug"><a href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoicmFsbHkiLCJuYW1lIjoiUmFsbHllLVJpZywgMTkwIGNtIiwiZHJpdmVyIjp7ImgiOjE5MDB9LCJyaWciOnsic2VhdEgiOjYxOCwiaDMwIjo0NzIsImw1MyI6NjMzLCJ3aGVlbFVwIjo0NDgsIndoZWVsUmVhY2giOjM5Nywic2NyZWVuRGlzdCI6ODUzfX0">Öffnen</a></td></tr>
+        <tr><td data-h="Größe"><b>195 cm</b></td><td data-h="Lenkradmitte über dem Hüftpunkt">462 mm</td><td data-h="Lenkradmitte davor">409 mm</td><td data-h="Lenkradneigung">30°</td><td data-h="Ellbogen">98°</td><td data-h="Augen bis Monitor">867 mm</td><td data-h="Im Werkzeug"><a href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoicmFsbHkiLCJuYW1lIjoiUmFsbHllLVJpZywgMTk1IGNtIiwiZHJpdmVyIjp7ImgiOjE5NTB9LCJyaWciOnsic2VhdEgiOjYzMiwiaDMwIjo0ODYsImw1MyI6NjQ5LCJ3aGVlbFVwIjo0NjIsIndoZWVsUmVhY2giOjQwOSwic2NyZWVuRGlzdCI6ODY3fX0">Öffnen</a></td></tr>
+      </tbody>
+    </table>
+    <p>Von 160 cm bis 195 cm wandert der Fersenpunkt 109 mm weiter nach vorn, die Lenkradmitte steigt um 101 mm über den Hüftpunkt, und der Monitor rückt 102 mm weiter weg; der Hüftpunkt steigt um 98 mm. Die Winkel ändern sich kaum: Die Anpassung hält das Knie bei etwa 112° und die Lehne bei 15° und verschiebt stattdessen die Teile.</p>
+
+    <h2>Der Monitor</h2>
+    <p>Bei 864 mm Abstand zu den Augen, dem Wert der GT-Zeile für 180 cm, deckt ein 16:9-Monitor mit 27 Zoll 38° in der Breite ab, mit 32 Zoll 45° und ein Fernseher mit 49 Zoll 64°. Drei 27-Zoll-Monitore, die Seiten um 39° eingedreht, decken 116° ab. Asetek empfiehlt, den Bildschirm so nah zu stellen, wie das Lenkrad es zulässt, und das Sichtfeld im Spiel passend einzustellen, damit eine Kurve auf dem Bildschirm so groß wirkt wie durch die Windschutzscheibe.</p>
+
+    <h2>Woher die Zahlen kommen</h2>
+    <p>Die Segmentlängen (Oberschenkel, Unterschenkel, Rumpf, Oberarm, Unterarm) stammen aus der Erhebung ANSUR II an 6068 Frauen und Männern der US-Armee: Das Werkzeug skaliert sie mit einer linearen Anpassung an deine Größe und, wenn du sie angibst, an deine Schrittlänge. Dann bekommt jedes Rig die Winkel der jeweiligen Haltung: die gemessenen Komfortbereiche von Porter und Gyi für die Straße, die Sim-Racing-Ratgeber von Fanatec und Qubic System für GT und Formel und die SAE J1100 für die Lage des Hüftpunkts. Die Tabellen gelten für einen Schalensitz auf einem Rahmen aus Rahmenholz 54 x 74 mm und einen 32-Zoll-Monitor; ein Bürostuhl oder ein Rahmen aus Aluprofil ändert die Höhe des Hüftpunkts, und das Werkzeug zeigt, um wie viel.</p>
+    <a class="btn btn-primary sr-open" href="/de/sim-rig/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoiZ3QiLCJuYW1lIjoiR1QtUmlnLCAxODAgY20iLCJkcml2ZXIiOnsiaCI6MTgwMH0sInJpZyI6eyJzZWF0SCI6NDk1LCJoMzAiOjM0OSwibDUzIjo2NzQsIndoZWVsVXAiOjQ0OSwid2hlZWxSZWFjaCI6Mzc5LCJzY3JlZW5EaXN0Ijo4NjR9fQ">Ein Rig für deine eigene Größe anpassen</a>
+  </article>
+
+  <section class="sr-sec sr-article" aria-labelledby="faq-h">
+    <h2 id="faq-h">Häufige Fragen</h2>
+    <div class="sr-faq">
+      <details><summary>Wie hoch muss der Sitz im Sim Rig sein?</summary><div class="answer"><p>Miss vom Fersenpunkt aus, nicht vom Boden. Für GT und Straße wählten die Fahrer in der Studie von Porter und Gyi einen Hüftpunkt 283 bis 335 mm über der Ferse; Formelsitze liegen viel tiefer, Rallye- und Lkw-Sitze höher. Die Höhe über dem Boden folgt dann daraus, wie hoch die Pedalplatte steht: in der GT-Tabelle 451 mm bis 528 mm.</p></div></details>
+      <details><summary>Wie weit müssen die Pedale vom Sitz entfernt sein?</summary><div class="answer"><p>So weit, dass das Knie auch bei voll getretener Bremse gebeugt bleibt: Fanatec verlangt auch dann eine leichte Beugung. In der GT-Tabelle liegt der Fersenpunkt für 160 cm etwa 600 mm vor dem Hüftpunkt, für 195 cm etwa 730 mm.</p></div></details>
+      <details><summary>Wie weit muss der Monitor entfernt sein?</summary><div class="answer"><p>So nah, wie Lenkrad und Hände es zulassen, mit dem Sichtfeld im Spiel passend zum Bildschirm. Für einen einzelnen 32-Zoll-Monitor setzen ihn die Tabellen 765 mm bis 921 mm vor die Augen, je nach Größe und Haltung.</p></div></details>
+      <details><summary>Passen diese Maße für mich?</summary><div class="answer"><p>Sie gelten für einen durchschnittlichen Körperbau bei jeder Größe. Beine und Arme sind unterschiedlich lang: Gib im Werkzeug deine Schrittlänge zusätzlich zur Größe ein, dann passt es das Rig an deine eigenen Proportionen an.</p></div></details>
+    </div>
+  </section>
+
+  <section class="sr-sec" aria-labelledby="more-h">
+    <h2 id="more-h">Mehr vor dem Bau</h2>
+    <ul class="sr-guides">
+      <li><a href="/de/sim-rig/"><b>Sim Rig Designer, das Werkzeug</b><span>Dein Rig in 3D, für deinen Körper</span></a></li>
+      <li><a href="/sim-rig-designer/sim-rig-selber-bauen/"><b>Sim Rig aus Holz</b><span>Rahmenholz 45 x 70 mm und Multiplex: Zuschnitt und Bauanleitung</span></a></li>
+      <li><a href="/de/sim-rig/sim-rig-aluprofil/"><b>Sim Rig aus Aluprofil</b><span>40 x 80 und 40 x 40 mit Nut 8: Stückliste, Winkel, Nutensteine</span></a></li>
+      <li><a href="/de/sim-rig/sim-rig-bauplan-pdf/"><b>Bauplan als PDF</b><span>Was im Pro-Bauplan steht und was kostenlos bleibt</span></a></li>
+      <li><a href="/de/sim-rig/lenkradhalterung-selber-bauen/"><b>Lenkradhalterung selber bauen</b><span>Ein Lenkradständer aus Multiplex für den Schreibtischstuhl</span></a></li>
+    </ul>
+  </section>
+
+  <section class="sr-sec sr-sources" aria-labelledby="src-h">
+    <h2 id="src-h">Quellen</h2>
+    <ol>
+      <li><a href="https://law.resource.org/pub/us/cfr/ibr/005/sae.j1100.2001.html" rel="noopener" lang="en" hreflang="en">SAE J1100, Motor Vehicle Dimensions, Surface Vehicle Recommended Practice, revised February 2001 (public copy at law.resource.org): the definitions of H30, L40, L42, L44, L46 and L53, and the two classes of driver seating, Class A (H30 127 to 405 mm, torso angle 5 to 40 degrees) and Class B (heavy trucks and buses: H30 405 to 530 mm, torso angle 11 to 18 degrees)</a> <span>(gelesen am 14. Oktober 2026)</span></li>
+      <li><a href="https://repository.lboro.ac.uk/articles/journal_contribution/Exploring_the_optimum_posture_for_driver_comfort/9349361" rel="noopener" lang="en" hreflang="en">Porter, J.M. and Gyi, D.E. (1998), Exploring the optimum posture for driver comfort, International Journal of Vehicle Design 19(3), 255-266: Table 2, comfortable angles observed in 55 drivers against Rebiffé (1969) and Grandjean (1980); Table 7, the rig dimensions they chose (Loughborough University repository)</a> <span>(gelesen am 14. Oktober 2026)</span></li>
+      <li><a href="https://www.openlab.psu.edu/ansur2/" rel="noopener" lang="en" hreflang="en">Anthropometric Survey of US Army Personnel (ANSUR II), 2012: public data for 4,082 men and 1,986 women, published by the Penn State OPEN Design Lab; methods in Gordon et al. (2015), NATICK/TR-15/007</a> <span>(gelesen am 14. Oktober 2026)</span></li>
+      <li><a href="https://www.fanatec.com/eu/de/explorer/products/pedals/best-sim-racing-pedal-position-for-gt-sim-racing/" rel="noopener">Fanatec: Beste Pedalposition für GT-Sim-Rennen (deutsche Fassung des Artikels vom 19. Dezember 2024)</a> <span>(gelesen am 14. Oktober 2026)</span></li>
+      <li><a href="https://www.fanatec.com/eu/de/explorer/products/cockpit/best-seat-position-for-f1-sim-racing/" rel="noopener">Fanatec: Was ist die beste Sitzposition für F1-Sim-Racing? (deutsche Fassung des Artikels vom 12. November 2024)</a> <span>(gelesen am 14. Oktober 2026)</span></li>
+      <li><a href="https://www.fanatec.com/eu/de/explorer/products/pedals/best-sim-racing-pedal-position-for-formula-racing/" rel="noopener">Fanatec: Beste Pedalposition für Sim-Racing bei Formel-Rennen (deutsche Fassung des Artikels vom 20. Dezember 2024)</a> <span>(gelesen am 14. Oktober 2026)</span></li>
+      <li><a href="https://qubicsystem.com/2023/01/gt-proper-seating-position/" rel="noopener" lang="en" hreflang="en">Qubic System: GT proper seating position (5 January 2023, updated 27 November 2025)</a> <span>(gelesen am 14. Oktober 2026)</span></li>
+      <li><a href="https://www.asetek.com/simsports/guides/sim-racing-ergonomics-tips-for-a-comfortable-and-effective-setup/" rel="noopener" lang="en" hreflang="en">Asetek SimSports: Sim Racing Ergonomics, The Complete Guide to Comfort, Control and Performance (14 March 2024, updated 19 August 2026)</a> <span>(gelesen am 14. Oktober 2026)</span></li>
+      <li><a href="https://www.asetek.com/simsports/guides/simsports-guides-sim-racing-wheel-position/" rel="noopener" lang="en" hreflang="en">Asetek SimSports: Sim Racing Wheel Position, Height, Distance and Control (11 August 2026)</a> <span>(gelesen am 14. Oktober 2026)</span></li>
+      <li><a href="https://www.asetek.com/simsports/guides/sim-racing-monitor-position/" rel="noopener" lang="en" hreflang="en">Asetek SimSports: Sim Racing Monitor Position, Height, Distance and FOV (23 July 2026, updated 8 October 2026)</a> <span>(gelesen am 14. Oktober 2026)</span></li>
+      <li><a href="https://www.obi.de/p/3261260/rahmenholz-fichte-tanne-gehobelt-gefast-54-mm-x-74-mm-x-3000-mm" rel="noopener">OBI: Rahmenholz Fichte/Tanne gehobelt gefast 54 mm x 74 mm x 3000 mm</a> <span>(gelesen am 14. Oktober 2026)</span></li>
+    </ol>
+    <p class="sr-small">Hinweise für ein Selbstbauprojekt, keine technische Garantie. Keine Verbindung zu den hier genannten Herstellern, Händlern, Normungsgremien oder Hochschulen.</p>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Kleine, sorgfältige Werkzeuge, jedes für eine Aufgabe. Deine Entwürfe werden in deinem Browser berechnet und nie gesendet.</p>
+      <p style="margin:12px 0 0">Gemacht von <a href="https://peakappsstudio.com/">Peak Apps Studio</a>.<br>Schreib uns an <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Sim Rig Designer</h2>
+      <ul>
+        <li><a href="/de/sim-rig/">Ein Sim Rig planen</a></li>
+        <li><a href="/de/sim-rig/lenkradhalterung-selber-bauen/">Lenkradhalterung selber bauen: ein Ständer aus Multiplex</a></li>
+        <li><a href="/de/sim-rig/sim-rig-aluprofil/">Sim Rig aus Aluprofil: Stückliste für 40 x 80 und 40 x 40</a></li>
+        <li><a href="/de/sim-rig/sim-rig-bauplan-pdf/">Sim Rig Bauplan als PDF: was drinsteht und was kostenlos bleibt</a></li>
+        <li><a href="/de/sim-rig/sim-rig-masse/">Sim Rig Maße nach Körpergröße</a></li>
+        <li><a href="/sim-rig-designer/sim-rig-selber-bauen/">Sim Rig selber bauen: Anleitung für einen Rahmen aus Holz</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Andere Sprachen</h2>
+      <ul>
+        <li><a href="/sim-rig-designer/" hreflang="en" lang="en">Sim Rig Designer (English)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Werkzeuge für Haus und Garten (auf Englisch)</h2>
+      <ul>
+        <li><a href="/without-planning/" hreflang="en" lang="en">Without Planning</a></li>
+        <li><a href="/dropped-kerb/" hreflang="en" lang="en">Dropped Kerb Check</a></li>
+        <li><a href="/catio-designer/" hreflang="en" lang="en">Catio Designer</a></li>
+        <li><a href="/coop-designer/" hreflang="en" lang="en">Coop Designer</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Über uns</h2>
+      <ul>
+        <li><a href="/tools/" hreflang="en">Alle Werkzeuge (auf Englisch)</a></li>
+        <li><a href="/tools/privacy/" hreflang="en">Datenschutz und Lizenzen (auf Englisch)</a></li>
+        <li><a href="https://peakappsstudio.com/">Das Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+</html>
