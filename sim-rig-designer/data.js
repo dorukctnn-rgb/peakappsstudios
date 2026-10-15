@@ -175,6 +175,11 @@
   // a source the checks cite (alias: the same publisher's article in the local language, with the same figures).
   const LOCAL_CHECKED = '2026-10-14';
   const L = (short, title, url) => ({ short, title, url, checked: LOCAL_CHECKED });
+  // the second round of editions (Brazilian Portuguese, Spanish, French, Italian), read on LOCAL_CHECKED_2
+  const LOCAL_CHECKED_2 = '2026-10-15';
+  const L2 = (short, title, url) => ({ short, title, url, checked: LOCAL_CHECKED_2 });
+  const MM = 'https://www.madeiramadeira.com.br', IPC = 'https://www.ipccomercial.com.br', BK = 'https://www.bricoking.es', CA = 'https://www.castorama.fr', BD = 'https://www.bricodepot.fr', OB = 'https://www.obi-italia.it';
+  const MDE = 'https://www.motedis.es/es', MDF = 'https://www.motedis.fr/fr', MIT = 'https://www.motedis.it/it';
   const OD = 'https://www.obi.de/p', DM = 'https://www.dold-mechatronik.de', FD = 'https://www.fanatec.com/eu/de/explorer/products';
   const LOCAL_SOURCES = {
     // Germany: OBI's planed, chamfered spruce/fir framing timber and its sheets; DOLD Mechatronik's I-type profile
@@ -197,6 +202,48 @@
     fanatecGTde: L('Fanatec, Pedalposition GT', 'Fanatec: Beste Pedalposition für GT-Sim-Rennen (deutsche Fassung des Artikels vom 19. Dezember 2024)', `${FD}/pedals/best-sim-racing-pedal-position-for-gt-sim-racing/`),
     fanatecF1de: L('Fanatec, Sitzposition F1', 'Fanatec: Was ist die beste Sitzposition für F1-Sim-Racing? (deutsche Fassung des Artikels vom 12. November 2024)', `${FD}/cockpit/best-seat-position-for-f1-sim-racing/`),
     fanatecFormulaDe: L('Fanatec, Pedalposition Formel', 'Fanatec: Beste Pedalposition für Sim-Racing bei Formel-Rennen (deutsche Fassung des Artikels vom 20. Dezember 2024)', `${FD}/pedals/best-sim-racing-pedal-position-for-formula-racing/`),
+    // ---- the second round (Brazil, Spain, France, Italy), read on LOCAL_CHECKED_2 ----
+    // Brazil: MadeiraMadeira's pine rafters and sheets, Telhanorte's autoclave rafter; IPC Comercial's slot-8 profile
+    mmCaibro4590: L2('MadeiraMadeira, caibros de pinus 4,5 x 9 cm', 'MadeiraMadeira: Caibro de Pinus Tratado com Nós 4,5 x 9,0 x 290 cm e Caibro Aplainado de Pinus Tratado 4,5 x 9 x 150 cm (busca caibro pinus autoclavado)', `${MM}/busca?q=caibro%20pinus%20autoclavado`),
+    tnCaibro5057: L2('Telhanorte, caibro 50 x 57 mm', 'Telhanorte: Pinus 600 Serrado Caibro Autoclavado Bruto 50 x 57 x 3000 (Madvei)', 'https://www.telhanorte.com.br/pinus-600-serrado-caibro-autoclavado-bruto-50-x-57-x-3000-madvei-1528521/p'),
+    mmVirola18: L2('MadeiraMadeira, compensado de virola 18 mm', 'MadeiraMadeira: Compensado de Virola 18 mm, dimensão 2,20 x 1,60 m', `${MM}/compensado-de-virola-18mm-2507810.html`),
+    mmPlast18: L2('MadeiraMadeira, compensado plastificado 18 mm', 'MadeiraMadeira: Compensado Plastificado 18 mm (2,44 x 1,22 m)', `${MM}/compensado-plastificado-18mm-2-44x1-22-2455171.html`),
+    mmOsb18: L2('MadeiraMadeira, chapa de OSB 18 mm', 'MadeiraMadeira: Chapa OSB 2,44 x 1,22 m x 18 mm (Canteiro)', `${MM}/chapa-osb-2-44x1-22x18mm-canteiro-2455178.html`),
+    ipcP4040: L2('IPC Comercial, perfil 40 x 40 canal 8', 'IPC Comercial: Perfil Estrutural de Alumínio 40 x 40, canal em T de 8 mm, centro para rosca M16, de 50 a 300 cm em passos de 50 cm, cerca de 1650 g por metro', `${IPC}/perfil-de-aluminio/perfil-estrutural-em-aluminio-40-x-40/perfil-estrutural-em-aluminio-40-x-40-canal-de-8-mm-p`),
+    ipcP4080: L2('IPC Comercial, perfil 40 x 80 canal 8', 'IPC Comercial: Perfil Estrutural em Alumínio 40 x 80, canal em T de 8 mm, centro para rosca M16, de 50 a 300 cm em passos de 50 cm, cerca de 3000 g por metro', `${IPC}/perfil-de-aluminio/perfil-estrutural-em-aluminio-40-x-80/perfil-estrutural-em-aluminio-40-x-80-canal-de-8-mm-p`),
+    ipcCantoneira: L2('IPC Comercial, cantoneira 40 x 40', 'IPC Comercial: Cantoneira em alumínio injetado 90 graus para perfil 40 x 40', `${IPC}/perfil-de-aluminio/cantoneiras/cantoneira-em-aluminio-injetado-90-graus-perfil-40-x-40-p`),
+    ipcParafusoM8: L2('IPC Comercial, parafuso M8 para canal 8', 'IPC Comercial: Kit parafuso francês M8 x 14 mm para perfil canal de 8 mm', `${IPC}/perfil-de-aluminio/fixacao/kit-parafuso-frances-m8-x-14-mm-para-perfil-canal-de-8-mm-p`),
+    ipcPorcaM8: L2('IPC Comercial, porca M8', 'IPC Comercial: Kit porca sextavada M8 autotravante Parlock, passo da rosca 1,25', `${IPC}/perfil-de-aluminio/fixacao/kit-porca-sextavada-m8-auto-travante-parlock-passo-da-rosca-1-25-p`),
+    // Spain: Bricoking's fir battens and phenolic OSB, Leroy Merlin's plywood; Motedis Spain's I-type slot-8 profile
+    bkListon7045: L2('Bricoking, listón 70 x 45 mm', 'Bricoking: listón de abeto 70 x 45 x 2400 mm', `${BK}/maderas-y-revestimientos/listonaje/listones/liston-abeto-70x45x2400`),
+    bkListon9045: L2('Bricoking, listón 90 x 45 mm', 'Bricoking: listón de abeto 90 x 45 x 2400 mm', `${BK}/maderas-y-revestimientos/listonaje/listones/liston-abeto-90x45x2400`),
+    bkOsb18: L2('Bricoking, OSB fenólico 18 mm', 'Bricoking: tablero OSB fenólico 250 x 125 cm, 18 mm', `${BK}/maderas-y-revestimientos/carpinteria/tablero-de-madera/tablero-osb-fenolico-250x125-cm-18-mm`),
+    lmEsContrachapado: L2('Leroy Merlin, contrachapado 18 mm', 'Leroy Merlin España: tablero de contrachapado crudo 122 x 250 x 1,8 cm (búsqueda tablero contrachapado 18 mm)', 'https://www.leroymerlin.es/search?q=tablero%20contrachapado%2018%20mm'),
+    motedisEsP4040: L2('Motedis, perfil 40x40L ranura 8', 'Motedis España: Perfil Alu 40x40L Tipo-I Ranura 8', `${MDE}/Perfil-40x40L-Tipo-I-ran-8`),
+    motedisEsP4080: L2('Motedis, perfil 40x80 ranura 8', 'Motedis España: Perfil Alu 40x80 Ligero Tipo-I Ranura 8', `${MDE}/Perfil-40x80-Ligero-tipo-I-ran-8`),
+    motedisEsB10: L2('Motedis, perfil 40x40 ranura 10', 'Motedis España: Perfil Alu 40x40 Tipo-B Ranura 10: los perfiles 40 de tipo B llevan ranura de 10 mm, los de tipo I ranura de 8 mm', `${MDE}/Perfil-40x40-Tipo-B-ranura-10mm`),
+    motedisEsEscuadra: L2('Motedis, escuadra 40 ranura 8', 'Motedis España: Escuadra 40 tipo I ranura 8 (también Escuadra 40x80 Tipo-I ranura 8)', `${MDE}/Escuadra-40-tipo-I-ranura-8`),
+    motedisEsTuerca: L2('Motedis, tuerca M8 ranura 8', 'Motedis España: Tuerca corredera insertable con guía, ranura 8 tipo I, M8', `${MDE}/Tuerca-corredera-insertable-c-guia-ran-8-tipo-I-M8`),
+    // France: Castorama's planed battens and sheets, Brico Dépôt's rafters; Motedis France's I-type slot-8 profile
+    castoTasseau4470: L2('Castorama, tasseau 44 x 70 mm', 'Castorama : Tasseau raboté L. 240 cm, 44 x 70 mm (vendu par lot de 3)', `${CA}/tasseau-rabote-l-240-cm-44-x-70-mm-vendu-par-lot-de-3-/3663602862222_CAFR.prd`),
+    bdChevron6375: L2('Brico Dépôt, chevron 63 x 75 mm', 'Brico Dépôt : Chevron épicéa traité classe 2, 63 x 75 mm, en 2,4, 3, 4 et 5 m (rayon Chevrons)', `${BD}/produits/materiau-et-gros-oeuvre/toiture-et-facade/bois-de-charpente-et-ossature-bois/chevrons`),
+    castoCp18: L2('Castorama, contreplaqué 18 mm', 'Castorama : Panneau contreplaqué de feuillus, 244 x 122 cm, ép. 18 mm (vendu au panneau)', `${CA}/panneau-contreplaque-de-feuillus-244-x-122-cm-ep-18-mm-vendu-au-panneau-/3663602840565_CAFR.prd`),
+    castoOsb18: L2('Castorama, OSB 3 18 mm', 'Castorama : Panneau OSB 3, 244 x 122 cm, ép. 18 mm (vendu au panneau)', `${CA}/panneau-osb-3-244-x-122-cm-ep-18-mm-vendu-au-panneau-/3663602840237_CAFR.prd`),
+    motedisFrP4040: L2('Motedis, profilé 40x40L rainure 8', 'Motedis France : Profilé aluminium 40x40L Type I rainure 8, 4 rainures de 8 mm, profondeur 12 mm, noyau pour M8, coupe sur mesure', `${MDF}/Profile-aluminium-40x40L-Type-I-rainure-8`),
+    motedisFrP4080: L2('Motedis, profilé 40x80L rainure 8', 'Motedis France : Profilé aluminium 40x80L Type I rainure 8, 6 rainures de 8 mm, profondeur 12 mm, noyau pour M8', `${MDF}/Profile-aluminium-40x80L-Type-I-rainure-8`),
+    motedisFrB10: L2('Motedis, profilé 40x40 rainure 10', 'Motedis France : Profilé aluminium 40x40 Type B rainure 10 : les profilés 40 de type B ont une rainure de 10 mm, ceux de type I une rainure de 8 mm', `${MDF}/Profile-aluminium-40x40-Type-B-rainure-10`),
+    motedisFrEquerre: L2('Motedis, équerre 40 type I', 'Motedis France : Équerre d’assemblage 40 I-Typ', `${MDF}/Equerre-dassemblage-40-I-Typ`),
+    motedisFrEcrou: L2('Motedis, écrou M8 rainure 8', 'Motedis France : Écrou avec guidage rainure 8 I-Type [M8]', `${MDF}/Ecrou-avec-guidage-rainure-8-I-Type-M8`),
+    // Italy: OBI Italia's planed fir battens and OSB/3; Motedis Italy's I-type slot-8 profile
+    obiItListello4580: L2('OBI Italia, listello 45 x 80 mm', 'OBI Italia: Listello in abete piallato 45 x 80 x 2000 mm', `${OB}/p/4493086/listello-in-abete-piallato-45x80x2000-mm`),
+    obiItListello4595: L2('OBI Italia, listello 45 x 95 mm', 'OBI Italia: Listello in abete piallato 4 lati 45 x 95 x 2000 mm', `${OB}/p/6191738/listello-in-abete-piallato-4-lati-45x95x2000-mm`),
+    obiItOsb18: L2('OBI Italia, OSB-3 18 mm', 'OBI Italia: Pannello OSB-3 da posa a filo 18 mm x 250 cm x 125 cm', `${OB}/p/6036883/pannello-osb-3-da-posa-a-filo-18-mm-x-250-cm-x-125-cm`),
+    obiItOsb15: L2('OBI Italia, OSB/3 15 mm', 'OBI Italia: Pannello OSB/3 2500 x 1250 x 15 mm legno chiaro', `${OB}/p/2099091/pannello-osb-3-2500x1250x15-mm-legno-chiaro`),
+    motedisItP4040: L2('Motedis, profilato 40x40L scanalatura 8', 'Motedis Italia: Profilato alluminio 40x40L scanalatura 8 tipo I', `${MIT}/Profilato-alluminio-40x40L-scanalatura-8-tipo-I`),
+    motedisItP4080: L2('Motedis, profilato 40x80L scanalatura 8', 'Motedis Italia: Profilato alluminio 40x80L scanalatura 8 tipo I', `${MIT}/Profilato-alluminio-40x80L-scanalatura-8-tipo-I`),
+    motedisItB10: L2('Motedis, profilato 40x40 scanalatura 10', 'Motedis Italia: Profilato alluminio 40x40 scanalatura 10 tipo B: i profilati 40 di tipo B hanno la scanalatura da 10 mm, quelli di tipo I da 8 mm', `${MIT}/Profilato-alluminio-40x40-scanalatura-10-tipo-B`),
+    motedisItStaffa: L2('Motedis, staffa per angoli 40', 'Motedis Italia: Staffe per angoli 40 scanalatura 8 tipo I', `${MIT}/Staffe-per-angoli-40-scanalatura-8-tipo-I-con-tappo-di-copertura-rotondo`),
+    motedisItTassello: L2('Motedis, tassello M8 scanalatura 8', 'Motedis Italia: Tassello scorrevole con guida scanalatura 8 tipo I M8', `${MIT}/Tassello-scorrevole-con-guida-scanalatura-8-tipo-I-M8`),
   };
   const M = (id, t, w, sources, lengths) => ({ id, t, w, source: sources[0], also: sources.slice(1), lengths });
   const MARKETS = {
@@ -220,7 +267,70 @@
       hardware: { brackets: 'doldWinkel', hinges: 'doldGelenk', tnuts: 'doldNutenstein', caps4040: 'doldKappe', caps4080: 'doldKappe' },
       alias: { fanatecGT: 'fanatecGTde', fanatecF1: 'fanatecF1de', fanatecFormula: 'fanatecFormulaDe' },
     },
+    // Brazil: MadeiraMadeira's treated pine rafter 4,5 x 9 cm (1,5 and 2,9 m) and Telhanorte's autoclave rafter
+    // 50 x 57 mm (3 m); virola plywood 2,20 x 1,60 m, film-faced plywood and OSB 2,44 x 1,22 m, all 18 mm; IPC
+    // Comercial's slot-8 profile with its own weights (1650 and 3000 g/m), its bracket, M8 bolt and nut
+    pt: {
+      units: 'metric', sample: { driver: { h: 1750, inseam: 0 } },
+      lumber: [M('pt-50x57', 50, 57, ['tnCaibro5057'], [3000]), M('pt-45x90', 45, 90, ['mmCaibro4590'], [1500, 2900])],
+      stock: [1500, 2900, 3000], lumberDefault: 'pt-45x90', stockDefault: 2900, sheetDefault: 'pt-virola18',
+      sheets: [
+        { id: 'pt-virola18', kind: 'plywood', t: 18, w: 1600, l: 2200, source: 'mmVirola18' },
+        { id: 'pt-plast18', kind: 'film', t: 18, w: 1220, l: 2440, source: 'mmPlast18' },
+        { id: 'pt-osb18', kind: 'osb', t: 18, w: 1220, l: 2440, source: 'mmOsb18' },
+      ],
+      swap: { '2x3': 'pt-50x57', '2x4': 'pt-45x90', 'pt-50x57': '2x3', 'pt-45x90': '2x4', '45x70': 'pt-50x57', '45x95': 'pt-45x90' },
+      profiles: { p4040: { kg: 1.65, source: 'ipcP4040' }, p4080: { kg: 3.0, source: 'ipcP4080' } },
+      hardware: { brackets: 'ipcCantoneira', tnuts: 'ipcParafusoM8', bolts: 'ipcPorcaM8' },
+      alias: {},
+    },
+    // Spain: Bricoking's fir battens 70 x 45 and 90 x 45 mm (2,4 m); Leroy Merlin's raw plywood 122 x 250 cm and
+    // Bricoking's phenolic OSB 250 x 125 cm, both 18 mm; Motedis Spain's I-type slot-8 profile (weights from the RS PRO
+    // datasheet, as in English)
+    es: {
+      units: 'metric', sample: { driver: { h: 1750, inseam: 0 } },
+      lumber: [M('es-45x70', 45, 70, ['bkListon7045'], [2400]), M('es-45x90', 45, 90, ['bkListon9045'], [2400])],
+      stock: [2400], lumberDefault: 'es-45x90', stockDefault: 2400, sheetDefault: 'es-ply18',
+      sheets: [
+        { id: 'es-ply18', kind: 'plywood', t: 18, w: 1220, l: 2500, source: 'lmEsContrachapado' },
+        { id: 'es-osb18', kind: 'osb', t: 18, w: 1250, l: 2500, source: 'bkOsb18' },
+      ],
+      swap: { '2x3': 'es-45x70', '2x4': 'es-45x90', 'es-45x70': '2x3', 'es-45x90': '2x4', '45x70': 'es-45x70', '45x95': 'es-45x90' },
+      profiles: { p4040: { source: 'motedisEsP4040', also: ['motedisEsB10'] }, p4080: { source: 'motedisEsP4080' } },
+      hardware: { brackets: 'motedisEsEscuadra', tnuts: 'motedisEsTuerca' },
+      alias: {},
+    },
+    // France: Castorama's planed batten 44 x 70 mm (2,40 m) and Brico Dépôt's treated rafter 63 x 75 mm (2,4 to 5 m);
+    // Castorama's hardwood plywood and OSB 3, 244 x 122 cm, 18 mm; Motedis France's I-type slot-8 profile
+    fr: {
+      units: 'metric', sample: { driver: { h: 1750, inseam: 0 } },
+      lumber: [M('fr-44x70', 44, 70, ['castoTasseau4470'], [2400]), M('fr-63x75', 63, 75, ['bdChevron6375'], [2400, 3000, 4000, 5000])],
+      stock: [2400, 3000, 4000, 5000], lumberDefault: 'fr-63x75', stockDefault: 3000, sheetDefault: 'fr-ply18',
+      sheets: [
+        { id: 'fr-ply18', kind: 'plywood', t: 18, w: 1220, l: 2440, source: 'castoCp18' },
+        { id: 'fr-osb18', kind: 'osb', t: 18, w: 1220, l: 2440, source: 'castoOsb18' },
+      ],
+      swap: { '2x3': 'fr-44x70', '2x4': 'fr-63x75', 'fr-44x70': '2x3', 'fr-63x75': '2x4', '45x70': 'fr-44x70', '45x95': 'fr-63x75' },
+      profiles: { p4040: { source: 'motedisFrP4040', also: ['motedisFrB10'] }, p4080: { source: 'motedisFrP4080' } },
+      hardware: { brackets: 'motedisFrEquerre', tnuts: 'motedisFrEcrou' },
+      alias: {},
+    },
+    // Italy: OBI Italia's planed fir battens 45 x 80 and 45 x 95 mm (2 m); OSB-3 250 x 125 cm in 18 and 15 mm; Motedis
+    // Italy's I-type slot-8 profile
+    it: {
+      units: 'metric', sample: { driver: { h: 1750, inseam: 0 } },
+      lumber: [M('it-45x80', 45, 80, ['obiItListello4580'], [2000]), M('it-45x95', 45, 95, ['obiItListello4595'], [2000])],
+      stock: [2000], lumberDefault: 'it-45x95', stockDefault: 2000, sheetDefault: 'it-osb18',
+      sheets: [
+        { id: 'it-osb18', kind: 'osb', t: 18, w: 1250, l: 2500, source: 'obiItOsb18' },
+        { id: 'it-osb15', kind: 'osb', t: 15, w: 1250, l: 2500, source: 'obiItOsb15' },
+      ],
+      swap: { '2x3': 'it-45x80', '2x4': 'it-45x95', 'it-45x80': '2x3', 'it-45x95': '2x4', '45x70': 'it-45x80', '45x95': 'it-45x95' },
+      profiles: { p4040: { source: 'motedisItP4040', also: ['motedisItB10'] }, p4080: { source: 'motedisItP4080' } },
+      hardware: { brackets: 'motedisItStaffa', tnuts: 'motedisItTassello' },
+      alias: {},
+    },
   };
 
-  return { CHECKED, LOCAL_CHECKED, IN, FT, SOURCES, LOCAL_SOURCES, BODY, MODEL, LUMBER, STOCK, SWAP, SHEETS, PROFILES, PROFILE_STOCK, ASPECTS, RULES, STYLES, SEATS, GEAR, MARKETS };
+  return { CHECKED, LOCAL_CHECKED, LOCAL_CHECKED_2, IN, FT, SOURCES, LOCAL_SOURCES, BODY, MODEL, LUMBER, STOCK, SWAP, SHEETS, PROFILES, PROFILE_STOCK, ASPECTS, RULES, STYLES, SEATS, GEAR, MARKETS };
 });

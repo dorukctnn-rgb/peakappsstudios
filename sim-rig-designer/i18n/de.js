@@ -32,11 +32,27 @@
     'lumber.45x95': '45 x 95 mm', 'lumber.45x95.actual': '45 x 95 mm, gehobelt (verkauft als 47 x 100 mm)',
     'lumber.de-45x70': 'Rahmenholz 45 x 70 mm', 'lumber.de-45x70.actual': '45 x 70 mm, Fichte/Tanne, gehobelt und gefast',
     'lumber.de-54x74': 'Rahmenholz 54 x 74 mm', 'lumber.de-54x74.actual': '54 x 74 mm, Fichte/Tanne, gehobelt und gefast',
+    'lumber.pt-50x57': 'Kiefernsparren 50 x 57 mm, kesseldruckimprägniert (Brasilien)', 'lumber.pt-50x57.actual': '50 x 57 mm, Kiefer, sägerau, kesseldruckimprägniert',
+    'lumber.pt-45x90': 'Kiefernsparren 45 x 90 mm, imprägniert (Brasilien)', 'lumber.pt-45x90.actual': '45 x 90 mm, Kiefer, imprägniert',
+    'lumber.es-45x70': 'Tannenlatte 45 x 70 mm (Spanien)', 'lumber.es-45x70.actual': '45 x 70 mm, Tanne',
+    'lumber.es-45x90': 'Tannenlatte 45 x 90 mm (Spanien)', 'lumber.es-45x90.actual': '45 x 90 mm, Tanne',
+    'lumber.fr-44x70': 'Gehobelte Latte 44 x 70 mm (Frankreich)', 'lumber.fr-44x70.actual': '44 x 70 mm, gehobelt, für innen',
+    'lumber.fr-63x75': 'Sparren 63 x 75 mm (Frankreich)', 'lumber.fr-63x75.actual': '63 x 75 mm, Fichte, Gebrauchsklasse 2',
+    'lumber.it-45x80': 'Gehobelte Tannenlatte 45 x 80 mm (Italien)', 'lumber.it-45x80.actual': '45 x 80 mm, Tanne, gehobelt',
+    'lumber.it-45x95': 'Gehobelte Tannenlatte 45 x 95 mm (Italien)', 'lumber.it-45x95.actual': '45 x 95 mm, Tanne, vierseitig gehobelt',
+    'sheet.pt-virola18': 'Virola-Sperrholz 220 x 160 cm, 18 mm', 'sheet.pt-plast18': 'Siebdruck-Sperrholz 244 x 122 cm, 18 mm', 'sheet.pt-osb18': 'OSB 244 x 122 cm, 18 mm',
+    'sheet.es-ply18': 'Sperrholz 250 x 122 cm, 18 mm', 'sheet.es-osb18': 'OSB, phenolverleimt, 250 x 125 cm, 18 mm',
+    'sheet.fr-ply18': 'Laubholz-Sperrholz 244 x 122 cm, 18 mm', 'sheet.fr-osb18': 'OSB/3 244 x 122 cm, 18 mm',
+    'sheet.it-osb18': 'OSB/3 250 x 125 cm, 18 mm', 'sheet.it-osb15': 'OSB/3 250 x 125 cm, 15 mm',
+    'sheetKind.osb': 'OSB',
     'sheetIn.ply': '4 x 8 ft Sperrholz, 23/32 in', 'sheetIn.mdf': '4 x 8 ft MDF, 3/4 in', 'sheet.mdf': 'MDF 2800 x 2070 mm, 22 mm',
     'sheet.ply2440': 'Sperrholz 2440 x 1220 mm, 18 mm', 'sheet.ply2500': 'Birken-Sperrholz 2500 x 1250 mm, 18 mm',
     'sheet.de-mpx18': 'Multiplex Birke 250 x 125 cm, 18 mm', 'sheet.de-sieb18': 'Siebdruckplatte Birke 250 x 125 cm, 18 mm', 'sheet.de-mdf22': 'MDF-Platte 280 x 207 cm, 22 mm',
     'sheetKind.plywood': 'Sperrholz', 'sheetKind.MDF': 'MDF', 'sheetKind.film': 'Siebdruck-Sperrholz',
     'profile.p4040': 'Aluprofil 40 x 40 mm, Nut 8', 'profile.p4080': 'Aluprofil 40 x 80 mm, Nut 8',
+
+    // ---------- the short names of the sources the checks cite ----------
+    'src.porterGyi': 'Porter und Gyi (1998)', 'src.fanatecGT': 'Fanatec, Pedalposition GT', 'src.fanatecF1': 'Fanatec, Sitzposition F1', 'src.fanatecFormula': 'Fanatec, Pedalposition Formel', 'src.asetekErgo': 'Asetek, Ergonomie-Ratgeber', 'src.asetekWheel': 'Asetek, Lenkradposition', 'src.asetekMonitor': 'Asetek, Monitorposition', 'src.qubic': 'Qubic System, GT-Sitzposition', 'src.ps20': 'PS 20-25, Tabelle 3', 'src.rsProfile': 'RS PRO, Datenblatt Strebenprofil',
 
     // ---------- the parts: "Baugruppe, Teil" ----------
     'w.railL': 'Grundrahmen, Längsträger links', 'w.railR': 'Grundrahmen, Längsträger rechts', 'w.cross': 'Grundrahmen, Querstrebe',
