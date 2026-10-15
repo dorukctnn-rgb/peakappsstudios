@@ -795,7 +795,9 @@
   // the NOTES text of a DXF in plain upper-case ASCII, which every CAD and CAM program reads whatever its code page:
   // umlauts written out (AE, OE, UE, SS), other accents dropped (PEDALPLATTE, PEDALEIRA, PLAQUE DU PEDALIER)
   function dxfText(s) {
+    // curly apostrophes become straight ones and no-break spaces plain spaces (French: D'EXEMPLE : MESUREZ)
     return String(s).toUpperCase().replace(/Ä/g, 'AE').replace(/Ö/g, 'OE').replace(/Ü/g, 'UE').replace(/ẞ|ß/g, 'SS')
+      .replace(/[\u2018\u2019\u02bc]/g, "'").replace(/[\u00a0\u202f]/g, ' ').replace(/\u0152/g, 'OE').replace(/\u00c6/g, 'AE')
       .normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^\x20-\x7e]/g, '');
   }
 

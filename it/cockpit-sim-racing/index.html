@@ -1,0 +1,758 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cockpit sim racing fai da te: progetto 3D su misura</title>
+<meta name="description" content="Progetta il tuo cockpit sim racing in 3D per altezza, sedile e attrezzatura: in legno, profilati di alluminio o pannelli, con angoli e lista di taglio.">
+<link rel="canonical" href="https://peakappsstudio.com/it/cockpit-sim-racing/">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/sim-rig-designer/">
+<link rel="alternate" hreflang="de" href="https://peakappsstudio.com/de/sim-rig/">
+<link rel="alternate" hreflang="pt-BR" href="https://peakappsstudio.com/pt-br/cockpit-simulador/">
+<link rel="alternate" hreflang="es" href="https://peakappsstudio.com/es/cockpit-simracing/">
+<link rel="alternate" hreflang="fr" href="https://peakappsstudio.com/fr/cockpit-simracing/">
+<link rel="alternate" hreflang="it" href="https://peakappsstudio.com/it/cockpit-sim-racing/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/sim-rig-designer/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:locale" content="it_IT">
+<meta property="og:title" content="Cockpit sim racing fai da te: progetto 3D su misura">
+<meta property="og:description" content="Inserisci altezza, sedile, base e schermi e ottieni il cockpit in 3D, la verifica di ginocchio, anca, gomito e schermo con le fonti e ogni listello, squadretta e vite da comprare. Gratis, senza account.">
+<meta property="og:url" content="https://peakappsstudio.com/it/cockpit-sim-racing/">
+<meta property="og:image" content="https://peakappsstudio.com/sim-rig-designer/og-it.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f1f2f6">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/sim-rig-designer/fonts/instrument-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/sim-rig-designer/fonts/anek-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="/sim-rig-designer/img/poster-960.webp" imagesrcset="/sim-rig-designer/img/poster-480.webp 480w, /sim-rig-designer/img/poster-960.webp 960w, /sim-rig-designer/img/poster-1440.webp 1440w" imagesizes="(max-width: 960px) 100vw, 64vw" fetchpriority="high">
+<link rel="stylesheet" href="/assets/tools.css">
+<style data-from="/sim-rig-designer/tool.css">
+/* Sim Rig Designer: the tool's own identity, scoped to body.sr-page (the shared header and footer keep their structure).
+ * Taken from race day: a paddock-grey page, carbon ink, the purple of a fastest sector for buttons, links and the
+ * angle lines, sector yellow for Pro and "check", the marshals' flags for every result (green fits, yellow check,
+ * red fail), and a red and white kerb, used once under the hero. Type: Anek Latin at its widest for headings and the
+ * angle readouts, Instrument Sans for everything read, with tabular figures. */
+
+@font-face { font-family: "Anek Latin Wide"; src: url("/sim-rig-designer/fonts/anek-latin.woff2") format("woff2"); font-weight: 600 800; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Anek Latin Wide"; src: url("/sim-rig-designer/fonts/anek-latin-ext.woff2") format("woff2"); font-weight: 600 800; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Instrument Sans"; src: url("/sim-rig-designer/fonts/instrument-latin.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Instrument Sans"; src: url("/sim-rig-designer/fonts/instrument-latin-ext.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+/* fallbacks sized to the web fonts' average widths and heights (from _build/fonts.py), so the swap does not move the layout */
+@font-face { font-family: "Instrument Sans Fallback"; src: local("Arial"), local("Helvetica Neue"), local("Helvetica"); size-adjust: 102.6%; ascent-override: 94.5%; descent-override: 24.4%; line-gap-override: 0%; }
+@font-face { font-family: "Anek Latin Wide Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Helvetica Neue Bold"); font-weight: 600 800; size-adjust: 118.7%; ascent-override: 75.8%; descent-override: 16.8%; line-gap-override: 0%; }
+
+body.sr-page {
+  --paddock: #f1f2f6; --paddock-2: #e6e7ee; --paddock-3: #d6d7e1; --paper: #ffffff; --paper-2: #f6f6fa;
+  --carbon: #17151d; --carbon-2: #4c4959; --carbon-3: #77748a;
+  --sector: #6a2ee8; --sector-2: #5a22d6; --sector-soft: #ece6fd; --yellow: #ffd23f; --kerb: #d71f27; --flag-green: #0b7a4b;
+  --alcantara: #3b3846; --wood: #dcae72;
+  --card: var(--paper); --ink: var(--carbon); --ink-2: var(--carbon-2); --muted: var(--carbon-2);
+  --line: rgba(23, 21, 29, .12); --line-2: rgba(23, 21, 29, .24);
+  --accent: var(--sector); --accent-ink: #ffffff; --ok: var(--flag-green); --warn: #8a5b00;
+  --btn: var(--sector); --btn-ink: #ffffff; --link: var(--sector-2);
+  --sans: "Instrument Sans", "Instrument Sans Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: var(--sans);
+  --display: "Anek Latin Wide", "Anek Latin Wide Fallback", sans-serif;
+  --r-panel: 18px; --r-field: 10px; --r-chip: 7px;
+  background: var(--paddock); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.56; font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.sr-page {
+    --paddock: #15141a; --paddock-2: #1f1d26; --paddock-3: #2c2a35; --paper: #1d1b23; --paper-2: #24222c;
+    --carbon: #f1f0f6; --carbon-2: #c9c6d6; --carbon-3: #9e9ab0;
+    --sector: #9d7bff; --sector-2: #b39bff; --sector-soft: #2c2445; --flag-green: #3fbf83; --kerb: #ff5a5f;
+    --alcantara: #2a2832; --btn: #8b63ff; --btn-ink: #ffffff; --link: #b39bff;
+    --card: var(--paper); --line: rgba(241, 240, 246, .12); --line-2: rgba(241, 240, 246, .24);
+  }
+}
+:root[data-theme="dark"] body.sr-page {
+  --paddock: #15141a; --paddock-2: #1f1d26; --paddock-3: #2c2a35; --paper: #1d1b23; --paper-2: #24222c;
+  --carbon: #f1f0f6; --carbon-2: #c9c6d6; --carbon-3: #9e9ab0;
+  --sector: #9d7bff; --sector-2: #b39bff; --sector-soft: #2c2445; --flag-green: #3fbf83; --kerb: #ff5a5f;
+  --alcantara: #2a2832; --btn: #8b63ff; --btn-ink: #ffffff; --link: #b39bff;
+  --card: var(--paper); --line: rgba(241, 240, 246, .12); --line-2: rgba(241, 240, 246, .24);
+}
+
+/* ---------- type ---------- */
+.sr-page h1, .sr-page h2, .sr-page h3 { font-family: var(--display); font-weight: 800; letter-spacing: -0.012em; line-height: 1.02; text-wrap: balance; color: var(--carbon); }
+.sr-page h1 { font-size: clamp(36px, 4.8vw, 64px); margin: 0; max-width: 15ch; }
+.sr-page h2 { font-size: clamp(25px, 2.7vw, 36px); margin: 0 0 12px; }
+.sr-page h3 { font-size: 20px; font-weight: 700; margin: 0 0 6px; letter-spacing: 0; }
+.sr-page p { max-width: 68ch; }
+.sr-page .lede { font-size: clamp(17.5px, 1.45vw, 19.5px); color: var(--ink); margin: 0; }
+.sr-page a { color: var(--carbon); text-decoration-color: var(--sector); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.sr-page a:hover { color: var(--sector-2); }
+.sr-page table a, .sr-page .sr-src a { color: var(--link); text-decoration-thickness: 1px; }
+.sr-page :focus-visible { outline: 3px solid var(--sector); outline-offset: 2px; border-radius: 4px; }
+.sr-page ::selection { background: var(--yellow); color: #17151d; }
+.sr-page .btn { border-radius: var(--r-field); font-weight: 600; font-size: 16px; padding: 12px 18px; }
+.sr-page .btn-primary { background: var(--btn); border-color: var(--btn); color: var(--btn-ink); }
+.sr-page .btn-primary:hover { background: var(--sector-2); border-color: var(--sector-2); color: #fff; }
+.sr-page .btn-yellow { background: var(--yellow); border-color: var(--yellow); color: #17151d; }
+.sr-page .btn-yellow:hover { background: #f5c51f; border-color: #f5c51f; color: #17151d; }
+.sr-page .btn-ghost { background: transparent; }
+.sr-small { font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- the breadcrumb and the language switch, on one line ---------- */
+.sr-topline { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin: 22px 0 0; }
+.sr-topline .crumbs { margin: 0; }
+.sr-langs { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.sr-langs a { font-size: 13.5px; font-weight: 600; line-height: 1.2; text-decoration: none; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--ink-2); background: var(--paper); }
+.sr-langs a:hover { border-color: var(--sector); color: var(--ink); }
+.sr-langs a[aria-current="true"] { background: var(--carbon); border-color: var(--carbon); color: var(--paddock); }
+/* long German compounds break at a hyphenation point rather than run out of a narrow column */
+html[lang="de"] .sr-page :is(h1, h2, h3, .lede, td, th, .sr-field > span, .sr-facts b) { hyphens: auto; -webkit-hyphens: auto; overflow-wrap: break-word; }
+
+/* ---------- hero ---------- */
+.sr-hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(18px, 4vw, 56px); align-items: end; padding: clamp(12px, 2.4vw, 28px) 0 clamp(12px, 1.6vw, 18px); }
+.sr-hero-side { display: grid; gap: 16px; }
+/* the signature: a red and white kerb along a strip of track, used once under the hero */
+.sr-kerb { display: block; width: 100%; height: 30px; margin: 4px 0 20px; }
+@media (max-width: 600px) { .sr-kerb { height: 22px; margin-bottom: 14px; } }
+.sr-builds { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; border: 0; padding: 0; margin: 0; }
+.sr-builds legend { font-weight: 600; font-size: 15px; margin-bottom: 8px; padding: 0; }
+.sr-build { position: relative; display: grid; justify-items: center; gap: 4px; padding: 10px 6px 9px; border-radius: 12px; border: 1.5px solid var(--line-2); background: color-mix(in oklab, var(--paper) 55%, transparent); cursor: pointer; text-align: center; font-size: 14px; font-weight: 600; line-height: 1.2; color: var(--ink); }
+.sr-build input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.sr-build svg { width: 66px; height: 46px; color: var(--carbon-2); }
+.sr-build:has(input:checked) { border-color: var(--carbon); background: var(--paper); box-shadow: inset 0 -4px 0 var(--sector); }
+.sr-build:has(input:checked) svg { color: var(--carbon); }
+.sr-build:has(input:focus-visible) { outline: 3px solid var(--sector); outline-offset: 2px; }
+.sr-build .wood { color: #c4935a; }
+@media (max-width: 900px) { .sr-hero { grid-template-columns: 1fr; align-items: start; } }
+@media (max-width: 420px) { .sr-builds { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; } .sr-build { font-size: 13px; padding: 8px 4px; } .sr-build svg { width: 54px; height: 38px; } }
+
+/* ---------- the bench: the 3D view beside the form ---------- */
+.sr-bench { display: grid; grid-template-columns: minmax(0, 1fr) minmax(330px, 410px); background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-panel); overflow: clip; }
+.sr-stage { border-right: 1px solid var(--line); min-width: 0; }
+.sr-sticky { position: sticky; top: 0; }
+.sr-view { position: relative; aspect-ratio: 16 / 10; background: #2a2933; overflow: hidden; }
+.sr-view img, .sr-view canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; }
+.sr-view canvas { touch-action: none; cursor: grab; }
+.sr-view canvas:active { cursor: grabbing; }
+.sr-badge { position: absolute; left: 12px; top: 12px; background: var(--yellow); color: #17151d; font-weight: 700; font-size: 13.5px; padding: 4px 10px; border-radius: var(--r-chip); }
+.sr-gl-note { position: absolute; left: 12px; right: 12px; bottom: 60px; margin: 0; background: var(--paper); color: var(--ink); padding: 8px 12px; border-radius: var(--r-field); font-size: 14.5px; }
+.sr-start { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); display: inline-flex; gap: 8px; align-items: center; background: #6a2ee8; color: #fff; border: 0; border-radius: 999px; padding: 11px 18px; font: inherit; font-weight: 600; font-size: 15.5px; cursor: pointer; box-shadow: 0 6px 18px rgba(23, 21, 29, .35); }
+.sr-start svg { width: 18px; height: 18px; }
+.sr-start[disabled] { opacity: .85; cursor: progress; }
+.sr-tags { position: absolute; inset: 0; pointer-events: none; }
+.sr-tag { position: absolute; left: 0; top: 0; white-space: nowrap; font-size: 13.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: rgba(255, 255, 255, .95); color: #17151d; box-shadow: 0 1px 0 rgba(23, 21, 29, .25); }
+.sr-tag-fits { background: #6a2ee8; color: #fff; }
+.sr-tag-check { background: #ffd23f; color: #17151d; }
+.sr-tag-fail { background: #d71f27; color: #fff; }
+.sr-toolbar { display: flex; flex-wrap: wrap; gap: 10px 12px; align-items: center; padding: 10px 14px; border-top: 1px solid var(--line); background: var(--paper-2); }
+.sr-toolbar[hidden] { display: none; }
+.sr-seg, .sr-toggles { display: inline-flex; border: 1px solid var(--line-2); border-radius: var(--r-field); overflow: hidden; }
+.sr-seg button, .sr-toggles button { font: inherit; font-size: 14.5px; font-weight: 600; padding: 7px 11px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+.sr-seg button + button, .sr-toggles button + button { border-left: 1px solid var(--line-2); }
+.sr-seg button[aria-pressed="true"] { background: var(--carbon); color: var(--paper); }
+.sr-toggles button[aria-pressed="true"] { background: var(--sector-soft); color: var(--carbon); box-shadow: inset 0 -3px 0 var(--sector); }
+.sr-steps { font: inherit; font-size: 14.5px; font-weight: 600; padding: 7px 12px; border-radius: var(--r-field); border: 1.5px solid var(--yellow); background: transparent; color: var(--ink); cursor: pointer; }
+
+/* the title block under the view: what this design is, its angles, and how its checks came out */
+.sr-title { padding: 14px 16px 16px; display: grid; gap: 10px; }
+.sr-title h2 { font-size: clamp(22px, 2.2vw, 28px); margin: 0; }
+.sr-title p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
+.sr-readout { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1px solid var(--line-2); border-radius: 12px; overflow: hidden; background: var(--paper); }
+.sr-read { padding: 8px 10px 9px; border-right: 1px solid var(--line); box-shadow: inset 0 -4px 0 var(--paddock-3); min-width: 0; }
+.sr-read:last-child { border-right: 0; }
+.sr-read b { display: block; font-family: var(--display); font-weight: 800; font-size: clamp(20px, 2.1vw, 28px); line-height: 1.05; white-space: nowrap; }
+.sr-read span { display: block; font-size: 13.5px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sr-read-fits { box-shadow: inset 0 -4px 0 var(--flag-green); }
+.sr-read-check { box-shadow: inset 0 -4px 0 var(--yellow); }
+.sr-read-fail { box-shadow: inset 0 -4px 0 var(--kerb); }
+.sr-read-info { box-shadow: inset 0 -4px 0 var(--sector); }
+@media (max-width: 560px) { .sr-readout { grid-template-columns: repeat(3, minmax(0, 1fr)); } .sr-read:nth-child(3) { border-right: 0; } .sr-read:nth-child(-n+3) { border-bottom: 1px solid var(--line); } .sr-read:last-child { grid-column: span 2; } }
+.sr-counts { display: flex; flex-wrap: wrap; gap: 8px; }
+.sr-count { display: inline-flex; color: var(--ink); gap: 6px; align-items: center; padding: 4px 10px; border-radius: var(--r-chip); font-size: 14.5px; font-weight: 600; border: 1px solid var(--line-2); background: var(--paper); }
+.sr-count svg { width: 15px; height: 15px; }
+.sr-count b { font-size: 17px; }
+.sr-count.ct-fits svg { color: var(--flag-green); }
+.sr-count.ct-check svg { color: #d6a800; }
+.sr-count.ct-fail svg { color: var(--kerb); }
+.sr-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13.5px; color: var(--ink-2); }
+
+/* ---------- the form ---------- */
+.sr-form { padding: 6px 16px 18px; display: grid; gap: 4px; align-content: start; }
+.sr-step { border: 0; padding: 12px 0 14px; margin: 0; border-bottom: 1px solid var(--line); }
+.sr-step > legend { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 19px; padding: 0; margin: 0 0 10px; color: var(--carbon); }
+.sr-step-n { display: inline-grid; place-items: center; width: 30px; height: 26px; border-radius: 6px; background: var(--carbon); color: var(--paper); font-family: var(--display); font-size: 15px; font-weight: 800; transform: skewX(-10deg); }
+.sr-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 12px; }
+.sr-grid3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.sr-field { display: grid; gap: 4px; align-content: start; font-size: 14.5px; font-weight: 600; min-width: 0; }
+.sr-field.wide { grid-column: 1 / -1; }
+.sr-field small { font-weight: 400; color: var(--ink-2); font-size: 13.5px; line-height: 1.35; }
+.sr-in { position: relative; display: flex; align-items: center; }
+.sr-in input { padding-right: 40px; }
+.sr-in i { position: absolute; right: 10px; font-style: normal; font-weight: 500; font-size: 14px; color: var(--ink-2); pointer-events: none; }
+.sr-form input[type="number"], .sr-form input[type="text"], .sr-form select, .sr-shop input, .sr-pro input[type="text"] {
+  width: 100%; min-width: 0; font: inherit; font-size: 16px; font-weight: 500; padding: 9px 10px; border: 1px solid var(--line-2); border-radius: var(--r-field); background: var(--paper); color: var(--ink); }
+.sr-form input:focus, .sr-form select:focus, .sr-shop input:focus { outline: none; border-color: var(--sector); box-shadow: 0 0 0 3px color-mix(in oklab, var(--sector) 24%, transparent); }
+.sr-row { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
+.sr-check { display: flex; gap: 8px; align-items: flex-start; font-size: 14.5px; font-weight: 500; }
+.sr-check input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--sector); flex: none; }
+.sr-styles { display: flex; width: 100%; }
+.sr-styles button { flex: 1; }
+.sr-more { border-bottom: 1px solid var(--line); padding: 4px 0 10px; }
+.sr-more > summary { cursor: pointer; font-family: var(--display); font-weight: 700; font-size: 17px; padding: 10px 0; min-height: 44px; display: flex; align-items: center; }
+.sr-more[open] > summary { margin-bottom: 4px; }
+.sr-auto { margin: 2px 0 10px; padding: 9px 11px; border-radius: var(--r-field); background: var(--paper-2); border: 1px dashed var(--line-2); }
+.sr-helper { margin: 0 0 12px; }
+.sr-helper svg { width: 100%; height: auto; display: block; background: var(--paper-2); border-radius: 10px; border: 1px solid var(--line); }
+.sr-helper figcaption { font-size: 13.5px; color: var(--ink-2); margin-top: 6px; }
+.sr-holes { border-top: 1px solid var(--line); padding: 10px 0; }
+.sr-hole-h { font-weight: 700; margin: 0 0 8px; }
+[data-show][hidden] { display: none !important; }
+@media (max-width: 960px) { .sr-bench { grid-template-columns: 1fr; } .sr-stage { border-right: 0; border-bottom: 1px solid var(--line); } .sr-sticky { position: static; } }
+@media (max-width: 420px) { .sr-grid3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------- actions ---------- */
+.sr-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 16px 0 6px; }
+.sr-actions .hint { font-size: 14px; color: var(--ink-2); }
+.sr-sample-note { margin: 0 0 10px; font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- sections, tables ---------- */
+.sr-sec { margin: clamp(30px, 5vw, 56px) 0 0; }
+.sr-sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 20px; margin-bottom: 10px; }
+.sr-sec-head p { margin: 0; color: var(--ink-2); font-size: 14.5px; }
+.sr-table { width: 100%; border-collapse: collapse; background: var(--paper); border: 1px solid var(--line-2); border-radius: 14px; overflow: hidden; font-size: 15.5px; }
+.sr-table caption { caption-side: top; text-align: left; padding: 0 0 8px; color: var(--ink-2); font-size: 14.5px; }
+.sr-table th, .sr-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.sr-table thead th { font-size: 13.5px; font-weight: 700; color: var(--ink-2); background: var(--paper-2); }
+.sr-table tbody tr:last-child td { border-bottom: 0; }
+.sr-table .num { text-align: right; white-space: nowrap; }
+.sr-group td { background: var(--paper-2); font-weight: 700; font-size: 14px; color: var(--ink-2); }
+.sr-st { white-space: nowrap; font-weight: 700; font-size: 14px; }
+.sr-st span { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px 2px 7px; border-radius: var(--r-chip); }
+.sr-st svg { width: 14px; height: 14px; }
+.st-fits span { background: #0b7a4b; color: #fff; }
+.st-check span { background: #ffd23f; color: #17151d; }
+.st-fail span { background: #d71f27; color: #fff; }
+.st-info span { background: var(--sector-soft); color: var(--ink); }
+.sr-why { color: var(--ink-2); font-size: 14.5px; }
+.sr-src { font-size: 13.5px; color: var(--ink-2); }
+.sr-src a { white-space: normal; }
+.sr-shop input { max-width: 110px; text-align: right; padding: 6px 8px; font-size: 15px; }
+.sr-total td { font-weight: 700; background: var(--paper-2); }
+@media (max-width: 760px) {
+  .sr-table, .sr-table tbody, .sr-table tr, .sr-table td, .sr-table caption { display: block; width: 100%; }
+  .sr-table thead { display: none; }
+  .sr-table caption { padding: 10px 12px 8px; }
+  .sr-table tr { border-bottom: 1px solid var(--line); padding: 8px 0; }
+  .sr-table td { border: 0; padding: 4px 12px; }
+  .sr-table td[data-h]::before { content: attr(data-h); display: block; font-size: 12.5px; font-weight: 700; color: var(--ink-2); }
+  .sr-table .num { text-align: left; }
+  .sr-shop input { max-width: 100%; text-align: left; }
+}
+
+/* ---------- Pro ---------- */
+.sr-pro { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr); background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-panel); overflow: clip; }
+.sr-pro-l { padding: clamp(18px, 2.6vw, 30px); display: grid; gap: 14px; align-content: start; min-width: 0; }
+.sr-pro-r { padding: clamp(18px, 2.6vw, 30px); background: #3b3846; color: #f1f0f6; display: grid; gap: 12px; align-content: start; }
+.sr-pro-r p { color: #d9d6e4; margin: 0; font-size: 14.5px; }
+.sr-pro-r .btn-ghost { color: #fff; border-color: rgba(255, 255, 255, .5); }
+.sr-pro-r .btn-ghost[aria-busy="true"] { cursor: progress; opacity: .85; }
+.sr-pro-r .sr-price { font-family: var(--display); font-size: 46px; font-weight: 800; color: #fff; margin: 0; line-height: 1; }
+.sr-price small { font-family: var(--sans); font-size: 15px; font-weight: 500; color: #d9d6e4; }
+.sr-locked { list-style: none; margin: 0; padding: 0; display: grid; border-top: 1px solid var(--line); }
+.sr-locked li { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 10px; align-items: start; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.sr-locked svg { width: 16px; height: 16px; margin-top: 3px; color: var(--carbon-2); }
+.sr-locked b { display: block; font-weight: 700; }
+.sr-locked span { display: block; color: var(--ink-2); font-size: 14.5px; }
+.sr-locked em { font-style: normal; font-size: 12.5px; font-weight: 700; padding: 2px 8px; border-radius: 5px; background: var(--sector-soft); color: var(--ink); }
+.sr-locked li.is-open em { background: #0b7a4b; color: #fff; }
+.sr-pro-out { margin: 0; }
+.sr-pro-out img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid var(--line-2); background: #fff; }
+.sr-pro-out figcaption { font-size: 13.5px; color: var(--ink-2); margin-top: 6px; }
+.sr-pro-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.sr-saved { display: grid; gap: 8px; }
+.sr-saved input[type="text"] { max-width: 260px; }
+.sr-saved ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.sr-saved li { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; font-size: 14.5px; }
+.sr-saved li button { font: inherit; font-size: 13.5px; padding: 4px 9px; border-radius: 6px; border: 1px solid var(--line-2); background: var(--paper); color: var(--ink); cursor: pointer; }
+.sr-pro-work { display: grid; gap: 14px; }
+.sr-pro-work[hidden] { display: none; }
+.sr-diagram { width: 100%; height: auto; display: block; background: var(--paper); }
+.sr-plates { display: flex; flex-wrap: wrap; gap: 12px 20px; }
+.sr-plate { margin: 0; }
+.sr-plate figcaption { font-size: 13.5px; color: var(--ink-2); }
+@media (max-width: 860px) { .sr-pro { grid-template-columns: 1fr; } }
+
+/* ---------- guides, FAQ, sources ---------- */
+.sr-guides { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); border-top: 3px solid var(--carbon); }
+.sr-guides li { border-bottom: 1px solid var(--line-2); }
+.sr-guides a { display: grid; gap: 2px; padding: 14px 12px 14px 0; text-decoration: none; color: var(--ink); }
+.sr-guides b { font-family: var(--display); font-weight: 700; font-size: 18px; line-height: 1.15; }
+.sr-guides span { color: var(--ink-2); font-size: 14.5px; }
+.sr-guides a:hover b { color: var(--sector-2); }
+.sr-faq details { border-bottom: 1px solid var(--line-2); padding: 12px 0; }
+.sr-faq summary { cursor: pointer; font-weight: 700; font-size: 17.5px; }
+.sr-faq .answer p { margin: 8px 0 0; }
+.sr-sources { font-size: 14.5px; }
+.sr-sources ol { margin: 0; padding-left: 22px; display: grid; gap: 4px; }
+.sr-sources li span { color: var(--ink-2); }
+.sr-srclist { margin: 10px 0; }
+.sr-srclist summary { cursor: pointer; font-weight: 700; padding: 10px 0; min-height: 44px; }
+
+/* ---------- guide pages ---------- */
+.sr-article { max-width: 780px; }
+.sr-article h2 { margin-top: 34px; }
+.sr-article-wide { max-width: 1120px; }
+.sr-article .sr-table { margin: 14px 0 18px; }
+.sr-fig-narrow svg { max-width: 640px; margin: 0 auto; }
+.sr-table td .sr-small { white-space: nowrap; }
+.sr-figure { margin: 18px 0; }
+.sr-figure img, .sr-figure svg { width: 100%; height: auto; display: block; border-radius: 14px; border: 1px solid var(--line-2); background: var(--paper); }
+.sr-figure figcaption { font-size: 14px; color: var(--ink-2); margin-top: 6px; }
+.sr-dl { display: grid; grid-template-columns: minmax(120px, 0.32fr) minmax(0, 1fr); gap: 8px 18px; margin: 16px 0; }
+.sr-dl dt { font-weight: 700; }
+.sr-dl dd { margin: 0; color: var(--ink-2); }
+@media (max-width: 600px) { .sr-dl { grid-template-columns: 1fr; gap: 2px; } .sr-dl dd { margin-bottom: 10px; } }
+.sr-callout { background: var(--paper); border: 1px solid var(--line-2); border-left: 5px solid var(--sector); border-radius: 12px; padding: 14px 16px; margin: 16px 0; }
+.sr-callout p { margin: 0; }
+.sr-open { display: inline-flex; margin-top: 8px; }
+.sr-guide-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(18px, 4vw, 48px); align-items: center; padding: clamp(10px, 2vw, 22px) 0 6px; }
+.sr-guide-hero img { width: 100%; height: auto; display: block; border-radius: 16px; border: 1px solid var(--line-2); aspect-ratio: 16 / 10; object-fit: cover; }
+.sr-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); border: 1px solid var(--line-2); border-radius: 14px; background: var(--paper); overflow: hidden; margin: 16px 0; }
+.sr-facts div { padding: 12px 14px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.sr-facts b { display: block; font-family: var(--display); font-size: 22px; font-weight: 800; line-height: 1.1; }
+.sr-facts span { font-size: 14px; color: var(--ink-2); }
+@media (max-width: 860px) { .sr-guide-hero { grid-template-columns: 1fr; } }
+.sr-table tr[id] { scroll-margin-top: 84px; }
+.sr-table tr:target td { background: color-mix(in oklab, var(--yellow) 26%, var(--paper)); }
+.sr-table th[scope="row"] { font-weight: 700; }
+/* compact number tables (.sr-numgrid) stay a table on a phone: few, short columns */
+@media (max-width: 760px) {
+  .sr-table.sr-numgrid { display: table; font-size: 14.5px; }
+  .sr-table.sr-numgrid caption { display: table-caption; }
+  .sr-table.sr-numgrid thead { display: table-header-group; }
+  .sr-table.sr-numgrid tbody { display: table-row-group; }
+  .sr-table.sr-numgrid tr { display: table-row; padding: 0; }
+  .sr-table.sr-numgrid th, .sr-table.sr-numgrid td { display: table-cell; width: auto; padding: 8px 5px; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+  .sr-table.sr-numgrid thead th { font-size: 13px; line-height: 1.25; white-space: normal; vertical-align: bottom; }
+  .sr-table.sr-numgrid td[data-h]::before { content: none; }
+  .sr-table.sr-numgrid .num { text-align: right; }
+  .sr-table.sr-kv td:first-child { width: 38%; }
+}
+
+/* ---------- print: the shopping list only ---------- */
+@media print {
+  body.sr-print-shop .site-head, body.sr-print-shop .site-foot, body.sr-print-shop main > *:not(#shop), body.sr-print-shop .skip { display: none !important; }
+  body.sr-print-shop #shop { margin: 0; }
+  body.sr-print-shop .sr-shop input { border: 0; padding: 0; }
+  body.sr-page { background: #fff; }
+}
+@media (prefers-reduced-motion: reduce) { .sr-page * { scroll-behavior: auto !important; transition: none !important; } }
+</style>
+<script>
+/* The licence button works before the page's scripts arrive: an early click starts loading them and opens the
+   licence dialog as soon as the licence code is ready. */
+(function () {
+  document.addEventListener('click', function (e) {
+    var b = e.target && e.target.closest ? e.target.closest('[data-enter-key]') : null;
+    if (!b || window.SimRigReady) return;
+    e.preventDefault(); e.stopPropagation();
+    window.SimRigWantsKey = true;
+    b.setAttribute('aria-busy', 'true');
+    if (window.SimRigLoad) window.SimRigLoad();
+  }, true);
+})();
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","@id":"https://peakappsstudio.com/it/cockpit-sim-racing/#app","name":"Sim Rig Designer","url":"https://peakappsstudio.com/it/cockpit-sim-racing/","inLanguage":"it","description":"Progetta una postazione di sim racing intorno al corpo del pilota: la costruisce in 3D con listelli, profilati di alluminio serie 40 o pannelli, posiziona sedile, pedali, volante e schermi in base allo stile di guida, verifica gli angoli di ginocchio, anca, caviglia, gomito e schienale con lo studio di Porter e Gyi, la SAE J1100 e le guide di sim racing di Fanatec, Asetek e Qubic System, ed elenca ogni listello, squadretta, tassello e vite da comprare. Indicazioni con fonti datate, senza garanzia ingegneristica.","applicationCategory":"DesignApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Gratis","price":"0","priceCurrency":"USD","description":"Il progetto in 3D, la verifica di angoli e schermo con le fonti, il campo visivo, la lista della spesa con i tuoi prezzi, un link da condividere e una lista da stampare."},{"@type":"Offer","name":"Pro (una tantum)","price":"19","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/sim-rig-designer-pro","description":"La lista di taglio ottimizzata con uno schema per barra, la distinta dei profilati taglio per taglio, i file DXF delle piastre di volante, pedaliera e cambio, un progetto passo passo in PDF con tutte le misure, progetti salvati, uscita in millimetri e pollici, esportazione GLB e OBJ e immagini grandi."}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Strumenti","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Sim Rig Designer","item":"https://peakappsstudio.com/it/cockpit-sim-racing/"}]},
+ {"@type":"FAQPage","inLanguage":"it","mainEntity":[
+  {"@type":"Question","name":"Quali misure deve avere una postazione sim racing?","acceptedAnswer":{"@type":"Answer","text":"Dipendono dal tuo corpo e da come stai seduto. Per GT e strada, i 55 guidatori del simulatore regolabile di Porter e Gyi (1998) hanno scelto il punto anca da 283 a 335 mm sopra il tallone e lo schienale da 5 a 25° dalla verticale; la SAE J1100 dà alle auto da 127 a 405 mm. Nella posizione da formula il sedile è più basso e più sdraiato. Lo strumento posiziona sedile, pedali, volante e schermo per la tua altezza e controlla gli angoli. Le misure per la tua altezza"}},
+  {"@type":"Question","name":"Che legno usare per un cockpit fai da te?","acceptedAnswer":{"@type":"Answer","text":"Listelli di abete piallato. Lo strumento usa le sezioni che vende OBI Italia: 45 x 80 mm e 45 x 95 mm, in pezzi da 2 m. Per le piastre usa OSB/3 da 18 mm, oppure da 15 mm, che tiene bene le viti. La postazione in legno, passo per passo"}},
+  {"@type":"Question","name":"Una postazione in legno regge un volante direct drive?","acceptedAnswer":{"@type":"Answer","text":"Nessun dato pubblicato dice quanto debba essere rigido un supporto volante. Asetek avverte che il force feedback più forte di una base direct drive fa emergere ogni gioco. Lo strumento rinforza il supporto (montanti, puntoni e un pannello nel legno; montanti da 40 x 80 con traverse nei profilati) e ti chiede, a postazione montata, di afferrare la corona e torcerla con forza."}},
+  {"@type":"Question","name":"Lo strumento conosce la foratura della mia base?","acceptedAnswer":{"@type":"Answer","text":"No. Non conserva la foratura di nessun produttore. Uno schema mostra come misurare i fori sotto la base, la pedaliera e il cambio; le piastre e i file DXF usano esattamente ciò che inserisci, e finché non segni \"misurato\" la verifica parla di foratura di esempio. Un supporto volante fai da te"}},
+  {"@type":"Question","name":"Quello che inserisco viene inviato a un server?","acceptedAnswer":{"@type":"Answer","text":"No. Il progetto, le verifiche e il modello 3D sono calcolati nel tuo browser. Il link da condividere tiene il progetto dopo il segno #, la parte che i browser non inviano ai server. Se compri Pro, solo la chiave di licenza va a Gumroad per la verifica."}}
+ ]}
+]}
+</script>
+<script src="/assets/pro-source.js" data-campaign="sim-rig-designer" defer></script>
+</head>
+<body class="sr-page" style="--accent:#6a2ee8">
+<a class="skip" href="#main">Vai al contenuto</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" hreflang="en" aria-label="Peak Apps Tools, tutti gli strumenti (in inglese)">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Strumenti">
+      <a href="/it/cockpit-sim-racing/" aria-current="page">Sim Rig Designer</a>
+      <a href="/tools/" hreflang="en">Tutti gli strumenti</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <div class="sr-topline">
+    <nav class="crumbs" aria-label="Percorso di navigazione"><ol><li><a href="/tools/" hreflang="en">Strumenti</a></li><li aria-current="page">Sim Rig Designer</li></ol></nav>
+    <nav class="sr-langs" aria-label="Lingua"><a href="/sim-rig-designer/" data-lang-switch="/sim-rig-designer/" hreflang="en" lang="en">English</a><a href="/de/sim-rig/" data-lang-switch="/de/sim-rig/" hreflang="de" lang="de">Deutsch</a><a href="/pt-br/cockpit-simulador/" data-lang-switch="/pt-br/cockpit-simulador/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="/es/cockpit-simracing/" data-lang-switch="/es/cockpit-simracing/" hreflang="es" lang="es">Español</a><a href="/fr/cockpit-simracing/" data-lang-switch="/fr/cockpit-simracing/" hreflang="fr" lang="fr">Français</a><a href="/it/cockpit-sim-racing/" aria-current="true" hreflang="it" lang="it">Italiano</a></nav>
+  </div>
+
+  <header class="sr-hero">
+    <div>
+      <h1>Cockpit sim racing fai da te, su misura per il tuo corpo</h1>
+    </div>
+    <div class="sr-hero-side">
+      <p class="lede">Sim Rig Designer progetta gratis la tua postazione di sim racing nel browser. Inserisci altezza, sedile, base e schermi: lo strumento costruisce il cockpit in 3D, controlla ginocchio, anca e gomito con studi pubblicati sulla posizione di guida ed elenca ogni listello, squadretta e vite da comprare.</p>
+      <fieldset class="sr-builds" id="builds">
+        <legend>Con cosa lo costruisci?</legend>
+        <label class="sr-build"><input type="radio" name="build" value="wood"><svg viewBox="0 0 64 44" aria-hidden="true"><path d="M2 42h60" stroke="currentColor" stroke-width="2"/><path class="wood" d="M6 38h44M6 38V32M50 38V32M8 32h40M40 32V12M46 32V12M38 12h12" fill="none" stroke="currentColor" stroke-width="2.6"/><path d="M10 31c0-8 2-14 6-17h6v17" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="43" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span>Legno, listello 45 x 80 o 45 x 95</span></label>
+        <label class="sr-build"><input type="radio" name="build" value="alu"><svg viewBox="0 0 64 44" aria-hidden="true"><path d="M2 42h60" stroke="currentColor" stroke-width="2"/><path d="M5 37h46v-5H5zM40 32V12h5v20M36 12h13" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 34.5h40M42.5 30V14" stroke="currentColor" stroke-width=".8" opacity=".6"/><path d="M10 31c0-8 2-14 6-17h6v17" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="43" cy="8" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span>Profilati in alluminio 40</span></label>
+        <label class="sr-build"><input type="radio" name="build" value="stand"><svg viewBox="0 0 64 44" aria-hidden="true"><path d="M2 42h60" stroke="currentColor" stroke-width="2"/><path class="wood" d="M30 41V30l10-14h14v25zM28 41h28" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="45" cy="11" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 41v-6M16 41v-6M6 35h14v-9h-9v9" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Supporto volante in pannelli</span></label>
+      </fieldset>
+    </div>
+  </header>
+  <svg class="sr-kerb" viewBox="0 0 1200 34" preserveAspectRatio="xMinYMid slice" aria-hidden="true"><rect x="0" y="0" width="1200" height="7" fill="#3a3941"/><rect x="0" y="7" width="1200" height="3" fill="#f4f4f1"/><path d="M-10 32 L26 32 L34 11 L-2 11 Z" fill="#d71f27"/><path d="M-2 11 L34 11 L32.4 15 L-3.5999999999999996 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M-10 32 L26 32 L26.799999999999997 30 L-9.2 30 Z" fill="#9f141a"/><path d="M30 32 L66 32 L74 11 L38 11 Z" fill="#ffffff"/><path d="M38 11 L74 11 L72.4 15 L36.4 15 Z" fill="#ffffff" opacity="1"/><path d="M30 32 L66 32 L66.8 30 L30.8 30 Z" fill="#c9c9d2"/><path d="M70 32 L106 32 L114 11 L78 11 Z" fill="#d71f27"/><path d="M78 11 L114 11 L112.4 15 L76.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M70 32 L106 32 L106.8 30 L70.8 30 Z" fill="#9f141a"/><path d="M110 32 L146 32 L154 11 L118 11 Z" fill="#ffffff"/><path d="M118 11 L154 11 L152.4 15 L116.4 15 Z" fill="#ffffff" opacity="1"/><path d="M110 32 L146 32 L146.8 30 L110.8 30 Z" fill="#c9c9d2"/><path d="M150 32 L186 32 L194 11 L158 11 Z" fill="#d71f27"/><path d="M158 11 L194 11 L192.4 15 L156.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M150 32 L186 32 L186.8 30 L150.8 30 Z" fill="#9f141a"/><path d="M190 32 L226 32 L234 11 L198 11 Z" fill="#ffffff"/><path d="M198 11 L234 11 L232.4 15 L196.4 15 Z" fill="#ffffff" opacity="1"/><path d="M190 32 L226 32 L226.8 30 L190.8 30 Z" fill="#c9c9d2"/><path d="M230 32 L266 32 L274 11 L238 11 Z" fill="#d71f27"/><path d="M238 11 L274 11 L272.4 15 L236.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M230 32 L266 32 L266.8 30 L230.8 30 Z" fill="#9f141a"/><path d="M270 32 L306 32 L314 11 L278 11 Z" fill="#ffffff"/><path d="M278 11 L314 11 L312.4 15 L276.4 15 Z" fill="#ffffff" opacity="1"/><path d="M270 32 L306 32 L306.8 30 L270.8 30 Z" fill="#c9c9d2"/><path d="M310 32 L346 32 L354 11 L318 11 Z" fill="#d71f27"/><path d="M318 11 L354 11 L352.4 15 L316.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M310 32 L346 32 L346.8 30 L310.8 30 Z" fill="#9f141a"/><path d="M350 32 L386 32 L394 11 L358 11 Z" fill="#ffffff"/><path d="M358 11 L394 11 L392.4 15 L356.4 15 Z" fill="#ffffff" opacity="1"/><path d="M350 32 L386 32 L386.8 30 L350.8 30 Z" fill="#c9c9d2"/><path d="M390 32 L426 32 L434 11 L398 11 Z" fill="#d71f27"/><path d="M398 11 L434 11 L432.4 15 L396.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M390 32 L426 32 L426.8 30 L390.8 30 Z" fill="#9f141a"/><path d="M430 32 L466 32 L474 11 L438 11 Z" fill="#ffffff"/><path d="M438 11 L474 11 L472.4 15 L436.4 15 Z" fill="#ffffff" opacity="1"/><path d="M430 32 L466 32 L466.8 30 L430.8 30 Z" fill="#c9c9d2"/><path d="M470 32 L506 32 L514 11 L478 11 Z" fill="#d71f27"/><path d="M478 11 L514 11 L512.4 15 L476.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M470 32 L506 32 L506.8 30 L470.8 30 Z" fill="#9f141a"/><path d="M510 32 L546 32 L554 11 L518 11 Z" fill="#ffffff"/><path d="M518 11 L554 11 L552.4 15 L516.4 15 Z" fill="#ffffff" opacity="1"/><path d="M510 32 L546 32 L546.8 30 L510.8 30 Z" fill="#c9c9d2"/><path d="M550 32 L586 32 L594 11 L558 11 Z" fill="#d71f27"/><path d="M558 11 L594 11 L592.4 15 L556.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M550 32 L586 32 L586.8 30 L550.8 30 Z" fill="#9f141a"/><path d="M590 32 L626 32 L634 11 L598 11 Z" fill="#ffffff"/><path d="M598 11 L634 11 L632.4 15 L596.4 15 Z" fill="#ffffff" opacity="1"/><path d="M590 32 L626 32 L626.8 30 L590.8 30 Z" fill="#c9c9d2"/><path d="M630 32 L666 32 L674 11 L638 11 Z" fill="#d71f27"/><path d="M638 11 L674 11 L672.4 15 L636.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M630 32 L666 32 L666.8 30 L630.8 30 Z" fill="#9f141a"/><path d="M670 32 L706 32 L714 11 L678 11 Z" fill="#ffffff"/><path d="M678 11 L714 11 L712.4 15 L676.4 15 Z" fill="#ffffff" opacity="1"/><path d="M670 32 L706 32 L706.8 30 L670.8 30 Z" fill="#c9c9d2"/><path d="M710 32 L746 32 L754 11 L718 11 Z" fill="#d71f27"/><path d="M718 11 L754 11 L752.4 15 L716.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M710 32 L746 32 L746.8 30 L710.8 30 Z" fill="#9f141a"/><path d="M750 32 L786 32 L794 11 L758 11 Z" fill="#ffffff"/><path d="M758 11 L794 11 L792.4 15 L756.4 15 Z" fill="#ffffff" opacity="1"/><path d="M750 32 L786 32 L786.8 30 L750.8 30 Z" fill="#c9c9d2"/><path d="M790 32 L826 32 L834 11 L798 11 Z" fill="#d71f27"/><path d="M798 11 L834 11 L832.4 15 L796.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M790 32 L826 32 L826.8 30 L790.8 30 Z" fill="#9f141a"/><path d="M830 32 L866 32 L874 11 L838 11 Z" fill="#ffffff"/><path d="M838 11 L874 11 L872.4 15 L836.4 15 Z" fill="#ffffff" opacity="1"/><path d="M830 32 L866 32 L866.8 30 L830.8 30 Z" fill="#c9c9d2"/><path d="M870 32 L906 32 L914 11 L878 11 Z" fill="#d71f27"/><path d="M878 11 L914 11 L912.4 15 L876.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M870 32 L906 32 L906.8 30 L870.8 30 Z" fill="#9f141a"/><path d="M910 32 L946 32 L954 11 L918 11 Z" fill="#ffffff"/><path d="M918 11 L954 11 L952.4 15 L916.4 15 Z" fill="#ffffff" opacity="1"/><path d="M910 32 L946 32 L946.8 30 L910.8 30 Z" fill="#c9c9d2"/><path d="M950 32 L986 32 L994 11 L958 11 Z" fill="#d71f27"/><path d="M958 11 L994 11 L992.4 15 L956.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M950 32 L986 32 L986.8 30 L950.8 30 Z" fill="#9f141a"/><path d="M990 32 L1026 32 L1034 11 L998 11 Z" fill="#ffffff"/><path d="M998 11 L1034 11 L1032.4 15 L996.4 15 Z" fill="#ffffff" opacity="1"/><path d="M990 32 L1026 32 L1026.8 30 L990.8 30 Z" fill="#c9c9d2"/><path d="M1030 32 L1066 32 L1074 11 L1038 11 Z" fill="#d71f27"/><path d="M1038 11 L1074 11 L1072.4 15 L1036.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M1030 32 L1066 32 L1066.8 30 L1030.8 30 Z" fill="#9f141a"/><path d="M1070 32 L1106 32 L1114 11 L1078 11 Z" fill="#ffffff"/><path d="M1078 11 L1114 11 L1112.4 15 L1076.4 15 Z" fill="#ffffff" opacity="1"/><path d="M1070 32 L1106 32 L1106.8 30 L1070.8 30 Z" fill="#c9c9d2"/><path d="M1110 32 L1146 32 L1154 11 L1118 11 Z" fill="#d71f27"/><path d="M1118 11 L1154 11 L1152.4 15 L1116.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M1110 32 L1146 32 L1146.8 30 L1110.8 30 Z" fill="#9f141a"/><path d="M1150 32 L1186 32 L1194 11 L1158 11 Z" fill="#ffffff"/><path d="M1158 11 L1194 11 L1192.4 15 L1156.4 15 Z" fill="#ffffff" opacity="1"/><path d="M1150 32 L1186 32 L1186.8 30 L1150.8 30 Z" fill="#c9c9d2"/><path d="M1190 32 L1226 32 L1234 11 L1198 11 Z" fill="#d71f27"/><path d="M1198 11 L1234 11 L1232.4 15 L1196.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M1190 32 L1226 32 L1226.8 30 L1190.8 30 Z" fill="#9f141a"/></svg>
+
+  <section class="sr-bench" id="tool" aria-label="Progetto del cockpit">
+    <div class="sr-stage">
+      <div class="sr-sticky">
+        <div class="sr-view" id="view">
+          <img id="poster" src="/sim-rig-designer/img/poster-960.webp" srcset="/sim-rig-designer/img/poster-480.webp 480w, /sim-rig-designer/img/poster-960.webp 960w, /sim-rig-designer/img/poster-1440.webp 1440w" sizes="(max-width: 960px) 100vw, 64vw" width="1440" height="900" fetchpriority="high" decoding="async" alt="Il cockpit di esempio in 3D in una stanza al tramonto: telaio in legno con un sedile a guscio nero, una base direct drive su una piastra tra due montanti, pedali su una piastra inclinata, un cambio sul suo montante e tre schermi su un supporto con un circuito, con la sagoma di un pilota al volante.">
+          <canvas id="canvas" tabindex="0" aria-label="Modello 3D del tuo cockpit. Trascina per ruotarlo, usa la rotellina o due dita per lo zoom, oppure le frecce della tastiera." role="img" hidden></canvas>
+          <div class="sr-tags" id="tags" aria-hidden="true"></div>
+          <span class="sr-badge" id="badge">Esempio</span>
+          <p class="sr-gl-note" id="gl-note" hidden>Questo browser non può mostrare il 3D (WebGL è disattivato). Le verifiche e la lista della spesa qui sotto funzionano comunque.</p>
+          <button type="button" class="sr-start" id="start3d"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2 3 6v8l7 4 7-4V6z M3 6l7 4 7-4 M10 10v8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span>Ruota in 3D</span></button>
+        </div>
+        <div class="sr-toolbar" id="toolbar" hidden>
+          <div class="sr-toggles" role="group" aria-label="Mostra">
+            <button type="button" data-part="frame" aria-pressed="true">Telaio</button>
+            <button type="button" data-part="plates" aria-pressed="true">Piastre</button>
+            <button type="button" data-part="driver" aria-pressed="true">Pilota</button>
+            <button type="button" data-part="angles" aria-pressed="false">Angoli</button>
+          </div>
+          <div class="sr-seg" role="group" aria-label="Vista" id="views">
+            <button type="button" data-view="iso" aria-pressed="true">3D</button>
+            <button type="button" data-view="side" aria-pressed="false">Laterale</button>
+          </div>
+          <button type="button" class="sr-steps" id="steps">Montaggio</button>
+        </div>
+        <div class="sr-title" id="titleblock" aria-live="polite">
+          <h2 id="design-title">Cockpit GT di esempio</h2>
+          <p id="design-sub"><!-- @pre:sub -->Cockpit in legno, listello in abete piallato 45 x 95 mm, posizione GT e stradale, per un pilota di 175 cm, sedile a guscio, base direct drive, tre monitor da 27 pollici</p>
+          <div class="sr-readout" id="readout"><!-- @pre:readout --><div class="sr-read sr-read-fits"><b>117°</b><span>Ginocchio</span></div><div class="sr-read sr-read-fits"><b>97°</b><span>Anca</span></div><div class="sr-read sr-read-fits"><b>105°</b><span>Gomito</span></div><div class="sr-read sr-read-fits"><b>18°</b><span>Schienale</span></div><div class="sr-read sr-read-info"><b>118°</b><span>Campo visivo</span></div></div>
+          <div class="sr-counts" id="counts"><!-- @pre:counts --><span class="sr-count ct-fits"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5v13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="f" d="M4 2.2h9.2l-1.9 3.1 1.9 3.1H4z" fill="currentColor"/></svg><b>12</b><span>vanno bene</span></span><span class="sr-count ct-check"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5v13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="f" d="M4 2.2h9.2l-1.9 3.1 1.9 3.1H4z" fill="currentColor"/></svg><b>2</b><span>da verificare</span></span><span class="sr-count ct-fail"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5v13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="f" d="M4 2.2h9.2l-1.9 3.1 1.9 3.1H4z" fill="currentColor"/></svg><b>0</b><span>non vanno</span></span></div>
+          <div class="sr-meta"><span>Fonti consultate il <strong>14 e 15 ottobre 2026</strong></span><span>Calcolato nel tuo browser</span></div>
+        </div>
+      </div>
+    </div>
+
+    <form class="sr-form" id="form" autocomplete="off" novalidate onsubmit="return false">
+      <fieldset class="sr-step">
+        <legend><span class="sr-step-n">1</span>Tu</legend>
+        <div class="sr-row" style="margin-bottom:10px">
+          <div class="sr-seg sr-units" role="group" aria-label="Unità" data-seg="units"><button type="button" data-v="metric" aria-pressed="true">Metrico</button><button type="button" data-v="imperial" aria-pressed="false">Pollici (USA)</button></div>
+        </div>
+        <div class="sr-grid">
+          <label class="sr-field"><span>La tua altezza</span><span class="sr-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="driver.h" data-t="len"><i data-unit>cm</i></span><small id="h-note"></small></label>
+          <label class="sr-field"><span>Altezza cavallo</span><span class="sr-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="driver.inseam" data-t="len" placeholder="facoltativo"><i data-unit>cm</i></span><small>A piedi nudi, da terra al cavallo. Vuoto: stimato dalla tua altezza</small></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="sr-step">
+        <legend><span class="sr-step-n">2</span>Come stai seduto</legend>
+        <div class="sr-seg sr-styles" role="group" aria-label="Stile di guida" data-seg="style"><button type="button" data-v="gt" aria-pressed="true">GT e stradale</button><button type="button" data-v="formula" aria-pressed="false">Formula</button><button type="button" data-v="rally" aria-pressed="false">Rally e camion</button></div>
+        <div class="sr-grid" style="margin-top:10px">
+          <label class="sr-field wide" data-show="!build=stand"><span>Sedile</span><select data-k="seat.type"><option value="bucket">Sedile a guscio con staffe laterali</option><option value="car">Sedile d’auto su guide</option><option value="office">Sedia da ufficio o gaming</option></select></label>
+          <label class="sr-field" data-show="seat.type=office"><span>Altezza della seduta</span><span class="sr-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="seat.pan" data-t="len"><i data-unit>cm</i></span><small>Da terra alla parte alta del cuscino</small></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="sr-step">
+        <legend><span class="sr-step-n">3</span>La tua attrezzatura</legend>
+        <div class="sr-grid">
+          <label class="sr-field"><span>Base</span><select data-k="gear.base"><option value="dd">Direct drive</option><option value="belt">Cinghia o ingranaggi</option></select></label>
+          <label class="sr-field"><span>Diametro della corona</span><span class="sr-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="gear.rim" data-t="len"><i data-unit>cm</i></span><small>Volanti da formula: la larghezza</small></label>
+          <label class="sr-field"><span>Pedali</span><select data-k="gear.pedals"><option value="loadcell">Freno con cella di carico</option><option value="pot">Pedali a potenziometro</option></select></label>
+          <div class="sr-field"><span>Inoltre</span><label class="sr-check"><input type="checkbox" data-k="gear.shifter" data-t="bool"><span>Cambio</span></label><label class="sr-check"><input type="checkbox" data-k="gear.handbrake" data-t="bool"><span>Freno a mano</span></label></div>
+        </div>
+      </fieldset>
+
+      <fieldset class="sr-step">
+        <legend><span class="sr-step-n">4</span>Schermo e stanza</legend>
+        <div class="sr-grid">
+          <label class="sr-field"><span>Schermo</span><select data-k="screen.kind"><option value="single">Un monitor</option><option value="triple">Tre monitor</option><option value="tv">Un televisore</option></select></label>
+          <label class="sr-field"><span>Dimensione di ogni schermo</span><span class="sr-in"><input type="number" inputmode="decimal" step="1" min="15" max="100" data-k="screen.size" data-t="num"><i>pollici</i></span></label>
+          <label class="sr-field"><span>Formato</span><select data-k="screen.aspect"><option value="16:9">16:9</option><option value="21:9">21:9 ultrawide</option><option value="32:9">32:9 super ultrawide</option></select></label>
+          <label class="sr-check" style="align-self:end"><input type="checkbox" data-k="screen.stand" data-t="bool"><span>Costruire un supporto per lo schermo</span></label>
+          <label class="sr-field"><span>Stanza, un lato</span><span class="sr-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="room.w" data-t="len"><i data-unit>cm</i></span></label>
+          <label class="sr-field"><span>L’altro lato</span><span class="sr-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="room.d" data-t="len"><i data-unit>cm</i></span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="sr-step">
+        <legend><span class="sr-step-n">5</span>Materiali</legend>
+        <div class="sr-grid">
+          <label class="sr-field" data-show="!build=alu"><span>Legno</span><select data-k="lumber" id="lumber"></select><small id="lumber-actual"></small></label>
+          <label class="sr-field" data-show="!build=alu"><span>Lunghezza che compri</span><select data-k="stock" data-t="num" id="stock"></select></label>
+          <label class="sr-field wide"><span>Pannello per le piastre</span><select data-k="sheet" id="sheet"></select></label>
+          <label class="sr-field wide" data-show="build=alu"><span>Piastre</span><select data-k="plate"><option value="sheet">Dal pannello qui sopra</option><option value="alu">Alluminio da 6 mm, tagliato da un servizio CNC</option></select></label>
+        </div>
+      </fieldset>
+
+      <details class="sr-more" id="positions">
+        <summary>Posizioni</summary>
+        <label class="sr-check sr-auto"><input type="checkbox" data-k="auto" data-t="bool"><span>Adatta il cockpit al mio corpo <small id="auto-note"></small></span></label>
+        <div class="sr-grid">
+          <label class="sr-field" data-show="!seat.type=office"><span>Punto anca da terra</span><span class="sr-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="rig.seatH" data-t="len" data-size><i data-unit>cm</i></span></label>
+          <label class="sr-field"><span>Schienale dalla verticale</span><span class="sr-in"><input type="number" inputmode="decimal" step="1" min="0" max="70" data-k="rig.back" data-t="num" data-size><i>gradi</i></span></label>
+          <label class="sr-field"><span>Talloni davanti all’anca</span><span class="sr-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="rig.l53" data-t="len" data-size><i data-unit>cm</i></span><small>SAE L53</small></label>
+          <label class="sr-field"><span>Anca sopra i talloni</span><span class="sr-in"><input type="number" inputmode="decimal" step="any" data-k="rig.h30" data-t="len" data-size><i data-unit>cm</i></span><small>SAE H30</small></label>
+          <label class="sr-field"><span>Inclinazione della piastra pedaliera</span><span class="sr-in"><input type="number" inputmode="decimal" step="1" min="-10" max="50" data-k="rig.deck" data-t="num" data-size><i>gradi</i></span></label>
+          <label class="sr-field"><span>Volante davanti all’anca</span><span class="sr-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="rig.wheelReach" data-t="len" data-size><i data-unit>cm</i></span></label>
+          <label class="sr-field"><span>Centro del volante sopra l’anca</span><span class="sr-in"><input type="number" inputmode="decimal" step="any" data-k="rig.wheelUp" data-t="len" data-size><i data-unit>cm</i></span></label>
+          <label class="sr-field"><span>Inclinazione del volante dalla verticale</span><span class="sr-in"><input type="number" inputmode="decimal" step="1" min="0" max="70" data-k="rig.tilt" data-t="num" data-size><i>gradi</i></span></label>
+          <label class="sr-field"><span>Occhi dallo schermo</span><span class="sr-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="rig.screenDist" data-t="len" data-size><i data-unit>cm</i></span></label>
+          <label class="sr-field"><span>Centro dello schermo sopra gli occhi</span><span class="sr-in"><input type="number" inputmode="decimal" step="any" data-k="rig.screenUp" data-t="len" data-size><i data-unit>cm</i></span></label>
+        </div>
+      </details>
+
+      <details class="sr-more" id="measure">
+        <summary>La tua attrezzatura, misurata</summary>
+        <figure class="sr-helper">
+          <svg viewBox="0 0 340 170" role="img" aria-label="Come misurare una foratura: da centro a centro in larghezza (A) e da davanti a dietro (B), più il diametro del foro (D)"><rect x="70" y="25" width="180" height="120" rx="14" fill="#d6d7e1" stroke="#17151d" stroke-width="1.6"/><circle cx="110" cy="55" r="9" fill="#ffffff" stroke="#17151d" stroke-width="1.6"/><path d="M106 55h8M110 51v8" stroke="#6a2ee8" stroke-width="1.2"/><circle cx="210" cy="55" r="9" fill="#ffffff" stroke="#17151d" stroke-width="1.6"/><path d="M206 55h8M210 51v8" stroke="#6a2ee8" stroke-width="1.2"/><circle cx="110" cy="115" r="9" fill="#ffffff" stroke="#17151d" stroke-width="1.6"/><path d="M106 115h8M110 111v8" stroke="#6a2ee8" stroke-width="1.2"/><circle cx="210" cy="115" r="9" fill="#ffffff" stroke="#17151d" stroke-width="1.6"/><path d="M206 115h8M210 111v8" stroke="#6a2ee8" stroke-width="1.2"/><path d="M110 30v-16M210 30v-16M110 18h100" stroke="#6a2ee8" stroke-width="1.6" fill="none"/><path d="M110 18l7-4v8zM210 18l-7-4v8z" fill="#6a2ee8"/><text x="160" y="13" font-size="13" font-weight="700" text-anchor="middle" fill="#17151d">A</text><path d="M215 55h52M215 115h52M262 55v60" stroke="#6a2ee8" stroke-width="1.6" fill="none"/><path d="M262 55l-4 7h8zM262 115l-4-7h8z" fill="#6a2ee8"/><text x="276" y="90" font-size="13" font-weight="700" fill="#17151d">B</text><path d="M201 136h18" stroke="#6a2ee8" stroke-width="1.6"/><path d="M201 115v23M219 115v23" stroke="#6a2ee8" stroke-width="0.9" stroke-dasharray="2 2"/><text x="226" y="141" font-size="13" font-weight="700" fill="#17151d">D</text><text x="20" y="160" font-size="12" fill="#4c4959">Da centro a centro: A in larghezza, B da davanti a dietro. D: il foro.</text><path d="M44 90h-26M18 90l7-4v8z" stroke="#17151d" stroke-width="1.2" fill="#17151d"/><text x="6" y="80" font-size="11.5" fill="#4c4959">davanti</text></svg>
+          <figcaption>Capovolgi la base, la pedaliera o il cambio. Misura dal centro di un foro al centro del successivo: in larghezza (A) e da davanti a dietro (B). Oppure dal bordo sinistro di un foro al bordo sinistro del successivo, che è lo stesso. Poi il foro stesso (D). Lo strumento non conosce la foratura di nessun produttore: ciò che inserisci finisce nelle piastre e nei file DXF.</figcaption>
+        </figure>
+        <div class="sr-holes" data-hole="wheel">
+          <p class="sr-hole-h">Base, attacco inferiore</p>
+          <div class="sr-grid sr-grid3">
+            <label class="sr-field"><span>Fori in larghezza</span><input type="number" inputmode="numeric" step="1" min="1" max="6" data-k="gear.holes.wheel.cols" data-t="int"></label>
+            <label class="sr-field"><span>Righe</span><input type="number" inputmode="numeric" step="1" min="1" max="6" data-k="gear.holes.wheel.rows" data-t="int"></label>
+            <label class="sr-field"><span>Diametro del foro (mm)</span><input type="number" inputmode="decimal" step="0.1" min="2" max="20" data-k="gear.holes.wheel.d" data-t="num"></label>
+            <label class="sr-field"><span>A, in larghezza</span><span class="sr-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="gear.holes.wheel.x" data-t="len"><i data-unit>cm</i></span></label>
+            <label class="sr-field"><span>B, da davanti a dietro</span><span class="sr-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="gear.holes.wheel.y" data-t="len"><i data-unit>cm</i></span></label>
+            <label class="sr-check" style="align-self:end"><input type="checkbox" data-k="gear.holes.wheel.measured" data-t="bool"><span>Misurato</span></label>
+            <label class="sr-field"><span>Lunghezza della base</span><span class="sr-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="gear.wb.l" data-t="len"><i data-unit>cm</i></span></label>
+            <label class="sr-field"><span>Asse sopra la piastra</span><span class="sr-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="gear.wb.axis" data-t="len"><i data-unit>cm</i></span></label>
+            <label class="sr-field"><span>Dalla corona alla faccia della base</span><span class="sr-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="gear.wb.qr" data-t="len"><i data-unit>cm</i></span></label>
+          </div>
+        </div>
+        <div class="sr-holes" data-hole="pedals">
+          <p class="sr-hole-h">Pedaliera</p>
+          <div class="sr-grid sr-grid3">
+            <label class="sr-field"><span>Fori in larghezza</span><input type="number" inputmode="numeric" step="1" min="1" max="6" data-k="gear.holes.pedals.cols" data-t="int"></label>
+            <label class="sr-field"><span>Righe</span><input type="number" inputmode="numeric" step="1" min="1" max="6" data-k="gear.holes.pedals.rows" data-t="int"></label>
+            <label class="sr-field"><span>Diametro del foro (mm)</span><input type="number" inputmode="decimal" step="0.1" min="2" max="20" data-k="gear.holes.pedals.d" data-t="num"></label>
+            <label class="sr-field"><span>A, in larghezza</span><span class="sr-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="gear.holes.pedals.x" data-t="len"><i data-unit>cm</i></span></label>
+            <label class="sr-field"><span>B, da davanti a dietro</span><span class="sr-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="gear.holes.pedals.y" data-t="len"><i data-unit>cm</i></span></label>
+            <label class="sr-check" style="align-self:end"><input type="checkbox" data-k="gear.holes.pedals.measured" data-t="bool"><span>Misurato</span></label>
+            <label class="sr-field"><span>Larghezza della pedaliera</span><span class="sr-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="gear.ped.w" data-t="len"><i data-unit>cm</i></span></label>
+            <label class="sr-field"><span>Profondità della pedaliera</span><span class="sr-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="gear.ped.d" data-t="len"><i data-unit>cm</i></span></label>
+            <label class="sr-field"><span>Piede sul pedale</span><span class="sr-in"><input type="number" inputmode="decimal" step="1" min="10" max="75" data-k="gear.face" data-t="num"><i>gradi</i></span><small>Dal tallone all’avampiede, sopra la piastra</small></label>
+            <label class="sr-field"><span>Corsa del freno</span><span class="sr-in"><input type="number" inputmode="decimal" step="1" min="0" max="40" data-k="gear.travel" data-t="num"><i>gradi</i></span></label>
+          </div>
+        </div>
+        <div class="sr-holes" data-hole="shifter" data-show="gear.shifter|gear.handbrake">
+          <p class="sr-hole-h">Cambio o freno a mano</p>
+          <div class="sr-grid sr-grid3">
+            <label class="sr-field"><span>Fori in larghezza</span><input type="number" inputmode="numeric" step="1" min="1" max="6" data-k="gear.holes.shifter.cols" data-t="int"></label>
+            <label class="sr-field"><span>Righe</span><input type="number" inputmode="numeric" step="1" min="1" max="6" data-k="gear.holes.shifter.rows" data-t="int"></label>
+            <label class="sr-field"><span>Diametro del foro (mm)</span><input type="number" inputmode="decimal" step="0.1" min="2" max="20" data-k="gear.holes.shifter.d" data-t="num"></label>
+            <label class="sr-field"><span>A, in larghezza</span><span class="sr-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="gear.holes.shifter.x" data-t="len"><i data-unit>cm</i></span></label>
+            <label class="sr-field"><span>B, da davanti a dietro</span><span class="sr-in"><input type="number" inputmode="decimal" step="any" min="0" data-k="gear.holes.shifter.y" data-t="len"><i data-unit>cm</i></span></label>
+            <label class="sr-check" style="align-self:end"><input type="checkbox" data-k="gear.holes.shifter.measured" data-t="bool"><span>Misurato</span></label>
+          </div>
+        </div>
+        <label class="sr-check"><input type="checkbox" data-k="gear.slots" data-t="bool"><span>Asole al posto dei fori tondi sulle piastre di volante e pedaliera, per far scorrere l’attrezzatura</span></label>
+      </details>
+    </form>
+  </section>
+
+  <div class="sr-actions">
+    <button type="button" class="btn btn-primary" id="share">Copia il link</button>
+    <button type="button" class="btn" id="sample">Carica l’esempio</button>
+    <button type="button" class="btn" id="fresh">Inizia il mio progetto</button>
+    <span class="hint">Il link contiene tutto il progetto dopo il segno #. Niente viene inviato a un server.</span>
+  </div>
+  <p class="sr-sample-note" id="sample-note">Questo è un esempio: un cockpit GT in listelli di abete 45 x 95 mm con sedile a guscio, base direct drive, pedali con cella di carico, cambio e tre monitor da 27 pollici, per un pilota di 1,75 m. Inserisci la tua altezza e diventa il tuo.</p>
+
+  <section class="sr-sec" id="checks" aria-labelledby="checks-h">
+    <div class="sr-sec-head"><h2 id="checks-h">Le verifiche, con le fonti</h2><p>Studi sulla posizione di guida, la SAE J1100 e guide di sim racing, consultati il 14 ottobre 2026. Dove non concordano, ogni riga riporta l’intervallo e tutte le fonti.</p></div>
+    <table class="sr-table" id="check-table">
+      <caption>Bandiera verde: in linea con le fonti; gialla: merita un secondo sguardo; rossa: da cambiare prima di costruire.</caption>
+      <thead><tr><th scope="col">Risultato</th><th scope="col">Verifica</th><th scope="col">Il tuo progetto</th><th scope="col">Riferimento</th><th scope="col">Perché</th></tr></thead>
+      <tbody id="check-rows" data-pre="sample"><!-- @pre:checks --><tr class="sr-group"><td colspan="5">Il sedile</td></tr><tr data-id="torso" class="is-fits"><td class="sr-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5v13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="f" d="M4 2.2h9.2l-1.9 3.1 1.9 3.1H4z" fill="currentColor"/></svg>Va bene</span></td><td><b>Angolo dello schienale</b></td><td data-h="Il tuo progetto">18° dalla verticale</td><td data-h="Riferimento">5-25°</td><td data-h="Perché" class="sr-why">Entro i 5-25° (media di 15,9°) scelti dai piloti nel simulatore di Porter e Gyi; la SAE J1100 dà alle auto un angolo del busto di 5-40°. L’articolo F1 di Fanatec dà allo schienale circa 100-110° rispetto alla seduta.<span class="sr-src"> <a href="https://repository.lboro.ac.uk/articles/journal_contribution/Exploring_the_optimum_posture_for_driver_comfort/9349361" rel="noopener" target="_blank" title="Porter, J.M. and Gyi, D.E. (1998), Exploring the optimum posture for driver comfort, International Journal of Vehicle Design 19(3), 255-266: Table 2, comfortable angles observed in 55 drivers against Rebiffé (1969) and Grandjean (1980); Table 7, the rig dimensions they chose (Loughborough University repository), consultato il 14 ottobre 2026">Porter e Gyi (1998)</a>, <a href="https://law.resource.org/pub/us/cfr/ibr/005/sae.j1100.2001.html" rel="noopener" target="_blank" title="SAE J1100, Motor Vehicle Dimensions, Surface Vehicle Recommended Practice, revised February 2001 (public copy at law.resource.org): the definitions of H30, L40, L42, L44, L46 and L53, and the two classes of driver seating, Class A (H30 127 to 405 mm, torso angle 5 to 40 degrees) and Class B (heavy trucks and buses: H30 405 to 530 mm, torso angle 11 to 18 degrees), consultato il 14 ottobre 2026">SAE J1100 (2001)</a>, <a href="https://www.fanatec.com/us/en/explorer/products/cockpit/best-seat-position-for-f1-sim-racing/" rel="noopener" target="_blank" title="Fanatec: What is the best seat position for F1 Sim Racing? (12 November 2024, updated 24 January 2025), consultato il 14 ottobre 2026">Fanatec, sedile in F1</a></span></td></tr><tr data-id="h30" class="is-fits"><td class="sr-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5v13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="f" d="M4 2.2h9.2l-1.9 3.1 1.9 3.1H4z" fill="currentColor"/></svg>Va bene</span></td><td><b>Talloni rispetto al sedile (H30)</b></td><td data-h="Il tuo progetto">Punto anca 338 mm sopra il tallone</td><td data-h="Riferimento">127-405 mm</td><td data-h="Perché" class="sr-why">Entro i 127-405 mm che la SAE J1100 indica per le auto. I piloti di Porter e Gyi hanno scelto 283-335 mm, 301 mm in media.<span class="sr-src"> <a href="https://law.resource.org/pub/us/cfr/ibr/005/sae.j1100.2001.html" rel="noopener" target="_blank" title="SAE J1100, Motor Vehicle Dimensions, Surface Vehicle Recommended Practice, revised February 2001 (public copy at law.resource.org): the definitions of H30, L40, L42, L44, L46 and L53, and the two classes of driver seating, Class A (H30 127 to 405 mm, torso angle 5 to 40 degrees) and Class B (heavy trucks and buses: H30 405 to 530 mm, torso angle 11 to 18 degrees), consultato il 14 ottobre 2026">SAE J1100 (2001)</a>, <a href="https://repository.lboro.ac.uk/articles/journal_contribution/Exploring_the_optimum_posture_for_driver_comfort/9349361" rel="noopener" target="_blank" title="Porter, J.M. and Gyi, D.E. (1998), Exploring the optimum posture for driver comfort, International Journal of Vehicle Design 19(3), 255-266: Table 2, comfortable angles observed in 55 drivers against Rebiffé (1969) and Grandjean (1980); Table 7, the rig dimensions they chose (Loughborough University repository), consultato il 14 ottobre 2026">Porter e Gyi (1998)</a></span></td></tr><tr class="sr-group"><td colspan="5">Gambe e pedali</td></tr><tr data-id="knee" class="is-fits"><td class="sr-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5v13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="f" d="M4 2.2h9.2l-1.9 3.1 1.9 3.1H4z" fill="currentColor"/></svg>Va bene</span></td><td><b>Angolo del ginocchio a riposo</b></td><td data-h="Il tuo progetto">117°</td><td data-h="Riferimento">99-138°; 100-120° per GT (Fanatec)</td><td data-h="Perché" class="sr-why">Entro i 99-138° scelti dai piloti nel simulatore di Porter e Gyi con l’acceleratore a metà corsa; Rebiffé indica 95-135° e Grandjean 110-130°. Fanatec suggerisce circa 100-120° per GT, con le cosce leggermente inclinate verso il basso.<span class="sr-src"> <a href="https://repository.lboro.ac.uk/articles/journal_contribution/Exploring_the_optimum_posture_for_driver_comfort/9349361" rel="noopener" target="_blank" title="Porter, J.M. and Gyi, D.E. (1998), Exploring the optimum posture for driver comfort, International Journal of Vehicle Design 19(3), 255-266: Table 2, comfortable angles observed in 55 drivers against Rebiffé (1969) and Grandjean (1980); Table 7, the rig dimensions they chose (Loughborough University repository), consultato il 14 ottobre 2026">Porter e Gyi (1998)</a>, <a href="https://fanatec.com/us/en/explorer/products/pedals/best-sim-racing-pedal-position-for-gt-sim-racing/" rel="noopener" target="_blank" title="Fanatec: Best sim racing pedal position for GT sim racing (19 December 2024), consultato il 14 ottobre 2026">Fanatec, pedali in GT</a></span></td></tr><tr data-id="knee-press" class="is-fits"><td class="sr-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5v13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="f" d="M4 2.2h9.2l-1.9 3.1 1.9 3.1H4z" fill="currentColor"/></svg>Va bene</span></td><td><b>Ginocchio con il freno a fondo</b></td><td data-h="Il tuo progetto">125° con il freno premuto di 18°</td><td data-h="Riferimento">Una leggera flessione: non oltre 138°</td><td data-h="Perché" class="sr-why">Fanatec chiede una leggera flessione del ginocchio anche con il pedale a fondo, nelle guide GT e formula; qui il ginocchio resta nell’intervallo comodo di Porter e Gyi con il freno premuto.<span class="sr-src"> <a href="https://fanatec.com/us/en/explorer/products/pedals/best-sim-racing-pedal-position-for-gt-sim-racing/" rel="noopener" target="_blank" title="Fanatec: Best sim racing pedal position for GT sim racing (19 December 2024), consultato il 14 ottobre 2026">Fanatec, pedali in GT</a>, <a href="https://www.fanatec.com/us/en/explorer/products/pedals/best-sim-racing-pedal-position-for-formula-racing/" rel="noopener" target="_blank" title="Fanatec: Best sim racing pedal position for formula racing (20 December 2024, updated 27 December 2024), consultato il 14 ottobre 2026">Fanatec, pedali in formula</a>, <a href="https://repository.lboro.ac.uk/articles/journal_contribution/Exploring_the_optimum_posture_for_driver_comfort/9349361" rel="noopener" target="_blank" title="Porter, J.M. and Gyi, D.E. (1998), Exploring the optimum posture for driver comfort, International Journal of Vehicle Design 19(3), 255-266: Table 2, comfortable angles observed in 55 drivers against Rebiffé (1969) and Grandjean (1980); Table 7, the rig dimensions they chose (Loughborough University repository), consultato il 14 ottobre 2026">Porter e Gyi (1998)</a></span></td></tr><tr data-id="hip" class="is-fits"><td class="sr-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5v13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="f" d="M4 2.2h9.2l-1.9 3.1 1.9 3.1H4z" fill="currentColor"/></svg>Va bene</span></td><td><b>Angolo dell’anca (busto e coscia)</b></td><td data-h="Il tuo progetto">97°</td><td data-h="Riferimento">90-120°</td><td data-h="Perché" class="sr-why">Entro i 90-115° scelti dai piloti nel simulatore di Porter e Gyi, e i 95-120° (Rebiffé) e 100-120° (Grandjean) con cui lo studio si confronta.<span class="sr-src"> <a href="https://repository.lboro.ac.uk/articles/journal_contribution/Exploring_the_optimum_posture_for_driver_comfort/9349361" rel="noopener" target="_blank" title="Porter, J.M. and Gyi, D.E. (1998), Exploring the optimum posture for driver comfort, International Journal of Vehicle Design 19(3), 255-266: Table 2, comfortable angles observed in 55 drivers against Rebiffé (1969) and Grandjean (1980); Table 7, the rig dimensions they chose (Loughborough University repository), consultato il 14 ottobre 2026">Porter e Gyi (1998)</a></span></td></tr><tr data-id="ankle" class="is-fits"><td class="sr-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5v13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="f" d="M4 2.2h9.2l-1.9 3.1 1.9 3.1H4z" fill="currentColor"/></svg>Va bene</span></td><td><b>Angolo della caviglia (tibia e piede)</b></td><td data-h="Il tuo progetto">95°, supporto pedaliera a 3°</td><td data-h="Riferimento">80-113°</td><td data-h="Perché" class="sr-why">Entro gli 80-113° scelti dai piloti nel simulatore di Porter e Gyi; Rebiffé e Grandjean indicano 90-110°. Fanatec: l’angolo del pedale deve seguire l’angolo naturale del piede quando guidi.<span class="sr-src"> <a href="https://repository.lboro.ac.uk/articles/journal_contribution/Exploring_the_optimum_posture_for_driver_comfort/9349361" rel="noopener" target="_blank" title="Porter, J.M. and Gyi, D.E. (1998), Exploring the optimum posture for driver comfort, International Journal of Vehicle Design 19(3), 255-266: Table 2, comfortable angles observed in 55 drivers against Rebiffé (1969) and Grandjean (1980); Table 7, the rig dimensions they chose (Loughborough University repository), consultato il 14 ottobre 2026">Porter e Gyi (1998)</a>, <a href="https://fanatec.com/us/en/explorer/products/pedals/best-sim-racing-pedal-position-for-gt-sim-racing/" rel="noopener" target="_blank" title="Fanatec: Best sim racing pedal position for GT sim racing (19 December 2024), consultato il 14 ottobre 2026">Fanatec, pedali in GT</a></span></td></tr><tr class="sr-group"><td colspan="5">Braccia e volante</td></tr><tr data-id="elbow" class="is-fits"><td class="sr-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5v13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="f" d="M4 2.2h9.2l-1.9 3.1 1.9 3.1H4z" fill="currentColor"/></svg>Va bene</span></td><td><b>Angolo del gomito</b></td><td data-h="Il tuo progetto">105° con le mani a nove e un quarto</td><td data-h="Riferimento">90-120°</td><td data-h="Perché" class="sr-why">Fanatec: gomiti piegati tra 90 e 120° sul volante; Qubic arriva a circa 90-100° con il test del polso (braccia tese, spalle sullo schienale, polsi sopra la corona). Nel simulatore di auto stradale di Porter e Gyi i piloti hanno scelto da 86 a 164°.<span class="sr-src"> <a href="https://www.fanatec.com/us/en/explorer/products/cockpit/best-seat-position-for-f1-sim-racing/" rel="noopener" target="_blank" title="Fanatec: What is the best seat position for F1 Sim Racing? (12 November 2024, updated 24 January 2025), consultato il 14 ottobre 2026">Fanatec, sedile in F1</a>, <a href="https://qubicsystem.com/2023/01/gt-proper-seating-position/" rel="noopener" target="_blank" title="Qubic System: GT proper seating position (5 January 2023, updated 27 November 2025), consultato il 14 ottobre 2026">Qubic System, posizione GT</a>, <a href="https://repository.lboro.ac.uk/articles/journal_contribution/Exploring_the_optimum_posture_for_driver_comfort/9349361" rel="noopener" target="_blank" title="Porter, J.M. and Gyi, D.E. (1998), Exploring the optimum posture for driver comfort, International Journal of Vehicle Design 19(3), 255-266: Table 2, comfortable angles observed in 55 drivers against Rebiffé (1969) and Grandjean (1980); Table 7, the rig dimensions they chose (Loughborough University repository), consultato il 14 ottobre 2026">Porter e Gyi (1998)</a></span></td></tr><tr data-id="wheel-height" class="is-fits"><td class="sr-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5v13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="f" d="M4 2.2h9.2l-1.9 3.1 1.9 3.1H4z" fill="currentColor"/></svg>Va bene</span></td><td><b>Centro del volante rispetto alla spalla</b></td><td data-h="Il tuo progetto">tra il petto e la spalla, 73 mm sotto la spalla</td><td data-h="Riferimento">Tra il petto e la spalla</td><td data-h="Perché" class="sr-why">Asetek: più o meno tra l’altezza del petto e quella della spalla, con le spalle rilassate. Qubic mette il centro di un volante GT vicino alla base del collo.<span class="sr-src"> <a href="https://www.asetek.com/simsports/guides/simsports-guides-sim-racing-wheel-position/" rel="noopener" target="_blank" title="Asetek SimSports: Sim Racing Wheel Position, Height, Distance and Control (11 August 2026), consultato il 14 ottobre 2026">Asetek, posizione del volante</a>, <a href="https://qubicsystem.com/2023/01/gt-proper-seating-position/" rel="noopener" target="_blank" title="Qubic System: GT proper seating position (5 January 2023, updated 27 November 2025), consultato il 14 ottobre 2026">Qubic System, posizione GT</a></span></td></tr><tr data-id="legroom" class="is-fits"><td class="sr-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5v13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="f" d="M4 2.2h9.2l-1.9 3.1 1.9 3.1H4z" fill="currentColor"/></svg>Va bene</span></td><td><b>Corona e piastra sopra le gambe</b></td><td data-h="Il tuo progetto">161 mm tra la corona e le tue gambe</td><td data-h="Riferimento">Libere sopra cosce e ginocchia</td><td data-h="Perché" class="sr-why">La parte bassa della corona e il lato inferiore della piastra volante passano liberi sopra cosce, ginocchia e tibie, secondo il modello dell’altezza della coscia di ANSUR II.<span class="sr-src"> <a href="https://www.openlab.psu.edu/ansur2/" rel="noopener" target="_blank" title="Anthropometric Survey of US Army Personnel (ANSUR II), 2012: public data for 4,082 men and 1,986 women, published by the Penn State OPEN Design Lab; methods in Gordon et al. (2015), NATICK/TR-15/007, consultato il 14 ottobre 2026">ANSUR II (2012)</a></span></td></tr><tr class="sr-group"><td colspan="5">Lo schermo</td></tr><tr data-id="eye" class="is-fits"><td class="sr-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5v13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="f" d="M4 2.2h9.2l-1.9 3.1 1.9 3.1H4z" fill="currentColor"/></svg>Va bene</span></td><td><b>Occhi rispetto allo schermo</b></td><td data-h="Il tuo progetto">0 mm sopra il centro dello schermo</td><td data-h="Riferimento">Tra il centro e il bordo superiore</td><td data-h="Perché" class="sr-why">Asetek: tieni gli occhi più o meno all’altezza del centro dello schermo, in posizione di guida. Fanatec, per una sedia da ufficio: occhi all’altezza del bordo superiore dello schermo o poco sopra. Tu stai tra i due.<span class="sr-src"> <a href="https://www.asetek.com/simsports/guides/sim-racing-monitor-position/" rel="noopener" target="_blank" title="Asetek SimSports: Sim Racing Monitor Position, Height, Distance and FOV (23 July 2026, updated 8 October 2026), consultato il 14 ottobre 2026">Asetek, posizione del monitor</a>, <a href="https://www.asetek.com/simsports/guides/sim-racing-ergonomics-tips-for-a-comfortable-and-effective-setup/" rel="noopener" target="_blank" title="Asetek SimSports: Sim Racing Ergonomics, The Complete Guide to Comfort, Control and Performance (14 March 2024, updated 19 August 2026), consultato il 14 ottobre 2026">Asetek, guida all’ergonomia</a>, <a href="https://www.fanatec.com/us/en/explorer/products/cockpit/best-seat-position-for-f1-sim-racing/" rel="noopener" target="_blank" title="Fanatec: What is the best seat position for F1 Sim Racing? (12 November 2024, updated 24 January 2025), consultato il 14 ottobre 2026">Fanatec, sedile in F1</a></span></td></tr><tr data-id="view" class="is-fits"><td class="sr-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5v13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="f" d="M4 2.2h9.2l-1.9 3.1 1.9 3.1H4z" fill="currentColor"/></svg>Va bene</span></td><td><b>Corona e visuale</b></td><td data-h="Il tuo progetto">La parte alta della corona passa 130 mm sotto la tua linea di vista verso il centro dello schermo</td><td data-h="Riferimento">La corona sotto il centro dello schermo</td><td data-h="Perché" class="sr-why">Vedi il centro dello schermo sopra la corona. Asetek: assicurati che il volante non copra informazioni importanti sullo schermo.<span class="sr-src"> <a href="https://www.asetek.com/simsports/guides/sim-racing-monitor-position/" rel="noopener" target="_blank" title="Asetek SimSports: Sim Racing Monitor Position, Height, Distance and FOV (23 July 2026, updated 8 October 2026), consultato il 14 ottobre 2026">Asetek, posizione del monitor</a></span></td></tr><tr data-id="fov" class="is-info"><td class="sr-st st-info"><span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5v13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M4 2.2h9.2l-1.9 3.1 1.9 3.1H4z" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>Nota</span></td><td><b>Campo visivo (FOV) da impostare nel gioco</b></td><td data-h="Il tuo progetto">118° in orizzontale, 22° in verticale; schermi laterali ruotati di 40° verso l’interno</td><td data-h="Riferimento">Per i tuoi tre monitor da 27 pollici a 849 mm</td><td data-h="Perché" class="sr-why">Asetek: imposta il FOV in base alle dimensioni dello schermo e alla distanza dagli occhi. Questi sono gli angoli che gli schermi coprono dai tuoi occhi, calcolati con la geometria; inserisci quello che chiede il tuo gioco (orizzontale o verticale). L’angolo laterale mette ogni schermo laterale di fronte ai tuoi occhi.<span class="sr-src"> <a href="https://www.asetek.com/simsports/guides/sim-racing-monitor-position/" rel="noopener" target="_blank" title="Asetek SimSports: Sim Racing Monitor Position, Height, Distance and FOV (23 July 2026, updated 8 October 2026), consultato il 14 ottobre 2026">Asetek, posizione del monitor</a></span></td></tr><tr class="sr-group"><td colspan="5">Il telaio e la tua stanza</td></tr><tr data-id="deck" class="is-check"><td class="sr-st st-check"><span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5v13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="f" d="M4 2.2h9.2l-1.9 3.1 1.9 3.1H4z" fill="currentColor"/></svg>Da verificare</span></td><td><b>Rigidità del supporto volante</b></td><td data-h="Il tuo progetto">Base direct drive su montanti (listello in abete piallato 45 x 95 mm), puntoni e un pannello tra loro</td><td data-h="Riferimento">Nessuna flessione con il force feedback</td><td data-h="Perché" class="sr-why">Nessun dato pubblicato dice quanto debba essere rigido un supporto volante. Asetek avverte che il force feedback più forte di una base direct drive può far emergere flessioni o instabilità. Il progetto rinforza il supporto; una volta montato, afferra la corona e torcila con forza: se il supporto si muove, aggiungi un puntone.<span class="sr-src"> <a href="https://www.asetek.com/simsports/guides/simsports-guides-sim-racing-wheel-position/" rel="noopener" target="_blank" title="Asetek SimSports: Sim Racing Wheel Position, Height, Distance and Control (11 August 2026), consultato il 14 ottobre 2026">Asetek, posizione del volante</a>, <a href="https://www.asetek.com/simsports/guides/sim-racing-ergonomics-tips-for-a-comfortable-and-effective-setup/" rel="noopener" target="_blank" title="Asetek SimSports: Sim Racing Ergonomics, The Complete Guide to Comfort, Control and Performance (14 March 2024, updated 19 August 2026), consultato il 14 ottobre 2026">Asetek, guida all’ergonomia</a></span></td></tr><tr data-id="pedal-deck" class="is-info"><td class="sr-st st-info"><span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5v13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M4 2.2h9.2l-1.9 3.1 1.9 3.1H4z" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>Nota</span></td><td><b>Supporto pedaliera per un freno con cella di carico</b></td><td data-h="Il tuo progetto">Freno con cella di carico</td><td data-h="Riferimento">Un supporto che non si muove</td><td data-h="Perché" class="sr-why">Un freno con cella di carico si preme con forza (Fanatec: i pedali con cella di carico danno una resistenza di frenata realistica). Il supporto ha una traversa di rinforzo davanti; imbullona i pedali attraverso la piastra e aggiungi un rinforzo dietro se si sposta.<span class="sr-src"> <a href="https://www.fanatec.com/us/en/explorer/products/pedals/best-sim-racing-pedal-position-for-formula-racing/" rel="noopener" target="_blank" title="Fanatec: Best sim racing pedal position for formula racing (20 December 2024, updated 27 December 2024), consultato il 14 ottobre 2026">Fanatec, pedali in formula</a>, <a href="https://www.asetek.com/simsports/guides/sim-racing-ergonomics-tips-for-a-comfortable-and-effective-setup/" rel="noopener" target="_blank" title="Asetek SimSports: Sim Racing Ergonomics, The Complete Guide to Comfort, Control and Performance (14 March 2024, updated 19 August 2026), consultato il 14 ottobre 2026">Asetek, guida all’ergonomia</a></span></td></tr><tr data-id="holes" class="is-check"><td class="sr-st st-check"><span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5v13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="f" d="M4 2.2h9.2l-1.9 3.1 1.9 3.1H4z" fill="currentColor"/></svg>Da verificare</span></td><td><b>Forature</b></td><td data-h="Il tuo progetto">Forature di esempio per la base, la pedaliera, il cambio</td><td data-h="Riferimento">Le tue misure</td><td data-h="Perché" class="sr-why">Lo strumento non conosce la foratura di nessun produttore. Misura i fori sotto la tua attrezzatura (lo schema mostra come), inserisci le misure e segnale come misurate; le piastre e i file DXF usano esattamente ciò che inserisci.</td></tr><tr data-id="room" class="is-fits"><td class="sr-st st-fits"><span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5v13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="f" d="M4 2.2h9.2l-1.9 3.1 1.9 3.1H4z" fill="currentColor"/></svg>Va bene</span></td><td><b>Entra nella tua stanza</b></td><td data-h="Il tuo progetto">1340 mm x 1010 mm con il supporto monitor</td><td data-h="Riferimento">Il tuo spazio: 2000 mm x 2400 mm</td><td data-h="Perché" class="sr-why">Il cockpit entra nello spazio che hai indicato. Lascia spazio accanto al sedile per salire e scendere.</td></tr></tbody>
+    </table>
+  </section>
+
+  <section class="sr-sec" id="shop" aria-labelledby="shop-h">
+    <div class="sr-sec-head"><h2 id="shop-h">Lista della spesa</h2><p>Inserisci i prezzi del tuo negozio per vedere il totale. Lo strumento non fornisce prezzi.</p></div>
+    <table class="sr-table sr-shop" id="shop-table">
+      <caption id="shop-cap"><!-- @pre:shopcap -->Quantità per questo progetto: 9 pezzi di listello in abete piallato 45 x 95 mm da 2,0 m, 1 pannello per tagliare tutte le piastre e un decimo di scorta sulle viti.</caption>
+      <thead><tr><th scope="col">Articolo</th><th scope="col" class="num">Quantità</th><th scope="col" class="num">Il tuo prezzo unitario</th><th scope="col" class="num">Costo</th></tr></thead>
+      <tbody id="shop-rows"><!-- @pre:shop --><tr class="sr-group"><td colspan="4">Legno</td></tr><tr data-item="lumber:it-45x95:2000"><td><b>Listello in abete piallato 45 x 95 mm, 2,0 m</b><span class="sr-src" style="display:block">Sezione reale: 45 x 95 mm, abete piallato sui quattro lati. Scegli pezzi dritti e con pochi nodi.</span></td><td data-h="Quantità" class="num">9 pezzi</td><td data-h="Il tuo prezzo unitario" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="lumber:it-45x95:2000" aria-label="Prezzo unitario di listello in abete piallato 45 x 95 mm, 2,0 m" value=""></td><td data-h="Costo" class="num" data-cost="lumber:it-45x95:2000"></td></tr><tr class="sr-group"><td colspan="4">Pannelli</td></tr><tr data-item="sheet:it-osb18"><td><b>OSB 3 250 x 125 cm, 18 mm</b><span class="sr-src" style="display:block">Per le piastre di volante, pedaliera e cambio.</span></td><td data-h="Quantità" class="num">1 pannello</td><td data-h="Il tuo prezzo unitario" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="sheet:it-osb18" aria-label="Prezzo unitario di OSB 3 250 x 125 cm, 18 mm" value=""></td><td data-h="Costo" class="num" data-cost="sheet:it-osb18"></td></tr><tr class="sr-group"><td colspan="4">Viteria e colla</td></tr><tr data-item="screws-frame"><td><b>Viti per legno, 5 x 80 mm</b><span class="sr-src" style="display:block">Quattro per giunto, più un decimo di scorta. Fai un foro pilota vicino alle estremità.</span></td><td data-h="Quantità" class="num">232 viti</td><td data-h="Il tuo prezzo unitario" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="screws-frame" aria-label="Prezzo unitario di viti per legno, 5 x 80 mm" value=""></td><td data-h="Costo" class="num" data-cost="screws-frame"></td></tr><tr data-item="screws-ply"><td><b>Viti per legno per piastre e pannelli, 4 x 40 mm</b><span class="sr-src" style="display:block">Ogni foro di fissaggio delle piastre, circa dodici per pannello, più un decimo di scorta.</span></td><td data-h="Quantità" class="num">33 viti</td><td data-h="Il tuo prezzo unitario" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="screws-ply" aria-label="Prezzo unitario di viti per legno per piastre e pannelli, 4 x 40 mm" value=""></td><td data-h="Costo" class="num" data-cost="screws-ply"></td></tr><tr data-item="glue"><td><b>Colla vinilica per legno</b><span class="sr-src" style="display:block">Su ogni giunto dei pannelli e su ogni listello.</span></td><td data-h="Quantità" class="num">1 flacone</td><td data-h="Il tuo prezzo unitario" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="glue" aria-label="Prezzo unitario di colla vinilica per legno" value=""></td><td data-h="Costo" class="num" data-cost="glue"></td></tr><tr class="sr-group"><td colspan="4">Per l’attrezzatura</td></tr><tr data-item="seat-bolts"><td><b>Viti M8, rondelle e dadi autobloccanti attraverso le traverse del sedile</b><span class="sr-src" style="display:block">Controlla la filettatura delle staffe o delle guide del tuo sedile.</span></td><td data-h="Quantità" class="num">4 set</td><td data-h="Il tuo prezzo unitario" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="seat-bolts" aria-label="Prezzo unitario di viti M8, rondelle e dadi autobloccanti attraverso le traverse del sedile" value=""></td><td data-h="Costo" class="num" data-cost="seat-bolts"></td></tr><tr data-item="vesa"><td><b>Supporti VESA per tre monitor sulla traversa</b><span class="sr-src" style="display:block">Sceglilo in base allo standard VESA sul retro del monitor.</span></td><td data-h="Quantità" class="num">3 supporti</td><td data-h="Il tuo prezzo unitario" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="vesa" aria-label="Prezzo unitario di supporti VESA per tre monitor sulla traversa" value=""></td><td data-h="Costo" class="num" data-cost="vesa"></td></tr><tr data-item="bolts-wheel"><td><b>Viti, rondelle e dadi per la piastra volante (fori da 6,5 mm)</b><span class="sr-src" style="display:block">Il diametro delle viti dipende dalle filettature della tua attrezzatura.</span></td><td data-h="Quantità" class="num">4 set</td><td data-h="Il tuo prezzo unitario" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="bolts-wheel" aria-label="Prezzo unitario di viti, rondelle e dadi per la piastra volante (fori da 6,5 mm)" value=""></td><td data-h="Costo" class="num" data-cost="bolts-wheel"></td></tr><tr data-item="bolts-pedals"><td><b>Viti, rondelle e dadi per la piastra pedaliera (fori da 8,5 mm)</b><span class="sr-src" style="display:block">Il diametro delle viti dipende dalle filettature della tua attrezzatura.</span></td><td data-h="Quantità" class="num">6 set</td><td data-h="Il tuo prezzo unitario" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="bolts-pedals" aria-label="Prezzo unitario di viti, rondelle e dadi per la piastra pedaliera (fori da 8,5 mm)" value=""></td><td data-h="Costo" class="num" data-cost="bolts-pedals"></td></tr><tr data-item="bolts-shifter"><td><b>Viti, rondelle e dadi per la piastra cambio (fori da 6,5 mm)</b><span class="sr-src" style="display:block">Il diametro delle viti dipende dalle filettature della tua attrezzatura.</span></td><td data-h="Quantità" class="num">4 set</td><td data-h="Il tuo prezzo unitario" class="num"><input type="number" inputmode="decimal" min="0" step="0.01" data-price="bolts-shifter" aria-label="Prezzo unitario di viti, rondelle e dadi per la piastra cambio (fori da 6,5 mm)" value=""></td><td data-h="Costo" class="num" data-cost="bolts-shifter"></td></tr><tr class="sr-total"><td colspan="3">Totale dei prezzi inseriti</td><td class="num" id="shop-total"></td></tr></tbody>
+    </table>
+    <div class="sr-actions"><button type="button" class="btn" id="print">Stampa la lista della spesa</button><span class="hint" id="shop-note"></span></div>
+  </section>
+
+  <section class="sr-sec" id="pro" aria-labelledby="pro-h">
+    <div class="sr-pro">
+      <div class="sr-pro-l">
+        <h2 id="pro-h">Il progetto esatto di questo cockpit</h2>
+        <p>Pro trasforma il tuo progetto in un piano da costruire: ogni listello o profilato con la sua lunghezza, le piastre in file DXF per fresa CNC o taglio laser, dime di foratura da stampare in scala reale e le fasi in ordine, con le misure.</p>
+        <ul class="sr-locked" id="locked">
+          <li data-pro="cut"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><div><b>Lista di taglio ottimizzata</b><span>Ogni barra per lunghezza commerciale con i suoi tagli, distribuiti per sprecare il meno possibile, con uno schema per barra e gli avanzi</span></div><em>Pro</em></li>
+          <li data-pro="bom"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><div><b>Distinta dei profilati</b><span>Ogni profilato 40 x 40 e 40 x 80 per lunghezza, da ordinare tagliato o da tagliare da barre da 1, 2 e 3 m, con ogni squadretta, tassello, vite e tappo</span></div><em>Pro</em></li>
+          <li data-pro="dxf"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><div><b>File DXF delle piastre</b><span>Le piastre di volante, pedaliera e cambio con le tue forature e i fissaggi al telaio, in millimetri o pollici</span></div><em>Pro</em></li>
+          <li data-pro="pdf"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><div><b>Progetto passo passo (PDF)</b><span>La tua posizione con ogni angolo, viste laterale, frontale e dall’alto in scala, dime di foratura in scala reale per l’attrezzatura e un esploso per ogni fase</span></div><em>Pro</em></li>
+          <li data-pro="saved"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><div><b>Progetti salvati ed entrambe le unità</b><span>Più progetti salvati in questo browser; il progetto in millimetri e pollici insieme</span></div><em>Pro</em></li>
+          <li data-pro="export"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><div><b>File 3D e immagini</b><span>GLB e OBJ per SketchUp o Blender e un’immagine grande del tuo cockpit</span></div><em>Pro</em></li>
+        </ul>
+        <figure class="sr-pro-out">
+          <img src="/sim-rig-designer/img/pro-cutlist-it-960.webp" srcset="/sim-rig-designer/img/pro-cutlist-it-480.webp 480w, /sim-rig-designer/img/pro-cutlist-it-960.webp 960w, /sim-rig-designer/img/pro-cutlist-it-1440.webp 1440w" sizes="(max-width: 860px) 100vw, 56vw" width="1440" height="1018" loading="lazy" decoding="async" alt="La pagina della lista di taglio del progetto Pro del cockpit di esempio: ogni listello 45 x 95 mm da 2 m disegnato in scala, i tagli quotati in millimetri e l’avanzo tratteggiato in fondo.">
+          <figcaption>Una pagina vera del progetto Pro dell’esempio: la lista di taglio, barra per barra.</figcaption>
+        </figure>
+        <div class="sr-pro-work" id="pro-work" hidden>
+          <div class="sr-pro-btns">
+            <button type="button" class="btn btn-primary" id="x-pdf">Scarica il progetto (PDF)</button>
+            <button type="button" class="btn" id="x-dxf">Scarica le piastre (DXF)</button>
+            <button type="button" class="btn" id="x-glb">Scarica GLB</button>
+            <button type="button" class="btn" id="x-obj">Scarica OBJ</button>
+            <button type="button" class="btn" id="x-png">Scarica un’immagine grande</button>
+          </div>
+          <div class="sr-row"><label class="sr-check"><input type="checkbox" id="both-units"><span>Mostra millimetri e pollici insieme nel progetto</span></label><label class="sr-check"><input type="checkbox" id="dxf-inch"><span>DXF in pollici</span></label></div>
+          <div class="sr-saved" id="saved"><h3>Progetti salvati</h3><div class="sr-row"><input type="text" id="save-name" placeholder="Nome di questo progetto" aria-label="Nome di questo progetto"><button type="button" class="btn" id="save">Salva questo progetto</button></div><ul id="saved-list"></ul></div>
+          <div id="cut-diagrams"></div>
+          <div id="plate-diagrams"></div>
+        </div>
+      </div>
+      <div class="sr-pro-r">
+        <p class="sr-price">19 USD <small>una tantum</small></p>
+        <a class="btn btn-yellow" data-buy-pro href="https://dorukctn.gumroad.com/l/sim-rig-designer-pro" target="_blank" rel="noopener">Acquista Pro su Gumroad</a>
+        <button type="button" class="btn btn-ghost" data-enter-key>Inserisci la chiave di licenza</button>
+        <p>Gumroad gestisce pagamento e rimborsi. La tua chiave attiva Pro in questo browser.</p>
+        <p>Il progetto è un’indicazione per un lavoro fai da te, senza garanzia ingegneristica.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- @guides:start -->
+  <section class="sr-sec" id="guides" aria-labelledby="guides-h">
+    <h2 id="guides-h">Prima di costruire</h2>
+    <ul class="sr-guides">
+      <li><a href="/it/cockpit-sim-racing/postazione-sim-racing-legno/"><b>Postazione in legno</b><span>Listelli di abete 45 x 80 mm e OSB: tagli e montaggio</span></a></li>
+      <li><a href="/it/cockpit-sim-racing/postazione-sim-racing-misure/"><b>Misure per la tua altezza</b><span>Sedile, pedali, volante e schermo da 1,60 a 1,95 m</span></a></li>
+      <li><a href="/it/cockpit-sim-racing/postazione-sim-racing-profilati/"><b>Postazione con profilati</b><span>40 x 80 e 40 x 40 scanalatura 8: distinta, squadrette, tasselli</span></a></li>
+      <li><a href="/it/cockpit-sim-racing/supporto-volante-fai-da-te/"><b>Supporto volante fai da te</b><span>Volante e pedaliera su un supporto in OSB, per la sedia</span></a></li>
+    </ul>
+  </section>
+<!-- @guides:end -->
+
+
+  <section class="sr-sec" id="faq" aria-labelledby="faq-h">
+    <h2 id="faq-h">Domande frequenti</h2>
+    <div class="sr-faq">
+      <!-- @faq -->
+      <details><summary>Quali misure deve avere una postazione sim racing?</summary><div class="answer"><p>Dipendono dal tuo corpo e da come stai seduto. Per GT e strada, i 55 guidatori del simulatore regolabile di Porter e Gyi (1998) hanno scelto il punto anca da 283 a 335 mm sopra il tallone e lo schienale da 5 a 25° dalla verticale; la SAE J1100 dà alle auto da 127 a 405 mm. Nella posizione da formula il sedile è più basso e più sdraiato. Lo strumento posiziona sedile, pedali, volante e schermo per la tua altezza e controlla gli angoli. <a href="/it/cockpit-sim-racing/postazione-sim-racing-misure/">Le misure per la tua altezza</a></p></div></details>
+      <details><summary>Che legno usare per un cockpit fai da te?</summary><div class="answer"><p>Listelli di abete piallato. Lo strumento usa le sezioni che vende OBI Italia: 45 x 80 mm e 45 x 95 mm, in pezzi da 2 m. Per le piastre usa OSB/3 da 18 mm, oppure da 15 mm, che tiene bene le viti. <a href="/it/cockpit-sim-racing/postazione-sim-racing-legno/">La postazione in legno, passo per passo</a></p></div></details>
+      <details><summary>Una postazione in legno regge un volante direct drive?</summary><div class="answer"><p>Nessun dato pubblicato dice quanto debba essere rigido un supporto volante. Asetek avverte che il force feedback più forte di una base direct drive fa emergere ogni gioco. Lo strumento rinforza il supporto (montanti, puntoni e un pannello nel legno; montanti da 40 x 80 con traverse nei profilati) e ti chiede, a postazione montata, di afferrare la corona e torcerla con forza.</p></div></details>
+      <details><summary>Lo strumento conosce la foratura della mia base?</summary><div class="answer"><p>No. Non conserva la foratura di nessun produttore. Uno schema mostra come misurare i fori sotto la base, la pedaliera e il cambio; le piastre e i file DXF usano esattamente ciò che inserisci, e finché non segni "misurato" la verifica parla di foratura di esempio. <a href="/it/cockpit-sim-racing/supporto-volante-fai-da-te/">Un supporto volante fai da te</a></p></div></details>
+      <details><summary>Quello che inserisco viene inviato a un server?</summary><div class="answer"><p>No. Il progetto, le verifiche e il modello 3D sono calcolati nel tuo browser. Il link da condividere tiene il progetto dopo il segno #, la parte che i browser non inviano ai server. Se compri Pro, solo la chiave di licenza va a Gumroad per la verifica.</p></div></details>
+    </div>
+  </section>
+
+  <section class="sr-sec sr-sources" id="sources" aria-labelledby="sources-h">
+    <h2 id="sources-h">Fonti</h2>
+<!-- @sources:start -->
+    <p class="sr-small">Ogni numero dello strumento, con la pagina da cui viene. I listelli, le loro lunghezze e i pannelli vengono dalle schede di OBI Italia; i profilati, le squadrette e i tasselli da Motedis Italia, tutto consultato il 15 ottobre 2026, senza prezzi. Il peso dei profilati viene dalla scheda tecnica di RS PRO. Gli angoli e le altezze della posizione vengono dagli studi e dalle guide, citati e non copiati; dove non concordano, le verifiche riportano l’intervallo. Le guide di Fanatec, Asetek e Qubic System sono in inglese. Il modello del corpo è un nostro adattamento lineare ai dati pubblici di ANSUR II.</p>
+    <details class="sr-srclist"><summary>Tutte le 23 fonti, ognuna con la data in cui l’abbiamo consultata</summary>
+    <ol>
+      <li><a href="https://www.obi-italia.it/p/4493086/listello-in-abete-piallato-45x80x2000-mm" rel="noopener">OBI Italia: Listello in abete piallato 45 x 80 x 2000 mm</a> <span>(consultato il 15 ottobre 2026)</span></li>
+      <li><a href="https://www.obi-italia.it/p/6191738/listello-in-abete-piallato-4-lati-45x95x2000-mm" rel="noopener">OBI Italia: Listello in abete piallato 4 lati 45 x 95 x 2000 mm</a> <span>(consultato il 15 ottobre 2026)</span></li>
+      <li><a href="https://www.obi-italia.it/p/6036883/pannello-osb-3-da-posa-a-filo-18-mm-x-250-cm-x-125-cm" rel="noopener">OBI Italia: Pannello OSB-3 da posa a filo 18 mm x 250 cm x 125 cm</a> <span>(consultato il 15 ottobre 2026)</span></li>
+      <li><a href="https://www.obi-italia.it/p/2099091/pannello-osb-3-2500x1250x15-mm-legno-chiaro" rel="noopener">OBI Italia: Pannello OSB/3 2500 x 1250 x 15 mm legno chiaro</a> <span>(consultato il 15 ottobre 2026)</span></li>
+      <li><a href="https://www.motedis.it/it/Profilato-alluminio-40x40L-scanalatura-8-tipo-I" rel="noopener">Motedis Italia: Profilato alluminio 40x40L scanalatura 8 tipo I</a> <span>(consultato il 15 ottobre 2026)</span></li>
+      <li><a href="https://www.motedis.it/it/Profilato-alluminio-40x80L-scanalatura-8-tipo-I" rel="noopener">Motedis Italia: Profilato alluminio 40x80L scanalatura 8 tipo I</a> <span>(consultato il 15 ottobre 2026)</span></li>
+      <li><a href="https://www.motedis.it/it/Profilato-alluminio-40x40-scanalatura-10-tipo-B" rel="noopener">Motedis Italia: Profilato alluminio 40x40 scanalatura 10 tipo B: i profilati 40 di tipo B hanno la scanalatura da 10 mm, quelli di tipo I da 8 mm</a> <span>(consultato il 15 ottobre 2026)</span></li>
+      <li><a href="https://www.motedis.it/it/Staffe-per-angoli-40-scanalatura-8-tipo-I-con-tappo-di-copertura-rotondo" rel="noopener">Motedis Italia: Staffe per angoli 40 scanalatura 8 tipo I</a> <span>(consultato il 15 ottobre 2026)</span></li>
+      <li><a href="https://www.motedis.it/it/Tassello-scorrevole-con-guida-scanalatura-8-tipo-I-M8" rel="noopener">Motedis Italia: Tassello scorrevole con guida scanalatura 8 tipo I M8</a> <span>(consultato il 15 ottobre 2026)</span></li>
+      <li><a href="https://law.resource.org/pub/us/cfr/ibr/005/sae.j1100.2001.html" rel="noopener" lang="en" hreflang="en">SAE J1100, Motor Vehicle Dimensions, Surface Vehicle Recommended Practice, revised February 2001 (public copy at law.resource.org): the definitions of H30, L40, L42, L44, L46 and L53, and the two classes of driver seating, Class A (H30 127 to 405 mm, torso angle 5 to 40 degrees) and Class B (heavy trucks and buses: H30 405 to 530 mm, torso angle 11 to 18 degrees)</a> <span>(consultato il 14 ottobre 2026)</span></li>
+      <li><a href="https://repository.lboro.ac.uk/articles/journal_contribution/Exploring_the_optimum_posture_for_driver_comfort/9349361" rel="noopener" lang="en" hreflang="en">Porter, J.M. and Gyi, D.E. (1998), Exploring the optimum posture for driver comfort, International Journal of Vehicle Design 19(3), 255-266: Table 2, comfortable angles observed in 55 drivers against Rebiffé (1969) and Grandjean (1980); Table 7, the rig dimensions they chose (Loughborough University repository)</a> <span>(consultato il 14 ottobre 2026)</span></li>
+      <li><a href="https://fanatec.com/us/en/explorer/products/pedals/best-sim-racing-pedal-position-for-gt-sim-racing/" rel="noopener" lang="en" hreflang="en">Fanatec: Best sim racing pedal position for GT sim racing (19 December 2024)</a> <span>(consultato il 14 ottobre 2026)</span></li>
+      <li><a href="https://www.fanatec.com/us/en/explorer/products/cockpit/best-seat-position-for-f1-sim-racing/" rel="noopener" lang="en" hreflang="en">Fanatec: What is the best seat position for F1 Sim Racing? (12 November 2024, updated 24 January 2025)</a> <span>(consultato il 14 ottobre 2026)</span></li>
+      <li><a href="https://www.fanatec.com/us/en/explorer/products/pedals/best-sim-racing-pedal-position-for-formula-racing/" rel="noopener" lang="en" hreflang="en">Fanatec: Best sim racing pedal position for formula racing (20 December 2024, updated 27 December 2024)</a> <span>(consultato il 14 ottobre 2026)</span></li>
+      <li><a href="https://www.asetek.com/simsports/guides/sim-racing-ergonomics-tips-for-a-comfortable-and-effective-setup/" rel="noopener" lang="en" hreflang="en">Asetek SimSports: Sim Racing Ergonomics, The Complete Guide to Comfort, Control and Performance (14 March 2024, updated 19 August 2026)</a> <span>(consultato il 14 ottobre 2026)</span></li>
+      <li><a href="https://www.asetek.com/simsports/guides/simsports-guides-sim-racing-wheel-position/" rel="noopener" lang="en" hreflang="en">Asetek SimSports: Sim Racing Wheel Position, Height, Distance and Control (11 August 2026)</a> <span>(consultato il 14 ottobre 2026)</span></li>
+      <li><a href="https://www.asetek.com/simsports/guides/sim-racing-monitor-position/" rel="noopener" lang="en" hreflang="en">Asetek SimSports: Sim Racing Monitor Position, Height, Distance and FOV (23 July 2026, updated 8 October 2026)</a> <span>(consultato il 14 ottobre 2026)</span></li>
+      <li><a href="https://qubicsystem.com/2023/01/gt-proper-seating-position/" rel="noopener" lang="en" hreflang="en">Qubic System: GT proper seating position (5 January 2023, updated 27 November 2025)</a> <span>(consultato il 14 ottobre 2026)</span></li>
+      <li><a href="https://www.openlab.psu.edu/ansur2/" rel="noopener" lang="en" hreflang="en">Anthropometric Survey of US Army Personnel (ANSUR II), 2012: public data for 4,082 men and 1,986 women, published by the Penn State OPEN Design Lab; methods in Gordon et al. (2015), NATICK/TR-15/007</a> <span>(consultato il 14 ottobre 2026)</span></li>
+      <li><a href="https://www.nist.gov/document/ps-20-25-final" rel="noopener" lang="en" hreflang="en">American Softwood Lumber Standard, Voluntary Product Standard PS 20-25 (NIST, January 2025), Table 3, nominal and minimum-dressed sizes of boards, dimension and timbers</a> <span>(consultato il 14 ottobre 2026)</span></li>
+      <li><a href="https://www.nist.gov/document/ps-20-25-final" rel="noopener" lang="en" hreflang="en">American Softwood Lumber Standard PS 20-25, section 5.3.1: standard lengths are multiples of 1 ft or 2 ft, as the grading rules specify</a> <span>(consultato il 14 ottobre 2026)</span></li>
+      <li><a href="https://www.nist.gov/document/doc-ps-1-19-structural-plywood" rel="noopener" lang="en" hreflang="en">Structural Plywood, Voluntary Product Standard PS 1-19 (NIST, December 2019): section 5.4 states its grade rules for 1220 by 2440 mm (48 x 96 in) panels; its thickness table lists the 23/32 Performance Category</a> <span>(consultato il 14 ottobre 2026)</span></li>
+      <li><a href="https://docs.rs-online.com/dd51/A700000015512464.pdf" rel="noopener" lang="en" hreflang="en">RS PRO strut profile datasheet (Tubing &amp; Struts): 40 x 40 mm with 8 mm groove, 1.75 kg/m, Ix = Iy = 9.18 cm4 (761-3319); 40 x 80 mm with 8 mm groove, 3.05 kg/m, Ix 70.07 cm4, Iy 16.93 cm4 (761-3325); system lengths of 1 m, 2 m and 3 m</a> <span>(consultato il 14 ottobre 2026)</span></li>
+    </ol>
+    </details>
+    <p class="sr-small">Nessun legame con i produttori, i negozi, gli enti di normazione o le università citati qui.</p>
+<!-- @sources:end -->
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Strumenti piccoli e curati, ognuno per un compito preciso. I tuoi progetti sono calcolati nel tuo browser e non vengono mai inviati.</p>
+      <p style="margin:12px 0 0">Realizzato da <a href="https://peakappsstudio.com/">Peak Apps Studio</a>.<br>Scrivici a <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Cockpit sim racing in 3D</h2>
+      <ul>
+        <li><a href="/it/cockpit-sim-racing/">Progettare un cockpit</a></li>
+        <li><a href="/it/cockpit-sim-racing/postazione-sim-racing-legno/">Postazione sim racing in legno fai da te: progetto con misure</a></li>
+        <li><a href="/it/cockpit-sim-racing/postazione-sim-racing-misure/">Misure di una postazione sim racing, da 1,60 a 1,95 m</a></li>
+        <li><a href="/it/cockpit-sim-racing/postazione-sim-racing-profilati/">Postazione sim racing con profilati di alluminio: la distinta</a></li>
+        <li><a href="/it/cockpit-sim-racing/supporto-volante-fai-da-te/">Supporto volante e pedaliera fai da te, per la sedia</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Altre lingue</h2>
+      <ul>
+        <li><a href="/sim-rig-designer/" hreflang="en" lang="en">Sim Rig Designer (English)</a></li>
+        <li><a href="/de/sim-rig/" hreflang="de" lang="de">Sim Rig Designer (Deutsch)</a></li>
+        <li><a href="/pt-br/cockpit-simulador/" hreflang="pt-BR" lang="pt-BR">Cockpit simulador em 3D (português)</a></li>
+        <li><a href="/es/cockpit-simracing/" hreflang="es" lang="es">Cockpit de simracing en 3D (español)</a></li>
+        <li><a href="/fr/cockpit-simracing/" hreflang="fr" lang="fr">Cockpit de simracing en 3D (français)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Strumenti per la casa (in inglese)</h2>
+      <ul>
+        <li><a href="/without-planning/" hreflang="en" lang="en">Without Planning</a></li>
+        <li><a href="/dropped-kerb/" hreflang="en" lang="en">Dropped Kerb Check</a></li>
+        <li><a href="/catio-designer/" hreflang="en" lang="en">Catio Designer</a></li>
+        <li><a href="/coop-designer/" hreflang="en" lang="en">Coop Designer</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Chi siamo</h2>
+      <ul>
+        <li><a href="/tools/" hreflang="en">Tutti gli strumenti (in inglese)</a></li>
+        <li><a href="/tools/privacy/" hreflang="en">Privacy e licenze (in inglese)</a></li>
+        <li><a href="https://peakappsstudio.com/">Lo studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* The page arrives with the sample already in it, so its scripts wait for the first paint: they are added in order
+   once the browser reports it (or after 3 s at the latest, or at once if the licence button is pressed first). */
+(function () {
+  var src = ['/assets/site.js', '/assets/license.js', '/sim-rig-designer/i18n/en.js', '/sim-rig-designer/i18n/it.js', '/sim-rig-designer/i18n.js', '/sim-rig-designer/data.js', '/sim-rig-designer/engine.js', '/sim-rig-designer/view.js', '/sim-rig-designer/tool.js'];
+  var done = false;
+  function add() { if (done) return; done = true; src.forEach(function (u) { var el = document.createElement('script'); el.src = u; el.async = false; document.body.appendChild(el); }); }
+  window.SimRigLoad = add;
+  if (window.SimRigWantsKey) add();
+  try { new PerformanceObserver(function (l) { if (l.getEntriesByName('first-contentful-paint').length) setTimeout(add, 0); }).observe({ type: 'paint', buffered: true }); } catch (e) { requestAnimationFrame(function () { setTimeout(add, 0); }); }
+  setTimeout(add, 3000);
+})();
+</script>
+</body>
+</html>

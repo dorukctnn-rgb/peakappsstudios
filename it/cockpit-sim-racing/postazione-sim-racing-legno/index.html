@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Postazione sim racing in legno fai da te: progetto</title>
+<meta name="description" content="Progetto di postazione sim racing in legno fai da te, in listelli di abete 45 x 80 mm e OSB da 18 mm: lista di taglio, viti, misure e montaggio.">
+<link rel="canonical" href="https://peakappsstudio.com/it/cockpit-sim-racing/postazione-sim-racing-legno/">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/sim-rig-designer/diy-sim-rig-plans-wood/">
+<link rel="alternate" hreflang="de" href="https://peakappsstudio.com/sim-rig-designer/sim-rig-selber-bauen/">
+<link rel="alternate" hreflang="pt-BR" href="https://peakappsstudio.com/pt-br/cockpit-simulador/cockpit-simulador-de-madeira/">
+<link rel="alternate" hreflang="es" href="https://peakappsstudio.com/es/cockpit-simracing/cockpit-simracing-madera/">
+<link rel="alternate" hreflang="fr" href="https://peakappsstudio.com/fr/cockpit-simracing/cockpit-simracing-bois/">
+<link rel="alternate" hreflang="it" href="https://peakappsstudio.com/it/cockpit-sim-racing/postazione-sim-racing-legno/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/sim-rig-designer/diy-sim-rig-plans-wood/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:locale" content="it_IT">
+<meta property="og:title" content="Postazione sim racing in legno fai da te: progetto con misure">
+<meta property="og:description" content="Progetto di postazione sim racing in legno fai da te, in listelli di abete 45 x 80 mm e OSB da 18 mm: lista di taglio, viti, misure e montaggio.">
+<meta property="og:url" content="https://peakappsstudio.com/it/cockpit-sim-racing/postazione-sim-racing-legno/">
+<meta property="og:image" content="https://peakappsstudio.com/sim-rig-designer/og-it.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f1f2f6">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/sim-rig-designer/fonts/anek-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="/sim-rig-designer/img/hero-it-legno-960.webp" imagesrcset="/sim-rig-designer/img/hero-it-legno-480.webp 480w, /sim-rig-designer/img/hero-it-legno-960.webp 960w, /sim-rig-designer/img/hero-it-legno-1440.webp 1440w" imagesizes="(max-width: 860px) 100vw, 52vw" fetchpriority="high">
+<link rel="stylesheet" href="/assets/tools.css">
+<style data-from="/sim-rig-designer/tool.css">
+/* Sim Rig Designer: the tool's own identity, scoped to body.sr-page (the shared header and footer keep their structure).
+ * Taken from race day: a paddock-grey page, carbon ink, the purple of a fastest sector for buttons, links and the
+ * angle lines, sector yellow for Pro and "check", the marshals' flags for every result (green fits, yellow check,
+ * red fail), and a red and white kerb, used once under the hero. Type: Anek Latin at its widest for headings and the
+ * angle readouts, Instrument Sans for everything read, with tabular figures. */
+
+@font-face { font-family: "Anek Latin Wide"; src: url("/sim-rig-designer/fonts/anek-latin.woff2") format("woff2"); font-weight: 600 800; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Anek Latin Wide"; src: url("/sim-rig-designer/fonts/anek-latin-ext.woff2") format("woff2"); font-weight: 600 800; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Instrument Sans"; src: url("/sim-rig-designer/fonts/instrument-latin.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Instrument Sans"; src: url("/sim-rig-designer/fonts/instrument-latin-ext.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+/* fallbacks sized to the web fonts' average widths and heights (from _build/fonts.py), so the swap does not move the layout */
+@font-face { font-family: "Instrument Sans Fallback"; src: local("Arial"), local("Helvetica Neue"), local("Helvetica"); size-adjust: 102.6%; ascent-override: 94.5%; descent-override: 24.4%; line-gap-override: 0%; }
+@font-face { font-family: "Anek Latin Wide Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Helvetica Neue Bold"); font-weight: 600 800; size-adjust: 118.7%; ascent-override: 75.8%; descent-override: 16.8%; line-gap-override: 0%; }
+
+body.sr-page {
+  --paddock: #f1f2f6; --paddock-2: #e6e7ee; --paddock-3: #d6d7e1; --paper: #ffffff; --paper-2: #f6f6fa;
+  --carbon: #17151d; --carbon-2: #4c4959; --carbon-3: #77748a;
+  --sector: #6a2ee8; --sector-2: #5a22d6; --sector-soft: #ece6fd; --yellow: #ffd23f; --kerb: #d71f27; --flag-green: #0b7a4b;
+  --alcantara: #3b3846; --wood: #dcae72;
+  --card: var(--paper); --ink: var(--carbon); --ink-2: var(--carbon-2); --muted: var(--carbon-2);
+  --line: rgba(23, 21, 29, .12); --line-2: rgba(23, 21, 29, .24);
+  --accent: var(--sector); --accent-ink: #ffffff; --ok: var(--flag-green); --warn: #8a5b00;
+  --btn: var(--sector); --btn-ink: #ffffff; --link: var(--sector-2);
+  --sans: "Instrument Sans", "Instrument Sans Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: var(--sans);
+  --display: "Anek Latin Wide", "Anek Latin Wide Fallback", sans-serif;
+  --r-panel: 18px; --r-field: 10px; --r-chip: 7px;
+  background: var(--paddock); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.56; font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.sr-page {
+    --paddock: #15141a; --paddock-2: #1f1d26; --paddock-3: #2c2a35; --paper: #1d1b23; --paper-2: #24222c;
+    --carbon: #f1f0f6; --carbon-2: #c9c6d6; --carbon-3: #9e9ab0;
+    --sector: #9d7bff; --sector-2: #b39bff; --sector-soft: #2c2445; --flag-green: #3fbf83; --kerb: #ff5a5f;
+    --alcantara: #2a2832; --btn: #8b63ff; --btn-ink: #ffffff; --link: #b39bff;
+    --card: var(--paper); --line: rgba(241, 240, 246, .12); --line-2: rgba(241, 240, 246, .24);
+  }
+}
+:root[data-theme="dark"] body.sr-page {
+  --paddock: #15141a; --paddock-2: #1f1d26; --paddock-3: #2c2a35; --paper: #1d1b23; --paper-2: #24222c;
+  --carbon: #f1f0f6; --carbon-2: #c9c6d6; --carbon-3: #9e9ab0;
+  --sector: #9d7bff; --sector-2: #b39bff; --sector-soft: #2c2445; --flag-green: #3fbf83; --kerb: #ff5a5f;
+  --alcantara: #2a2832; --btn: #8b63ff; --btn-ink: #ffffff; --link: #b39bff;
+  --card: var(--paper); --line: rgba(241, 240, 246, .12); --line-2: rgba(241, 240, 246, .24);
+}
+
+/* ---------- type ---------- */
+.sr-page h1, .sr-page h2, .sr-page h3 { font-family: var(--display); font-weight: 800; letter-spacing: -0.012em; line-height: 1.02; text-wrap: balance; color: var(--carbon); }
+.sr-page h1 { font-size: clamp(36px, 4.8vw, 64px); margin: 0; max-width: 15ch; }
+.sr-page h2 { font-size: clamp(25px, 2.7vw, 36px); margin: 0 0 12px; }
+.sr-page h3 { font-size: 20px; font-weight: 700; margin: 0 0 6px; letter-spacing: 0; }
+.sr-page p { max-width: 68ch; }
+.sr-page .lede { font-size: clamp(17.5px, 1.45vw, 19.5px); color: var(--ink); margin: 0; }
+.sr-page a { color: var(--carbon); text-decoration-color: var(--sector); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.sr-page a:hover { color: var(--sector-2); }
+.sr-page table a, .sr-page .sr-src a { color: var(--link); text-decoration-thickness: 1px; }
+.sr-page :focus-visible { outline: 3px solid var(--sector); outline-offset: 2px; border-radius: 4px; }
+.sr-page ::selection { background: var(--yellow); color: #17151d; }
+.sr-page .btn { border-radius: var(--r-field); font-weight: 600; font-size: 16px; padding: 12px 18px; }
+.sr-page .btn-primary { background: var(--btn); border-color: var(--btn); color: var(--btn-ink); }
+.sr-page .btn-primary:hover { background: var(--sector-2); border-color: var(--sector-2); color: #fff; }
+.sr-page .btn-yellow { background: var(--yellow); border-color: var(--yellow); color: #17151d; }
+.sr-page .btn-yellow:hover { background: #f5c51f; border-color: #f5c51f; color: #17151d; }
+.sr-page .btn-ghost { background: transparent; }
+.sr-small { font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- the breadcrumb and the language switch, on one line ---------- */
+.sr-topline { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin: 22px 0 0; }
+.sr-topline .crumbs { margin: 0; }
+.sr-langs { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.sr-langs a { font-size: 13.5px; font-weight: 600; line-height: 1.2; text-decoration: none; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--ink-2); background: var(--paper); }
+.sr-langs a:hover { border-color: var(--sector); color: var(--ink); }
+.sr-langs a[aria-current="true"] { background: var(--carbon); border-color: var(--carbon); color: var(--paddock); }
+/* long German compounds break at a hyphenation point rather than run out of a narrow column */
+html[lang="de"] .sr-page :is(h1, h2, h3, .lede, td, th, .sr-field > span, .sr-facts b) { hyphens: auto; -webkit-hyphens: auto; overflow-wrap: break-word; }
+
+/* ---------- hero ---------- */
+.sr-hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(18px, 4vw, 56px); align-items: end; padding: clamp(12px, 2.4vw, 28px) 0 clamp(12px, 1.6vw, 18px); }
+.sr-hero-side { display: grid; gap: 16px; }
+/* the signature: a red and white kerb along a strip of track, used once under the hero */
+.sr-kerb { display: block; width: 100%; height: 30px; margin: 4px 0 20px; }
+@media (max-width: 600px) { .sr-kerb { height: 22px; margin-bottom: 14px; } }
+.sr-builds { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; border: 0; padding: 0; margin: 0; }
+.sr-builds legend { font-weight: 600; font-size: 15px; margin-bottom: 8px; padding: 0; }
+.sr-build { position: relative; display: grid; justify-items: center; gap: 4px; padding: 10px 6px 9px; border-radius: 12px; border: 1.5px solid var(--line-2); background: color-mix(in oklab, var(--paper) 55%, transparent); cursor: pointer; text-align: center; font-size: 14px; font-weight: 600; line-height: 1.2; color: var(--ink); }
+.sr-build input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.sr-build svg { width: 66px; height: 46px; color: var(--carbon-2); }
+.sr-build:has(input:checked) { border-color: var(--carbon); background: var(--paper); box-shadow: inset 0 -4px 0 var(--sector); }
+.sr-build:has(input:checked) svg { color: var(--carbon); }
+.sr-build:has(input:focus-visible) { outline: 3px solid var(--sector); outline-offset: 2px; }
+.sr-build .wood { color: #c4935a; }
+@media (max-width: 900px) { .sr-hero { grid-template-columns: 1fr; align-items: start; } }
+@media (max-width: 420px) { .sr-builds { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; } .sr-build { font-size: 13px; padding: 8px 4px; } .sr-build svg { width: 54px; height: 38px; } }
+
+/* ---------- the bench: the 3D view beside the form ---------- */
+.sr-bench { display: grid; grid-template-columns: minmax(0, 1fr) minmax(330px, 410px); background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-panel); overflow: clip; }
+.sr-stage { border-right: 1px solid var(--line); min-width: 0; }
+.sr-sticky { position: sticky; top: 0; }
+.sr-view { position: relative; aspect-ratio: 16 / 10; background: #2a2933; overflow: hidden; }
+.sr-view img, .sr-view canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; }
+.sr-view canvas { touch-action: none; cursor: grab; }
+.sr-view canvas:active { cursor: grabbing; }
+.sr-badge { position: absolute; left: 12px; top: 12px; background: var(--yellow); color: #17151d; font-weight: 700; font-size: 13.5px; padding: 4px 10px; border-radius: var(--r-chip); }
+.sr-gl-note { position: absolute; left: 12px; right: 12px; bottom: 60px; margin: 0; background: var(--paper); color: var(--ink); padding: 8px 12px; border-radius: var(--r-field); font-size: 14.5px; }
+.sr-start { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); display: inline-flex; gap: 8px; align-items: center; background: #6a2ee8; color: #fff; border: 0; border-radius: 999px; padding: 11px 18px; font: inherit; font-weight: 600; font-size: 15.5px; cursor: pointer; box-shadow: 0 6px 18px rgba(23, 21, 29, .35); }
+.sr-start svg { width: 18px; height: 18px; }
+.sr-start[disabled] { opacity: .85; cursor: progress; }
+.sr-tags { position: absolute; inset: 0; pointer-events: none; }
+.sr-tag { position: absolute; left: 0; top: 0; white-space: nowrap; font-size: 13.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: rgba(255, 255, 255, .95); color: #17151d; box-shadow: 0 1px 0 rgba(23, 21, 29, .25); }
+.sr-tag-fits { background: #6a2ee8; color: #fff; }
+.sr-tag-check { background: #ffd23f; color: #17151d; }
+.sr-tag-fail { background: #d71f27; color: #fff; }
+.sr-toolbar { display: flex; flex-wrap: wrap; gap: 10px 12px; align-items: center; padding: 10px 14px; border-top: 1px solid var(--line); background: var(--paper-2); }
+.sr-toolbar[hidden] { display: none; }
+.sr-seg, .sr-toggles { display: inline-flex; border: 1px solid var(--line-2); border-radius: var(--r-field); overflow: hidden; }
+.sr-seg button, .sr-toggles button { font: inherit; font-size: 14.5px; font-weight: 600; padding: 7px 11px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+.sr-seg button + button, .sr-toggles button + button { border-left: 1px solid var(--line-2); }
+.sr-seg button[aria-pressed="true"] { background: var(--carbon); color: var(--paper); }
+.sr-toggles button[aria-pressed="true"] { background: var(--sector-soft); color: var(--carbon); box-shadow: inset 0 -3px 0 var(--sector); }
+.sr-steps { font: inherit; font-size: 14.5px; font-weight: 600; padding: 7px 12px; border-radius: var(--r-field); border: 1.5px solid var(--yellow); background: transparent; color: var(--ink); cursor: pointer; }
+
+/* the title block under the view: what this design is, its angles, and how its checks came out */
+.sr-title { padding: 14px 16px 16px; display: grid; gap: 10px; }
+.sr-title h2 { font-size: clamp(22px, 2.2vw, 28px); margin: 0; }
+.sr-title p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
+.sr-readout { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1px solid var(--line-2); border-radius: 12px; overflow: hidden; background: var(--paper); }
+.sr-read { padding: 8px 10px 9px; border-right: 1px solid var(--line); box-shadow: inset 0 -4px 0 var(--paddock-3); min-width: 0; }
+.sr-read:last-child { border-right: 0; }
+.sr-read b { display: block; font-family: var(--display); font-weight: 800; font-size: clamp(20px, 2.1vw, 28px); line-height: 1.05; white-space: nowrap; }
+.sr-read span { display: block; font-size: 13.5px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sr-read-fits { box-shadow: inset 0 -4px 0 var(--flag-green); }
+.sr-read-check { box-shadow: inset 0 -4px 0 var(--yellow); }
+.sr-read-fail { box-shadow: inset 0 -4px 0 var(--kerb); }
+.sr-read-info { box-shadow: inset 0 -4px 0 var(--sector); }
+@media (max-width: 560px) { .sr-readout { grid-template-columns: repeat(3, minmax(0, 1fr)); } .sr-read:nth-child(3) { border-right: 0; } .sr-read:nth-child(-n+3) { border-bottom: 1px solid var(--line); } .sr-read:last-child { grid-column: span 2; } }
+.sr-counts { display: flex; flex-wrap: wrap; gap: 8px; }
+.sr-count { display: inline-flex; color: var(--ink); gap: 6px; align-items: center; padding: 4px 10px; border-radius: var(--r-chip); font-size: 14.5px; font-weight: 600; border: 1px solid var(--line-2); background: var(--paper); }
+.sr-count svg { width: 15px; height: 15px; }
+.sr-count b { font-size: 17px; }
+.sr-count.ct-fits svg { color: var(--flag-green); }
+.sr-count.ct-check svg { color: #d6a800; }
+.sr-count.ct-fail svg { color: var(--kerb); }
+.sr-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13.5px; color: var(--ink-2); }
+
+/* ---------- the form ---------- */
+.sr-form { padding: 6px 16px 18px; display: grid; gap: 4px; align-content: start; }
+.sr-step { border: 0; padding: 12px 0 14px; margin: 0; border-bottom: 1px solid var(--line); }
+.sr-step > legend { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 19px; padding: 0; margin: 0 0 10px; color: var(--carbon); }
+.sr-step-n { display: inline-grid; place-items: center; width: 30px; height: 26px; border-radius: 6px; background: var(--carbon); color: var(--paper); font-family: var(--display); font-size: 15px; font-weight: 800; transform: skewX(-10deg); }
+.sr-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 12px; }
+.sr-grid3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.sr-field { display: grid; gap: 4px; align-content: start; font-size: 14.5px; font-weight: 600; min-width: 0; }
+.sr-field.wide { grid-column: 1 / -1; }
+.sr-field small { font-weight: 400; color: var(--ink-2); font-size: 13.5px; line-height: 1.35; }
+.sr-in { position: relative; display: flex; align-items: center; }
+.sr-in input { padding-right: 40px; }
+.sr-in i { position: absolute; right: 10px; font-style: normal; font-weight: 500; font-size: 14px; color: var(--ink-2); pointer-events: none; }
+.sr-form input[type="number"], .sr-form input[type="text"], .sr-form select, .sr-shop input, .sr-pro input[type="text"] {
+  width: 100%; min-width: 0; font: inherit; font-size: 16px; font-weight: 500; padding: 9px 10px; border: 1px solid var(--line-2); border-radius: var(--r-field); background: var(--paper); color: var(--ink); }
+.sr-form input:focus, .sr-form select:focus, .sr-shop input:focus { outline: none; border-color: var(--sector); box-shadow: 0 0 0 3px color-mix(in oklab, var(--sector) 24%, transparent); }
+.sr-row { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
+.sr-check { display: flex; gap: 8px; align-items: flex-start; font-size: 14.5px; font-weight: 500; }
+.sr-check input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--sector); flex: none; }
+.sr-styles { display: flex; width: 100%; }
+.sr-styles button { flex: 1; }
+.sr-more { border-bottom: 1px solid var(--line); padding: 4px 0 10px; }
+.sr-more > summary { cursor: pointer; font-family: var(--display); font-weight: 700; font-size: 17px; padding: 10px 0; min-height: 44px; display: flex; align-items: center; }
+.sr-more[open] > summary { margin-bottom: 4px; }
+.sr-auto { margin: 2px 0 10px; padding: 9px 11px; border-radius: var(--r-field); background: var(--paper-2); border: 1px dashed var(--line-2); }
+.sr-helper { margin: 0 0 12px; }
+.sr-helper svg { width: 100%; height: auto; display: block; background: var(--paper-2); border-radius: 10px; border: 1px solid var(--line); }
+.sr-helper figcaption { font-size: 13.5px; color: var(--ink-2); margin-top: 6px; }
+.sr-holes { border-top: 1px solid var(--line); padding: 10px 0; }
+.sr-hole-h { font-weight: 700; margin: 0 0 8px; }
+[data-show][hidden] { display: none !important; }
+@media (max-width: 960px) { .sr-bench { grid-template-columns: 1fr; } .sr-stage { border-right: 0; border-bottom: 1px solid var(--line); } .sr-sticky { position: static; } }
+@media (max-width: 420px) { .sr-grid3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------- actions ---------- */
+.sr-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 16px 0 6px; }
+.sr-actions .hint { font-size: 14px; color: var(--ink-2); }
+.sr-sample-note { margin: 0 0 10px; font-size: 14.5px; color: var(--ink-2); }
+
+/* ---------- sections, tables ---------- */
+.sr-sec { margin: clamp(30px, 5vw, 56px) 0 0; }
+.sr-sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 20px; margin-bottom: 10px; }
+.sr-sec-head p { margin: 0; color: var(--ink-2); font-size: 14.5px; }
+.sr-table { width: 100%; border-collapse: collapse; background: var(--paper); border: 1px solid var(--line-2); border-radius: 14px; overflow: hidden; font-size: 15.5px; }
+.sr-table caption { caption-side: top; text-align: left; padding: 0 0 8px; color: var(--ink-2); font-size: 14.5px; }
+.sr-table th, .sr-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.sr-table thead th { font-size: 13.5px; font-weight: 700; color: var(--ink-2); background: var(--paper-2); }
+.sr-table tbody tr:last-child td { border-bottom: 0; }
+.sr-table .num { text-align: right; white-space: nowrap; }
+.sr-group td { background: var(--paper-2); font-weight: 700; font-size: 14px; color: var(--ink-2); }
+.sr-st { white-space: nowrap; font-weight: 700; font-size: 14px; }
+.sr-st span { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px 2px 7px; border-radius: var(--r-chip); }
+.sr-st svg { width: 14px; height: 14px; }
+.st-fits span { background: #0b7a4b; color: #fff; }
+.st-check span { background: #ffd23f; color: #17151d; }
+.st-fail span { background: #d71f27; color: #fff; }
+.st-info span { background: var(--sector-soft); color: var(--ink); }
+.sr-why { color: var(--ink-2); font-size: 14.5px; }
+.sr-src { font-size: 13.5px; color: var(--ink-2); }
+.sr-src a { white-space: normal; }
+.sr-shop input { max-width: 110px; text-align: right; padding: 6px 8px; font-size: 15px; }
+.sr-total td { font-weight: 700; background: var(--paper-2); }
+@media (max-width: 760px) {
+  .sr-table, .sr-table tbody, .sr-table tr, .sr-table td, .sr-table caption { display: block; width: 100%; }
+  .sr-table thead { display: none; }
+  .sr-table caption { padding: 10px 12px 8px; }
+  .sr-table tr { border-bottom: 1px solid var(--line); padding: 8px 0; }
+  .sr-table td { border: 0; padding: 4px 12px; }
+  .sr-table td[data-h]::before { content: attr(data-h); display: block; font-size: 12.5px; font-weight: 700; color: var(--ink-2); }
+  .sr-table .num { text-align: left; }
+  .sr-shop input { max-width: 100%; text-align: left; }
+}
+
+/* ---------- Pro ---------- */
+.sr-pro { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr); background: var(--paper); border: 1px solid var(--line-2); border-radius: var(--r-panel); overflow: clip; }
+.sr-pro-l { padding: clamp(18px, 2.6vw, 30px); display: grid; gap: 14px; align-content: start; min-width: 0; }
+.sr-pro-r { padding: clamp(18px, 2.6vw, 30px); background: #3b3846; color: #f1f0f6; display: grid; gap: 12px; align-content: start; }
+.sr-pro-r p { color: #d9d6e4; margin: 0; font-size: 14.5px; }
+.sr-pro-r .btn-ghost { color: #fff; border-color: rgba(255, 255, 255, .5); }
+.sr-pro-r .btn-ghost[aria-busy="true"] { cursor: progress; opacity: .85; }
+.sr-pro-r .sr-price { font-family: var(--display); font-size: 46px; font-weight: 800; color: #fff; margin: 0; line-height: 1; }
+.sr-price small { font-family: var(--sans); font-size: 15px; font-weight: 500; color: #d9d6e4; }
+.sr-locked { list-style: none; margin: 0; padding: 0; display: grid; border-top: 1px solid var(--line); }
+.sr-locked li { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 10px; align-items: start; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.sr-locked svg { width: 16px; height: 16px; margin-top: 3px; color: var(--carbon-2); }
+.sr-locked b { display: block; font-weight: 700; }
+.sr-locked span { display: block; color: var(--ink-2); font-size: 14.5px; }
+.sr-locked em { font-style: normal; font-size: 12.5px; font-weight: 700; padding: 2px 8px; border-radius: 5px; background: var(--sector-soft); color: var(--ink); }
+.sr-locked li.is-open em { background: #0b7a4b; color: #fff; }
+.sr-pro-out { margin: 0; }
+.sr-pro-out img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid var(--line-2); background: #fff; }
+.sr-pro-out figcaption { font-size: 13.5px; color: var(--ink-2); margin-top: 6px; }
+.sr-pro-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.sr-saved { display: grid; gap: 8px; }
+.sr-saved input[type="text"] { max-width: 260px; }
+.sr-saved ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.sr-saved li { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; font-size: 14.5px; }
+.sr-saved li button { font: inherit; font-size: 13.5px; padding: 4px 9px; border-radius: 6px; border: 1px solid var(--line-2); background: var(--paper); color: var(--ink); cursor: pointer; }
+.sr-pro-work { display: grid; gap: 14px; }
+.sr-pro-work[hidden] { display: none; }
+.sr-diagram { width: 100%; height: auto; display: block; background: var(--paper); }
+.sr-plates { display: flex; flex-wrap: wrap; gap: 12px 20px; }
+.sr-plate { margin: 0; }
+.sr-plate figcaption { font-size: 13.5px; color: var(--ink-2); }
+@media (max-width: 860px) { .sr-pro { grid-template-columns: 1fr; } }
+
+/* ---------- guides, FAQ, sources ---------- */
+.sr-guides { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); border-top: 3px solid var(--carbon); }
+.sr-guides li { border-bottom: 1px solid var(--line-2); }
+.sr-guides a { display: grid; gap: 2px; padding: 14px 12px 14px 0; text-decoration: none; color: var(--ink); }
+.sr-guides b { font-family: var(--display); font-weight: 700; font-size: 18px; line-height: 1.15; }
+.sr-guides span { color: var(--ink-2); font-size: 14.5px; }
+.sr-guides a:hover b { color: var(--sector-2); }
+.sr-faq details { border-bottom: 1px solid var(--line-2); padding: 12px 0; }
+.sr-faq summary { cursor: pointer; font-weight: 700; font-size: 17.5px; }
+.sr-faq .answer p { margin: 8px 0 0; }
+.sr-sources { font-size: 14.5px; }
+.sr-sources ol { margin: 0; padding-left: 22px; display: grid; gap: 4px; }
+.sr-sources li span { color: var(--ink-2); }
+.sr-srclist { margin: 10px 0; }
+.sr-srclist summary { cursor: pointer; font-weight: 700; padding: 10px 0; min-height: 44px; }
+
+/* ---------- guide pages ---------- */
+.sr-article { max-width: 780px; }
+.sr-article h2 { margin-top: 34px; }
+.sr-article-wide { max-width: 1120px; }
+.sr-article .sr-table { margin: 14px 0 18px; }
+.sr-fig-narrow svg { max-width: 640px; margin: 0 auto; }
+.sr-table td .sr-small { white-space: nowrap; }
+.sr-figure { margin: 18px 0; }
+.sr-figure img, .sr-figure svg { width: 100%; height: auto; display: block; border-radius: 14px; border: 1px solid var(--line-2); background: var(--paper); }
+.sr-figure figcaption { font-size: 14px; color: var(--ink-2); margin-top: 6px; }
+.sr-dl { display: grid; grid-template-columns: minmax(120px, 0.32fr) minmax(0, 1fr); gap: 8px 18px; margin: 16px 0; }
+.sr-dl dt { font-weight: 700; }
+.sr-dl dd { margin: 0; color: var(--ink-2); }
+@media (max-width: 600px) { .sr-dl { grid-template-columns: 1fr; gap: 2px; } .sr-dl dd { margin-bottom: 10px; } }
+.sr-callout { background: var(--paper); border: 1px solid var(--line-2); border-left: 5px solid var(--sector); border-radius: 12px; padding: 14px 16px; margin: 16px 0; }
+.sr-callout p { margin: 0; }
+.sr-open { display: inline-flex; margin-top: 8px; }
+.sr-guide-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(18px, 4vw, 48px); align-items: center; padding: clamp(10px, 2vw, 22px) 0 6px; }
+.sr-guide-hero img { width: 100%; height: auto; display: block; border-radius: 16px; border: 1px solid var(--line-2); aspect-ratio: 16 / 10; object-fit: cover; }
+.sr-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); border: 1px solid var(--line-2); border-radius: 14px; background: var(--paper); overflow: hidden; margin: 16px 0; }
+.sr-facts div { padding: 12px 14px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.sr-facts b { display: block; font-family: var(--display); font-size: 22px; font-weight: 800; line-height: 1.1; }
+.sr-facts span { font-size: 14px; color: var(--ink-2); }
+@media (max-width: 860px) { .sr-guide-hero { grid-template-columns: 1fr; } }
+.sr-table tr[id] { scroll-margin-top: 84px; }
+.sr-table tr:target td { background: color-mix(in oklab, var(--yellow) 26%, var(--paper)); }
+.sr-table th[scope="row"] { font-weight: 700; }
+/* compact number tables (.sr-numgrid) stay a table on a phone: few, short columns */
+@media (max-width: 760px) {
+  .sr-table.sr-numgrid { display: table; font-size: 14.5px; }
+  .sr-table.sr-numgrid caption { display: table-caption; }
+  .sr-table.sr-numgrid thead { display: table-header-group; }
+  .sr-table.sr-numgrid tbody { display: table-row-group; }
+  .sr-table.sr-numgrid tr { display: table-row; padding: 0; }
+  .sr-table.sr-numgrid th, .sr-table.sr-numgrid td { display: table-cell; width: auto; padding: 8px 5px; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+  .sr-table.sr-numgrid thead th { font-size: 13px; line-height: 1.25; white-space: normal; vertical-align: bottom; }
+  .sr-table.sr-numgrid td[data-h]::before { content: none; }
+  .sr-table.sr-numgrid .num { text-align: right; }
+  .sr-table.sr-kv td:first-child { width: 38%; }
+}
+
+/* ---------- print: the shopping list only ---------- */
+@media print {
+  body.sr-print-shop .site-head, body.sr-print-shop .site-foot, body.sr-print-shop main > *:not(#shop), body.sr-print-shop .skip { display: none !important; }
+  body.sr-print-shop #shop { margin: 0; }
+  body.sr-print-shop .sr-shop input { border: 0; padding: 0; }
+  body.sr-page { background: #fff; }
+}
+@media (prefers-reduced-motion: reduce) { .sr-page * { scroll-behavior: auto !important; transition: none !important; } }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","@id":"https://peakappsstudio.com/it/cockpit-sim-racing/#app","name":"Sim Rig Designer","url":"https://peakappsstudio.com/it/cockpit-sim-racing/","inLanguage":"it","applicationCategory":"DesignApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Gratis","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Pro (una tantum)","price":"19","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/sim-rig-designer-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Strumenti","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Sim Rig Designer","item":"https://peakappsstudio.com/it/cockpit-sim-racing/"},{"@type":"ListItem","position":3,"name":"Postazione in legno","item":"https://peakappsstudio.com/it/cockpit-sim-racing/postazione-sim-racing-legno/"}]},
+ {"@type":"FAQPage","inLanguage":"it","mainEntity":[
+  {"@type":"Question","name":"Che legno usare per una postazione sim racing?","acceptedAnswer":{"@type":"Answer","text":"Listelli di abete piallato dritti e con pochi nodi, da 45 x 80 o 45 x 95 mm. Per le piastre, OSB/3 da 18 mm, in cui le viti tengono bene; quello da 15 mm va per le parti meno caricate."}},
+  {"@type":"Question","name":"Quanto costa una postazione in legno fai da te?","acceptedAnswer":{"@type":"Answer","text":"Dipende dal negozio e dal giorno, quindi lo strumento non mostra prezzi. La lista della spesa dà le quantità; inserisci i prezzi che trovi e calcola il totale."}},
+  {"@type":"Question","name":"A che altezza va il volante?","acceptedAnswer":{"@type":"Answer","text":"Asetek consiglia il centro del volante tra l’altezza del petto e quella delle spalle, con le spalle rilassate e i gomiti un po’ piegati; Qubic System lo mette vicino alla base del collo in GT. In questo progetto per 1,77 m sta 440 mm sopra il punto anca."}},
+  {"@type":"Question","name":"C’è il progetto in PDF?","acceptedAnswer":{"@type":"Answer","text":"Sì, con Pro: un PDF in italiano, in A4 e in millimetri, con la lista di taglio, lo schema di ogni barra, viste quotate, le fasi di montaggio e le dime di foratura in scala reale. 19 USD, una tantum."}}
+ ]}
+]}
+</script>
+<script src="/assets/pro-source.js" data-campaign="sim-rig-designer" defer></script>
+</head>
+<body class="sr-page" style="--accent:#6a2ee8">
+<a class="skip" href="#main">Vai al contenuto</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" hreflang="en" aria-label="Peak Apps Tools, tutti gli strumenti (in inglese)">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Strumenti">
+      <a href="/it/cockpit-sim-racing/" aria-current="page">Sim Rig Designer</a>
+      <a href="/tools/" hreflang="en">Tutti gli strumenti</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <div class="sr-topline">
+    <nav class="crumbs" aria-label="Percorso di navigazione"><ol><li><a href="/tools/" hreflang="en">Strumenti</a></li><li><a href="/it/cockpit-sim-racing/">Sim Rig Designer</a></li><li aria-current="page">Postazione in legno</li></ol></nav>
+    <nav class="sr-langs" aria-label="Lingua"><a href="/sim-rig-designer/diy-sim-rig-plans-wood/" hreflang="en" lang="en">English</a><a href="/sim-rig-designer/sim-rig-selber-bauen/" hreflang="de" lang="de">Deutsch</a><a href="/pt-br/cockpit-simulador/cockpit-simulador-de-madeira/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="/es/cockpit-simracing/cockpit-simracing-madera/" hreflang="es" lang="es">Español</a><a href="/fr/cockpit-simracing/cockpit-simracing-bois/" hreflang="fr" lang="fr">Français</a><a href="/it/cockpit-sim-racing/postazione-sim-racing-legno/" aria-current="true" hreflang="it" lang="it">Italiano</a></nav>
+  </div>
+  <header class="sr-guide-hero">
+    <div>
+      <h1>Postazione sim racing in legno fai da te: progetto con misure</h1>
+      <p class="lede" style="margin-top:14px">Una postazione GT in listelli di abete 45 x 80 mm e OSB/3, su misura per un pilota di 1,77 m con base direct drive, pedali con cella di carico, cambio e tre monitor da 27 pollici sul loro supporto. Aprila nello strumento, inserisci la tua altezza e tutte le misure si ricalcolano.</p>
+      <a class="btn btn-primary sr-open" href="/it/cockpit-sim-racing/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoiZ3QiLCJuYW1lIjoiUG9zdGF6aW9uZSBHVCBpbiBsZWdubywgMSw3NyBtIiwiZHJpdmVyIjp7ImgiOjE3NzB9LCJzY3JlZW4iOnsia2luZCI6InRyaXBsZSIsInNpemUiOjI3fSwicmlnIjp7InNlYXRIIjo0ODUsImgzMCI6MzQyLCJsNTMiOjY2Mywid2hlZWxVcCI6NDQwLCJ3aGVlbFJlYWNoIjozNzIsInNjcmVlbkRpc3QiOjg1NX0sImx1bWJlciI6Iml0LTQ1eDgwIn0">Apri il progetto nello strumento</a>
+    </div>
+    <img src="/sim-rig-designer/img/hero-it-legno-960.webp" srcset="/sim-rig-designer/img/hero-it-legno-480.webp 480w, /sim-rig-designer/img/hero-it-legno-960.webp 960w, /sim-rig-designer/img/hero-it-legno-1440.webp 1440w" sizes="(max-width: 860px) 100vw, 52vw" width="1440" height="900" fetchpriority="high" decoding="async" alt="La postazione di questa pagina in 3D: telaio in listelli, sedile a guscio, pedaliera inclinata, supporto volante con puntoni e tre monitor sul loro supporto">
+  </header>
+  <svg class="sr-kerb" viewBox="0 0 1200 34" preserveAspectRatio="xMinYMid slice" aria-hidden="true"><rect x="0" y="0" width="1200" height="7" fill="#3a3941"/><rect x="0" y="7" width="1200" height="3" fill="#f4f4f1"/><path d="M-10 32 L26 32 L34 11 L-2 11 Z" fill="#d71f27"/><path d="M-2 11 L34 11 L32.4 15 L-3.5999999999999996 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M-10 32 L26 32 L26.799999999999997 30 L-9.2 30 Z" fill="#9f141a"/><path d="M30 32 L66 32 L74 11 L38 11 Z" fill="#ffffff"/><path d="M38 11 L74 11 L72.4 15 L36.4 15 Z" fill="#ffffff" opacity="1"/><path d="M30 32 L66 32 L66.8 30 L30.8 30 Z" fill="#c9c9d2"/><path d="M70 32 L106 32 L114 11 L78 11 Z" fill="#d71f27"/><path d="M78 11 L114 11 L112.4 15 L76.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M70 32 L106 32 L106.8 30 L70.8 30 Z" fill="#9f141a"/><path d="M110 32 L146 32 L154 11 L118 11 Z" fill="#ffffff"/><path d="M118 11 L154 11 L152.4 15 L116.4 15 Z" fill="#ffffff" opacity="1"/><path d="M110 32 L146 32 L146.8 30 L110.8 30 Z" fill="#c9c9d2"/><path d="M150 32 L186 32 L194 11 L158 11 Z" fill="#d71f27"/><path d="M158 11 L194 11 L192.4 15 L156.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M150 32 L186 32 L186.8 30 L150.8 30 Z" fill="#9f141a"/><path d="M190 32 L226 32 L234 11 L198 11 Z" fill="#ffffff"/><path d="M198 11 L234 11 L232.4 15 L196.4 15 Z" fill="#ffffff" opacity="1"/><path d="M190 32 L226 32 L226.8 30 L190.8 30 Z" fill="#c9c9d2"/><path d="M230 32 L266 32 L274 11 L238 11 Z" fill="#d71f27"/><path d="M238 11 L274 11 L272.4 15 L236.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M230 32 L266 32 L266.8 30 L230.8 30 Z" fill="#9f141a"/><path d="M270 32 L306 32 L314 11 L278 11 Z" fill="#ffffff"/><path d="M278 11 L314 11 L312.4 15 L276.4 15 Z" fill="#ffffff" opacity="1"/><path d="M270 32 L306 32 L306.8 30 L270.8 30 Z" fill="#c9c9d2"/><path d="M310 32 L346 32 L354 11 L318 11 Z" fill="#d71f27"/><path d="M318 11 L354 11 L352.4 15 L316.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M310 32 L346 32 L346.8 30 L310.8 30 Z" fill="#9f141a"/><path d="M350 32 L386 32 L394 11 L358 11 Z" fill="#ffffff"/><path d="M358 11 L394 11 L392.4 15 L356.4 15 Z" fill="#ffffff" opacity="1"/><path d="M350 32 L386 32 L386.8 30 L350.8 30 Z" fill="#c9c9d2"/><path d="M390 32 L426 32 L434 11 L398 11 Z" fill="#d71f27"/><path d="M398 11 L434 11 L432.4 15 L396.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M390 32 L426 32 L426.8 30 L390.8 30 Z" fill="#9f141a"/><path d="M430 32 L466 32 L474 11 L438 11 Z" fill="#ffffff"/><path d="M438 11 L474 11 L472.4 15 L436.4 15 Z" fill="#ffffff" opacity="1"/><path d="M430 32 L466 32 L466.8 30 L430.8 30 Z" fill="#c9c9d2"/><path d="M470 32 L506 32 L514 11 L478 11 Z" fill="#d71f27"/><path d="M478 11 L514 11 L512.4 15 L476.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M470 32 L506 32 L506.8 30 L470.8 30 Z" fill="#9f141a"/><path d="M510 32 L546 32 L554 11 L518 11 Z" fill="#ffffff"/><path d="M518 11 L554 11 L552.4 15 L516.4 15 Z" fill="#ffffff" opacity="1"/><path d="M510 32 L546 32 L546.8 30 L510.8 30 Z" fill="#c9c9d2"/><path d="M550 32 L586 32 L594 11 L558 11 Z" fill="#d71f27"/><path d="M558 11 L594 11 L592.4 15 L556.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M550 32 L586 32 L586.8 30 L550.8 30 Z" fill="#9f141a"/><path d="M590 32 L626 32 L634 11 L598 11 Z" fill="#ffffff"/><path d="M598 11 L634 11 L632.4 15 L596.4 15 Z" fill="#ffffff" opacity="1"/><path d="M590 32 L626 32 L626.8 30 L590.8 30 Z" fill="#c9c9d2"/><path d="M630 32 L666 32 L674 11 L638 11 Z" fill="#d71f27"/><path d="M638 11 L674 11 L672.4 15 L636.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M630 32 L666 32 L666.8 30 L630.8 30 Z" fill="#9f141a"/><path d="M670 32 L706 32 L714 11 L678 11 Z" fill="#ffffff"/><path d="M678 11 L714 11 L712.4 15 L676.4 15 Z" fill="#ffffff" opacity="1"/><path d="M670 32 L706 32 L706.8 30 L670.8 30 Z" fill="#c9c9d2"/><path d="M710 32 L746 32 L754 11 L718 11 Z" fill="#d71f27"/><path d="M718 11 L754 11 L752.4 15 L716.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M710 32 L746 32 L746.8 30 L710.8 30 Z" fill="#9f141a"/><path d="M750 32 L786 32 L794 11 L758 11 Z" fill="#ffffff"/><path d="M758 11 L794 11 L792.4 15 L756.4 15 Z" fill="#ffffff" opacity="1"/><path d="M750 32 L786 32 L786.8 30 L750.8 30 Z" fill="#c9c9d2"/><path d="M790 32 L826 32 L834 11 L798 11 Z" fill="#d71f27"/><path d="M798 11 L834 11 L832.4 15 L796.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M790 32 L826 32 L826.8 30 L790.8 30 Z" fill="#9f141a"/><path d="M830 32 L866 32 L874 11 L838 11 Z" fill="#ffffff"/><path d="M838 11 L874 11 L872.4 15 L836.4 15 Z" fill="#ffffff" opacity="1"/><path d="M830 32 L866 32 L866.8 30 L830.8 30 Z" fill="#c9c9d2"/><path d="M870 32 L906 32 L914 11 L878 11 Z" fill="#d71f27"/><path d="M878 11 L914 11 L912.4 15 L876.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M870 32 L906 32 L906.8 30 L870.8 30 Z" fill="#9f141a"/><path d="M910 32 L946 32 L954 11 L918 11 Z" fill="#ffffff"/><path d="M918 11 L954 11 L952.4 15 L916.4 15 Z" fill="#ffffff" opacity="1"/><path d="M910 32 L946 32 L946.8 30 L910.8 30 Z" fill="#c9c9d2"/><path d="M950 32 L986 32 L994 11 L958 11 Z" fill="#d71f27"/><path d="M958 11 L994 11 L992.4 15 L956.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M950 32 L986 32 L986.8 30 L950.8 30 Z" fill="#9f141a"/><path d="M990 32 L1026 32 L1034 11 L998 11 Z" fill="#ffffff"/><path d="M998 11 L1034 11 L1032.4 15 L996.4 15 Z" fill="#ffffff" opacity="1"/><path d="M990 32 L1026 32 L1026.8 30 L990.8 30 Z" fill="#c9c9d2"/><path d="M1030 32 L1066 32 L1074 11 L1038 11 Z" fill="#d71f27"/><path d="M1038 11 L1074 11 L1072.4 15 L1036.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M1030 32 L1066 32 L1066.8 30 L1030.8 30 Z" fill="#9f141a"/><path d="M1070 32 L1106 32 L1114 11 L1078 11 Z" fill="#ffffff"/><path d="M1078 11 L1114 11 L1112.4 15 L1076.4 15 Z" fill="#ffffff" opacity="1"/><path d="M1070 32 L1106 32 L1106.8 30 L1070.8 30 Z" fill="#c9c9d2"/><path d="M1110 32 L1146 32 L1154 11 L1118 11 Z" fill="#d71f27"/><path d="M1118 11 L1154 11 L1152.4 15 L1116.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M1110 32 L1146 32 L1146.8 30 L1110.8 30 Z" fill="#9f141a"/><path d="M1150 32 L1186 32 L1194 11 L1158 11 Z" fill="#ffffff"/><path d="M1158 11 L1194 11 L1192.4 15 L1156.4 15 Z" fill="#ffffff" opacity="1"/><path d="M1150 32 L1186 32 L1186.8 30 L1150.8 30 Z" fill="#c9c9d2"/><path d="M1190 32 L1226 32 L1234 11 L1198 11 Z" fill="#d71f27"/><path d="M1198 11 L1234 11 L1232.4 15 L1196.4 15 Z" fill="#f05a5f" opacity="0.9"/><path d="M1190 32 L1226 32 L1226.8 30 L1190.8 30 Z" fill="#9f141a"/></svg>
+  <article class="sr-article">
+    <div class="sr-facts">
+      <div><b>1,35 x 1,01 m</b><span>a terra, con il supporto dei monitor</span></div>
+      <div><b>9</b><span>listelli di abete 45 x 80 mm da 2 m</span></div>
+      <div><b>1</b><span>pannello OSB/3 da 18 mm</span></div>
+      <div><b>232</b><span>viti per legno 5 x 80 mm</span></div>
+      <div><b>485 mm</b><span>da terra al punto anca</span></div>
+      <div><b>12 su 14</b><span>verifiche in regola, nessuna in rosso</span></div>
+    </div>
+
+    <h2>Il legno e i pannelli</h2>
+    <p>Il telaio è in listello di abete piallato da 45 x 80 mm, come quello che OBI Italia vende in pezzi da 2 m. Questa postazione ne chiede 9, 16,5 m di tagli in tutto; il resto è avanzo. Il pezzo da 2 m è corto, per questo i longheroni della base diventano il taglio più lungo da ricavare: lo strumento li distribuisce in modo che stiano tutti nei pezzi che compri. Se preferisci una sezione più alta, il listello da 45 x 95 mm piallato sui quattro lati, sempre da 2 m, è nello strumento.</p>
+    <p>Le piastre del volante, della pedaliera e del cambio si tagliano da un pannello OSB/3 da 18 mm, 250 x 125 cm, come quello di OBI Italia; c’è anche quello da 15 mm. Aggiungi 232 viti 5 x 80 mm per il telaio, 33 viti 4 x 40 mm per piastre e pannelli, colla vinilica e viti M8 con dadi autobloccanti per il sedile.</p>
+
+    <h2>Lista di taglio</h2>
+    <table class="sr-table">
+      <caption>I 31 pezzi di listello 45 x 80 mm, arrotondati al millimetro. Con Pro lo strumento li distribuisce nei pezzi da 2 m con uno schema di ogni taglio.</caption>
+      <thead><tr><th scope="col">Pezzo</th><th scope="col" class="num">Quantità</th><th scope="col" class="num">Lunghezza</th></tr></thead>
+      <tbody>
+        <tr class="sr-group"><td colspan="3">Base</td></tr>
+        <tr><td data-h="Pezzo">longherone sinistro</td><td class="num" data-h="Quantità">1</td><td class="num" data-h="Lunghezza"><b>1350 mm</b></td></tr>
+        <tr><td data-h="Pezzo">longherone destro</td><td class="num" data-h="Quantità">1</td><td class="num" data-h="Lunghezza"><b>1350 mm</b></td></tr>
+        <tr><td data-h="Pezzo">traversa</td><td class="num" data-h="Quantità">4</td><td class="num" data-h="Lunghezza"><b>560 mm</b></td></tr>
+        <tr class="sr-group"><td colspan="3">Supporto sedile</td></tr>
+        <tr><td data-h="Pezzo">traversa sui longheroni (in piano)</td><td class="num" data-h="Quantità">2</td><td class="num" data-h="Lunghezza"><b>650 mm</b></td></tr>
+        <tr><td data-h="Pezzo">rialzo</td><td class="num" data-h="Quantità">4</td><td class="num" data-h="Lunghezza"><b>220 mm</b></td></tr>
+        <tr class="sr-group"><td colspan="3">Supporto pedaliera</td></tr>
+        <tr><td data-h="Pezzo">traversa di rinforzo</td><td class="num" data-h="Quantità">1</td><td class="num" data-h="Lunghezza"><b>560 mm</b></td></tr>
+        <tr><td data-h="Pezzo">longherone (in piano, estremità tagliate in angolo)</td><td class="num" data-h="Quantità">2</td><td class="num" data-h="Lunghezza"><b>510 mm</b></td></tr>
+        <tr><td data-h="Pezzo">spessore, testa tagliata in angolo</td><td class="num" data-h="Quantità">2</td><td class="num" data-h="Lunghezza"><b>24 mm</b></td></tr>
+        <tr class="sr-group"><td colspan="3">Supporto volante</td></tr>
+        <tr><td data-h="Pezzo">montante, testa tagliata all’angolo della piastra</td><td class="num" data-h="Quantità">2</td><td class="num" data-h="Lunghezza"><b>593 mm</b></td></tr>
+        <tr><td data-h="Pezzo">puntone (estremità tagliate in angolo)</td><td class="num" data-h="Quantità">2</td><td class="num" data-h="Lunghezza"><b>455 mm</b></td></tr>
+        <tr><td data-h="Pezzo">longherone di costa, estremità tagliate a squadra</td><td class="num" data-h="Quantità">2</td><td class="num" data-h="Lunghezza"><b>290 mm</b></td></tr>
+        <tr class="sr-group"><td colspan="3">Cambio</td></tr>
+        <tr><td data-h="Pezzo">montante</td><td class="num" data-h="Quantità">1</td><td class="num" data-h="Lunghezza"><b>567 mm</b></td></tr>
+        <tr><td data-h="Pezzo">puntone (estremità tagliate in angolo)</td><td class="num" data-h="Quantità">1</td><td class="num" data-h="Lunghezza"><b>263 mm</b></td></tr>
+        <tr><td data-h="Pezzo">braccio che esce dalla base (di costa)</td><td class="num" data-h="Quantità">1</td><td class="num" data-h="Lunghezza"><b>180 mm</b></td></tr>
+        <tr class="sr-group"><td colspan="3">Supporto monitor</td></tr>
+        <tr><td data-h="Pezzo">montante</td><td class="num" data-h="Quantità">2</td><td class="num" data-h="Lunghezza"><b>1216 mm</b></td></tr>
+        <tr><td data-h="Pezzo">traversa</td><td class="num" data-h="Quantità">1</td><td class="num" data-h="Lunghezza"><b>602 mm</b></td></tr>
+        <tr><td data-h="Pezzo">piede</td><td class="num" data-h="Quantità">2</td><td class="num" data-h="Lunghezza"><b>520 mm</b></td></tr>
+      </tbody>
+    </table>
+    <table class="sr-table">
+      <caption>Quello che si taglia dal pannello OSB.</caption>
+      <thead><tr><th scope="col">Pezzo</th><th scope="col" class="num">Quantità</th><th scope="col" class="num">Misure</th></tr></thead>
+      <tbody>
+        <tr><td data-h="Pezzo">Supporto volante, pannello tra i montanti (sopra le ginocchia)</td><td class="num" data-h="Quantità">1</td><td class="num" data-h="Misure">119 mm x 560 mm</td></tr>
+        <tr><td data-h="Pezzo">Piastra volante</td><td class="num" data-h="Quantità">1</td><td class="num" data-h="Misure">290 mm x 650 mm</td></tr>
+        <tr><td data-h="Pezzo">Piastra pedaliera</td><td class="num" data-h="Quantità">1</td><td class="num" data-h="Misure">510 mm x 650 mm</td></tr>
+        <tr><td data-h="Pezzo">Piastra cambio</td><td class="num" data-h="Quantità">1</td><td class="num" data-h="Misure">140 mm x 160 mm</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Le misure per 1,77 m</h2>
+    <figure class="sr-figure sr-fig-narrow">
+      <svg viewBox="-10 -10 780 866" role="img" aria-label="Vista laterale della posizione con il punto anca, il tallone, il centro del volante e l’occhio, e tra loro le misure H30, L53, l’altezza del volante e la distanza dallo schermo"><defs><marker id="sr-ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 1 L9 5 L0 9 z" fill="#6a2ee8"/></marker></defs><line x1="0" y1="805.8" x2="760" y2="805.8" stroke="#17151d" stroke-width="2"/><path d="M146.3 203.0 L248.8 518.5 L488.5 469.8 L645.4 667.8" fill="none" stroke="#4c4959" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/><path d="M248.8 518.5 L149.9 214.2 L197.2 94.8" fill="none" stroke="#4c4959" stroke-width="7" stroke-linecap="round" opacity=".3"/><line x1="441.7" y1="173.3" x2="496.6" y2="342.3" stroke="#17151d" stroke-width="6" stroke-linecap="round"/><line x1="703.7" y1="-4.8" x2="703.7" y2="194.4" stroke="#17151d" stroke-width="8"/><line x1="222.8" y1="518.5" x2="222.8" y2="721.1" stroke="#6a2ee8" stroke-width="1.6" marker-start="url(#sr-ar)" marker-end="url(#sr-ar)"/><text x="214.8" y="624.8" font-size="15" font-weight="700" fill="#6a2ee8" text-anchor="end">H30</text><line x1="248.8" y1="747.1" x2="641.5" y2="747.1" stroke="#6a2ee8" stroke-width="1.6" marker-start="url(#sr-ar)" marker-end="url(#sr-ar)"/><text x="445.15" y="767.1" font-size="15" font-weight="700" fill="#6a2ee8" text-anchor="middle">L53</text><line x1="248.8" y1="518.5" x2="469.2" y2="518.5" stroke="#6a2ee8" stroke-width="1" stroke-dasharray="4 4"/><line x1="491.2" y1="518.5" x2="491.2" y2="257.8" stroke="#6a2ee8" stroke-width="1.6" marker-start="url(#sr-ar)" marker-end="url(#sr-ar)"/><text x="499.2" y="393.15" font-size="15" font-weight="700" fill="#6a2ee8" text-anchor="start">volante sopra l’anca</text><line x1="197.2" y1="76.8" x2="703.7" y2="76.8" stroke="#6a2ee8" stroke-width="1.6" marker-start="url(#sr-ar)" marker-end="url(#sr-ar)"/><text x="450.45000000000005" y="68.8" font-size="15" font-weight="700" fill="#6a2ee8" text-anchor="middle">occhi dallo schermo</text><circle cx="248.8" cy="518.5" r="6" fill="#ffd23f" stroke="#17151d" stroke-width="1.6"/><text x="260.8" y="544.5" font-size="14.5" fill="#17151d" text-anchor="start">punto anca</text><circle cx="641.5" cy="721.1" r="6" fill="#ffd23f" stroke="#17151d" stroke-width="1.6"/><text x="651.5" y="709.1" font-size="14.5" fill="#17151d" text-anchor="start">tallone</text><circle cx="469.2" cy="257.8" r="6" fill="#ffd23f" stroke="#17151d" stroke-width="1.6"/><text x="479.2" y="243.8" font-size="14.5" fill="#17151d" text-anchor="start">centro del volante</text><circle cx="197.2" cy="94.8" r="6" fill="#ffd23f" stroke="#17151d" stroke-width="1.6"/><text x="187.2" y="82.8" font-size="14.5" fill="#17151d" text-anchor="end">occhio</text><text x="152.3" y="207" font-size="14.5" fill="#17151d">schienale 18°</text></svg>
+      <figcaption>La posizione di questa postazione in scala, presa dal modello dello strumento. Si misura dal punto anca e dal tallone, come nella SAE J1100.</figcaption>
+    </figure>
+    <table class="sr-table sr-numgrid sr-kv">
+      <caption>Posizioni per 1,77 m, sedile a guscio, posizione GT.</caption>
+      <thead><tr><th scope="col">Misura</th><th scope="col">Valore</th></tr></thead>
+      <tbody>
+        <tr><td data-h="Misura"><b>Punto anca da terra</b></td><td data-h="Valore">485 mm</td></tr>
+        <tr><td data-h="Misura"><b>Anca sopra il tallone (H30)</b></td><td data-h="Valore">342 mm</td></tr>
+        <tr><td data-h="Misura"><b>Tallone davanti all’anca (L53)</b></td><td data-h="Valore">663 mm</td></tr>
+        <tr><td data-h="Misura"><b>Schienale dalla verticale</b></td><td data-h="Valore">18°</td></tr>
+        <tr><td data-h="Misura"><b>Inclinazione della piastra pedaliera</b></td><td data-h="Valore">3°</td></tr>
+        <tr><td data-h="Misura"><b>Centro del volante sopra l’anca</b></td><td data-h="Valore">440 mm</td></tr>
+        <tr><td data-h="Misura"><b>Centro del volante davanti all’anca</b></td><td data-h="Valore">372 mm</td></tr>
+        <tr><td data-h="Misura"><b>Inclinazione del volante</b></td><td data-h="Valore">18°</td></tr>
+        <tr><td data-h="Misura"><b>Occhi dallo schermo</b></td><td data-h="Valore">855 mm</td></tr>
+        <tr><td data-h="Misura"><b>Ginocchio, anca, gomito</b></td><td data-h="Valore">117°, 97°, 105°</td></tr>
+      </tbody>
+    </table>
+    <p>Gli angoli vengono dallo studio di Porter e Gyi (1998), in cui 55 guidatori hanno regolato da soli un sedile di prova, e dalle guide di sim racing di Fanatec, Asetek e Qubic System. Le proporzioni del corpo sono stimate dallo studio ANSUR II; se inserisci il cavallo, lo strumento usa il tuo. Per altre altezze ci sono le <a href="/it/cockpit-sim-racing/postazione-sim-racing-misure/">misure per la tua altezza</a>.</p>
+
+    <h2>Il montaggio, fase per fase</h2>
+    <ol class="sr-steplist">
+      <li><b>Telaio di base.</b> Taglia i due longheroni e le traverse, metti i longheroni di costa e avvita le traverse tra loro, due viti per lato in fori pilota. Metti in squadra il telaio con le diagonali.</li>
+      <li><b>Supporto sedile.</b> Fissa le due traverse del sedile sui longheroni, sopra i loro rialzi (220 mm di altezza), poi imbullona le staffe o le guide del sedile. Siediti prima di andare avanti: il punto anca deve stare a 485 mm da terra.</li>
+      <li><b>Supporto pedaliera.</b> Fissa i longheroni della pedaliera a 3° sui loro spessori, la traversa di rinforzo sotto la parte anteriore, poi la piastra pedaliera. I talloni poggiano a 60 mm dal suo bordo posteriore.</li>
+      <li><b>Supporto volante.</b> Metti in piedi i due montanti sui longheroni, fissa sopra i longheroni del supporto all’angolo della piastra, i puntoni fino ai longheroni davanti, e incolla e avvita il pannello tra i montanti. Avvita sopra la piastra volante.</li>
+      <li><b>Cambio.</b> Fissa il braccio che esce dal longherone destro, il montante alla sua estremità, il puntone di ritorno al longherone e la piastra sopra.</li>
+      <li><b>Supporto monitor.</b> Monta il supporto: due piedi, due montanti e la traversa, con il centro a 1200 mm da terra. Posizionalo in modo che lo schermo sia a 855 mm dai tuoi occhi.</li>
+      <li><b>Attrezzatura e regolazione.</b> Imbullona la base, i pedali e il cambio alle loro piastre, siediti e controlla ogni angolo nella tabella delle verifiche. Regola sedile, inclinazioni e schermo finché tutto va bene.</li>
+    </ol>
+
+    <h2>Tre monitor e un direct drive</h2>
+    <p>Con tre monitor da 27 pollici il supporto degli schermi si allarga: le due ali laterali sono ruotate di 39° verso di te e coprono 118° in orizzontale, il valore da mettere nel campo visivo del gioco. Con una base direct drive lo strumento segna in giallo la rigidità del supporto volante: nessun dato pubblicato dice quanto debba reggere, e Asetek avverte che un force feedback forte rivela ogni gioco. Il progetto ha già montanti con puntoni e un pannello tra loro, sopra le ginocchia. A postazione montata, afferra la corona e torcila con forza; se il supporto si muove, aggiungi un puntone prima di correre.</p>
+    <a class="btn btn-primary sr-open" href="/it/cockpit-sim-racing/#prefill=eyJ2IjoxLCJidWlsZCI6Indvb2QiLCJ1bml0cyI6Im1ldHJpYyIsInN0eWxlIjoiZ3QiLCJuYW1lIjoiUG9zdGF6aW9uZSBHVCBpbiBsZWdubywgMSw3NyBtIiwiZHJpdmVyIjp7ImgiOjE3NzB9LCJzY3JlZW4iOnsia2luZCI6InRyaXBsZSIsInNpemUiOjI3fSwicmlnIjp7InNlYXRIIjo0ODUsImgzMCI6MzQyLCJsNTMiOjY2Mywid2hlZWxVcCI6NDQwLCJ3aGVlbFJlYWNoIjozNzIsInNjcmVlbkRpc3QiOjg1NX0sImx1bWJlciI6Iml0LTQ1eDgwIn0">Apri questo progetto nello strumento</a>
+  </article>
+
+  <section class="sr-sec sr-article" aria-labelledby="faq-h">
+    <h2 id="faq-h">Domande frequenti</h2>
+    <div class="sr-faq">
+      <details><summary>Che legno usare per una postazione sim racing?</summary><div class="answer"><p>Listelli di abete piallato dritti e con pochi nodi, da 45 x 80 o 45 x 95 mm. Per le piastre, OSB/3 da 18 mm, in cui le viti tengono bene; quello da 15 mm va per le parti meno caricate.</p></div></details>
+      <details><summary>Quanto costa una postazione in legno fai da te?</summary><div class="answer"><p>Dipende dal negozio e dal giorno, quindi lo strumento non mostra prezzi. La lista della spesa dà le quantità; inserisci i prezzi che trovi e calcola il totale.</p></div></details>
+      <details><summary>A che altezza va il volante?</summary><div class="answer"><p>Asetek consiglia il centro del volante tra l’altezza del petto e quella delle spalle, con le spalle rilassate e i gomiti un po’ piegati; Qubic System lo mette vicino alla base del collo in GT. In questo progetto per 1,77 m sta 440 mm sopra il punto anca.</p></div></details>
+      <details><summary>C’è il progetto in PDF?</summary><div class="answer"><p>Sì, con Pro: un PDF in italiano, in A4 e in millimetri, con la lista di taglio, lo schema di ogni barra, viste quotate, le fasi di montaggio e le dime di foratura in scala reale. 19 USD, una tantum.</p></div></details>
+    </div>
+  </section>
+
+  <section class="sr-sec" aria-labelledby="more-h">
+    <h2 id="more-h">Altro prima di costruire</h2>
+    <ul class="sr-guides">
+      <li><a href="/it/cockpit-sim-racing/"><b>Sim Rig Designer, lo strumento</b><span>Il tuo cockpit in 3D, su misura per il tuo corpo</span></a></li>
+      <li><a href="/it/cockpit-sim-racing/postazione-sim-racing-misure/"><b>Misure per la tua altezza</b><span>Sedile, pedali, volante e schermo da 1,60 a 1,95 m</span></a></li>
+      <li><a href="/it/cockpit-sim-racing/postazione-sim-racing-profilati/"><b>Postazione con profilati</b><span>40 x 80 e 40 x 40 scanalatura 8: distinta, squadrette, tasselli</span></a></li>
+      <li><a href="/it/cockpit-sim-racing/supporto-volante-fai-da-te/"><b>Supporto volante fai da te</b><span>Volante e pedaliera su un supporto in OSB, per la sedia</span></a></li>
+    </ul>
+  </section>
+
+  <section class="sr-sec sr-sources" aria-labelledby="src-h">
+    <h2 id="src-h">Fonti</h2>
+    <ol>
+      <li><a href="https://www.obi-italia.it/p/4493086/listello-in-abete-piallato-45x80x2000-mm" rel="noopener">OBI Italia: Listello in abete piallato 45 x 80 x 2000 mm</a> <span>(consultato il 15 ottobre 2026)</span></li>
+      <li><a href="https://www.obi-italia.it/p/6191738/listello-in-abete-piallato-4-lati-45x95x2000-mm" rel="noopener">OBI Italia: Listello in abete piallato 4 lati 45 x 95 x 2000 mm</a> <span>(consultato il 15 ottobre 2026)</span></li>
+      <li><a href="https://www.obi-italia.it/p/6036883/pannello-osb-3-da-posa-a-filo-18-mm-x-250-cm-x-125-cm" rel="noopener">OBI Italia: Pannello OSB-3 da posa a filo 18 mm x 250 cm x 125 cm</a> <span>(consultato il 15 ottobre 2026)</span></li>
+      <li><a href="https://www.obi-italia.it/p/2099091/pannello-osb-3-2500x1250x15-mm-legno-chiaro" rel="noopener">OBI Italia: Pannello OSB/3 2500 x 1250 x 15 mm legno chiaro</a> <span>(consultato il 15 ottobre 2026)</span></li>
+      <li><a href="https://repository.lboro.ac.uk/articles/journal_contribution/Exploring_the_optimum_posture_for_driver_comfort/9349361" rel="noopener" lang="en" hreflang="en">Porter, J.M. and Gyi, D.E. (1998), Exploring the optimum posture for driver comfort, International Journal of Vehicle Design 19(3), 255-266: Table 2, comfortable angles observed in 55 drivers against Rebiffé (1969) and Grandjean (1980); Table 7, the rig dimensions they chose (Loughborough University repository)</a> <span>(consultato il 14 ottobre 2026)</span></li>
+      <li><a href="https://law.resource.org/pub/us/cfr/ibr/005/sae.j1100.2001.html" rel="noopener" lang="en" hreflang="en">SAE J1100, Motor Vehicle Dimensions, Surface Vehicle Recommended Practice, revised February 2001 (public copy at law.resource.org): the definitions of H30, L40, L42, L44, L46 and L53, and the two classes of driver seating, Class A (H30 127 to 405 mm, torso angle 5 to 40 degrees) and Class B (heavy trucks and buses: H30 405 to 530 mm, torso angle 11 to 18 degrees)</a> <span>(consultato il 14 ottobre 2026)</span></li>
+      <li><a href="https://fanatec.com/us/en/explorer/products/pedals/best-sim-racing-pedal-position-for-gt-sim-racing/" rel="noopener" lang="en" hreflang="en">Fanatec: Best sim racing pedal position for GT sim racing (19 December 2024)</a> <span>(consultato il 14 ottobre 2026)</span></li>
+      <li><a href="https://www.asetek.com/simsports/guides/sim-racing-ergonomics-tips-for-a-comfortable-and-effective-setup/" rel="noopener" lang="en" hreflang="en">Asetek SimSports: Sim Racing Ergonomics, The Complete Guide to Comfort, Control and Performance (14 March 2024, updated 19 August 2026)</a> <span>(consultato il 14 ottobre 2026)</span></li>
+      <li><a href="https://www.asetek.com/simsports/guides/simsports-guides-sim-racing-wheel-position/" rel="noopener" lang="en" hreflang="en">Asetek SimSports: Sim Racing Wheel Position, Height, Distance and Control (11 August 2026)</a> <span>(consultato il 14 ottobre 2026)</span></li>
+      <li><a href="https://www.asetek.com/simsports/guides/sim-racing-monitor-position/" rel="noopener" lang="en" hreflang="en">Asetek SimSports: Sim Racing Monitor Position, Height, Distance and FOV (23 July 2026, updated 8 October 2026)</a> <span>(consultato il 14 ottobre 2026)</span></li>
+      <li><a href="https://qubicsystem.com/2023/01/gt-proper-seating-position/" rel="noopener" lang="en" hreflang="en">Qubic System: GT proper seating position (5 January 2023, updated 27 November 2025)</a> <span>(consultato il 14 ottobre 2026)</span></li>
+      <li><a href="https://www.openlab.psu.edu/ansur2/" rel="noopener" lang="en" hreflang="en">Anthropometric Survey of US Army Personnel (ANSUR II), 2012: public data for 4,082 men and 1,986 women, published by the Penn State OPEN Design Lab; methods in Gordon et al. (2015), NATICK/TR-15/007</a> <span>(consultato il 14 ottobre 2026)</span></li>
+    </ol>
+    <p class="sr-small">Indicazioni per un progetto fai da te, senza garanzia ingegneristica. Nessun legame con i produttori, i negozi, gli enti di normazione o le università citati qui.</p>
+  </section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Strumenti piccoli e curati, ognuno per un compito preciso. I tuoi progetti sono calcolati nel tuo browser e non vengono mai inviati.</p>
+      <p style="margin:12px 0 0">Realizzato da <a href="https://peakappsstudio.com/">Peak Apps Studio</a>.<br>Scrivici a <a href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a></p>
+    </div>
+    <div>
+      <h2>Cockpit sim racing in 3D</h2>
+      <ul>
+        <li><a href="/it/cockpit-sim-racing/">Progettare un cockpit</a></li>
+        <li><a href="/it/cockpit-sim-racing/postazione-sim-racing-legno/">Postazione sim racing in legno fai da te: progetto con misure</a></li>
+        <li><a href="/it/cockpit-sim-racing/postazione-sim-racing-misure/">Misure di una postazione sim racing, da 1,60 a 1,95 m</a></li>
+        <li><a href="/it/cockpit-sim-racing/postazione-sim-racing-profilati/">Postazione sim racing con profilati di alluminio: la distinta</a></li>
+        <li><a href="/it/cockpit-sim-racing/supporto-volante-fai-da-te/">Supporto volante e pedaliera fai da te, per la sedia</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Altre lingue</h2>
+      <ul>
+        <li><a href="/sim-rig-designer/" hreflang="en" lang="en">Sim Rig Designer (English)</a></li>
+        <li><a href="/de/sim-rig/" hreflang="de" lang="de">Sim Rig Designer (Deutsch)</a></li>
+        <li><a href="/pt-br/cockpit-simulador/" hreflang="pt-BR" lang="pt-BR">Cockpit simulador em 3D (português)</a></li>
+        <li><a href="/es/cockpit-simracing/" hreflang="es" lang="es">Cockpit de simracing en 3D (español)</a></li>
+        <li><a href="/fr/cockpit-simracing/" hreflang="fr" lang="fr">Cockpit de simracing en 3D (français)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Strumenti per la casa (in inglese)</h2>
+      <ul>
+        <li><a href="/without-planning/" hreflang="en" lang="en">Without Planning</a></li>
+        <li><a href="/dropped-kerb/" hreflang="en" lang="en">Dropped Kerb Check</a></li>
+        <li><a href="/catio-designer/" hreflang="en" lang="en">Catio Designer</a></li>
+        <li><a href="/coop-designer/" hreflang="en" lang="en">Coop Designer</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Chi siamo</h2>
+      <ul>
+        <li><a href="/tools/" hreflang="en">Tutti gli strumenti (in inglese)</a></li>
+        <li><a href="/tools/privacy/" hreflang="en">Privacy e licenze (in inglese)</a></li>
+        <li><a href="https://peakappsstudio.com/">Lo studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+</html>
