@@ -1,5 +1,117 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/blog/contractor-quote-template-free.html",
+      "destination": "https://www.getquotationmaker.com/quote-template-contractor",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/contractor-quote-template-free",
+      "destination": "https://www.getquotationmaker.com/quote-template-contractor",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/tradesman-quote-template.html",
+      "destination": "https://www.getquotationmaker.com/quote-template-builder",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/tradesman-quote-template",
+      "destination": "https://www.getquotationmaker.com/quote-template-builder",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/irs-mileage-log-requirements.html",
+      "destination": "https://www.mileagelogmaker.com/irs-mileage-log-requirements",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/irs-mileage-log-requirements",
+      "destination": "https://www.mileagelogmaker.com/irs-mileage-log-requirements",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/free-printable-mileage-log-pdf.html",
+      "destination": "https://www.mileagelogmaker.com/free-mileage-log-template",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/free-printable-mileage-log-pdf",
+      "destination": "https://www.mileagelogmaker.com/free-mileage-log-template",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/uber-driver-mileage-log.html",
+      "destination": "https://www.mileagelogmaker.com/mileage-log-uber-drivers",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/uber-driver-mileage-log",
+      "destination": "https://www.mileagelogmaker.com/mileage-log-uber-drivers",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/cra-mileage-log.html",
+      "destination": "https://www.mileagelogmaker.com/cra-mileage-log-template",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/cra-mileage-log",
+      "destination": "https://www.mileagelogmaker.com/cra-mileage-log-template",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/doordash-mileage-deduction.html",
+      "destination": "https://www.mileagelogmaker.com/mileage-log-doordash-drivers",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/doordash-mileage-deduction",
+      "destination": "https://www.mileagelogmaker.com/mileage-log-doordash-drivers",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/ugc-creator-brief-template.html",
+      "destination": "https://www.getbriefbase.com/blog/ugc-brief-template-that-actually-works",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/ugc-creator-brief-template",
+      "destination": "https://www.getbriefbase.com/blog/ugc-brief-template-that-actually-works",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/how-to-run-a-ugc-agency.html",
+      "destination": "https://www.getbriefbase.com/blog/how-to-manage-ugc-creators-without-going-insane",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/how-to-run-a-ugc-agency",
+      "destination": "https://www.getbriefbase.com/blog/how-to-manage-ugc-creators-without-going-insane",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/how-to-calculate-gst-on-canadian-invoices.html",
+      "destination": "https://getinvoicemaker.com/how-to-calculate-gst-on-canadian-invoices",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/how-to-calculate-gst-on-canadian-invoices",
+      "destination": "https://getinvoicemaker.com/how-to-calculate-gst-on-canadian-invoices",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/invoice-netherlands.html",
+      "destination": "https://getinvoicemaker.com/free-invoice-generator-netherlands",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/invoice-netherlands",
+      "destination": "https://getinvoicemaker.com/free-invoice-generator-netherlands",
+      "statusCode": 301
+    }
+  ],
   "rewrites": [
     {
       "source": "/privacy",
