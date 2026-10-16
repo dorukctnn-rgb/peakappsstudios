@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OkulTakip: iPhone için çocuk takip uygulaması, okula varış bildirimi</title>
+<meta name="description" content="Çocuk takip uygulaması OkulTakip: çocuğun okula vardığında, okuldan çıktığında ve eve geldiğinde sen sormadan bildirim gelir. Hesap yok, QR ile eşleşme, deprem modu. iPhone için ücretsiz.">
+<link rel="canonical" href="https://peakappsstudio.com/apps/okultakip/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="OkulTakip: iPhone için çocuk takip uygulaması, okula varış bildirimi">
+<meta property="og:description" content="Çocuk takip uygulaması OkulTakip: çocuğun okula vardığında, okuldan çıktığında ve eve geldiğinde sen sormadan bildirim gelir. Hesap yok, QR ile eşleşme, deprem modu. iPhone için ücretsiz.">
+<meta property="og:url" content="https://peakappsstudio.com/apps/okultakip/">
+<meta property="og:image" content="https://peakappsstudio.com/apps/okultakip/og.jpg">
+<meta property="og:locale" content="tr_TR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-itunes-app" content="app-id=6758399281">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/display.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"AppDisplay";src:url(fonts/display.woff2) format("woff2");font-weight:800;font-display:swap}
+@font-face{font-family:"AppText";src:url(fonts/text.woff2) format("woff2");font-weight:400 600;font-display:swap}
+:root{--band:#0F1B36;--band2:#1F3B7A;--brand:#2F6BFF;--link:#1F56E0;--ink:#13233F;
+--muted:#5B6478;--page:#F6F7FB;--card:#fff;--line:#DFE4EE;--ok:#16A36A;--sos:#E5484D}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink);font:400 17px/1.6 "AppText",system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:var(--link)}a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--brand);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.top{background:var(--band);color:#fff}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.top a{color:#dfe6f5;text-decoration:none;font-weight:500;font-size:15px}.top a:hover{color:#fff}
+.hero{background:radial-gradient(120% 90% at 78% 70%,var(--band2) 0%,var(--band) 62%);color:#fff;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:center;padding-top:56px;padding-bottom:0}
+.brandrow{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.brandrow img{width:56px;height:56px;border-radius:13px}
+.brandrow b{font:800 22px/1 "AppDisplay",sans-serif;letter-spacing:-.01em}
+h1,h2{font-family:"AppDisplay",sans-serif;font-weight:800;letter-spacing:-.02em;line-height:1.08;margin:0}
+h1{font-size:clamp(34px,5.2vw,58px);max-width:15ch}
+.hero p.sub{font-size:clamp(17px,1.6vw,20px);color:#d6def0;max-width:34em;margin:20px 0 28px}
+.btn{display:inline-block;background:var(--brand);color:#fff;font-weight:600;font-size:18px;text-decoration:none;
+padding:16px 26px;border-radius:14px;box-shadow:0 10px 30px -10px rgba(47,107,255,.65)}
+.btn:hover{filter:brightness(1.08)}
+.note{color:#b9c4dc;font-size:15px;margin:14px 0 0}
+.fan{position:relative;height:620px;perspective:1600px;margin-top:10px}
+.fan img{position:absolute;bottom:-150px;width:300px;height:auto;filter:drop-shadow(0 30px 40px rgba(0,0,0,.45))}
+.fan .c{left:50%;transform:translateX(-50%) translateZ(60px);z-index:3;width:320px}
+.fan .l{left:2%;transform:rotateY(24deg) rotateZ(-6deg) translateY(40px);z-index:2}
+.fan .r{right:2%;transform:rotateY(-24deg) rotateZ(6deg) translateY(40px);z-index:2}
+section{padding:84px 0}
+.split .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.split.rev .shot{order:-1}
+h2{font-size:clamp(28px,3.6vw,42px);max-width:18ch;margin-bottom:18px}
+.lead{font-size:19px;color:var(--ink);max-width:36em}
+ul.facts{padding:0;margin:22px 0 0;list-style:none}
+ul.facts li{padding:12px 0 12px 30px;border-top:1px solid var(--line);position:relative}
+ul.facts li:before{content:"";position:absolute;left:4px;top:21px;width:10px;height:10px;border-radius:50%;background:var(--brand)}
+.prem{color:var(--muted);font-size:15px}
+.shot{display:flex;justify-content:center}
+.shot img{width:min(360px,80vw);height:auto;filter:drop-shadow(0 26px 34px rgba(19,35,63,.22))}
+.alt{background:#fff}
+ol.steps{list-style:none;padding:0;margin:28px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:28px;counter-reset:s}
+ol.steps li{counter-increment:s;border-top:3px solid var(--ink);padding-top:16px;font-size:18px}
+ol.steps li:before{content:counter(s);display:block;font:800 40px/1 "AppDisplay",sans-serif;color:var(--brand);margin-bottom:10px}
+.small{color:var(--muted);font-size:15px;max-width:52em;margin-top:26px}
+table{width:100%;border-collapse:collapse;margin-top:26px;font-size:16px;background:#fff}
+th,td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--line)}
+th{font-weight:600}td.y{color:#0d7a4c;font-weight:600}td.n{color:var(--muted)}
+thead th{background:var(--band);color:#fff}thead th:first-child{border-top-left-radius:12px}thead th:last-child{border-top-right-radius:12px}
+details{border-top:1px solid var(--line);padding:18px 0}details:last-child{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;font-weight:600;font-size:18px;list-style:none}summary::-webkit-details-marker{display:none}
+details p{margin:10px 0 0;color:#2b3a57;max-width:46em}
+.final{background:var(--band);color:#fff;text-align:center}
+.final h2{margin:0 auto 22px;max-width:20ch}
+footer{background:#0b1428;color:#aab6cf;font-size:15px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:18px 28px;padding-top:28px;padding-bottom:28px}
+footer a{color:#dfe6f5}
+@media (max-width:900px){.hero .wrap,.split .wrap{grid-template-columns:1fr}.fan{height:470px}.fan img{width:220px;bottom:-120px}
+.fan .c{width:240px}.split.rev .shot{order:0}ol.steps{grid-template-columns:1fr}section{padding:64px 0}}
+@media (prefers-reduced-motion:no-preference){.fan .c{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{transform:translateX(-50%) translateY(60px) translateZ(60px);opacity:0}}}
+</style>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "MobileApplication", "name": "OkulTakip", "operatingSystem": "iOS", "applicationCategory": "EducationalApplication", "inLanguage": "tr", "url": "https://peakappsstudio.com/apps/okultakip/", "downloadUrl": "https://apps.apple.com/tr/app/id6758399281", "description": "Çocuk takip uygulaması OkulTakip: çocuğun okula vardığında, okuldan çıktığında ve eve geldiğinde sen sormadan bildirim gelir. Hesap yok, QR ile eşleşme, deprem modu. iPhone için ücretsiz.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "TRY"}, "publisher": {"@type": "Organization", "name": "Peak Apps Studio", "url": "https://peakappsstudio.com"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Çocuğumu telefondan nasıl takip edebilirim?", "acceptedAnswer": {"@type": "Answer", "text": "Kendi telefonuna ve çocuğunun telefonuna OkulTakip'i kur, iki telefonu QR kodla eşleştir ve okulu, evi bölge olarak ekle. Çocuğun bu bölgelere girip çıktığında bildirim gelir, son konumunu da haritada görürsün. Çocuk, konumunu kimin gördüğünü kendi ekranında bilir."}}, {"@type": "Question", "name": "iPhone için ücretsiz çocuk takip uygulaması var mı?", "acceptedAnswer": {"@type": "Answer", "text": "OkulTakip ücretsiz indirilir. Ücretsiz planda 1 çocuk ve 1 bölge için giriş ve çıkış bildirimleri, SOS ve deprem modu vardır; servis, eve varmadı uyarısı ve sınırsız bölge Premium'dadır."}}, {"@type": "Question", "name": "OkulTakip Android'de var mı?", "acceptedAnswer": {"@type": "Answer", "text": "Şimdilik yalnızca iPhone için; veli ve çocuk telefonunun ikisi de iPhone olmalı. Android sürümü hazırlanıyor."}}, {"@type": "Question", "name": "Hesap açmam ya da telefon numaramı vermem gerekiyor mu?", "acceptedAnswer": {"@type": "Answer", "text": "Hayır. Hesap, telefon numarası ya da e-posta yok. İki telefon QR kodla eşleşir; uzaktaysanız eşleşme linkini WhatsApp ile gönderirsin."}}, {"@type": "Question", "name": "Çocuğumun okula vardığını nasıl anlarım?", "acceptedAnswer": {"@type": "Answer", "text": "Okulu haritadan bölge olarak eklersin. Çocuğun bölgeye girdiğinde okula vardı, çıktığında okuldan çıktı bildirimi telefonuna gelir."}}, {"@type": "Question", "name": "Servis takibi nasıl çalışıyor?", "acceptedAnswer": {"@type": "Answer", "text": "Çocuğun telefonu araç hızında hareket etmeye başlayınca servise binmiş olabilir, yürüme hızına dönünce araçtan indi bildirimi gelir. Servis bildirimi Premium'dadır."}}, {"@type": "Question", "name": "Deprem modu ne yapar?", "acceptedAnswer": {"@type": "Answer", "text": "Çocuğunun yakınında 4,5 ve üzeri bir deprem olursa AFAD verisiyle fark eder, çocuğa güvende olup olmadığını sorar ve cevabı hemen sana iletir. Ücretsiz planda da vardır."}}, {"@type": "Question", "name": "Ücretsiz mi?", "acceptedAnswer": {"@type": "Answer", "text": "Uygulama ücretsiz. Ücretsiz planda 1 çocuk ve 1 bölge, giriş ve çıkış bildirimleri, SOS, Geldim, Beni Al, Geç Kalacağım, deprem modu ve pil uyarısı var. Premium aylık ya da yıllık abonelikle açılır, bütün aile kullanır; ilk kez abone olanlara 7 gün ücretsiz deneme var."}}, {"@type": "Question", "name": "Pili çok harcar mı?", "acceptedAnswer": {"@type": "Answer", "text": "Telefonun kendi bölge algılamasını kullanır ve çocuk bir yerde dururken konum sıklığını azaltır. Arka planda konum kullandığı için pil kullanımı bir miktar artabilir."}}, {"@type": "Question", "name": "Hafta sonu ve tatillerde de uyarı gelir mi?", "acceptedAnswer": {"@type": "Answer", "text": "Hayır. OkulTakip MEB takvimini bilir; hafta sonu, resmî tatil ve ara tatillerde okul uyarısı göndermez. Kar tatili gibi günler için Bugün okul yok düğmesi var."}}]}]</script>
+</head>
+<body>
+<header class="top"><div class="wrap"><a href="/">Peak Apps Studio</a><a href="https://apps.apple.com/tr/app/id6758399281">App Store</a></div></header>
+<main>
+<div class="hero"><div class="wrap">
+  <div>
+    <div class="brandrow"><img src="img/icon.png" alt="" width="56" height="56"><b>OkulTakip</b></div>
+    <h1>Çocuğun okula vardığında, sen sormadan haber gelsin</h1>
+    <p class="sub">OkulTakip okula varış, okuldan çıkış ve eve varış bildirimlerini kendiliğinden gönderir. Hesap açmak yok: iki telefonu QR kodla 10 saniyede eşleştirirsin.</p>
+    <a class="btn" href="https://apps.apple.com/tr/app/id6758399281">App Store&#39;da OkulTakip&#39;i aç</a>
+    <p class="note">iPhone için. Ücretsiz planda 1 çocuk ve 1 bölge var.</p>
+  </div>
+  <div class="fan" aria-hidden="true">
+    <img class="l" src="img/01-harita.webp" alt="" width="300" height="632" loading="eager">
+    <img class="r" src="img/06-deprem.webp" alt="" width="300" height="573" loading="eager">
+    <img class="c" src="img/02-bildirimler.webp" alt="" width="320" height="632" fetchpriority="high">
+  </div>
+</div></div>
+
+
+<section class="split" id="bildirimler"><div class="wrap">
+  <div><h2>Okulu bilen bildirimler</h2><p class="lead">Okul, ev, dershane ya da spor salonu için haritada bir bölge belirlersin. Çocuğun bu bölgelere girip çıktığında telefonuna bildirim gelir; aramana ya da mesaj atmana gerek kalmaz.</p>
+  <ul class="facts"><li>Okula vardı, okuldan çıktı ve eve vardı bildirimleri</li><li>Eve varmadı uyarısı: okul çıkışından sonra belirlediğin sürede eve gelmezse haber alırsın <span class="prem">(Premium)</span></li><li>Geç kalma uyarısı: ders başladığında okulda değilse haber alırsın <span class="prem">(Premium)</span></li><li>Servis bildirimi: araca bindiğinde ve indiğinde haber gelir, Servis Kartı&#39;ndan şoförü tek dokunuşla ararsın <span class="prem">(Premium)</span></li><li>MEB takvimini bilir: hafta sonu, resmî tatil ve ara tatilde boş uyarı göndermez; kar tatili için Bugün okul yok düğmesi var</li></ul></div>
+  <div class="shot"><img src="img/02-bildirimler.webp" alt="Kilit ekranında OkulTakip bildirimleri: bölgeye giriş, araçtan indi, araç algılandı, bölgeden çıkış" width="360" height="758" loading="lazy"></div>
+</div></section>
+
+
+
+<section class="split rev alt" id="harita"><div class="wrap">
+  <div><h2>Son konum ve günün akışı tek ekranda</h2><p class="lead">Son konumu, doğruluğunu ve ne zaman güncellendiğini görürsün: tahmin değil, çocuğun telefonundan gelen bilgi. Bugün bölümünde evden çıkış, servise biniş ve okula varış saatleri sırayla durur.</p>
+  <ul class="facts"><li>Konumu Şimdi İste ile çocuğun telefonundan hemen yeni konum alırsın <span class="prem">(Premium)</span></li><li>Okulu yakındaki okullar listesinden seçersin</li><li>Birden fazla çocuk tek ekranda; anne, baba ya da başka bir yakın aileye katılabilir ve aynı bildirimleri alır</li></ul></div>
+  <div class="shot"><img src="img/01-harita.webp" alt="OkulTakip haritası: Elif okulda, bugün 07:46 evden çıktı, 07:58 servise bindi, 08:12 okula vardı" width="360" height="758" loading="lazy"></div>
+</div></section>
+
+
+
+<section class="split" id="deprem"><div class="wrap">
+  <div><h2>Depremde ilk soru: güvende misin?</h2><p class="lead">Çocuğunun yakınında 4,5 ve üzeri bir deprem olursa OkulTakip bunu AFAD verisiyle fark eder ve çocuğun telefonunda Güvendeyim ya da Yardım Lazım diye sorar. Cevap anında sana gelir. Deprem modu ücretsiz planda da açıktır.</p>
+  </div>
+  <div class="shot"><img src="img/06-deprem.webp" alt="Deprem modu: Deprem oldu, güvende misin? Güvendeyim ve Yardım Lazım düğmeleri" width="360" height="688" loading="lazy"></div>
+</div></section>
+
+
+
+<section class="split rev alt" id="cocuk"><div class="wrap">
+  <div><h2>Çocuğun tek dokunuşla haber verir</h2><p class="lead">Geldim, Beni Al ve Geç Kalacağım düğmeleri çocuğun bulunduğu adresle birlikte sana ulaşır. SOS düğmesine 2 saniye basılı tuttuğunda bütün veliler aynı anda haber alır. Çocuk, konumunu kimin görebildiğini kendi ekranında görür ve paylaşımı durdurabilir.</p>
+  </div>
+  <div class="shot"><img src="img/05-cocuk.webp" alt="Çocuğun ekranı: Geldim, Beni Al, Geç Kalacağım düğmeleri ve SOS" width="360" height="758" loading="lazy"></div>
+</div></section>
+
+
+
+<section class="alt" id="kurulum"><div class="wrap"><h2>Kurulum üç adım</h2>
+  <ol class="steps"><li>Kendi telefonunda OkulTakip&#39;i aç, Veliyim&#39;e dokun ve çocuğunun adını yaz.</li><li>Çocuğunun telefonunda Öğrenciyim&#39;e dokun ve ekrandaki QR kodu okut. Uzaktaysanız linki WhatsApp ile gönder.</li><li>Çocuğun telefonunda konum iznini Her Zaman olarak ver, okulu ve evi ekle. Gerisini OkulTakip halleder.</li></ol>
+  <p class="small">Bildirimlerin zamanında gelmesi için çocuğun telefonunda konum izni Her Zaman ve Kesin Konum açık olmalı. Uygulama arka planda konum kullanır; pil kullanımı bir miktar artabilir.</p></div></section>
+
+
+
+<section id="plan"><div class="wrap"><h2>Ücretsiz ve Premium</h2>
+  <table><thead><tr><th scope="col">Özellik</th><th scope="col">Ücretsiz</th><th scope="col">Premium</th></tr></thead><tbody>
+  <tr><th scope="row">Çocuk ve bölge sayısı</th><td class="y">1 çocuk, 1 bölge</td><td class="y">Sınırsız</td></tr><tr><th scope="row">Bölgeye giriş ve çıkış bildirimi</th><td class="y">Var</td><td class="y">Var</td></tr><tr><th scope="row">SOS, Geldim, Beni Al, Geç Kalacağım</th><td class="y">Var</td><td class="y">Var</td></tr><tr><th scope="row">Deprem modu ve pil uyarısı</th><td class="y">Var</td><td class="y">Var</td></tr><tr><th scope="row">Servis ve gece yolculuğu bildirimi</th><td class="n">Yok</td><td class="y">Var</td></tr><tr><th scope="row">Eve varmadı ve geç kalma uyarısı</th><td class="n">Yok</td><td class="y">Var</td></tr><tr><th scope="row">Konum izni ve düşük güç modu uyarısı</th><td class="n">Yok</td><td class="y">Var</td></tr><tr><th scope="row">Konumu Şimdi İste</th><td class="n">Yok</td><td class="y">Var</td></tr>
+  </tbody></table><p class="small">Premium bir kez alınır, bütün aile (bütün veliler ve çocuklar) kullanır. Aylık ve yıllık abonelik var; ilk kez abone olanlara 7 gün ücretsiz deneme sunulur. Güncel fiyatı App Store&#39;da görürsün.</p></div></section>
+
+
+
+<section class="alt" id="gizlilik"><div class="wrap"><h2>Gizlilik ve pil</h2>
+  <ul class="facts"><li>Veriler satılmaz, uygulamada reklam yok</li><li>Konum geçmişi 30 gün sonra kendiliğinden silinir</li><li>Ortam dinleme, ekran ya da mesaj okuma yok</li><li>Verilerimi Sil ile bütün verileri tek dokunuşla silersin</li><li>Telefonun kendi bölge algılamasını kullanır ve çocuk bir yerde dururken konum sıklığını azaltır; sürekli yüksek hassasiyetli GPS çalıştırmaz</li></ul>
+  <p class="small"><a href="https://okultakip.peakappsstudio.com/gizlilik/">Gizlilik politikasının tamamı</a></p></div></section>
+
+
+
+<section id="sss"><div class="wrap"><h2>Sık sorulanlar</h2>
+  <details><summary>Çocuğumu telefondan nasıl takip edebilirim?</summary><p>Kendi telefonuna ve çocuğunun telefonuna OkulTakip&#39;i kur, iki telefonu QR kodla eşleştir ve okulu, evi bölge olarak ekle. Çocuğun bu bölgelere girip çıktığında bildirim gelir, son konumunu da haritada görürsün. Çocuk, konumunu kimin gördüğünü kendi ekranında bilir.</p></details><details><summary>iPhone için ücretsiz çocuk takip uygulaması var mı?</summary><p>OkulTakip ücretsiz indirilir. Ücretsiz planda 1 çocuk ve 1 bölge için giriş ve çıkış bildirimleri, SOS ve deprem modu vardır; servis, eve varmadı uyarısı ve sınırsız bölge Premium&#39;dadır.</p></details><details><summary>OkulTakip Android&#39;de var mı?</summary><p>Şimdilik yalnızca iPhone için; veli ve çocuk telefonunun ikisi de iPhone olmalı. Android sürümü hazırlanıyor.</p></details><details><summary>Hesap açmam ya da telefon numaramı vermem gerekiyor mu?</summary><p>Hayır. Hesap, telefon numarası ya da e-posta yok. İki telefon QR kodla eşleşir; uzaktaysanız eşleşme linkini WhatsApp ile gönderirsin.</p></details><details><summary>Çocuğumun okula vardığını nasıl anlarım?</summary><p>Okulu haritadan bölge olarak eklersin. Çocuğun bölgeye girdiğinde okula vardı, çıktığında okuldan çıktı bildirimi telefonuna gelir.</p></details><details><summary>Servis takibi nasıl çalışıyor?</summary><p>Çocuğun telefonu araç hızında hareket etmeye başlayınca servise binmiş olabilir, yürüme hızına dönünce araçtan indi bildirimi gelir. Servis bildirimi Premium&#39;dadır.</p></details><details><summary>Deprem modu ne yapar?</summary><p>Çocuğunun yakınında 4,5 ve üzeri bir deprem olursa AFAD verisiyle fark eder, çocuğa güvende olup olmadığını sorar ve cevabı hemen sana iletir. Ücretsiz planda da vardır.</p></details><details><summary>Ücretsiz mi?</summary><p>Uygulama ücretsiz. Ücretsiz planda 1 çocuk ve 1 bölge, giriş ve çıkış bildirimleri, SOS, Geldim, Beni Al, Geç Kalacağım, deprem modu ve pil uyarısı var. Premium aylık ya da yıllık abonelikle açılır, bütün aile kullanır; ilk kez abone olanlara 7 gün ücretsiz deneme var.</p></details><details><summary>Pili çok harcar mı?</summary><p>Telefonun kendi bölge algılamasını kullanır ve çocuk bir yerde dururken konum sıklığını azaltır. Arka planda konum kullandığı için pil kullanımı bir miktar artabilir.</p></details><details><summary>Hafta sonu ve tatillerde de uyarı gelir mi?</summary><p>Hayır. OkulTakip MEB takvimini bilir; hafta sonu, resmî tatil ve ara tatillerde okul uyarısı göndermez. Kar tatili gibi günler için Bugün okul yok düğmesi var.</p></details></div></section>
+
+
+<section class="final"><div class="wrap"><h2>Bugün okul çıkışında aramadan öğren</h2><a class="btn" href="https://apps.apple.com/tr/app/id6758399281">App Store&#39;da OkulTakip&#39;i aç</a>
+<p class="note">iPhone için. Ücretsiz planda 1 çocuk ve 1 bölge var.</p></div></section>
+</main>
+<footer><div class="wrap"><span>OkulTakip bir Peak Apps Studio uygulamasıdır.</span><a href="/">Peak Apps Studio</a>
+<a href="https://okultakip.peakappsstudio.com/gizlilik/">Gizlilik politikası</a><a href="https://okultakip.peakappsstudio.com/kosullar/">Kullanım koşulları</a>
+<a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></div></footer>
+</body>
+</html>
