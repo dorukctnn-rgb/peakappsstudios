@@ -1,0 +1,56 @@
+# Peak Apps Studio
+
+> Peak Apps Studio is an independent software studio. Its free browser tools live at peakappsstudio.com/<tool>/: most of them work on the files in your browser and upload nothing, and some offer a one-time Pro upgrade. The studio also publishes mobile apps.
+
+Each tool page explains what the tool does, how to use it and its limits; the guide pages under a tool answer one question each, with sources and a "last checked" date where rules or prices are involved.
+
+## Browser tools
+
+- [Tumbler Template Generator](https://peakappsstudio.com/tumbler-template/): Exact flat templates for tapered tumblers, cups and mugs, and a warp that bends your design to fit.
+- [Name Cut Files](https://peakappsstudio.com/name-cut-files/): Paste a list of names or an Etsy orders CSV and get welded, same-size SVG cut files laid out on your mat.
+- [KDP Coloring Book Interior Maker](https://peakappsstudio.com/kdp-coloring-book/): Turn coloring pages into an Amazon KDP-ready interior PDF with the right bleed, margins and blank backs.
+- [Print Only Your Size](https://peakappsstudio.com/sewing-pattern-printer/): Open a layered PDF sewing pattern and print just your size, on any computer, iPad or Chromebook.
+- [Quilt Label Maker](https://peakappsstudio.com/quilt-label-maker/): Print-ready quilt labels for inkjet fabric sheets, with quilt-block borders and a Quilt of Valor check.
+- [Etsy Tax Summary](https://peakappsstudio.com/etsy-tax-summary/): Year totals from your Etsy statement CSVs: sales, refunds, every fee and the Schedule C lines.
+- [Menopause Adjustments at Work](https://peakappsstudio.com/menopause-adjustments/): Ideas for changes at work from the Acas and GOV.UK guidance, chosen by symptom, and a polite request letter to your manager.
+- [Photo Date Fixer](https://peakappsstudio.com/photo-date-fixer/): Put the real date, local time and location back into the photos and videos of a Snapchat Memories export, in your browser.
+
+## Home project tools (3D)
+
+- [Without Planning](https://peakappsstudio.com/without-planning/): Check a home extension, garden room or heat pump in 3D against England’s permitted development rules and Ireland’s 2026 exemptions.
+- [Dropped Kerb Check](https://peakappsstudio.com/dropped-kerb/): Check a driveway in 3D against your council’s dropped kerb rules, with the planning answer and the fees, before you pay to apply.
+- [Catio Designer](https://peakappsstudio.com/catio-designer/): Design a catio for your window, wall or balcony in 3D, with the mesh and shelf checks and every board and roll of mesh to buy.
+- [Coop Designer](https://peakappsstudio.com/coop-designer/): Design a chicken coop and run for your flock and your yard in 3D, with the space, nest box and hardware-cloth checks and every board to buy.
+- [Sim Rig Designer](https://peakappsstudio.com/sim-rig-designer/): Design a sim racing cockpit around your own body in 3D, in 2x4, metric lumber or aluminium profile, with the angle checks and every board and bracket to buy.
+
+## Pay equity tools (UK, Ireland, EU)
+
+- [Pay Gap Report](https://peakappsstudio.com/pay-gap-report/): The statutory gender pay gap measures from a payroll export, for the UK, Ireland and the EU directive, worked out in your browser.
+- [Equality Action Plan](https://peakappsstudio.com/equality-action-plan/): A gender pay gap and menopause action plan from GOV.UK’s 18 actions, with the rules and word limits checked as you write.
+- [Job Evaluation](https://peakappsstudio.com/job-evaluation/): Score roles on skills, effort, responsibility and working conditions, and see which jobs are work of equal value.
+- [Pay Transparency Kit](https://peakappsstudio.com/pay-transparency/): Request letters for workers and Article 7 answers for employers, with the EU directive’s status in all 27 countries.
+
+## Other languages
+
+- [Plane einen Hühnerstall, der zu deinen Hühnern und deinem Garten passt (German)](https://peakappsstudio.com/de/huehnerstall/): Plane deinen Hühnerstall kostenlos online: auf Stelzen, begehbar, in A-Form oder mobil, passend zu deinen Hühnern, in 3D, geprüft und mit Materialliste.
+- [Sim Rig selber bauen, nach Maß für deinen Körper (German)](https://peakappsstudio.com/de/sim-rig/): Plane dein Sim Rig in 3D für deine Körpergröße, deinen Sitz und deine Technik: aus Holz, Aluprofil oder Sperrholz, mit Prüfung der Winkel und Zuschnittliste.
+- [Cockpit de simracing casero, a la medida de tu cuerpo (Spanish)](https://peakappsstudio.com/es/cockpit-simracing/): Diseña tu cockpit de simracing en 3D para tu altura, tu asiento y tu equipo: de madera, perfil de aluminio o tablero, con ángulos y lista de cortes.
+- [Diseña un gallinero a la medida de tus gallinas y de tu terreno (Spanish)](https://peakappsstudio.com/es/gallinero/): Diseña tu gallinero en línea y gratis: elevado, caseta, en A o móvil, a la medida de tus gallinas, en 3D, comprobado y con la lista de materiales.
+- [Cockpit simracing fait maison, à la mesure de votre corps (French)](https://peakappsstudio.com/fr/cockpit-simracing/): Concevez votre cockpit simracing en 3D selon votre taille, votre siège et votre matériel : bois, profilé alu ou panneaux, angles vérifiés, plan de débit.
+- [Corriger la date de vos souvenirs Snapchat (memories) dans le navigateur (French)](https://peakappsstudio.com/fr/corriger-date-photos/): Remettez la vraie date, l’heure locale et le lieu dans les photos de votre export Snapchat. Tout se passe dans le navigateur, rien n’est envoyé.
+- [Concevez un poulailler pour vos poules et votre jardin (French)](https://peakappsstudio.com/fr/poulailler/): Dessinez votre poulailler en ligne, gratuitement : sur pieds, cabane, en A ou mobile, à la taille de vos poules, en 3D, vérifié et avec la liste de matériaux.
+- [Cockpit sim racing fai da te, su misura per il tuo corpo (Italian)](https://peakappsstudio.com/it/cockpit-sim-racing/): Progetta il tuo cockpit sim racing in 3D per altezza, sedile e attrezzatura: in legno, profilati di alluminio o pannelli, con angoli e lista di taglio.
+- [Progetta un pollaio su misura per le tue galline e per il tuo terreno (Italian)](https://peakappsstudio.com/it/pollaio/): Progetta il tuo pollaio online e gratis: rialzato, a casetta, a capanna o mobile, su misura per le tue galline, in 3D, verificato e con la lista dei materiali.
+- [De datum van je Snapchat-herinneringen herstellen, zonder uploaden (Dutch)](https://peakappsstudio.com/nl/fotodatum-wijzigen/): Zet de echte datum, lokale tijd en locatie terug in de foto’s van je Snapchat-export. Alles gebeurt in je browser en er wordt niets geüpload.
+- [Ontwerp een kippenhok op maat van je kippen en je tuin (Dutch)](https://peakappsstudio.com/nl/kippenhok/): Ontwerp gratis online je kippenhok: op poten, inloophok, A-vorm of verplaatsbaar, op maat van je kippen, in 3D, gecontroleerd en met de materiaallijst.
+- [Cockpit simulador caseiro, nas medidas do seu corpo (Brazilian Portuguese)](https://peakappsstudio.com/pt-br/cockpit-simulador/): Projete o seu cockpit simulador em 3D para a sua altura, banco e equipamento: em madeira, perfil de alumínio ou compensado, com ângulos e lista de corte.
+- [Projete um galinheiro do tamanho das suas galinhas e do seu terreno (Brazilian Portuguese)](https://peakappsstudio.com/pt-br/galinheiro/): Projete o seu galinheiro online e grátis: suspenso, tipo casinha, triangular ou móvel, do tamanho das suas galinhas, em 3D, verificado e com a lista de materiais.
+
+## Apps
+
+- [OkulTakip](https://peakappsstudio.com/apps/okultakip/): Çocuk takip uygulaması OkulTakip: çocuğun okula vardığında, okuldan çıktığında ve eve geldiğinde sen sormadan bildirim gelir. Hesap yok, QR ile eşleşme, deprem modu. iPhone için ücretsiz.
+
+## Optional
+
+- [All tools](https://peakappsstudio.com/tools/): The hub page that lists every tool.
+- [Sitemap](https://peakappsstudio.com/sitemap.xml): every public page.
