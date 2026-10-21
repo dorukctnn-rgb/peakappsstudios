@@ -600,7 +600,7 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
 <h2>The files open but look like code</h2>
 <p>That’s normal: the export is JSON, a format for programs. <code>message.json</code> holds every message from every chat in one list, mixed together, with the text under <code>raw_content</code>. <a href="/character-ai-export-viewer/whats-in-the-export/">What’s in the export</a> explains each field. Chatbound groups the messages back into chats.</p>
 <h2>The JSON file is too big to open</h2>
-<p>Long histories make <code>message.json</code> hundreds of megabytes. Notepad, many online JSON viewers and some editors freeze on that. Chatbound reads the file in pieces in a background worker: in our tests a 106 MB locked ZIP with 288 MB of messages opened in about ten seconds on a laptop.</p>
+<p>Long histories make <code>message.json</code> hundreds of megabytes. Notepad, many online JSON viewers and some editors freeze on that. Chatbound reads the file in pieces in a background worker: in our tests a 106 MB locked ZIP with 288 MB of messages opened in 10 to 16 seconds on a laptop.</p>
 <h2>The messages are out of order or mixed up</h2>
 <p>The list isn’t grouped by conversation. Sort by <code>create_time</code> within each <code>chat_id</code> to rebuild a chat. Chatbound does this when it opens the file.</p>
 <h2>I can’t tell who said what</h2>
