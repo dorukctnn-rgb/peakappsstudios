@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src 'none'; worker-src 'self'; media-src 'self' blob:; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Snapchat-herinneringen: datum wijzigen zonder uploaden</title>
+<meta name="description" content="Zet de echte datum, lokale tijd en locatie terug in de foto’s van je Snapchat-export. Alles gebeurt in je browser en er wordt niets geüpload.">
+<link rel="canonical" href="https://peakappsstudio.com/nl/fotodatum-wijzigen/">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/photo-date-fixer/">
+<link rel="alternate" hreflang="fr" href="https://peakappsstudio.com/fr/corriger-date-photos/">
+<link rel="alternate" hreflang="nl" href="https://peakappsstudio.com/nl/fotodatum-wijzigen/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/photo-date-fixer/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Snapchat-herinneringen: datum wijzigen zonder uploaden">
+<meta property="og:description" content="Zet de echte datum, lokale tijd en locatie terug in de foto’s van je Snapchat-export. Alles gebeurt in je browser en er wordt niets geüpload.">
+<meta property="og:url" content="https://peakappsstudio.com/nl/fotodatum-wijzigen/">
+<meta property="og:image" content="https://peakappsstudio.com/photo-date-fixer/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Fotoprints als een waaier op een donker bureau, elk met een oranje datumstempel in de hoek">
+<meta property="og:locale" content="nl_NL">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#23282e">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/photo-date-fixer/fonts/datestamp-display.woff2" as="font" type="font/woff2" crossorigin>
+<style data-from="/assets/tools.css">
+/* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
+
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e1;
+  --card: #fbfaf7;
+  --ink: #141518;
+  --ink-2: #33363d;
+  --muted: #676b74;
+  --line: rgba(20, 21, 24, 0.12);
+  --line-2: rgba(20, 21, 24, 0.22);
+  --accent: #1f5c4d;          /* each tool overrides this on <body style="--accent:..."> */
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  --warn: #9a4a12;
+  --ok: #2c6a3f;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+    --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+  --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; }
+img { display: block; height: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 10px; z-index: 100; background: var(--ink); color: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 10px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-head { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand-sub { font-family: var(--sans); font-size: 14.5px; letter-spacing: 0; color: var(--muted); font-weight: 500; padding-left: 10px; border-left: 1px solid var(--line-2); }
+.head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
+.head-nav a:hover { background: var(--paper-2); color: var(--ink); }
+.head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
+@media (max-width: 640px) { .brand-sub { display: none; } }
+@media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
+
+/* ---------- Type ---------- */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+h1 { font-size: clamp(32px, 4.6vw, 54px); }
+h1 em, h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 19px; letter-spacing: -0.01em; }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; margin: 16px 0 0; }
+.mono { font-family: var(--mono); }
+.muted { color: var(--muted); }
+small, .small { font-size: 13.5px; }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 22px 0 0; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-2); }
+.crumbs a { text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.tool-hero { padding: 28px 0 24px; display: grid; gap: 8px; }
+.tool-hero .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.tool-hero .facts li { display: inline-flex; align-items: center; gap: 8px; }
+.tool-hero .facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Tool shell ---------- */
+.tool { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.tool-panel { padding: 22px; border-right: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.tool-stage { position: relative; min-height: 460px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper); display: grid; place-items: center; padding: 22px; }
+.tool-stage canvas, .tool-stage svg, .tool-stage img { max-height: 70vh; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px -12px rgba(0,0,0,.18); background: #fff; }
+.stage-bar { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.tool-foot { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 14px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--paper); }
+.tool-foot .spacer { flex: 1; }
+@media (max-width: 860px) {
+  .tool { grid-template-columns: 1fr; }
+  .tool-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tool-stage { min-height: 320px; }
+}
+
+/* ---------- Form controls ---------- */
+.group { display: grid; gap: 10px; }
+.group-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > label { font-size: 13px; color: var(--ink-2); }
+.input, .select { width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 8px; padding: 9px 11px; transition: border-color .15s, box-shadow .15s; }
+.input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input-unit { position: relative; }
+.input-unit .input { padding-right: 38px; font-family: var(--mono); font-size: 14.5px; }
+.input-unit i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 3px; flex: none; }
+.seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line-2); border-radius: 9px; padding: 3px; gap: 3px; background: var(--paper); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.warn { font-size: 13.5px; color: var(--warn); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.btn { --b: var(--line-2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 500; line-height: 1; padding: 11px 16px; border-radius: 9px; border: 1px solid var(--b); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; transition: transform .15s var(--ease), background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklab, var(--accent) 86%, #000); color: var(--accent-ink); border-color: transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-ink:hover { color: var(--paper); background: var(--ink-2); }
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.pro-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: var(--ink); color: var(--paper); }
+
+/* ---------- Drop zone ---------- */
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 18px 14px; background: var(--paper); cursor: pointer; transition: border-color .15s, background .15s; font-size: 14.5px; }
+.drop:hover, .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Content ---------- */
+.section { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prose { max-width: 70ch; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose h2 { margin: 1.6em 0 .5em; }
+.prose h3 { margin: 1.4em 0 .4em; }
+.prose code, .prose kbd { font-family: var(--mono); font-size: .9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+.two-col > * { min-width: 0; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: 3px; }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 13px; background: var(--paper); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 15px; }
+.source { font-size: 13px; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--line-2); margin-top: 18px; }
+.faq details { border-bottom: 1px solid var(--line-2); }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 13px; font-family: var(--mono); font-size: 18px; color: var(--muted); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 18px; color: var(--ink-2); max-width: 70ch; }
+
+/* ---------- Pro ---------- */
+.pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--card); }
+.pro-left { padding: clamp(22px, 3vw, 36px); }
+.pro-right { padding: clamp(22px, 3vw, 36px); background: var(--ink); color: var(--paper); display: grid; align-content: center; gap: 14px; }
+.pro-right .price { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pro-right .price small { font-size: 15px; font-weight: 400; color: color-mix(in oklab, var(--paper) 70%, transparent); letter-spacing: 0; }
+.pro-right .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.pro-right .btn-primary:hover { background: #fff; color: var(--ink); }
+.pro-right .fine { font-size: 13px; color: color-mix(in oklab, var(--paper) 65%, transparent); margin: 0; }
+.pro-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.pro-list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.pro-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border: 1.5px solid var(--accent); border-radius: 2px; transform: rotate(45deg); }
+@media (max-width: 760px) { .pro { grid-template-columns: 1fr; } }
+
+/* ---------- A real file, shown ---------- */
+.shot { margin: 22px 0 0; }
+.shot img { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; }
+.shot figcaption { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+.shot figcaption strong { font-weight: 600; color: var(--ink-2); }
+.shot-sm { max-width: 920px; }
+
+/* ---------- Where free stops and Pro starts ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; margin: 26px 0 0; background: var(--card); }
+.split > div { padding: 18px 20px 20px; }
+.split > div + div { border-left: 1px solid var(--line-2); background: var(--accent-soft); }
+.split h3 { font-size: 15.5px; margin: 0; }
+.split > div > p { margin: 5px 0 0; font-size: 13.5px; color: var(--muted); }
+.split ul { list-style: none; margin: 13px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
+.split li { position: relative; padding-left: 18px; }
+.split li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; border-radius: 1px; background: var(--line-2); }
+.split > div + div li::before { background: var(--accent); }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } .split > div + div { border-left: 0; border-top: 1px solid var(--line-2); } }
+
+/* ---------- A file list, as the archive really holds it ---------- */
+.filelist { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 5px; }
+.filelist li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filelist li span { color: var(--muted); }
+
+/* ---------- License dialog ---------- */
+.license-dialog { border: 1px solid var(--line-2); border-radius: 14px; padding: 0; width: min(440px, calc(100% - 32px)); background: var(--card); color: var(--ink); }
+.license-dialog::backdrop { background: rgba(10, 11, 13, .45); }
+.license-dialog form { padding: 22px; display: grid; gap: 14px; }
+.license-status { font-size: 14px; min-height: 1.4em; margin: 0; }
+.license-status[data-state="ok"] { color: var(--ok); }
+.license-status[data-state="err"] { color: var(--warn); }
+
+/* ---------- Related / cards ---------- */
+.related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line-2); margin-top: 22px; }
+.related a { display: grid; gap: 4px; padding: 18px 18px 18px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.related a strong { font-weight: 600; }
+.related a span { font-size: 14px; color: var(--muted); }
+.related a:hover strong { color: var(--accent); }
+
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
+/* ---------- Footer ---------- */
+.site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
+.site-foot h2 { font-size: 15px; font-family: var(--sans); letter-spacing: 0; font-weight: 600; color: var(--ink); margin: 0 0 10px; }
+.site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+@media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- Home project tools: the shared block on Without Planning and Dropped Kerb Check ---------- */
+.home-block { margin: clamp(36px, 5vw, 60px) 0 0; border-top: 1px solid var(--line-2); padding-top: 16px; }
+.home-title { margin: 0 0 10px; font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink); }
+.home-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px 24px; }
+.home-list a { display: grid; gap: 3px; padding: 2px 0 2px 14px; border-left: 4px solid var(--tool, var(--accent)); text-decoration: none; color: var(--ink); }
+.home-list a strong { font-weight: 700; font-size: 16px; }
+.home-list a span { color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+.home-list a:hover strong { color: var(--tool, var(--accent)); }
+.home-list a[aria-current="page"] span { color: var(--ink-2); }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .3s var(--ease); z-index: 90; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media print { .site-head, .site-foot, .tool-panel, .tool-foot, .no-print { display: none !important; } body { background: #fff; } }
+
+/* The hidden attribute must win over component display rules. */
+[hidden] { display: none !important; }
+</style>
+<style data-from="/photo-date-fixer/tool.css">
+/* Photo Date Fixer inside the Peak Apps Tools system: the date stamp of an old film camera. The tool panel is a graphite
+   camera back with seven-segment readouts, accents are date-stamp orange, headings are Datestamp Display (a Mona Sans
+   subset) and the panel's figures are Datestamp Text (a Hubot Sans subset), both under the SIL OFL 1.1 (fonts/). */
+@font-face { font-family: "Datestamp Display"; src: url("/photo-date-fixer/fonts/datestamp-display.woff2") format("woff2"); font-weight: 700 860; font-stretch: 125%; font-display: swap; }
+@font-face { font-family: "Datestamp Text"; src: url("/photo-date-fixer/fonts/datestamp-text.woff2") format("woff2"); font-weight: 400 700; font-display: swap; }
+@font-face { font-family: "Datestamp Fallback"; src: local("Arial"), local("Helvetica Neue"), local("Helvetica"); size-adjust: 104%; ascent-override: 92%; descent-override: 24%; }
+
+.pdf {
+  --display: "Datestamp Display", "Datestamp Fallback", system-ui, sans-serif;
+  --text: "Datestamp Text", "Datestamp Fallback", system-ui, sans-serif;
+  --graphite: #23282e; --graphite-2: #2c3239; --graphite-3: #3a4149;
+  --on-graphite: #e8ebee; --on-graphite-2: #b9c0c7;
+  --imprint: #ff4a1c; --imprint-off: rgba(255, 74, 28, 0.13);
+  --pdf-ok: #1e7b4f; --pdf-warn: #9a5b00; --pdf-bad: #b3261e;
+  --shadow-print: 0 1px 0 rgba(24, 28, 33, 0.06), 0 10px 24px -14px rgba(24, 28, 33, 0.35);
+  --accent-ink: #ffffff;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .pdf {
+    --accent: #ff4a1c !important; --accent-ink: #181c21;
+    --graphite: #262b31; --graphite-2: #2f363d; --graphite-3: #434b54;
+    --pdf-ok: #4fbf8a; --pdf-warn: #e0a347; --pdf-bad: #f07a6f;
+    --shadow-print: 0 1px 0 rgba(0, 0, 0, 0.4), 0 12px 28px -16px rgba(0, 0, 0, 0.8);
+  }
+}
+:root[data-theme="dark"] .pdf {
+  --accent: #ff4a1c !important; --accent-ink: #181c21;
+  --graphite: #262b31; --graphite-2: #2f363d; --graphite-3: #434b54;
+  --pdf-ok: #4fbf8a; --pdf-warn: #e0a347; --pdf-bad: #f07a6f;
+  --shadow-print: 0 1px 0 rgba(0, 0, 0, 0.4), 0 12px 28px -16px rgba(0, 0, 0, 0.8);
+}
+
+/* ---------- type: headings in the tool's own face, links underlined in date-stamp orange ---------- */
+.pdf main h1, .pdf main h2, .pdf main h3 { font-family: var(--display); font-stretch: 125%; letter-spacing: -0.02em; overflow-wrap: break-word; }
+.pdf main h1 { font-weight: 820; font-size: clamp(1.75rem, 3.4vw + 0.6rem, 3.6rem); line-height: 1.05; max-width: 22ch; text-wrap: balance; }
+.pdf main a { text-decoration-color: var(--imprint); text-decoration-thickness: 2px; }
+.pdf main a:hover { color: inherit; text-decoration-thickness: 3px; }
+.pdf main .pdf-panel a:hover { color: var(--on-graphite); }
+.pdf-visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- hero: the panel beside the lede ---------- */
+.pdf-hero { padding: clamp(14px, 2vw, 24px) 0 clamp(32px, 6vw, 72px); }
+.pdf-hero-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); grid-template-areas: "panel lede" "panel facts"; grid-template-rows: auto 1fr; column-gap: clamp(20px, 3.2vw, 48px); row-gap: 18px; margin-top: clamp(20px, 3vw, 36px); align-items: start; }
+.pdf-hero-grid > .lede { grid-area: lede; margin: 0; max-width: 46ch; }
+.pdf-hero-grid > .pdf-panel { grid-area: panel; }
+.pdf-hero-grid > .pdf-facts { grid-area: facts; }
+.pdf-facts { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-2); }
+.pdf-facts li { padding: 12px 0 12px 28px; border-bottom: 1px solid var(--line-2); position: relative; font-weight: 560; }
+.pdf-facts li::before { content: ""; position: absolute; left: 2px; top: 21px; width: 12px; height: 7px; border-radius: 1px; background: var(--imprint); }
+
+/* ---------- the tool: a camera back ---------- */
+.pdf-panel { background: var(--graphite); color: var(--on-graphite); border-radius: 18px; padding: clamp(14px, 2vw, 22px); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 24px 48px -30px rgba(18, 21, 25, 0.75); position: relative; min-width: 0; font-family: var(--text); }
+.pdf-panel :focus-visible { outline: 3px solid var(--imprint); outline-offset: 3px; }
+.pdf-readouts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; padding: 12px; background: #1a1e23; border-radius: 12px; box-shadow: inset 0 0 0 1px #343b43; }
+.pdf-readout { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.pdf-readout.alert { box-shadow: inset 0 0 0 2px #f07a6f; border-radius: 8px; }
+.pdf-seg { display: flex; gap: 3px; height: 34px; align-items: stretch; justify-content: flex-start; }
+.pdf-seg svg { height: 100%; width: auto; flex: none; display: block; max-width: none; }
+.pdf-seg .s { fill: var(--imprint-off); }
+.pdf-seg .s.on { fill: var(--imprint); }
+.pdf-seg .unit { align-self: flex-end; font-size: 0.78rem; font-weight: 600; color: var(--imprint); margin-left: 4px; line-height: 1; padding-bottom: 1px; }
+.pdf-ro-label { font-size: 0.8rem; line-height: 1.25; color: var(--on-graphite-2); }
+.pdf-status { margin: 10px 2px 0; font-size: 0.86rem; color: var(--on-graphite-2); display: flex; align-items: center; gap: 8px; min-height: 24px; }
+.pdf-lamp { width: 8px; height: 8px; border-radius: 50%; background: #59616b; flex: none; }
+.pdf-lamp.on { background: var(--imprint); box-shadow: 0 0 0 3px rgba(255, 74, 28, 0.18); }
+.pdf-stage { margin-top: 14px; }
+.pdf-stage[hidden] { display: none; }
+.pdf-finder { position: relative; border-radius: 12px; background: var(--graphite-2); padding: clamp(18px, 3vw, 30px) clamp(16px, 2.6vw, 28px); transition: background-color 160ms ease; }
+.pdf-finder::before, .pdf-finder::after, .pdf-finder > .c1, .pdf-finder > .c2 { content: ""; position: absolute; width: 18px; height: 18px; border-color: #6b747e; border-style: solid; pointer-events: none; }
+.pdf-finder::before { top: 10px; left: 10px; border-width: 2px 0 0 2px; }
+.pdf-finder::after { top: 10px; right: 10px; border-width: 2px 2px 0 0; }
+.pdf-finder > .c1 { bottom: 10px; left: 10px; border-width: 0 0 2px 2px; }
+.pdf-finder > .c2 { bottom: 10px; right: 10px; border-width: 0 2px 2px 0; }
+.pdf-finder.drag { background: #353c44; }
+.pdf-finder.drag::before, .pdf-finder.drag::after, .pdf-finder.drag > .c1, .pdf-finder.drag > .c2 { border-color: var(--imprint); }
+.pdf main .pdf-finder h2 { font-size: clamp(1.15rem, 1vw + 0.9rem, 1.5rem); font-weight: 760; line-height: 1.15; color: var(--on-graphite); max-width: 24ch; }
+.pdf-finder p { margin: 10px 0 0; color: var(--on-graphite-2); font-size: 0.95rem; max-width: 52ch; overflow-wrap: anywhere; }
+.pdf-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.pdf-btn { appearance: none; border: 0; cursor: pointer; font: inherit; font-weight: 650; font-size: 1rem; min-height: 46px; padding: 10px 20px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; line-height: 1.2; text-align: center; white-space: normal; }
+.pdf-btn-primary { background: var(--imprint); color: #181c21; }
+.pdf-btn-primary:hover { background: #ff6a43; }
+.pdf-btn-quiet { background: transparent; color: var(--on-graphite); box-shadow: inset 0 0 0 1.5px #59626c; }
+.pdf-btn-quiet:hover { box-shadow: inset 0 0 0 1.5px var(--on-graphite-2); }
+.pdf-btn[disabled] { opacity: 0.55; cursor: not-allowed; }
+.pdf-panel a { color: var(--on-graphite); }
+.pdf-small-link { display: inline-block; margin-top: 14px; font-size: 0.92rem; min-height: 24px; }
+.pdf-note { font-size: 0.86rem; color: var(--on-graphite-2); margin: 12px 0 0; }
+.pdf-err { margin: 14px 0 0; padding: 12px 14px; border-radius: 10px; background: #3b2320; color: #ffd9d2; font-size: 0.95rem; overflow-wrap: anywhere; }
+.pdf-err[hidden] { display: none; }
+.pdf-counter-help { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--graphite-3); }
+.pdf [data-stage-title]:focus { outline: none; }
+.pdf [data-stage-title]:focus-visible { outline: 3px solid var(--imprint); outline-offset: 3px; }
+.pdf-meter { display: grid; grid-template-columns: repeat(24, minmax(0, 1fr)); gap: 3px; margin-top: 14px; }
+.pdf-meter i { display: block; height: 14px; border-radius: 2px; background: var(--imprint-off); }
+.pdf-meter i.on { background: var(--imprint); }
+.pdf main .pdf-stage-title { font-family: var(--display); font-stretch: 125%; font-weight: 740; font-size: 1.12rem; line-height: 1.2; margin: 0; color: var(--on-graphite); }
+.pdf-stage-sub { margin: 6px 0 0; color: var(--on-graphite-2); font-size: 0.95rem; }
+
+/* review */
+.pdf-counts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 14px 0 0; padding: 0; list-style: none; }
+.pdf-counts li { background: var(--graphite-2); border-radius: 10px; padding: 10px 12px; font-size: 0.86rem; color: var(--on-graphite-2); min-width: 0; }
+.pdf-counts b { display: block; font-family: var(--display); font-stretch: 125%; font-size: 1.35rem; color: var(--on-graphite); font-variant-numeric: tabular-nums; line-height: 1.15; }
+.pdf-scroll { overflow-x: auto; max-width: 100%; }
+.pdf-file { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.pdf-file span { min-width: 0; overflow-wrap: anywhere; }
+.pdf-preview { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 0.86rem; font-variant-numeric: tabular-nums; }
+.pdf-preview caption { text-align: left; color: var(--on-graphite-2); padding-bottom: 8px; font-size: 0.86rem; caption-side: top; }
+.pdf-preview th { text-align: left; font-weight: 600; color: var(--on-graphite-2); padding: 6px 8px; border-bottom: 1px solid var(--graphite-3); background: transparent; }
+.pdf-preview td { padding: 8px; border-bottom: 1px solid var(--graphite-3); vertical-align: top; overflow-wrap: anywhere; color: var(--on-graphite); }
+.pdf-preview .pdf-thumb { width: 44px; height: 44px; object-fit: cover; border-radius: 3px; border: 2px solid #f5f6f7; }
+.pdf-tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 0.78rem; font-weight: 650; white-space: nowrap; }
+.pdf-tag.exact { background: #1d3d2f; color: #a7e3c3; }
+.pdf-tag.ambiguous { background: #43361d; color: #f1d29a; }
+.pdf-tag.zipTime, .pdf-tag.nameDate, .pdf-tag.unknown { background: #3d2a2a; color: #f2c1bb; }
+.pdf-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 16px; }
+.pdf-field label, .pdf-field legend { display: block; font-size: 0.86rem; color: var(--on-graphite-2); margin-bottom: 6px; }
+.pdf-field select { width: 100%; min-height: 44px; border-radius: 10px; border: 1px solid #4a525b; background: var(--graphite-2); color: var(--on-graphite); font: inherit; padding: 8px 10px; }
+fieldset.pdf-field { border: 0; margin: 0; padding: 0; min-width: 0; }
+.pdf-panel label.pdf-radio { display: flex; align-items: flex-start; gap: 10px; min-height: 44px; padding: 8px 0; margin: 0; color: var(--on-graphite); font-size: 0.95rem; }
+.pdf-radio input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--imprint); flex: none; }
+/* done */
+.pdf-parts { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 8px; }
+.pdf-parts li { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; background: var(--graphite-2); border-radius: 10px; padding: 8px 8px 8px 14px; font-size: 0.92rem; overflow-wrap: anywhere; }
+.pdf-parts .pdf-btn { min-height: 44px; padding: 8px 16px; }
+
+/* ---------- sections ---------- */
+.pdf-band { padding: clamp(40px, 6vw, 88px) 0; border-top: 1px solid var(--line-2); }
+.pdf main .pdf-band h2 { font-weight: 780; font-size: clamp(1.45rem, 1.7vw + 1rem, 2.35rem); line-height: 1.08; max-width: 26ch; margin-bottom: 18px; text-wrap: balance; }
+.pdf .prose { max-width: 68ch; }
+.pdf .prose p, .pdf .prose ul, .pdf .prose ol { margin: 0 0 14px; }
+.pdf .prose ul, .pdf .prose ol { padding-left: 1.3em; }
+.pdf .prose li { margin-bottom: 8px; overflow-wrap: anywhere; }
+.pdf .prose code { overflow-wrap: anywhere; display: inline-block; max-width: 100%; vertical-align: baseline; }
+.pdf .prose p.source, .pdf .prose small { font-size: 0.88rem; color: var(--muted); overflow-wrap: anywhere; }
+.pdf-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(20px, 4vw, 56px); align-items: start; }
+.pdf-print { margin: 0; background: var(--card); padding: 10px; border-radius: 2px; box-shadow: var(--shadow-print); transform: rotate(-1.2deg); }
+.pdf-print img { width: 100%; height: auto; border-radius: 1px; background: var(--graphite); aspect-ratio: 8 / 5; }
+.pdf-print figcaption { font-size: 0.85rem; color: var(--muted); padding: 8px 2px 2px; }
+.pdf .prose table, .pdf table.ba { width: 100%; border-collapse: collapse; background: var(--card); box-shadow: var(--shadow-print); font-family: var(--text); font-variant-numeric: tabular-nums; margin: 8px 0 18px; font-size: 0.95rem; }
+.pdf .prose caption { text-align: left; font-size: 0.88rem; color: var(--muted); padding: 0 0 8px; caption-side: top; }
+.pdf .prose th, .pdf .prose td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line-2); vertical-align: top; overflow-wrap: anywhere; }
+.pdf table.ba thead th { font-weight: 650; font-size: 0.85rem; color: var(--muted); }
+.pdf table.ba td:last-child { font-weight: 650; }
+.pdf-faq-list { max-width: 72ch; }
+.pdf-guides { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-2); max-width: 72ch; }
+.pdf-guides li { border-bottom: 1px solid var(--line-2); }
+.pdf-guides a { display: grid; gap: 2px; padding: 14px 0; text-decoration: none; }
+.pdf-guides a strong { font-weight: 600; }
+.pdf-guides a span { font-size: 0.92rem; color: var(--muted); }
+.pdf-guides a:hover strong { text-decoration: underline; text-decoration-color: var(--imprint); text-decoration-thickness: 2px; }
+.pdf-legal { margin: 22px 0 0; font-size: 0.9rem; color: var(--muted); max-width: 72ch; }
+
+/* ---------- guide and legal pages ---------- */
+.pdf-article { padding-bottom: clamp(24px, 5vw, 64px); }
+.pdf-article-head { padding: clamp(12px, 2vw, 24px) 0 clamp(24px, 4vw, 44px); }
+.pdf main .pdf-article-head h1 { font-size: clamp(1.7rem, 2.6vw + 0.8rem, 3rem); max-width: 24ch; }
+.pdf-article-head .lede { margin-top: 18px; max-width: 60ch; }
+.pdf-updated { font-size: 0.9rem; color: var(--muted); margin: 10px 0 0; }
+.pdf-article-body { max-width: 70ch; }
+.pdf main .pdf-section h2 { font-weight: 780; font-size: clamp(1.3rem, 1.1vw + 1rem, 1.85rem); line-height: 1.12; margin: clamp(32px, 4vw, 48px) 0 14px; max-width: 30ch; text-wrap: balance; }
+.pdf-section:first-child h2 { margin-top: 0; }
+.pdf-sources { font-size: 0.9rem; color: var(--muted); }
+.pdf-sources li { overflow-wrap: anywhere; }
+.pdf-cta { margin: clamp(32px, 4vw, 48px) 0; padding: clamp(18px, 3vw, 28px); background: var(--graphite); color: var(--on-graphite); border-radius: 18px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+.pdf-cta p { margin: 0; max-width: 46ch; font-weight: 560; }
+.pdf main .pdf-cta a.pdf-btn { color: #181c21; text-decoration: none; }
+
+@media (max-width: 960px) {
+  .pdf-hero-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "lede" "panel" "facts"; grid-template-rows: auto; }
+  .pdf-split { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 560px) {
+  .pdf-readouts { gap: 6px; padding: 10px; }
+  .pdf-seg { height: 22px; gap: 2px; }
+  .pdf-preview thead { display: none; }
+  .pdf-preview caption { display: block; width: 100%; }
+  .pdf-preview, .pdf-preview tbody, .pdf-preview tr, .pdf-preview td { display: block; width: 100%; }
+  .pdf-preview tr { border-bottom: 1px solid var(--graphite-3); padding: 8px 0; }
+  .pdf-preview td { border: 0; padding: 3px 0; }
+  .pdf-preview td[data-label]::before { content: attr(data-label); display: block; font-size: 0.76rem; color: var(--on-graphite-2); }
+  .pdf-actions .pdf-btn { width: 100%; }
+}
+@media (max-width: 360px) {
+  .pdf-seg { height: 16px; }
+  .pdf-ro-label { font-size: 0.74rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pdf-finder { transition: none; }
+  .pdf-print { transform: none; }
+}
+
+/* ---------- top line: breadcrumbs and the language switch ---------- */
+.pdf-topline { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 16px; }
+.pdf-langs { display: flex; flex-wrap: wrap; gap: 4px; margin: 22px 0 0; font-size: 13.5px; }
+.pdf main .pdf-langs a { text-decoration: none; padding: 4px 9px; border-radius: 6px; color: var(--muted); min-height: 28px; display: inline-flex; align-items: center; }
+.pdf main .pdf-langs a:hover { color: var(--ink); background: var(--paper-2); }
+.pdf main .pdf-langs a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+
+/* ---------- layout-check friendly details ---------- */
+/* The skip link stays inside the page, one transparent pixel, until it has focus: a link parked at left -9999px reads as page overflow
+   to layout checks, and a clipped or off-screen link cannot be tapped by a layout tour. The top-left corner stays square: a tap on the
+   one-pixel link lands in that corner once the link has grown, and a rounded corner would let the tap fall through to the header. */
+.pdf .skip { left: 10px; top: 10px; width: 1px; height: 1px; padding: 0; overflow: hidden; opacity: 0; white-space: nowrap; border-radius: 0 0 8px 0; }
+.pdf .skip:focus { width: auto; height: auto; padding: 8px 12px; overflow: visible; opacity: 1; }
+/* The current page is text, not a link to itself (header, language switch, footer): same look as the current-page link of the shared header. */
+.pdf .head-nav span[aria-current="page"] { font-size: 14.5px; padding: 7px 10px; border-radius: 8px; color: var(--ink); background: var(--paper-2); white-space: nowrap; }
+@media (max-width: 480px) { .pdf .head-nav span[aria-current="page"] { display: none; } }
+/* On the guide, privacy and terms pages the link to the tool is a link, not the current page: below 360 px brand, tool link and "All tools" no longer fit in one row (320 px: 20 px too wide), so the tool link steps aside there; the breadcrumbs and the footer still lead to the tool. */
+@media (max-width: 359px) { .pdf .head-nav a.pdf-tool-link { display: none; } }
+.pdf .site-foot span[aria-current="page"] { color: var(--ink); font-weight: 600; }
+.pdf main .pdf-langs span[aria-current="page"] { padding: 4px 9px; border-radius: 6px; color: var(--ink); background: var(--paper-2); min-height: 28px; display: inline-flex; align-items: center; }
+/* Inline code and the links of a source line stay in one box: a snippet or citation that wraps across two lines would otherwise report one rectangle that covers its neighbours. */
+.pdf .prose small a, .pdf .prose p.source a { display: inline-block; }
+/* A closed question keeps no answer box at all, so a hidden answer can never sit under the next question. */
+.pdf .faq details:not([open]) .answer { display: none; }
+</style>
+<script type="module" src="/photo-date-fixer/js/app.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/nl/fotodatum-wijzigen/#app","name":"Photo Date Fixer","url":"https://peakappsstudio.com/nl/fotodatum-wijzigen/","description":"Zet de echte datum, lokale tijd en locatie terug in de foto’s van je Snapchat-export. Alles gebeurt in je browser en er wordt niets geüpload.","applicationCategory":"MultimediaApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"inLanguage":"nl","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Fotodatum wijzigen","item":"https://peakappsstudio.com/nl/fotodatum-wijzigen/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Waarom hebben mijn Snapchat-herinneringen de verkeerde datum, en hoe wijzig ik die?","acceptedAnswer":{"@type":"Answer","text":"Foto’s in een Snapchat-export bevatten geen opnamedatum, dus je galerij gebruikt de tijd van het bestand zelf: de dag waarop je de export hebt gedownload. De echte tijd staat in de lijst met herinneringen en in elke ZIP-vermelding, en de tool schrijft die terug in elke foto."}},{"@type":"Question","name":"Werkt het op een iPhone?","acceptedAnswer":{"@type":"Answer","text":"Ja. Open deze pagina in Safari, kies de ZIP-bestanden in Bestanden of Downloads en sla elk hersteld deel op met een eigen knop. Laat het tabblad open terwijl de tool werkt."}},{"@type":"Question","name":"Wat gebeurt er met mijn Snapchat-video’s?","acceptedAnswer":{"@type":"Answer","text":"MP4-video’s krijgen hun aanmaaktijd en, als de lijst met herinneringen een locatie heeft, het locatie-atoom dat telefoons schrijven. De videostroom wordt niet opnieuw gecodeerd."}},{"@type":"Question","name":"Is het gratis, en is er een bestandslimiet?","acceptedAnswer":{"@type":"Answer","text":"Ja, de hele tool is gratis. Er is geen limiet op het aantal bestanden en je hebt geen account nodig."}},{"@type":"Question","name":"Wat verandert er in januari 2027 voor Snapchat-herinneringen?","acceptedAnswer":{"@type":"Answer","text":"Volgens de helppagina van Snap, bekeken op 20 oktober 2026, worden vanaf januari 2027 herinneringen die ouder zijn dan een jaar en niet bij je oudste 5 GB aan herinneringen horen, gearchiveerd. Gearchiveerde herinneringen verschijnen als thumbnails in de app, maar om ze te openen, te bewerken of te delen moet je je opslagruimte upgraden. Snap schrijft ook dat er vóór januari 2027 geen herinneringen worden gearchiveerd en dat Snapchat je herinneringen niet verwijdert omdat je niet upgradet."}}]}]}
+</script>
+</head>
+<body class="pdf" style="--accent:#c4360e">
+<a class="skip" href="#main">Naar de inhoud</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" hreflang="en" aria-label="Peak Apps Tools, alle tools (in het Engels)">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <span aria-current="page">Fotodatum</span>
+      <a href="/tools/" hreflang="en">Alle tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap pdf-topline"><nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/tools/" hreflang="en">Tools</a></li><li aria-current="page">Fotodatum wijzigen</li></ol></nav><nav class="pdf-langs" aria-label="Taal"><a href="/photo-date-fixer/" hreflang="en" lang="en">English</a><a href="/fr/corriger-date-photos/" hreflang="fr" lang="fr">Français</a><span lang="nl" aria-current="page">Nederlands</span></nav></div>
+<section class="pdf-hero wrap" aria-labelledby="h1">
+<h1 id="h1">De datum van je Snapchat-herinneringen herstellen, zonder uploaden</h1>
+<div class="pdf-hero-grid">
+<p class="lede">Om de datum van je Snapchat-herinneringen te herstellen, voeg je de ZIP-bestanden van je export toe aan deze pagina: de tool schrijft de echte datum, de lokale tijd en de locatie terug in elke foto en video, zonder iets te uploaden. Je galerij sorteert je herinneringen daarna op de dag waarop ze zijn gemaakt.</p>
+<section class="pdf-panel" id="tool-panel" aria-label="Datumherstel" data-state="idle" data-sw="/nl/fotodatum-wijzigen/sw.js" data-sw-scope="/nl/fotodatum-wijzigen/" tabindex="-1">
+<div class="pdf-readouts">
+<div class="pdf-readout"><div class="pdf-seg" id="ro-sent" role="img" aria-label="0 bytes van je bestanden verzonden"><svg viewBox="0 0 20 34" aria-hidden="true" focusable="false"><g transform="skewX(-7) translate(2.4 0)"><polygon class="s" points="3.6,2.6 5.2,1 14.799999999999999,1 16.4,2.6 14.799999999999999,4.2 5.2,4.2"/><polygon class="s" points="17.4,3.6 19,5.2 19,14.799999999999999 17.4,16.4 15.799999999999999,14.799999999999999 15.799999999999999,5.2"/><polygon class="s" points="17.4,17.6 19,19.200000000000003 19,28.799999999999997 17.4,30.4 15.799999999999999,28.799999999999997 15.799999999999999,19.200000000000003"/><polygon class="s" points="3.6,31.4 5.2,29.799999999999997 14.799999999999999,29.799999999999997 16.4,31.4 14.799999999999999,33 5.2,33"/><polygon class="s" points="2.6,17.6 4.2,19.200000000000003 4.2,28.799999999999997 2.6,30.4 1,28.799999999999997 1,19.200000000000003"/><polygon class="s" points="2.6,3.6 4.2,5.2 4.2,14.799999999999999 2.6,16.4 1,14.799999999999999 1,5.2"/><polygon class="s" points="3.6,17 5.2,15.4 14.799999999999999,15.4 16.4,17 14.799999999999999,18.6 5.2,18.6"/></g></svg><svg viewBox="0 0 20 34" aria-hidden="true" focusable="false"><g transform="skewX(-7) translate(2.4 0)"><polygon class="s" points="3.6,2.6 5.2,1 14.799999999999999,1 16.4,2.6 14.799999999999999,4.2 5.2,4.2"/><polygon class="s" points="17.4,3.6 19,5.2 19,14.799999999999999 17.4,16.4 15.799999999999999,14.799999999999999 15.799999999999999,5.2"/><polygon class="s" points="17.4,17.6 19,19.200000000000003 19,28.799999999999997 17.4,30.4 15.799999999999999,28.799999999999997 15.799999999999999,19.200000000000003"/><polygon class="s" points="3.6,31.4 5.2,29.799999999999997 14.799999999999999,29.799999999999997 16.4,31.4 14.799999999999999,33 5.2,33"/><polygon class="s" points="2.6,17.6 4.2,19.200000000000003 4.2,28.799999999999997 2.6,30.4 1,28.799999999999997 1,19.200000000000003"/><polygon class="s" points="2.6,3.6 4.2,5.2 4.2,14.799999999999999 2.6,16.4 1,14.799999999999999 1,5.2"/><polygon class="s" points="3.6,17 5.2,15.4 14.799999999999999,15.4 16.4,17 14.799999999999999,18.6 5.2,18.6"/></g></svg><svg viewBox="0 0 20 34" aria-hidden="true" focusable="false"><g transform="skewX(-7) translate(2.4 0)"><polygon class="s" points="3.6,2.6 5.2,1 14.799999999999999,1 16.4,2.6 14.799999999999999,4.2 5.2,4.2"/><polygon class="s" points="17.4,3.6 19,5.2 19,14.799999999999999 17.4,16.4 15.799999999999999,14.799999999999999 15.799999999999999,5.2"/><polygon class="s" points="17.4,17.6 19,19.200000000000003 19,28.799999999999997 17.4,30.4 15.799999999999999,28.799999999999997 15.799999999999999,19.200000000000003"/><polygon class="s" points="3.6,31.4 5.2,29.799999999999997 14.799999999999999,29.799999999999997 16.4,31.4 14.799999999999999,33 5.2,33"/><polygon class="s" points="2.6,17.6 4.2,19.200000000000003 4.2,28.799999999999997 2.6,30.4 1,28.799999999999997 1,19.200000000000003"/><polygon class="s" points="2.6,3.6 4.2,5.2 4.2,14.799999999999999 2.6,16.4 1,14.799999999999999 1,5.2"/><polygon class="s" points="3.6,17 5.2,15.4 14.799999999999999,15.4 16.4,17 14.799999999999999,18.6 5.2,18.6"/></g></svg><svg viewBox="0 0 20 34" aria-hidden="true" focusable="false"><g transform="skewX(-7) translate(2.4 0)"><polygon class="s" points="3.6,2.6 5.2,1 14.799999999999999,1 16.4,2.6 14.799999999999999,4.2 5.2,4.2"/><polygon class="s" points="17.4,3.6 19,5.2 19,14.799999999999999 17.4,16.4 15.799999999999999,14.799999999999999 15.799999999999999,5.2"/><polygon class="s" points="17.4,17.6 19,19.200000000000003 19,28.799999999999997 17.4,30.4 15.799999999999999,28.799999999999997 15.799999999999999,19.200000000000003"/><polygon class="s" points="3.6,31.4 5.2,29.799999999999997 14.799999999999999,29.799999999999997 16.4,31.4 14.799999999999999,33 5.2,33"/><polygon class="s" points="2.6,17.6 4.2,19.200000000000003 4.2,28.799999999999997 2.6,30.4 1,28.799999999999997 1,19.200000000000003"/><polygon class="s" points="2.6,3.6 4.2,5.2 4.2,14.799999999999999 2.6,16.4 1,14.799999999999999 1,5.2"/><polygon class="s" points="3.6,17 5.2,15.4 14.799999999999999,15.4 16.4,17 14.799999999999999,18.6 5.2,18.6"/></g></svg><svg viewBox="0 0 20 34" aria-hidden="true" focusable="false"><g transform="skewX(-7) translate(2.4 0)"><polygon class="s on" points="3.6,2.6 5.2,1 14.799999999999999,1 16.4,2.6 14.799999999999999,4.2 5.2,4.2"/><polygon class="s on" points="17.4,3.6 19,5.2 19,14.799999999999999 17.4,16.4 15.799999999999999,14.799999999999999 15.799999999999999,5.2"/><polygon class="s on" points="17.4,17.6 19,19.200000000000003 19,28.799999999999997 17.4,30.4 15.799999999999999,28.799999999999997 15.799999999999999,19.200000000000003"/><polygon class="s on" points="3.6,31.4 5.2,29.799999999999997 14.799999999999999,29.799999999999997 16.4,31.4 14.799999999999999,33 5.2,33"/><polygon class="s on" points="2.6,17.6 4.2,19.200000000000003 4.2,28.799999999999997 2.6,30.4 1,28.799999999999997 1,19.200000000000003"/><polygon class="s on" points="2.6,3.6 4.2,5.2 4.2,14.799999999999999 2.6,16.4 1,14.799999999999999 1,5.2"/><polygon class="s" points="3.6,17 5.2,15.4 14.799999999999999,15.4 16.4,17 14.799999999999999,18.6 5.2,18.6"/></g></svg><span class="unit">B</span></div><span class="pdf-ro-label">Verzonden vanaf deze pagina</span></div>
+<div class="pdf-readout"><div class="pdf-seg" id="ro-files" role="img" aria-label="Gevonden bestanden: 0"><svg viewBox="0 0 20 34" aria-hidden="true" focusable="false"><g transform="skewX(-7) translate(2.4 0)"><polygon class="s" points="3.6,2.6 5.2,1 14.799999999999999,1 16.4,2.6 14.799999999999999,4.2 5.2,4.2"/><polygon class="s" points="17.4,3.6 19,5.2 19,14.799999999999999 17.4,16.4 15.799999999999999,14.799999999999999 15.799999999999999,5.2"/><polygon class="s" points="17.4,17.6 19,19.200000000000003 19,28.799999999999997 17.4,30.4 15.799999999999999,28.799999999999997 15.799999999999999,19.200000000000003"/><polygon class="s" points="3.6,31.4 5.2,29.799999999999997 14.799999999999999,29.799999999999997 16.4,31.4 14.799999999999999,33 5.2,33"/><polygon class="s" points="2.6,17.6 4.2,19.200000000000003 4.2,28.799999999999997 2.6,30.4 1,28.799999999999997 1,19.200000000000003"/><polygon class="s" points="2.6,3.6 4.2,5.2 4.2,14.799999999999999 2.6,16.4 1,14.799999999999999 1,5.2"/><polygon class="s" points="3.6,17 5.2,15.4 14.799999999999999,15.4 16.4,17 14.799999999999999,18.6 5.2,18.6"/></g></svg><svg viewBox="0 0 20 34" aria-hidden="true" focusable="false"><g transform="skewX(-7) translate(2.4 0)"><polygon class="s" points="3.6,2.6 5.2,1 14.799999999999999,1 16.4,2.6 14.799999999999999,4.2 5.2,4.2"/><polygon class="s" points="17.4,3.6 19,5.2 19,14.799999999999999 17.4,16.4 15.799999999999999,14.799999999999999 15.799999999999999,5.2"/><polygon class="s" points="17.4,17.6 19,19.200000000000003 19,28.799999999999997 17.4,30.4 15.799999999999999,28.799999999999997 15.799999999999999,19.200000000000003"/><polygon class="s" points="3.6,31.4 5.2,29.799999999999997 14.799999999999999,29.799999999999997 16.4,31.4 14.799999999999999,33 5.2,33"/><polygon class="s" points="2.6,17.6 4.2,19.200000000000003 4.2,28.799999999999997 2.6,30.4 1,28.799999999999997 1,19.200000000000003"/><polygon class="s" points="2.6,3.6 4.2,5.2 4.2,14.799999999999999 2.6,16.4 1,14.799999999999999 1,5.2"/><polygon class="s" points="3.6,17 5.2,15.4 14.799999999999999,15.4 16.4,17 14.799999999999999,18.6 5.2,18.6"/></g></svg><svg viewBox="0 0 20 34" aria-hidden="true" focusable="false"><g transform="skewX(-7) translate(2.4 0)"><polygon class="s" points="3.6,2.6 5.2,1 14.799999999999999,1 16.4,2.6 14.799999999999999,4.2 5.2,4.2"/><polygon class="s" points="17.4,3.6 19,5.2 19,14.799999999999999 17.4,16.4 15.799999999999999,14.799999999999999 15.799999999999999,5.2"/><polygon class="s" points="17.4,17.6 19,19.200000000000003 19,28.799999999999997 17.4,30.4 15.799999999999999,28.799999999999997 15.799999999999999,19.200000000000003"/><polygon class="s" points="3.6,31.4 5.2,29.799999999999997 14.799999999999999,29.799999999999997 16.4,31.4 14.799999999999999,33 5.2,33"/><polygon class="s" points="2.6,17.6 4.2,19.200000000000003 4.2,28.799999999999997 2.6,30.4 1,28.799999999999997 1,19.200000000000003"/><polygon class="s" points="2.6,3.6 4.2,5.2 4.2,14.799999999999999 2.6,16.4 1,14.799999999999999 1,5.2"/><polygon class="s" points="3.6,17 5.2,15.4 14.799999999999999,15.4 16.4,17 14.799999999999999,18.6 5.2,18.6"/></g></svg><svg viewBox="0 0 20 34" aria-hidden="true" focusable="false"><g transform="skewX(-7) translate(2.4 0)"><polygon class="s" points="3.6,2.6 5.2,1 14.799999999999999,1 16.4,2.6 14.799999999999999,4.2 5.2,4.2"/><polygon class="s" points="17.4,3.6 19,5.2 19,14.799999999999999 17.4,16.4 15.799999999999999,14.799999999999999 15.799999999999999,5.2"/><polygon class="s" points="17.4,17.6 19,19.200000000000003 19,28.799999999999997 17.4,30.4 15.799999999999999,28.799999999999997 15.799999999999999,19.200000000000003"/><polygon class="s" points="3.6,31.4 5.2,29.799999999999997 14.799999999999999,29.799999999999997 16.4,31.4 14.799999999999999,33 5.2,33"/><polygon class="s" points="2.6,17.6 4.2,19.200000000000003 4.2,28.799999999999997 2.6,30.4 1,28.799999999999997 1,19.200000000000003"/><polygon class="s" points="2.6,3.6 4.2,5.2 4.2,14.799999999999999 2.6,16.4 1,14.799999999999999 1,5.2"/><polygon class="s" points="3.6,17 5.2,15.4 14.799999999999999,15.4 16.4,17 14.799999999999999,18.6 5.2,18.6"/></g></svg><svg viewBox="0 0 20 34" aria-hidden="true" focusable="false"><g transform="skewX(-7) translate(2.4 0)"><polygon class="s on" points="3.6,2.6 5.2,1 14.799999999999999,1 16.4,2.6 14.799999999999999,4.2 5.2,4.2"/><polygon class="s on" points="17.4,3.6 19,5.2 19,14.799999999999999 17.4,16.4 15.799999999999999,14.799999999999999 15.799999999999999,5.2"/><polygon class="s on" points="17.4,17.6 19,19.200000000000003 19,28.799999999999997 17.4,30.4 15.799999999999999,28.799999999999997 15.799999999999999,19.200000000000003"/><polygon class="s on" points="3.6,31.4 5.2,29.799999999999997 14.799999999999999,29.799999999999997 16.4,31.4 14.799999999999999,33 5.2,33"/><polygon class="s on" points="2.6,17.6 4.2,19.200000000000003 4.2,28.799999999999997 2.6,30.4 1,28.799999999999997 1,19.200000000000003"/><polygon class="s on" points="2.6,3.6 4.2,5.2 4.2,14.799999999999999 2.6,16.4 1,14.799999999999999 1,5.2"/><polygon class="s" points="3.6,17 5.2,15.4 14.799999999999999,15.4 16.4,17 14.799999999999999,18.6 5.2,18.6"/></g></svg></div><span class="pdf-ro-label">Bestanden gevonden</span></div>
+<div class="pdf-readout"><div class="pdf-seg" id="ro-parts" role="img" aria-label="Delen klaar: 0"><svg viewBox="0 0 20 34" aria-hidden="true" focusable="false"><g transform="skewX(-7) translate(2.4 0)"><polygon class="s" points="3.6,2.6 5.2,1 14.799999999999999,1 16.4,2.6 14.799999999999999,4.2 5.2,4.2"/><polygon class="s" points="17.4,3.6 19,5.2 19,14.799999999999999 17.4,16.4 15.799999999999999,14.799999999999999 15.799999999999999,5.2"/><polygon class="s" points="17.4,17.6 19,19.200000000000003 19,28.799999999999997 17.4,30.4 15.799999999999999,28.799999999999997 15.799999999999999,19.200000000000003"/><polygon class="s" points="3.6,31.4 5.2,29.799999999999997 14.799999999999999,29.799999999999997 16.4,31.4 14.799999999999999,33 5.2,33"/><polygon class="s" points="2.6,17.6 4.2,19.200000000000003 4.2,28.799999999999997 2.6,30.4 1,28.799999999999997 1,19.200000000000003"/><polygon class="s" points="2.6,3.6 4.2,5.2 4.2,14.799999999999999 2.6,16.4 1,14.799999999999999 1,5.2"/><polygon class="s" points="3.6,17 5.2,15.4 14.799999999999999,15.4 16.4,17 14.799999999999999,18.6 5.2,18.6"/></g></svg><svg viewBox="0 0 20 34" aria-hidden="true" focusable="false"><g transform="skewX(-7) translate(2.4 0)"><polygon class="s on" points="3.6,2.6 5.2,1 14.799999999999999,1 16.4,2.6 14.799999999999999,4.2 5.2,4.2"/><polygon class="s on" points="17.4,3.6 19,5.2 19,14.799999999999999 17.4,16.4 15.799999999999999,14.799999999999999 15.799999999999999,5.2"/><polygon class="s on" points="17.4,17.6 19,19.200000000000003 19,28.799999999999997 17.4,30.4 15.799999999999999,28.799999999999997 15.799999999999999,19.200000000000003"/><polygon class="s on" points="3.6,31.4 5.2,29.799999999999997 14.799999999999999,29.799999999999997 16.4,31.4 14.799999999999999,33 5.2,33"/><polygon class="s on" points="2.6,17.6 4.2,19.200000000000003 4.2,28.799999999999997 2.6,30.4 1,28.799999999999997 1,19.200000000000003"/><polygon class="s on" points="2.6,3.6 4.2,5.2 4.2,14.799999999999999 2.6,16.4 1,14.799999999999999 1,5.2"/><polygon class="s" points="3.6,17 5.2,15.4 14.799999999999999,15.4 16.4,17 14.799999999999999,18.6 5.2,18.6"/></g></svg></div><span class="pdf-ro-label">Delen klaar</span></div>
+</div>
+<p class="pdf-status"><span class="pdf-lamp" id="offline-lamp"></span><span id="offline-text">Werkt offline zodra de pagina is geladen</span></p>
+<div class="pdf-stage" id="stage-idle">
+<div class="pdf-finder" id="finder">
+<span class="c1"></span><span class="c2"></span>
+<h2 data-stage-title tabindex="-1">Sleep de ZIP-bestanden van Snapchat hierheen</h2>
+<p>Voeg alle delen toe: mydata~…zip, mydata~…-2.zip enzovoort. De bestanden blijven op dit apparaat.</p>
+<div class="pdf-actions">
+<button type="button" class="pdf-btn pdf-btn-primary" id="btn-choose">Kies ZIP-bestanden</button>
+<button type="button" class="pdf-btn pdf-btn-quiet" id="btn-sample">Probeer een voorbeeld</button>
+</div>
+<input type="file" id="file-input" class="pdf-visually-hidden" tabindex="-1" aria-hidden="true" multiple accept=".zip,application/zip,application/x-zip-compressed,.json,.html">
+<p class="pdf-note">Het voorbeeld heeft 12 verzonnen herinneringen in twee ZIP-delen, gebouwd in je browser.</p>
+</div>
+<a class="pdf-small-link" href="#steps">Nog geen export? Zo vraag je die aan</a>
+</div>
+<div class="pdf-stage" id="stage-scan" hidden aria-hidden="true">
+<p class="pdf-stage-title" id="scan-title" data-stage-title tabindex="-1"></p>
+<p class="pdf-stage-sub" id="scan-sub" aria-live="polite"></p>
+<div class="pdf-meter" id="scan-meter" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="scan-title"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+</div>
+<div class="pdf-stage" id="stage-review" hidden aria-hidden="true">
+<h2 class="pdf-stage-title" data-stage-title tabindex="-1">Dit hebben we gevonden</h2>
+<ul class="pdf-counts" id="review-counts"></ul>
+<div class="pdf-scroll">
+<table class="pdf-preview">
+<caption>De eerste vijf foto’s, vóór het schrijven</caption>
+<thead><tr><th scope="col">Bestand</th><th scope="col">Snapchat-tijd (UTC)</th><th scope="col">Nieuwe lokale tijd</th><th scope="col">Locatie</th><th scope="col">Status</th></tr></thead>
+<tbody id="preview-body"></tbody>
+</table>
+</div>
+<div class="pdf-fields">
+<div class="pdf-field"><label for="tz-select">Tijdzone voor herinneringen zonder locatie</label><select id="tz-select"></select></div>
+<div class="pdf-field"><label for="part-select">Grootste ZIP-deel</label><select id="part-select"><option value="100">100 MB</option><option value="200">200 MB</option><option value="300" selected>300 MB</option></select></div>
+<fieldset class="pdf-field" id="dest-field" hidden>
+<legend>Opslag van de herstelde bestanden</legend>
+<label class="pdf-radio"><input type="radio" name="dest" value="folder" checked><span>Direct in een map die ik kies</span></label>
+<label class="pdf-radio"><input type="radio" name="dest" value="browser"><span>Browseropslag, daarna sla ik elk deel op</span></label>
+</fieldset>
+</div>
+<p class="pdf-note" id="storage-needed"></p>
+<p class="pdf-note">Snapchat past het formaat van deze export soms aan. Wat we niet konden koppelen, staat in het rapport en wordt nooit stilzwijgend overgeslagen.</p>
+<div class="pdf-actions">
+<button type="button" class="pdf-btn pdf-btn-primary" id="btn-start">Datums herstellen en ZIP-delen maken</button>
+<button type="button" class="pdf-btn pdf-btn-quiet" id="btn-cancel-review">Begin opnieuw</button>
+</div>
+</div>
+<div class="pdf-stage" id="stage-work" hidden aria-hidden="true">
+<h2 class="pdf-stage-title" data-stage-title tabindex="-1">Herstelde bestanden schrijven</h2>
+<p class="pdf-stage-sub" id="work-progress" aria-live="polite"></p>
+<p class="pdf-stage-sub" id="work-part"></p>
+<div class="pdf-meter" id="work-meter" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="work-progress"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<p class="pdf-note">Laat dit tabblad open tot de delen klaar zijn.</p>
+<div class="pdf-actions"><button type="button" class="pdf-btn pdf-btn-quiet" id="btn-stop">Stoppen</button></div>
+</div>
+<div class="pdf-stage" id="stage-done" hidden aria-hidden="true">
+<h2 class="pdf-stage-title" data-stage-title tabindex="-1">Je herstelde herinneringen zijn klaar</h2>
+<ul class="pdf-parts" id="parts-list"></ul>
+<div class="pdf-actions">
+<button type="button" class="pdf-btn pdf-btn-primary" id="btn-report">Rapport opslaan (CSV)</button>
+<button type="button" class="pdf-btn pdf-btn-quiet" id="btn-clear" hidden>Tijdelijke kopieën verwijderen</button>
+<button type="button" class="pdf-btn pdf-btn-quiet" id="btn-again">Nog een export herstellen</button>
+</div>
+<p class="pdf-note">Daarna: pak elk deel uit en voeg de foto’s toe aan Google Foto’s, Apple Foto’s of je galerij. Ze worden dan gesorteerd op de dag waarop ze zijn genomen.</p>
+</div>
+<p class="pdf-err" id="tool-error" role="alert" hidden></p>
+<p class="pdf-note pdf-counter-help">Telt elk netwerkverzoek van deze pagina en haar verwerkingsscript nadat je bestanden hebt toegevoegd. Het beveiligingsbeleid van de pagina blokkeert ook alle uitgaande verbindingen van de pagina.</p>
+</section>
+<ul class="pdf-facts"><li>Werkt in je browser en uploadt niets</li><li>Schrijft de lokale tijd met het juiste UTC-verschil</li><li>Gratis, zonder bestandslimiet of account</li></ul>
+</div>
+</section>
+<section class="pdf-band" id="changes" aria-labelledby="changes-h"><div class="wrap pdf-split"><div><h2 id="changes-h">Wat er verandert in één foto</h2><div class="prose"><p>Hier is een verzonnen voorbeeld. Je hebt je export op 18 oktober 2026 gedownload, en een foto heet <code>2019-03-05_6f1c2a9e-main.jpg</code>. In de lijst met herinneringen staat bij deze foto <code>"Date": "2019-03-05 09:24:50 UTC"</code> en <code>"Location": "Latitude, Longitude: 41.0082, 28.9784"</code>, een plek in Istanbul. In het bestand zelf zit geen opnamedatum, dus je galerij zet de foto op de downloaddag.</p><table class="ba"><caption>Voorbeeld: één herinnering voor en na het herstel</caption><thead><tr><th scope="col">Onderdeel</th><th scope="col">Voor</th><th scope="col">Na</th></tr></thead><tbody><tr><th scope="row">Bestandsnaam</th><td><code>2019-03-05_6f1c2a9e-main.jpg</code></td><td><code>2019/2019-03-05_12-24-50_6f1c2a9e.jpg</code></td></tr><tr><th scope="row">Datum in de galerij</th><td>18 oktober 2026, de downloaddag</td><td>5 maart 2019</td></tr><tr><th scope="row">Tijd</th><td>Geen opnametijd</td><td>12:24:50</td></tr><tr><th scope="row">Tijdzone</th><td>Geen</td><td>UTC+03:00 (Istanboel)</td></tr><tr><th scope="row">Locatie</th><td>Geen</td><td>noorderbreedte 41,0082, oosterlengte 28,9784</td></tr></tbody></table><p>Snapchat bewaart tijden in UTC. Omdat deze vermelding een locatie heeft, zoekt de tool de tijdzone van die plek op en rekent de tijd om, zomer- en wintertijd inbegrepen: 09:24:50 UTC in Istanbul wordt 12:24:50 bij +03:00. In Amsterdam is het verschil met UTC in de winter één uur en in de zomer twee uur, en de tool kiest per datum het juiste. Was je op reis, dan telt de tijdzone van de plek van de foto en niet die van thuis.</p><p>De lokale tijd, het UTC-verschil en de GPS-positie worden in de EXIF-metadata geschreven, zonder dat de pixels opnieuw worden gecodeerd. De kopie krijgt een duidelijke naam in een map per jaar. MP4-video’s krijgen hun aanmaaktijd en hun locatie, ook zonder hercodering. Bijschriften en stickers die Snapchat in een apart bestand bewaart (<code>-overlay.png</code> of <code>.webp</code>) blijven aparte bestanden naast hun foto, met <code>-overlay</code> in de naam. De tool voegt ze niet samen met de afbeelding.</p></div></div><figure class="pdf-print"><img src="/photo-date-fixer/img/prints-1280.webp" width="1280" height="800" alt="Fotoprints als een waaier op een donker bureau, elk met een oranje datumstempel in de hoek" loading="eager" fetchpriority="low" decoding="async"><figcaption>Fotoprints met een datumstempel in de hoek. Als 3D-beeld gemaakt met three.js voor deze pagina.</figcaption></figure></div></section>
+<section class="pdf-band" id="steps" aria-labelledby="steps-h"><div class="wrap"><h2 id="steps-h">Zo herstel je de datum van je Snapchat-herinneringen</h2><div class="prose"><ol><li>Vraag je gegevens aan bij Snapchat onder “Mijn gegevens” en neem je herinneringen mee (optie “Je Herinneringen exporteren”). Biedt de aanvraagpagina JSON-bestanden aan, zet die dan ook aan. Zonder JSON bevat de export een HTML-versie van de lijst, en die kan de tool ook lezen.</li><li>Download alle ZIP-delen zodra de export klaar is: <code>mydata~1739000000000.zip</code>, <code>mydata~1739000000000-2.zip</code> enzovoort. Pak ze niet uit.</li><li>Voeg alle delen in één keer hier toe. De tool leest ze op je apparaat en laat de eerste vijf foto’s zien voordat er iets wordt geschreven.</li><li>Kies waar de herstelde bestanden naartoe gaan en hoe groot een deel maximaal mag zijn (100, 200 of 300 MB), en start. Voor herinneringen zonder locatie kies je de tijdzone; die van je apparaat staat standaard ingesteld.</li><li>Sla de delen en het CSV-rapport op, pak de delen uit en voeg de foto’s toe aan Google Foto’s, Apple Foto’s of de galerij van je telefoon. Daar staan ze dan op de dag waarop ze zijn gemaakt.</li></ol></div></div></section>
+<section class="pdf-band" id="report" aria-labelledby="report-h"><div class="wrap"><h2 id="report-h">Wat het rapport zegt over elk bestand</h2><div class="prose"><p>In het huidige exportformaat zitten de foto’s in de ZIP-bestanden en noemt de lijst met herinneringen ze niet bij naam. De tool koppelt daarom elk bestand aan de tijd in de ZIP-vermelding (Snapchat zet die op het opnamemoment, in UTC, op 2 seconden nauwkeurig) en aan het mediatype. Elk bestand krijgt een van deze statussen:</p><ul><li>Exact: precies één vermelding past, dus datum, tijd en eventuele locatie komen daaruit.</li><li>Zelfde venster van 2 seconden: meerdere vermeldingen passen. De tijd klopt tot op 2 seconden, en een locatie wordt alleen geschreven als die vermeldingen dezelfde locatie hebben.</li><li>Alleen ZIP-tijd: er past geen vermelding. De tijd komt uit de ZIP-vermelding en er wordt geen locatie geschreven.</li><li>Datum uit naam: zeldzaam. Alleen de datum in de bestandsnaam was bruikbaar.</li><li>Vermelding zonder bestand: de lijst bevat een herinnering, maar de ZIP-bestanden hebben er geen bestand voor, bijvoorbeeld bij “My Eyes Only”-items.</li></ul><p>Er wordt niets stilzwijgend overgeslagen. Het CSV-rapport toont elk bestand en elke vermelding, zodat je ziet wat is hersteld en wat er in je export ontbrak.</p></div></div></section>
+<section class="pdf-band" id="privacy" aria-labelledby="privacy-h"><div class="wrap"><h2 id="privacy-h">Zo zie je dat er niets wordt geüpload</h2><div class="prose"><p>De pagina bevat in haar eigen HTML een Content-Security-Policy die je browser opdraagt elke uitgaande verbinding van de pagina te blokkeren. De regel die dat doet is <code>connect-src 'none';</code>, en <code>form-action 'none'</code> voorkomt dat een formulier ergens naartoe wordt verstuurd. Je foto’s worden gelezen en geschreven binnen het browsertabblad, door een verwerkingsscript zonder netwerkcode.</p><p>In het paneel staat een teller, “Verzonden vanaf deze pagina”, die de netwerkverzoeken telt die de pagina en dat script doen nadat je bestanden hebt toegevoegd. Die blijft op 0. Na je eerste bezoek houdt een service worker de pagina in de cache, dus de tool werkt offline: zet vliegtuigmodus aan en doe het hele herstel zonder verbinding. Die service worker krijgt je bestanden nooit te zien. Er is geen account, er zijn geen cookies, geen analysescripts en geen advertenties.</p><p>De tool maakt nooit verbinding met Snapchat, vraagt nooit om je inloggegevens, gebruikt de downloadlinks in je export niet en is niet gelieerd aan Snap Inc. De uitleg om dit zelf na te gaan met de ontwikkelaarstools van je browser staat in het Engels: zie <a href="/photo-date-fixer/how-we-check-nothing-is-uploaded/" hreflang="en">hoe je controleert dat er niets wordt geüpload</a>.</p></div></div></section>
+<section class="pdf-band" id="devices" aria-labelledby="devices-h"><div class="wrap"><h2 id="devices-h">Welke apparaten en browsers werken</h2><div class="prose"><p>Gebruik op een computer een recente versie van Chrome, Edge, Firefox of Safari. Chrome en Edge kunnen de herstelde delen rechtstreeks in een map naar keuze schrijven, als de browser die optie biedt. Firefox en Safari bewaren ze in de privéopslag van de browser: je slaat elk deel op met een eigen knop en verwijdert daarna de tijdelijke kopieën.</p><p>Gebruik op Android een recente Chrome en sla elk deel op met een eigen knop. Gebruik op iPhone en iPad Safari en kies de ZIP-bestanden in Bestanden of Downloads. Wil een ZIP-bestand in iCloud Drive niet openen, verplaats het dan eerst naar “Op mijn iPhone”. Zorg voor vrije ruimte ter grootte van je export en laat het tabblad open terwijl de tool werkt. Bij een heel grote export is een computer sneller.</p></div></div></section>
+<section class="pdf-band" id="faq" aria-labelledby="faq-h">
+<div class="wrap">
+<h2 id="faq-h">Veelgestelde vragen</h2>
+<div class="faq pdf-faq-list">
+<details><summary>Waarom hebben mijn Snapchat-herinneringen de verkeerde datum, en hoe wijzig ik die?</summary><div class="answer"><p>Foto’s in een Snapchat-export bevatten geen opnamedatum, dus je galerij gebruikt de tijd van het bestand zelf: de dag waarop je de export hebt gedownload. De echte tijd staat in de lijst met herinneringen en in elke ZIP-vermelding, en de tool schrijft die terug in elke foto.</p></div></details>
+<details><summary>Werkt het op een iPhone?</summary><div class="answer"><p>Ja. Open deze pagina in Safari, kies de ZIP-bestanden in Bestanden of Downloads en sla elk hersteld deel op met een eigen knop. Laat het tabblad open terwijl de tool werkt.</p></div></details>
+<details><summary>Wat gebeurt er met mijn Snapchat-video’s?</summary><div class="answer"><p>MP4-video’s krijgen hun aanmaaktijd en, als de lijst met herinneringen een locatie heeft, het locatie-atoom dat telefoons schrijven. De videostroom wordt niet opnieuw gecodeerd.</p></div></details>
+<details><summary>Is het gratis, en is er een bestandslimiet?</summary><div class="answer"><p>Ja, de hele tool is gratis. Er is geen limiet op het aantal bestanden en je hebt geen account nodig.</p></div></details>
+<details><summary>Wat verandert er in januari 2027 voor Snapchat-herinneringen?</summary><div class="answer"><p>Volgens de helppagina van Snap, bekeken op 20 oktober 2026, worden vanaf januari 2027 herinneringen die ouder zijn dan een jaar en niet bij je oudste 5 GB aan herinneringen horen, gearchiveerd. Gearchiveerde herinneringen verschijnen als thumbnails in de app, maar om ze te openen, te bewerken of te delen moet je je opslagruimte upgraden. Snap schrijft ook dat er vóór januari 2027 geen herinneringen worden gearchiveerd en dat Snapchat je herinneringen niet verwijdert omdat je niet upgradet.</p></div></details>
+</div>
+</div>
+</section>
+<div class="wrap"><p class="pdf-legal">Niet gelieerd aan Snap Inc. Snapchat is een handelsmerk van Snap Inc.</p></div>
+</main>
+<script type="application/json" id="i18n">{"locale":"nl","brand":"Photo Date Fixer","nav.language":"Taal","nav.skip":"Ga naar de tool","nav.home":"Home van Photo Date Fixer","panel.label":"Datumherstel","readout.sent":"Verzonden vanaf deze pagina","readout.files":"Bestanden gevonden","readout.parts":"Delen klaar","readout.unitReq":"verz.","readout.srSent":"{n} bytes van je bestanden verzonden","readout.srReqs":"Netwerkverzoeken sinds je bestanden toevoegde: {n}","readout.srFiles":"Gevonden bestanden: {n}","readout.srParts":"Delen klaar: {n}","units":"B KB MB GB TB","offline.ready":"Werkt offline: klaar","offline.pending":"Werkt offline zodra de pagina is geladen","offline.unsupported":"Offline gebruik is niet beschikbaar in deze browser","offline.now":"Je bent offline. Je bestanden staan er nog.","drop.title":"Sleep de ZIP-bestanden van Snapchat hierheen","drop.hint":"Voeg alle delen toe: mydata~…zip, mydata~…-2.zip enzovoort. De bestanden blijven op dit apparaat.","drop.choose":"Kies ZIP-bestanden","drop.sample":"Probeer een voorbeeld","drop.sampleNote":"Het voorbeeld heeft 12 verzonnen herinneringen in twee ZIP-delen, gebouwd in je browser.","drop.needExport":"Nog geen export? Zo vraag je die aan","scan.reading":{"one":"{n} ZIP-bestand lezen","other":"{n} ZIP-bestanden lezen"},"scan.progress":"{done} van {total} gelezen","scan.calibrating":"Bestanden koppelen aan de herinneringen","scan.sample":"Voorbeeldexport maken","review.title":"Dit hebben we gevonden","review.photos":"Foto’s","review.videos":"Video’s","review.exact":"Exact gekoppeld","review.ambiguous":"Gekoppeld, zelfde venster van 2 s","review.noRecord":"Niet in de lijst met herinneringen","review.noMedia":"Vermeldingen zonder bestand","review.previewCaption":"De eerste vijf foto’s, vóór het schrijven","review.colFile":"Bestand","review.colUtc":"Snapchat-tijd (UTC)","review.colLocal":"Nieuwe lokale tijd","review.colPlace":"Locatie","review.colMatch":"Status","review.noPlace":"Geen locatie","review.tzLabel":"Tijdzone voor herinneringen zonder locatie","review.tzDevice":"Dit apparaat: {tz}","review.partLabel":"Grootste ZIP-deel","review.partOption":"{n} MB","review.destLabel":"Opslag van de herstelde bestanden","review.destFolder":"Direct in een map die ik kies","review.destBrowser":"Browseropslag, daarna sla ik elk deel op","review.storageNeeded":"Je hebt ongeveer {size} vrije ruimte nodig op dit apparaat.","review.start":"Datums herstellen en ZIP-delen maken","review.cancel":"Begin opnieuw","review.formatNote":"Snapchat past het formaat van deze export soms aan. Wat we niet konden koppelen, staat in het rapport en wordt nooit stilzwijgend overgeslagen.","work.title":"Herstelde bestanden schrijven","work.progress":{"one":"{done} van {total} herinnering","other":"{done} van {total} herinneringen"},"work.part":"Deel {n}","work.stop":"Stoppen","work.keepOpen":"Laat dit tabblad open tot de delen klaar zijn.","done.title":"Je herstelde herinneringen zijn klaar","done.savePart":"Deel {n} opslaan ({size})","done.saved":"Opgeslagen","done.folderSaved":{"one":"{n} deel opgeslagen in de gekozen map.","other":"{n} delen opgeslagen in de gekozen map."},"done.report":"Rapport opslaan (CSV)","done.clear":"Tijdelijke kopieën verwijderen","done.cleared":"Tijdelijke kopieën verwijderd","done.again":"Nog een export herstellen","done.next":"Daarna: pak elk deel uit en voeg de foto’s toe aan Google Foto’s, Apple Foto’s of je galerij. Ze worden dan gesorteerd op de dag waarop ze zijn genomen.","match.exact":"Exact","match.ambiguous":"Zelfde 2 s","match.zipTime":"Alleen ZIP-tijd","match.nameDate":"Datum uit naam","match.unknown":"Datum onbekend","err.noZip":"{name} is geen ZIP-bestand. Voeg de ZIP-bestanden van je Snapchat-export toe.","err.noList":"We hebben memories_history.json of memories_history.html niet gevonden. Voeg het eerste ZIP-bestand van je export toe, het bestand zonder -2 in de naam.","err.noMedia":{"one":"Deze ZIP-bestanden vermelden {n} herinnering, maar bevatten geen foto’s of video’s. Vraag een nieuwe export aan met herinneringen ingeschakeld en voeg dan alle delen toe.","other":"Deze ZIP-bestanden vermelden {n} herinneringen, maar bevatten geen foto’s of video’s. Vraag een nieuwe export aan met herinneringen ingeschakeld en voeg dan alle delen toe."},"err.read":"De browser kon {name} niet lezen. Staat het bestand in iCloud Drive of een andere cloudmap, verplaats het dan naar “Op mijn iPhone” of Downloads en probeer het opnieuw.","err.storage":"Er is te weinig vrije ruimte voor de herstelde kopieën. Maak ongeveer {size} vrij of kies kleinere delen.","err.unsupported":"Deze browser mist een functie die de tool nodig heeft. Gebruik een recente versie van Chrome, Edge, Firefox of Safari.","err.stopped":"Gestopt. Er is niets opgeslagen.","err.generic":"De tool is gestopt: {message}","privacy.counterHelp":"Telt elk netwerkverzoek van deze pagina en haar verwerkingsscript nadat je bestanden hebt toegevoegd. Het beveiligingsbeleid van de pagina blokkeert ook alle uitgaande verbindingen van de pagina.","sample.name":"Voorbeeld {n}","sample.caption":"eerste avond aan het water","page.faq":"Veelgestelde vragen","page.updated":"Gecontroleerd op {date}","page.sources":"Bronnen","page.openFixer":"Datumherstel openen","page.related":"Meer gidsen","page.figureCaption":"Fotoprints met een datumstempel in de hoek. Als 3D-beeld gemaakt met three.js voor deze pagina.","footer.notAffiliated":"Niet gelieerd aan Snap Inc. Snapchat is een handelsmerk van Snap Inc.","footer.madeBy":"Gemaakt door Peak Apps Studio.","footer.tool":"Tool","footer.guides":"Gidsen","footer.privacy":"Privacy","footer.terms":"Voorwaarden","footer.proof":"Zo controleren we dat niets wordt geüpload","footer.whyWrong":"Waarom de datum niet klopt","footer.export":"Export met datums en locaties","notFound.title":"Deze pagina bestaat niet","notFound.text":"Misschien zit er een typfout in het adres. De tool staat op de startpagina.","nav.breadcrumb":"Kruimelpad","nav.tools":"Tools","page.openFixerBlurb":"Voeg de ZIP-bestanden van je export toe en krijg herstelde kopieën, gemaakt in je browser.","page.relatedEn":"Gidsen (in het Engels)"}</script>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Kleine, zorgvuldige tools die elk één taak goed doen. Je bestanden worden in je browser verwerkt en nooit geüpload.</p>
+      <p style="margin:12px 0 0">Gemaakt door <a href="https://peakappsstudio.com/">Peak Apps Studio</a>.<br>Schrijf ons op <a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></p>
+    </div>
+    <div>
+      <h2>Fotodatum wijzigen</h2>
+      <ul>
+        <li><span aria-current="page">Een Snapchat-export herstellen</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Andere talen</h2>
+      <ul>
+        <li><a href="/photo-date-fixer/" hreflang="en" lang="en">Photo Date Fixer (English)</a></li>
+        <li><a href="/fr/corriger-date-photos/" hreflang="fr" lang="fr">Corriger la date des photos (français)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Gidsen (in het Engels)</h2>
+      <ul>
+        <li><a href="/photo-date-fixer/why-memories-show-the-wrong-date/" hreflang="en">Waarom de datum niet klopt</a></li>
+        <li><a href="/photo-date-fixer/export-memories-with-metadata/" hreflang="en">Exporteren met datum en locatie</a></li>
+        <li><a href="/photo-date-fixer/how-we-check-nothing-is-uploaded/" hreflang="en">Controleren dat niets wordt geüpload</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Over ons</h2>
+      <ul>
+        <li><a href="/tools/" hreflang="en">Alle tools (in het Engels)</a></li>
+        <li><a href="/photo-date-fixer/privacy/" hreflang="en">Privacy (in het Engels)</a></li>
+        <li><a href="https://peakappsstudio.com/">De studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
