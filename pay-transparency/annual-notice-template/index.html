@@ -274,6 +274,16 @@ td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowra
 .site-foot a:hover { text-decoration: underline; }
 @media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
 
+/* ---------- "New from Peak Apps": the cross-promotion card the build puts above the footer (src/crosspromo.json) ---------- */
+.peak-new { margin-top: clamp(56px, 8vw, 104px); }
+.peak-new + .site-foot { margin-top: 28px; }
+.peak-new-card { display: grid; gap: 4px; max-width: 640px; padding: 16px 20px 18px; border: 1px solid var(--line-2); border-left: 4px solid var(--tool, var(--accent)); border-radius: var(--radius); background: var(--card); color: var(--ink); text-decoration: none; transition: border-color .2s var(--ease); }
+.peak-new-card:hover { border-color: var(--tool, var(--accent)); }
+.peak-new-card:focus-visible { outline: 2px solid var(--tool, var(--accent)); outline-offset: 3px; }
+.peak-new-kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.peak-new-card strong { font-size: 17px; font-weight: 600; line-height: 1.3; }
+.peak-new-line { font-size: 14px; line-height: 1.5; color: var(--ink-2); max-width: 62ch; }
+
 /* ---------- Home project tools: the shared block on Without Planning and Dropped Kerb Check ---------- */
 .home-block { margin: clamp(36px, 5vw, 60px) 0 0; border-top: 1px solid var(--line-2); padding-top: 16px; }
 .home-title { margin: 0 0 10px; font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink); }
@@ -956,6 +966,7 @@ body.pe.pe-ptk {
       <a href="/catio-designer/" class="hide-sm">Catio designer</a>
       <a href="/coop-designer/" class="hide-sm">Coop designer</a>
       <a href="/sim-rig-designer/" class="hide-sm">Sim rig designer</a>
+      <a href="/photo-date-fixer/" class="hide-sm">Photo dates</a>
       <a href="/tools/">All tools</a>
     </nav>
   </div>
@@ -1045,6 +1056,15 @@ body.pe.pe-ptk {
     <p class="source pt-legal">Sources: <a href="https://eur-lex.europa.eu/eli/dir/2023/970/oj" rel="noopener">Directive (EU) 2023/970</a>, Articles 7 and 25; <a href="https://legislation.mt/eli/ln/2026/173/eng" rel="noopener">L.N. 173 of 2026</a>; <a href="https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2026-05-07;96" rel="noopener">Legislative Decree No. 96/2026</a>; <a href="https://eur-lex.europa.eu/legal-content/SK/TXT/PDF/?uri=NIM:202603903" rel="noopener">Act No. 76/2026 Coll.</a>; <a href="https://eur-lex.europa.eu/legal-content/EL/TXT/PDF/?uri=NIM:202605866" rel="noopener">Law 5316/2026</a>; <a href="https://www.vlaanderen.be/Decision/6A2AA0D71151A5CDECCA1FA1" rel="noopener">Flemish decree of 12 June 2026</a>; <a href="https://www.tweedekamer.nl/kamerstukken/wetsvoorstellen/detail?cfg=wetsvoorsteldetails&amp;qry=wetsvoorstel%3A36949" rel="noopener">bill 36 949</a>. Last checked 8 October 2026. Not legal advice.</p>
   </section>
 </main>
+<aside class="peak-new" aria-label="New from Peak Apps">
+  <div class="wrap">
+    <a class="peak-new-card" href="/photo-date-fixer/" style="--tool:#c4360e">
+      <span class="peak-new-kicker">New from Peak Apps</span>
+      <strong>Photo Date Fixer</strong>
+      <span class="peak-new-line">Put the real date, time and place back into the photos of a Snapchat Memories export. Free, and nothing is uploaded.</span>
+    </a>
+  </div>
+</aside>
 <footer class="site-foot">
   <div class="wrap cols">
     <div>
@@ -1062,6 +1082,7 @@ body.pe.pe-ptk {
         <li><a href="/quilt-label-maker/">Quilt Label Maker</a></li>
         <li><a href="/etsy-tax-summary/">Etsy Tax Summary</a></li>
         <li><a href="/menopause-adjustments/">Menopause Adjustments at Work</a></li>
+        <li><a href="/photo-date-fixer/">Photo Date Fixer</a></li>
       </ul>
     </div>
     <div>
