@@ -16,6 +16,7 @@ Each tool page explains what the tool does, how to use it and its limits; the gu
 - [Photo Date Fixer](https://peakappsstudio.com/photo-date-fixer/): Put the real date, local time and location back into the photos and videos of a Snapchat Memories export, in your browser.
 - [Chatbound](https://peakappsstudio.com/character-ai-export-viewer/): Open the password-protected ZIP from your Character.AI data export and read, search and save your chats in the browser. Nothing is uploaded.
 - [Earhours](https://peakappsstudio.com/spotify-minutes-listened/): See your Spotify minutes listened so far this year, top artists, songs and podcasts, from your own data file, in your browser. Nothing is uploaded.
+- [Yearlap](https://peakappsstudio.com/strava-year-in-review/): A free Strava year in review from your own export: distance, hours, climbing, sports, streaks and story cards, in the browser, in any export language.
 
 ## Home project tools (3D)
 
@@ -47,6 +48,8 @@ Each tool page explains what the tool does, how to use it and its limits; the gu
 - [Ontwerp een kippenhok op maat van je kippen en je tuin (Dutch)](https://peakappsstudio.com/nl/kippenhok/): Ontwerp gratis online je kippenhok: op poten, inloophok, A-vorm of verplaatsbaar, op maat van je kippen, in 3D, gecontroleerd en met de materiaallijst.
 - [Cockpit simulador caseiro, nas medidas do seu corpo (Brazilian Portuguese)](https://peakappsstudio.com/pt-br/cockpit-simulador/): Projete o seu cockpit simulador em 3D para a sua altura, banco e equipamento: em madeira, perfil de alumínio ou compensado, com ângulos e lista de corte.
 - [Projete um galinheiro do tamanho das suas galinhas e do seu terreno (Brazilian Portuguese)](https://peakappsstudio.com/pt-br/galinheiro/): Projete o seu galinheiro online e grátis: suspenso, tipo casinha, triangular ou móvel, do tamanho das suas galinhas, em 3D, verificado e com a lista de materiais.
+- [Dein Strava-Jahresrückblick, kostenlos, aus deinem eigenen Export (German)](https://peakappsstudio.com/de/strava-jahresrueckblick/): Dein Strava-Jahresrückblick kostenlos und ohne Abo: Distanz, Stunden, Höhenmeter, Sportarten, Serien und Story-Karten aus deinem Export. Nichts wird hochgeladen.
+- [Je Strava-jaaroverzicht bekijken, gratis en zonder abonnement (Dutch)](https://peakappsstudio.com/nl/strava-jaaroverzicht/): Bekijk je Strava-jaaroverzicht gratis en zonder abonnement: afstand, uren, hoogtemeters, sporten, reeksen en story-kaarten uit je eigen export. Niets wordt geüpload.
 
 ## Apps
 
