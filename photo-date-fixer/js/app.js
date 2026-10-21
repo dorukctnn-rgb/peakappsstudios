@@ -1,5 +1,6 @@
 // Page script: drop zone, readouts, review, progress and saving. All file work happens in worker.js.
-// This script makes no network requests; the security policy in the page (connect-src 'none') would block them anyway.
+// This script makes no network requests; the security policy in the page would block them anyway: its connect-src names only
+// cloudflareinsights.com, where the visit counter (Cloudflare Web Analytics, added by the site build) reports.
 import { setSegments } from './segments.js';
 import { deviceZone, zoneList } from './engine/zones.js';
 import { fill, humanSize, pickForm } from './format.js';
@@ -48,8 +49,12 @@ const showParts = (n) => readout(el.parts, n, 2, '', t('readout.srParts', { n: f
 // Counts every resource the page requests after files are added (fetches, beacons, images, scripts). Expected: 0.
 // No request means no byte of your files can leave. If anything is ever requested, the readout switches to the request
 // count and turns into a warning instead of claiming a byte figure it cannot measure.
+// Left out: blob: and data: addresses (they need no request) and the visit counter's two addresses, its script and the
+// small report it sends when the page loads and when you leave it. That is the only exception, and the security policy
+// of the page lets no other address through.
 let watchFrom = null;
 let requestCount = 0;
+const NOT_COUNTED = /^(?:(?:blob|data):|https:\/\/(?:static\.)?cloudflareinsights\.com\/)/;
 function renderCounters() {
   if (requestCount === 0) readout(el.sent, 0, 5, UNITS[0], t('readout.srSent', { n: 0 }));
   else readout(el.sent, requestCount, 5, t('readout.unitReq'), t('readout.srReqs', { n: fmtInt(requestCount) }));
@@ -59,7 +64,7 @@ if ('PerformanceObserver' in window) {
   try {
     new PerformanceObserver((list) => {
       if (watchFrom == null) return;
-      for (const e of list.getEntries()) if (e.startTime >= watchFrom && !/^(blob|data):/.test(e.name)) requestCount++;
+      for (const e of list.getEntries()) if (e.startTime >= watchFrom && !NOT_COUNTED.test(e.name)) requestCount++;
       renderCounters();
     }).observe({ type: 'resource', buffered: false });
   } catch {
