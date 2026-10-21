@@ -94,3 +94,15 @@ body.hub {
 .hub-note { margin: clamp(36px, 5vw, 56px) 0 0; max-width: 70ch; color: var(--muted); font-size: 15.5px; }
 
 .hub .site-foot { border-top: 2px solid var(--ink); }
+
+/* ---------- The directory of guides and language editions (built from the pages by build.mjs) ---------- */
+.hub-guides { padding: clamp(40px, 5vw, 72px) 0 0; }
+.hub-guide-grid { columns: 3 270px; column-gap: clamp(24px, 3.2vw, 56px); margin-top: 22px; }
+.hub-guide-tool { break-inside: avoid; margin: 0 0 30px; }
+.hub-guide-tool h3 { font-family: var(--display); font-weight: 750; font-size: clamp(19px, 1.6vw, 22px); letter-spacing: -0.012em; line-height: 1.2; margin: 0 0 6px; }
+.hub-guide-tool h3 a { color: var(--ink); text-decoration: none; border-bottom: 3px solid var(--tool); padding-bottom: 1px; }
+.hub-guide-tool ul { list-style: none; margin: 0 0 8px; padding: 0; }
+.hub-guide-tool li a { display: block; padding: 6px 0; color: var(--ink-2); text-decoration: none; font-size: 15.5px; line-height: 1.35; border-bottom: 1px solid var(--line); }
+.hub-guide-tool li a:hover { color: var(--ink); border-bottom-color: var(--tool); }
+.hub-guide-lang { margin: 14px 0 2px; font-size: 14px; font-weight: 700; color: var(--muted); }
+@media (max-width: 640px) { .hub-guide-tool li a { padding: 10px 0; } }

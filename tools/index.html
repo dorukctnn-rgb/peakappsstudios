@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Free Tools for Makers and KDP Publishers | Peak Apps</title>
-<meta name="description" content="Free browser tools for makers: tapered tumbler templates, KDP coloring book interiors and layered sewing pattern printing. Files stay on your device.">
+<title>Free Online Tools for Makers, HR Teams and Homeowners | Peak Apps</title>
+<meta name="description" content="Free browser tools for makers, HR teams and homeowners, with a guide for each: templates, pay gap reports, 3D planners and more. Files stay on your device.">
 <link rel="canonical" href="https://peakappsstudio.com/tools/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Peak Apps Tools">
-<meta property="og:title" content="Free tools for makers and KDP publishers">
-<meta property="og:description" content="Tumbler templates, KDP coloring book interiors and layered sewing pattern printing, all in your browser.">
+<meta property="og:title" content="Free online tools for makers, HR teams and homeowners">
+<meta property="og:description" content="Templates, pay gap reports, 3D planners and more, each with its guides. Everything runs in your browser.">
 <meta property="og:url" content="https://peakappsstudio.com/tools/">
 <meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#fb6f24">
@@ -392,6 +392,18 @@ body.hub {
 .hub-note { margin: clamp(36px, 5vw, 56px) 0 0; max-width: 70ch; color: var(--muted); font-size: 15.5px; }
 
 .hub .site-foot { border-top: 2px solid var(--ink); }
+
+/* ---------- The directory of guides and language editions (built from the pages by build.mjs) ---------- */
+.hub-guides { padding: clamp(40px, 5vw, 72px) 0 0; }
+.hub-guide-grid { columns: 3 270px; column-gap: clamp(24px, 3.2vw, 56px); margin-top: 22px; }
+.hub-guide-tool { break-inside: avoid; margin: 0 0 30px; }
+.hub-guide-tool h3 { font-family: var(--display); font-weight: 750; font-size: clamp(19px, 1.6vw, 22px); letter-spacing: -0.012em; line-height: 1.2; margin: 0 0 6px; }
+.hub-guide-tool h3 a { color: var(--ink); text-decoration: none; border-bottom: 3px solid var(--tool); padding-bottom: 1px; }
+.hub-guide-tool ul { list-style: none; margin: 0 0 8px; padding: 0; }
+.hub-guide-tool li a { display: block; padding: 6px 0; color: var(--ink-2); text-decoration: none; font-size: 15.5px; line-height: 1.35; border-bottom: 1px solid var(--line); }
+.hub-guide-tool li a:hover { color: var(--ink); border-bottom-color: var(--tool); }
+.hub-guide-lang { margin: 14px 0 2px; font-size: 14px; font-weight: 700; color: var(--muted); }
+@media (max-width: 640px) { .hub-guide-tool li a { padding: 10px 0; } }
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
@@ -578,6 +590,294 @@ body.hub {
           <p class="hub-price"><b>Free</b>No Pro version</p>
         </a></li>
       </ul>
+    </section>
+  </div>
+  <div class="wrap hub-guides">
+    <section aria-labelledby="g-guides">
+      <div class="hub-group-head"><h2 id="g-guides">Every guide and language edition</h2><p>Grouped by the tool they belong to. The English guides come first, then the editions in other languages.</p></div>
+      <div class="hub-guide-grid">
+    <div class="hub-guide-tool" style="--tool:#1f5c4d">
+      <h3><a href="/tumbler-template/">Tumbler Template Generator</a></h3>
+      <ul>
+        <li><a href="/tumbler-template/20-oz-skinny-tumbler-template/">20 oz skinny tumbler template size</a></li>
+        <li><a href="/tumbler-template/40-oz-tumbler-template/">40 oz tumbler template: size &amp; printable wrap</a></li>
+        <li><a href="/tumbler-template/conical-warp/">Free conical warp tool for tapered tumblers</a></li>
+        <li><a href="/tumbler-template/how-to-measure/">How to measure a tapered tumbler for a template</a></li>
+        <li><a href="/tumbler-template/sizes/">Tumbler template size chart</a></li>
+      </ul>
+    </div>
+    <div class="hub-guide-tool" style="--tool:#6d2e5b">
+      <h3><a href="/name-cut-files/">Name Cut Files</a></h3>
+      <ul>
+        <li><a href="/name-cut-files/christmas-stocking-names/">Christmas stocking names: sizes and cut files</a></li>
+        <li><a href="/name-cut-files/how-to-cut-multiple-names-cricut/">How to cut multiple names on a Cricut at once</a></li>
+        <li><a href="/name-cut-files/name-ornaments/">Name ornaments: sizes and batch cut files</a></li>
+      </ul>
+    </div>
+    <div class="hub-guide-tool" style="--tool:#2f3f8f">
+      <h3><a href="/kdp-coloring-book/">KDP Coloring Book Interior Maker</a></h3>
+      <ul>
+        <li><a href="/kdp-coloring-book/blank-back-pages/">Blank back pages for a KDP coloring book</a></li>
+        <li><a href="/kdp-coloring-book/bleed-and-margins/">KDP bleed and margins calculator</a></li>
+        <li><a href="/kdp-coloring-book/requirements/">KDP coloring book requirements</a></li>
+        <li><a href="/kdp-coloring-book/sizes/">KDP coloring book sizes</a></li>
+        <li><a href="/kdp-coloring-book/spine-width-calculator/">KDP spine width calculator</a></li>
+      </ul>
+    </div>
+    <div class="hub-guide-tool" style="--tool:#a8402c">
+      <h3><a href="/sewing-pattern-printer/">Print Only Your Size</a></h3>
+      <ul>
+        <li><a href="/sewing-pattern-printer/mac-preview-layers/">Mac Preview shows all the sizes? Print just yours</a></li>
+        <li><a href="/sewing-pattern-printer/print-to-scale/">Print a PDF pattern to scale and check the test square</a></li>
+        <li><a href="/sewing-pattern-printer/ipad/">Print a PDF sewing pattern from an iPad at 100%</a></li>
+        <li><a href="/sewing-pattern-printer/a0-to-a4/">Print an A0 sewing pattern on A4 or Letter paper</a></li>
+      </ul>
+    </div>
+    <div class="hub-guide-tool" style="--tool:#7a3655">
+      <h3><a href="/quilt-label-maker/">Quilt Label Maker</a></h3>
+      <ul>
+        <li><a href="/quilt-label-maker/how-to-make-a-quilt-label/">How to make a quilt label on your computer and print it on fabric</a></li>
+        <li><a href="/quilt-label-maker/quilt-label-wording/">Quilt label wording: what to write, with examples</a></li>
+        <li><a href="/quilt-label-maker/quilts-of-valor-label/">Quilt of Valor label requirements</a></li>
+      </ul>
+    </div>
+    <div class="hub-guide-tool" style="--tool:#5b2d56">
+      <h3><a href="/etsy-tax-summary/">Etsy Tax Summary</a></h3>
+      <ul>
+        <li><a href="/etsy-tax-summary/uk-self-assessment/">Etsy income on UK Self Assessment</a></li>
+        <li><a href="/etsy-tax-summary/without-1099-k/">Filing Etsy taxes without a 1099-K</a></li>
+        <li><a href="/etsy-tax-summary/monthly-statement-csv/">The Etsy monthly statement CSV, column by column</a></li>
+        <li><a href="/etsy-tax-summary/schedule-c-lines/">Where Etsy fees go on Schedule C</a></li>
+      </ul>
+    </div>
+    <div class="hub-guide-tool" style="--tool:#00776b">
+      <h3><a href="/pay-gap-report/">Pay Gap Report</a></h3>
+      <ul>
+        <li><a href="/pay-gap-report/template/">Gender pay gap calculation template</a></li>
+        <li><a href="/pay-gap-report/ireland/">Gender pay gap reporting in Ireland, 2026</a></li>
+        <li><a href="/pay-gap-report/eu-pay-transparency-directive/">The EU Pay Transparency Directive: what employers report</a></li>
+        <li><a href="/pay-gap-report/formula/">The gender pay gap formula, worked through</a></li>
+        <li><a href="/pay-gap-report/uk/">UK gender pay gap calculation, step by step</a></li>
+      </ul>
+    </div>
+    <div class="hub-guide-tool" style="--tool:#b0136b">
+      <h3><a href="/equality-action-plan/">Equality Action Plan</a></h3>
+      <ul>
+        <li><a href="/equality-action-plan/rules/">Equality action plan rules: minimums, word limits and deadlines</a></li>
+        <li><a href="/equality-action-plan/2027/">Equality action plans 2027: what is mandatory and when</a></li>
+        <li><a href="/equality-action-plan/gender-pay-gap-action-plan-examples/">Gender pay gap action plan examples: a 100-word text for each action</a></li>
+        <li><a href="/equality-action-plan/menopause-action-plan-template/">Menopause action plan template: the six GOV.UK actions</a></li>
+      </ul>
+    </div>
+    <div class="hub-guide-tool" style="--tool:#0e5e63">
+      <h3><a href="/job-evaluation/">Job Evaluation</a></h3>
+      <ul>
+        <li><a href="/job-evaluation/template/">Job evaluation template for Excel, free</a></li>
+        <li><a href="/job-evaluation/point-factor-method/">The point factor method of job evaluation, with a worked example</a></li>
+        <li><a href="/job-evaluation/work-of-equal-value/">Work of equal value: what it means and how to show it</a></li>
+      </ul>
+      <p class="hub-guide-lang" lang="de">Deutsch</p>
+      <ul lang="de">
+        <li><a href="/job-evaluation/de/gleichwertige-arbeit/">Gleichwertige Arbeit nachweisen: geschlechtsneutrale Stellenbewertung</a></li>
+      </ul>
+      <p class="hub-guide-lang" lang="nl">Nederlands</p>
+      <ul lang="nl">
+        <li><a href="/job-evaluation/nl/functiewaardering/">Functiewaardering die sekseneutraal is</a></li>
+      </ul>
+    </div>
+    <div class="hub-guide-tool" style="--tool:#252b79">
+      <h3><a href="/pay-transparency/">Pay Transparency Kit</a></h3>
+      <ul>
+        <li><a href="/pay-transparency/answer-a-request/">Answer a pay information request from your payroll</a></li>
+        <li><a href="/pay-transparency/request-pay-information/">Ask your employer for your pay information</a></li>
+        <li><a href="/pay-transparency/job-ad-pay-range/">Job ad checker for pay transparency</a></li>
+        <li><a href="/pay-transparency/annual-notice-template/">The yearly notice of the right to pay information</a></li>
+      </ul>
+      <p class="hub-guide-lang" lang="de">Deutsch</p>
+      <ul lang="de">
+        <li><a href="/pay-transparency/de/gehaltsauskunft-anfordern/">Gehaltsauskunft anfordern: die Vorlage für Ihr Schreiben</a></li>
+      </ul>
+      <p class="hub-guide-lang" lang="nl">Nederlands</p>
+      <ul lang="nl">
+        <li><a href="/pay-transparency/nl/loontransparantie-informatieverzoek/">Loontransparantie: vraag je werkgever om informatie over je loon</a></li>
+      </ul>
+    </div>
+    <div class="hub-guide-tool" style="--tool:#1f48c7">
+      <h3><a href="/without-planning/">Without Planning</a></h3>
+      <ul>
+        <li><a href="/without-planning/ireland/detached-auxiliary-dwelling/">A granny flat without planning permission in Ireland: Class 3A</a></li>
+        <li><a href="/without-planning/air-conditioning-heat-pump/">Do you need planning permission for air conditioning or a heat pump?</a></li>
+        <li><a href="/without-planning/ireland/extension/">Extension without planning permission in Ireland: the 45 m² rule</a></li>
+        <li><a href="/without-planning/garden-room/">Garden room without planning permission: the 2.5 m rule and the rest of Class E</a></li>
+        <li><a href="/without-planning/rear-extension/">How far can I extend without planning permission? 3 m, 4 m, 6 m or 8 m</a></li>
+        <li><a href="/without-planning/ireland-2026/">Ireland’s new planning exemptions from 27 July 2026</a></li>
+        <li><a href="/without-planning/lawful-development-certificate/">Lawful development certificate: proving your project needs no planning permission</a></li>
+        <li><a href="/without-planning/ireland/section-5/">Section 5 declaration: asking the council whether your project is exempt</a></li>
+        <li><a href="/without-planning/ireland/garden-room-shed/">Shed, garden room or log cabin in Ireland: 30 m² without planning permission</a></li>
+      </ul>
+    </div>
+    <div class="hub-guide-tool" style="--tool:#0b6f80">
+      <h3><a href="/dropped-kerb/">Dropped Kerb Check</a></h3>
+      <ul>
+        <li><a href="/dropped-kerb/planning-permission/">Do you need planning permission for a dropped kerb?</a></li>
+        <li><a href="/dropped-kerb/application-drawings/">Dropped kerb application drawings: what councils ask for, with an example</a></li>
+        <li><a href="/dropped-kerb/cost/">Dropped kerb cost by council: fees and works</a></li>
+        <li><a href="/dropped-kerb/birmingham/">Dropped kerb in Birmingham: the rules and fees</a></li>
+        <li><a href="/dropped-kerb/bristol/">Dropped kerb in Bristol: the rules and fees</a></li>
+        <li><a href="/dropped-kerb/hampshire/">Dropped kerb in Hampshire: the rules and fees</a></li>
+        <li><a href="/dropped-kerb/havering/">Dropped kerb in Havering: the rules and fees</a></li>
+        <li><a href="/dropped-kerb/hertfordshire/">Dropped kerb in Hertfordshire: the rules and fees</a></li>
+        <li><a href="/dropped-kerb/kent/">Dropped kerb in Kent: the rules and fees</a></li>
+        <li><a href="/dropped-kerb/lancashire/">Dropped kerb in Lancashire: the rules and fees</a></li>
+        <li><a href="/dropped-kerb/leeds/">Dropped kerb in Leeds: the rules and fees</a></li>
+        <li><a href="/dropped-kerb/manchester/">Dropped kerb in Manchester: the rules and fees</a></li>
+        <li><a href="/dropped-kerb/sheffield/">Dropped kerb in Sheffield: the rules and fees</a></li>
+        <li><a href="/dropped-kerb/surrey/">Dropped kerb in Surrey: the rules and fees</a></li>
+        <li><a href="/dropped-kerb/waltham-forest/">Dropped kerb in Waltham Forest: the rules and fees</a></li>
+        <li><a href="/dropped-kerb/refused/">Dropped kerb refused? The usual reasons and what to do</a></li>
+        <li><a href="/dropped-kerb/rules/">Dropped kerb rules: depth, width, visibility and junctions</a></li>
+        <li><a href="/dropped-kerb/parking/">Parking across a dropped kerb: the rules in England and Scotland</a></li>
+      </ul>
+    </div>
+    <div class="hub-guide-tool" style="--tool:#b0501a">
+      <h3><a href="/catio-designer/">Catio Designer</a></h3>
+      <ul>
+        <li><a href="/catio-designer/balcony-catio/">A balcony catio with no drilling</a></li>
+        <li><a href="/catio-designer/how-big-should-a-catio-be/">How big should a catio be?</a></li>
+        <li><a href="/catio-designer/catio-cost/">How much does it cost to build a catio?</a></li>
+        <li><a href="/catio-designer/catio-mesh/">Which mesh for a catio?</a></li>
+        <li><a href="/catio-designer/window-catio-plans/">Window catio plans, free</a></li>
+      </ul>
+    </div>
+    <div class="hub-guide-tool" style="--tool:#56701a">
+      <h3><a href="/coop-designer/">Coop Designer</a></h3>
+      <ul>
+        <li><a href="/coop-designer/designs-for-10-chickens/">Chicken coop designs for 10 chickens</a></li>
+        <li><a href="/coop-designer/designs-for-12-chickens/">Chicken coop designs for 12 chickens</a></li>
+        <li><a href="/coop-designer/designs-for-20-chickens/">Chicken coop designs for 20 chickens</a></li>
+        <li><a href="/coop-designer/designs-for-4-chickens/">Chicken coop designs for 4 chickens</a></li>
+        <li><a href="/coop-designer/designs-for-6-chickens/">Chicken coop designs for 6 chickens</a></li>
+        <li><a href="/coop-designer/hardware-cloth-chicken-run/">Hardware cloth for a chicken run</a></li>
+        <li><a href="/coop-designer/how-big-should-a-chicken-coop-be/">How big should a chicken coop be?</a></li>
+        <li><a href="/coop-designer/how-many-nesting-boxes/">How many nesting boxes do chickens need?</a></li>
+        <li><a href="/coop-designer/chicken-coop-cost/">How much does it cost to build a chicken coop?</a></li>
+      </ul>
+      <p class="hub-guide-lang" lang="de">Deutsch</p>
+      <ul lang="de">
+        <li><a href="/de/huehnerstall/">Plane einen Hühnerstall, der zu deinen Hühnern und deinem Garten passt</a></li>
+        <li><a href="/de/huehnerstall/huehnerstall-fuer-10-huehner/">Hühnerstall für 10 Hühner</a></li>
+        <li><a href="/de/huehnerstall/huehnerstall-selber-bauen/">Hühnerstall selber bauen</a></li>
+        <li><a href="/de/huehnerstall/mobiler-huehnerstall/">Mobiler Hühnerstall auf Rädern</a></li>
+        <li><a href="/de/huehnerstall/wie-viel-platz-brauchen-huehner/">Wie viel Platz brauchen Hühner?</a></li>
+      </ul>
+      <p class="hub-guide-lang" lang="es">Español</p>
+      <ul lang="es">
+        <li><a href="/es/gallinero/">Diseña un gallinero a la medida de tus gallinas y de tu terreno</a></li>
+        <li><a href="/es/gallinero/gallinero-para-10-gallinas/">Gallinero para 10 gallinas</a></li>
+        <li><a href="/es/gallinero/gallinero-para-20-gallinas/">Gallinero para 20 gallinas</a></li>
+        <li><a href="/es/gallinero/gallinero-para-6-gallinas/">Gallinero para 6 gallinas</a></li>
+        <li><a href="/es/gallinero/planos-de-gallineros-pdf/">Planos de gallineros en PDF, gratis</a></li>
+      </ul>
+      <p class="hub-guide-lang" lang="fr">Français</p>
+      <ul lang="fr">
+        <li><a href="/fr/poulailler/">Concevez un poulailler pour vos poules et votre jardin</a></li>
+        <li><a href="/fr/poulailler/construire-un-poulailler-pour-4-poules/">Construire un poulailler pour 4 poules</a></li>
+        <li><a href="/fr/poulailler/plan-poulailler-mobile/">Plan de poulailler mobile</a></li>
+        <li><a href="/fr/poulailler/plan-poulailler-10-poules/">Plan de poulailler pour 10 poules</a></li>
+        <li><a href="/fr/poulailler/surface-poulailler-par-poule/">Quelle surface de poulailler par poule ?</a></li>
+      </ul>
+      <p class="hub-guide-lang" lang="it">Italiano</p>
+      <ul lang="it">
+        <li><a href="/it/pollaio/">Progetta un pollaio su misura per le tue galline e per il tuo terreno</a></li>
+        <li><a href="/it/pollaio/pollaio-mobile/">Pollaio mobile su ruote</a></li>
+        <li><a href="/it/pollaio/pollaio-per-10-galline/">Pollaio per 10 galline</a></li>
+        <li><a href="/it/pollaio/pollaio-per-4-galline/">Pollaio per 4 galline</a></li>
+        <li><a href="/it/pollaio/progetto-pollaio-fai-da-te/">Progetto di pollaio fai da te, in PDF</a></li>
+      </ul>
+      <p class="hub-guide-lang" lang="nl">Nederlands</p>
+      <ul lang="nl">
+        <li><a href="/nl/kippenhok/">Ontwerp een kippenhok op maat van je kippen en je tuin</a></li>
+        <li><a href="/nl/kippenhok/hoeveel-kippen-per-m2/">Hoeveel kippen per m²?</a></li>
+        <li><a href="/nl/kippenhok/kippenhok-voor-4-kippen/">Kippenhok voor 4 kippen</a></li>
+        <li><a href="/nl/kippenhok/kippenhok-zelf-maken/">Kippenhok zelf maken</a></li>
+        <li><a href="/nl/kippenhok/verplaatsbaar-kippenhok/">Verplaatsbaar kippenhok op wielen</a></li>
+      </ul>
+      <p class="hub-guide-lang" lang="pt-BR">Português</p>
+      <ul lang="pt-BR">
+        <li><a href="/pt-br/galinheiro/">Projete um galinheiro do tamanho das suas galinhas e do seu terreno</a></li>
+        <li><a href="/pt-br/galinheiro/galinheiro-movel/">Galinheiro móvel com rodas</a></li>
+        <li><a href="/pt-br/galinheiro/galinheiro-para-10-galinhas/">Galinheiro para 10 galinhas</a></li>
+        <li><a href="/pt-br/galinheiro/galinheiro-simples-de-madeira/">Galinheiro simples de madeira</a></li>
+        <li><a href="/pt-br/galinheiro/galinhas-por-metro-quadrado/">Quantas galinhas por metro quadrado?</a></li>
+      </ul>
+    </div>
+    <div class="hub-guide-tool" style="--tool:#6a2ee8">
+      <h3><a href="/sim-rig-designer/">Sim Rig Designer</a></h3>
+      <ul>
+        <li><a href="/sim-rig-designer/aluminum-sim-rig-plans/">Aluminum sim rig plans in 40-series profile</a></li>
+        <li><a href="/sim-rig-designer/diy-sim-rig-plans-wood/">DIY sim rig plans in 2x4 wood</a></li>
+        <li><a href="/sim-rig-designer/sim-racing-cockpit-dimensions/">Sim racing cockpit dimensions by driver height</a></li>
+        <li><a href="/sim-rig-designer/sim-rig-cnc-plans/">Sim rig CNC plans: the plates as DXF files</a></li>
+      </ul>
+      <p class="hub-guide-lang" lang="de">Deutsch</p>
+      <ul lang="de">
+        <li><a href="/de/sim-rig/">Sim Rig selber bauen, nach Maß für deinen Körper</a></li>
+        <li><a href="/de/sim-rig/lenkradhalterung-selber-bauen/">Lenkradhalterung selber bauen: ein Ständer aus Multiplex</a></li>
+        <li><a href="/de/sim-rig/sim-rig-aluprofil/">Sim Rig aus Aluprofil: Stückliste für 40 x 80 und 40 x 40</a></li>
+        <li><a href="/de/sim-rig/sim-rig-bauplan-pdf/">Sim Rig Bauplan als PDF: was drinsteht und was kostenlos bleibt</a></li>
+        <li><a href="/de/sim-rig/sim-rig-masse/">Sim Rig Maße nach Körpergröße</a></li>
+        <li><a href="/sim-rig-designer/sim-rig-selber-bauen/">Sim Rig selber bauen: Anleitung für einen Rahmen aus Holz</a></li>
+      </ul>
+      <p class="hub-guide-lang" lang="es">Español</p>
+      <ul lang="es">
+        <li><a href="/es/cockpit-simracing/">Cockpit de simracing casero, a la medida de tu cuerpo</a></li>
+        <li><a href="/es/cockpit-simracing/cockpit-simracing-madera/">Cockpit de simracing de madera, hecho en casa con listones</a></li>
+        <li><a href="/es/cockpit-simracing/medidas-cockpit-simracing/">Medidas de un cockpit de simracing de 1,60 a 1,95 m</a></li>
+        <li><a href="/es/cockpit-simracing/planos-cockpit-simracing/">Planos de cockpit de simracing: qué trae el PDF y qué es gratis</a></li>
+        <li><a href="/es/cockpit-simracing/soporte-volante-casero/">Soporte de volante y pedales casero para jugar en la silla</a></li>
+      </ul>
+      <p class="hub-guide-lang" lang="fr">Français</p>
+      <ul lang="fr">
+        <li><a href="/fr/cockpit-simracing/">Cockpit simracing fait maison, à la mesure de votre corps</a></li>
+        <li><a href="/fr/cockpit-simracing/cockpit-simracing-bois/">Cockpit simracing en bois fait maison : plan de débit et cotes</a></li>
+        <li><a href="/fr/cockpit-simracing/cockpit-simracing-profile-alu/">Cockpit simracing en profilé alu : la nomenclature complète</a></li>
+        <li><a href="/fr/cockpit-simracing/dimensions-cockpit-simracing/">Dimensions d’un cockpit simracing, de 1,60 à 1,95 m</a></li>
+        <li><a href="/fr/cockpit-simracing/support-volant-fait-maison/">Support volant fait maison : un support en OSB pour la chaise</a></li>
+      </ul>
+      <p class="hub-guide-lang" lang="it">Italiano</p>
+      <ul lang="it">
+        <li><a href="/it/cockpit-sim-racing/">Cockpit sim racing fai da te, su misura per il tuo corpo</a></li>
+        <li><a href="/it/cockpit-sim-racing/postazione-sim-racing-misure/">Misure di una postazione sim racing, da 1,60 a 1,95 m</a></li>
+        <li><a href="/it/cockpit-sim-racing/postazione-sim-racing-profilati/">Postazione sim racing con profilati di alluminio: la distinta</a></li>
+        <li><a href="/it/cockpit-sim-racing/postazione-sim-racing-legno/">Postazione sim racing in legno fai da te: progetto con misure</a></li>
+        <li><a href="/it/cockpit-sim-racing/supporto-volante-fai-da-te/">Supporto volante e pedaliera fai da te, per la sedia</a></li>
+      </ul>
+      <p class="hub-guide-lang" lang="pt-BR">Português</p>
+      <ul lang="pt-BR">
+        <li><a href="/pt-br/cockpit-simulador/">Cockpit simulador caseiro, nas medidas do seu corpo</a></li>
+        <li><a href="/pt-br/cockpit-simulador/cockpit-simulador-de-madeira/">Cockpit simulador de madeira: projeto caseiro com lista de corte</a></li>
+        <li><a href="/pt-br/cockpit-simulador/cockpit-simulador-perfil-aluminio/">Cockpit simulador de perfil de alumínio: peças e fixação</a></li>
+        <li><a href="/pt-br/cockpit-simulador/medidas-cockpit-simulador/">Medidas de cockpit simulador de 1,55 a 1,90 m</a></li>
+        <li><a href="/pt-br/cockpit-simulador/suporte-de-volante-caseiro/">Suporte de volante caseiro: uma base de compensado para a cadeira</a></li>
+      </ul>
+    </div>
+    <div class="hub-guide-tool" style="--tool:#c4360e">
+      <h3><a href="/photo-date-fixer/">Photo Date Fixer</a></h3>
+      <ul>
+        <li><a href="/photo-date-fixer/export-memories-with-metadata/">How to export Snapchat Memories with dates and locations</a></li>
+        <li><a href="/photo-date-fixer/how-we-check-nothing-is-uploaded/">How we check that nothing is uploaded</a></li>
+        <li><a href="/photo-date-fixer/why-memories-show-the-wrong-date/">Why your Snapchat Memories show the wrong date</a></li>
+      </ul>
+      <p class="hub-guide-lang" lang="fr">Français</p>
+      <ul lang="fr">
+        <li><a href="/fr/corriger-date-photos/">Corriger la date de vos souvenirs Snapchat (memories) dans le navigateur</a></li>
+      </ul>
+      <p class="hub-guide-lang" lang="nl">Nederlands</p>
+      <ul lang="nl">
+        <li><a href="/nl/fotodatum-wijzigen/">De datum van je Snapchat-herinneringen herstellen, zonder uploaden</a></li>
+      </ul>
+    </div>
+      </div>
     </section>
   </div>
 </main>
