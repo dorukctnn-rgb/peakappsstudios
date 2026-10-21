@@ -587,7 +587,7 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
       <p class="cb-meter" role="status" aria-live="polite"><strong id="cb-sent">0</strong><b id="cb-sent-label">network requests carrying your file</b><small>This page reads the export on your device and has nowhere to send it. <a href="#nothing-uploaded">How to check</a></small></p>
       <ul class="cb-points">
         <li>Opens the password-protected ZIP with the email address of your account, which is the password Character.AI uses.</li>
-        <li>Opens big exports: in our test, a 106 MB export with 382,860 messages opened in about ten seconds.</li>
+        <li>Opens big exports: in our test, a 106 MB export with 382,860 messages opened in 10 to 16 seconds.</li>
         <li>Saves a chat as HTML, plain text or Markdown for free.</li>
       </ul>
     </div>
@@ -796,7 +796,7 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
     <details><summary>What is the password for the Character.AI export ZIP?</summary><p>The email address of your Character.AI account, all in lowercase. The export email says so. Chatbound asks for it after you drop the ZIP and forgives capitals and stray spaces.</p></details>
     <details><summary>Why doesn’t it show who said what?</summary><p>The export doesn’t record it. Each message in <code>message.json</code> has its text, a time and the chat it belongs to, and nothing about the sender. Chatbound shows the messages in time order and never invents names.</p></details>
     <details><summary>My export email hasn’t arrived.</summary><p>Character.AI says exports can take 3 to 4 weeks. Check your spam folder and the inbox of the email on your account. If the link in the email has expired (it works for 7 days), ask for a new export in your settings. There are more fixes on the <a href="/character-ai-export-viewer/export-not-working/">export not working</a> page.</p></details>
-    <details><summary>Will a very large export open?</summary><p>Yes. The file is read in pieces in a background worker, so the page doesn’t freeze. In our test, a 106 MB password-protected ZIP holding 288 MB of messages (382,860 of them) opened in about ten seconds on a laptop (9.5 to 11 seconds across our runs), and the page never paused for more than a fifth of a second. On a phone, very large exports work but take longer and need free memory.</p></details>
+    <details><summary>Will a very large export open?</summary><p>Yes. The file is read in pieces in a background worker, so the page doesn’t freeze. In our test, a 106 MB password-protected ZIP holding 288 MB of messages (382,860 of them) opened in 9.5 to 16 seconds on a laptop across our test runs, and the page never paused for more than a quarter of a second. On a phone, very large exports work but take longer and need free memory.</p></details>
     <details><summary>Does it work on a phone?</summary><p>Yes, in a current browser on Android or iPhone. Download the ZIP from the email first, then choose it from your Files or Downloads.</p></details>
     <details><summary>Can I move my chats to another app?</summary><p>No app we know of imports the official export directly. Chatbound gives you readable copies: HTML, text and Markdown for any chat, and with Pro a searchable book, a PDF and an EPUB.</p></details>
     <details><summary>Is this made by Character.AI?</summary><p>No. Chatbound is an independent tool by Peak Apps Studio and is not affiliated with, endorsed by or sponsored by Character Technologies, Inc.</p></details>
