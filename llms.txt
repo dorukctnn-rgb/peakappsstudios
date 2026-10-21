@@ -14,6 +14,7 @@ Each tool page explains what the tool does, how to use it and its limits; the gu
 - [Etsy Tax Summary](https://peakappsstudio.com/etsy-tax-summary/): Year totals from your Etsy statement CSVs: sales, refunds, every fee and the Schedule C lines.
 - [Menopause Adjustments at Work](https://peakappsstudio.com/menopause-adjustments/): Ideas for changes at work from the Acas and GOV.UK guidance, chosen by symptom, and a polite request letter to your manager.
 - [Photo Date Fixer](https://peakappsstudio.com/photo-date-fixer/): Put the real date, local time and location back into the photos and videos of a Snapchat Memories export, in your browser.
+- [Chatbound](https://peakappsstudio.com/character-ai-export-viewer/): Open the password-protected ZIP from your Character.AI data export and read, search and save your chats in the browser. Nothing is uploaded.
 
 ## Home project tools (3D)
 
