@@ -1,0 +1,919 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src https://api.gumroad.com https://cloudflareinsights.com; worker-src 'self'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>컬러노트 메모를 PC에서 보기 | 백업 파일을 브라우저로 열기</title>
+<meta name="description" content="컬러노트(ColorNote) 백업 파일을 PC 브라우저에서 비밀번호로 열고, 모든 메모를 읽고 검색하고 저장하세요. 무료이며 파일은 업로드되지 않습니다.">
+<link rel="canonical" href="https://peakappsstudio.com/ko/colornote-pc/">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/colornote-viewer/">
+<link rel="alternate" hreflang="ja" href="https://peakappsstudio.com/ja/colornote-pc/">
+<link rel="alternate" hreflang="ko" href="https://peakappsstudio.com/ko/colornote-pc/">
+<link rel="alternate" hreflang="es" href="https://peakappsstudio.com/es/abrir-colornote-en-pc/">
+<link rel="alternate" hreflang="pt-BR" href="https://peakappsstudio.com/pt-br/abrir-colornote-no-pc/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/colornote-viewer/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="컬러노트 백업을 PC에서 열기">
+<meta property="og:description" content="휴대폰에서 만든 컬러노트 .backup 파일을 고르고 비밀번호(0000을 먼저 시도합니다)로 열어 모든 메모를 읽고, 검색하고, 저장하세요. 업로드는 하지 않습니다.">
+<meta property="og:url" content="https://peakappsstudio.com/ko/colornote-pc/">
+<meta property="og:image" content="https://peakappsstudio.com/colornote-viewer/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="초록색 책상 위에서 휴대폰으로부터 여러 색의 메모 카드가 떠오르는 모습. 카드에는 예시 메모가 적혀 있습니다.">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2c1a36">
+<link rel="icon" href="/colornote-viewer/img/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/colornote-viewer/fonts/notelift-display-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/colornote-viewer/fonts/notelift-text-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style data-from="/assets/tools.css">
+/* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
+
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e1;
+  --card: #fbfaf7;
+  --ink: #141518;
+  --ink-2: #33363d;
+  --muted: #676b74;
+  --line: rgba(20, 21, 24, 0.12);
+  --line-2: rgba(20, 21, 24, 0.22);
+  --accent: #1f5c4d;          /* each tool overrides this on <body style="--accent:..."> */
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  --warn: #9a4a12;
+  --ok: #2c6a3f;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+    --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+  --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; }
+img { display: block; height: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 10px; z-index: 100; background: var(--ink); color: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 10px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-head { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand-sub { font-family: var(--sans); font-size: 14.5px; letter-spacing: 0; color: var(--muted); font-weight: 500; padding-left: 10px; border-left: 1px solid var(--line-2); }
+.head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
+.head-nav a:hover { background: var(--paper-2); color: var(--ink); }
+.head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
+@media (max-width: 640px) { .brand-sub { display: none; } }
+@media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
+
+/* ---------- Type ---------- */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+h1 { font-size: clamp(32px, 4.6vw, 54px); }
+h1 em, h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 19px; letter-spacing: -0.01em; }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; margin: 16px 0 0; }
+.mono { font-family: var(--mono); }
+.muted { color: var(--muted); }
+small, .small { font-size: 13.5px; }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 22px 0 0; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-2); }
+.crumbs a { text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.tool-hero { padding: 28px 0 24px; display: grid; gap: 8px; }
+.tool-hero .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.tool-hero .facts li { display: inline-flex; align-items: center; gap: 8px; }
+.tool-hero .facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Tool shell ---------- */
+.tool { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.tool-panel { padding: 22px; border-right: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.tool-stage { position: relative; min-height: 460px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper); display: grid; place-items: center; padding: 22px; }
+.tool-stage canvas, .tool-stage svg, .tool-stage img { max-height: 70vh; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px -12px rgba(0,0,0,.18); background: #fff; }
+.stage-bar { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.tool-foot { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 14px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--paper); }
+.tool-foot .spacer { flex: 1; }
+@media (max-width: 860px) {
+  .tool { grid-template-columns: 1fr; }
+  .tool-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tool-stage { min-height: 320px; }
+}
+
+/* ---------- Form controls ---------- */
+.group { display: grid; gap: 10px; }
+.group-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > label { font-size: 13px; color: var(--ink-2); }
+.input, .select { width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 8px; padding: 9px 11px; transition: border-color .15s, box-shadow .15s; }
+.input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input-unit { position: relative; }
+.input-unit .input { padding-right: 38px; font-family: var(--mono); font-size: 14.5px; }
+.input-unit i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 3px; flex: none; }
+.seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line-2); border-radius: 9px; padding: 3px; gap: 3px; background: var(--paper); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.warn { font-size: 13.5px; color: var(--warn); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.btn { --b: var(--line-2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 500; line-height: 1; padding: 11px 16px; border-radius: 9px; border: 1px solid var(--b); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; transition: transform .15s var(--ease), background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklab, var(--accent) 86%, #000); color: var(--accent-ink); border-color: transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-ink:hover { color: var(--paper); background: var(--ink-2); }
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.pro-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: var(--ink); color: var(--paper); }
+
+/* ---------- Drop zone ---------- */
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 18px 14px; background: var(--paper); cursor: pointer; transition: border-color .15s, background .15s; font-size: 14.5px; }
+.drop:hover, .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Content ---------- */
+.section { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prose { max-width: 70ch; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose h2 { margin: 1.6em 0 .5em; }
+.prose h3 { margin: 1.4em 0 .4em; }
+.prose code, .prose kbd { font-family: var(--mono); font-size: .9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+.two-col > * { min-width: 0; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: 3px; }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 13px; background: var(--paper); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 15px; }
+.source { font-size: 13px; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--line-2); margin-top: 18px; }
+.faq details { border-bottom: 1px solid var(--line-2); }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 13px; font-family: var(--mono); font-size: 18px; color: var(--muted); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 18px; color: var(--ink-2); max-width: 70ch; }
+
+/* ---------- Pro ---------- */
+.pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--card); }
+.pro-left { padding: clamp(22px, 3vw, 36px); }
+.pro-right { padding: clamp(22px, 3vw, 36px); background: var(--ink); color: var(--paper); display: grid; align-content: center; gap: 14px; }
+.pro-right .price { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pro-right .price small { font-size: 15px; font-weight: 400; color: color-mix(in oklab, var(--paper) 70%, transparent); letter-spacing: 0; }
+.pro-right .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.pro-right .btn-primary:hover { background: #fff; color: var(--ink); }
+.pro-right .fine { font-size: 13px; color: color-mix(in oklab, var(--paper) 65%, transparent); margin: 0; }
+.pro-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.pro-list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.pro-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border: 1.5px solid var(--accent); border-radius: 2px; transform: rotate(45deg); }
+@media (max-width: 760px) { .pro { grid-template-columns: 1fr; } }
+
+/* ---------- A real file, shown ---------- */
+.shot { margin: 22px 0 0; }
+.shot img { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; }
+.shot figcaption { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+.shot figcaption strong { font-weight: 600; color: var(--ink-2); }
+.shot-sm { max-width: 920px; }
+
+/* ---------- Where free stops and Pro starts ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; margin: 26px 0 0; background: var(--card); }
+.split > div { padding: 18px 20px 20px; }
+.split > div + div { border-left: 1px solid var(--line-2); background: var(--accent-soft); }
+.split h3 { font-size: 15.5px; margin: 0; }
+.split > div > p { margin: 5px 0 0; font-size: 13.5px; color: var(--muted); }
+.split ul { list-style: none; margin: 13px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
+.split li { position: relative; padding-left: 18px; }
+.split li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; border-radius: 1px; background: var(--line-2); }
+.split > div + div li::before { background: var(--accent); }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } .split > div + div { border-left: 0; border-top: 1px solid var(--line-2); } }
+
+/* ---------- A file list, as the archive really holds it ---------- */
+.filelist { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 5px; }
+.filelist li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filelist li span { color: var(--muted); }
+
+/* ---------- License dialog ---------- */
+.license-dialog { border: 1px solid var(--line-2); border-radius: 14px; padding: 0; width: min(440px, calc(100% - 32px)); background: var(--card); color: var(--ink); }
+.license-dialog::backdrop { background: rgba(10, 11, 13, .45); }
+.license-dialog form { padding: 22px; display: grid; gap: 14px; }
+.license-status { font-size: 14px; min-height: 1.4em; margin: 0; }
+.license-status[data-state="ok"] { color: var(--ok); }
+.license-status[data-state="err"] { color: var(--warn); }
+
+/* ---------- Related / cards ---------- */
+.related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line-2); margin-top: 22px; }
+.related a { display: grid; gap: 4px; padding: 18px 18px 18px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.related a strong { font-weight: 600; }
+.related a span { font-size: 14px; color: var(--muted); }
+.related a:hover strong { color: var(--accent); }
+
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
+/* ---------- Footer ---------- */
+.site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
+.site-foot h2 { font-size: 15px; font-family: var(--sans); letter-spacing: 0; font-weight: 600; color: var(--ink); margin: 0 0 10px; }
+.site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+@media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- "New from Peak Apps": the cross-promotion card the build puts above the footer (src/crosspromo.json) ---------- */
+.peak-new { margin-top: clamp(56px, 8vw, 104px); }
+.peak-new + .site-foot { margin-top: 28px; }
+.peak-new-card { display: grid; gap: 4px; max-width: 640px; padding: 16px 20px 18px; border: 1px solid var(--line-2); border-left: 4px solid var(--tool, var(--accent)); border-radius: var(--radius); background: var(--card); color: var(--ink); text-decoration: none; transition: border-color .2s var(--ease); }
+.peak-new-card:hover { border-color: var(--tool, var(--accent)); }
+.peak-new-card:focus-visible { outline: 2px solid var(--tool, var(--accent)); outline-offset: 3px; }
+.peak-new-kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.peak-new-card strong { font-size: 17px; font-weight: 600; line-height: 1.3; }
+.peak-new-line { font-size: 14px; line-height: 1.5; color: var(--ink-2); max-width: 62ch; }
+
+/* ---------- Home project tools: the shared block on Without Planning and Dropped Kerb Check ---------- */
+.home-block { margin: clamp(36px, 5vw, 60px) 0 0; border-top: 1px solid var(--line-2); padding-top: 16px; }
+.home-title { margin: 0 0 10px; font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink); }
+.home-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px 24px; }
+.home-list a { display: grid; gap: 3px; padding: 2px 0 2px 14px; border-left: 4px solid var(--tool, var(--accent)); text-decoration: none; color: var(--ink); }
+.home-list a strong { font-weight: 700; font-size: 16px; }
+.home-list a span { color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+.home-list a:hover strong { color: var(--tool, var(--accent)); }
+.home-list a[aria-current="page"] span { color: var(--ink-2); }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .3s var(--ease); z-index: 90; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media print { .site-head, .site-foot, .tool-panel, .tool-foot, .no-print { display: none !important; } body { background: #fff; } }
+
+/* The hidden attribute must win over component display rules. */
+[hidden] { display: none !important; }
+</style>
+<style data-from="/colornote-viewer/tool.css">
+/* Notelift: a ColorNote backup, read on a computer. A deep plum card-file desk, white cards, and the nine note colours
+   as the only bright colour on the page: they are the filing tabs on the open panel and the filters of the reader.
+   Hepta Slab for headings (a sturdy slab, like a label on a card drawer), Asap for everything you read. */
+@font-face { font-family: "Notelift Display"; src: url("/colornote-viewer/fonts/notelift-display-latin.woff2") format("woff2"); font-weight: 700 900; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Notelift Display"; src: url("/colornote-viewer/fonts/notelift-display-latin-ext.woff2") format("woff2"); font-weight: 700 900; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Notelift Text"; src: url("/colornote-viewer/fonts/notelift-text-latin.woff2") format("woff2"); font-weight: 400 700; font-display: optional; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Notelift Text"; src: url("/colornote-viewer/fonts/notelift-text-latin-ext.woff2") format("woff2"); font-weight: 400 700; font-display: optional; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+/* fallbacks sized to the web fonts, so the page does not jump when they arrive */
+@font-face { font-family: "Notelift Text Fallback"; src: local("Arial"); size-adjust: 93%; ascent-override: 98%; descent-override: 25%; line-gap-override: 0%; }
+@font-face { font-family: "Notelift Display Fallback"; src: local("Georgia Bold"), local("Georgia-Bold"), local("Georgia"); font-weight: 800; size-adjust: 104%; ascent-override: 92%; descent-override: 26%; line-gap-override: 0%; }
+
+body.cn {
+  --mist: #eceff1; --mist-2: #dfe3e6; --card: #ffffff; --sheet: #ffffff;
+  --ink: #1b1a22; --ink-2: #302d3a; --muted: #5a5868; --line: #d5dade; --line-2: #bcc4ca;
+  --desk: #3a2346; --desk-2: #2c1a36; --desk-ink: #ffffff; --desk-soft: #e2d3ec;
+  --accent: #3a2346; --accent-ink: #ffffff; --link: #3a2346;
+  --pop: #8fe3b8; --mint: #efe4f6; --hit: #fbe38e; --focus: #7a3fa0;
+  --cjk-sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", Meiryo, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans CJK JP", "Noto Sans KR";
+  --sans: "Notelift Text", "Notelift Text Fallback", var(--cjk-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --head: "Notelift Display", "Notelift Display Fallback", var(--cjk-sans), Georgia, serif;
+  --paper: var(--mist);
+  font-family: var(--sans); font-size: 17px; line-height: 1.55;
+  background: var(--mist); color: var(--ink);
+}
+body.cn:lang(ja), body.cn:lang(ko) { line-height: 1.7; word-break: normal; overflow-wrap: anywhere; }
+body.cn:lang(ko) { word-break: keep-all; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.cn {
+    --mist: #141218; --mist-2: #1c1922; --card: #201d27; --sheet: #201d27;
+    --ink: #eeecf2; --ink-2: #d6d2de; --muted: #a9a4b5; --line: #332f3c; --line-2: #46414f;
+    --accent: #cfa8ea; --accent-ink: #1a1022; --link: #d9b8f0; --desk-soft: #d6c3e4; --mint: #3a2a47; --hit: #6b5a12;
+  }
+}
+:root[data-theme="dark"] body.cn {
+  --mist: #141218; --mist-2: #1c1922; --card: #201d27; --sheet: #201d27;
+  --ink: #eeecf2; --ink-2: #d6d2de; --muted: #a9a4b5; --line: #332f3c; --line-2: #46414f;
+  --accent: #cfa8ea; --accent-ink: #1a1022; --link: #d9b8f0; --desk-soft: #d6c3e4; --mint: #3a2a47; --hit: #6b5a12;
+}
+.cn a { color: var(--link); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.cn a:hover { color: var(--ink); }
+.cn h1, .cn h2, .cn h3, .cn h4 { font-family: var(--head); color: var(--ink); font-weight: 800; }
+.cn h1 { font-size: clamp(34px, 4.6vw, 58px); line-height: 1.04; letter-spacing: -0.02em; max-width: 15ch; margin: 18px 0 0; }
+.cn:lang(ja) h1, .cn:lang(ko) h1 { font-size: clamp(30px, 4vw, 50px); line-height: 1.25; letter-spacing: 0; max-width: 18em; }
+/* Japanese and Korean headings: the slab has no CJK, so headings use Asap for Latin letters and digits with the system's
+   CJK gothic, one family per heading instead of a slab "PC" next to gothic kana */
+.cn:lang(ja) :is(h1, h2, h3, h4, .cn-busy-title, .cn-error-title, .cn-done-title, .cn-pw-title, .cn-cmp-summary, .cn-price), .cn:lang(ko) :is(h1, h2, h3, h4, .cn-busy-title, .cn-error-title, .cn-done-title, .cn-pw-title, .cn-cmp-summary, .cn-price) { font-family: "Notelift Text", var(--cjk-sans), sans-serif; font-weight: 700; letter-spacing: 0; }
+.cn h2 { font-size: clamp(26px, 2.8vw, 36px); letter-spacing: -0.012em; line-height: 1.12; }
+.cn h3 { font-size: 20px; letter-spacing: -0.004em; line-height: 1.25; }
+.cn .lede { font-size: clamp(17.5px, 1.5vw, 19.5px); line-height: 1.55; color: var(--ink-2); max-width: 54ch; margin-top: 18px; }
+.cn .btn { font-family: var(--sans); font-size: 16.5px; font-weight: 700; border-radius: 10px; padding: 12px 18px; line-height: 1.2; white-space: normal; text-align: center; max-width: 100%; }
+.cn .btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.cn .btn-primary:hover { background: var(--ink); border-color: var(--ink); color: var(--mist); }
+.cn .cn-btn-quiet { background: transparent; border-color: var(--line-2); color: var(--ink); }
+.cn .cn-btn-quiet:hover { border-color: var(--ink); }
+.cn .btn[disabled] { opacity: 0.6; cursor: progress; }
+.cn .btn:focus-visible, .cn button:focus-visible, .cn a:focus-visible, .cn input:focus-visible, .cn select:focus-visible, .cn summary:focus-visible, .cn [tabindex]:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.cn :is(.cn-hero, .cn-pro, .site-head, .cn-guide-head) :is(a, button):focus-visible { outline-color: var(--pop); }
+.cn :is(.cn-hero, .cn-pro) .cn-panel :is(a, button, input):focus-visible, .cn .cn-pro-card :is(a, button):focus-visible { outline-color: var(--focus); }
+.cn .input, .cn .select { font-family: var(--sans); font-size: 16px; background: var(--sheet); color: var(--ink); border: 1px solid var(--line-2); border-radius: 9px; padding: 10px 12px; }
+.cn .site-head { background: var(--desk-2); border-bottom: 0; position: relative; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.cn .site-head .wrap { min-height: 58px; }
+.cn .brand { font-family: var(--head); font-weight: 800; font-size: 21px; letter-spacing: -0.01em; color: #fff; }
+.cn .brand:hover { color: #fff; }
+.cn .brand svg { width: 30px; height: 22px; }
+.cn .head-nav a { font-size: 15px; color: #e6daef; }
+.cn .head-nav a:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
+.cn .head-nav [aria-current="page"] { color: #fff; font-size: 15px; padding: 7px 10px; border-radius: 8px; background: rgba(255, 255, 255, 0.12); }
+.cn .head-nav .cn-wide { display: none; }
+@media (min-width: 980px) { .cn .head-nav .cn-wide { display: inline-block; } }
+@media (max-width: 560px) { .cn .head-nav { gap: 0; } .cn .head-nav a, .cn .head-nav [aria-current="page"] { padding: 6px 7px; font-size: 14px; } .cn .brand span { display: none; } }
+.cn .site-foot { background: var(--mist-2); border-top: 1px solid var(--line); font-size: 15px; }
+.cn .site-foot h2 { font-family: var(--sans); font-size: 16px; font-weight: 700; letter-spacing: 0; line-height: 1.3; margin: 0 0 10px; }
+
+/* ---------- hero: the desk ---------- */
+.cn-hero { background: var(--desk); color: var(--desk-ink); padding: 4px 0 64px; }
+.cn-hero .crumbs { color: var(--desk-soft); margin-top: 18px; }
+.cn-hero .crumbs a { color: #fff; }
+.cn-hero .crumbs li + li::before { color: rgba(255, 255, 255, 0.4); }
+.cn-hero h1 { color: #fff; }
+.cn-hero .lede { color: var(--desk-soft); }
+.cn-hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 470px); gap: clamp(28px, 5vw, 72px); align-items: start; margin-top: 8px; }
+.cn-facts { list-style: none; margin: 26px 0 0; padding: 0; display: grid; gap: 10px; max-width: 46ch; }
+.cn-facts li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; color: #efe7f5; font-size: 16.5px; }
+.cn-facts svg { width: 20px; height: 20px; margin-top: 3px; color: var(--pop); }
+@media (max-width: 900px) { .cn-hero-grid { grid-template-columns: 1fr; } }
+
+/* the open panel: a card in a card file, with the nine colour tabs along its top edge */
+.cn-file { position: relative; padding-top: 14px; }
+.cn-tabs-edge { position: absolute; left: 18px; right: 18px; top: 0; height: 22px; display: grid; grid-template-columns: repeat(9, 1fr); gap: 4px; }
+.cn-tabs-edge i { display: block; border-radius: 6px 6px 0 0; background: var(--c); box-shadow: inset 0 -6px 8px -6px rgba(0, 0, 0, 0.25); }
+.cn-tabs-edge i:nth-child(odd) { transform: translateY(3px); }
+.cn-tabs-edge i[style*="#ffffff"] { box-shadow: inset 0 0 0 1px #cdd1d6; }
+.cn-panel { position: relative; background: var(--card); color: var(--ink); border-radius: 14px; padding: 26px 26px 22px; box-shadow: 0 22px 46px -22px rgba(24, 10, 32, 0.7), 0 2px 0 rgba(255, 255, 255, 0.06) inset; min-height: 320px; }
+.cn-stage[hidden] { display: none; }
+.cn-drop { border: 2px dashed var(--line-2); border-radius: 11px; padding: 22px 20px 18px; transition: border-color 0.15s, background 0.15s; }
+.cn-drop.is-over { border-color: var(--accent); background: var(--mint); }
+.cn-drop-title { font-size: 22px; margin: 0; }
+.cn-drop-title:focus { outline: none; }
+.cn-drop-text { margin: 8px 0 0; color: var(--ink-2); }
+.cn-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.cn-drop-note, .cn-nofile { font-size: 14.5px; color: var(--muted); margin: 14px 0 0; }
+.cn-nofile a { color: var(--link); }
+.cn-busy-title, .cn-error-title, .cn-done-title, .cn-pw-title { font-family: var(--head); font-weight: 800; font-size: 22px; line-height: 1.2; margin: 6px 0 0; }
+.cn-busy-title:focus, .cn-error-title:focus, .cn-done-title:focus { outline: none; }
+.cn-busy-sub, .cn-error-text, .cn-done-sub, .cn-pw-text { margin: 10px 0 0; color: var(--ink-2); }
+.cn-bar { height: 8px; border-radius: 99px; background: var(--mist-2); overflow: hidden; margin-top: 22px; }
+.cn-bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width 0.3s var(--ease); }
+.cn-pw-form { margin-top: 18px; }
+.cn-pw-form label { display: block; font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+.cn-pw-row { display: flex; gap: 8px; }
+.cn-pw-row .input { flex: 1 1 auto; min-width: 0; font-size: 18px; letter-spacing: 0.04em; }
+.cn-pw-row .btn { flex: none; padding-inline: 14px; }
+.cn-pw-wrong { margin: 12px 0 0; color: #a3321b; font-weight: 600; }
+.cn-pw-note { font-size: 14.5px; color: var(--muted); margin: 12px 0 0; }
+.cn-private { display: flex; gap: 10px; align-items: flex-start; margin: 18px 4px 0; font-size: 14.5px; color: var(--desk-soft); }
+.cn-private svg { flex: none; width: 18px; height: 18px; margin-top: 2px; color: var(--pop); }
+
+/* the 3D picture under the hero */
+.cn-band { margin: 0; background: var(--mist); }
+.cn-band picture, .cn-band img { display: block; width: 100%; height: auto; }
+.cn-band img { max-width: 1440px; margin: 0 auto; aspect-ratio: 1440 / 420; object-fit: cover; }
+.cn-band figcaption { width: min(100% - 2 * var(--gutter), var(--max)); margin: 10px auto 0; font-size: 14px; color: var(--muted); }
+
+/* ---------- the reader ---------- */
+.cn-reader { padding: 40px 0 56px; scroll-margin-top: 12px; }
+.cn-reader:focus { outline: none; }
+.cn-app-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px 24px; }
+.cn-app-head h2 { margin: 0; }
+.cn-search { position: relative; flex: 1 1 320px; max-width: 460px; }
+.cn-search svg { position: absolute; left: 13px; top: 50%; width: 18px; height: 18px; transform: translateY(-50%); color: var(--muted); }
+.cn-search .input { width: 100%; padding-left: 40px; font-size: 16.5px; }
+.cn-viewtabs { display: flex; gap: 4px; margin-top: 22px; border-bottom: 2px solid var(--desk); overflow-x: auto; scrollbar-width: thin; }
+.cn-viewtabs button { flex: none; font: 700 15.5px/1.2 var(--sans); color: var(--ink-2); background: var(--mist-2); border: 0; border-radius: 9px 9px 0 0; padding: 11px 16px 10px; cursor: pointer; display: inline-flex; gap: 8px; align-items: center; }
+.cn-viewtabs button[aria-selected="true"] { background: var(--desk); color: #fff; }
+.cn-tag { font: 700 11.5px/1 var(--sans); letter-spacing: 0.02em; padding: 4px 7px; border-radius: 6px; background: var(--pop); color: #0e2a1c; }
+.cn-view { padding-top: 22px; }
+.cn-view[hidden] { display: none; }
+
+.cn-grid { display: grid; grid-template-columns: 220px minmax(0, 330px) minmax(0, 1fr); gap: 20px; align-items: start; }
+.cn-rail { position: sticky; top: 12px; display: grid; gap: 18px; }
+.cn-rail h3 { font-family: var(--sans); font-size: 13.5px; font-weight: 700; color: var(--muted); margin: 0 0 6px; letter-spacing: 0.01em; }
+.cn-rail-group { display: grid; gap: 2px; }
+.cn-rail button { display: flex; align-items: center; gap: 9px; width: 100%; text-align: left; font: 500 15px/1.25 var(--sans); color: var(--ink); background: transparent; border: 0; border-radius: 8px; padding: 7px 9px; cursor: pointer; }
+.cn-rail button:hover { background: var(--mist-2); }
+.cn-rail button[aria-pressed="true"] { background: var(--card); box-shadow: inset 3px 0 0 var(--desk); font-weight: 700; }
+.cn-rail-label { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
+.cn-count { flex: none; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.cn-tab-chip { flex: none; width: 14px; height: 18px; border-radius: 4px 4px 2px 2px; background: var(--note); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12); }
+.cn-rail .cn-tab[aria-pressed="true"] { box-shadow: inset 3px 0 0 var(--note), inset 0 0 0 1px var(--line); }
+.cn-sort { display: grid; gap: 6px; font-size: 13.5px; font-weight: 700; color: var(--muted); }
+.cn-sort .select { font-weight: 400; color: var(--ink); }
+.cn-clear { color: var(--link) !important; text-decoration: underline; text-underline-offset: 3px; }
+
+.cn-listcol { min-width: 0; }
+.cn-list-head { font-size: 14.5px; color: var(--muted); margin: 0 0 8px; min-height: 22px; }
+.cn-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.cn-item { display: grid; gap: 3px; width: 100%; text-align: left; background: var(--card); color: var(--ink); border: 1px solid var(--line); border-left: 6px solid var(--note); border-radius: 9px; padding: 10px 12px 10px 12px; cursor: pointer; font: inherit; }
+.cn-item[style*="#ffffff"] { border-left-color: #cfd3d8; }
+.cn-item:hover { border-color: var(--line-2); border-left-color: var(--note); }
+.cn-item[aria-current="true"] { background: var(--mint); border-color: var(--accent); border-left-color: var(--note); }
+.cn-item-top { display: flex; gap: 8px; align-items: center; }
+.cn-item-title { flex: 1 1 auto; min-width: 0; font-weight: 700; font-size: 16px; line-height: 1.3; overflow-wrap: anywhere; }
+.cn-item-snip { font-size: 14.5px; color: var(--ink-2); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+.cn-item-date { font-size: 13px; color: var(--muted); }
+.cn-where { font-weight: 700; color: var(--ink-2); }
+.cn-lock, .cn-bell { flex: none; width: 15px; height: 15px; color: var(--muted); }
+.cn-empty { padding: 18px 4px; color: var(--muted); }
+.cn-more { margin-top: 10px; width: 100%; }
+.cn-hit { background: var(--hit); color: inherit; border-radius: 3px; padding: 0 1px; }
+
+.cn-pane { min-width: 0; position: sticky; top: 12px; }
+.cn-pane-empty { color: var(--muted); padding: 24px 6px; }
+.cn-note { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 0 26px 22px; box-shadow: 0 14px 30px -24px rgba(30, 14, 40, 0.45); position: relative; overflow: hidden; }
+.cn-note::before { content: ""; display: block; height: 10px; margin: 0 -26px 18px; background: var(--note); box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1); }
+.cn-note-bar { display: none; }
+.cn-note h3 { font-size: clamp(22px, 2.2vw, 28px); margin: 0; overflow-wrap: anywhere; }
+.cn-note h3:focus { outline: none; }
+.cn-meta { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 12px 0 0; font-size: 14px; }
+.cn-meta div { display: flex; gap: 6px; }
+.cn-meta dt { color: var(--muted); }
+.cn-meta dd { margin: 0; font-weight: 600; }
+.cn-text { margin-top: 18px; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 17.5px; line-height: 1.6; max-width: 70ch; }
+.cn-text .cn-h1 { font-family: var(--head); font-size: 1.4em; line-height: 1.25; }
+.cn-text .cn-h2 { font-family: var(--head); font-size: 1.18em; line-height: 1.3; }
+.cn-mark { border-radius: 3px; padding: 0 2px; color: #1b1a22; }
+.cn-mark-red { background: #f7c2b9; } .cn-mark-orange { background: #fbd7ae; } .cn-mark-yellow { background: #fbeaa3; } .cn-mark-green { background: #c8eac9; }
+.cn-mark-blue { background: #c6def6; } .cn-mark-purple { background: #ddcdf3; } .cn-mark-black { background: #c9cdd1; } .cn-mark-gray { background: #e1e5e8; } .cn-mark-white { background: #f2f4f5; }
+.cn-ticked { margin: 16px 0 0; font-size: 14px; color: var(--muted); }
+.cn-check { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 2px; font-size: 17px; }
+.cn-check li { display: grid; grid-template-columns: 24px 1fr; gap: 10px; align-items: start; padding: 6px 0; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+.cn-check li.is-bare { grid-template-columns: 1fr; color: var(--ink-2); }
+.cn-box { width: 20px; height: 20px; margin-top: 3px; color: var(--accent); }
+.cn-check li.is-done > span:first-of-type { text-decoration: line-through; text-decoration-thickness: 1px; color: var(--muted); }
+.cn-locked { margin-top: 18px; padding: 18px; border-radius: 10px; background: var(--mist); }
+.cn-locked .cn-lock { width: 22px; height: 22px; color: var(--ink-2); }
+.cn-locked p { margin: 8px 0 0; }
+.cn-muted { color: var(--muted); }
+.cn-note-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.cn-status { min-height: 1.4em; margin: 10px 0 0; font-size: 14.5px; color: var(--ink-2); }
+
+@media (max-width: 1100px) { .cn-grid { grid-template-columns: 200px minmax(0, 1fr); } .cn-pane { grid-column: 1 / -1; position: static; } }
+@media (max-width: 860px) {
+  .cn-grid { grid-template-columns: minmax(0, 1fr); }
+  .cn-rail { position: static; display: flex; flex-wrap: nowrap; gap: 14px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: thin; }
+  .cn-rail-group { display: flex; gap: 6px; flex: none; }
+  .cn-rail h3 { display: none; }
+  .cn-rail button { width: auto; flex: none; background: var(--card); border: 1px solid var(--line); white-space: nowrap; }
+  .cn-rail button[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--desk); }
+  .cn-rail .cn-tab[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--desk); }
+  .cn-sort { flex: none; grid-auto-flow: column; align-items: center; }
+  .cn-pane { display: none; }
+  body.cn-reading .cn-pane { display: block; position: fixed; inset: 0; z-index: 60; overflow-y: auto; background: var(--mist); padding: 12px 16px 28px; }
+  body.cn-reading .cn-note-bar { display: block; margin: 0 0 12px; }
+  body.cn-reading { overflow: hidden; }
+  .cn-note { padding: 0 18px 18px; }
+  .cn-note::before { margin: 0 -18px 14px; }
+}
+
+/* save and move, compare, restore */
+.cn-save-intro { max-width: 70ch; margin: 0; color: var(--ink-2); }
+.cn-which { display: grid; gap: 6px; margin: 14px 0 18px; padding: 14px 16px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; max-width: 640px; }
+.cn-which label { display: flex; gap: 10px; align-items: flex-start; }
+.cn-which input { margin-top: 5px; accent-color: var(--desk); }
+.cn-which .is-off { opacity: 0.5; }
+.cn-saves { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 16px; }
+.cn-save { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px 20px 16px; display: flex; flex-direction: column; }
+.cn-save h3 { margin: 0; font-size: 19px; }
+.cn-save p { margin: 8px 0 14px; color: var(--ink-2); font-size: 15.5px; flex: 1 1 auto; }
+.cn-save .cn-actions { margin-top: 0; }
+.cn-save-free { border: 2px solid var(--desk); }
+.cn-seg { display: inline-flex; border: 1px solid var(--line-2); border-radius: 9px; overflow: hidden; margin-bottom: 12px; }
+.cn-seg button { font: 600 14.5px/1 var(--sans); padding: 9px 14px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+.cn-seg button[aria-pressed="true"] { background: var(--desk); color: #fff; }
+.cn-field { display: grid; gap: 6px; font-size: 14px; font-weight: 700; color: var(--muted); margin-bottom: 12px; }
+.cn-field .input { font-weight: 400; }
+.cn-cmp { max-width: 820px; }
+.cn-cmp > p { color: var(--ink-2); margin: 0 0 14px; max-width: 70ch; }
+.cn-cmp-box { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; }
+.cn-cmp-box[hidden] { display: none; }
+.cn-cmp-summary { font-family: var(--head); font-weight: 800; font-size: 21px; margin: 0; }
+.cn-cmp-summary:focus { outline: none; }
+.cn-cmp-block h4 { font-size: 17px; margin: 22px 0 8px; }
+.cn-cmp-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.cn-cmp-list li { background: var(--card); border: 1px solid var(--line); border-left: 6px solid var(--note); border-radius: 8px; padding: 9px 12px; overflow-wrap: anywhere; }
+.cn-what { display: block; font-size: 13.5px; color: var(--muted); }
+.cn-cmp-list details { margin-top: 6px; }
+.cn-cmp-list summary { cursor: pointer; font-size: 14px; color: var(--link); }
+.cn-diff { margin-top: 6px; font-size: 14.5px; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); }
+.cn-diff div { padding: 3px 8px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.cn-diff-add { background: #dff3e5; color: #12391f; }
+.cn-diff-del { background: #fbe1dc; color: #5b1a0e; text-decoration: line-through; text-decoration-thickness: 1px; }
+.cn-linkish { font: 700 16px/1.3 var(--sans); color: var(--link); background: none; border: 0; padding: 0; cursor: pointer; text-align: left; text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- Pro ---------- */
+.cn-pro { background: var(--desk); color: #fff; padding: 64px 0; }
+.cn-pro h2 { color: #fff; margin: 0; }
+.cn-pro-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 36px 48px; align-items: start; }
+.cn-pro-list { margin: 20px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.cn-pro-list li { display: grid; grid-template-columns: 16px 1fr; gap: 12px; color: #efe7f5; }
+.cn-pro-list li::before { content: ""; width: 12px; height: 15px; margin-top: 5px; border-radius: 3px 3px 1px 1px; background: var(--c, var(--pop)); }
+.cn-pro-list li:nth-child(9n+1) { --c: #e85b4a; } .cn-pro-list li:nth-child(9n+2) { --c: #f29a3f; } .cn-pro-list li:nth-child(9n+3) { --c: #f3cf45; }
+.cn-pro-list li:nth-child(9n+4) { --c: #68bb6c; } .cn-pro-list li:nth-child(9n+5) { --c: #5ea2e4; } .cn-pro-list li:nth-child(9n+6) { --c: #a57ed6; }
+.cn-pro-list li:nth-child(9n+7) { --c: #ffffff; }
+.cn-pro-card { background: var(--card); color: var(--ink); border-radius: 14px; padding: 24px; }
+.cn-price { font-family: var(--head); font-weight: 800; font-size: 44px; line-height: 1; margin: 0; }
+.cn-price span { font-family: var(--sans); font-size: 17px; font-weight: 600; color: var(--muted); }
+.cn-pro-card p { margin: 12px 0 0; }
+.cn-pro-card .btn { margin-top: 14px; width: 100%; }
+.cn .cn-btn-pro { background: var(--pop); border-color: var(--pop); color: #0e2a1c; }
+.cn .cn-btn-pro:hover { background: #a9ecc9; border-color: #a9ecc9; color: #0e2a1c; }
+.cn-pro-state { font-weight: 700; color: var(--accent); min-height: 1.2em; }
+.cn-small { font-size: 14px; color: var(--muted); }
+.cn-shots { grid-column: 1 / -1; margin: 8px 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 300px)); gap: 20px; }
+.cn-shots img { width: 100%; height: auto; border-radius: 6px; box-shadow: 0 18px 36px -20px rgba(0, 0, 0, 0.6); background: #fff; }
+.cn-shots figcaption { grid-column: 1 / -1; color: var(--desk-soft); font-size: 14.5px; }
+@media (max-width: 860px) { .cn-pro-grid { grid-template-columns: 1fr; } }
+
+/* ---------- how, FAQ ---------- */
+.cn-how { padding: 60px 0 20px; }
+.cn-how h2 { margin: 0; }
+.cn-how-intro { max-width: 70ch; color: var(--ink-2); }
+.cn-how-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin-top: 24px; }
+.cn-how-grid > div { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px 22px; }
+.cn-how-grid h3 { margin: 0 0 8px; }
+.cn-how-grid ol { margin: 0; padding-left: 22px; display: grid; gap: 8px; }
+.cn-how-grid p { margin: 0; }
+.cn-source { font-size: 14px; color: var(--muted); margin-top: 18px; max-width: 80ch; }
+@media (max-width: 960px) { .cn-how-grid { grid-template-columns: 1fr; } }
+.cn-faq { padding: 40px 0 64px; }
+.cn-faq h2 { margin: 0 0 16px; }
+.cn-faq-list { display: grid; gap: 10px; max-width: 860px; }
+.cn-faq details { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px; }
+.cn-faq summary { font-weight: 700; cursor: pointer; }
+.cn-faq details p { margin: 10px 0 0; color: var(--ink-2); }
+
+/* ---------- guide pages ---------- */
+.cn-guide { padding: 8px 0 64px; }
+.cn-guide-head { background: var(--desk); color: #fff; padding: 4px 0 40px; }
+.cn-guide-head h1 { color: #fff; max-width: 22ch; }
+.cn-guide-head .lede { color: var(--desk-soft); }
+.cn-guide-head .crumbs { color: var(--desk-soft); }
+.cn-guide-head .crumbs a { color: #fff; }
+.cn-article { max-width: 72ch; }
+.cn-article h2 { margin: 40px 0 10px; font-size: clamp(23px, 2.4vw, 30px); }
+.cn-article h3 { margin: 26px 0 8px; }
+.cn-article ol, .cn-article ul { padding-left: 22px; display: grid; gap: 8px; }
+.cn-article table { width: 100%; border-collapse: collapse; font-size: 15.5px; margin: 14px 0; background: var(--card); }
+.cn-article th, .cn-article td { text-align: left; vertical-align: top; padding: 9px 10px; border: 1px solid var(--line); }
+.cn-article th { background: var(--mist-2); }
+.cn-callout { background: var(--card); border: 1px solid var(--line); border-left: 6px solid var(--desk); border-radius: 10px; padding: 14px 18px; margin: 20px 0; }
+.cn-cta { display: inline-block; margin-top: 8px; }
+
+/* ---------- print (Pro: Print or save as PDF) ---------- */
+#print-area { display: none; }
+@media print {
+  body.cn-printing > *:not(#print-area) { display: none !important; }
+  body.cn-printing #print-area { display: block; font-family: var(--sans); color: #000; }
+  body.cn-printing { background: #fff; }
+  #print-area h1 { font-family: var(--head); font-size: 26pt; margin: 0 0 18pt; }
+  .cn-print-note { break-inside: avoid-page; border-left: 5pt solid var(--note); padding: 0 0 0 10pt; margin: 0 0 16pt; }
+  .cn-print-note h2 { font-family: var(--head); font-size: 14pt; margin: 0; }
+  .cn-print-meta { font-size: 8.5pt; color: #444; margin: 2pt 0 6pt; }
+  .cn-print-text { white-space: pre-wrap; font-size: 10.5pt; line-height: 1.5; }
+  .cn-print-list { list-style: none; padding: 0; margin: 0; font-size: 10.5pt; }
+}
+@media (prefers-reduced-motion: reduce) { .cn-bar i, .cn-drop { transition: none; } }
+</style>
+<script src="/assets/site.js" defer></script>
+<script src="/assets/license.js" defer></script>
+<script type="module" src="/colornote-viewer/js/app.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/ko/colornote-pc/#app","name":"Notelift","alternateName":"컬러노트 백업을 PC에서 열기","url":"https://peakappsstudio.com/ko/colornote-pc/","description":"컬러노트(ColorNote) 백업 파일을 PC 브라우저에서 비밀번호로 열고, 모든 메모를 읽고 검색하고 저장하세요. 무료이며 파일은 업로드되지 않습니다.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","inLanguage":"ko","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Notelift Pro","price":"6","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/notelift-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"도구","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"컬러노트 백업을 PC에서 열기","item":"https://peakappsstudio.com/ko/colornote-pc/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"컬러노트 PC버전이나 윈도우용이 있나요?","acceptedAnswer":{"@type":"Answer","text":"공식으로는 없습니다. 컬러노트 도움말에는 안드로이드만 지원하며, PC에서는 BlueStacks(안드로이드 에뮬레이터)로 실행하는 방법이 안내되어 있습니다. 에뮬레이터 없이 컴퓨터에서 메모를 읽으려면 여기서 백업을 여세요."}},{"@type":"Question","name":"컬러노트 백업 파일을 PC에서 어떻게 여나요?","acceptedAnswer":{"@type":"Answer","text":"컬러노트 설정에서 백업을 만들고 그 파일을 나에게 보낸 다음 이 페이지에서 고르세요. Notelift는 기본 비밀번호 0000을 먼저 시도하고, 비밀번호가 있으면 입력하라고 안내합니다. 메모는 검색하고 걸러 볼 수 있는 목록으로 나옵니다."}},{"@type":"Question","name":"왜 다른 프로그램으로는 컬러노트 메모를 열 수 없나요?","acceptedAnswer":{"@type":"Answer","text":"백업이 비밀번호로 암호화되어 있고, 컬러노트도 다른 프로그램에서는 메모를 읽을 수 없다고 안내합니다. Notelift는 컬러노트가 복원할 때처럼, 입력한 비밀번호로 브라우저 안에서 백업을 엽니다."}},{"@type":"Question","name":"백업이나 비밀번호가 업로드되나요?","acceptedAnswer":{"@type":"Answer","text":"아니요. 파일은 이 페이지가 내 기기 안에서 읽고 복호화하며, 내용도 비밀번호도 저장하거나 보내지 않습니다. Pro가 하는 통신은 Gumroad 라이선스 확인뿐이고, 보내는 것은 라이선스 키뿐입니다."}},{"@type":"Question","name":"컬러노트에서 잠근 메모는 어떻게 되나요?","acceptedAnswer":{"@type":"Answer","text":"제목과 날짜는 목록에 나오지만, 본문은 잠금 비밀번호로 암호화된 그대로라 보여 줄 수 없습니다. 컬러노트에서 잠금을 풀고 백업을 다시 만들어 여세요."}},{"@type":"Question","name":"아이폰이나 Google Keep으로 메모를 옮길 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"아이폰으로는 옮길 수 있습니다. Pro에서 저장한 묶음을 Mac의 메모 앱으로 가져오면 iCloud로 아이폰에 옵니다. Google Keep에는 파일을 가져오는 기능이 없어서, 구글용 묶음은 구글 문서와 드라이브용입니다."}},{"@type":"Question","name":"Notelift가 백업을 바꾸거나 컬러노트에 메모를 되돌려 놓나요?","acceptedAnswer":{"@type":"Answer","text":"파일은 절대 바꾸지 않고 읽기만 합니다. 휴대폰의 컬러노트로 메모를 되돌리려면 컬러노트의 복원 기능을 쓰세요. 어떤 메모가 보관함과 휴지통에 있는지는 복원 목록에서 볼 수 있습니다."}}]}]}
+</script>
+<script src="/assets/pro-source.js" data-campaign="colornote-viewer" defer></script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
+</head>
+<body class="cn" style="--accent:#3a2346">
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+<header class="site-head cn-head">
+  <div class="wrap">
+    <a class="brand" href="/ko/colornote-pc/" aria-label="Notelift, 컬러노트 백업을 PC에서">
+      <svg viewBox="0 0 30 22" aria-hidden="true"><rect x="9" y="1" width="20" height="14" rx="2.5" fill="#f3cf45"/><rect x="5" y="4.5" width="20" height="14" rx="2.5" fill="#5ea2e4"/><rect x="1" y="8" width="20" height="13" rx="2.5" fill="#ffffff"/><rect x="4" y="11.5" width="11" height="1.8" rx="0.9" fill="#3a2346"/><rect x="4" y="15.2" width="7.5" height="1.8" rx="0.9" fill="#e85b4a"/></svg>
+      <span>Notelift</span>
+    </a>
+    <nav class="head-nav" aria-label="Notelift">
+      <span class="cn-wide" aria-current="page">백업 열기</span>
+      <a class="cn-wide" href="/ko/colornote-pc/#how">백업 보내는 법</a>
+      <a href="/colornote-viewer/" hreflang="en" lang="en">English</a>
+      <a href="/ja/colornote-pc/" hreflang="ja" lang="ja">日本語</a>
+      <a href="/es/abrir-colornote-en-pc/" hreflang="es" lang="es">Español</a>
+      <a href="/pt-br/abrir-colornote-no-pc/" hreflang="pt-BR" lang="pt-BR">Português</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="cn-hero" aria-labelledby="h1">
+<div class="wrap">
+<nav class="crumbs" aria-label="이동 경로"><ol><li><a href="/tools/">도구</a></li><li aria-current="page">컬러노트 백업을 PC에서 열기</li></ol></nav>
+<div class="cn-hero-grid">
+<div>
+<h1 id="h1">컬러노트 메모를 PC 브라우저에서 읽기</h1>
+<p class="lede">컬러노트(ColorNote)는 안드로이드 전용이라 PC버전이 없고, 백업 파일도 다른 프로그램으로는 열 수 없습니다. Notelift는 그 .backup 파일을 백업 비밀번호로 브라우저 안에서 열어, 컴퓨터에서 모든 메모를 읽고 검색하고 저장할 수 있게 해 줍니다.</p>
+<ul class="cn-facts">
+<li><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><rect x="3" y="2" width="14" height="16" rx="2.5" fill="currentColor"/><path d="M6.5 7.5h7M6.5 10.5h7M6.5 13.5h4" stroke="#3a2346" stroke-width="1.6" stroke-linecap="round"/></svg><span>휴대폰의 .backup 파일을 엽니다. 컬러노트 기본 비밀번호 0000을 먼저 시도하고, 직접 정한 비밀번호가 있으면 입력하면 됩니다.</span></li>
+<li><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><rect x="3" y="2" width="14" height="16" rx="2.5" fill="currentColor"/><path d="M6.5 7.5h7M6.5 10.5h7M6.5 13.5h4" stroke="#3a2346" stroke-width="1.6" stroke-linecap="round"/></svg><span>체크리스트, 색, 폴더, 보관함, 휴지통까지 모든 메모를 읽고 검색할 수 있습니다.</span></li>
+<li><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><rect x="3" y="2" width="14" height="16" rx="2.5" fill="currentColor"/><path d="M6.5 7.5h7M6.5 10.5h7M6.5 13.5h4" stroke="#3a2346" stroke-width="1.6" stroke-linecap="round"/></svg><span>업로드는 없습니다. 파일과 비밀번호는 이 기기 안에서만 쓰입니다.</span></li>
+</ul>
+</div>
+<div class="cn-file">
+<div class="cn-tabs-edge" aria-hidden="true"><i style="--c:#e85b4a"></i><i style="--c:#f29a3f"></i><i style="--c:#f3cf45"></i><i style="--c:#68bb6c"></i><i style="--c:#5ea2e4"></i><i style="--c:#a57ed6"></i><i style="--c:#3b4046"></i><i style="--c:#a8afb4"></i><i style="--c:#ffffff"></i></div>
+<div class="cn-panel" id="panel" data-state="idle">
+<div class="cn-stage" id="stage-idle">
+<div class="cn-drop" id="drop">
+<h2 class="cn-drop-title" id="drop-title" tabindex="-1">백업 열기</h2>
+<p class="cn-drop-text">이름이 .backup으로 끝나는 파일을 고르세요. 여기로 끌어다 놓아도 됩니다.</p>
+<div class="cn-actions">
+<button type="button" class="btn btn-primary" id="btn-choose">백업 파일 고르기</button>
+<button type="button" class="btn cn-btn-quiet" id="btn-sample">예시 메모로 해 보기</button>
+</div>
+<input type="file" id="file-input" class="sr-only" tabindex="-1" aria-hidden="true" accept=".backup,.dat,.doc,.zip,application/octet-stream,application/zip">
+<p class="cn-drop-note">.dat나 .doc로 끝나는 예전 백업, ZIP으로 받은 백업도 열 수 있습니다.</p>
+</div>
+<p class="cn-nofile">아직 백업이 없다면 아래의 <a href="#how">백업 만드는 법과 컴퓨터로 보내는 법</a>을 보세요.</p>
+</div>
+<div class="cn-stage" id="stage-busy" hidden>
+<p class="cn-busy-title" id="busy-title" tabindex="-1">백업을 여는 중</p>
+<p class="cn-busy-sub" id="busy-sub" aria-live="polite"></p>
+<div class="cn-bar" role="progressbar" aria-labelledby="busy-title" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="busy-bar"><i></i></div>
+</div>
+<div class="cn-stage" id="stage-password" hidden>
+<p class="cn-pw-title" id="pw-title">이 백업에는 비밀번호가 있습니다</p>
+<p class="cn-pw-text" id="pw-text"></p>
+<form class="cn-pw-form" id="pw-form" autocomplete="off">
+<label for="pw">백업 비밀번호</label>
+<div class="cn-pw-row"><input class="input" type="password" id="pw" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="pw-wrong pw-note"><button type="button" class="btn cn-btn-quiet" id="pw-toggle" aria-pressed="false" aria-controls="pw">보기</button></div>
+<p class="cn-pw-wrong" id="pw-wrong" role="alert" hidden></p>
+<div class="cn-actions"><button type="submit" class="btn btn-primary">백업 열기</button><button type="button" class="btn cn-btn-quiet" id="pw-cancel">다른 파일 고르기</button></div>
+<p class="cn-pw-note" id="pw-note">비밀번호는 이 탭 안에서 파일을 여는 데만 쓰이며, 저장하거나 어디로 보내지 않습니다.</p>
+</form>
+</div>
+<div class="cn-stage" id="stage-error" hidden>
+<p class="cn-error-title" id="error-title" tabindex="-1" role="alert"></p>
+<p class="cn-error-text" id="error-text"></p>
+<div class="cn-actions"><button type="button" class="btn btn-primary" id="btn-retry">다른 파일 고르기</button><button type="button" class="btn cn-btn-quiet" id="btn-error-sample">예시 메모로 해 보기</button></div>
+</div>
+<div class="cn-stage" id="stage-done" hidden>
+<p class="cn-done-title" id="done-title" tabindex="-1"></p>
+<p class="cn-done-sub" id="done-sub"></p>
+<div class="cn-actions"><a class="btn btn-primary" href="#notes" id="btn-see">메모 읽기</a><button type="button" class="btn cn-btn-quiet" id="btn-reset">다른 백업 열기</button></div>
+</div>
+</div>
+<p class="cn-private"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 9V6.5a5 5 0 0 1 10 0V9" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="3.2" y="9" width="13.6" height="9" rx="2" fill="currentColor"/></svg><span>백업과 비밀번호는 이 기기 밖으로 나가지 않습니다. 파일은 이 페이지가 여기서 바로 열며, 그 내용을 저장하거나 보내지 않습니다. 페이지 방문 수는 Cloudflare Web Analytics로 셉니다. 쿠키도 개인 데이터도 쓰지 않으며 내 파일에는 손대지 않습니다.</span></p>
+</div>
+</div>
+</div>
+</section>
+<figure class="cn-band">
+<picture><source type="image/webp" srcset="/colornote-viewer/img/desk-800.webp 800w, /colornote-viewer/img/desk-1280.webp 1280w, /colornote-viewer/img/desk-1920.webp 1920w, /colornote-viewer/img/desk-2560.webp 2560w" sizes="100vw"><img src="/colornote-viewer/img/desk-1280.webp" width="1440" height="420" alt="초록색 책상 위에서 휴대폰으로부터 여러 색의 메모 카드가 떠오르는 모습. 카드에는 예시 메모가 적혀 있습니다." decoding="async"></picture>
+<figcaption>휴대폰 속 메모를 큰 화면으로. 카드에 적힌 것은 예시 메모입니다.</figcaption>
+</figure>
+
+<section class="cn-reader" id="notes" hidden aria-labelledby="app-title" tabindex="-1">
+<div class="wrap">
+<div class="cn-app-head">
+<h2 id="app-title" tabindex="-1">내 메모</h2>
+<div class="cn-search" role="search"><label for="q" class="sr-only">메모 검색</label><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12.6 12.6 17 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><input type="search" id="q" class="input" placeholder="제목, 본문, 체크리스트 검색" autocomplete="off" spellcheck="false" enterkeyhint="search"></div>
+</div>
+<div class="cn-viewtabs" id="tablist" role="tablist" aria-label="메모로 할 수 있는 일">
+<button type="button" role="tab" id="tab-notes" data-view="notes" aria-controls="view-notes" aria-selected="true">메모</button>
+<button type="button" role="tab" id="tab-save" data-view="save" aria-controls="view-save" aria-selected="false" tabindex="-1">저장과 옮기기</button>
+<button type="button" role="tab" id="tab-compare" data-view="compare" aria-controls="view-compare" aria-selected="false" tabindex="-1">백업 비교<span class="cn-tag" data-pro-tag>Pro</span></button>
+<button type="button" role="tab" id="tab-restore" data-view="restore" aria-controls="view-restore" aria-selected="false" tabindex="-1">복원 목록<span class="cn-tag" data-pro-tag>Pro</span></button>
+</div>
+
+<div class="cn-view" id="view-notes" role="tabpanel" aria-labelledby="tab-notes">
+<div class="cn-grid">
+<div class="cn-rail" id="rail" role="group" aria-label="메모 걸러 보기">
+<div><h3>보기</h3><div class="cn-rail-group" id="rail-show"></div></div>
+<div><h3>색</h3><div class="cn-rail-group" id="rail-colors"></div></div>
+<div id="rail-folders-block"><h3>폴더</h3><div class="cn-rail-group" id="rail-folders"></div></div>
+<div><h3>백업 안의 다른 곳</h3><div class="cn-rail-group" id="rail-places"></div></div>
+<label class="cn-sort" for="sort">정렬<select class="select" id="sort"><option value="modified">수정한 날짜</option><option value="created">만든 날짜</option><option value="title">제목</option><option value="color">색</option></select></label>
+<div class="cn-rail-group"><button type="button" class="cn-clear" id="rail-clear" hidden>모든 메모 다시 보기</button></div>
+</div>
+<div class="cn-listcol">
+<p class="cn-list-head" id="list-head" aria-live="polite"></p>
+<ul class="cn-list" id="list"></ul>
+<button type="button" class="btn cn-btn-quiet cn-more" id="list-more" hidden></button>
+</div>
+<div class="cn-pane" id="pane" aria-live="polite"></div>
+</div>
+</div>
+
+<div class="cn-view" id="view-save" role="tabpanel" aria-labelledby="tab-save" hidden>
+<p class="cn-save-intro">메모를 보관할 파일로 저장하거나, 다른 컴퓨터에서 열거나, 다른 앱으로 옮길 수 있습니다. 파일은 모두 이 탭 안에서 만들어집니다.</p>
+<fieldset class="cn-which"><legend class="sr-only">저장할 메모</legend>
+<label><input type="radio" name="save-which" value="all" checked> <span id="save-which-all"></span></label>
+<label><input type="radio" name="save-which" value="list"> <span id="save-which-list"></span></label>
+<label id="save-hidden-row"><input type="checkbox" id="save-hidden"> <span id="save-hidden-label"></span></label>
+</fieldset>
+<div class="cn-saves">
+<section class="cn-save cn-save-free" aria-labelledby="txt-h"><h3 id="txt-h">메모 20개까지 텍스트 파일로</h3><p>무료. 고른 메모 중 처음 20개를 제목, 날짜, 색, 폴더와 함께 .txt 파일 하나에 저장합니다.</p><div class="cn-actions"><button type="button" class="btn btn-primary" id="btn-txt">20개를 텍스트로 저장</button></div><p class="cn-status" id="txt-status" role="status"></p></section>
+<section class="cn-save" aria-labelledby="zip-h"><h3 id="zip-h">모든 메모를 파일로 <span class="cn-tag" data-pro-tag>Pro</span></h3><p>메모마다 파일 하나씩 ZIP으로 묶고 컬러노트 폴더별로 나눕니다. 일반 텍스트나 마크다운(Obsidian, Bear, Joplin)으로 고를 수 있고, 마크다운에서는 체크리스트가 할 일 목록이 됩니다.</p><div class="cn-actions"><button type="button" class="btn btn-primary" id="btn-zip-txt">텍스트 파일로 저장 (ZIP)</button><button type="button" class="btn cn-btn-quiet" id="btn-zip-md">마크다운으로 저장 (ZIP)</button></div><p class="cn-status" id="zip-status" role="status"></p></section>
+<section class="cn-save" aria-labelledby="iphone-h"><h3 id="iphone-h">아이폰으로 옮기기 <span class="cn-tag" data-pro-tag>Pro</span></h3><p>아이폰 메모 앱용 묶음입니다. Mac에서는 한 번에 가져올 수 있고, iCloud로 아이폰에도 옵니다. Mac이 없을 때 방법까지 묶음 안에 순서대로 적어 두었습니다.</p><div class="cn-actions"><button type="button" class="btn btn-primary" id="btn-iphone">아이폰용 묶음 저장</button></div><p class="cn-status" id="iphone-status" role="status"></p></section>
+<section class="cn-save" aria-labelledby="gdocs-h"><h3 id="gdocs-h">구글 문서로 옮기기 <span class="cn-tag" data-pro-tag>Pro</span></h3><p>모든 메모를 문서 하나에, 또는 폴더 구성 그대로 메모마다 구글 문서 하나씩. 구글 드라이브에서 하는 순서가 들어 있습니다.</p><div class="cn-actions"><button type="button" class="btn btn-primary" id="btn-gdocs">구글 문서용 묶음 저장</button></div><p class="cn-status" id="gdocs-status" role="status"></p></section>
+<section class="cn-save" aria-labelledby="book-h"><h3 id="book-h">PDF 책 또는 인쇄 <span class="cn-tag" data-pro-tag>Pro</span></h3><p>표지와 차례가 있는 메모 책을 A5나 A4로 만듭니다. 브라우저에서 바로 인쇄할 수도 있고, 인쇄 화면에서 "PDF로 저장"을 고를 수도 있습니다.</p>
+<label class="cn-field" for="book-title">표지 제목<input class="input" id="book-title" maxlength="80"></label>
+<div class="cn-seg" id="book-paper" role="group" aria-label="용지 크기"><button type="button" data-value="A5" aria-pressed="true">A5</button><button type="button" data-value="A4" aria-pressed="false">A4</button></div>
+<div class="cn-actions"><button type="button" class="btn btn-primary" id="btn-book">PDF 책 만들기</button><button type="button" class="btn cn-btn-quiet" id="btn-print">메모 인쇄하기</button></div><p class="cn-status" id="book-status" role="status"></p></section>
+<section class="cn-save" aria-labelledby="data-h"><h3 id="data-h">스프레드시트와 데이터 <span class="cn-tag" data-pro-tag>Pro</span></h3><p>엑셀, Numbers, 구글 스프레드시트용으로 메모마다 한 줄인 CSV와, 다른 프로그램용으로 모든 항목이 들어간 JSON을 저장합니다.</p><div class="cn-actions"><button type="button" class="btn btn-primary" id="btn-csv">CSV 저장</button><button type="button" class="btn cn-btn-quiet" id="btn-json">JSON 저장</button></div><p class="cn-status" id="data-status" role="status"></p></section>
+</div>
+</div>
+
+<div class="cn-view" id="view-compare" role="tabpanel" aria-labelledby="tab-compare" hidden>
+<div class="cn-cmp">
+<p>백업을 하나 더 열면 두 백업 사이에 무엇이 바뀌었는지 볼 수 있습니다. 추가된 메모, 바뀐 메모(바뀐 줄까지), 없어진 메모입니다. 예전 백업에만 남아 있는 메모를 찾을 때 유용합니다.</p>
+<div class="cn-cmp-box" id="cmp-idle"><button type="button" class="btn btn-primary" id="btn-cmp-choose">비교할 백업 고르기</button><input type="file" id="cmp-file" class="sr-only" tabindex="-1" aria-hidden="true" accept=".backup,.dat,.doc,.zip,application/octet-stream,application/zip"></div>
+<div class="cn-cmp-box" id="cmp-busy" hidden><p id="cmp-status" role="status"></p></div>
+<div class="cn-cmp-box" id="cmp-password" hidden><form id="cmp-pw-form" autocomplete="off"><p id="cmp-pw-note"></p><label for="cmp-pw" class="cn-field">백업 비밀번호<input class="input" type="password" id="cmp-pw" autocomplete="off" autocapitalize="off" spellcheck="false"></label><div class="cn-actions"><button type="submit" class="btn btn-primary">백업 열기</button><button type="button" class="btn cn-btn-quiet" id="cmp-pw-cancel">다른 파일 고르기</button></div></form></div>
+<div class="cn-cmp-box" id="cmp-err" hidden><p role="alert"><span id="cmp-error" tabindex="-1"></span></p><button type="button" class="btn cn-btn-quiet" id="btn-cmp-retry">비교할 백업 고르기</button></div>
+<div id="cmp-done" hidden>
+<div class="cn-cmp-box"><p class="cn-cmp-summary" id="cmp-summary" tabindex="-1"></p><p class="cn-muted" id="cmp-which"></p><div class="cn-actions"><button type="button" class="btn btn-primary" id="btn-cmp-save">비교 결과 저장</button><button type="button" class="btn cn-btn-quiet" id="btn-cmp-again">다른 백업과 비교</button></div><p class="cn-status" id="cmp-saved" role="status"></p></div>
+<div id="cmp-result"></div>
+</div>
+</div>
+</div>
+
+<div class="cn-view" id="view-restore" role="tabpanel" aria-labelledby="tab-restore" hidden>
+<div class="cn-cmp">
+<p>보관함에 넣었거나 휴지통으로 보낸 메모도 백업에는 남아 있습니다. 여기서 한 목록으로 보여 주니, 컬러노트에서 되살릴 메모를 찾을 수 있습니다.</p>
+<div id="restore-list"></div>
+<div class="cn-actions"><button type="button" class="btn btn-primary" id="btn-restore-save">목록 저장</button><button type="button" class="btn btn-primary" id="btn-restore-pro" hidden>Pro로 목록 보기</button></div>
+<p class="cn-status" id="restore-status" role="status"></p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="cn-pro" id="pro" aria-labelledby="pro-h">
+<div class="wrap cn-pro-grid">
+<div>
+<h2 id="pro-h">Notelift Pro로 필요한 형식 그대로 모두 꺼내세요</h2>
+<ul class="cn-pro-list">
+<li>모든 메모를 텍스트나 마크다운 파일로, 컬러노트 폴더별로 ZIP 하나에.</li>
+<li>아이폰용 묶음: Mac의 메모 앱으로 한 번에 가져오고, iCloud로 아이폰에 옵니다.</li>
+<li>구글 문서용 묶음: 모든 메모를 문서 하나에, 또는 메모마다 문서 하나씩.</li>
+<li>표지와 차례가 있는 PDF 책, 또는 브라우저에서 바로 인쇄.</li>
+<li>스프레드시트용 CSV와 모든 항목이 들어간 JSON.</li>
+<li>두 백업 비교: 추가되고, 바뀌고, 없어진 메모.</li>
+<li>보관함과 휴지통에 있는 메모의 복원 목록.</li>
+</ul>
+</div>
+<div class="cn-pro-card">
+<p class="cn-price">$6 <span>한 번 결제</span></p>
+<p>구독이 아닙니다. 쓰는 브라우저마다 키를 붙여 넣으면 되고, 다섯 가지 언어 페이지에서 모두 쓸 수 있습니다.</p>
+<a class="btn cn-btn-pro" data-buy-pro href="https://dorukctn.gumroad.com/l/notelift-pro">Gumroad에서 Pro 구매</a>
+<button type="button" class="btn cn-btn-quiet" data-enter-key>이미 키가 있어요</button>
+<p class="cn-pro-state" id="pro-state" role="status"></p>
+<p class="cn-small">Pro가 보내는 것은 확인을 위해 Gumroad로 가는 라이선스 키뿐입니다. 읽기, 검색, 걸러 보기, 복사, 20개까지 텍스트 저장은 계속 무료입니다.</p>
+</div>
+<figure class="cn-shots">
+<picture><source type="image/webp" srcset="/colornote-viewer/img/book-cover-480.webp 480w, /colornote-viewer/img/book-cover-720.webp 720w" sizes="(max-width: 700px) 44vw, 300px"><img src="/colornote-viewer/img/book-cover-480.webp" width="480" height="681" alt="Notelift가 예시 메모로 만든 PDF 책의 표지. 제목 아래에 아홉 가지 색 탭이 있습니다." loading="lazy" decoding="async"></picture>
+<picture><source type="image/webp" srcset="/colornote-viewer/img/book-page-480.webp 480w, /colornote-viewer/img/book-page-720.webp 720w" sizes="(max-width: 700px) 44vw, 300px"><img src="/colornote-viewer/img/book-page-480.webp" width="480" height="681" alt="같은 PDF 책의 한 쪽. 색 띠, 제목, 날짜, 폴더가 붙은 메모와 체크한 항목이 있는 체크리스트." loading="lazy" decoding="async"></picture>
+<figcaption>Notelift가 예시 메모로 만든 PDF 책의 표지와 본문 한 쪽.</figcaption>
+</figure>
+</div>
+</section>
+
+<section class="cn-how" id="how" aria-labelledby="how-h">
+<div class="wrap">
+<h2 id="how-h">휴대폰의 백업을 컴퓨터로 보내기</h2>
+<p class="cn-how-intro">컬러노트 백업은 휴대폰 안에 저장됩니다. 나에게 보낸 다음 여기서 여세요. 아래 순서는 컬러노트 공식 도움말을 따른 것입니다.</p>
+<div class="cn-how-grid">
+<div><h3>안드로이드 휴대폰에서</h3><ol>
+<li>컬러노트 메뉴에서 백업 화면을 열고 기기 백업을 고릅니다. 설정에서도 열 수 있습니다.</li>
+<li>메모 백업을 만들고, 물어보면 마스터 비밀번호를 입력합니다.</li>
+<li>방금 만든 백업 파일을 눌러 이메일이나 구글 드라이브 같은 앱으로 나에게 보냅니다.</li>
+<li>컴퓨터에서 파일(.backup으로 끝납니다)을 내려받고 여기서 엽니다.</li>
+</ol></div>
+<div><h3>비밀번호</h3><p>컬러노트는 모든 백업을 암호화합니다. 마스터 비밀번호를 정하지 않았다면 0000이 쓰이며, Notelift는 이것부터 시도합니다. 정해 두었다면 백업을 만들 때의 마스터 비밀번호를 입력하세요. 자동 백업은 비밀번호 보호(영어 화면의 Secured auto backup)를 켜지 않았다면 0000으로 열립니다.</p></div>
+<div><h3>아이폰으로 바꿀 때</h3><p>컬러노트에는 아이폰 앱이 없습니다. 여기서 백업을 열고 아이폰용 묶음을 저장하면 Mac의 메모 앱으로 가져올 수 있고, iCloud로 아이폰에 메모가 옵니다. Mac이 없다면 묶음을 파일 앱에 저장해 모든 메모를 읽고, 필요한 것을 복사하면 됩니다.</p></div>
+</div>
+<p class="cn-source">순서는 컬러노트 도움말(<a href="https://www.colornote.com/faq-question/i-changed-devices-how-can-i-restore-the-notes-on-the-new-device-using-device-backup/" rel="nofollow noopener" hreflang="en">기기 백업으로 복원하기</a>, <a href="https://www.colornote.com/faq-question/are-there-colornote-versions-for-other-os-besides-android/" rel="nofollow noopener" hreflang="en">다른 운영체제용 버전</a>, 영어)을 바탕으로 2026년 10월 22일에 확인했습니다. 백업 형식은 2026년 1월의 실제 컬러노트 백업으로 확인했습니다. Notelift는 Peak Apps Studio가 만든 독립 도구이며 ColorNote, Social &amp; Mobile, Inc.와 관계가 없습니다.</p>
+</div>
+</section>
+
+<section class="cn-faq" aria-labelledby="faq-h">
+<div class="wrap">
+<h2 id="faq-h">자주 묻는 질문</h2>
+<div class="cn-faq-list">
+<details><summary>컬러노트 PC버전이나 윈도우용이 있나요?</summary><p>공식으로는 없습니다. <a href="https://www.colornote.com/faq-question/are-there-colornote-versions-for-other-os-besides-android/" rel="nofollow noopener" hreflang="en">컬러노트 도움말</a>에는 안드로이드만 지원하며, PC에서는 BlueStacks(안드로이드 에뮬레이터)로 실행하는 방법이 안내되어 있습니다. 에뮬레이터 없이 컴퓨터에서 메모를 읽으려면 여기서 백업을 여세요.</p></details>
+<details><summary>컬러노트 백업 파일을 PC에서 어떻게 여나요?</summary><p>컬러노트 설정에서 백업을 만들고 그 파일을 나에게 보낸 다음 이 페이지에서 고르세요. Notelift는 기본 비밀번호 0000을 먼저 시도하고, 비밀번호가 있으면 입력하라고 안내합니다. 메모는 검색하고 걸러 볼 수 있는 목록으로 나옵니다.</p></details>
+<details><summary>왜 다른 프로그램으로는 컬러노트 메모를 열 수 없나요?</summary><p>백업이 비밀번호로 암호화되어 있고, <a href="https://www.colornote.com/faq-question/can-i-read-a-colornote-note-in-other-word-processing-programs/" rel="nofollow noopener" hreflang="en">컬러노트도</a> 다른 프로그램에서는 메모를 읽을 수 없다고 안내합니다. Notelift는 컬러노트가 복원할 때처럼, 입력한 비밀번호로 브라우저 안에서 백업을 엽니다.</p></details>
+<details><summary>백업이나 비밀번호가 업로드되나요?</summary><p>아니요. 파일은 이 페이지가 내 기기 안에서 읽고 복호화하며, 내용도 비밀번호도 저장하거나 보내지 않습니다. Pro가 하는 통신은 Gumroad 라이선스 확인뿐이고, 보내는 것은 라이선스 키뿐입니다.</p></details>
+<details><summary>컬러노트에서 잠근 메모는 어떻게 되나요?</summary><p>제목과 날짜는 목록에 나오지만, 본문은 잠금 비밀번호로 암호화된 그대로라 보여 줄 수 없습니다. 컬러노트에서 잠금을 풀고 백업을 다시 만들어 여세요.</p></details>
+<details><summary>아이폰이나 Google Keep으로 메모를 옮길 수 있나요?</summary><p>아이폰으로는 옮길 수 있습니다. Pro에서 저장한 묶음을 Mac의 메모 앱으로 가져오면 iCloud로 아이폰에 옵니다. Google Keep에는 파일을 가져오는 기능이 없어서, 구글용 묶음은 구글 문서와 드라이브용입니다.</p></details>
+<details><summary>Notelift가 백업을 바꾸거나 컬러노트에 메모를 되돌려 놓나요?</summary><p>파일은 절대 바꾸지 않고 읽기만 합니다. 휴대폰의 컬러노트로 메모를 되돌리려면 컬러노트의 복원 기능을 쓰세요. 어떤 메모가 보관함과 휴지통에 있는지는 복원 목록에서 볼 수 있습니다.</p></details>
+</div>
+</div>
+</section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:700">Notelift</p>
+      <p style="margin:0;max-width:46ch">휴대폰에서 컬러노트가 만드는 백업으로 컴퓨터에서 메모를 읽으세요. 파일은 이 페이지가 내 기기 안에서 열며, 업로드하거나 바꾸지 않습니다.</p>
+      <p style="margin:12px 0 0;max-width:46ch">Notelift는 <a href="https://peakappsstudio.com/">Peak Apps Studio</a>가 만든 독립 도구입니다. ColorNote, Social &amp; Mobile, Inc.와 제휴, 보증, 후원 관계가 없습니다. ColorNote는 해당 소유자의 상표입니다.</p>
+    </div>
+    <div>
+      <h2>메모</h2>
+      <ul>
+        <li><span aria-current="page">백업 열기</span></li>
+        <li><a href="/ko/colornote-pc/#how">백업을 컴퓨터로 보내는 법</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>다른 언어</h2>
+      <ul>
+        <li><a href="/colornote-viewer/" hreflang="en" lang="en">ColorNote on a PC (English)</a></li>
+        <li><a href="/ja/colornote-pc/" hreflang="ja" lang="ja">カラーノートをPCで（日本語）</a></li>
+        <li><a href="/es/abrir-colornote-en-pc/" hreflang="es" lang="es">Abrir ColorNote en el PC (español)</a></li>
+        <li><a href="/pt-br/abrir-colornote-no-pc/" hreflang="pt-BR" lang="pt-BR">Abrir o ColorNote no PC (português)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>정보</h2>
+      <ul>
+        <li><a href="/colornote-viewer/privacy/" hreflang="en">개인정보 보호 (영어)</a></li>
+        <li><a href="/tools/" hreflang="en">Peak Apps의 다른 도구 (영어)</a></li>
+        <li><a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<div id="print-area"></div>
+</body>
+</html>
