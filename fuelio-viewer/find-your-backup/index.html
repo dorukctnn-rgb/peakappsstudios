@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src https://cloudflareinsights.com; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Where Fuelio saves backups and CSV files | Fillbook</title>
+<meta name="description" content="Where Fuelio keeps its Export CSV and Backup All files on the phone, on Google Drive and on Dropbox, what is inside them and how to open them on a PC.">
+<link rel="canonical" href="https://peakappsstudio.com/fuelio-viewer/find-your-backup/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Where Fuelio saves your log, and how to get it onto a computer">
+<meta property="og:description" content="Export CSV, Backup All, the Google Drive and Dropbox backups: where each Fuelio file is, which one to pick and how to open it on a PC.">
+<meta property="og:url" content="https://peakappsstudio.com/fuelio-viewer/find-your-backup/">
+<meta property="og:image" content="https://peakappsstudio.com/fuelio-viewer/img/og.png">
+<meta name="theme-color" content="#1b2312">
+<link rel="icon" href="/fuelio-viewer/img/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/fuelio-viewer/fonts/fillbook-display-800.woff2" as="font" type="font/woff2" crossorigin>
+<style data-from="/assets/tools.css">
+/* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
+
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e1;
+  --card: #fbfaf7;
+  --ink: #141518;
+  --ink-2: #33363d;
+  --muted: #676b74;
+  --line: rgba(20, 21, 24, 0.12);
+  --line-2: rgba(20, 21, 24, 0.22);
+  --accent: #1f5c4d;          /* each tool overrides this on <body style="--accent:..."> */
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  --warn: #9a4a12;
+  --ok: #2c6a3f;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+    --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+  --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; }
+img { display: block; height: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 10px; z-index: 100; background: var(--ink); color: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 10px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-head { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand-sub { font-family: var(--sans); font-size: 14.5px; letter-spacing: 0; color: var(--muted); font-weight: 500; padding-left: 10px; border-left: 1px solid var(--line-2); }
+.head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
+.head-nav a:hover { background: var(--paper-2); color: var(--ink); }
+.head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
+@media (max-width: 640px) { .brand-sub { display: none; } }
+@media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
+
+/* ---------- Type ---------- */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+h1 { font-size: clamp(32px, 4.6vw, 54px); }
+h1 em, h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 19px; letter-spacing: -0.01em; }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; margin: 16px 0 0; }
+.mono { font-family: var(--mono); }
+.muted { color: var(--muted); }
+small, .small { font-size: 13.5px; }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 22px 0 0; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-2); }
+.crumbs a { text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.tool-hero { padding: 28px 0 24px; display: grid; gap: 8px; }
+.tool-hero .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.tool-hero .facts li { display: inline-flex; align-items: center; gap: 8px; }
+.tool-hero .facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Tool shell ---------- */
+.tool { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.tool-panel { padding: 22px; border-right: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.tool-stage { position: relative; min-height: 460px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper); display: grid; place-items: center; padding: 22px; }
+.tool-stage canvas, .tool-stage svg, .tool-stage img { max-height: 70vh; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px -12px rgba(0,0,0,.18); background: #fff; }
+.stage-bar { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.tool-foot { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 14px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--paper); }
+.tool-foot .spacer { flex: 1; }
+@media (max-width: 860px) {
+  .tool { grid-template-columns: 1fr; }
+  .tool-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tool-stage { min-height: 320px; }
+}
+
+/* ---------- Form controls ---------- */
+.group { display: grid; gap: 10px; }
+.group-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > label { font-size: 13px; color: var(--ink-2); }
+.input, .select { width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 8px; padding: 9px 11px; transition: border-color .15s, box-shadow .15s; }
+.input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input-unit { position: relative; }
+.input-unit .input { padding-right: 38px; font-family: var(--mono); font-size: 14.5px; }
+.input-unit i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 3px; flex: none; }
+.seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line-2); border-radius: 9px; padding: 3px; gap: 3px; background: var(--paper); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.warn { font-size: 13.5px; color: var(--warn); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.btn { --b: var(--line-2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 500; line-height: 1; padding: 11px 16px; border-radius: 9px; border: 1px solid var(--b); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; transition: transform .15s var(--ease), background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklab, var(--accent) 86%, #000); color: var(--accent-ink); border-color: transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-ink:hover { color: var(--paper); background: var(--ink-2); }
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.pro-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: var(--ink); color: var(--paper); }
+
+/* ---------- Drop zone ---------- */
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 18px 14px; background: var(--paper); cursor: pointer; transition: border-color .15s, background .15s; font-size: 14.5px; }
+.drop:hover, .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Content ---------- */
+.section { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prose { max-width: 70ch; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose h2 { margin: 1.6em 0 .5em; }
+.prose h3 { margin: 1.4em 0 .4em; }
+.prose code, .prose kbd { font-family: var(--mono); font-size: .9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+.two-col > * { min-width: 0; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: 3px; }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 13px; background: var(--paper); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 15px; }
+.source { font-size: 13px; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--line-2); margin-top: 18px; }
+.faq details { border-bottom: 1px solid var(--line-2); }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 13px; font-family: var(--mono); font-size: 18px; color: var(--muted); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 18px; color: var(--ink-2); max-width: 70ch; }
+
+/* ---------- Pro ---------- */
+.pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--card); }
+.pro-left { padding: clamp(22px, 3vw, 36px); }
+.pro-right { padding: clamp(22px, 3vw, 36px); background: var(--ink); color: var(--paper); display: grid; align-content: center; gap: 14px; }
+.pro-right .price { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pro-right .price small { font-size: 15px; font-weight: 400; color: color-mix(in oklab, var(--paper) 70%, transparent); letter-spacing: 0; }
+.pro-right .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.pro-right .btn-primary:hover { background: #fff; color: var(--ink); }
+.pro-right .fine { font-size: 13px; color: color-mix(in oklab, var(--paper) 65%, transparent); margin: 0; }
+.pro-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.pro-list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.pro-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border: 1.5px solid var(--accent); border-radius: 2px; transform: rotate(45deg); }
+@media (max-width: 760px) { .pro { grid-template-columns: 1fr; } }
+
+/* ---------- A real file, shown ---------- */
+.shot { margin: 22px 0 0; }
+.shot img { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; }
+.shot figcaption { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+.shot figcaption strong { font-weight: 600; color: var(--ink-2); }
+.shot-sm { max-width: 920px; }
+
+/* ---------- Where free stops and Pro starts ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; margin: 26px 0 0; background: var(--card); }
+.split > div { padding: 18px 20px 20px; }
+.split > div + div { border-left: 1px solid var(--line-2); background: var(--accent-soft); }
+.split h3 { font-size: 15.5px; margin: 0; }
+.split > div > p { margin: 5px 0 0; font-size: 13.5px; color: var(--muted); }
+.split ul { list-style: none; margin: 13px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
+.split li { position: relative; padding-left: 18px; }
+.split li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; border-radius: 1px; background: var(--line-2); }
+.split > div + div li::before { background: var(--accent); }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } .split > div + div { border-left: 0; border-top: 1px solid var(--line-2); } }
+
+/* ---------- A file list, as the archive really holds it ---------- */
+.filelist { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 5px; }
+.filelist li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filelist li span { color: var(--muted); }
+
+/* ---------- License dialog ---------- */
+.license-dialog { border: 1px solid var(--line-2); border-radius: 14px; padding: 0; width: min(440px, calc(100% - 32px)); background: var(--card); color: var(--ink); }
+.license-dialog::backdrop { background: rgba(10, 11, 13, .45); }
+.license-dialog form { padding: 22px; display: grid; gap: 14px; }
+.license-status { font-size: 14px; min-height: 1.4em; margin: 0; }
+.license-status[data-state="ok"] { color: var(--ok); }
+.license-status[data-state="err"] { color: var(--warn); }
+
+/* ---------- Related / cards ---------- */
+.related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line-2); margin-top: 22px; }
+.related a { display: grid; gap: 4px; padding: 18px 18px 18px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.related a strong { font-weight: 600; }
+.related a span { font-size: 14px; color: var(--muted); }
+.related a:hover strong { color: var(--accent); }
+
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
+/* ---------- Footer ---------- */
+.site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
+.site-foot h2 { font-size: 15px; font-family: var(--sans); letter-spacing: 0; font-weight: 600; color: var(--ink); margin: 0 0 10px; }
+.site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+@media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- "New from Peak Apps": the cross-promotion card the build puts above the footer (src/crosspromo.json) ---------- */
+.peak-new { margin-top: clamp(56px, 8vw, 104px); }
+.peak-new + .site-foot { margin-top: 28px; }
+.peak-new-card { display: grid; gap: 4px; max-width: 640px; padding: 16px 20px 18px; border: 1px solid var(--line-2); border-left: 4px solid var(--tool, var(--accent)); border-radius: var(--radius); background: var(--card); color: var(--ink); text-decoration: none; transition: border-color .2s var(--ease); }
+.peak-new-card:hover { border-color: var(--tool, var(--accent)); }
+.peak-new-card:focus-visible { outline: 2px solid var(--tool, var(--accent)); outline-offset: 3px; }
+.peak-new-kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.peak-new-card strong { font-size: 17px; font-weight: 600; line-height: 1.3; }
+.peak-new-line { font-size: 14px; line-height: 1.5; color: var(--ink-2); max-width: 62ch; }
+
+/* ---------- Home project tools: the shared block on Without Planning and Dropped Kerb Check ---------- */
+.home-block { margin: clamp(36px, 5vw, 60px) 0 0; border-top: 1px solid var(--line-2); padding-top: 16px; }
+.home-title { margin: 0 0 10px; font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink); }
+.home-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px 24px; }
+.home-list a { display: grid; gap: 3px; padding: 2px 0 2px 14px; border-left: 4px solid var(--tool, var(--accent)); text-decoration: none; color: var(--ink); }
+.home-list a strong { font-weight: 700; font-size: 16px; }
+.home-list a span { color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+.home-list a:hover strong { color: var(--tool, var(--accent)); }
+.home-list a[aria-current="page"] span { color: var(--ink-2); }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .3s var(--ease); z-index: 90; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media print { .site-head, .site-foot, .tool-panel, .tool-foot, .no-print { display: none !important; } body { background: #fff; } }
+
+/* The hidden attribute must win over component display rules. */
+[hidden] { display: none !important; }
+</style>
+<style data-from="/fuelio-viewer/tool.css">
+/* Fillbook: a fuel and cost log, read on a computer. Asphalt olive for the bands, hi-vis lime for the one thing to press
+   on a dark ground, a white page. The signature is the odometer: the figures that matter sit in drums, the last one lit.
+   Barlow Condensed (the lettering of road signs) for headings and figures, Libre Franklin for the page. */
+@font-face { font-family: "Fillbook Display"; src: url("/fuelio-viewer/fonts/fillbook-display-800.woff2") format("woff2"); font-weight: 700 900; font-display: swap; }
+@font-face { font-family: "Fillbook Display"; src: url("/fuelio-viewer/fonts/fillbook-display-600.woff2") format("woff2"); font-weight: 400 699; font-display: swap; }
+@font-face { font-family: "Fillbook Text"; src: url("/fuelio-viewer/fonts/fillbook-text.woff2") format("woff2"); font-weight: 400 700; font-display: swap; }
+/* fallbacks sized to the web fonts, so the page does not jump when they arrive */
+@font-face { font-family: "Fillbook Head Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"); font-weight: 700 900; size-adjust: 74.1%; ascent-override: 134.9%; descent-override: 27%; line-gap-override: 0%; }
+@font-face { font-family: "Fillbook Num Fallback"; src: local("Arial"); font-weight: 400 699; size-adjust: 77.3%; ascent-override: 129.4%; descent-override: 25.9%; line-gap-override: 0%; }
+@font-face { font-family: "Fillbook Text Fallback"; src: local("Arial"); size-adjust: 105.4%; ascent-override: 91.6%; descent-override: 23.3%; line-gap-override: 0%; }
+
+body.fb {
+  --tar: #26301a; --tar-2: #1b2312; --tar-3: #34411f; --hivis: #c8ee3a; --hivis-ink: #1b2208;
+  --paper: #ffffff; --paper-2: #f3f5ec; --card: #ffffff; --sheet: #ffffff;
+  --ink: #1b1f16; --ink-2: #353b2a; --muted: #566049;
+  --line: #dfe3d3; --line-2: #c4cab4;
+  --accent: #26301a; --accent-ink: #ffffff; --link: #2f5d0b;
+  --fuel: #4e7d12; --other: #d4501f; --tank2: #9a6b00; --bar-bg: #e6eadb;
+  --sans: "Fillbook Text", "Fillbook Text Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --head: "Fillbook Display", "Fillbook Head Fallback", "Arial Narrow", system-ui, sans-serif;
+  --num: "Fillbook Display", "Fillbook Num Fallback", "Arial Narrow", system-ui, sans-serif;
+  font-family: var(--sans); font-size: 17px; line-height: 1.58;
+  background: var(--paper); color: var(--ink);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.fb {
+    --paper: #12150d; --paper-2: #181c10; --card: #1a1f12; --sheet: #161a0f;
+    --ink: #eef1e2; --ink-2: #d3d9c3; --muted: #a2ad92; --line: #2d3420; --line-2: #414a31;
+    --accent: #c8ee3a; --accent-ink: #1b2208; --link: #b6dd3a; --fuel: #9ccf3d; --other: #ff8a5c; --tank2: #e8b84a; --bar-bg: #262d1a;
+  }
+}
+:root[data-theme="dark"] body.fb {
+  --paper: #12150d; --paper-2: #181c10; --card: #1a1f12; --sheet: #161a0f;
+  --ink: #eef1e2; --ink-2: #d3d9c3; --muted: #a2ad92; --line: #2d3420; --line-2: #414a31;
+  --accent: #c8ee3a; --accent-ink: #1b2208; --link: #b6dd3a; --fuel: #9ccf3d; --other: #ff8a5c; --tank2: #e8b84a; --bar-bg: #262d1a;
+}
+.fb a { color: var(--link); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.fb a:hover { color: var(--ink); }
+.fb h1, .fb h2, .fb h3 { font-family: var(--head); color: var(--ink); }
+.fb h1 { font-size: clamp(42px, 6.2vw, 78px); font-weight: 800; line-height: 0.98; letter-spacing: -0.01em; max-width: 15ch; margin: 18px 0 0; }
+.fb h2 { font-size: clamp(32px, 3.6vw, 46px); font-weight: 800; letter-spacing: -0.005em; line-height: 1.02; }
+.fb h3 { font-size: 24px; font-weight: 800; letter-spacing: 0; line-height: 1.1; }
+.fb .site-foot h2 { font-family: var(--sans); font-size: 16px; font-weight: 700; letter-spacing: 0; line-height: 1.3; margin: 0 0 10px; }
+.fb .site-foot { font-size: 15px; }
+.fb .lede { font-size: clamp(18px, 1.5vw, 20px); line-height: 1.55; color: var(--ink-2); max-width: 58ch; margin-top: 20px; }
+.fb .crumbs { margin-top: 20px; }
+.fb .btn { font-family: var(--sans); font-size: 16px; font-weight: 700; border-radius: 10px; padding: 13px 20px; line-height: 1.15; white-space: normal; text-align: center; max-width: 100%; }
+.fb .btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.fb .btn-primary:hover { background: var(--tar-3); border-color: var(--tar-3); color: #fff; }
+.fb .fb-btn-quiet { background: transparent; border-color: var(--line-2); color: var(--ink); }
+.fb .fb-btn-quiet:hover { border-color: var(--ink); }
+.fb .btn:focus-visible, .fb button:focus-visible, .fb a:focus-visible, .fb input:focus-visible, .fb select:focus-visible, .fb summary:focus-visible { outline: 3px solid #7aa51a; outline-offset: 2px; }
+.fb .input, .fb .select { font-family: var(--sans); font-size: 16px; background: var(--card); border-color: var(--line-2); border-radius: 8px; color: var(--ink); }
+.fb .site-head { background: var(--tar-2); border-bottom: 0; backdrop-filter: none; }
+.fb .site-head .brand, .fb .site-head .head-nav a { color: #e9f0d6; }
+.fb .brand { font-family: var(--head); font-weight: 800; font-size: 25px; letter-spacing: 0; }
+.fb .brand svg { width: 38px; height: 22px; }
+.fb .head-nav a { font-size: 15.5px; }
+.fb .head-nav a:hover { background: var(--tar-3); color: #fff; }
+.fb .head-nav a[aria-current="page"] { display: inline-block; background: transparent; color: var(--hivis); }
+/* the build turns the link to the page you are on into a span: same size as the links, lit like the last drum */
+.fb .head-nav span[aria-current="page"] { font-size: 15.5px; padding: 7px 10px; border-radius: 8px; color: var(--hivis); white-space: nowrap; }
+@media (max-width: 760px) { .fb .head-nav .fb-wide { display: none; } }
+.fb-tag { display: inline-block; margin-left: 8px; padding: 2px 7px 3px; border-radius: 4px; background: var(--hivis); color: var(--hivis-ink); font-family: var(--sans); font-size: 12.5px; font-weight: 800; line-height: 1.2; vertical-align: 1px; }
+.fb-is-pro .fb-tag { display: none; }
+
+/* ---------- hero: the dark band ---------- */
+/* flow-root keeps the breadcrumbs' top margin inside the band, so no white strip shows between the header and the hero */
+.fb-hero { display: flow-root; background: var(--tar); color: #e9f0d6; padding-bottom: 0; }
+.fb-hero h1 { color: #fff; }
+.fb-hero .lede { color: #d7e1bf; }
+.fb-hero .lede a { color: var(--hivis); }
+.fb-hero .crumbs, .fb-hero .crumbs a { color: #aebb94; }
+.fb-hero .crumbs li + li::before { color: #5c6a45; }
+.fb-hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); gap: clamp(28px, 4.5vw, 72px); align-items: start; }
+.fb-hero-copy, .fb-hero-tool { min-width: 0; }
+.fb-hero-tool { padding-top: 26px; }
+.fb-band { margin: clamp(10px, 2vw, 26px) 0 0; }
+.fb-band img { display: block; width: 100%; height: auto; }
+.fb-band figcaption { font-size: 14.5px; color: #aebb94; padding: 4px 0 22px; max-width: 74ch; }
+@media (max-width: 900px) { .fb-hero-grid { grid-template-columns: 1fr; gap: 0; } .fb-hero-tool { padding-top: 6px; } }
+
+.fb-panel { position: relative; margin-top: 28px; background: var(--sheet); color: var(--ink); border-radius: 14px; box-shadow: 0 22px 40px -26px rgba(0, 0, 0, 0.7); padding: clamp(20px, 3vw, 30px); }
+.fb-panel::before { content: ""; position: absolute; left: 22px; top: -7px; width: 64px; height: 14px; border-radius: 4px; background: var(--hivis); }
+.fb-drop { border-radius: 10px; outline: 2px dashed transparent; outline-offset: 8px; transition: outline-color .15s; }
+.fb-drop.is-over { outline-color: var(--fuel); }
+.fb-drop-title { font-size: clamp(28px, 2.8vw, 36px) !important; margin: 0; }
+.fb-drop-text { margin: 10px 0 0; color: var(--ink-2); max-width: 54ch; }
+.fb-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+.fb-drop-note { margin: 14px 0 0; font-size: 15px; color: var(--muted); }
+.fb-nofile { margin: 18px 0 0; padding-top: 16px; border-top: 1px solid var(--line); font-size: 15.5px; }
+@media (hover: none) { .fb-drag { display: none; } }
+.fb-busy-title, .fb-error-title, .fb-done-title { font-family: var(--head); font-size: 30px; font-weight: 800; line-height: 1.1; margin: 0; overflow-wrap: anywhere; }
+.fb-busy-sub, .fb-done-sub, .fb-error-text { margin: 8px 0 0; color: var(--ink-2); overflow-wrap: anywhere; }
+.fb-error-title { color: #a43a12; }
+.fb-bar { margin-top: 18px; height: 10px; border-radius: 3px; background: var(--paper-2); overflow: hidden; }
+.fb-bar i { display: block; height: 100%; width: 0; background: var(--fuel); transition: width .3s var(--ease); }
+.fb-private { display: flex; gap: 10px; align-items: flex-start; margin: 18px 0 0; font-size: 15.5px; color: #d7e1bf; max-width: 60ch; }
+.fb-private svg { width: 18px; height: 18px; flex: none; margin-top: 3px; color: var(--hivis); }
+
+/* ---------- the odometer drums ---------- */
+.fb-drum { display: inline-flex; gap: 3px; padding: 5px; background: #0d1107; border-radius: 8px; box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.7); vertical-align: middle; font-size: clamp(34px, 4.4vw, 50px); }
+.fb-drum i { font-style: normal; font-family: var(--num); font-weight: 700; font-size: 1em; line-height: 1; width: 0.62em; text-align: center; padding: 0.13em 0 0.09em; color: #f2f6e4; background: linear-gradient(#323f21 0%, #1f2713 49%, #10150a 51%, #232c16 100%); border-radius: 3px; font-variant-numeric: tabular-nums; }
+.fb-drum i.is-lit { color: var(--hivis-ink); background: linear-gradient(#e6ff74 0%, #cdf23e 49%, #a8c921 51%, #c5e535 100%); }
+.fb-drum i.is-sep { width: 0.26em; background: none; padding: 0; color: #9aa87f; }
+.fb-drum-unit { font-family: var(--head); font-weight: 800; font-size: 22px; color: var(--muted); margin-left: 8px; }
+
+/* ---------- the app ---------- */
+.fb-app { background: var(--sheet); border-bottom: 1px solid var(--line); padding: clamp(28px, 4vw, 52px) 0 clamp(40px, 5vw, 64px); scroll-margin-top: 60px; }
+.fb-app:focus { outline: none; }
+.fb-app-head { display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: flex-end; justify-content: space-between; }
+.fb-coverage { margin: 6px 0 0; color: var(--muted); font-size: 15.5px; max-width: 72ch; }
+.fb-app-tools { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: flex-end; }
+.fb-cur { display: grid; gap: 4px; font-size: 13.5px; color: var(--muted); }
+.fb-cur .input { width: 96px; padding: 9px 11px; }
+.fb-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.fb-chips button, .fb-seg button { font: inherit; font-size: 15.5px; font-weight: 700; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line-2); background: transparent; color: var(--ink); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; max-width: 100%; text-align: left; }
+.fb-chips button span { overflow-wrap: anywhere; }
+.fb-chips button[aria-pressed="true"], .fb-seg button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.fb-chips button.is-locked { color: var(--muted); border-style: dashed; }
+.fb-lock { width: 13px; height: 13px; flex: none; }
+.fb-seg { display: inline-flex; gap: 6px; flex-wrap: wrap; }
+.fb-seg button { font-size: 15px; padding: 7px 14px; }
+.fb-free-note { margin: 12px 0 0; font-size: 15px; color: var(--muted); }
+.fb-file-notes { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 6px; font-size: 14.5px; color: var(--ink-2); }
+.fb-file-notes li { padding: 8px 12px; border-left: 4px solid var(--other); background: var(--paper-2); border-radius: 0 6px 6px 0; overflow-wrap: anywhere; }
+.fb-file-notes li.is-info { border-left-color: var(--fuel); }
+.fb-tabs { display: flex; gap: 4px; margin-top: 26px; border-bottom: 1px solid var(--line-2); overflow-x: auto; scrollbar-width: none; }
+.fb-tabs::-webkit-scrollbar { display: none; }
+.fb-tabs [role="tab"] { font: inherit; font-size: 16.5px; font-weight: 700; color: var(--muted); background: none; border: 0; border-bottom: 4px solid transparent; padding: 10px 14px 10px; margin-bottom: -1px; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; }
+.fb-tabs [role="tab"][aria-selected="true"] { color: var(--ink); border-bottom-color: var(--fuel); }
+.fb-tabs [role="tab"]:hover { color: var(--ink); }
+.fb-view { padding-top: 28px; }
+.fb-view[hidden] { display: none; }
+.fb-note { margin: 6px 0 0; font-size: 15px; color: var(--muted); max-width: 78ch; }
+.fb-empty { color: var(--muted); }
+
+/* overview */
+.fb-odo { display: flex; flex-wrap: wrap; gap: 22px 40px; align-items: flex-end; }
+.fb-odo > div { min-width: 0; }
+.fb-odo-label { display: block; font-size: 14.5px; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
+.fb-stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 0; margin: 26px 0 0; border-top: 1px solid var(--line-2); }
+.fb-stats > div { padding: 14px 16px 14px 0; border-bottom: 1px solid var(--line); min-width: 0; }
+.fb-stats dt { font-size: 14.5px; color: var(--muted); }
+.fb-stats dd { margin: 2px 0 0; font-family: var(--num); font-weight: 700; font-size: 31px; line-height: 1.1; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.fb-stats dd small { font-family: var(--sans); font-size: 14px; font-weight: 400; color: var(--muted); }
+.fb-charts { display: grid; gap: 34px; margin-top: 36px; }
+.fb-chart h3 { margin: 0; }
+.fb-chart-box { margin-top: 12px; }
+.fb-chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.fb-ax { font-family: var(--num); font-size: 13px; font-weight: 600; fill: var(--muted); }
+.fb-ax-line { stroke: var(--line-2); stroke-width: 1; }
+.fb-grid-line { stroke: var(--line); stroke-width: 1; }
+.fb-avg-line { stroke: var(--ink); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.fb-avg-text { font-family: var(--num); font-size: 13px; font-weight: 700; fill: var(--ink); paint-order: stroke; stroke: var(--sheet); stroke-width: 4px; stroke-linejoin: round; }
+.fb-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 10px 0 0; padding: 0; list-style: none; font-size: 14.5px; color: var(--ink-2); }
+.fb-legend i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+
+/* costs */
+.fb-block { margin-top: 30px; }
+.fb-block:first-child { margin-top: 0; }
+.fb-table-scroll { overflow-x: auto; margin-top: 12px; }
+.fb-table { width: 100%; border-collapse: collapse; font-size: 16px; min-width: 460px; }
+.fb-table th, .fb-table td { text-align: left; padding: 10px 14px 10px 0; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.fb-table th { font-weight: 700; }
+.fb-table thead th { font-size: 14px; color: var(--muted); font-weight: 700; border-bottom-color: var(--line-2); }
+.fb-table .num { text-align: right; font-family: var(--num); font-weight: 600; font-size: 17.5px; font-variant-numeric: tabular-nums; white-space: nowrap; padding-right: 14px; }
+.fb-table tfoot td, .fb-table tfoot th { border-top: 2px solid var(--ink); border-bottom: 0; font-weight: 700; }
+.fb-table tr.is-off td, .fb-table tr.is-off th { color: var(--muted); }
+.fb-table tr.is-off .fb-share i { background: var(--line-2); }
+.fb-cat-check { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; }
+.fb-cat-check input { width: 18px; height: 18px; accent-color: var(--fuel); }
+.fb-share { display: block; min-width: 90px; height: 10px; border-radius: 2px; background: var(--bar-bg); overflow: hidden; }
+.fb-share i { display: block; height: 100%; background: var(--other); }
+.fb-share.is-fuel i { background: var(--fuel); }
+.fb-swatch { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 8px; background: var(--line-2); }
+
+/* entries */
+.fb-filter { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; margin-top: 14px; }
+.fb-filter .fb-field { flex: 1 1 260px; }
+.fb-field { display: grid; gap: 5px; min-width: 0; font-size: 13.5px; color: var(--ink-2); }
+.fb-entries { list-style: none; margin: 16px 0 0; padding: 0; border-top: 1px solid var(--line-2); }
+.fb-entries li { display: grid; grid-template-columns: 112px minmax(0, 1fr) 130px 110px; gap: 4px 16px; padding: 12px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+.fb-e-date { font-family: var(--num); font-weight: 700; font-size: 18px; }
+.fb-e-odo { display: block; font-family: var(--sans); font-weight: 400; font-size: 13.5px; color: var(--muted); }
+.fb-e-main { min-width: 0; overflow-wrap: anywhere; }
+.fb-e-main strong { font-weight: 700; }
+.fb-e-sub { display: block; font-size: 14px; color: var(--muted); }
+.fb-e-kind { display: inline-block; font-size: 12.5px; font-weight: 700; padding: 1px 7px 2px; border-radius: 3px; margin-right: 8px; background: var(--bar-bg); color: var(--fuel); }
+.fb-e-kind.is-cost { color: var(--other); }
+.fb-e-amt { text-align: right; font-family: var(--num); font-weight: 700; font-size: 19px; font-variant-numeric: tabular-nums; }
+.fb-e-cons { text-align: right; font-family: var(--num); font-weight: 600; font-size: 17px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.fb-entries li.is-off { opacity: 0.6; }
+.fb-more { margin-top: 18px; }
+@media (max-width: 640px) {
+  .fb-entries li { grid-template-columns: minmax(0, 1fr) auto; }
+  .fb-e-date { grid-column: 1; }
+  .fb-e-main { grid-column: 1 / -1; grid-row: 2; }
+  .fb-e-amt { grid-column: 2; grid-row: 1; }
+  .fb-e-cons { grid-column: 1 / -1; grid-row: 3; text-align: left; }
+}
+
+/* compare */
+.fb-compare { width: 100%; border-collapse: collapse; min-width: 520px; }
+.fb-compare th, .fb-compare td { text-align: left; padding: 12px 18px 12px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.fb-compare thead th { font-family: var(--head); font-size: 22px; font-weight: 800; line-height: 1.1; border-bottom-color: var(--line-2); overflow-wrap: anywhere; }
+.fb-compare tbody th { font-size: 15px; font-weight: 700; color: var(--muted); width: 22%; }
+.fb-compare .fb-c-val { font-family: var(--num); font-weight: 700; font-size: 25px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.fb-compare .fb-c-bar { display: block; margin-top: 6px; height: 8px; border-radius: 2px; background: var(--bar-bg); overflow: hidden; }
+.fb-compare .fb-c-bar i { display: block; height: 100%; background: var(--fuel); }
+.fb-compare-tools { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end; margin-top: 14px; }
+.fb-locked { padding: 18px 20px; border: 1px dashed var(--line-2); border-radius: 10px; margin-top: 16px; }
+.fb-locked ul { margin: 10px 0 14px; padding-left: 20px; }
+
+/* save */
+.fb-save-intro { margin: 0 0 6px; color: var(--ink-2); max-width: 70ch; }
+.fb-saves { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 22px; margin-top: 18px; }
+.fb-save { background: var(--paper-2); border: 1px solid var(--line); border-radius: 12px; padding: clamp(18px, 2.4vw, 26px); min-width: 0; }
+.fb-save h3 { margin: 0; }
+.fb-save p { margin: 8px 0 0; color: var(--ink-2); font-size: 16px; }
+.fb-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin: 16px 0; align-items: start; }
+.fb-field-wide { grid-column: 1 / -1; }
+.fb-check { display: flex; align-items: center; gap: 10px; font-size: 15.5px; color: var(--ink); grid-column: 1 / -1; cursor: pointer; }
+.fb-check input { width: 18px; height: 18px; accent-color: var(--fuel); flex: none; }
+.fb-hint { font-size: 13.5px; color: var(--muted); }
+.fb-status { margin: 12px 0 0 !important; font-size: 15px !important; color: var(--ink-2); min-height: 1.4em; overflow-wrap: anywhere; }
+
+/* ---------- Pro ---------- */
+.fb-pro { background: var(--tar); color: #e9f0d6; padding: clamp(40px, 6vw, 76px) 0; margin-top: 0; }
+.fb-pro h2 { color: #fff; max-width: 20ch; }
+.fb-pro-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.8fr); gap: clamp(26px, 4vw, 60px); align-items: start; }
+.fb-pro-list { margin: 20px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.fb-pro-list li { padding-left: 30px; position: relative; color: #dde6c8; }
+.fb-pro-list li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 18px; height: 9px; background: var(--hivis); border-radius: 2px; }
+.fb-pro-card { background: var(--tar-2); border: 1px solid #44522c; border-radius: 12px; padding: clamp(20px, 2.6vw, 28px); }
+.fb-price { margin: 0; font-family: var(--head); font-size: 56px; font-weight: 800; line-height: 1; color: #fff; }
+.fb-price span { font-family: var(--sans); font-size: 16px; font-weight: 400; color: #bfcaa6; }
+.fb-pro-card p { color: #cfd9b6; }
+.fb-pro-card .btn { width: 100%; margin-top: 10px; }
+.fb .fb-btn-pro { background: var(--hivis); border-color: var(--hivis); color: var(--hivis-ink); }
+.fb .fb-btn-pro:hover { background: #dbff60; border-color: #dbff60; color: var(--hivis-ink); }
+.fb-pro .fb-btn-quiet { color: #e9f0d6; border-color: #5c6a45; }
+.fb-pro .fb-btn-quiet:hover { border-color: #e9f0d6; }
+.fb-pro-state { margin: 12px 0 0 !important; font-size: 15px; min-height: 1.4em; color: var(--hivis) !important; }
+.fb-small { font-size: 14px; color: #aebb94 !important; margin-top: 12px; }
+.fb-shots { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 300px)); gap: 18px; margin: 10px 0 0; align-items: start; }
+.fb-shots picture, .fb-shots img { display: block; width: 100%; height: auto; }
+.fb-shots img { border-radius: 4px; box-shadow: 0 18px 40px -22px rgba(0, 0, 0, 0.8); background: #fff; }
+.fb-shots figcaption { grid-column: 1 / -1; font-size: 14.5px; color: #aebb94; max-width: 70ch; }
+@media (max-width: 860px) { .fb-pro-grid { grid-template-columns: 1fr; } .fb-shots { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------- how, faq ---------- */
+.fb-how { background: var(--paper-2); padding: clamp(36px, 5vw, 64px) 0; }
+.fb-how-intro { margin: 12px 0 0; max-width: 70ch; color: var(--ink-2); }
+.fb-how-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); gap: 30px; margin-top: 26px; }
+.fb-how-grid h3 { margin: 0 0 8px; }
+.fb-how-grid ol { margin: 0; padding-left: 22px; display: grid; gap: 8px; }
+.fb-how-grid p { margin: 0; }
+.fb-source { margin: 24px 0 0; font-size: 14.5px; color: var(--muted); max-width: 80ch; }
+.fb-faq { padding: clamp(32px, 5vw, 60px) 0 0; }
+.fb-faq-list { margin-top: 16px; max-width: 78ch; border-top: 1px solid var(--line-2); }
+.fb-faq details { border-bottom: 1px solid var(--line); padding: 14px 0; }
+.fb-faq summary { cursor: pointer; font-weight: 700; font-size: 17.5px; list-style: none; display: flex; justify-content: space-between; gap: 14px; }
+.fb-faq summary::-webkit-details-marker { display: none; }
+.fb-faq summary::after { content: "+"; font-family: var(--head); font-size: 26px; line-height: 1; color: var(--fuel); }
+.fb-faq details[open] summary::after { content: "\2212"; }
+.fb-faq details p { margin: 10px 0 0; color: var(--ink-2); max-width: 70ch; }
+
+/* a guide or the privacy page */
+.fb-doc { padding: clamp(28px, 4vw, 52px) 0 clamp(36px, 5vw, 64px); }
+.fb-doc > *, .fb-doc .wrap > * { max-width: 74ch; }
+.fb-doc > table { max-width: 100ch; }
+.fb-doc h1 { max-width: 20ch; font-size: clamp(38px, 5vw, 60px); }
+.fb-doc h2 { margin-top: 36px; font-size: clamp(28px, 3vw, 36px); }
+.fb-doc p, .fb-doc li { color: var(--ink-2); }
+.fb-doc > ol, .fb-doc > ul { padding-left: 22px; display: grid; gap: 8px; }
+.fb-doc table { width: 100%; border-collapse: collapse; font-size: 15.5px; line-height: 1.5; margin: 16px 0 8px; background: var(--card); }
+.fb-doc th, .fb-doc td { text-align: left; vertical-align: top; padding: 9px 10px; border: 1px solid var(--line); color: var(--ink-2); }
+.fb-doc thead th { background: var(--paper-2); color: var(--ink); font-weight: 700; }
+/* on a phone each row of a guide table is a small card, every cell under its column's name */
+@media (max-width: 640px) {
+  .fb-doc table, .fb-doc tbody, .fb-doc tr, .fb-doc td { display: block; width: auto; }
+  .fb-doc thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .fb-doc table { background: transparent; }
+  .fb-doc tr { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; margin: 0 0 10px; }
+  .fb-doc td { border: 0; padding: 5px 0; }
+  .fb-doc td::before { content: attr(data-label); display: block; font-size: 13px; font-weight: 700; color: var(--muted); }
+}
+.fb-doc code { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 0.88em; background: var(--paper-2); border-radius: 4px; padding: 1px 4px; overflow-wrap: anywhere; }
+.fb-callout { background: var(--paper-2); border-left: 6px solid var(--fuel); border-radius: 8px; padding: 14px 18px; }
+.fb-doc .fb-cta { margin-top: 4px; }
+.fb-src li { font-size: 15px; }
+.fb-doc-small { font-size: 14.5px; color: var(--muted) !important; margin-top: 18px; }
+
+@media (prefers-reduced-motion: reduce) { .fb * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Where Fuelio saves your log, and how to get it onto a computer","datePublished":"2026-10-22","dateModified":"2026-10-22","inLanguage":"en","author":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"mainEntityOfPage":"https://peakappsstudio.com/fuelio-viewer/find-your-backup/"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Fillbook, Fuelio on PC","item":"https://peakappsstudio.com/fuelio-viewer/"},{"@type":"ListItem","position":3,"name":"Find your file","item":"https://peakappsstudio.com/fuelio-viewer/find-your-backup/"}]}]}
+</script>
+<script src="/assets/pro-source.js" data-campaign="fuelio-viewer" defer></script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
+</head>
+<body class="fb" style="--accent:#26301a">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head fb-head">
+  <div class="wrap">
+    <a class="brand" href="/fuelio-viewer/" aria-label="Fillbook, your Fuelio log on a computer">
+      <svg viewBox="0 0 40 24" aria-hidden="true"><rect x="1" y="2" width="10" height="20" rx="2" fill="#3d4a2a"/><rect x="13" y="2" width="10" height="20" rx="2" fill="#4a5a33"/><rect x="25" y="2" width="14" height="20" rx="2" fill="#c8ee3a"/><rect x="1" y="11.4" width="38" height="1.2" fill="#12170b" opacity=".55"/></svg>
+      <span>Fillbook</span>
+    </a>
+    <nav class="head-nav" aria-label="Fillbook">
+      <a class="fb-wide" href="/fuelio-viewer/">Open your file</a>
+      <span class="fb-wide" aria-current="page">Find your file</span>
+      <a href="/pl/fuelio-na-pc/" hreflang="pl" lang="pl">Polski</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap fb-doc">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/fuelio-viewer/">Fillbook</a></li><li aria-current="page">Find your file</li></ol></nav>
+<h1>Where Fuelio saves your log, and how to get it onto a computer</h1>
+<p class="lede">Fuelio keeps your fill-ups and costs in CSV files. Export CSV makes one file per vehicle, Backup All makes one zip with every vehicle and your photos, and the cloud backups copy the files to Google Drive or Dropbox. Below is where each one is, which one to pick and how to open it on a computer. The folder names come from Fuelio&rsquo;s own help page.</p>
+
+<h2>The files Fuelio makes</h2>
+<table>
+<thead><tr><th scope="col">You tap</th><th scope="col">Where the file goes</th><th scope="col">What is in it</th></tr></thead>
+<tbody>
+<tr><td data-label="You tap">Settings, Backup, <strong>Export CSV</strong></td><td data-label="Where the file goes"><code>Fuelio/backup-csv</code> on the phone</td><td data-label="What is in it">One CSV file for the vehicle you pick: the vehicle, its fill-ups, cost categories and costs.</td></tr>
+<tr><td data-label="You tap">Settings, Backup, <strong>Backup All</strong></td><td data-label="Where the file goes"><code>Fuelio/backup-local</code> on the phone</td><td data-label="What is in it">One zip with a CSV file for every vehicle, and <code>pictures.data</code>, a zip of the photos you attached to entries.</td></tr>
+<tr><td data-label="You tap">The <strong>Google Drive</strong> backup</td><td data-label="Where the file goes"><code>Android/Fuelio</code> on your Drive, in <code>backup-csv</code> and <code>backup-sync</code></td><td data-label="What is in it">The CSV exports, and in <code>backup-sync</code> one zip per vehicle, named like <code>vehicle-1-sync.csv.zip</code>.</td></tr>
+<tr><td data-label="You tap">The <strong>Dropbox</strong> backup</td><td data-label="Where the file goes"><code>Apps/Fuelio</code> in your Dropbox</td><td data-label="What is in it">Fuelio&rsquo;s backup files. Its help page names a <code>backup-csv</code> folder there for CSV files.</td></tr>
+</tbody>
+</table>
+<p>Fillbook opens these files as they are: a CSV file, the Backup All zip, a <code>vehicle-1-sync.csv.zip</code> from Drive, or several at once.</p>
+
+<h2>On an Android phone</h2>
+<ol>
+<li>Open Fuelio, then <strong>Settings</strong>, then <strong>Backup</strong>. Tap <strong>Export CSV</strong> and pick a vehicle, or <strong>Backup All</strong> for every vehicle at once.</li>
+<li>Open the phone&rsquo;s file manager and go to the <strong>Fuelio</strong> folder at the top of the internal storage. <code>backup-csv</code> holds the CSV exports and <code>backup-local</code> the Backup All zips.</li>
+<li>Send the files to the computer with a USB cable, by e-mail or with a drive app.</li>
+</ol>
+<p class="fb-callout">No Fuelio folder at the top of the phone&rsquo;s storage? Search the file manager for <code>backup-csv</code>, or turn on the Google Drive backup in the app and take the files from Drive, as below.</p>
+
+<h2>From Google Drive or Dropbox</h2>
+<p>Turn on the Google Drive or Dropbox backup in Fuelio&rsquo;s settings. After that, Fuelio copies its files to the cloud as you add fill-ups.</p>
+<ul>
+<li><strong>Google Drive:</strong> on the computer, open your Drive and go to <code>Android</code>, then <code>Fuelio</code>. <code>backup-csv</code> holds the CSV exports. <code>backup-sync</code> holds one zip per vehicle, <code>vehicle-1-sync.csv.zip</code>, <code>vehicle-2-sync.csv.zip</code> and so on; the number follows the order in which you added the vehicles to Fuelio. Download the files you want. If you download the whole folder, Drive packs it into one zip, and Fillbook opens that too, with the zips inside.</li>
+<li><strong>Dropbox:</strong> the files are in <code>Apps</code>, then <code>Fuelio</code>. Download them the same way.</li>
+</ul>
+
+<h2>On an iPhone</h2>
+<p>Fuelio for iPhone can export your data as a CSV file at any time and keep an automatic backup in iCloud Drive, its App Store page says. Export the CSV and send it to the computer by AirDrop, by e-mail or through iCloud Drive. We have not seen the iPhone app&rsquo;s menus or its iCloud backup files ourselves, so the CSV export is the file to use here.</p>
+
+<h2>Which file to pick</h2>
+<ul>
+<li><strong>One vehicle:</strong> the Export CSV file. It is small and opens at once.</li>
+<li><strong>Every vehicle in one go:</strong> the Backup All zip, or the <code>backup-sync</code> folder downloaded from Drive. A Backup All zip can be large because of the photos: one that the Logbook project describes held 45 photos in 213 MB. Fillbook reads only the CSV files in it and never opens the photos.</li>
+<li><strong>A few CSV files:</strong> choose them all at once on the page and switch between the vehicles.</li>
+</ul>
+
+<h2>What is inside a Fuelio file</h2>
+<p>Each CSV file holds one vehicle, in sections that start with a line such as <code>## Log</code>. The developers who wrote importers for Fuelio&rsquo;s files from real exports list these sections:</p>
+<table>
+<thead><tr><th scope="col">Section</th><th scope="col">What it holds</th><th scope="col">In Fillbook</th></tr></thead>
+<tbody>
+<tr><td data-label="Section"><code>## Vehicle</code></td><td data-label="What it holds">The name, units, plate, VIN, make, model, year and tanks</td><td data-label="In Fillbook">Shown, and the units decide how every figure is shown</td></tr>
+<tr><td data-label="Section"><code>## Log</code></td><td data-label="What it holds">Every fill-up: date and time, odometer, amount, full or part tank, price, price per unit, place, notes, a missed fill-up and the tank</td><td data-label="In Fillbook">Read: consumption, costs, charts and the list of entries</td></tr>
+<tr><td data-label="Section"><code>## CostCategories</code>, <code>## Costs</code></td><td data-label="What it holds">Services, insurance, parking and other costs with their category, and repeating costs</td><td data-label="In Fillbook">Read, apart from the templates of repeating costs</td></tr>
+<tr><td data-label="Section"><code>## FavStations</code></td><td data-label="What it holds">Your saved fuel stations</td><td data-label="In Fillbook">Left out</td></tr>
+<tr><td data-label="Section"><code>## Pictures</code></td><td data-label="What it holds">The list of photos and the entry each one belongs to</td><td data-label="In Fillbook">Left out; the photos are never opened</td></tr>
+<tr><td data-label="Section"><code>## Category</code></td><td data-label="What it holds">Trip categories, such as Private and Work</td><td data-label="In Fillbook">Left out</td></tr>
+</tbody>
+</table>
+<p>There is no currency in the file, so Fillbook lets you type the label that goes after the amounts.</p>
+
+<h2>Open it</h2>
+<p>Go to Fillbook, choose the file or files, or drop them on the box. Your log is read in the browser tab on your own device and is never uploaded or changed.</p>
+<p><a class="btn btn-primary fb-cta" href="/fuelio-viewer/">Open your Fuelio file</a></p>
+
+<h2>Sources</h2>
+<ul class="fb-src">
+<li>Fuelio: <a href="https://www.fuel.io/faq_backup_help.html" rel="nofollow noopener">Backup files, importing data to Fuelio</a> (the folders and menu names; checked 22 October 2026)</li>
+<li>Fuelio on the App Store: <a href="https://apps.apple.com/us/app/fuelio-mpg-mileage-tracker/id1487753318" rel="nofollow noopener">Fuelio: MPG &amp; Mileage Tracker</a> (CSV export and iCloud Drive backup on iPhone; checked 22 October 2026)</li>
+<li>Logbook: <a href="https://github.com/gwpreston16/Logbook/blob/master/docs/phases/phase-31.md" rel="nofollow noopener">Phase 31, import from Fuelio</a> (the CSV export and the Backup All zip, read from the developer&rsquo;s own exports; checked 22 October 2026)</li>
+<li>Fuel-log: <a href="https://github.com/songsit2017/Fuel-log/blob/main/native-kotlin/FUELIO-IMPORT-FORMAT.md" rel="nofollow noopener">Fuelio .fuelio/CSV export format notes</a> (the sections and the photos zip; checked 22 October 2026)</li>
+<li>lubelogger-fuelio-importer: <a href="https://github.com/tigattack/lubelogger-fuelio-importer" rel="nofollow noopener">README and code</a> (the per-vehicle zips of the Google Drive backup; checked 22 October 2026)</li>
+<li>FuelioImport: <a href="https://github.com/Programistyk/FuelioImport" rel="nofollow noopener">the open-source converter</a> that Fuelio&rsquo;s help page points to (the unit codes in the vehicle row)</li>
+</ul>
+<p class="fb-doc-small">Fillbook is an independent tool by Peak Apps Studio and is not affiliated with Fuelio or Sygic.</p>
+</div>
+</main>
+<aside class="peak-new" aria-label="New from Peak Apps">
+  <div class="wrap">
+    <a class="peak-new-card" href="/photo-date-fixer/" style="--tool:#c4360e">
+      <span class="peak-new-kicker">New from Peak Apps</span>
+      <strong>Photo Date Fixer</strong>
+      <span class="peak-new-line">Put the real date, time and place back into the photos of a Snapchat Memories export. Free, and nothing is uploaded.</span>
+    </a>
+  </div>
+</aside>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:700">Fillbook</p>
+      <p style="margin:0;max-width:46ch">Read your Fuelio fuel and cost log on a computer, from the CSV the app saves. The file is opened by this page on your own device and is never uploaded or changed.</p>
+      <p style="margin:12px 0 0;max-width:46ch">Fillbook is an independent tool by <a href="https://peakappsstudio.com/">Peak Apps Studio</a>. It is not affiliated with, endorsed by or sponsored by Fuelio or Sygic. Fuelio is a trademark of its owner.</p>
+    </div>
+    <div>
+      <h2>Your log</h2>
+      <ul>
+        <li><a href="/fuelio-viewer/">Open your file</a></li>
+        <li><a href="/fuelio-viewer/#how">Get the file out of Fuelio</a></li>
+        <li><span aria-current="page">Where Fuelio saves your log</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Other languages</h2>
+      <ul>
+        <li><a href="/pl/fuelio-na-pc/" hreflang="pl" lang="pl">Fuelio na PC (polski)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/fuelio-viewer/privacy/">Privacy</a></li>
+        <li><a href="/tools/">More tools by Peak Apps</a></li>
+        <li><a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
