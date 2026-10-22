@@ -18,6 +18,7 @@ Each tool page explains what the tool does, how to use it and its limits; the gu
 - [Earhours](https://peakappsstudio.com/spotify-minutes-listened/): See your Spotify minutes listened so far this year, top artists, songs and podcasts, from your own data file, in your browser. Nothing is uploaded.
 - [Yearlap](https://peakappsstudio.com/strava-year-in-review/): A free Strava year in review from your own export: distance, hours, climbing, sports, streaks and story cards, in the browser, in any export language.
 - [Nightjar](https://peakappsstudio.com/oura-export-viewer/): Every night's sleep stages, HRV, heart rate, temperature, SpO2 and stress from your own Oura export, without a membership.
+- [Dayfold](https://peakappsstudio.com/daylio-viewer/): Open a Daylio backup on a PC, Mac or any browser: calendar, search, mood charts and the Year in Pixels. Nothing is uploaded.
 
 ## Home project tools (3D)
 
@@ -57,6 +58,9 @@ Each tool page explains what the tool does, how to use it and its limits; the gu
 - [Oura ohne Abo: alle deine Daten aus dem Export (German)](https://peakappsstudio.com/de/oura-ohne-abo/): Oura Ring ohne Abo: Schlafphasen, HRV, Ruhepuls, Temperatur, Blutsauerstoff und Stress aus deinem eigenen Datenexport sehen. Kostenlos, im Browser, ohne Upload.
 - [Utiliser votre Oura Ring sans abonnement : toutes vos données (French)](https://peakappsstudio.com/fr/oura-sans-abonnement/): Utiliser votre Oura Ring sans abonnement : phases de sommeil, VFC, fréquence cardiaque, température, SpO2 et stress depuis votre export. Gratuit, sans envoi.
 - [Oura Ringをサブスクなしで。エクスポートから全データを見る (Japanese)](https://peakappsstudio.com/ja/oura-subscription-nashi/): Oura Ringのサブスクなし・解約後も、エクスポートしたデータから睡眠段階、HRV、安静時心拍数、体温、血中酸素、ストレスを見られます。無料、ブラウザ内で完結し、アップロードはしません。
+- [Dein Daylio-Tagebuch am PC, am Mac oder in jedem Browser (German)](https://peakappsstudio.com/de/daylio-am-pc/): Öffne dein Daylio-Backup am PC, Mac oder Chromebook: Einträge, Stimmungsdiagramme, Year in Pixels und Fotos. Kostenlos, ohne Installation, ohne Upload.
+- [Tu diario de Daylio en el PC, el Mac o cualquier navegador (Spanish)](https://peakappsstudio.com/es/daylio-en-pc/): Abre tu copia de Daylio en el PC, Mac o Chromebook: entradas, gráficos de ánimo, Year in Pixels y fotos. Gratis, sin instalar nada y sin subir el archivo.
+- [Seu diário do Daylio no PC, no Mac ou em qualquer navegador (Brazilian Portuguese)](https://peakappsstudio.com/pt-br/daylio-no-pc/): Abra o backup do Daylio no PC, Mac ou Chromebook: entradas, gráficos de humor, Year in Pixels e fotos. Grátis, sem instalar nada e sem enviar o arquivo.
 
 ## Apps
 
