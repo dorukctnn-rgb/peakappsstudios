@@ -585,6 +585,23 @@ body.yl:not(.yl-is-pro) .yl-pro-zone > * { grid-column: auto; }
 @media (max-width: 560px) { .yl .yl-head .yl-mid { display: none; } }
 .yl h1 { max-width: 17ch; }
 html[lang="de"] .yl h1, html[lang="nl"] .yl h1 { max-width: 19ch; }
+
+/* Garmin pages: two ways to get the data, side by side; the link to the sibling page */
+html[lang="fr"] .yl h1 { max-width: 19ch; }
+.yl-ways { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); margin-top: 26px; }
+.yl-way h3 { margin: 0 0 6px; }
+.yl-way > p { color: var(--ink-2); margin: 0; max-width: 56ch; }
+.yl-way-tag { display: block; font-size: 13px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--red-ink); margin: 0 0 8px; }
+.yl-steps.yl-steps-v { grid-template-columns: minmax(0, 1fr); border-top: 0; border-left: 3px solid var(--ink); margin: 20px 0 0 7px; row-gap: 0; }
+.yl-steps-v li { padding: 0 0 18px 26px; }
+.yl-steps-v li::before { font-size: 30px; margin-bottom: 4px; }
+.yl-steps-v li::after { top: 6px; left: -9px; }
+.yl-steps-v li:last-child { padding-bottom: 0; }
+.yl-sibling { margin-top: clamp(36px, 5vw, 56px); padding: 18px 22px; border: 1.5px solid var(--line-2); border-radius: 16px; background: var(--card); display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; justify-content: space-between; }
+.yl-sibling p { margin: 0; color: var(--ink-2); max-width: 70ch; }
+.yl-sibling a { font-weight: 800; }
+@media (max-width: 860px) { .yl-ways { grid-template-columns: minmax(0, 1fr); } }
+.yl-kpis dd small { display: block; font-family: var(--sans); font-style: normal; font-weight: 600; font-size: 13.5px; line-height: 1.35; letter-spacing: 0; color: var(--ink-2); margin-top: 4px; }
 </style>
 <script src="/assets/site.js" defer></script>
 <script src="/assets/license.js" defer></script>
@@ -825,6 +842,7 @@ html[lang="de"] .yl h1, html[lang="nl"] .yl h1 { max-width: 19ch; }
 <section class="yl-why wrap" aria-labelledby="why-h">
 <h2 id="why-h">Warum ein kostenloser Jahresrückblick</h2>
 <p>Im Dezember 2025 hat Strava seinen Jahresrückblick Year in Sport auf Abonnenten beschränkt. <a href="https://www.cnet.com/health/fitness/strava-yearly-roundup-now-requires-80-subscription/" rel="noopener" target="_blank" hreflang="en">CNET</a> nannte für das Abo 80 Dollar im Jahr, und Strava schrieb am 9. Dezember 2025 selbst, der Rückblick sei „available now to subscribers“. Deine Aktivitäten und das Recht, sie herunterzuladen, bleiben dir auch mit einem kostenlosen Konto. Yearlap macht aus diesem Download einen Jahresrückblick und verlangt nur für die Extras Geld.</p>
+<div class="yl-sibling"><p>Du trainierst mit einer Garmin-Uhr? <a href="/de/garmin-jahresrueckblick/">Yearlap liest auch deine Garmin-Daten</a>, die Aktivitätenliste aus Garmin Connect oder das ganze Archiv, mit demselben Pro-Schlüssel.</p></div>
 </section>
 
 <section class="yl-faq wrap" aria-labelledby="faq-h">
@@ -854,7 +872,11 @@ html[lang="de"] .yl h1, html[lang="nl"] .yl h1 { max-width: 19ch; }
       </ul>
     </div>
     <div>
-      <h2>Andere Sprachen</h2>
+      <h2>Auch für Garmin</h2>
+      <ul>
+        <li><a href="/de/garmin-jahresrueckblick/">Garmin-Jahresrückblick</a></li>
+      </ul>
+      <h2 style="margin-top:18px">Andere Sprachen</h2>
       <ul>
         <li><a href="/strava-year-in-review/" hreflang="en" lang="en">Strava year in review (English)</a></li>
         <li><a href="/nl/strava-jaaroverzicht/" hreflang="nl" lang="nl">Strava-jaaroverzicht (Nederlands)</a></li>

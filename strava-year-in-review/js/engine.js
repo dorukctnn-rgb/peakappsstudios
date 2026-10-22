@@ -291,6 +291,7 @@ export function ingestGear(st, kind, text) {
 
 /* ---------------- time zone ---------------- */
 // Strava writes the start in UTC; hours, weekdays and days are counted in the time zone you pick (this device's by default).
+// Garmin writes the local start (a.local): it is counted as written.
 export function offsetFinder(tz) {
   let fmt;
   try { fmt = new Intl.DateTimeFormat('en-US', { timeZone: tz, hourCycle: 'h23', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' }); }
@@ -312,7 +313,7 @@ export function offsetFinder(tz) {
 export function localise(acts, tz) {
   const off = offsetFinder(tz);
   const out = acts.map(a => {
-    const lt = a.t + off(a.t) * 60000;
+    const lt = a.local ? a.t : a.t + off(a.t) * 60000; // a Garmin start is already local time
     const d = new Date(lt);
     return Object.assign({}, a, { lt, y: d.getUTCFullYear(), m: d.getUTCMonth(), day: Math.floor(lt / DAY), wd: (d.getUTCDay() + 6) % 7, h: d.getUTCHours() });
   });

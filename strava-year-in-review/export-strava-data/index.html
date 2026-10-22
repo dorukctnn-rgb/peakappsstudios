@@ -577,6 +577,23 @@ body.yl:not(.yl-is-pro) .yl-pro-zone > * { grid-column: auto; }
 @media (max-width: 560px) { .yl .yl-head .yl-mid { display: none; } }
 .yl h1 { max-width: 17ch; }
 html[lang="de"] .yl h1, html[lang="nl"] .yl h1 { max-width: 19ch; }
+
+/* Garmin pages: two ways to get the data, side by side; the link to the sibling page */
+html[lang="fr"] .yl h1 { max-width: 19ch; }
+.yl-ways { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); margin-top: 26px; }
+.yl-way h3 { margin: 0 0 6px; }
+.yl-way > p { color: var(--ink-2); margin: 0; max-width: 56ch; }
+.yl-way-tag { display: block; font-size: 13px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--red-ink); margin: 0 0 8px; }
+.yl-steps.yl-steps-v { grid-template-columns: minmax(0, 1fr); border-top: 0; border-left: 3px solid var(--ink); margin: 20px 0 0 7px; row-gap: 0; }
+.yl-steps-v li { padding: 0 0 18px 26px; }
+.yl-steps-v li::before { font-size: 30px; margin-bottom: 4px; }
+.yl-steps-v li::after { top: 6px; left: -9px; }
+.yl-steps-v li:last-child { padding-bottom: 0; }
+.yl-sibling { margin-top: clamp(36px, 5vw, 56px); padding: 18px 22px; border: 1.5px solid var(--line-2); border-radius: 16px; background: var(--card); display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; justify-content: space-between; }
+.yl-sibling p { margin: 0; color: var(--ink-2); max-width: 70ch; }
+.yl-sibling a { font-weight: 800; }
+@media (max-width: 860px) { .yl-ways { grid-template-columns: minmax(0, 1fr); } }
+.yl-kpis dd small { display: block; font-family: var(--sans); font-style: normal; font-weight: 600; font-size: 13.5px; line-height: 1.35; letter-spacing: 0; color: var(--ink-2); margin-top: 4px; }
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[{"@type":"HowTo","name":"How to download your Strava data (bulk export)","totalTime":"PT5M","step":[{"@type":"HowToStep","position":1,"text":"Log in on strava.com in a browser. The app has no button for the bulk export."},{"@type":"HowToStep","position":2,"text":"Open Settings from the menu under your name, then the My Account tab."},{"@type":"HowToStep","position":3,"text":"Under Download your account, choose Get Started, then Request download."},{"@type":"HowToStep","position":4,"text":"Wait for Strava's email with the download link. Strava says it may take a few hours."},{"@type":"HowToStep","position":5,"text":"Download the ZIP. Keep it as it is: it holds activities.csv and a folder of route files."}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Yearlap: Strava year in review","item":"https://peakappsstudio.com/strava-year-in-review/"},{"@type":"ListItem","position":3,"name":"How to download your Strava data","item":"https://peakappsstudio.com/strava-year-in-review/export-strava-data/"}]}]}
@@ -668,7 +685,13 @@ html[lang="de"] .yl h1, html[lang="nl"] .yl h1 { max-width: 19ch; }
       </ul>
     </div>
     <div>
-      <h2>Other languages</h2>
+      <h2>For Garmin data</h2>
+      <ul>
+        <li><a href="/de/garmin-jahresrueckblick/" hreflang="de" lang="de">Garmin-Jahresrückblick (Deutsch)</a></li>
+        <li><a href="/nl/garmin-jaaroverzicht/" hreflang="nl" lang="nl">Garmin-jaaroverzicht (Nederlands)</a></li>
+        <li><a href="/fr/garmin-bilan-annuel/" hreflang="fr" lang="fr">Bilan annuel Garmin (français)</a></li>
+      </ul>
+      <h2 style="margin-top:18px">Other languages</h2>
       <ul>
         <li><a href="/de/strava-jahresrueckblick/" hreflang="de" lang="de">Strava-Jahresrückblick (Deutsch)</a></li>
         <li><a href="/nl/strava-jaaroverzicht/" hreflang="nl" lang="nl">Strava-jaaroverzicht (Nederlands)</a></li>
