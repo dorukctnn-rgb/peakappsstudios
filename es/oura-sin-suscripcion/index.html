@@ -386,6 +386,9 @@ body.nj {
 .nj .nj-head .head-nav [aria-current="page"] { color: #fff; }
 @media (max-width: 760px) { .nj .nj-head .nj-wide { display: none; } }
 @media (max-width: 430px) { .nj .nj-head .head-nav { gap: 4px 11px; } .nj .nj-head .head-nav a, .nj .nj-head .head-nav span { font-size: 14px; } }
+/* the language codes sit together as one tight group, so the header stays one row on a phone */
+.nj .nj-head .nj-langs { display: flex; flex-wrap: wrap; align-items: center; }
+.nj .nj-head .nj-langs a { padding: 7px 6px; letter-spacing: 0.02em; }
 
 /* ---------- hero ---------- */
 .nj-hero { padding: clamp(10px, 2vw, 22px) 0 clamp(36px, 5vw, 64px); }
@@ -458,7 +461,7 @@ body.nj {
 .nj-night { margin-top: 18px; border: 1px solid var(--line); border-radius: 18px; padding: clamp(16px, 2.4vw, 26px); background: var(--paper); }
 .nj-night-head { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: baseline; justify-content: space-between; }
 .nj-night-head p { margin: 2px 0 0; color: var(--ink-2); }
-.nj-night-nav { display: flex; gap: 8px; }
+.nj-night-nav { display: flex; flex-wrap: wrap; gap: 8px; }
 .nj-facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0; margin: 16px 0 0; border-top: 1px solid var(--line); }
 .nj-facts > div { padding: 10px 10px 10px 0; border-bottom: 1px solid var(--line); }
 .nj-facts dt { font-size: 13.5px; color: var(--muted); font-weight: 600; }
@@ -577,6 +580,8 @@ body.nj {
 .nj-what { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(20px, 4vw, 56px); align-items: start; }
 @media (max-width: 900px) { .nj-what { grid-template-columns: minmax(0, 1fr); } }
 .nj-what .nj-table td:nth-child(2) { color: var(--muted); }
+/* small phones: a little less space between the columns, so the three-column comparison fits in Dutch, Italian and Spanish */
+@media (max-width: 400px) { .nj-what .nj-table th, .nj-what .nj-table td { padding-right: 8px; } }
 .nj-pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: clamp(20px, 4vw, 56px); align-items: center; }
 .nj-pro-copy { background: var(--night); color: #e6e8fb; border-radius: 22px; padding: clamp(20px, 3vw, 36px); }
 .nj .nj-pro-copy h2 { color: #fff; }
@@ -622,7 +627,7 @@ html[lang="ja"] .nj .lede { line-height: 1.8; }
 <script src="/assets/license.js" defer></script>
 <script type="module" src="/oura-export-viewer/js/boot.js"></script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/es/oura-sin-suscripcion/#app","name":"Nightjar","alternateName":"Datos de Oura sin suscripción","url":"https://peakappsstudio.com/es/oura-sin-suscripcion/","description":"Lee en el navegador la exportación de datos que Oura da a quien tiene el anillo (Centro de Suscripciones, Exportar datos) y muestra cada noche y cada día: fases del sueño, frecuencia cardíaca y VFC durante la noche, desviación de temperatura, oxígeno en sangre, estrés, actividad, entrenamientos, etiquetas y los factores de cada puntuación. No se sube nada.","applicationCategory":"HealthApplication","operatingSystem":"Any (web browser)","inLanguage":"es","offers":[{"@type":"Offer","name":"Gratis","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Nightjar Pro","price":"9","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/nightjar-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Nightjar: Oura sin suscripción","item":"https://peakappsstudio.com/es/oura-sin-suscripcion/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿El Oura Ring funciona sin suscripción?","acceptedAnswer":{"@type":"Answer","text":"Sí, con límites. Según el centro de ayuda de Oura, sin suscripción solo ves las tres puntuaciones diarias (Disposición, Actividad y Sueño). El anillo sigue midiendo, y Oura deja que cualquiera que tenga el anillo exporte todos sus datos en CSV desde el Centro de Suscripciones. Nightjar lee esa exportación y muestra el resto: fases del sueño, VFC, frecuencia cardíaca, temperatura, oxígeno en sangre, estrés y entrenamientos."}},{"@type":"Question","name":"¿Cómo exporto mis datos de Oura?","acceptedAnswer":{"@type":"Answer","text":"Inicia sesión en membership.ouraring.com con tu cuenta de Oura, elige Exportar datos y después Solicita tus datos. Oura te escribe cuando la exportación está lista; según su centro de ayuda, puede tardar hasta 10 días. Descarga el ZIP y ábrelo tal cual en esta página."}},{"@type":"Question","name":"¿Se envían mis datos de Oura a algún sitio?","acceptedAnswer":{"@type":"Answer","text":"No. El ZIP lo abre JavaScript en tu pestaña y nunca se envía a un servidor. Solo se abren los archivos de sueño, disposición, actividad, frecuencia cardíaca, temperatura, estrés, entrenamientos, sesiones y etiquetas; los archivos con ubicación, comidas o medicamentos se quedan cerrados. Al cerrar la pestaña, todo desaparece."}},{"@type":"Question","name":"¿Funciona en el iPhone?","acceptedAnswer":{"@type":"Answer","text":"Sí. Guarda el ZIP del Centro de Suscripciones en la app Archivos, abre esta página en Safari, toca Elegir el ZIP y selecciónalo. No hay nada que instalar. Varios años de mediciones de pulso pueden tardar un minuto en leerse en un móvil."}},{"@type":"Question","name":"¿Nightjar es de Oura?","acceptedAnswer":{"@type":"Answer","text":"No. Nightjar es una herramienta independiente de Peak Apps Studio, sin relación con Oura Health Oy, que no la respalda ni la patrocina. Nunca se conecta a tu cuenta de Oura ni te pide tus datos de acceso."}}]}]}
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/es/oura-sin-suscripcion/#app","name":"Nightjar","alternateName":"Datos de Oura sin suscripción","url":"https://peakappsstudio.com/es/oura-sin-suscripcion/","description":"Lee en el navegador la exportación de datos que Oura da a quien tiene el anillo (Centro de Suscripciones, Exportar datos) y muestra cada noche y cada día: fases del sueño, frecuencia cardíaca y VFC durante la noche, desviación de temperatura, oxígeno en sangre, estrés, actividad, entrenamientos, etiquetas y los factores de cada puntuación. No se sube nada.","applicationCategory":"HealthApplication","operatingSystem":"Any (web browser)","inLanguage":"es","offers":[{"@type":"Offer","name":"Gratis","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Nightjar Pro","price":"9","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/nightjar-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Herramientas","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Nightjar: Oura sin suscripción","item":"https://peakappsstudio.com/es/oura-sin-suscripcion/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿El Oura Ring funciona sin suscripción?","acceptedAnswer":{"@type":"Answer","text":"Sí, con límites. Según el centro de ayuda de Oura, sin suscripción solo ves las tres puntuaciones diarias (Disposición, Actividad y Sueño). El anillo sigue midiendo, y Oura deja que cualquiera que tenga el anillo exporte todos sus datos en CSV desde el Centro de Suscripciones. Nightjar lee esa exportación y muestra el resto: fases del sueño, VFC, frecuencia cardíaca, temperatura, oxígeno en sangre, estrés y entrenamientos."}},{"@type":"Question","name":"¿Cómo exporto mis datos de Oura?","acceptedAnswer":{"@type":"Answer","text":"Inicia sesión en membership.ouraring.com con tu cuenta de Oura, elige Exportar datos y después Solicita tus datos. Oura te escribe cuando la exportación está lista; según su centro de ayuda, puede tardar hasta 10 días. Descarga el ZIP y ábrelo tal cual en esta página."}},{"@type":"Question","name":"¿Se envían mis datos de Oura a algún sitio?","acceptedAnswer":{"@type":"Answer","text":"No. El ZIP lo abre JavaScript en tu pestaña y nunca se envía a un servidor. Solo se abren los archivos de sueño, disposición, actividad, frecuencia cardíaca, temperatura, estrés, entrenamientos, sesiones y etiquetas; los archivos con ubicación, comidas o medicamentos se quedan cerrados. Al cerrar la pestaña, todo desaparece."}},{"@type":"Question","name":"¿Funciona en el iPhone?","acceptedAnswer":{"@type":"Answer","text":"Sí. Guarda el ZIP del Centro de Suscripciones en la app Archivos, abre esta página en Safari, toca Elegir el ZIP y selecciónalo. No hay nada que instalar. Varios años de mediciones de pulso pueden tardar un minuto en leerse en un móvil."}},{"@type":"Question","name":"¿Nightjar es de Oura?","acceptedAnswer":{"@type":"Answer","text":"No. Nightjar es una herramienta independiente de Peak Apps Studio, sin relación con Oura Health Oy, que no la respalda ni la patrocina. Nunca se conecta a tu cuenta de Oura ni te pide tus datos de acceso."}}]}]}
 </script>
 <script src="/assets/pro-source.js" data-campaign="oura-export-viewer" defer></script>
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
@@ -638,12 +643,14 @@ html[lang="ja"] .nj .lede { line-height: 1.8; }
     <nav class="head-nav" aria-label="Nightjar">
       <span class="nj-wide" aria-current="page">Abrir la exportación</span>
       <a class="nj-wide" href="/es/oura-sin-suscripcion/#export">Pedir la exportación</a>
-      <a href="/oura-export-viewer/" hreflang="en" lang="en" aria-label="English">EN</a>
-      <a href="/de/oura-ohne-abo/" hreflang="de" lang="de" aria-label="Deutsch">DE</a>
-      <a href="/fr/oura-sans-abonnement/" hreflang="fr" lang="fr" aria-label="Français">FR</a>
-      <a href="/ja/oura-subscription-nashi/" hreflang="ja" lang="ja" aria-label="日本語">JA</a>
-      <a href="/nl/oura-zonder-abonnement/" hreflang="nl" lang="nl" aria-label="Nederlands">NL</a>
-      <a href="/it/oura-senza-abbonamento/" hreflang="it" lang="it" aria-label="Italiano">IT</a>
+      <span class="nj-langs">
+        <a href="/oura-export-viewer/" hreflang="en" lang="en" aria-label="English">EN</a>
+        <a href="/de/oura-ohne-abo/" hreflang="de" lang="de" aria-label="Deutsch">DE</a>
+        <a href="/fr/oura-sans-abonnement/" hreflang="fr" lang="fr" aria-label="Français">FR</a>
+        <a href="/ja/oura-subscription-nashi/" hreflang="ja" lang="ja" aria-label="日本語">JA</a>
+        <a href="/nl/oura-zonder-abonnement/" hreflang="nl" lang="nl" aria-label="Nederlands">NL</a>
+        <a href="/it/oura-senza-abbonamento/" hreflang="it" lang="it" aria-label="Italiano">IT</a>
+      </span>
     </nav>
   </div>
 </header>
@@ -652,7 +659,7 @@ html[lang="ja"] .nj .lede { line-height: 1.8; }
 <section class="nj-hero" aria-labelledby="h1">
 <div class="wrap nj-hero-grid">
 <div class="nj-hero-copy">
-<nav class="crumbs" aria-label="Ruta de navegación"><ol><li><a href="/tools/" hreflang="en">Tools</a></li><li aria-current="page">Nightjar: Oura sin suscripción</li></ol></nav>
+<nav class="crumbs" aria-label="Ruta de navegación"><ol><li><a href="/tools/" hreflang="en">Herramientas</a></li><li aria-current="page">Nightjar: Oura sin suscripción</li></ol></nav>
 <h1 id="h1">Usar tu Oura Ring sin suscripción: todos tus datos</h1>
 <p class="lede">Sin suscripción, la app de Oura solo enseña tres puntuaciones diarias. La exportación de datos que Oura da a quien tiene el anillo trae todo lo demás: las fases del sueño de cada noche, la VFC, la frecuencia cardíaca en reposo, la temperatura, el oxígeno en sangre, el estrés y los entrenamientos. Ábrela aquí y vuelve a verlo todo. Se lee en esta pestaña y nunca se sube.</p>
 <div class="nj-panel" id="panel" data-state="idle">
@@ -740,7 +747,7 @@ html[lang="ja"] .nj .lede { line-height: 1.8; }
 <section class="nj-pro wrap" id="pro" aria-labelledby="pro-h">
 <div class="nj-pro-copy">
 <h2 id="pro-h">Nightjar Pro</h2>
-<p class="nj-price"><span class="nj-price-n">9 $</span> una sola vez. Sin suscripción y sin cuenta.</p>
+<p class="nj-price"><span class="nj-price-n">9 $</span> pago único. Sin suscripción y sin cuenta.</p>
 <p>La versión gratis muestra tus últimas 90 noches y días con todo su detalle. Pro añade:</p>
 <ul class="nj-pro-list">
 <li>Todos los años de tu exportación, y el periodo que elijas.</li>
@@ -764,7 +771,7 @@ html[lang="ja"] .nj .lede { line-height: 1.8; }
 <div class="nj-trust-grid">
 <p>Los datos de sueño y de corazón son de los más personales que hay, así que Nightjar no los lleva a ninguna parte. El ZIP lo abre JavaScript en esta pestaña. Sin subidas, sin cuenta, sin ningún servidor que vea tus noches; al cerrar la pestaña, todo desaparece.</p>
 <p>Solo se abren los archivos que Nightjar muestra: sueño, disposición, actividad, oxígeno en sangre, estrés y resiliencia por día, los periodos de sueño, la frecuencia cardíaca, la temperatura, los entrenamientos, las sesiones y las etiquetas. Una exportación de Oura también puede traer el historial de ubicaciones, las comidas, los medicamentos y los datos del ciclo. Esos archivos se quedan cerrados, y “Qué se ha leído” los nombra uno a uno.</p>
-<p>Puedes comprobarlo: carga esta página, activa el modo avión y abre después tu exportación. Todo funciona igual, porque no hace falta la red. Pro consulta a Gumroad por tu clave de licencia como mucho una vez por semana y no envía nada más. <a href="/oura-export-viewer/privacy/" hreflang="en">Privacidad (en inglés)</a>.</p>
+<p>Puedes comprobarlo: carga esta página, activa el modo avión y abre después tu exportación. Todo funciona igual, porque no hace falta la red. Pro comprueba tu clave de licencia con Gumroad como mucho una vez por semana y no envía nada más. <a href="/oura-export-viewer/privacy/" hreflang="en">Privacidad (en inglés)</a>.</p>
 </div>
 </section>
 

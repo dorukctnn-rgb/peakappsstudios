@@ -370,6 +370,9 @@ body.yl {
 .yl .yl-head .head-nav [aria-current="page"] { color: #fff; }
 @media (max-width: 720px) { .yl .yl-head .yl-wide { display: none; } }
 @media (max-width: 420px) { .yl .yl-head .head-nav { gap: 4px 12px; } .yl .yl-head .head-nav a { font-size: 14px; } }
+/* the language codes sit together as one tight group, so the header stays one row on a phone */
+.yl .yl-head .yl-langs { display: flex; flex-wrap: wrap; align-items: center; }
+.yl .yl-head .yl-langs a { padding: 7px 6px; letter-spacing: 0.02em; }
 
 /* ---------- hero ---------- */
 .yl-hero { background: var(--night); color: #fff; overflow: hidden; }
@@ -586,6 +589,11 @@ body.yl:not(.yl-is-pro) .yl-pro-zone > * { grid-column: auto; }
 .yl-locked-poster { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 16px; align-items: start; }
 .yl-locked-poster img { width: 96px; height: auto; border-radius: 4px; box-shadow: 0 8px 16px -10px rgba(15, 27, 45, 0.7); }
 @media (max-width: 860px) { body.yl:not(.yl-is-pro) .yl-pro-zone { grid-template-columns: minmax(0, 1fr); } }
+/* phone widths: a long label (French, German, Portuguese...) stays inside its button, the poster thumbnail sits above its text, a table header may wrap so the language table fits */
+.yl .yl-locked-note .btn { white-space: normal; }
+.yl-lang-table thead th { white-space: normal; }
+@media (max-width: 520px) { .yl-locked-poster { grid-template-columns: minmax(0, 1fr); gap: 12px; } }
+@media (max-width: 400px) { .yl-lang-table th, .yl-lang-table td { padding-left: 7px; padding-right: 7px; } }
 @media (max-width: 560px) { .yl .yl-head .yl-mid { display: none; } }
 .yl h1 { max-width: 17ch; }
 html[lang="de"] .yl h1, html[lang="nl"] .yl h1 { max-width: 19ch; }
@@ -611,7 +619,7 @@ html[lang="fr"] .yl h1 { max-width: 19ch; }
 <script src="/assets/license.js" defer></script>
 <script type="module" src="/strava-year-in-review/js/app.js"></script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/pt-br/strava-retrospectiva/#app","name":"Yearlap","alternateName":"Retrospectiva do Strava a partir da sua exportação","url":"https://peakappsstudio.com/pt-br/strava-retrospectiva/","description":"Lê no navegador o arquivo activities.csv da exportação completa do Strava, em qualquer idioma de exportação, e mostra um ano de treinos: distância, tempo em movimento, ganho de elevação, esportes, meses, um relógio da semana, a atividade mais longa, o maior dia e a maior sequência, com cards no formato 9:16. Nada é enviado.","applicationCategory":"SportsApplication","operatingSystem":"Any (web browser)","inLanguage":"pt-BR","offers":[{"@type":"Offer","name":"Grátis","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Yearlap Pro","price":"5","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/yearlap-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Yearlap: retrospectiva do Strava","item":"https://peakappsstudio.com/pt-br/strava-retrospectiva/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Dá para ver a retrospectiva do Strava de graça, sem assinatura?","acceptedAnswer":{"@type":"Answer","text":"A retrospectiva do próprio Strava, o Year in Sport, é só para assinantes desde dezembro de 2025. Mas você continua podendo baixar os seus dados de graça: peça ao Strava o arquivo da sua conta, abra o ZIP nesta página e o Yearlap mostra o seu ano, com cards para compartilhar."}},{"@type":"Question","name":"Como baixar meus dados do Strava?","acceptedAnswer":{"@type":"Answer","text":"Em strava.com (não no app): Configurações, Minha conta, Começar na seção Baixe sua conta e, na página seguinte, Solicitar download. O Strava manda um link por e-mail; segundo a central de ajuda, isso pode levar algumas horas."}},{"@type":"Question","name":"Minha exportação está em português. Funciona?","acceptedAnswer":{"@type":"Answer","text":"Sim. O Strava escreve os nomes das colunas, as datas e uma das colunas de distância no idioma da sua conta, com vírgula decimal. O Yearlap lê as colunas pela posição e pega os números das colunas de valores brutos da exportação, então uma exportação em português, em inglês ou em francês dá os mesmos totais."}},{"@type":"Question","name":"Minha exportação do Strava é enviada para algum lugar?","acceptedAnswer":{"@type":"Answer","text":"Não. O ZIP é aberto por JavaScript na sua aba do navegador e nunca vai para um servidor. Só activities.csv, bikes.csv e shoes.csv são abertos, e os arquivos de percurso apenas se você desenhar o pôster do Pro; fotos e dados do perfil ficam fechados. Ao fechar a aba, tudo some."}},{"@type":"Question","name":"Por que os meus números são um pouco diferentes dos do Strava?","acceptedAnswer":{"@type":"Answer","text":"O Yearlap soma o tempo em movimento, a distância e o ganho de elevação que o activities.csv registra para cada atividade. O Strava grava os horários de início em UTC, por isso o Yearlap conta dias e horas no fuso horário que você escolher, por padrão o do seu aparelho. O Strava não publica como calcula a retrospectiva, então pequenas diferenças são normais."}},{"@type":"Question","name":"Dá para ver as minhas estatísticas do Strava do ano passado?","acceptedAnswer":{"@type":"Answer","text":"Sim. Na versão grátis, o Yearlap mostra o ano mais recente da sua exportação e, em janeiro e fevereiro, o ano anterior, se ele estiver lá. Os outros anos, os totais de sempre e a comparação ano contra ano fazem parte do Pro."}},{"@type":"Question","name":"O Yearlap é do Strava?","acceptedAnswer":{"@type":"Answer","text":"Não. O Yearlap é uma ferramenta independente da Peak Apps Studio, sem vínculo com o Strava. Ele nunca se conecta ao Strava e nunca pede o seu login."}}]}]}
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/pt-br/strava-retrospectiva/#app","name":"Yearlap","alternateName":"Retrospectiva do Strava a partir da sua exportação","url":"https://peakappsstudio.com/pt-br/strava-retrospectiva/","description":"Lê no navegador o arquivo activities.csv da exportação completa do Strava, em qualquer idioma de exportação, e mostra um ano de treinos: distância, tempo em movimento, ganho de elevação, esportes, meses, um relógio da semana, a atividade mais longa, o dia recorde e a maior sequência, com cards no formato 9:16. Nada é enviado.","applicationCategory":"SportsApplication","operatingSystem":"Any (web browser)","inLanguage":"pt-BR","offers":[{"@type":"Offer","name":"Grátis","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Yearlap Pro","price":"5","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/yearlap-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Ferramentas","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Yearlap: retrospectiva do Strava","item":"https://peakappsstudio.com/pt-br/strava-retrospectiva/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Dá para ver a retrospectiva do Strava de graça, sem assinatura?","acceptedAnswer":{"@type":"Answer","text":"A retrospectiva do próprio Strava, o Year in Sport, é só para assinantes desde dezembro de 2025. Mas você continua podendo baixar os seus dados de graça: peça ao Strava o arquivo da sua conta, abra o ZIP nesta página e o Yearlap mostra o seu ano, com cards para compartilhar."}},{"@type":"Question","name":"Como baixar meus dados do Strava?","acceptedAnswer":{"@type":"Answer","text":"Em strava.com (não no app): Configurações, Minha conta, Começar na seção Baixe sua conta e, na página seguinte, Solicitar download. O Strava manda um link por e-mail; segundo a central de ajuda, isso pode levar algumas horas."}},{"@type":"Question","name":"Minha exportação está em português. Funciona?","acceptedAnswer":{"@type":"Answer","text":"Sim. O Strava escreve os nomes das colunas, as datas e uma das colunas de distância no idioma da sua conta, com vírgula decimal. O Yearlap lê as colunas pela posição e pega os números das colunas de valores brutos da exportação, então uma exportação em português, em inglês ou em francês dá os mesmos totais."}},{"@type":"Question","name":"Minha exportação do Strava é enviada para algum lugar?","acceptedAnswer":{"@type":"Answer","text":"Não. O ZIP é aberto por JavaScript na sua aba do navegador e nunca vai para um servidor. Só activities.csv, bikes.csv e shoes.csv são abertos, e os arquivos de percurso apenas se você desenhar o pôster do Pro; fotos e dados do perfil ficam fechados. Ao fechar a aba, tudo some."}},{"@type":"Question","name":"Por que os meus números são um pouco diferentes dos do Strava?","acceptedAnswer":{"@type":"Answer","text":"O Yearlap soma o tempo em movimento, a distância e o ganho de elevação que o activities.csv registra para cada atividade. O Strava grava os horários de início em UTC, por isso o Yearlap conta dias e horas no fuso horário que você escolher, por padrão o do seu aparelho. O Strava não publica como calcula a retrospectiva, então pequenas diferenças são normais."}},{"@type":"Question","name":"Dá para ver as minhas estatísticas do Strava do ano passado?","acceptedAnswer":{"@type":"Answer","text":"Sim. Na versão grátis, o Yearlap mostra o ano mais recente da sua exportação e, em janeiro e fevereiro, o ano anterior, se ele estiver lá. Os outros anos, os totais acumulados e a comparação ano contra ano fazem parte do Pro."}},{"@type":"Question","name":"O Yearlap é do Strava?","acceptedAnswer":{"@type":"Answer","text":"Não. O Yearlap é uma ferramenta independente da Peak Apps Studio, sem vínculo com o Strava. Ele nunca se conecta ao Strava e nunca pede o seu login."}}]}]}
 </script>
 <script src="/assets/pro-source.js" defer></script>
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
@@ -627,12 +635,14 @@ html[lang="fr"] .yl h1 { max-width: 19ch; }
     <nav class="head-nav" aria-label="Yearlap">
       <span class="yl-wide" aria-current="page">Abrir a exportação</span>
       <a class="yl-mid" href="/pt-br/strava-retrospectiva/#solicitar">Pedir a exportação</a>
-      <a href="/strava-year-in-review/" hreflang="en" lang="en" aria-label="English">EN</a>
-      <a href="/de/strava-jahresrueckblick/" hreflang="de" lang="de" aria-label="Deutsch">DE</a>
-      <a href="/nl/strava-jaaroverzicht/" hreflang="nl" lang="nl" aria-label="Nederlands">NL</a>
-      <a href="/fr/strava-bilan-annuel/" hreflang="fr" lang="fr" aria-label="Français">FR</a>
-      <a href="/es/strava-resumen-anual/" hreflang="es" lang="es" aria-label="Español">ES</a>
-      <a href="/it/strava-riepilogo-annuale/" hreflang="it" lang="it" aria-label="Italiano">IT</a>
+      <span class="yl-langs">
+        <a href="/strava-year-in-review/" hreflang="en" lang="en" aria-label="English">EN</a>
+        <a href="/de/strava-jahresrueckblick/" hreflang="de" lang="de" aria-label="Deutsch">DE</a>
+        <a href="/nl/strava-jaaroverzicht/" hreflang="nl" lang="nl" aria-label="Nederlands">NL</a>
+        <a href="/fr/strava-bilan-annuel/" hreflang="fr" lang="fr" aria-label="Français">FR</a>
+        <a href="/es/strava-resumen-anual/" hreflang="es" lang="es" aria-label="Español">ES</a>
+        <a href="/it/strava-riepilogo-annuale/" hreflang="it" lang="it" aria-label="Italiano">IT</a>
+      </span>
     </nav>
   </div>
 </header>
@@ -640,11 +650,11 @@ html[lang="fr"] .yl h1 { max-width: 19ch; }
 <main id="main">
 <section class="yl-hero" aria-labelledby="h1">
 <div class="wrap">
-<nav class="crumbs" aria-label="Trilha de navegação"><ol><li><a href="/tools/" hreflang="en">Tools</a></li><li aria-current="page">Yearlap: retrospectiva do Strava</li></ol></nav>
+<nav class="crumbs" aria-label="Trilha de navegação"><ol><li><a href="/tools/" hreflang="en">Ferramentas</a></li><li aria-current="page">Yearlap: retrospectiva do Strava</li></ol></nav>
 <div class="yl-hero-grid">
 <div class="yl-hero-copy">
 <h1 id="h1">Sua retrospectiva do Strava, grátis, feita a partir da sua exportação</h1>
-<p class="lede">O Strava agora só mostra a retrospectiva do ano para quem paga a assinatura. Só que a exportação completa, que todo atleta recebe de graça, traz o ano inteiro. Abra aqui: distância, horas, ganho de elevação, os seus esportes e meses, os horários em que você treina, o seu maior dia e a sua maior sequência. Depois salve um card para os stories. Tudo acontece nesta aba do navegador e o arquivo nunca é enviado.</p>
+<p class="lede">O Strava agora só mostra a retrospectiva do ano para quem paga a assinatura. Só que a exportação completa, que todo atleta recebe de graça, traz o ano inteiro. Abra aqui: distância, horas, ganho de elevação, os seus esportes e meses, os horários em que você treina, o seu dia recorde e a sua maior sequência. Depois salve um card para os stories. Tudo acontece nesta aba do navegador e o arquivo nunca é enviado.</p>
 <div class="yl-panel" id="panel" data-state="idle">
 <div class="yl-stage" id="stage-idle">
 <div class="yl-drop" id="drop">
@@ -680,7 +690,7 @@ html[lang="fr"] .yl h1 { max-width: 19ch; }
 <p class="yl-private"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 9V6.5a5 5 0 0 1 10 0V9" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="3.2" y="9" width="13.6" height="9" rx="2" fill="currentColor"/></svg><span>A sua exportação é lida nesta aba e nunca é enviada. Só o activities.csv e as listas de equipamento são abertos; fotos e dados do perfil no mesmo ZIP ficam fechados. Contamos as visitas com o Cloudflare Web Analytics: sem cookies, sem dados pessoais e nunca com os seus arquivos.</span></p>
 </div>
 <figure class="yl-hero-art">
-<picture><source type="image/webp" srcset="/strava-year-in-review/img/lap-640.webp 640w, /strava-year-in-review/img/lap-960.webp 960w, /strava-year-in-review/img/lap-1280.webp 1280w" sizes="(max-width: 860px) 92vw, 560px"><img src="/strava-year-in-review/img/lap-960.webp" width="960" height="1080" alt="Um ano de treinos em volta de uma pista de atletismo: uma coluna por dia, mais alta quando o atleta do exemplo treinou por mais tempo, e o maior dia em dourado" fetchpriority="high"></picture>
+<picture><source type="image/webp" srcset="/strava-year-in-review/img/lap-640.webp 640w, /strava-year-in-review/img/lap-960.webp 960w, /strava-year-in-review/img/lap-1280.webp 1280w" sizes="(max-width: 860px) 92vw, 560px"><img src="/strava-year-in-review/img/lap-960.webp" width="960" height="1080" alt="Um ano de treinos em volta de uma pista de atletismo: uma coluna por dia, mais alta quando o atleta do exemplo treinou por mais tempo, e o dia recorde em dourado" fetchpriority="high"></picture>
 <figcaption>O ano do atleta do exemplo em uma volta: 365 dias em volta da pista, mais altos onde ele treinou mais.</figcaption>
 </figure>
 </div>
@@ -827,9 +837,9 @@ html[lang="fr"] .yl h1 { max-width: 19ch; }
 <section class="yl-pro wrap" id="pro" aria-labelledby="pro-h">
 <div class="yl-pro-copy">
 <h2 id="pro-h">Yearlap Pro</h2>
-<p class="yl-price"><span class="yl-price-n">US$ 5</span> uma vez só. Sem assinatura, sem conta.</p>
+<p class="yl-price"><span class="yl-price-n">US$ 5</span> pagamento único. Sem assinatura, sem conta.</p>
 <ul class="yl-pro-list">
-<li>Todos os anos da sua exportação e os totais de sempre.</li>
+<li>Todos os anos da sua exportação e os totais acumulados.</li>
 <li>Ano contra ano: distância, tempo, ganho de elevação e dias ativos, com a mudança em relação ao ano anterior.</li>
 <li>Quilômetros por equipamento: quanto rodou cada tênis e cada bike, neste ano e no total.</li>
 <li>Uma página por esporte: totais, meses, pace ou velocidade média, o treino mais longo e o mais rápido.</li>
@@ -858,7 +868,7 @@ html[lang="fr"] .yl h1 { max-width: 19ch; }
 <details><summary>Minha exportação está em português. Funciona?</summary><p>Sim. O Strava escreve os nomes das colunas, as datas e uma das colunas de distância no idioma da sua conta, com vírgula decimal. O Yearlap lê as colunas pela posição e pega os números das colunas de valores brutos da exportação, então uma exportação em português, em inglês ou em francês dá os mesmos totais.</p></details>
 <details><summary>Minha exportação do Strava é enviada para algum lugar?</summary><p>Não. O ZIP é aberto por JavaScript na sua aba do navegador e nunca vai para um servidor. Só activities.csv, bikes.csv e shoes.csv são abertos, e os arquivos de percurso apenas se você desenhar o pôster do Pro; fotos e dados do perfil ficam fechados. Ao fechar a aba, tudo some. <a href="/strava-year-in-review/privacy/" hreflang="en">Privacidade (em inglês)</a>.</p></details>
 <details><summary>Por que os meus números são um pouco diferentes dos do Strava?</summary><p>O Yearlap soma o tempo em movimento, a distância e o ganho de elevação que o activities.csv registra para cada atividade. O Strava grava os horários de início em UTC, por isso o Yearlap conta dias e horas no fuso horário que você escolher, por padrão o do seu aparelho. O Strava não publica como calcula a retrospectiva, então pequenas diferenças são normais.</p></details>
-<details><summary>Dá para ver as minhas estatísticas do Strava do ano passado?</summary><p>Sim. Na versão grátis, o Yearlap mostra o ano mais recente da sua exportação e, em janeiro e fevereiro, o ano anterior, se ele estiver lá. Os outros anos, os totais de sempre e a comparação ano contra ano fazem parte do Pro.</p></details>
+<details><summary>Dá para ver as minhas estatísticas do Strava do ano passado?</summary><p>Sim. Na versão grátis, o Yearlap mostra o ano mais recente da sua exportação e, em janeiro e fevereiro, o ano anterior, se ele estiver lá. Os outros anos, os totais acumulados e a comparação ano contra ano fazem parte do Pro.</p></details>
 <details><summary>O Yearlap é do Strava?</summary><p>Não. O Yearlap é uma ferramenta independente da Peak Apps Studio, sem vínculo com o Strava. Ele nunca se conecta ao Strava e nunca pede o seu login. Strava é uma marca da Strava, Inc.</p></details>
 </section>
 </main>

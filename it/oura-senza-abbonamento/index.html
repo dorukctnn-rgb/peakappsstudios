@@ -386,6 +386,9 @@ body.nj {
 .nj .nj-head .head-nav [aria-current="page"] { color: #fff; }
 @media (max-width: 760px) { .nj .nj-head .nj-wide { display: none; } }
 @media (max-width: 430px) { .nj .nj-head .head-nav { gap: 4px 11px; } .nj .nj-head .head-nav a, .nj .nj-head .head-nav span { font-size: 14px; } }
+/* the language codes sit together as one tight group, so the header stays one row on a phone */
+.nj .nj-head .nj-langs { display: flex; flex-wrap: wrap; align-items: center; }
+.nj .nj-head .nj-langs a { padding: 7px 6px; letter-spacing: 0.02em; }
 
 /* ---------- hero ---------- */
 .nj-hero { padding: clamp(10px, 2vw, 22px) 0 clamp(36px, 5vw, 64px); }
@@ -458,7 +461,7 @@ body.nj {
 .nj-night { margin-top: 18px; border: 1px solid var(--line); border-radius: 18px; padding: clamp(16px, 2.4vw, 26px); background: var(--paper); }
 .nj-night-head { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: baseline; justify-content: space-between; }
 .nj-night-head p { margin: 2px 0 0; color: var(--ink-2); }
-.nj-night-nav { display: flex; gap: 8px; }
+.nj-night-nav { display: flex; flex-wrap: wrap; gap: 8px; }
 .nj-facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0; margin: 16px 0 0; border-top: 1px solid var(--line); }
 .nj-facts > div { padding: 10px 10px 10px 0; border-bottom: 1px solid var(--line); }
 .nj-facts dt { font-size: 13.5px; color: var(--muted); font-weight: 600; }
@@ -577,6 +580,8 @@ body.nj {
 .nj-what { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(20px, 4vw, 56px); align-items: start; }
 @media (max-width: 900px) { .nj-what { grid-template-columns: minmax(0, 1fr); } }
 .nj-what .nj-table td:nth-child(2) { color: var(--muted); }
+/* small phones: a little less space between the columns, so the three-column comparison fits in Dutch, Italian and Spanish */
+@media (max-width: 400px) { .nj-what .nj-table th, .nj-what .nj-table td { padding-right: 8px; } }
 .nj-pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: clamp(20px, 4vw, 56px); align-items: center; }
 .nj-pro-copy { background: var(--night); color: #e6e8fb; border-radius: 22px; padding: clamp(20px, 3vw, 36px); }
 .nj .nj-pro-copy h2 { color: #fff; }
@@ -622,7 +627,7 @@ html[lang="ja"] .nj .lede { line-height: 1.8; }
 <script src="/assets/license.js" defer></script>
 <script type="module" src="/oura-export-viewer/js/boot.js"></script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/it/oura-senza-abbonamento/#app","name":"Nightjar","alternateName":"Dati Oura senza abbonamento","url":"https://peakappsstudio.com/it/oura-senza-abbonamento/","description":"Legge nel browser l’esportazione dei dati che Oura dà a chi possiede l’anello (Hub abbonamenti, Esporta dati) e mostra ogni notte e ogni giorno: fasi del sonno, frequenza cardiaca e HRV durante la notte, variazione di temperatura, ossigeno nel sangue, stress, attività, allenamenti, tag e i fattori di ogni punteggio. Nessun file viene caricato.","applicationCategory":"HealthApplication","operatingSystem":"Any (web browser)","inLanguage":"it","offers":[{"@type":"Offer","name":"Gratis","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Nightjar Pro","price":"9","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/nightjar-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Nightjar: Oura senza abbonamento","item":"https://peakappsstudio.com/it/oura-senza-abbonamento/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Oura Ring funziona senza abbonamento?","acceptedAnswer":{"@type":"Answer","text":"Sì, con dei limiti. Secondo l’assistenza Oura, senza un abbonamento attivo vedi solo i tre punteggi giornalieri (Prontezza, Attività e Sonno). L’anello continua a misurare, e Oura permette a chiunque possieda l’anello di esportare tutti i propri dati in CSV dall’Hub abbonamenti. Nightjar legge quell’esportazione e mostra il resto: fasi del sonno, HRV, frequenza cardiaca, temperatura, ossigeno nel sangue, stress e allenamenti."}},{"@type":"Question","name":"Come esporto i miei dati Oura?","acceptedAnswer":{"@type":"Answer","text":"Accedi a membership.ouraring.com con il tuo account Oura, scegli Esporta dati e poi Richiedi i tuoi dati. Oura ti scrive quando l’esportazione è pronta; secondo l’assistenza possono servire fino a 10 giorni. Scarica lo ZIP e aprilo così com’è in questa pagina."}},{"@type":"Question","name":"I miei dati Oura vengono inviati da qualche parte?","acceptedAnswer":{"@type":"Answer","text":"No. Lo ZIP viene aperto da JavaScript nella tua scheda e non viene mai inviato a un server. Si aprono solo i file di sonno, prontezza, attività, frequenza cardiaca, temperatura, stress, allenamenti, sessioni e tag; i file con posizione, pasti o farmaci restano chiusi. Chiudendo la scheda non resta niente."}},{"@type":"Question","name":"Funziona su iPhone?","acceptedAnswer":{"@type":"Answer","text":"Sì. Salva lo ZIP dell’Hub abbonamenti nell’app File, apri questa pagina in Safari, tocca Scegli lo ZIP e selezionalo. Non c’è niente da installare. Qualche anno di misure del battito può richiedere un minuto di lettura su un telefono."}},{"@type":"Question","name":"Nightjar è di Oura?","acceptedAnswer":{"@type":"Answer","text":"No. Nightjar è uno strumento indipendente di Peak Apps Studio, senza legami con Oura Health Oy, che non lo approva né lo sponsorizza. Non si collega mai al tuo account Oura e non ti chiede mai le credenziali."}}]}]}
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/it/oura-senza-abbonamento/#app","name":"Nightjar","alternateName":"Dati Oura senza abbonamento","url":"https://peakappsstudio.com/it/oura-senza-abbonamento/","description":"Legge nel browser l’esportazione dei dati che Oura dà a chi possiede l’anello (Hub abbonamenti, Esporta dati) e mostra ogni notte e ogni giorno: fasi del sonno, frequenza cardiaca e HRV durante la notte, variazione di temperatura, ossigeno nel sangue, stress, attività, allenamenti, tag e i fattori di ogni punteggio. Nessun file viene caricato.","applicationCategory":"HealthApplication","operatingSystem":"Any (web browser)","inLanguage":"it","offers":[{"@type":"Offer","name":"Gratis","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Nightjar Pro","price":"9","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/nightjar-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Strumenti","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Nightjar: Oura senza abbonamento","item":"https://peakappsstudio.com/it/oura-senza-abbonamento/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Oura Ring funziona senza abbonamento?","acceptedAnswer":{"@type":"Answer","text":"Sì, con dei limiti. Secondo l’assistenza Oura, senza un abbonamento attivo vedi solo i tre punteggi giornalieri (Prontezza, Attività e Sonno). L’anello continua a misurare, e Oura permette a chiunque possieda l’anello di esportare tutti i propri dati in CSV dall’Hub abbonamenti. Nightjar legge quell’esportazione e mostra il resto: fasi del sonno, HRV, frequenza cardiaca, temperatura, ossigeno nel sangue, stress e allenamenti."}},{"@type":"Question","name":"Come esporto i miei dati Oura?","acceptedAnswer":{"@type":"Answer","text":"Accedi a membership.ouraring.com con il tuo account Oura, scegli Esporta dati e poi Richiedi i tuoi dati. Oura ti scrive quando l’esportazione è pronta; secondo l’assistenza possono servire fino a 10 giorni. Scarica lo ZIP e aprilo così com’è in questa pagina."}},{"@type":"Question","name":"I miei dati Oura vengono inviati da qualche parte?","acceptedAnswer":{"@type":"Answer","text":"No. Lo ZIP viene aperto da JavaScript nella tua scheda e non viene mai inviato a un server. Si aprono solo i file di sonno, prontezza, attività, frequenza cardiaca, temperatura, stress, allenamenti, sessioni e tag; i file con posizione, pasti o farmaci restano chiusi. Chiudendo la scheda non resta niente."}},{"@type":"Question","name":"Funziona su iPhone?","acceptedAnswer":{"@type":"Answer","text":"Sì. Salva lo ZIP dell’Hub abbonamenti nell’app File, apri questa pagina in Safari, tocca Scegli lo ZIP e selezionalo. Non c’è niente da installare. Qualche anno di misure del battito può richiedere un minuto di lettura su un telefono."}},{"@type":"Question","name":"Nightjar è di Oura?","acceptedAnswer":{"@type":"Answer","text":"No. Nightjar è uno strumento indipendente di Peak Apps Studio, senza legami con Oura Health Oy, che non lo approva né lo sponsorizza. Non si collega mai al tuo account Oura e non ti chiede mai le credenziali."}}]}]}
 </script>
 <script src="/assets/pro-source.js" data-campaign="oura-export-viewer" defer></script>
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
@@ -638,12 +643,14 @@ html[lang="ja"] .nj .lede { line-height: 1.8; }
     <nav class="head-nav" aria-label="Nightjar">
       <span class="nj-wide" aria-current="page">Apri l’esportazione</span>
       <a class="nj-wide" href="/it/oura-senza-abbonamento/#export">Richiedi l’esportazione</a>
-      <a href="/oura-export-viewer/" hreflang="en" lang="en" aria-label="English">EN</a>
-      <a href="/de/oura-ohne-abo/" hreflang="de" lang="de" aria-label="Deutsch">DE</a>
-      <a href="/fr/oura-sans-abonnement/" hreflang="fr" lang="fr" aria-label="Français">FR</a>
-      <a href="/ja/oura-subscription-nashi/" hreflang="ja" lang="ja" aria-label="日本語">JA</a>
-      <a href="/nl/oura-zonder-abonnement/" hreflang="nl" lang="nl" aria-label="Nederlands">NL</a>
-      <a href="/es/oura-sin-suscripcion/" hreflang="es" lang="es" aria-label="Español">ES</a>
+      <span class="nj-langs">
+        <a href="/oura-export-viewer/" hreflang="en" lang="en" aria-label="English">EN</a>
+        <a href="/de/oura-ohne-abo/" hreflang="de" lang="de" aria-label="Deutsch">DE</a>
+        <a href="/fr/oura-sans-abonnement/" hreflang="fr" lang="fr" aria-label="Français">FR</a>
+        <a href="/ja/oura-subscription-nashi/" hreflang="ja" lang="ja" aria-label="日本語">JA</a>
+        <a href="/nl/oura-zonder-abonnement/" hreflang="nl" lang="nl" aria-label="Nederlands">NL</a>
+        <a href="/es/oura-sin-suscripcion/" hreflang="es" lang="es" aria-label="Español">ES</a>
+      </span>
     </nav>
   </div>
 </header>
@@ -652,7 +659,7 @@ html[lang="ja"] .nj .lede { line-height: 1.8; }
 <section class="nj-hero" aria-labelledby="h1">
 <div class="wrap nj-hero-grid">
 <div class="nj-hero-copy">
-<nav class="crumbs" aria-label="Percorso di navigazione"><ol><li><a href="/tools/" hreflang="en">Tools</a></li><li aria-current="page">Nightjar: Oura senza abbonamento</li></ol></nav>
+<nav class="crumbs" aria-label="Percorso di navigazione"><ol><li><a href="/tools/" hreflang="en">Strumenti</a></li><li aria-current="page">Nightjar: Oura senza abbonamento</li></ol></nav>
 <h1 id="h1">Usare Oura Ring senza abbonamento: tutti i tuoi dati</h1>
 <p class="lede">Senza abbonamento l’app Oura mostra solo tre punteggi giornalieri. L’esportazione dei dati che Oura dà a chi possiede l’anello contiene tutto il resto: le fasi del sonno di ogni notte, l’HRV, la frequenza cardiaca a riposo, la temperatura, l’ossigeno nel sangue, lo stress e gli allenamenti. Aprila qui e rivedi tutto. Viene letta in questa scheda e non viene mai caricata.</p>
 <div class="nj-panel" id="panel" data-state="idle">
@@ -740,7 +747,7 @@ html[lang="ja"] .nj .lede { line-height: 1.8; }
 <section class="nj-pro wrap" id="pro" aria-labelledby="pro-h">
 <div class="nj-pro-copy">
 <h2 id="pro-h">Nightjar Pro</h2>
-<p class="nj-price"><span class="nj-price-n">9 $</span> una volta sola. Niente abbonamento, niente account.</p>
+<p class="nj-price"><span class="nj-price-n">9 $</span> pagamento unico. Niente abbonamento, niente account.</p>
 <p>La versione gratis mostra le tue ultime 90 notti e giornate con tutti i dettagli. Pro aggiunge:</p>
 <ul class="nj-pro-list">
 <li>Tutti gli anni della tua esportazione, e qualsiasi periodo tu scelga.</li>
