@@ -502,6 +502,48 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
   .cb-chat-head { position: static; }
 }
 
+/* ---- moving to another app: cards and chat files ---- */
+.cb-mv-intro { font-size: 14.5px; line-height: 1.45; color: var(--ink-2); margin: 0; }
+.cb-mv-intro a { color: inherit; }
+.cb-mv-all { padding: 12px 14px 14px; border-top: 1px solid var(--line); background: color-mix(in oklab, var(--gilt) 12%, var(--page)); }
+.cb-mv-all p { margin: 0 0 8px; font-size: 14px; line-height: 1.45; color: var(--ink-2); }
+.cb-mv-all p b { color: var(--ink); }
+.cb-mv-head { max-width: 40rem; }
+.cb-mv-head label, .cb-mv-label { display: block; font-weight: 600; font-size: 15px; margin: 14px 0 6px; }
+.cb-mv-head label { margin-top: 0; }
+.cb-mv-name { font-family: var(--display); font-size: 22px; font-weight: 650; }
+.cb-mv-card { display: grid; gap: 18px 28px; margin: 22px 0 8px; max-width: 58rem; }
+@media (min-width: 1100px) { .cb-mv-card { grid-template-columns: 170px minmax(0, 1fr); } }
+.cb-mv-pic { margin: 0; }
+.cb-mv-pic img { width: 160px; height: 240px; border-radius: 4px 6px 6px 4px; box-shadow: 0 12px 26px -16px rgba(40, 10, 25, .7); background: var(--paper-2); object-fit: cover; display: block; }
+.cb-mv-pic figcaption { font-size: 13.5px; line-height: 1.45; color: var(--muted); margin: 10px 0; max-width: 22rem; }
+.cb-mv-fields-wrap h3 { margin-top: 0; }
+.cb-mv-fields th { width: 32%; }
+.cb-mv-none { color: var(--muted); }
+.cb-mv-src { color: var(--muted); font-size: 13px; }
+.cb-mv-desc { min-height: 100px; resize: vertical; line-height: 1.5; }
+.cb-mv-get { margin-top: 16px; }
+.cb-mv-chat { border-top: 1px solid var(--line); margin-top: 26px; padding-top: 4px; max-width: 58rem; }
+.cb-mv-layout { border: 0; padding: 0; margin: 14px 0 4px; min-width: 0; }
+.cb-mv-layout legend { font-weight: 650; font-size: 15.5px; padding: 0; color: var(--ink); }
+.cb-mv-layout .cb-note { margin: 4px 0 6px; }
+.cb-mv-layout .cb-choice { padding: 5px 0; font-size: 15.5px; }
+.cb-mv-you { max-width: 20rem; }
+.cb-mv-preview { list-style: none; margin: 16px 0 0; padding: 0; border: 1px solid var(--line); border-radius: var(--radius); max-height: 470px; overflow-y: auto; background: var(--card); }
+.cb-mv-preview li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 14px; align-items: center; padding: 10px 14px; border-top: 1px solid var(--line); box-shadow: inset 3px 0 0 var(--cloth); }
+.cb-mv-preview li:first-child { border-top: 0; }
+.cb-mv-preview li.is-user { background: var(--paper); box-shadow: inset 3px 0 0 var(--line-2); }
+.cb-mv-preview .who { grid-column: 1; font-weight: 650; font-size: 13.5px; color: var(--cloth); }
+.cb-mv-preview li.is-user .who { color: var(--ink-2); }
+.cb-mv-preview p { grid-column: 1; margin: 0; font-size: 15px; line-height: 1.5; color: var(--ink-2); overflow-wrap: anywhere; }
+.cb-mv-preview .cb-link { grid-column: 2; grid-row: 1 / span 2; font-size: 13.5px; color: var(--muted); white-space: nowrap; padding: 8px 0; }
+.cb-mv-preview .cb-link:hover { color: var(--ink); }
+.cb-mv-preview li.cb-mv-more { display: block; box-shadow: none; background: var(--card); }
+@media (max-width: 560px) { .cb-mv-preview li { grid-template-columns: minmax(0, 1fr); } .cb-mv-preview .cb-link { grid-column: 1; grid-row: auto; justify-self: start; padding: 4px 0; } }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cb-mv-preview .who { color: var(--direction); } }
+:root[data-theme="dark"] .cb-mv-preview .who { color: var(--direction); }
+.cb-mv-free { margin: 22px 0 0; padding: 10px 12px; background: color-mix(in oklab, var(--gilt) 14%, var(--page)); border-radius: 6px; font-size: 14.5px; color: var(--ink-2); max-width: 58rem; }
+
 /* ---- dialog for "choose chats" (PDF) ---- */
 .cb-dialog { border: 1px solid var(--line); border-radius: 10px; padding: 22px; max-width: min(520px, calc(100vw - 32px)); background: var(--card); color: var(--ink); }
 .cb-dialog::backdrop { background: rgba(20, 10, 18, .45); }
@@ -567,7 +609,8 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
       <a class="hide-xs" href="/character-ai-export-viewer/">Open an export</a>
       <a class="cb-wide" href="/character-ai-export-viewer/whats-in-the-export/">What’s in the file</a>
       <a class="cb-wide" href="/character-ai-export-viewer/export-password/">The ZIP password</a>
-      <a href="/character-ai-export-viewer/export-not-working/">Not working?</a>
+      <a href="/character-ai-export-viewer/#move">Move your chats</a>
+      <a class="hide-xs" href="/character-ai-export-viewer/export-not-working/">Not working?</a>
     </nav>
   </div>
 </header>
@@ -577,7 +620,7 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
 <article class="cb-guide">
 <div class="wrap">
 <h1>Privacy</h1>
-<p class="cb-src">Last checked 21 October 2026</p>
+<p class="cb-src">Last checked 22 October 2026</p>
 <h2>The short version</h2>
 <ul>
 <li>Your export is opened by this page inside your browser. We never receive your file, your chats, your characters or your email address.</li>
@@ -586,16 +629,18 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
 <li>If you buy Pro, your licence key is checked with Gumroad when you paste it.</li>
 </ul>
 <h2>Your export file</h2>
-<p>When you drop or choose a file, the page hands it to a worker script in the same browser tab. The worker reads it from your device, opens it with the email address you type, and keeps the chats in the tab’s memory while it is open. Closing the file or the tab clears them. No part of the file, and nothing read from it, is sent over the network. The files you save (HTML, text, Markdown, the book, the EPUB, the print layout for PDF) are made in your browser and go straight to your downloads.</p>
+<p>When you drop or choose a file, the page hands it to a worker script in the same browser tab. The worker reads it from your device, opens it with the email address you type, and keeps the chats in the tab’s memory while it is open. Closing the file or the tab clears them. No part of the file, and nothing read from it, is sent over the network. The files you save (HTML, text, Markdown, the book, the EPUB, the print layout for PDF, character cards, chat files and the ZIP of them) are made in your browser and go straight to your downloads. A picture you choose for a character card is read the same way, on your device.</p>
 <p>The page’s security policy tells your browser to allow only two connections: Gumroad’s licence check and Cloudflare’s visit counter. The worker that reads your file has no network code. <a href="/character-ai-export-viewer/#nothing-uploaded">How to check that nothing is uploaded</a> shows how to confirm this in your browser.</p>
 <h2>The email address you type</h2>
 <p>Character.AI locks the export with your email address. You type it so the page can open the file. It stays in the tab’s memory for that purpose, is never stored and is never sent anywhere.</p>
 <h2>What your browser keeps</h2>
 <ul>
 <li><b>Names you give chats.</b> If you rename a chat, the name is saved in this browser’s local storage under <code>chatbound:names</code>, next to the chat’s id from the export, so the name is there next time. It holds only the names you typed.</li>
+<li><b>Names you give characters.</b> When you type a character’s name in the Move to another app tab, it is saved under <code>chatbound:characters</code>, next to an id made from the character’s greeting, so it is there next time.</li>
+<li><b>Your free character.</b> The free version converts one character. Which one is saved under <code>chatbound:free-character</code>: its id and its name.</li>
 <li><b>Your Pro licence.</b> After a key is accepted, the key and the purchase email that Gumroad returns are saved in local storage under <code>peak-license:chatbound</code>, so Pro stays on. The key is checked with Gumroad again about once a week.</li>
 </ul>
-<p>You can remove both by clearing this site’s data in your browser settings.</p>
+<p>You can remove all of these by clearing this site’s data in your browser settings.</p>
 <h2>Gumroad</h2>
 <p>Payment for Pro happens on Gumroad, which handles your card and receipt under its own privacy policy. When you paste a licence key, the page sends the key and the product id to Gumroad’s licence API to check it. Nothing from your export is included.</p>
 <h2>Visit counting and hosting</h2>
@@ -620,8 +665,8 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
   <div class="wrap cols">
     <div>
       <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Chatbound</p>
-      <p style="margin:0;max-width:46ch">A reader for the data export Character.AI emails you. Your export is opened by this page on your own device and is never uploaded.</p>
-      <p style="margin:12px 0 0;max-width:46ch">Chatbound is an independent tool and is not affiliated with, endorsed by or sponsored by Character Technologies, Inc. Character.AI is a trademark of its owner.</p>
+      <p style="margin:0;max-width:46ch">A reader for the data export Character.AI emails you, and a way to move its characters and chats to other apps. Your export is opened by this page on your own device and is never uploaded.</p>
+      <p style="margin:12px 0 0;max-width:46ch">Chatbound is an independent tool and is not affiliated with, endorsed by or sponsored by Character Technologies, Janitor AI or SillyTavern. Character.AI and the names of the apps it can move to belong to their owners.</p>
     </div>
     <div>
       <h2>Your export</h2>
@@ -630,6 +675,15 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
         <li><a href="/character-ai-export-viewer/whats-in-the-export/">What’s in the export file</a></li>
         <li><a href="/character-ai-export-viewer/export-password/">The ZIP password</a></li>
         <li><a href="/character-ai-export-viewer/export-not-working/">When the export isn’t working</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Move to another app</h2>
+      <ul>
+        <li><a href="/character-ai-export-viewer/sillytavern/">Character.AI to SillyTavern</a></li>
+        <li><a href="/character-ai-export-viewer/janitor-ai/">Character.AI to Janitor AI</a></li>
+        <li><a href="/character-ai-export-viewer/perchance/">Character.AI to Perchance</a></li>
+        <li><a href="/character-ai-export-viewer/sakura/">Character.AI to Sakura.fm</a></li>
       </ul>
     </div>
     <div>

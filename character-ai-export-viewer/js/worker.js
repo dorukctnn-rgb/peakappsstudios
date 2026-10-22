@@ -3,9 +3,9 @@
  * Nothing in this worker uses the network: it has no fetch, XMLHttpRequest or WebSocket, and reads only the File
  * objects the page hands it. */
 'use strict';
-importScripts('../vendor/fflate.min.js?v=0.8.2', 'aes.js?v=1', 'zip.js?v=1', 'parse.js?v=1', 'render.js?v=1', 'sample.js?v=1');
+importScripts('../vendor/fflate.min.js?v=0.8.2', 'aes.js?v=1', 'zip.js?v=1', 'parse.js?v=1', 'render.js?v=1', 'sample.js?v=1', 'migrate.js?v=1');
 
-const Z = self.CaiZip, P = self.CaiParse, R = self.CaiRender;
+const Z = self.CaiZip, P = self.CaiParse, R = self.CaiRender, M = self.CaiMove;
 let AR = null;           // the open archive
 let SOURCES = [];        // [{ file, name, kind, zip, entries, password }]
 let IMAGES = new Map();  // relative path -> { blob } | { src, entry }
@@ -323,13 +323,95 @@ async function exportFile({ kind, id, ids, opts }) {
   throw new Error('Unknown file type.');
 }
 
+// ---------------------------------------------------------------- moving to another app
+// The characters to convert: those your account created (character.json), with the chats that open with their exact
+// greeting, then the other chats, put together when they open with the same message (Character.AI starts every chat
+// with the character's greeting, so the same opening means the same character). Short openings are never grouped.
+function moveIndex() {
+  if (!AR) return { people: [] };
+  const people = AR.characters.map((c, i) => ({ key: `own:${P.hashText(c.name + '|' + c.created + '|' + c.greeting)}`, kind: 'own', name: c.name, char: i, first: c.greeting, chats: [] }));
+  const byGreeting = new Map();
+  for (const p of people) { const g = p.first.trim(); if (g.length >= 12 && !byGreeting.has(g)) byGreeting.set(g, p); }
+  const groups = new Map();
+  for (const s of AR.summaries) {
+    const chat = AR.chats.get(s.id);
+    const firstText = chat.msgs[0] ? chat.msgs[0].text : '';
+    const first = firstText.trim();
+    const row = { id: s.id, count: s.count, start: s.start, end: s.end, name: s.name || '' };
+    const own = first.length >= 12 ? byGreeting.get(first) : null;
+    if (own) { own.chats.push(row); continue; }
+    let g = first.length >= 12 ? groups.get(first) : null;
+    if (!g) {
+      g = { key: first.length >= 12 ? `chat:${P.hashText(first)}` : `one:${s.id}`, kind: 'chat', name: s.name || '', first: firstText, chats: [] };
+      people.push(g);
+      if (first.length >= 12) groups.set(first, g);
+    }
+    g.chats.push(row);
+  }
+  for (const p of people) p.messages = p.chats.reduce((n, c) => n + c.count, 0);
+  return { people, speakers: AR.speakers };
+}
+
+function moveMsgs(id) {
+  const c = AR && AR.chats.get(id);
+  if (!c) throw new Error('That chat is not in the open file.');
+  return c;
+}
+
+// one chat as a SillyTavern chat file
+function moveChat({ id, layout, charName, userName, fileName }) {
+  const c = moveMsgs(id);
+  const text = M.chatLines(c.msgs, { charName, userName, layout });
+  const day = Number.isFinite(c.summary.start) ? new Date(c.summary.start).toISOString().slice(0, 10) : 'chat';
+  return { blob: new Blob([text], { type: 'application/jsonl' }), name: `${M.slug(fileName || charName, 'character')}-${day}.jsonl` };
+}
+
+// everything at once: one ZIP of cards (PNG and JSON) and chat files, with a note on importing them
+// people: [{ name, cardJson, png (Uint8Array), chats: [{ id, layout, title }] }]
+function moveZip({ people, userName, owner }) {
+  if (!AR) throw new Error('Open an export first.');
+  const fl = self.fflate;
+  const te = new TextEncoder();
+  const out = [];
+  let failed = null;
+  const zip = new fl.Zip((err, data) => { if (err) failed = err; else out.push(data); });
+  const now = new Date();
+  const add = (name, bytes, stored) => { const e = stored ? new fl.ZipPassThrough(name) : new fl.ZipDeflate(name, { level: 6 }); e.mtime = now; zip.add(e); e.push(typeof bytes === 'string' ? te.encode(bytes) : bytes, true); };
+  const today = now.toISOString().slice(0, 10);
+  const root = `character-ai-cards-and-chats-${M.slug(owner, 'export')}-${today}/`;
+  const slugs = M.uniqueSlugs(people.map((p) => p.name), 'character');
+  let chats = 0, messages = 0;
+  const total = people.reduce((n, p) => n + p.chats.length, 0);
+  people.forEach((p, k) => {
+    const s = slugs[k];
+    if (p.png) add(`${root}cards/${s}.png`, p.png, true);
+    add(`${root}cards/${s}.json`, JSON.stringify(JSON.parse(p.cardJson), null, 2));
+    const used = new Set();
+    for (const ch of p.chats) {
+      const c = AR.chats.get(ch.id);
+      if (!c) continue;
+      const day = Number.isFinite(c.summary.start) ? new Date(c.summary.start).toISOString().slice(0, 10) : 'chat';
+      let fname = ch.title ? `${day}-${M.slug(ch.title, 'chat')}` : day;
+      for (let n = 2; used.has(fname); n++) fname = `${day}-${n}`;
+      used.add(fname);
+      add(`${root}chats/${s}/${fname}.jsonl`, M.chatLines(c.msgs, { charName: p.name, userName, layout: ch.layout }));
+      chats++; messages += c.msgs.length;
+      if (chats % 25 === 0) progress('writing', chats, total, 'zip');
+    }
+  });
+  add(`${root}README.txt`, M.readme({ characters: people.length, chats, messages, date: today }));
+  zip.end();
+  if (failed) throw failed;
+  return { blob: new Blob(out, { type: 'application/zip' }), name: `${root.slice(0, -1)}.zip`, chats, messages };
+}
+
 async function sample() {
   const bytes = self.CaiSample.zipBytes(self.fflate);
   return new File([bytes], 'sample-character-ai-export.zip', { type: 'application/zip' });
 }
 
 const HANDLERS = {
-  open, chatPage, search, image, export: exportFile, sample,
+  open, chatPage, search, image, export: exportFile, sample, moveIndex, moveChat, moveZip,
   close: () => { AR = null; SOURCES = []; IMAGES = new Map(); return true; },
 };
 

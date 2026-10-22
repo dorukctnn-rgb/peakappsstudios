@@ -6,12 +6,12 @@
 <meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Character AI Export Viewer: open your data ZIP | Chatbound</title>
-<meta name="description" content="Open the password-protected ZIP from your Character.AI data export and read your chats in the browser. Search them, save them, and upload nothing.">
+<meta name="description" content="Open the password-protected ZIP from your Character.AI data export in the browser. Read and search your chats, or move them to SillyTavern or Janitor AI.">
 <link rel="canonical" href="https://peakappsstudio.com/character-ai-export-viewer/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Peak Apps Tools">
 <meta property="og:title" content="Character AI Export Viewer: open your data ZIP | Chatbound">
-<meta property="og:description" content="Open the password-protected ZIP from your Character.AI data export and read your chats in the browser. Search them, save them, and upload nothing.">
+<meta property="og:description" content="Open the password-protected ZIP from your Character.AI data export in the browser. Read and search your chats, or move them to SillyTavern or Janitor AI.">
 <meta property="og:url" content="https://peakappsstudio.com/character-ai-export-viewer/">
 <meta property="og:image" content="https://peakappsstudio.com/character-ai-export-viewer/img/og.png">
 <meta property="og:image:width" content="1200">
@@ -504,6 +504,48 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
   .cb-chat-head { position: static; }
 }
 
+/* ---- moving to another app: cards and chat files ---- */
+.cb-mv-intro { font-size: 14.5px; line-height: 1.45; color: var(--ink-2); margin: 0; }
+.cb-mv-intro a { color: inherit; }
+.cb-mv-all { padding: 12px 14px 14px; border-top: 1px solid var(--line); background: color-mix(in oklab, var(--gilt) 12%, var(--page)); }
+.cb-mv-all p { margin: 0 0 8px; font-size: 14px; line-height: 1.45; color: var(--ink-2); }
+.cb-mv-all p b { color: var(--ink); }
+.cb-mv-head { max-width: 40rem; }
+.cb-mv-head label, .cb-mv-label { display: block; font-weight: 600; font-size: 15px; margin: 14px 0 6px; }
+.cb-mv-head label { margin-top: 0; }
+.cb-mv-name { font-family: var(--display); font-size: 22px; font-weight: 650; }
+.cb-mv-card { display: grid; gap: 18px 28px; margin: 22px 0 8px; max-width: 58rem; }
+@media (min-width: 1100px) { .cb-mv-card { grid-template-columns: 170px minmax(0, 1fr); } }
+.cb-mv-pic { margin: 0; }
+.cb-mv-pic img { width: 160px; height: 240px; border-radius: 4px 6px 6px 4px; box-shadow: 0 12px 26px -16px rgba(40, 10, 25, .7); background: var(--paper-2); object-fit: cover; display: block; }
+.cb-mv-pic figcaption { font-size: 13.5px; line-height: 1.45; color: var(--muted); margin: 10px 0; max-width: 22rem; }
+.cb-mv-fields-wrap h3 { margin-top: 0; }
+.cb-mv-fields th { width: 32%; }
+.cb-mv-none { color: var(--muted); }
+.cb-mv-src { color: var(--muted); font-size: 13px; }
+.cb-mv-desc { min-height: 100px; resize: vertical; line-height: 1.5; }
+.cb-mv-get { margin-top: 16px; }
+.cb-mv-chat { border-top: 1px solid var(--line); margin-top: 26px; padding-top: 4px; max-width: 58rem; }
+.cb-mv-layout { border: 0; padding: 0; margin: 14px 0 4px; min-width: 0; }
+.cb-mv-layout legend { font-weight: 650; font-size: 15.5px; padding: 0; color: var(--ink); }
+.cb-mv-layout .cb-note { margin: 4px 0 6px; }
+.cb-mv-layout .cb-choice { padding: 5px 0; font-size: 15.5px; }
+.cb-mv-you { max-width: 20rem; }
+.cb-mv-preview { list-style: none; margin: 16px 0 0; padding: 0; border: 1px solid var(--line); border-radius: var(--radius); max-height: 470px; overflow-y: auto; background: var(--card); }
+.cb-mv-preview li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 14px; align-items: center; padding: 10px 14px; border-top: 1px solid var(--line); box-shadow: inset 3px 0 0 var(--cloth); }
+.cb-mv-preview li:first-child { border-top: 0; }
+.cb-mv-preview li.is-user { background: var(--paper); box-shadow: inset 3px 0 0 var(--line-2); }
+.cb-mv-preview .who { grid-column: 1; font-weight: 650; font-size: 13.5px; color: var(--cloth); }
+.cb-mv-preview li.is-user .who { color: var(--ink-2); }
+.cb-mv-preview p { grid-column: 1; margin: 0; font-size: 15px; line-height: 1.5; color: var(--ink-2); overflow-wrap: anywhere; }
+.cb-mv-preview .cb-link { grid-column: 2; grid-row: 1 / span 2; font-size: 13.5px; color: var(--muted); white-space: nowrap; padding: 8px 0; }
+.cb-mv-preview .cb-link:hover { color: var(--ink); }
+.cb-mv-preview li.cb-mv-more { display: block; box-shadow: none; background: var(--card); }
+@media (max-width: 560px) { .cb-mv-preview li { grid-template-columns: minmax(0, 1fr); } .cb-mv-preview .cb-link { grid-column: 1; grid-row: auto; justify-self: start; padding: 4px 0; } }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cb-mv-preview .who { color: var(--direction); } }
+:root[data-theme="dark"] .cb-mv-preview .who { color: var(--direction); }
+.cb-mv-free { margin: 22px 0 0; padding: 10px 12px; background: color-mix(in oklab, var(--gilt) 14%, var(--page)); border-radius: 6px; font-size: 14.5px; color: var(--ink-2); max-width: 58rem; }
+
 /* ---- dialog for "choose chats" (PDF) ---- */
 .cb-dialog { border: 1px solid var(--line); border-radius: 10px; padding: 22px; max-width: min(520px, calc(100vw - 32px)); background: var(--card); color: var(--ink); }
 .cb-dialog::backdrop { background: rgba(20, 10, 18, .45); }
@@ -552,10 +594,12 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
 @media (prefers-reduced-motion: reduce) { .cb * { transition: none !important; } }
 </style>
 <script src="/assets/license.js" defer></script>
-<script src="/character-ai-export-viewer/js/app.js?v=1" defer></script>
+<script src="/character-ai-export-viewer/js/app.js?v=2" defer></script>
+<script src="/character-ai-export-viewer/js/migrate.js?v=1" defer></script>
+<script src="/character-ai-export-viewer/js/move.js?v=1" defer></script>
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/character-ai-export-viewer/#app","name":"Chatbound, Character AI export viewer","url":"https://peakappsstudio.com/character-ai-export-viewer/","description":"Open the password-protected ZIP from your Character.AI data export and read your chats in the browser. Search them, save them, and upload nothing.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Chatbound Pro","price":"8","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/chatbound-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Character AI export viewer","item":"https://peakappsstudio.com/character-ai-export-viewer/"}]}]}
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/character-ai-export-viewer/#app","name":"Chatbound, Character AI export viewer","url":"https://peakappsstudio.com/character-ai-export-viewer/","description":"Open the password-protected ZIP from your Character.AI data export in the browser. Read and search your chats, or move them to SillyTavern or Janitor AI.","featureList":["Opens the password-protected Character.AI export ZIP","Search across every message","Saves chats as HTML, text and Markdown","Character cards (Character Card V2, PNG and JSON) from the export","SillyTavern chat files (JSONL) from the export"],"applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Chatbound Pro","price":"8","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/chatbound-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Character AI export viewer","item":"https://peakappsstudio.com/character-ai-export-viewer/"}]}]}
 </script>
 <script src="/assets/pro-source.js" data-campaign="character-ai-export-viewer" defer></script>
 </head>
@@ -571,7 +615,8 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
       <span class="hide-xs" aria-current="page">Open an export</span>
       <a class="cb-wide" href="/character-ai-export-viewer/whats-in-the-export/">What’s in the file</a>
       <a class="cb-wide" href="/character-ai-export-viewer/export-password/">The ZIP password</a>
-      <a href="/character-ai-export-viewer/export-not-working/">Not working?</a>
+      <a href="/character-ai-export-viewer/#move">Move your chats</a>
+      <a class="hide-xs" href="/character-ai-export-viewer/export-not-working/">Not working?</a>
     </nav>
   </div>
 </header>
@@ -589,6 +634,7 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
         <li>Opens the password-protected ZIP with the email address of your account, which is the password Character.AI uses.</li>
         <li>Opens big exports: in our test, a 106 MB export with 382,860 messages opened in 10 to 16 seconds.</li>
         <li>Saves a chat as HTML, plain text or Markdown for free.</li>
+        <li>Turns your characters and chats into character cards and chat files that SillyTavern, Janitor AI and other apps import. <a href="#move">What comes over</a></li>
       </ul>
     </div>
 
@@ -651,6 +697,7 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
     <div class="cb-tabs" role="tablist" aria-label="Parts of the export">
       <button role="tab" type="button" id="tab-chats" aria-controls="cb-chats" aria-selected="true">Chats</button>
       <button role="tab" type="button" id="tab-chars" aria-controls="cb-chars" aria-selected="false">Characters</button>
+      <button role="tab" type="button" id="tab-move" aria-controls="cb-move" aria-selected="false">Move to another app</button>
       <button role="tab" type="button" id="tab-file" aria-controls="cb-file-info" aria-selected="false">About this file</button>
     </div>
     <div class="cb-body" id="cb-chats" role="tabpanel" aria-labelledby="tab-chats">
@@ -667,6 +714,20 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
       </section>
     </div>
     <div class="cb-body" id="cb-chars" role="tabpanel" aria-labelledby="tab-chars" hidden><div class="cb-pane cb-pane-full" id="cb-chars-pane"></div></div>
+    <div class="cb-body" id="cb-move" role="tabpanel" aria-labelledby="tab-move" hidden>
+      <aside class="cb-side" aria-label="Characters to move">
+        <div class="cb-search">
+          <p class="cb-mv-intro">Character cards and chat files for SillyTavern, Janitor AI, Perchance and Sakura, made from this export. <a href="#move">What comes over</a></p>
+          <p class="cb-count" id="cb-mv-count"></p>
+        </div>
+        <ul class="cb-list" id="cb-mv-list"></ul>
+        <div class="cb-mv-all">
+          <p><b>Everything at once.</b> Every character and every chat in one ZIP, with notes on importing them.</p>
+          <button class="cb-btn cb-btn-sm cb-btn-gilt" type="button" id="cb-mv-all">Save all as a ZIP <span class="cb-pro">Pro</span></button>
+        </div>
+      </aside>
+      <section class="cb-main cb-pane cb-mv-detail" id="cb-mv-detail" aria-label="The character to move" tabindex="-1"></section>
+    </div>
     <div class="cb-body" id="cb-file-info" role="tabpanel" aria-labelledby="tab-file" hidden><div class="cb-pane cb-pane-full" id="cb-file-pane"></div></div>
     <div class="cb-keep">
       <p><b>Keep the whole archive.</b> Every chat in one offline book with search, a PDF, or an EPUB for your e-reader.</p>
@@ -742,6 +803,43 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
   </div>
 </section>
 
+<section class="cb-sec" id="move" aria-labelledby="move-h">
+  <div class="wrap">
+    <h2 id="move-h">Move your characters and chats to another app</h2>
+    <p>Open your export, then the <b>Move to another app</b> tab. For each character, Chatbound makes a character card in the Character Card V2 format, the one SillyTavern, Janitor AI, Perchance and Sakura.fm import, as a PNG picture with the card inside it or as a JSON file. Each chat becomes a SillyTavern chat file (JSONL). It all happens on your device, from the export file, so it works without the Character.AI website.</p>
+    <h3>What comes over</h3>
+    <div class="table-wrap">
+      <table class="cb-table">
+        <thead><tr><th scope="col">In your export</th><th scope="col">On the card or in the chat file</th></tr></thead>
+        <tbody>
+          <tr><td>Character name</td><td>Name</td></tr>
+          <tr><td>Description</td><td>Description</td></tr>
+          <tr><td>Greeting</td><td>First message</td></tr>
+          <tr><td>Definition</td><td>Example messages. If yours is mostly a description rather than sample dialogue, move it to the description in the new app.</td></tr>
+          <tr><td>Tagline</td><td>Creator’s notes, which apps show but don’t send to the AI</td></tr>
+          <tr><td>Every chat in <code>message.json</code></td><td>One chat file per chat, every message in order with its time</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>What doesn’t, because the export doesn’t have it</h3>
+    <ul>
+      <li><b>Characters made by other people.</b> The export only defines the characters your account created. For the others, the card holds the name you type and the chat’s first message (the character’s greeting); you can add a description yourself.</li>
+      <li><b>Pictures.</b> The export has no character pictures. Cards get a plain lettered picture, or one you choose.</li>
+      <li><b>Who sent each message.</b> Chatbound lays the turns out the way a Character.AI chat runs (the character’s greeting, then you, then the character) and shows you a preview; where it goes out of step, you swap it from that message on.</li>
+      <li><b>Personality and scenario.</b> Character.AI has no such fields, so they stay empty. Pinned memories aren’t in the export either.</li>
+    </ul>
+    <h3>Where each app puts it</h3>
+    <ul>
+      <li><a href="/character-ai-export-viewer/sillytavern/">SillyTavern</a> imports the cards and the chat files.</li>
+      <li><a href="/character-ai-export-viewer/janitor-ai/">Janitor AI</a> imports a card when you choose it as the character’s image. It has no way to import chat history.</li>
+      <li><a href="/character-ai-export-viewer/perchance/">Perchance AI Character Chat</a> imports the cards and the chat files.</li>
+      <li><a href="/character-ai-export-viewer/sakura/">Sakura.fm</a> imports the cards, not chats.</li>
+    </ul>
+    <p>One character, with its card and all its chats, is free. <a href="#pro">Pro</a> converts every character and every chat at once into one ZIP.</p>
+    <p>Browser extensions that copy characters from the Character.AI website only work while the site and your account are up. The export is a copy you keep, and Chatbound reads it offline.</p>
+  </div>
+</section>
+
 <section class="cb-sec" id="pro" aria-labelledby="pro-h">
   <div class="wrap">
     <h2 id="pro-h">Free, and Pro for the whole archive</h2>
@@ -755,16 +853,18 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
           <li>Search across every message</li>
           <li>Your characters’ greetings and definitions</li>
           <li>Save any chat as HTML, plain text or Markdown</li>
+          <li>Move one character to another app: its card (PNG or JSON) and its chats as SillyTavern files</li>
         </ul>
       </div>
       <div class="cb-plan is-pro">
         <h3>Pro</h3>
         <p class="price">$8 once, for this tool on your devices</p>
         <ul>
+          <li>Every character and every chat at once, as one ZIP of character cards and chat files, with notes on importing them</li>
           <li>One offline HTML book of every chat, with a cover, contents and search</li>
           <li>Every chat as a PDF, laid out in pages</li>
           <li>An EPUB for Apple Books, Google Play Books, Kobo and other readers</li>
-          <li>Merge several exports into one archive, with repeated messages removed</li>
+          <li>Merge several exports into one archive, with repeated messages removed, then read or convert them together</li>
         </ul>
         <div class="cb-row"><a class="cb-btn cb-btn-gilt" data-buy-pro href="https://dorukctn.gumroad.com/l/chatbound-pro">Buy Pro for $8</a><button class="cb-btn" type="button" data-enter-key>I already have a key</button></div>
         <p class="cb-note" id="cb-pro-state"></p>
@@ -798,11 +898,12 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
     <details><summary>My export email hasn’t arrived.</summary><p>Character.AI says exports can take 3 to 4 weeks. Check your spam folder and the inbox of the email on your account. If the link in the email has expired (it works for 7 days), ask for a new export in your settings. There are more fixes on the <a href="/character-ai-export-viewer/export-not-working/">export not working</a> page.</p></details>
     <details><summary>Will a very large export open?</summary><p>Yes. The file is read in pieces in a background worker, so the page doesn’t freeze. In our test, a 106 MB password-protected ZIP holding 288 MB of messages (382,860 of them) opened in 9.5 to 16 seconds on a laptop across our test runs, and the page never paused for more than a quarter of a second. On a phone, very large exports work but take longer and need free memory.</p></details>
     <details><summary>Does it work on a phone?</summary><p>Yes, in a current browser on Android or iPhone. Download the ZIP from the email first, then choose it from your Files or Downloads.</p></details>
-    <details><summary>Can I move my chats to another app?</summary><p>No app we know of imports the official export directly. Chatbound gives you readable copies: HTML, text and Markdown for any chat, and with Pro a searchable book, a PDF and an EPUB.</p></details>
-    <details><summary>Is this made by Character.AI?</summary><p>No. Chatbound is an independent tool by Peak Apps Studio and is not affiliated with, endorsed by or sponsored by Character Technologies, Inc.</p></details>
+    <details><summary>Can I move my characters and chats to another app?</summary><p>Yes. The Move to another app tab turns the export into character cards (Character Card V2, as PNG or JSON) and SillyTavern chat files. SillyTavern and Perchance import both. Janitor AI and Sakura.fm import the cards but have no way to import old chats. Step-by-step guides: <a href="/character-ai-export-viewer/sillytavern/">SillyTavern</a>, <a href="/character-ai-export-viewer/janitor-ai/">Janitor AI</a>, <a href="/character-ai-export-viewer/perchance/">Perchance</a> and <a href="/character-ai-export-viewer/sakura/">Sakura.fm</a>.</p></details>
+    <details><summary>Will the moved chat know who said what?</summary><p>Only as well as the layout you check. The export has no sender field, so Chatbound starts from how a Character.AI chat runs: the character’s greeting, then you, then the character, in turns. The preview shows the names it will write; if a chat goes out of step (for example after you regenerated replies), press “Swap from here” on the first wrong message. The text of every message is copied exactly.</p></details>
+    <details><summary>Is this made by Character.AI?</summary><p>No. Chatbound is an independent tool by Peak Apps Studio and is not affiliated with, endorsed by or sponsored by Character Technologies, Inc., Janitor AI, SillyTavern, Perchance or Sakura.fm.</p></details>
   </div>
 </section>
-<div class="wrap"><p class="cb-aff">Character.AI is a trademark of its owner, used here only to say which export this tool reads.</p></div>
+<div class="wrap"><p class="cb-aff">Chatbound is not affiliated with Character Technologies, Janitor AI or SillyTavern. Character.AI, Janitor AI, SillyTavern, Perchance and Sakura.fm are names of their owners, used here only to say which export this tool reads and which apps can import what it makes.</p></div>
 </main>
 <aside class="peak-new" aria-label="New from Peak Apps">
   <div class="wrap">
@@ -817,8 +918,8 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
   <div class="wrap cols">
     <div>
       <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Chatbound</p>
-      <p style="margin:0;max-width:46ch">A reader for the data export Character.AI emails you. Your export is opened by this page on your own device and is never uploaded.</p>
-      <p style="margin:12px 0 0;max-width:46ch">Chatbound is an independent tool and is not affiliated with, endorsed by or sponsored by Character Technologies, Inc. Character.AI is a trademark of its owner.</p>
+      <p style="margin:0;max-width:46ch">A reader for the data export Character.AI emails you, and a way to move its characters and chats to other apps. Your export is opened by this page on your own device and is never uploaded.</p>
+      <p style="margin:12px 0 0;max-width:46ch">Chatbound is an independent tool and is not affiliated with, endorsed by or sponsored by Character Technologies, Janitor AI or SillyTavern. Character.AI and the names of the apps it can move to belong to their owners.</p>
     </div>
     <div>
       <h2>Your export</h2>
@@ -827,6 +928,15 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
         <li><a href="/character-ai-export-viewer/whats-in-the-export/">What’s in the export file</a></li>
         <li><a href="/character-ai-export-viewer/export-password/">The ZIP password</a></li>
         <li><a href="/character-ai-export-viewer/export-not-working/">When the export isn’t working</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Move to another app</h2>
+      <ul>
+        <li><a href="/character-ai-export-viewer/sillytavern/">Character.AI to SillyTavern</a></li>
+        <li><a href="/character-ai-export-viewer/janitor-ai/">Character.AI to Janitor AI</a></li>
+        <li><a href="/character-ai-export-viewer/perchance/">Character.AI to Perchance</a></li>
+        <li><a href="/character-ai-export-viewer/sakura/">Character.AI to Sakura.fm</a></li>
       </ul>
     </div>
     <div>
