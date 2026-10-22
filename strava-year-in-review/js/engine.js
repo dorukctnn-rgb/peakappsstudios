@@ -153,8 +153,8 @@ const FAMILY = [
   [CAT.WINTER, ['ski', 'langlauf', 'snowboard', 'snowshoe', 'schneeschuh', 'sneeuwschoen', 'raquette', 'ciaspol', 'iceskat', 'ice skate', 'eisschnell', 'schaats', 'patinage sur glace']],
   [CAT.RIDE, ['ride', 'fietsrit', 'fiets', 'radfahrt', 'radtour', 'rad', 'velo', 'bici', 'cicl', 'bike', 'pedal', 'cykel', 'rower', 'mtb', 'vtt', 'gravel', 'handcycle', 'handbike', 'velomobil', 'cycl', 'wielrennen']],
   [CAT.RUN, ['run', 'lauf', 'hardloop', 'course', 'carrera', 'corsa', 'corrida', 'trail', 'lop', 'bieg', 'jog']],
-  [CAT.SWIM, ['swim', 'schwimm', 'zwem', 'natation', 'nata', 'nuoto', 'simning', 'plyw']],
-  [CAT.WALK, ['walk', 'wander', 'wandel', 'hike', 'hiken', 'hiking', 'spazier', 'marche', 'randonn', 'camin', 'passegg', 'escurs', 'senderismo', 'trekking', 'vandring', 'spacer', 'gehen', 'wheelchair', 'rolstoel', 'rollstuhl']],
+  [CAT.SWIM, ['swim', 'schwimm', 'zwem', 'natation', 'natac', 'nuoto', 'simning', 'plyw']],
+  [CAT.WALK, ['walk', 'wander', 'wandel', 'hike', 'hiken', 'hiking', 'spazier', 'marche', 'randonn', 'camin', 'cammin', 'passegg', 'escurs', 'excurs', 'trilh', 'senderismo', 'trekking', 'vandring', 'spacer', 'gehen', 'wheelchair', 'rolstoel', 'rollstuhl']],
   [CAT.WATER, ['row', 'ruder', 'roei', 'aviron', 'remo', 'canoe', 'kanu', 'kano', 'kayak', 'kajak', 'paddl', 'stand up', 'surf', 'sail', 'segel', 'zeil', 'voile', 'vela', 'kite', 'windsurf']],
   [CAT.GYM, ['weight', 'kraft', 'kracht', 'muscu', 'pesas', 'pesi', 'workout', 'training', 'yoga', 'pilates', 'crossfit', 'hiit', 'ellipt', 'stair', 'fitness', 'allenamento', 'entrenamiento', 'treino', 'musculacion']],
 ];

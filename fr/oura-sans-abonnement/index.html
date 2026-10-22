@@ -12,6 +12,9 @@
 <link rel="alternate" hreflang="de" href="https://peakappsstudio.com/de/oura-ohne-abo/">
 <link rel="alternate" hreflang="fr" href="https://peakappsstudio.com/fr/oura-sans-abonnement/">
 <link rel="alternate" hreflang="ja" href="https://peakappsstudio.com/ja/oura-subscription-nashi/">
+<link rel="alternate" hreflang="nl" href="https://peakappsstudio.com/nl/oura-zonder-abonnement/">
+<link rel="alternate" hreflang="it" href="https://peakappsstudio.com/it/oura-senza-abbonamento/">
+<link rel="alternate" hreflang="es" href="https://peakappsstudio.com/es/oura-sin-suscripcion/">
 <link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/oura-export-viewer/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Peak Apps Tools">
@@ -383,6 +386,9 @@ body.nj {
 .nj .nj-head .head-nav [aria-current="page"] { color: #fff; }
 @media (max-width: 760px) { .nj .nj-head .nj-wide { display: none; } }
 @media (max-width: 430px) { .nj .nj-head .head-nav { gap: 4px 11px; } .nj .nj-head .head-nav a, .nj .nj-head .head-nav span { font-size: 14px; } }
+/* the language codes sit together as one tight group, so the header stays one row on a phone */
+.nj .nj-head .nj-langs { display: flex; flex-wrap: wrap; align-items: center; }
+.nj .nj-head .nj-langs a { padding: 7px 6px; letter-spacing: 0.02em; }
 
 /* ---------- hero ---------- */
 .nj-hero { padding: clamp(10px, 2vw, 22px) 0 clamp(36px, 5vw, 64px); }
@@ -455,7 +461,7 @@ body.nj {
 .nj-night { margin-top: 18px; border: 1px solid var(--line); border-radius: 18px; padding: clamp(16px, 2.4vw, 26px); background: var(--paper); }
 .nj-night-head { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: baseline; justify-content: space-between; }
 .nj-night-head p { margin: 2px 0 0; color: var(--ink-2); }
-.nj-night-nav { display: flex; gap: 8px; }
+.nj-night-nav { display: flex; flex-wrap: wrap; gap: 8px; }
 .nj-facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0; margin: 16px 0 0; border-top: 1px solid var(--line); }
 .nj-facts > div { padding: 10px 10px 10px 0; border-bottom: 1px solid var(--line); }
 .nj-facts dt { font-size: 13.5px; color: var(--muted); font-weight: 600; }
@@ -574,6 +580,8 @@ body.nj {
 .nj-what { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(20px, 4vw, 56px); align-items: start; }
 @media (max-width: 900px) { .nj-what { grid-template-columns: minmax(0, 1fr); } }
 .nj-what .nj-table td:nth-child(2) { color: var(--muted); }
+/* small phones: a little less space between the columns, so the three-column comparison fits in Dutch, Italian and Spanish */
+@media (max-width: 400px) { .nj-what .nj-table th, .nj-what .nj-table td { padding-right: 8px; } }
 .nj-pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: clamp(20px, 4vw, 56px); align-items: center; }
 .nj-pro-copy { background: var(--night); color: #e6e8fb; border-radius: 22px; padding: clamp(20px, 3vw, 36px); }
 .nj .nj-pro-copy h2 { color: #fff; }
@@ -619,7 +627,7 @@ html[lang="ja"] .nj .lede { line-height: 1.8; }
 <script src="/assets/license.js" defer></script>
 <script type="module" src="/oura-export-viewer/js/boot.js"></script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/fr/oura-sans-abonnement/#app","name":"Nightjar","alternateName":"Données Oura sans abonnement","url":"https://peakappsstudio.com/fr/oura-sans-abonnement/","description":"Lit dans le navigateur l’export de données qu’Oura fournit à chaque propriétaire de bague (Espace abonnement, Export data) et montre chaque nuit et chaque jour : phases de sommeil, fréquence cardiaque et VFC pendant la nuit, écart de température, oxygène sanguin, stress, activité, entraînements, tags et les facteurs de chaque score. Rien n’est envoyé.","applicationCategory":"HealthApplication","operatingSystem":"Any (web browser)","inLanguage":"fr","offers":[{"@type":"Offer","name":"Gratuit","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Nightjar Pro","price":"9","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/nightjar-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Nightjar : Oura sans abonnement","item":"https://peakappsstudio.com/fr/oura-sans-abonnement/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Peut-on utiliser une bague Oura sans abonnement ?","acceptedAnswer":{"@type":"Answer","text":"Oui, avec des limites. D’après l’aide d’Oura, sans abonnement actif vous ne voyez que vos trois scores quotidiens (Préparation, Activité et Sommeil). La bague continue de mesurer, et Oura permet à chaque propriétaire d’exporter toutes ses données au format CSV via l’Espace abonnement. Nightjar lit cet export et montre le reste : phases de sommeil, VFC, fréquence cardiaque, température, oxygène sanguin, stress et entraînements."}},{"@type":"Question","name":"Comment exporter mes données Oura ?","acceptedAnswer":{"@type":"Answer","text":"Connectez-vous sur membership.ouraring.com avec votre compte Oura, choisissez l’export de données (Export data), puis demandez vos données (Request your data). Oura vous envoie un e-mail quand l’export est prêt ; d’après son aide, cela peut prendre jusqu’à 10 jours. Téléchargez le ZIP et ouvrez-le tel quel sur cette page."}},{"@type":"Question","name":"Mes données Oura sont-elles envoyées quelque part ?","acceptedAnswer":{"@type":"Answer","text":"Non. Le ZIP est ouvert par JavaScript dans votre onglet et n’est jamais envoyé à un serveur. Seuls les fichiers de sommeil, de préparation, d’activité, de fréquence cardiaque, de température, de stress, d’entraînements, de séances et de tags sont ouverts ; les fichiers de localisation, de repas ou de médicaments restent fermés. Fermer l’onglet efface tout."}},{"@type":"Question","name":"Est-ce que cela marche sur iPhone ?","acceptedAnswer":{"@type":"Answer","text":"Oui. Enregistrez le ZIP de l’Espace abonnement dans l’app Fichiers, ouvrez cette page dans Safari, touchez Choisir le ZIP et sélectionnez-le. Rien à installer. Plusieurs années de mesures cardiaques peuvent demander une minute de lecture sur un téléphone."}},{"@type":"Question","name":"Nightjar est-il fait par Oura ?","acceptedAnswer":{"@type":"Answer","text":"Non. Nightjar est un outil indépendant de Peak Apps Studio, sans lien avec Oura Health Oy. Il ne se connecte jamais à votre compte Oura et ne demande jamais vos identifiants."}}]}]}
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/fr/oura-sans-abonnement/#app","name":"Nightjar","alternateName":"Données Oura sans abonnement","url":"https://peakappsstudio.com/fr/oura-sans-abonnement/","description":"Lit dans le navigateur l’export de données qu’Oura fournit à chaque propriétaire de bague (Espace abonnement, Export data) et montre chaque nuit et chaque jour : phases de sommeil, fréquence cardiaque et VFC pendant la nuit, écart de température, oxygène sanguin, stress, activité, entraînements, tags et les facteurs de chaque score. Rien n’est envoyé.","applicationCategory":"HealthApplication","operatingSystem":"Any (web browser)","inLanguage":"fr","offers":[{"@type":"Offer","name":"Gratuit","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Nightjar Pro","price":"9","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/nightjar-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Outils","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Nightjar : Oura sans abonnement","item":"https://peakappsstudio.com/fr/oura-sans-abonnement/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Peut-on utiliser une bague Oura sans abonnement ?","acceptedAnswer":{"@type":"Answer","text":"Oui, avec des limites. D’après l’aide d’Oura, sans abonnement actif vous ne voyez que vos trois scores quotidiens (Préparation, Activité et Sommeil). La bague continue de mesurer, et Oura permet à chaque propriétaire d’exporter toutes ses données au format CSV via l’Espace abonnement. Nightjar lit cet export et montre le reste : phases de sommeil, VFC, fréquence cardiaque, température, oxygène sanguin, stress et entraînements."}},{"@type":"Question","name":"Comment exporter mes données Oura ?","acceptedAnswer":{"@type":"Answer","text":"Connectez-vous sur membership.ouraring.com avec votre compte Oura, choisissez l’export de données (Export data), puis demandez vos données (Request your data). Oura vous envoie un e-mail quand l’export est prêt ; d’après son aide, cela peut prendre jusqu’à 10 jours. Téléchargez le ZIP et ouvrez-le tel quel sur cette page."}},{"@type":"Question","name":"Mes données Oura sont-elles envoyées quelque part ?","acceptedAnswer":{"@type":"Answer","text":"Non. Le ZIP est ouvert par JavaScript dans votre onglet et n’est jamais envoyé à un serveur. Seuls les fichiers de sommeil, de préparation, d’activité, de fréquence cardiaque, de température, de stress, d’entraînements, de séances et de tags sont ouverts ; les fichiers de localisation, de repas ou de médicaments restent fermés. Fermer l’onglet efface tout."}},{"@type":"Question","name":"Est-ce que cela marche sur iPhone ?","acceptedAnswer":{"@type":"Answer","text":"Oui. Enregistrez le ZIP de l’Espace abonnement dans l’app Fichiers, ouvrez cette page dans Safari, touchez Choisir le ZIP et sélectionnez-le. Rien à installer. Plusieurs années de mesures cardiaques peuvent demander une minute de lecture sur un téléphone."}},{"@type":"Question","name":"Nightjar est-il fait par Oura ?","acceptedAnswer":{"@type":"Answer","text":"Non. Nightjar est un outil indépendant de Peak Apps Studio, sans lien avec Oura Health Oy. Il ne se connecte jamais à votre compte Oura et ne demande jamais vos identifiants."}}]}]}
 </script>
 <script src="/assets/pro-source.js" data-campaign="oura-export-viewer" defer></script>
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
@@ -635,9 +643,14 @@ html[lang="ja"] .nj .lede { line-height: 1.8; }
     <nav class="head-nav" aria-label="Nightjar">
       <span class="nj-wide" aria-current="page">Ouvrir l’export</span>
       <a class="nj-wide" href="/fr/oura-sans-abonnement/#export">Demander l’export</a>
-      <a href="/oura-export-viewer/" hreflang="en" lang="en">English</a>
-      <a href="/de/oura-ohne-abo/" hreflang="de" lang="de">Deutsch</a>
-      <a href="/ja/oura-subscription-nashi/" hreflang="ja" lang="ja">日本語</a>
+      <span class="nj-langs">
+        <a href="/oura-export-viewer/" hreflang="en" lang="en" aria-label="English">EN</a>
+        <a href="/de/oura-ohne-abo/" hreflang="de" lang="de" aria-label="Deutsch">DE</a>
+        <a href="/ja/oura-subscription-nashi/" hreflang="ja" lang="ja" aria-label="日本語">JA</a>
+        <a href="/nl/oura-zonder-abonnement/" hreflang="nl" lang="nl" aria-label="Nederlands">NL</a>
+        <a href="/it/oura-senza-abbonamento/" hreflang="it" lang="it" aria-label="Italiano">IT</a>
+        <a href="/es/oura-sin-suscripcion/" hreflang="es" lang="es" aria-label="Español">ES</a>
+      </span>
     </nav>
   </div>
 </header>
@@ -646,7 +659,7 @@ html[lang="ja"] .nj .lede { line-height: 1.8; }
 <section class="nj-hero" aria-labelledby="h1">
 <div class="wrap nj-hero-grid">
 <div class="nj-hero-copy">
-<nav class="crumbs" aria-label="Fil d’Ariane"><ol><li><a href="/tools/" hreflang="en">Tools</a></li><li aria-current="page">Nightjar : Oura sans abonnement</li></ol></nav>
+<nav class="crumbs" aria-label="Fil d’Ariane"><ol><li><a href="/tools/" hreflang="en">Outils</a></li><li aria-current="page">Nightjar : Oura sans abonnement</li></ol></nav>
 <h1 id="h1">Utiliser votre Oura Ring sans abonnement : toutes vos données</h1>
 <p class="lede">Sans abonnement, l’app Oura n’affiche que trois scores quotidiens. L’export de données qu’Oura fournit à chaque propriétaire de bague contient tout le reste : les phases de sommeil de chaque nuit, la VFC, la fréquence cardiaque au repos, la température, l’oxygène sanguin, le stress et les entraînements. Ouvrez-le ici pour tout voir. Il est lu dans cet onglet et n’est jamais envoyé.</p>
 <div class="nj-panel" id="panel" data-state="idle">
@@ -734,7 +747,7 @@ html[lang="ja"] .nj .lede { line-height: 1.8; }
 <section class="nj-pro wrap" id="pro" aria-labelledby="pro-h">
 <div class="nj-pro-copy">
 <h2 id="pro-h">Nightjar Pro</h2>
-<p class="nj-price"><span class="nj-price-n">9 $</span> une fois. Sans abonnement, sans compte.</p>
+<p class="nj-price"><span class="nj-price-n">9 $</span> paiement unique. Sans abonnement, sans compte.</p>
 <p>La version gratuite montre vos 90 dernières nuits et journées avec tout leur contenu. Pro ajoute :</p>
 <ul class="nj-pro-list">
 <li>Toutes les années de votre export, et la période de votre choix.</li>
@@ -803,6 +816,9 @@ html[lang="ja"] .nj .lede { line-height: 1.8; }
         <li><a href="/oura-export-viewer/" hreflang="en" lang="en">Oura data without a membership (English)</a></li>
         <li><a href="/de/oura-ohne-abo/" hreflang="de" lang="de">Oura ohne Abo (Deutsch)</a></li>
         <li><a href="/ja/oura-subscription-nashi/" hreflang="ja" lang="ja">Oura サブスクなし（日本語）</a></li>
+        <li><a href="/nl/oura-zonder-abonnement/" hreflang="nl" lang="nl">Oura zonder abonnement (Nederlands)</a></li>
+        <li><a href="/it/oura-senza-abbonamento/" hreflang="it" lang="it">Oura senza abbonamento (italiano)</a></li>
+        <li><a href="/es/oura-sin-suscripcion/" hreflang="es" lang="es">Oura sin suscripción (español)</a></li>
       </ul>
     </div>
     <div>

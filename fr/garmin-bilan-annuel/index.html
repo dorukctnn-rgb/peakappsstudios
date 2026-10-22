@@ -366,6 +366,9 @@ body.yl {
 .yl .yl-head .head-nav [aria-current="page"] { color: #fff; }
 @media (max-width: 720px) { .yl .yl-head .yl-wide { display: none; } }
 @media (max-width: 420px) { .yl .yl-head .head-nav { gap: 4px 12px; } .yl .yl-head .head-nav a { font-size: 14px; } }
+/* the language codes sit together as one tight group, so the header stays one row on a phone */
+.yl .yl-head .yl-langs { display: flex; flex-wrap: wrap; align-items: center; }
+.yl .yl-head .yl-langs a { padding: 7px 6px; letter-spacing: 0.02em; }
 
 /* ---------- hero ---------- */
 .yl-hero { background: var(--night); color: #fff; overflow: hidden; }
@@ -582,6 +585,11 @@ body.yl:not(.yl-is-pro) .yl-pro-zone > * { grid-column: auto; }
 .yl-locked-poster { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 16px; align-items: start; }
 .yl-locked-poster img { width: 96px; height: auto; border-radius: 4px; box-shadow: 0 8px 16px -10px rgba(15, 27, 45, 0.7); }
 @media (max-width: 860px) { body.yl:not(.yl-is-pro) .yl-pro-zone { grid-template-columns: minmax(0, 1fr); } }
+/* phone widths: a long label (French, German, Portuguese...) stays inside its button, the poster thumbnail sits above its text, a table header may wrap so the language table fits */
+.yl .yl-locked-note .btn { white-space: normal; }
+.yl-lang-table thead th { white-space: normal; }
+@media (max-width: 520px) { .yl-locked-poster { grid-template-columns: minmax(0, 1fr); gap: 12px; } }
+@media (max-width: 400px) { .yl-lang-table th, .yl-lang-table td { padding-left: 7px; padding-right: 7px; } }
 @media (max-width: 560px) { .yl .yl-head .yl-mid { display: none; } }
 .yl h1 { max-width: 17ch; }
 html[lang="de"] .yl h1, html[lang="nl"] .yl h1 { max-width: 19ch; }
@@ -607,7 +615,7 @@ html[lang="fr"] .yl h1 { max-width: 19ch; }
 <script src="/assets/license.js" defer></script>
 <script type="module" src="/strava-year-in-review/js/app.js"></script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/fr/garmin-bilan-annuel/#app","name":"Yearlap","alternateName":"Bilan annuel Garmin à partir de vos données","url":"https://peakappsstudio.com/fr/garmin-bilan-annuel/","description":"Lit le fichier Activities.csv de Garmin Connect ou le ZIP “Export Your Data” dans le navigateur, quelle que soit la langue de l’export, et montre une année d’entraînement : distance, temps, dénivelé, sports, mois, une horloge de la semaine, l’activité la plus longue, la plus grosse journée et la plus longue série, avec des cartes au format 9:16. Rien n’est envoyé.","applicationCategory":"SportsApplication","operatingSystem":"Any (web browser)","inLanguage":"fr","offers":[{"@type":"Offer","name":"Gratuit","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Yearlap Pro","price":"5","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/yearlap-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Yearlap : bilan annuel Garmin","item":"https://peakappsstudio.com/fr/garmin-bilan-annuel/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Peut-on voir son bilan annuel Garmin sans Connect+ ?","acceptedAnswer":{"@type":"Answer","text":"Le bilan de Garmin, le Connect Rundown, est réservé depuis décembre 2025 aux abonnés Connect+. Vos activités, elles, s’exportent sans abonnement depuis Garmin Connect. Ouvrez le fichier sur cette page et Yearlap vous montre votre année, avec des cartes à partager."}},{"@type":"Question","name":"Comment exporter mes activités depuis Garmin Connect ?","acceptedAnswer":{"@type":"Answer","text":"Sur connect.garmin.com, dans le navigateur : Activités, Toutes les activités, faites défiler jusqu’au début de l’année, puis choisissez l’export CSV en haut à droite (“Export CSV” en anglais). Pour les pas, le sommeil et les parcours, demandez le ZIP complet depuis votre compte Garmin, rubrique “Export Your Data”."}},{"@type":"Question","name":"Pourquoi manque-t-il des activités dans mon CSV ?","acceptedAnswer":{"@type":"Answer","text":"Garmin charge la liste par petits morceaux pendant le défilement, et l’export CSV ne contient que les activités déjà chargées. Faites défiler jusqu’au début de l’année voulue, puis exportez de nouveau. Le ZIP “Export Your Data” contient toujours toutes les activités."}},{"@type":"Question","name":"Où sont les pas et le sommeil ?","acceptedAnswer":{"@type":"Answer","text":"Pas dans le Activities.csv. Ils sont dans le ZIP “Export Your Data” : les pas de chaque jour et les phases de sommeil de chaque nuit. Yearlap Pro en tire votre année."}},{"@type":"Question","name":"Mon export est en français, avec des virgules. Ça marche ?","acceptedAnswer":{"@type":"Answer","text":"Oui. Yearlap lit les colonnes par leur position et reconnaît le séparateur décimal à partir des valeurs, 24,34 comme 24.34. Les exports dans les autres langues sont lus de la même façon."}},{"@type":"Question","name":"Mon fichier est-il envoyé quelque part ?","acceptedAnswer":{"@type":"Answer","text":"Non. Le fichier est ouvert par JavaScript dans votre onglet et n’est jamais envoyé à un serveur. Dans le ZIP, Yearlap n’ouvre que la liste des activités, les pas et le sommeil, et les fichiers de parcours seulement si vous dessinez le poster Pro. Quand vous fermez l’onglet, tout disparaît."}},{"@type":"Question","name":"Yearlap vient-il de Garmin ?","acceptedAnswer":{"@type":"Answer","text":"Non. Yearlap est un outil indépendant de Peak Apps Studio, non affilié à Garmin. Il ne se connecte jamais à Garmin Connect et ne demande jamais vos identifiants. Garmin et Garmin Connect sont des marques de Garmin Ltd. ou de ses filiales."}}]}]}
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/fr/garmin-bilan-annuel/#app","name":"Yearlap","alternateName":"Bilan annuel Garmin à partir de vos données","url":"https://peakappsstudio.com/fr/garmin-bilan-annuel/","description":"Lit le fichier Activities.csv de Garmin Connect ou le ZIP “Export Your Data” dans le navigateur, quelle que soit la langue de l’export, et montre une année d’entraînement : distance, temps, dénivelé, sports, mois, une horloge de la semaine, l’activité la plus longue, la plus grosse journée et la plus longue série, avec des cartes au format 9:16. Rien n’est envoyé.","applicationCategory":"SportsApplication","operatingSystem":"Any (web browser)","inLanguage":"fr","offers":[{"@type":"Offer","name":"Gratuit","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Yearlap Pro","price":"5","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/yearlap-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Outils","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Yearlap : bilan annuel Garmin","item":"https://peakappsstudio.com/fr/garmin-bilan-annuel/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Peut-on voir son bilan annuel Garmin sans Connect+ ?","acceptedAnswer":{"@type":"Answer","text":"Le bilan de Garmin, le Connect Rundown, est réservé depuis décembre 2025 aux abonnés Connect+. Vos activités, elles, s’exportent sans abonnement depuis Garmin Connect. Ouvrez le fichier sur cette page et Yearlap vous montre votre année, avec des cartes à partager."}},{"@type":"Question","name":"Comment exporter mes activités depuis Garmin Connect ?","acceptedAnswer":{"@type":"Answer","text":"Sur connect.garmin.com, dans le navigateur : Activités, Toutes les activités, faites défiler jusqu’au début de l’année, puis choisissez l’export CSV en haut à droite (“Export CSV” en anglais). Pour les pas, le sommeil et les parcours, demandez le ZIP complet depuis votre compte Garmin, rubrique “Export Your Data”."}},{"@type":"Question","name":"Pourquoi manque-t-il des activités dans mon CSV ?","acceptedAnswer":{"@type":"Answer","text":"Garmin charge la liste par petits morceaux pendant le défilement, et l’export CSV ne contient que les activités déjà chargées. Faites défiler jusqu’au début de l’année voulue, puis exportez de nouveau. Le ZIP “Export Your Data” contient toujours toutes les activités."}},{"@type":"Question","name":"Où sont les pas et le sommeil ?","acceptedAnswer":{"@type":"Answer","text":"Pas dans le Activities.csv. Ils sont dans le ZIP “Export Your Data” : les pas de chaque jour et les phases de sommeil de chaque nuit. Yearlap Pro en tire votre année."}},{"@type":"Question","name":"Mon export est en français, avec des virgules. Ça marche ?","acceptedAnswer":{"@type":"Answer","text":"Oui. Yearlap lit les colonnes par leur position et reconnaît le séparateur décimal à partir des valeurs, 24,34 comme 24.34. Les exports dans les autres langues sont lus de la même façon."}},{"@type":"Question","name":"Mon fichier est-il envoyé quelque part ?","acceptedAnswer":{"@type":"Answer","text":"Non. Le fichier est ouvert par JavaScript dans votre onglet et n’est jamais envoyé à un serveur. Dans le ZIP, Yearlap n’ouvre que la liste des activités, les pas et le sommeil, et les fichiers de parcours seulement si vous dessinez le poster Pro. Quand vous fermez l’onglet, tout disparaît."}},{"@type":"Question","name":"Yearlap vient-il de Garmin ?","acceptedAnswer":{"@type":"Answer","text":"Non. Yearlap est un outil indépendant de Peak Apps Studio, non affilié à Garmin. Il ne se connecte jamais à Garmin Connect et ne demande jamais vos identifiants. Garmin et Garmin Connect sont des marques de Garmin Ltd. ou de ses filiales."}}]}]}
 </script>
 <script src="/assets/pro-source.js" defer></script>
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
@@ -623,7 +631,7 @@ html[lang="fr"] .yl h1 { max-width: 19ch; }
     <nav class="head-nav" aria-label="Yearlap">
       <span class="yl-wide" aria-current="page">Ouvrir mes données</span>
       <a class="yl-mid" href="/fr/garmin-bilan-annuel/#obtenir">Obtenir mes données</a>
-      <a href="/strava-year-in-review/" hreflang="en">Pour Strava</a>
+      <a href="/fr/strava-bilan-annuel/">Pour Strava</a>
       <a href="/de/garmin-jahresrueckblick/" hreflang="de" lang="de" aria-label="Deutsch">DE</a>
       <a href="/nl/garmin-jaaroverzicht/" hreflang="nl" lang="nl" aria-label="Nederlands">NL</a>
     </nav>
@@ -633,7 +641,7 @@ html[lang="fr"] .yl h1 { max-width: 19ch; }
 <main id="main">
 <section class="yl-hero" aria-labelledby="h1">
 <div class="wrap">
-<nav class="crumbs" aria-label="Fil d’Ariane"><ol><li><a href="/tools/" hreflang="en">Tools</a></li><li aria-current="page">Yearlap : bilan annuel Garmin</li></ol></nav>
+<nav class="crumbs" aria-label="Fil d’Ariane"><ol><li><a href="/tools/" hreflang="en">Outils</a></li><li aria-current="page">Yearlap : bilan annuel Garmin</li></ol></nav>
 <div class="yl-hero-grid">
 <div class="yl-hero-copy">
 <h1 id="h1">Votre bilan annuel Garmin, gratuit et sans Connect+</h1>
@@ -840,7 +848,7 @@ html[lang="fr"] .yl h1 { max-width: 19ch; }
 <section class="yl-pro wrap" id="pro" aria-labelledby="pro-h">
 <div class="yl-pro-copy">
 <h2 id="pro-h">Yearlap Pro</h2>
-<p class="yl-price"><span class="yl-price-n">5 $</span> une fois. Pas d’abonnement, pas de compte.</p>
+<p class="yl-price"><span class="yl-price-n">5 $</span> paiement unique. Pas d’abonnement, pas de compte.</p>
 <ul class="yl-pro-list">
 <li>Toutes les années de vos données et la comparaison avec l’année précédente : distance, temps, dénivelé et jours actifs, avec l’écart.</li>
 <li>Les pas et le sommeil du ZIP : pas par jour, votre meilleure journée, sommeil par nuit, sommeil profond et paradoxal, mois par mois.</li>
@@ -860,8 +868,8 @@ html[lang="fr"] .yl h1 { max-width: 19ch; }
 
 <section class="yl-why wrap" aria-labelledby="why-h">
 <h2 id="why-h">Pourquoi un bilan annuel Garmin gratuit</h2>
-<p>Garmin a publié début décembre 2025 son bilan annuel personnel, le Connect Rundown, mais seulement pour les abonnés Connect+ (<a href="https://www.techradar.com/health-fitness/garmin-attempts-to-drive-more-connect-signups-by-paywalling-its-spotify-wrapped-style-garmin-connect-rundown" rel="noopener" target="_blank" hreflang="en">TechRadar</a>, 3 décembre 2025 ; <a href="https://lifehacker.com/health/garmin-year-in-review-connect-plus-feature" rel="noopener" target="_blank" hreflang="en">Lifehacker</a>, 9 décembre 2025). Vos activités restent à vous, et Garmin vous laisse les exporter gratuitement. Yearlap transforme cet export en bilan annuel et ne fait payer que les extras, 5 $ une fois.</p>
-<div class="yl-sibling"><p>Vous utilisez aussi Strava ? <a href="/strava-year-in-review/" hreflang="en">Yearlap existe aussi pour votre export Strava</a> (page en anglais), avec la même clé Pro.</p></div>
+<p>Garmin a publié début décembre 2025 son bilan annuel personnel, le Connect Rundown, mais seulement pour les abonnés Connect+ (<a href="https://www.techradar.com/health-fitness/garmin-attempts-to-drive-more-connect-signups-by-paywalling-its-spotify-wrapped-style-garmin-connect-rundown" rel="noopener" target="_blank" hreflang="en">TechRadar</a>, 3 décembre 2025 ; <a href="https://lifehacker.com/health/garmin-year-in-review-connect-plus-feature" rel="noopener" target="_blank" hreflang="en">Lifehacker</a>, 9 décembre 2025). Vos activités restent à vous, et Garmin vous laisse les exporter gratuitement. Yearlap transforme cet export en bilan annuel et ne fait payer que les extras, 5 $ en une seule fois.</p>
+<div class="yl-sibling"><p>Vous utilisez aussi Strava ? <a href="/fr/strava-bilan-annuel/">Yearlap lit aussi votre export Strava</a> et en fait votre bilan annuel, avec la même clé Pro.</p></div>
 </section>
 
 <section class="yl-faq wrap" aria-labelledby="faq-h">
@@ -899,7 +907,7 @@ html[lang="fr"] .yl h1 { max-width: 19ch; }
       </ul>
       <h2 style="margin-top:18px">Aussi pour Strava</h2>
       <ul>
-        <li><a href="/strava-year-in-review/" hreflang="en">Strava year in review (en anglais)</a></li>
+        <li><a href="/fr/strava-bilan-annuel/">Bilan annuel Strava</a></li>
       </ul>
     </div>
     <div>

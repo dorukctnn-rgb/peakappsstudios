@@ -351,6 +351,9 @@ body.yl {
 .yl .yl-head .head-nav [aria-current="page"] { color: #fff; }
 @media (max-width: 720px) { .yl .yl-head .yl-wide { display: none; } }
 @media (max-width: 420px) { .yl .yl-head .head-nav { gap: 4px 12px; } .yl .yl-head .head-nav a { font-size: 14px; } }
+/* the language codes sit together as one tight group, so the header stays one row on a phone */
+.yl .yl-head .yl-langs { display: flex; flex-wrap: wrap; align-items: center; }
+.yl .yl-head .yl-langs a { padding: 7px 6px; letter-spacing: 0.02em; }
 
 /* ---------- hero ---------- */
 .yl-hero { background: var(--night); color: #fff; overflow: hidden; }
@@ -567,6 +570,11 @@ body.yl:not(.yl-is-pro) .yl-pro-zone > * { grid-column: auto; }
 .yl-locked-poster { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 16px; align-items: start; }
 .yl-locked-poster img { width: 96px; height: auto; border-radius: 4px; box-shadow: 0 8px 16px -10px rgba(15, 27, 45, 0.7); }
 @media (max-width: 860px) { body.yl:not(.yl-is-pro) .yl-pro-zone { grid-template-columns: minmax(0, 1fr); } }
+/* phone widths: a long label (French, German, Portuguese...) stays inside its button, the poster thumbnail sits above its text, a table header may wrap so the language table fits */
+.yl .yl-locked-note .btn { white-space: normal; }
+.yl-lang-table thead th { white-space: normal; }
+@media (max-width: 520px) { .yl-locked-poster { grid-template-columns: minmax(0, 1fr); gap: 12px; } }
+@media (max-width: 400px) { .yl-lang-table th, .yl-lang-table td { padding-left: 7px; padding-right: 7px; } }
 @media (max-width: 560px) { .yl .yl-head .yl-mid { display: none; } }
 .yl h1 { max-width: 17ch; }
 html[lang="de"] .yl h1, html[lang="nl"] .yl h1 { max-width: 19ch; }
@@ -605,8 +613,14 @@ html[lang="fr"] .yl h1 { max-width: 19ch; }
     <nav class="head-nav" aria-label="Yearlap">
       <a class="yl-wide" href="/strava-year-in-review/">Open your export</a>
       <a class="yl-mid" href="/strava-year-in-review/export-strava-data/">Get your export</a>
-      <a href="/de/strava-jahresrueckblick/" hreflang="de" lang="de">Deutsch</a>
-      <a href="/nl/strava-jaaroverzicht/" hreflang="nl" lang="nl">Nederlands</a>
+      <span class="yl-langs">
+        <a href="/de/strava-jahresrueckblick/" hreflang="de" lang="de" aria-label="Deutsch">DE</a>
+        <a href="/nl/strava-jaaroverzicht/" hreflang="nl" lang="nl" aria-label="Nederlands">NL</a>
+        <a href="/fr/strava-bilan-annuel/" hreflang="fr" lang="fr" aria-label="Français">FR</a>
+        <a href="/es/strava-resumen-anual/" hreflang="es" lang="es" aria-label="Español">ES</a>
+        <a href="/it/strava-riepilogo-annuale/" hreflang="it" lang="it" aria-label="Italiano">IT</a>
+        <a href="/pt-br/strava-retrospectiva/" hreflang="pt-BR" lang="pt-BR" aria-label="Português (Brasil)">PT</a>
+      </span>
     </nav>
   </div>
 </header>
@@ -673,6 +687,10 @@ html[lang="fr"] .yl h1 { max-width: 19ch; }
       <ul>
         <li><a href="/de/strava-jahresrueckblick/" hreflang="de" lang="de">Strava-Jahresrückblick (Deutsch)</a></li>
         <li><a href="/nl/strava-jaaroverzicht/" hreflang="nl" lang="nl">Strava-jaaroverzicht (Nederlands)</a></li>
+        <li><a href="/fr/strava-bilan-annuel/" hreflang="fr" lang="fr">Bilan annuel Strava (français)</a></li>
+        <li><a href="/es/strava-resumen-anual/" hreflang="es" lang="es">Resumen anual de Strava (español)</a></li>
+        <li><a href="/it/strava-riepilogo-annuale/" hreflang="it" lang="it">Riepilogo annuale Strava (italiano)</a></li>
+        <li><a href="/pt-br/strava-retrospectiva/" hreflang="pt-BR" lang="pt-BR">Retrospectiva do Strava (português)</a></li>
       </ul>
     </div>
     <div>

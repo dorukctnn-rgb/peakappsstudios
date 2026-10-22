@@ -376,6 +376,9 @@ body.nj {
 .nj .nj-head .head-nav [aria-current="page"] { color: #fff; }
 @media (max-width: 760px) { .nj .nj-head .nj-wide { display: none; } }
 @media (max-width: 430px) { .nj .nj-head .head-nav { gap: 4px 11px; } .nj .nj-head .head-nav a, .nj .nj-head .head-nav span { font-size: 14px; } }
+/* the language codes sit together as one tight group, so the header stays one row on a phone */
+.nj .nj-head .nj-langs { display: flex; flex-wrap: wrap; align-items: center; }
+.nj .nj-head .nj-langs a { padding: 7px 6px; letter-spacing: 0.02em; }
 
 /* ---------- hero ---------- */
 .nj-hero { padding: clamp(10px, 2vw, 22px) 0 clamp(36px, 5vw, 64px); }
@@ -448,7 +451,7 @@ body.nj {
 .nj-night { margin-top: 18px; border: 1px solid var(--line); border-radius: 18px; padding: clamp(16px, 2.4vw, 26px); background: var(--paper); }
 .nj-night-head { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: baseline; justify-content: space-between; }
 .nj-night-head p { margin: 2px 0 0; color: var(--ink-2); }
-.nj-night-nav { display: flex; gap: 8px; }
+.nj-night-nav { display: flex; flex-wrap: wrap; gap: 8px; }
 .nj-facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0; margin: 16px 0 0; border-top: 1px solid var(--line); }
 .nj-facts > div { padding: 10px 10px 10px 0; border-bottom: 1px solid var(--line); }
 .nj-facts dt { font-size: 13.5px; color: var(--muted); font-weight: 600; }
@@ -567,6 +570,8 @@ body.nj {
 .nj-what { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(20px, 4vw, 56px); align-items: start; }
 @media (max-width: 900px) { .nj-what { grid-template-columns: minmax(0, 1fr); } }
 .nj-what .nj-table td:nth-child(2) { color: var(--muted); }
+/* small phones: a little less space between the columns, so the three-column comparison fits in Dutch, Italian and Spanish */
+@media (max-width: 400px) { .nj-what .nj-table th, .nj-what .nj-table td { padding-right: 8px; } }
 .nj-pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: clamp(20px, 4vw, 56px); align-items: center; }
 .nj-pro-copy { background: var(--night); color: #e6e8fb; border-radius: 22px; padding: clamp(20px, 3vw, 36px); }
 .nj .nj-pro-copy h2 { color: #fff; }
@@ -625,9 +630,14 @@ html[lang="ja"] .nj .lede { line-height: 1.8; }
     <nav class="head-nav" aria-label="Nightjar">
       <a class="nj-wide" href="/oura-export-viewer/">Open your export</a>
       <span class="nj-wide" aria-current="page">Get your export</span>
-      <a href="/de/oura-ohne-abo/" hreflang="de" lang="de">Deutsch</a>
-      <a href="/fr/oura-sans-abonnement/" hreflang="fr" lang="fr">Français</a>
-      <a href="/ja/oura-subscription-nashi/" hreflang="ja" lang="ja">日本語</a>
+      <span class="nj-langs">
+        <a href="/de/oura-ohne-abo/" hreflang="de" lang="de" aria-label="Deutsch">DE</a>
+        <a href="/fr/oura-sans-abonnement/" hreflang="fr" lang="fr" aria-label="Français">FR</a>
+        <a href="/ja/oura-subscription-nashi/" hreflang="ja" lang="ja" aria-label="日本語">JA</a>
+        <a href="/nl/oura-zonder-abonnement/" hreflang="nl" lang="nl" aria-label="Nederlands">NL</a>
+        <a href="/it/oura-senza-abbonamento/" hreflang="it" lang="it" aria-label="Italiano">IT</a>
+        <a href="/es/oura-sin-suscripcion/" hreflang="es" lang="es" aria-label="Español">ES</a>
+      </span>
     </nav>
   </div>
 </header>
@@ -718,6 +728,9 @@ html[lang="ja"] .nj .lede { line-height: 1.8; }
         <li><a href="/de/oura-ohne-abo/" hreflang="de" lang="de">Oura ohne Abo (Deutsch)</a></li>
         <li><a href="/fr/oura-sans-abonnement/" hreflang="fr" lang="fr">Oura sans abonnement (français)</a></li>
         <li><a href="/ja/oura-subscription-nashi/" hreflang="ja" lang="ja">Oura サブスクなし（日本語）</a></li>
+        <li><a href="/nl/oura-zonder-abonnement/" hreflang="nl" lang="nl">Oura zonder abonnement (Nederlands)</a></li>
+        <li><a href="/it/oura-senza-abbonamento/" hreflang="it" lang="it">Oura senza abbonamento (italiano)</a></li>
+        <li><a href="/es/oura-sin-suscripcion/" hreflang="es" lang="es">Oura sin suscripción (español)</a></li>
       </ul>
     </div>
     <div>
