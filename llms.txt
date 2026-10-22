@@ -19,6 +19,7 @@ Each tool page explains what the tool does, how to use it and its limits; the gu
 - [Yearlap](https://peakappsstudio.com/strava-year-in-review/): A free Strava year in review from your own export: distance, hours, climbing, sports, streaks and story cards, in the browser, in any export language.
 - [Nightjar](https://peakappsstudio.com/oura-export-viewer/): Every night's sleep stages, HRV, heart rate, temperature, SpO2 and stress from your own Oura export, without a membership.
 - [Dayfold](https://peakappsstudio.com/daylio-viewer/): Open a Daylio backup on a PC, Mac or any browser: calendar, search, mood charts and the Year in Pixels. Nothing is uploaded.
+- [Wristory](https://peakappsstudio.com/samsung-health-viewer/): See your Samsung Health data on a PC, from the app's own Download personal data files: steps, sleep stages, heart rate, weight, workouts, stress and blood oxygen, in the browser. Nothing is uploaded.
 
 ## Home project tools (3D)
 
@@ -61,6 +62,9 @@ Each tool page explains what the tool does, how to use it and its limits; the gu
 - [Dein Daylio-Tagebuch am PC, am Mac oder in jedem Browser (German)](https://peakappsstudio.com/de/daylio-am-pc/): Öffne dein Daylio-Backup am PC, Mac oder Chromebook: Einträge, Stimmungsdiagramme, Year in Pixels und Fotos. Kostenlos, ohne Installation, ohne Upload.
 - [Tu diario de Daylio en el PC, el Mac o cualquier navegador (Spanish)](https://peakappsstudio.com/es/daylio-en-pc/): Abre tu copia de Daylio en el PC, Mac o Chromebook: entradas, gráficos de ánimo, Year in Pixels y fotos. Gratis, sin instalar nada y sin subir el archivo.
 - [Seu diário do Daylio no PC, no Mac ou em qualquer navegador (Brazilian Portuguese)](https://peakappsstudio.com/pt-br/daylio-no-pc/): Abra o backup do Daylio no PC, Mac ou Chromebook: entradas, gráficos de humor, Year in Pixels e fotos. Grátis, sem instalar nada e sem enviar o arquivo.
+- [Samsung Health am PC auswerten, direkt im Browser (German)](https://peakappsstudio.com/de/samsung-health-am-pc/): Samsung Health gibt es nicht für den PC. Öffne den Datendownload der App im Browser: Schritte, Schlafphasen, Puls, Gewicht, Training. Nichts wird hochgeladen.
+- [Seus dados do Samsung Health no PC, em qualquer navegador (Brazilian Portuguese)](https://peakappsstudio.com/pt-br/samsung-health-no-pc/): O Samsung Health não tem versão para PC. Abra no navegador os dados pessoais baixados do app: passos, fases do sono, frequência cardíaca, peso e treinos.
+- [삼성헬스 기록을 PC 브라우저에서 보세요 (Korean)](https://peakappsstudio.com/ko/samsung-health-pc/): 삼성헬스는 PC버전이 없습니다. 앱에서 내려받은 개인 데이터를 브라우저로 열어 걸음 수, 수면 단계, 심박수, 체중, 운동 기록을 큰 화면으로 보세요. 업로드는 없습니다.
 
 ## Apps
 
