@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src https://cloudflareinsights.com; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to export your Oura data to CSV (and read it) | Nightjar</title>
+<meta name="description" content="Export all your Oura Ring data as CSV from the Membership Hub, with or without a membership: the steps, how long it takes, and what each file in the ZIP holds.">
+<link rel="canonical" href="https://peakappsstudio.com/oura-export-viewer/export-oura-data/">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/oura-export-viewer/export-oura-data/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="How to export your Oura data to CSV, and what is in the ZIP">
+<meta property="og:description" content="The Membership Hub steps, how long Oura takes, and a file-by-file guide to the export: dailysleep, sleepmodel, heartrate and the rest.">
+<meta property="og:url" content="https://peakappsstudio.com/oura-export-viewer/export-oura-data/">
+<meta property="og:image" content="https://peakappsstudio.com/oura-export-viewer/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="theme-color" content="#14183a">
+<link rel="icon" href="/oura-export-viewer/img/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/oura-export-viewer/fonts/nightjar-display.woff2" as="font" type="font/woff2" crossorigin>
+<style data-from="/assets/tools.css">
+/* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
+
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e1;
+  --card: #fbfaf7;
+  --ink: #141518;
+  --ink-2: #33363d;
+  --muted: #676b74;
+  --line: rgba(20, 21, 24, 0.12);
+  --line-2: rgba(20, 21, 24, 0.22);
+  --accent: #1f5c4d;          /* each tool overrides this on <body style="--accent:..."> */
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  --warn: #9a4a12;
+  --ok: #2c6a3f;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+    --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+  --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; }
+img { display: block; height: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 10px; z-index: 100; background: var(--ink); color: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 10px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-head { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand-sub { font-family: var(--sans); font-size: 14.5px; letter-spacing: 0; color: var(--muted); font-weight: 500; padding-left: 10px; border-left: 1px solid var(--line-2); }
+.head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
+.head-nav a:hover { background: var(--paper-2); color: var(--ink); }
+.head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
+@media (max-width: 640px) { .brand-sub { display: none; } }
+@media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
+
+/* ---------- Type ---------- */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+h1 { font-size: clamp(32px, 4.6vw, 54px); }
+h1 em, h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 19px; letter-spacing: -0.01em; }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; margin: 16px 0 0; }
+.mono { font-family: var(--mono); }
+.muted { color: var(--muted); }
+small, .small { font-size: 13.5px; }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 22px 0 0; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-2); }
+.crumbs a { text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.tool-hero { padding: 28px 0 24px; display: grid; gap: 8px; }
+.tool-hero .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.tool-hero .facts li { display: inline-flex; align-items: center; gap: 8px; }
+.tool-hero .facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Tool shell ---------- */
+.tool { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.tool-panel { padding: 22px; border-right: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.tool-stage { position: relative; min-height: 460px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper); display: grid; place-items: center; padding: 22px; }
+.tool-stage canvas, .tool-stage svg, .tool-stage img { max-height: 70vh; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px -12px rgba(0,0,0,.18); background: #fff; }
+.stage-bar { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.tool-foot { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 14px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--paper); }
+.tool-foot .spacer { flex: 1; }
+@media (max-width: 860px) {
+  .tool { grid-template-columns: 1fr; }
+  .tool-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tool-stage { min-height: 320px; }
+}
+
+/* ---------- Form controls ---------- */
+.group { display: grid; gap: 10px; }
+.group-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > label { font-size: 13px; color: var(--ink-2); }
+.input, .select { width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 8px; padding: 9px 11px; transition: border-color .15s, box-shadow .15s; }
+.input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input-unit { position: relative; }
+.input-unit .input { padding-right: 38px; font-family: var(--mono); font-size: 14.5px; }
+.input-unit i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 3px; flex: none; }
+.seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line-2); border-radius: 9px; padding: 3px; gap: 3px; background: var(--paper); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.warn { font-size: 13.5px; color: var(--warn); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.btn { --b: var(--line-2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 500; line-height: 1; padding: 11px 16px; border-radius: 9px; border: 1px solid var(--b); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; transition: transform .15s var(--ease), background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklab, var(--accent) 86%, #000); color: var(--accent-ink); border-color: transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-ink:hover { color: var(--paper); background: var(--ink-2); }
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.pro-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: var(--ink); color: var(--paper); }
+
+/* ---------- Drop zone ---------- */
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 18px 14px; background: var(--paper); cursor: pointer; transition: border-color .15s, background .15s; font-size: 14.5px; }
+.drop:hover, .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Content ---------- */
+.section { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prose { max-width: 70ch; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose h2 { margin: 1.6em 0 .5em; }
+.prose h3 { margin: 1.4em 0 .4em; }
+.prose code, .prose kbd { font-family: var(--mono); font-size: .9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+.two-col > * { min-width: 0; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: 3px; }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 13px; background: var(--paper); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 15px; }
+.source { font-size: 13px; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--line-2); margin-top: 18px; }
+.faq details { border-bottom: 1px solid var(--line-2); }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 13px; font-family: var(--mono); font-size: 18px; color: var(--muted); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 18px; color: var(--ink-2); max-width: 70ch; }
+
+/* ---------- Pro ---------- */
+.pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--card); }
+.pro-left { padding: clamp(22px, 3vw, 36px); }
+.pro-right { padding: clamp(22px, 3vw, 36px); background: var(--ink); color: var(--paper); display: grid; align-content: center; gap: 14px; }
+.pro-right .price { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pro-right .price small { font-size: 15px; font-weight: 400; color: color-mix(in oklab, var(--paper) 70%, transparent); letter-spacing: 0; }
+.pro-right .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.pro-right .btn-primary:hover { background: #fff; color: var(--ink); }
+.pro-right .fine { font-size: 13px; color: color-mix(in oklab, var(--paper) 65%, transparent); margin: 0; }
+.pro-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.pro-list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.pro-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border: 1.5px solid var(--accent); border-radius: 2px; transform: rotate(45deg); }
+@media (max-width: 760px) { .pro { grid-template-columns: 1fr; } }
+
+/* ---------- A real file, shown ---------- */
+.shot { margin: 22px 0 0; }
+.shot img { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; }
+.shot figcaption { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+.shot figcaption strong { font-weight: 600; color: var(--ink-2); }
+.shot-sm { max-width: 920px; }
+
+/* ---------- Where free stops and Pro starts ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; margin: 26px 0 0; background: var(--card); }
+.split > div { padding: 18px 20px 20px; }
+.split > div + div { border-left: 1px solid var(--line-2); background: var(--accent-soft); }
+.split h3 { font-size: 15.5px; margin: 0; }
+.split > div > p { margin: 5px 0 0; font-size: 13.5px; color: var(--muted); }
+.split ul { list-style: none; margin: 13px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
+.split li { position: relative; padding-left: 18px; }
+.split li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; border-radius: 1px; background: var(--line-2); }
+.split > div + div li::before { background: var(--accent); }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } .split > div + div { border-left: 0; border-top: 1px solid var(--line-2); } }
+
+/* ---------- A file list, as the archive really holds it ---------- */
+.filelist { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 5px; }
+.filelist li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filelist li span { color: var(--muted); }
+
+/* ---------- License dialog ---------- */
+.license-dialog { border: 1px solid var(--line-2); border-radius: 14px; padding: 0; width: min(440px, calc(100% - 32px)); background: var(--card); color: var(--ink); }
+.license-dialog::backdrop { background: rgba(10, 11, 13, .45); }
+.license-dialog form { padding: 22px; display: grid; gap: 14px; }
+.license-status { font-size: 14px; min-height: 1.4em; margin: 0; }
+.license-status[data-state="ok"] { color: var(--ok); }
+.license-status[data-state="err"] { color: var(--warn); }
+
+/* ---------- Related / cards ---------- */
+.related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line-2); margin-top: 22px; }
+.related a { display: grid; gap: 4px; padding: 18px 18px 18px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.related a strong { font-weight: 600; }
+.related a span { font-size: 14px; color: var(--muted); }
+.related a:hover strong { color: var(--accent); }
+
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
+/* ---------- Footer ---------- */
+.site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
+.site-foot h2 { font-size: 15px; font-family: var(--sans); letter-spacing: 0; font-weight: 600; color: var(--ink); margin: 0 0 10px; }
+.site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+@media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- "New from Peak Apps": the cross-promotion card the build puts above the footer (src/crosspromo.json) ---------- */
+.peak-new { margin-top: clamp(56px, 8vw, 104px); }
+.peak-new + .site-foot { margin-top: 28px; }
+.peak-new-card { display: grid; gap: 4px; max-width: 640px; padding: 16px 20px 18px; border: 1px solid var(--line-2); border-left: 4px solid var(--tool, var(--accent)); border-radius: var(--radius); background: var(--card); color: var(--ink); text-decoration: none; transition: border-color .2s var(--ease); }
+.peak-new-card:hover { border-color: var(--tool, var(--accent)); }
+.peak-new-card:focus-visible { outline: 2px solid var(--tool, var(--accent)); outline-offset: 3px; }
+.peak-new-kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.peak-new-card strong { font-size: 17px; font-weight: 600; line-height: 1.3; }
+.peak-new-line { font-size: 14px; line-height: 1.5; color: var(--ink-2); max-width: 62ch; }
+
+/* ---------- Home project tools: the shared block on Without Planning and Dropped Kerb Check ---------- */
+.home-block { margin: clamp(36px, 5vw, 60px) 0 0; border-top: 1px solid var(--line-2); padding-top: 16px; }
+.home-title { margin: 0 0 10px; font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink); }
+.home-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px 24px; }
+.home-list a { display: grid; gap: 3px; padding: 2px 0 2px 14px; border-left: 4px solid var(--tool, var(--accent)); text-decoration: none; color: var(--ink); }
+.home-list a strong { font-weight: 700; font-size: 16px; }
+.home-list a span { color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+.home-list a:hover strong { color: var(--tool, var(--accent)); }
+.home-list a[aria-current="page"] span { color: var(--ink-2); }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .3s var(--ease); z-index: 90; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media print { .site-head, .site-foot, .tool-panel, .tool-foot, .no-print { display: none !important; } body { background: #fff; } }
+
+/* The hidden attribute must win over component display rules. */
+[hidden] { display: none !important; }
+</style>
+<style data-from="/oura-export-viewer/tool.css">
+/* Nightjar: an Oura export viewer. Palette from a night's sleep stages: night indigo, deep-sleep indigo, light-sleep
+ * periwinkle, REM teal and dawn apricot on a cool morning mist. Type: Red Hat Display for headings and numbers, Red Hat
+ * Text for reading (both OFL, served from this folder as Google Fonts' latin files, which cover English, German and
+ * French). */
+@font-face { font-family: "Nightjar Display"; src: url("/oura-export-viewer/fonts/nightjar-display.woff2") format("woff2"); font-weight: 500 800; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Nightjar Text"; src: url("/oura-export-viewer/fonts/nightjar-text.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Nightjar Fallback"; src: local("Arial"); size-adjust: 100%; ascent-override: 93%; descent-override: 26%; }
+
+body.nj {
+  --night: #14183a; --night-2: #1f2452; --deep: #2b2f85; --light: #93a6ec; --rem: #43c0b3; --dawn: #f4a259;
+  --dawn-ink: #9a4a14; --rem-ink: #127a70; --hr: #c2452d; --cool: #3f66d0; --warm: #c8541f;
+  --paper: #eef1f8; --paper-2: #e2e7f3; --card: #ffffff; --ink: #171b33; --ink-2: #353a58; --muted: #555b78;
+  --line: rgba(23, 27, 51, 0.12); --line-2: rgba(23, 27, 51, 0.24);
+  --accent: #2b2f85; --accent-ink: #ffffff; --warn: #a3321c; --ok: #1d7a45;
+  --sans: "Nightjar Text", "Nightjar Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --nj-display: "Nightjar Display", "Nightjar Fallback", ui-sans-serif, system-ui, sans-serif;
+  --mono: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, monospace;
+  color-scheme: light;
+  background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.58;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.nj {
+    --paper: #0f1229; --paper-2: #181c3a; --card: #1a1e3f; --ink: #eef0fb; --ink-2: #cdd1ea; --muted: #a3a8c8;
+    --line: rgba(238, 240, 251, 0.12); --line-2: rgba(238, 240, 251, 0.26); --accent: #aab8ff; --accent-ink: #14183a;
+    --dawn-ink: #ffb77a; --rem-ink: #5fd6c9; --hr: #ff8a70; --cool: #8eaaff; --warm: #ff9a66; --warn: #ff9b85; --ok: #6fd39a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] body.nj {
+  --paper: #0f1229; --paper-2: #181c3a; --card: #1a1e3f; --ink: #eef0fb; --ink-2: #cdd1ea; --muted: #a3a8c8;
+  --line: rgba(238, 240, 251, 0.12); --line-2: rgba(238, 240, 251, 0.26); --accent: #aab8ff; --accent-ink: #14183a;
+  --dawn-ink: #ffb77a; --rem-ink: #5fd6c9; --hr: #ff8a70; --cool: #8eaaff; --warm: #ff9a66; --warn: #ff9b85; --ok: #6fd39a;
+  color-scheme: dark;
+}
+.nj h1, .nj h2, .nj h3 { font-family: var(--nj-display); font-weight: 750; letter-spacing: -0.018em; color: var(--ink); font-style: normal; }
+.nj h1 { font-size: clamp(38px, 5.2vw, 68px); line-height: 1.0; margin: 18px 0 0; max-width: 15ch; font-weight: 800; letter-spacing: -0.028em; }
+.nj h2 { font-size: clamp(28px, 3.2vw, 40px); line-height: 1.08; margin: 0; }
+.nj h3 { font-size: clamp(21px, 2vw, 25px); line-height: 1.18; margin: 0 0 8px; }
+.nj a { color: var(--accent); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+.nj :focus-visible { outline: 3px solid var(--dawn); outline-offset: 2px; border-radius: 6px; }
+.nj .lede { color: var(--ink-2); font-size: clamp(17px, 1.45vw, 19.5px); line-height: 1.52; max-width: 58ch; margin: 18px 0 0; }
+.nj .btn { font-family: var(--sans); font-weight: 700; border-radius: 12px; padding: 12px 18px; font-size: 16px; }
+.nj .btn-primary { background: var(--night); border-color: var(--night); color: #fff; }
+.nj .btn-primary:hover { background: var(--deep); border-color: var(--deep); color: #fff; }
+.nj .nj-quiet { background: transparent; border: 1.5px solid var(--line-2); color: var(--ink); }
+.nj .nj-quiet:hover { background: var(--paper-2); color: var(--ink); }
+.nj .nj-buy { background: var(--dawn); border-color: var(--dawn); color: var(--night); }
+.nj .nj-buy:hover { background: #ffb36f; border-color: #ffb36f; color: var(--night); }
+.nj .btn-sm { padding: 8px 13px; font-size: 14.5px; border-radius: 10px; }
+.nj .select, .nj .input { font: inherit; font-size: 15px; padding: 8px 10px; border-radius: 10px; border: 1.5px solid var(--line-2); background: var(--card); color: var(--ink); }
+.nj .crumbs { color: var(--muted); }
+.nj .crumbs a { color: var(--ink-2); }
+.nj .nj-lock { width: 15px; height: 15px; flex: none; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .nj .btn-primary { background: #e8ebff; border-color: #e8ebff; color: var(--night); } }
+:root[data-theme="dark"] .nj .btn-primary { background: #e8ebff; border-color: #e8ebff; color: var(--night); }
+
+/* header and footer on the tool's own pages */
+.nj .site-foot h2 { font-family: var(--sans); font-weight: 700; font-size: 15px; line-height: 1.4; letter-spacing: 0; margin: 0 0 10px; color: var(--ink); }
+.nj .site-head.nj-head { background: var(--night); border-bottom: 0; color: #fff; }
+.nj .nj-head .brand { color: #fff; display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--nj-display); font-weight: 800; font-size: 21px; letter-spacing: -0.01em; }
+.nj .nj-head .brand svg { width: 30px; height: 22px; }
+.nj .nj-head .head-nav { margin-left: auto; display: flex; gap: 6px 18px; align-items: center; flex-wrap: wrap; }
+.nj .nj-head .head-nav a, .nj .nj-head .head-nav span { color: #d5d9f3; text-decoration: none; font-size: 15px; font-weight: 600; }
+.nj .nj-head .head-nav a:hover { color: #fff; text-decoration: underline; }
+.nj .nj-head .head-nav [aria-current="page"] { color: #fff; }
+@media (max-width: 760px) { .nj .nj-head .nj-wide { display: none; } }
+@media (max-width: 430px) { .nj .nj-head .head-nav { gap: 4px 11px; } .nj .nj-head .head-nav a, .nj .nj-head .head-nav span { font-size: 14px; } }
+
+/* ---------- hero ---------- */
+.nj-hero { padding: clamp(10px, 2vw, 22px) 0 clamp(36px, 5vw, 64px); }
+.nj-hero-grid { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); gap: clamp(24px, 4vw, 60px); align-items: start; }
+.nj-hero-copy { min-width: 0; }
+.nj-panel { margin-top: 28px; background: var(--card); color: var(--ink); border-radius: 20px; padding: clamp(18px, 2.4vw, 28px); box-shadow: 0 1px 0 var(--line), 0 18px 40px -26px rgba(20, 24, 58, 0.45); border: 1px solid var(--line); }
+.nj-drop { border: 2px dashed var(--line-2); border-radius: 14px; padding: clamp(16px, 2.2vw, 24px); background: var(--paper); transition: background .15s, border-color .15s; }
+.nj-drop.is-over { background: var(--paper-2); border-color: var(--deep); }
+.nj .nj-drop-title { font-size: clamp(22px, 2.3vw, 27px); margin: 0; }
+.nj-drop-text { margin: 8px 0 0; color: var(--ink-2); max-width: 56ch; }
+.nj-drop-note { margin: 14px 0 0; font-size: 14.5px; color: var(--muted); }
+.nj-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; align-items: center; }
+.nj-nofile { margin: 14px 0 0; font-size: 15.5px; color: var(--ink-2); }
+.nj-private { display: flex; gap: 10px; align-items: flex-start; margin: 20px 0 0; font-size: 15px; color: var(--ink-2); max-width: 62ch; }
+.nj-private svg { width: 18px; height: 18px; flex: none; margin-top: 3px; color: var(--deep); }
+.nj-stage[hidden] { display: none !important; }
+.nj-busy-title, .nj-done-title, .nj-error-title { font-family: var(--nj-display); font-weight: 750; font-size: clamp(21px, 2.3vw, 26px); line-height: 1.15; margin: 0; }
+.nj-error-title { color: var(--warn); }
+.nj-busy-sub, .nj-done-sub { margin: 8px 0 0; color: var(--ink-2); overflow-wrap: anywhere; }
+.nj-error-text { margin-top: 8px; color: var(--ink-2); overflow-wrap: anywhere; }
+.nj-error-text ul { margin: 8px 0 0; padding-left: 20px; }
+.nj-bar { height: 10px; margin-top: 16px; border-radius: 99px; background: var(--paper-2); overflow: hidden; }
+.nj-bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--deep), var(--rem)); border-radius: 99px; transition: width .25s; }
+.nj-hero-art { margin: 8px 0 0; display: grid; gap: 10px; justify-items: center; }
+.nj-hero-art img { width: min(100%, 540px); height: auto; display: block; border-radius: 22px; }
+.nj-hero-art figcaption { font-size: 14px; color: var(--muted); max-width: 44ch; text-align: center; }
+@media (max-width: 900px) {
+  .nj-hero-grid { grid-template-columns: minmax(0, 1fr); }
+  .nj-hero-art { order: 2; }
+  .nj-hero-art img { width: min(100%, 460px); }
+}
+@media (max-width: 520px) { .nj-drag-hint { display: none; } .nj-actions .btn { flex: 1 1 auto; } }
+
+/* ---------- results ---------- */
+.nj-results { background: var(--card); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: clamp(28px, 4vw, 52px) 0 clamp(36px, 5vw, 60px); scroll-margin-top: 8px; }
+.nj-results[hidden] { display: none; }
+.nj-res-head { display: grid; gap: 14px; }
+.nj-controls { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; }
+.nj-seg { display: inline-flex; flex-wrap: wrap; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 3px; gap: 2px; }
+.nj-seg button { font: inherit; font-size: 14.5px; font-weight: 600; border: 0; background: transparent; color: var(--ink-2); padding: 7px 12px; border-radius: 9px; cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.nj-seg button[aria-pressed="true"] { background: var(--night); color: #fff; }
+.nj-seg button:hover:not([aria-pressed="true"]) { background: var(--paper-2); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .nj-seg button[aria-pressed="true"] { background: #e8ebff; color: var(--night); } }
+:root[data-theme="dark"] .nj-seg button[aria-pressed="true"] { background: #e8ebff; color: var(--night); }
+.nj-custom { display: flex; flex-wrap: wrap; gap: 8px; align-items: end; }
+.nj-custom label { display: grid; gap: 3px; font-size: 13.5px; color: var(--muted); font-weight: 600; }
+.nj-custom[hidden] { display: none; }
+.nj-coverage { margin: 0; color: var(--muted); font-size: 15px; }
+.nj-tagline { display: inline-block; font-size: 13.5px; font-weight: 700; color: var(--dawn-ink); background: color-mix(in oklab, var(--dawn) 20%, transparent); border-radius: 8px; padding: 3px 9px; }
+
+.nj-kpis { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); margin: 26px 0 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.nj-kpis > div { padding: 16px 14px 16px 0; border-bottom: 1px solid var(--line); min-width: 0; }
+.nj-kpis > div:nth-last-child(-n+5) { border-bottom: 0; }
+.nj-kpis dt { font-size: 14px; color: var(--muted); font-weight: 600; }
+.nj-kpis dd { margin: 4px 0 0; font-family: var(--nj-display); font-weight: 750; font-size: clamp(22px, 2.3vw, 30px); line-height: 1.1; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.nj-kpis dd small { display: block; font-family: var(--sans); font-weight: 500; font-size: 13px; color: var(--muted); margin-top: 3px; }
+@media (max-width: 980px) { .nj-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); } .nj-kpis > div:nth-last-child(-n+5) { border-bottom: 1px solid var(--line); } .nj-kpis > div:nth-last-child(-n+1) { border-bottom: 0; } }
+@media (max-width: 560px) { .nj-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.nj-note { font-size: 14.5px; color: var(--muted); margin: 8px 0 0; }
+
+.nj-sec { margin-top: clamp(34px, 4.5vw, 56px); }
+.nj-sec > p.nj-intro { margin: 0 0 14px; color: var(--ink-2); max-width: 70ch; }
+.nj-weave { background: var(--night); border-radius: 18px; padding: 12px 12px 6px; }
+.nj-weave canvas { display: block; width: 100%; height: clamp(230px, 32vw, 340px); cursor: pointer; touch-action: pan-y; }
+.nj-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 10px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.nj-legend li { display: inline-flex; align-items: center; gap: 7px; }
+.nj-legend i { width: 14px; height: 14px; border-radius: 4px; display: inline-block; }
+.nj-weave-hint { margin: 6px 4px 4px; font-size: 13.5px; color: #c9cdee; }
+
+.nj-night { margin-top: 18px; border: 1px solid var(--line); border-radius: 18px; padding: clamp(16px, 2.4vw, 26px); background: var(--paper); }
+.nj-night-head { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: baseline; justify-content: space-between; }
+.nj-night-head p { margin: 2px 0 0; color: var(--ink-2); }
+.nj-night-nav { display: flex; gap: 8px; }
+.nj-facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0; margin: 16px 0 0; border-top: 1px solid var(--line); }
+.nj-facts > div { padding: 10px 10px 10px 0; border-bottom: 1px solid var(--line); }
+.nj-facts dt { font-size: 13.5px; color: var(--muted); font-weight: 600; }
+.nj-facts dd { margin: 2px 0 0; font-weight: 700; font-size: 17px; font-variant-numeric: tabular-nums; }
+.nj-chart { margin-top: 18px; }
+.nj-chart h4 { font-family: var(--sans); font-size: 15px; font-weight: 700; margin: 0 0 6px; color: var(--ink-2); }
+.nj-chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.nj .c-grid { stroke: var(--line); stroke-width: 1; }
+.nj .c-zero { stroke: var(--line-2); stroke-width: 1.5; }
+.nj .c-month { stroke-dasharray: 2 4; }
+.nj .c-lab { fill: var(--muted); font: 500 12px var(--sans); }
+.nj .c-hr { fill: var(--hr); }
+.nj .c-hrv { fill: var(--rem-ink); }
+.nj .c-line-hr { fill: none; stroke: var(--hr); stroke-width: 2.2; stroke-linejoin: round; }
+.nj .c-line-hrv { fill: none; stroke: var(--rem); stroke-width: 2.2; stroke-linejoin: round; }
+.nj .c-dot { fill: var(--light); }
+.nj .c-bar { fill: var(--light); }
+.nj .c-avg { fill: none; stroke: var(--deep); stroke-width: 2.6; stroke-linejoin: round; }
+.nj .c-cursor { stroke: var(--dawn); stroke-width: 2; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .nj .c-avg { stroke: #c9d2ff; } :root:not([data-theme="light"]) .nj .c-dot, :root:not([data-theme="light"]) .nj .c-bar { fill: #59649f; } }
+:root[data-theme="dark"] .nj .c-avg { stroke: #c9d2ff; }
+.nj-keys { display: flex; gap: 14px; flex-wrap: wrap; font-size: 13.5px; color: var(--ink-2); margin: 6px 0 0; }
+.nj-keys span { display: inline-flex; gap: 6px; align-items: center; }
+.nj-keys i { width: 16px; height: 3px; border-radius: 2px; display: inline-block; }
+
+.nj-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+.nj-chips button { font: inherit; font-size: 14px; font-weight: 600; border: 1px solid var(--line-2); background: var(--card); color: var(--ink-2); padding: 6px 11px; border-radius: 99px; cursor: pointer; }
+.nj-chips button[aria-pressed="true"] { background: var(--deep); border-color: var(--deep); color: #fff; }
+.nj-readout { margin: 6px 0 0; font-size: 15px; color: var(--ink-2); min-height: 1.5em; font-variant-numeric: tabular-nums; }
+.nj-explain { margin: 8px 0 0; color: var(--ink-2); font-size: 15.5px; max-width: 72ch; }
+
+.nj-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 3vw, 36px); }
+@media (max-width: 900px) { .nj-cols { grid-template-columns: minmax(0, 1fr); } }
+.nj-cgroup h4 { font-family: var(--nj-display); font-size: 18px; font-weight: 750; margin: 0 0 8px; }
+.nj-cbars { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.nj-cbars li { display: grid; grid-template-columns: minmax(0, 1fr) 36px; gap: 4px 10px; align-items: center; font-size: 14.5px; }
+.nj-cbars li span { color: var(--ink-2); }
+.nj-cbars li b { text-align: right; font-variant-numeric: tabular-nums; }
+.nj-cbars li i { grid-column: 1 / -1; height: 7px; border-radius: 99px; background: var(--paper-2); position: relative; overflow: hidden; }
+.nj-cbars li i::after { content: ""; position: absolute; inset: 0 auto 0 0; width: var(--w); background: var(--deep); border-radius: 99px; }
+.nj-cbars li.low i::after { background: var(--dawn); }
+
+.nj-mix { display: flex; height: 38px; border-radius: 10px; overflow: hidden; margin: 6px 0 8px; }
+.nj-mix span { display: block; height: 100%; }
+.nj-mixkey { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; font-size: 14px; }
+.nj-mixkey div { display: grid; gap: 2px; }
+.nj-mixkey b { font-variant-numeric: tabular-nums; font-size: 16px; }
+@media (max-width: 520px) { .nj-mixkey { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.nj-counts { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 0; padding: 0; list-style: none; }
+.nj-counts li { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 6px 10px; font-size: 14.5px; }
+.nj-counts li b { font-variant-numeric: tabular-nums; margin-left: 6px; }
+
+.nj-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+.nj-table { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; }
+.nj-table caption { text-align: left; color: var(--muted); font-size: 14px; padding: 0 0 8px; }
+.nj-table th, .nj-table td { text-align: left; padding: 9px 12px 9px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.nj-table thead th { font-size: 13.5px; color: var(--muted); font-weight: 700; }
+.nj-table th { background: none; font-weight: 600; font-size: 15px; }
+.nj-table td.num, .nj-table th.num { font-family: var(--sans); text-align: right; padding-right: 0; padding-left: 12px; white-space: nowrap; }
+.nj-table th.num small { font-weight: 500; color: var(--muted); }
+.nj-table tbody tr:last-child td, .nj-table tbody tr:last-child th { border-bottom: 0; }
+.nj-table .up { color: var(--rem-ink); }
+.nj-table .down { color: var(--dawn-ink); }
+
+/* Pro blocks */
+.nj-pro-zone { display: grid; gap: clamp(20px, 3vw, 30px); margin-top: clamp(34px, 4.5vw, 56px); }
+.nj-pblock { border: 1px solid var(--line); border-radius: 18px; padding: clamp(16px, 2.4vw, 26px); background: var(--card); }
+.nj-pblock h3 { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.nj-badge { font-family: var(--sans); font-size: 12.5px; font-weight: 800; letter-spacing: 0.02em; background: var(--dawn); color: var(--night); border-radius: 7px; padding: 2px 8px; }
+.nj-locked { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; margin-top: 12px; color: var(--ink-2); font-size: 15px; }
+.nj-twocol { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px 18px; }
+@media (max-width: 640px) { .nj-twocol { grid-template-columns: minmax(0, 1fr); } }
+.nj-range { display: flex; flex-wrap: wrap; gap: 8px; align-items: end; }
+.nj-range label { display: grid; gap: 3px; font-size: 13.5px; color: var(--muted); font-weight: 600; }
+.nj-presets { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.nj-tagrow { border-top: 1px solid var(--line); padding: 14px 0 6px; }
+.nj-tagrow h4 { margin: 0 0 8px; font-family: var(--nj-display); font-size: 18px; }
+.nj-tagrow h4 small { font-family: var(--sans); font-weight: 500; font-size: 14px; color: var(--muted); margin-left: 8px; }
+.nj-pair { display: grid; grid-template-columns: minmax(110px, 0.9fr) minmax(0, 2fr); gap: 4px 12px; align-items: center; font-size: 14.5px; margin: 6px 0; }
+.nj-pair .bars { display: grid; gap: 3px; }
+.nj-pair .bars i { display: block; height: 9px; border-radius: 99px; min-width: 2px; }
+.nj-pair .bars i.w { background: var(--dawn); }
+.nj-pair .bars i.o { background: var(--light); }
+.nj-pair .v { grid-column: 2; font-size: 13.5px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.nj-cards { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 300px); gap: clamp(16px, 3vw, 32px); align-items: start; }
+@media (max-width: 760px) { .nj-cards { grid-template-columns: minmax(0, 1fr); } }
+.nj-card-frame { background: var(--paper); border-radius: 16px; padding: 10px; }
+.nj-card-frame canvas { display: block; width: 100%; height: auto; border-radius: 10px; aspect-ratio: 9 / 16; }
+.nj-picks { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+.nj-picks button { font: inherit; font-size: 14px; font-weight: 600; border: 1px solid var(--line-2); background: var(--card); color: var(--ink-2); padding: 6px 11px; border-radius: 10px; cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.nj-picks button[aria-checked="true"] { background: var(--night); border-color: var(--night); color: #fff; }
+.nj-prow { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px 24px; align-items: center; border-top: 1px solid var(--line); padding: 16px 0; }
+.nj-prow:last-child { padding-bottom: 0; }
+.nj-prow h4 { margin: 0; font-family: var(--nj-display); font-size: 18px; font-weight: 750; }
+.nj-prow p { margin: 4px 0 0; color: var(--ink-2); max-width: 70ch; }
+@media (max-width: 640px) { .nj-prow { grid-template-columns: minmax(0, 1fr); } .nj-prow .btn { justify-self: start; } }
+.nj-cols.nj-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 760px) { .nj-cols.nj-cols-2 { grid-template-columns: minmax(0, 1fr); } }
+#cards .nj-cards { border-top: 1px solid var(--line); padding-top: 22px; }
+.nj-files { margin-top: 26px; font-size: 14.5px; color: var(--ink-2); }
+.nj-files summary { cursor: pointer; font-weight: 700; }
+.nj-files ul { margin: 8px 0 0; padding-left: 20px; }
+.nj-files p { margin: 8px 0 0; overflow-wrap: anywhere; }
+
+/* ---------- reading sections ---------- */
+.nj-export, .nj-what, .nj-pro, .nj-trust, .nj-faq { padding-top: clamp(44px, 6vw, 80px); }
+.nj-export-head p, .nj-what-copy p, .nj-trust p { max-width: 66ch; color: var(--ink-2); }
+.nj-steps { counter-reset: s; list-style: none; padding: 0; margin: 22px 0 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.nj-steps li { counter-increment: s; position: relative; padding: 46px 0 0; color: var(--ink-2); border-top: 2px solid var(--night); }
+.nj-steps li::before { content: counter(s); position: absolute; left: 0; top: 10px; font-family: var(--nj-display); font-weight: 800; font-size: 24px; color: var(--deep); }
+.nj-steps strong { color: var(--ink); }
+@media (max-width: 900px) { .nj-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .nj-steps { grid-template-columns: minmax(0, 1fr); } }
+.nj-source { font-size: 14.5px; color: var(--muted); margin-top: 18px; max-width: 80ch; }
+.nj-what { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(20px, 4vw, 56px); align-items: start; }
+@media (max-width: 900px) { .nj-what { grid-template-columns: minmax(0, 1fr); } }
+.nj-what .nj-table td:nth-child(2) { color: var(--muted); }
+.nj-pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: clamp(20px, 4vw, 56px); align-items: center; }
+.nj-pro-copy { background: var(--night); color: #e6e8fb; border-radius: 22px; padding: clamp(20px, 3vw, 36px); }
+.nj .nj-pro-copy h2 { color: #fff; }
+.nj-pro-copy .nj-note { color: #b9bee3; }
+.nj-pro-copy .nj-quiet { color: #fff; border-color: rgba(255, 255, 255, 0.4); }
+.nj-pro-copy .nj-quiet:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
+.nj-price { font-size: 17px; margin: 10px 0 0; }
+.nj-price-n { font-family: var(--nj-display); font-weight: 800; font-size: 44px; color: var(--dawn); margin-right: 6px; }
+.nj-pro-list { margin: 12px 0 0; padding-left: 20px; display: grid; gap: 6px; }
+.nj-pro-list li::marker { color: var(--dawn); }
+.nj-pro-art { margin: 0; display: grid; justify-items: center; gap: 10px; }
+.nj-pro-art img { width: min(100%, 300px); height: auto; border-radius: 18px; box-shadow: 0 24px 50px -28px rgba(20, 24, 58, 0.55); }
+.nj-pro-art figcaption { font-size: 14px; color: var(--muted); text-align: center; max-width: 34ch; }
+@media (max-width: 860px) { .nj-pro { grid-template-columns: minmax(0, 1fr); } }
+.nj-trust-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 3vw, 36px); margin-top: 16px; }
+.nj-trust-grid p { margin: 0; padding-top: 14px; border-top: 2px solid var(--rem); }
+@media (max-width: 900px) { .nj-trust-grid { grid-template-columns: minmax(0, 1fr); } }
+.nj-faq { padding-bottom: clamp(44px, 6vw, 80px); max-width: 860px; }
+.nj-faq details { border-bottom: 1px solid var(--line); padding: 14px 0; }
+.nj-faq summary { cursor: pointer; font-weight: 700; font-size: 17.5px; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.nj-faq summary::-webkit-details-marker { display: none; }
+.nj-faq summary::after { content: "+"; font-family: var(--nj-display); font-size: 22px; line-height: 1; color: var(--deep); }
+.nj-faq details[open] summary::after { content: "−"; }
+.nj-faq p { margin: 10px 0 0; color: var(--ink-2); max-width: 70ch; }
+
+/* guide and privacy pages */
+.nj-doc { padding: clamp(10px, 2vw, 22px) 0 clamp(44px, 6vw, 80px); }
+.nj-doc .prose { max-width: 72ch; }
+.nj-doc .prose h2 { margin-top: 36px; font-size: clamp(24px, 2.6vw, 32px); }
+.nj-doc .prose p, .nj-doc .prose li { color: var(--ink-2); }
+.nj-doc .nj-table { margin-top: 12px; }
+.nj-doc code { font-family: ui-monospace, "Cascadia Mono", Menlo, monospace; font-size: 0.92em; background: var(--paper-2); padding: 1px 5px; border-radius: 5px; }
+
+@media (prefers-reduced-motion: reduce) { .nj *, .nj *::before, .nj *::after { transition: none !important; animation: none !important; } }
+
+/* Japanese page: Zen Kaku Gothic New (headings, subset to this page's characters) and the system's Japanese text face */
+html[lang="ja"] body.nj { --sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Meiryo", "Noto Sans JP", sans-serif; --nj-display: "Nightjar Display", "Nightjar JA", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif; line-height: 1.75; }
+html[lang="ja"] .nj h1 { letter-spacing: 0; line-height: 1.22; max-width: 18em; font-size: clamp(32px, 4.4vw, 56px); }
+html[lang="ja"] .nj h2, html[lang="ja"] .nj h3 { letter-spacing: 0; line-height: 1.3; }
+html[lang="ja"] .nj .lede { line-height: 1.8; }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"How to export your Oura data to CSV, and what is in the ZIP","datePublished":"2026-10-22","dateModified":"2026-10-22","author":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"mainEntityOfPage":"https://peakappsstudio.com/oura-export-viewer/export-oura-data/","inLanguage":"en"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Nightjar: Oura data without a membership","item":"https://peakappsstudio.com/oura-export-viewer/"},{"@type":"ListItem","position":3,"name":"How to export your Oura data","item":"https://peakappsstudio.com/oura-export-viewer/export-oura-data/"}]}]}
+</script>
+<script src="/assets/pro-source.js" data-campaign="oura-export-viewer" defer></script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
+</head>
+<body class="nj" style="--accent:#2b2f85">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head nj-head">
+  <div class="wrap">
+    <a class="brand" href="/oura-export-viewer/" aria-label="Nightjar, your Oura data without a membership">
+      <svg viewBox="0 0 30 22" aria-hidden="true"><rect x="1" y="3" width="6" height="7" rx="1.6" fill="#f4a259"/><rect x="8" y="7" width="6" height="7" rx="1.6" fill="#93a6ec"/><rect x="15" y="12" width="6" height="8" rx="1.6" fill="#8e95ff"/><rect x="22" y="7" width="6" height="7" rx="1.6" fill="#43c0b3"/></svg>
+      <span>Nightjar</span>
+    </a>
+    <nav class="head-nav" aria-label="Nightjar">
+      <a class="nj-wide" href="/oura-export-viewer/">Open your export</a>
+      <span class="nj-wide" aria-current="page">Get your export</span>
+      <a href="/de/oura-ohne-abo/" hreflang="de" lang="de">Deutsch</a>
+      <a href="/fr/oura-sans-abonnement/" hreflang="fr" lang="fr">Français</a>
+      <a href="/ja/oura-subscription-nashi/" hreflang="ja" lang="ja">日本語</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="nj-doc">
+<div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/oura-export-viewer/">Nightjar</a></li><li aria-current="page">How to export your Oura data</li></ol></nav>
+<h1>How to export your Oura data to CSV, and what is in the ZIP</h1>
+<div class="prose">
+<p class="lede">Oura lets every ring owner download all of their data as CSV files, with or without a membership. You ask for it in the Membership Hub, Oura emails you when it is ready, and you get a ZIP of semicolon-separated files. Below: the steps, the wait, and what each file holds.</p>
+
+<h2>The steps</h2>
+<ol>
+<li><strong>Open membership.ouraring.com</strong> in a browser and sign in with the email address of your Oura account. Oura sends a sign-in code to that address. From the Oura app you reach the same place through Settings, Account, Manage membership.</li>
+<li><strong>Choose Export data, then Request your data.</strong></li>
+<li><strong>Wait for the email.</strong> Oura’s help page says an export can take up to 10 days to become available, and that it sends a reminder email to your account’s address when it is ready.</li>
+<li><strong>Go back to the Membership Hub and download the export.</strong> It arrives as one ZIP file.</li>
+</ol>
+<p>Oura’s own words, from its help page on membership: “Even without a membership, you can export all of your Oura data in CSV format through the Membership Hub.” The API is a different matter: Oura says that without a membership you cannot use it, so for ring owners without one the export is the way to their full history.</p>
+<p>Sources: Oura Member Care, <a href="https://support.ouraring.com/hc/en-us/articles/360025441594" rel="noopener" target="_blank">Export &amp; Share Your Oura Data</a> (updated 14 October 2026) and <a href="https://support.ouraring.com/hc/en-us/articles/4409086524819" rel="noopener" target="_blank">Oura Membership</a> (updated 16 October 2026), both checked 22 October 2026.</p>
+
+<h2>What the ZIP holds</h2>
+<p>The files are named after Oura’s data types, and their columns use the field names of Oura’s API (version 2), so the <a href="https://cloud.ouraring.com/v2/docs" rel="noopener" target="_blank">API documentation</a> explains every column. A few things that trip people up: values are separated by semicolons, not commas; durations are in seconds (Oura’s help page gives the example of 24,030 seconds, about 6 hours 40 minutes); score contributors and the heart rate series sit inside a single cell as JSON; and the readings through the day carry UTC times.</p>
+<div class="nj-scroll">
+<table class="nj-table">
+<caption>The files Nightjar reads, and what each one holds</caption>
+<thead><tr><th scope="col">File</th><th scope="col">One row per</th><th scope="col">What is in it</th></tr></thead>
+<tbody>
+<tr><th scope="row"><code>dailysleep.csv</code></th><td>day</td><td>Sleep score and its seven contributors (total sleep, efficiency, restfulness, REM, deep, latency, timing)</td></tr>
+<tr><th scope="row"><code>sleepmodel.csv</code></th><td>sleep period</td><td>Bedtime and wake time with your local offset, time in each stage, efficiency, latency, lowest and average heart rate, average HRV, breathing rate, the five-minute stage string, and the heart rate and HRV series through the night</td></tr>
+<tr><th scope="row"><code>dailyreadiness.csv</code></th><td>day</td><td>Readiness score, its contributors, and the temperature deviation from your baseline in °C</td></tr>
+<tr><th scope="row"><code>dailyactivity.csv</code></th><td>day</td><td>Activity score and contributors, steps, calories, time at each activity level, and a five-minute activity string</td></tr>
+<tr><th scope="row"><code>dailyspo2.csv</code></th><td>day</td><td>Average blood oxygen during the night and the breathing disturbance index</td></tr>
+<tr><th scope="row"><code>dailystress.csv</code></th><td>day</td><td>Seconds in high stress and high recovery, and Oura’s summary of the day</td></tr>
+<tr><th scope="row"><code>dailyresilience.csv</code></th><td>day</td><td>Resilience level and its three contributors</td></tr>
+<tr><th scope="row"><code>heartrate.csv</code></th><td>reading</td><td>Heart rate readings with a UTC time and where they came from (awake, rest, sleep, workout); often the largest file</td></tr>
+<tr><th scope="row"><code>temperature.csv</code></th><td>reading</td><td>Skin temperature readings in °C</td></tr>
+<tr><th scope="row"><code>daytimestress.csv</code></th><td>reading</td><td>Daytime stress and recovery values</td></tr>
+<tr><th scope="row"><code>workout.csv</code>, <code>session.csv</code></th><td>workout, session</td><td>Workouts (activity, calories, distance, intensity) and guided sessions (type, mood)</td></tr>
+<tr><th scope="row"><code>enhancedtag.csv</code></th><td>tag</td><td>Tags you added in the app, such as alcohol or caffeine, with their time; custom tags carry your own name</td></tr>
+<tr><th scope="row"><code>sleeptime.csv</code>, <code>dailycardiovascularage.csv</code>, <code>vo2max.csv</code></th><td>day</td><td>Bedtime guidance, cardiovascular age and VO2 max estimates</td></tr>
+</tbody>
+</table>
+</div>
+<p>An export can hold more: location history, meals, medication, cycle data, lab results, ring battery and app settings among them. Nightjar does not open those files.</p>
+
+<h2>Opening the files in a spreadsheet</h2>
+<p>Because the files use semicolons, Excel and Numbers may put each row in one column. In Excel, use Data, From Text/CSV and pick Semicolon as the delimiter; in Google Sheets, File, Import, then Custom separator “;”. The JSON cells stay as text and the durations stay in seconds, so a sum of <code>total_sleep_duration</code> needs dividing by 3,600 for hours.</p>
+<p>The quicker way to read it all: <a href="/oura-export-viewer/">open the ZIP in Nightjar</a>. It shows every night’s stages, HRV, heart rate, temperature, blood oxygen, stress and workouts, in your browser, without uploading anything. Nightjar Pro also writes a clean CSV, one row per day with every reading in hours, minutes, ms, bpm and °C.</p>
+
+<h2>When the export does not arrive</h2>
+<ul>
+<li>Give it the time Oura names: up to 10 days.</li>
+<li>Check the spam folder of the email address your Oura account uses; the reminder comes from Oura.</li>
+<li>Sign in to the Membership Hub again and open Export data: the download is there once it is ready, email or not.</li>
+<li>If the ZIP will not open, the download probably stopped early. Download it again from the Membership Hub.</li>
+</ul>
+<p class="nj-note">Nightjar is an independent tool by Peak Apps Studio and is not affiliated with, endorsed by or sponsored by Oura Health Oy. Oura is a trademark of Oura Health Oy.</p>
+</div>
+</div>
+</main>
+<aside class="peak-new" aria-label="New from Peak Apps">
+  <div class="wrap">
+    <a class="peak-new-card" href="/photo-date-fixer/" style="--tool:#c4360e">
+      <span class="peak-new-kicker">New from Peak Apps</span>
+      <strong>Photo Date Fixer</strong>
+      <span class="peak-new-line">Put the real date, time and place back into the photos of a Snapchat Memories export. Free, and nothing is uploaded.</span>
+    </a>
+  </div>
+</aside>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:700">Nightjar</p>
+      <p style="margin:0;max-width:46ch">Every night and day from the data export Oura gives every ring owner, read on your own device and never uploaded. Not medical advice.</p>
+      <p style="margin:12px 0 0;max-width:46ch">Nightjar is an independent tool by <a href="https://peakappsstudio.com/">Peak Apps Studio</a> and is not affiliated with, endorsed by or sponsored by Oura Health Oy. Oura is a trademark of Oura Health Oy.</p>
+    </div>
+    <div>
+      <h2>Your export</h2>
+      <ul>
+        <li><a href="/oura-export-viewer/">Open your export</a></li>
+        <li><span aria-current="page">How to export your Oura data</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Other languages</h2>
+      <ul>
+        <li><a href="/de/oura-ohne-abo/" hreflang="de" lang="de">Oura ohne Abo (Deutsch)</a></li>
+        <li><a href="/fr/oura-sans-abonnement/" hreflang="fr" lang="fr">Oura sans abonnement (français)</a></li>
+        <li><a href="/ja/oura-subscription-nashi/" hreflang="ja" lang="ja">Oura サブスクなし（日本語）</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/oura-export-viewer/privacy/">Privacy</a></li>
+        <li><a href="/tools/">More tools by Peak Apps</a></li>
+        <li><a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
