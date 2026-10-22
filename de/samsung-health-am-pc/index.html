@@ -1,0 +1,853 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src https://api.gumroad.com https://cloudflareinsights.com; worker-src 'self'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Samsung Health am PC: Daten im Browser auswerten | Wristory</title>
+<meta name="description" content="Samsung Health gibt es nicht für den PC. Öffne den Datendownload der App im Browser: Schritte, Schlafphasen, Puls, Gewicht, Training. Nichts wird hochgeladen.">
+<link rel="canonical" href="https://peakappsstudio.com/de/samsung-health-am-pc/">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/samsung-health-viewer/">
+<link rel="alternate" hreflang="de" href="https://peakappsstudio.com/de/samsung-health-am-pc/">
+<link rel="alternate" hreflang="pt-BR" href="https://peakappsstudio.com/pt-br/samsung-health-no-pc/">
+<link rel="alternate" hreflang="ko" href="https://peakappsstudio.com/ko/samsung-health-pc/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/samsung-health-viewer/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Samsung Health am PC: Schritte, Schlaf und Puls im Browser">
+<meta property="og:description" content="Lade deine Daten aus der Samsung-Health-App herunter und sieh sie auf dem großen Bildschirm: Schritte, Schlafphasen, Puls, Gewicht, Training. Nichts wird hochgeladen.">
+<meta property="og:url" content="https://peakappsstudio.com/de/samsung-health-am-pc/">
+<meta property="og:image" content="https://peakappsstudio.com/samsung-health-viewer/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ein 3D-Streifen aus 90 erfundenen Tagen: orange Säulen für die Schritte, darunter blaue Blöcke für die Schlafphasen jeder Nacht">
+<meta property="og:locale" content="de_DE">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#123f37">
+<link rel="icon" href="/samsung-health-viewer/img/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/samsung-health-viewer/fonts/wristory-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/samsung-health-viewer/fonts/wristory-text.woff2" as="font" type="font/woff2" crossorigin>
+
+<style data-from="/assets/tools.css">
+/* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
+
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e1;
+  --card: #fbfaf7;
+  --ink: #141518;
+  --ink-2: #33363d;
+  --muted: #676b74;
+  --line: rgba(20, 21, 24, 0.12);
+  --line-2: rgba(20, 21, 24, 0.22);
+  --accent: #1f5c4d;          /* each tool overrides this on <body style="--accent:..."> */
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  --warn: #9a4a12;
+  --ok: #2c6a3f;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+    --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+  --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; }
+img { display: block; height: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 10px; z-index: 100; background: var(--ink); color: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 10px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-head { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand-sub { font-family: var(--sans); font-size: 14.5px; letter-spacing: 0; color: var(--muted); font-weight: 500; padding-left: 10px; border-left: 1px solid var(--line-2); }
+.head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
+.head-nav a:hover { background: var(--paper-2); color: var(--ink); }
+.head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
+@media (max-width: 640px) { .brand-sub { display: none; } }
+@media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
+
+/* ---------- Type ---------- */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+h1 { font-size: clamp(32px, 4.6vw, 54px); }
+h1 em, h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 19px; letter-spacing: -0.01em; }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; margin: 16px 0 0; }
+.mono { font-family: var(--mono); }
+.muted { color: var(--muted); }
+small, .small { font-size: 13.5px; }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 22px 0 0; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-2); }
+.crumbs a { text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.tool-hero { padding: 28px 0 24px; display: grid; gap: 8px; }
+.tool-hero .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.tool-hero .facts li { display: inline-flex; align-items: center; gap: 8px; }
+.tool-hero .facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Tool shell ---------- */
+.tool { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.tool-panel { padding: 22px; border-right: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.tool-stage { position: relative; min-height: 460px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper); display: grid; place-items: center; padding: 22px; }
+.tool-stage canvas, .tool-stage svg, .tool-stage img { max-height: 70vh; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px -12px rgba(0,0,0,.18); background: #fff; }
+.stage-bar { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.tool-foot { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 14px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--paper); }
+.tool-foot .spacer { flex: 1; }
+@media (max-width: 860px) {
+  .tool { grid-template-columns: 1fr; }
+  .tool-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tool-stage { min-height: 320px; }
+}
+
+/* ---------- Form controls ---------- */
+.group { display: grid; gap: 10px; }
+.group-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > label { font-size: 13px; color: var(--ink-2); }
+.input, .select { width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 8px; padding: 9px 11px; transition: border-color .15s, box-shadow .15s; }
+.input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input-unit { position: relative; }
+.input-unit .input { padding-right: 38px; font-family: var(--mono); font-size: 14.5px; }
+.input-unit i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 3px; flex: none; }
+.seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line-2); border-radius: 9px; padding: 3px; gap: 3px; background: var(--paper); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.warn { font-size: 13.5px; color: var(--warn); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.btn { --b: var(--line-2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 500; line-height: 1; padding: 11px 16px; border-radius: 9px; border: 1px solid var(--b); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; transition: transform .15s var(--ease), background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklab, var(--accent) 86%, #000); color: var(--accent-ink); border-color: transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-ink:hover { color: var(--paper); background: var(--ink-2); }
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.pro-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: var(--ink); color: var(--paper); }
+
+/* ---------- Drop zone ---------- */
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 18px 14px; background: var(--paper); cursor: pointer; transition: border-color .15s, background .15s; font-size: 14.5px; }
+.drop:hover, .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Content ---------- */
+.section { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prose { max-width: 70ch; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose h2 { margin: 1.6em 0 .5em; }
+.prose h3 { margin: 1.4em 0 .4em; }
+.prose code, .prose kbd { font-family: var(--mono); font-size: .9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+.two-col > * { min-width: 0; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: 3px; }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 13px; background: var(--paper); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 15px; }
+.source { font-size: 13px; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--line-2); margin-top: 18px; }
+.faq details { border-bottom: 1px solid var(--line-2); }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 13px; font-family: var(--mono); font-size: 18px; color: var(--muted); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 18px; color: var(--ink-2); max-width: 70ch; }
+
+/* ---------- Pro ---------- */
+.pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--card); }
+.pro-left { padding: clamp(22px, 3vw, 36px); }
+.pro-right { padding: clamp(22px, 3vw, 36px); background: var(--ink); color: var(--paper); display: grid; align-content: center; gap: 14px; }
+.pro-right .price { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pro-right .price small { font-size: 15px; font-weight: 400; color: color-mix(in oklab, var(--paper) 70%, transparent); letter-spacing: 0; }
+.pro-right .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.pro-right .btn-primary:hover { background: #fff; color: var(--ink); }
+.pro-right .fine { font-size: 13px; color: color-mix(in oklab, var(--paper) 65%, transparent); margin: 0; }
+.pro-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.pro-list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.pro-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border: 1.5px solid var(--accent); border-radius: 2px; transform: rotate(45deg); }
+@media (max-width: 760px) { .pro { grid-template-columns: 1fr; } }
+
+/* ---------- A real file, shown ---------- */
+.shot { margin: 22px 0 0; }
+.shot img { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; }
+.shot figcaption { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+.shot figcaption strong { font-weight: 600; color: var(--ink-2); }
+.shot-sm { max-width: 920px; }
+
+/* ---------- Where free stops and Pro starts ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; margin: 26px 0 0; background: var(--card); }
+.split > div { padding: 18px 20px 20px; }
+.split > div + div { border-left: 1px solid var(--line-2); background: var(--accent-soft); }
+.split h3 { font-size: 15.5px; margin: 0; }
+.split > div > p { margin: 5px 0 0; font-size: 13.5px; color: var(--muted); }
+.split ul { list-style: none; margin: 13px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
+.split li { position: relative; padding-left: 18px; }
+.split li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; border-radius: 1px; background: var(--line-2); }
+.split > div + div li::before { background: var(--accent); }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } .split > div + div { border-left: 0; border-top: 1px solid var(--line-2); } }
+
+/* ---------- A file list, as the archive really holds it ---------- */
+.filelist { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 5px; }
+.filelist li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filelist li span { color: var(--muted); }
+
+/* ---------- License dialog ---------- */
+.license-dialog { border: 1px solid var(--line-2); border-radius: 14px; padding: 0; width: min(440px, calc(100% - 32px)); background: var(--card); color: var(--ink); }
+.license-dialog::backdrop { background: rgba(10, 11, 13, .45); }
+.license-dialog form { padding: 22px; display: grid; gap: 14px; }
+.license-status { font-size: 14px; min-height: 1.4em; margin: 0; }
+.license-status[data-state="ok"] { color: var(--ok); }
+.license-status[data-state="err"] { color: var(--warn); }
+
+/* ---------- Related / cards ---------- */
+.related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line-2); margin-top: 22px; }
+.related a { display: grid; gap: 4px; padding: 18px 18px 18px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.related a strong { font-weight: 600; }
+.related a span { font-size: 14px; color: var(--muted); }
+.related a:hover strong { color: var(--accent); }
+
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
+/* ---------- Footer ---------- */
+.site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
+.site-foot h2 { font-size: 15px; font-family: var(--sans); letter-spacing: 0; font-weight: 600; color: var(--ink); margin: 0 0 10px; }
+.site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+@media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- "New from Peak Apps": the cross-promotion card the build puts above the footer (src/crosspromo.json) ---------- */
+.peak-new { margin-top: clamp(56px, 8vw, 104px); }
+.peak-new + .site-foot { margin-top: 28px; }
+.peak-new-card { display: grid; gap: 4px; max-width: 640px; padding: 16px 20px 18px; border: 1px solid var(--line-2); border-left: 4px solid var(--tool, var(--accent)); border-radius: var(--radius); background: var(--card); color: var(--ink); text-decoration: none; transition: border-color .2s var(--ease); }
+.peak-new-card:hover { border-color: var(--tool, var(--accent)); }
+.peak-new-card:focus-visible { outline: 2px solid var(--tool, var(--accent)); outline-offset: 3px; }
+.peak-new-kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.peak-new-card strong { font-size: 17px; font-weight: 600; line-height: 1.3; }
+.peak-new-line { font-size: 14px; line-height: 1.5; color: var(--ink-2); max-width: 62ch; }
+
+/* ---------- Home project tools: the shared block on Without Planning and Dropped Kerb Check ---------- */
+.home-block { margin: clamp(36px, 5vw, 60px) 0 0; border-top: 1px solid var(--line-2); padding-top: 16px; }
+.home-title { margin: 0 0 10px; font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink); }
+.home-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px 24px; }
+.home-list a { display: grid; gap: 3px; padding: 2px 0 2px 14px; border-left: 4px solid var(--tool, var(--accent)); text-decoration: none; color: var(--ink); }
+.home-list a strong { font-weight: 700; font-size: 16px; }
+.home-list a span { color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+.home-list a:hover strong { color: var(--tool, var(--accent)); }
+.home-list a[aria-current="page"] span { color: var(--ink-2); }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .3s var(--ease); z-index: 90; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media print { .site-head, .site-foot, .tool-panel, .tool-foot, .no-print { display: none !important; } body { background: #fff; } }
+
+/* The hidden attribute must win over component display rules. */
+[hidden] { display: none !important; }
+</style>
+<style data-from="/samsung-health-viewer/tool.css">
+/* Wristory: Samsung Health data on a computer. Deep spruce for the hero band, the Pro panel and buttons, a cool mint
+   paper for the page, persimmon for Pro and focus, and the data's own colours (amber steps, the four sleep stages,
+   raspberry heart, blue weight) as the only bright colour inside the tool. Smooch Sans, condensed, for headings and
+   the big numbers, like the figures on a watch face; Gantari for everything else. Signature: the day sheet, one column
+   per day, steps rising above a middle line and the night's sleep hanging below it. */
+@font-face { font-family: "Wristory Display"; src: url("/samsung-health-viewer/fonts/wristory-display.woff2") format("woff2"); font-weight: 600 900; font-display: swap; }
+@font-face { font-family: "Wristory Text"; src: url("/samsung-health-viewer/fonts/wristory-text.woff2") format("woff2"); font-weight: 400 700; font-display: swap; }
+@font-face { font-family: "Wristory KO"; src: url("/samsung-health-viewer/fonts/wristory-ko.woff2") format("woff2"); font-weight: 400 900; font-display: swap; unicode-range: U+1100-11FF, U+3130-318F, U+AC00-D7AF; }
+/* fallbacks sized to the web fonts, so the page does not jump when they arrive */
+@font-face { font-family: "Wristory Text Fallback"; src: local("Arial"), local("ArialMT"); size-adjust: 103%; ascent-override: 92%; descent-override: 24%; line-gap-override: 0%; }
+@font-face { font-family: "Wristory Display Fallback"; src: local("Arial Narrow Bold"), local("ArialNarrow-Bold"), local("Arial Narrow"); font-weight: 800; size-adjust: 86%; ascent-override: 105%; descent-override: 35%; line-gap-override: 0%; }
+
+body.ws {
+  --paper: #edf2f0; --paper-2: #e1e9e6; --card: #ffffff;
+  --ink: #13211f; --ink-2: #2b3b38; --muted: #50615d;
+  --line: #d3ddd9; --line-2: #b6c5c0;
+  --spruce: #123f37; --spruce-2: #1c5649; --spruce-ink: #f1f6f3; --spruce-muted: #b5cdc5;
+  --accent: #123f37; --accent-ink: #ffffff; --link: #155c4f;
+  --persimmon: #ff7a45; --persimmon-ink: #1d0f07;
+  --steps: #f2a516; --steps-hi: #d98a00; --deep: #2c3e9e; --light: #8fa8f0; --rem: #c25cc7; --awake: #ff9a6b; --asleep: #7d8db8;
+  --heart: #d6335a; --kg: #2477b3; --stress: #8a5bd6; --spo2: #0f9fb3; --wo: #ff7a45; --bp: #b0245f;
+  --ko-head: "Wristory KO", "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR";
+  --head: "Wristory Display", "Wristory Display Fallback", var(--ko-head), "Arial Narrow", sans-serif;
+  --sans: "Wristory Text", "Wristory Text Fallback", "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: var(--sans); font-size: 17px; line-height: 1.55;
+  background: var(--paper); color: var(--ink);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.ws {
+    --paper: #0f1716; --paper-2: #16201f; --card: #18231f; --ink: #e9f1ee; --ink-2: #cfdcd7; --muted: #9bb0aa;
+    --line: #26332f; --line-2: #3a4a45; --link: #8fd3c0; --accent: #2b7a69; --spruce: #0b2a24; --spruce-2: #12392f;
+    --deep: #5b70d6; --kg: #5aa7dd; --heart: #ef5b7d;
+  }
+}
+:root[data-theme="dark"] body.ws {
+  --paper: #0f1716; --paper-2: #16201f; --card: #18231f; --ink: #e9f1ee; --ink-2: #cfdcd7; --muted: #9bb0aa;
+  --line: #26332f; --line-2: #3a4a45; --link: #8fd3c0; --accent: #2b7a69; --spruce: #0b2a24; --spruce-2: #12392f;
+  --deep: #5b70d6; --kg: #5aa7dd; --heart: #ef5b7d;
+}
+.ws a { color: var(--link); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.ws a:hover { color: var(--ink); }
+.ws h1, .ws h2, .ws h3, .ws h4 { font-family: var(--head); color: var(--ink); }
+.ws h1 { font-size: clamp(46px, 6.6vw, 92px); font-weight: 800; line-height: 0.94; letter-spacing: -0.01em; max-width: 13ch; margin: 18px 0 0; }
+.ws h2 { font-size: clamp(36px, 4.2vw, 56px); font-weight: 800; letter-spacing: -0.005em; line-height: 1; margin: 0; }
+.ws h3 { font-size: 30px; font-weight: 800; line-height: 1.05; margin: 0; }
+.ws h4 { font-size: 24px; font-weight: 800; margin: 18px 0 4px; }
+.ws :lang(ko) h1, .ws:lang(ko) h1 { font-size: clamp(36px, 5vw, 64px); line-height: 1.12; letter-spacing: 0; max-width: 16ch; }
+.ws:lang(ko) h2 { font-size: clamp(28px, 3.4vw, 42px); line-height: 1.15; }
+.ws:lang(ko) h3 { font-size: 24px; line-height: 1.2; }
+.ws:lang(ko) h4 { font-size: 20px; }
+.ws:lang(ko) { word-break: keep-all; overflow-wrap: anywhere; }
+.ws .lede { font-size: clamp(17.5px, 1.5vw, 19.5px); line-height: 1.58; max-width: 60ch; margin-top: 20px; }
+.ws .btn { font-family: var(--sans); font-size: 16px; font-weight: 700; border-radius: 10px; padding: 12px 18px; line-height: 1.2; white-space: normal; text-align: center; max-width: 100%; }
+.ws .btn-primary { background: var(--spruce); border-color: var(--spruce); color: #fff; }
+.ws .btn-primary:hover { background: var(--spruce-2); border-color: var(--spruce-2); color: #fff; }
+.ws .ws-quiet { background: transparent; border-color: var(--line-2); color: var(--ink); }
+.ws .ws-quiet:hover { border-color: var(--ink); }
+.ws .btn:focus-visible, .ws button:focus-visible, .ws a:focus-visible, .ws input:focus-visible, .ws select:focus-visible, .ws summary:focus-visible, .ws [tabindex]:focus-visible { outline: 3px solid var(--persimmon); outline-offset: 2px; }
+.ws .input, .ws .select { font-family: var(--sans); font-size: 16px; background: var(--card); border-color: var(--line-2); border-radius: 10px; }
+.ws .site-head { background: var(--spruce); border-bottom-color: var(--spruce); }
+.ws .site-head .brand { color: var(--spruce-ink); font-family: var(--head); font-weight: 800; font-size: 28px; letter-spacing: 0.005em; }
+.ws .brand svg { width: 30px; height: 30px; }
+.ws .site-head .head-nav a { color: var(--spruce-muted); font-size: 15px; }
+.ws .site-head .head-nav a:hover { background: var(--spruce-2); color: #fff; }
+.ws .site-head .head-nav span[aria-current="page"] { font-size: 15px; padding: 7px 10px; border-radius: 8px; background: var(--spruce-2); color: #fff; white-space: nowrap; }
+.ws .site-foot h2 { font-family: var(--sans); font-size: 15px; font-weight: 700; letter-spacing: 0; line-height: 1.3; margin: 0 0 10px; }
+.ws th { background: none; }
+@media (max-width: 860px) { .ws .head-nav .ws-wide { display: none; } }
+@media (max-width: 430px) { .ws .head-nav a { padding: 7px 6px; font-size: 14px; } .ws .site-head .brand { font-size: 24px; } }
+.ws-tag { display: inline-block; margin-left: 8px; padding: 2px 8px 3px; border-radius: 6px; background: var(--persimmon); color: var(--persimmon-ink); font-family: var(--sans); font-size: 12.5px; font-weight: 700; line-height: 1.2; vertical-align: 4px; letter-spacing: 0; }
+.ws-is-pro .ws-tag { display: none; }
+.ws-lock { width: 14px; height: 14px; vertical-align: -2px; margin-left: 6px; color: var(--muted); }
+
+/* ---------- hero (spruce band) ---------- */
+.ws-hero { display: flow-root; background: var(--spruce); color: var(--spruce-ink); padding-bottom: clamp(34px, 5vw, 64px); }
+.ws-hero h1 { color: #fff; }
+.ws-hero .lede { color: var(--spruce-ink); }
+.ws-hero .crumbs, .ws-hero .crumbs a { color: var(--spruce-muted); }
+.ws-hero .crumbs li + li::before { color: var(--spruce-muted); }
+.ws-hero a { color: #ffc5ab; }
+.ws-hero a:hover { color: #fff; }
+.ws-hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); gap: clamp(28px, 4.5vw, 76px); align-items: start; }
+.ws-hero-copy, .ws-hero-tool { min-width: 0; }
+.ws-hero-tool { padding-top: 24px; }
+.ws-reads { list-style: none; margin: 24px 0 0; padding: 0; display: grid; gap: 6px; max-width: 56ch; }
+.ws-reads li { position: relative; padding-left: 26px; color: var(--spruce-ink); font-size: 16px; }
+.ws-reads li::before { content: ""; position: absolute; left: 0; top: 0.32em; width: 6px; height: 14px; border-radius: 2px; background: var(--steps); box-shadow: 8px 4px 0 -1px var(--light); }
+.ws-panel { background: var(--card); color: var(--ink); border-radius: 18px; padding: clamp(20px, 2.4vw, 30px); }
+.ws-panel a { color: var(--link); }
+.ws-drop { border: 2px dashed var(--line-2); border-radius: 14px; padding: clamp(18px, 2.2vw, 26px); transition: border-color .15s, background .15s; }
+.ws-drop.is-over { border-color: var(--spruce); background: var(--paper); }
+.ws-drop-title { font-size: 34px; margin: 0; }
+.ws:lang(ko) .ws-drop-title { font-size: 27px; }
+.ws-drop-text { margin: 10px 0 0; color: var(--ink-2); font-size: 16px; }
+.ws-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.ws-drop-note { margin: 14px 0 0; font-size: 15px; color: var(--muted); }
+.ws-linkbtn { font: inherit; font-weight: 700; color: var(--link); background: none; border: 0; padding: 0; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.ws-nofile { margin: 14px 2px 0; font-size: 15px; color: var(--muted); }
+@media (hover: none) { .ws-drag { display: none; } }
+.ws-busy-title, .ws-done-title, .ws-error-title { font-family: var(--head); font-size: 32px; font-weight: 800; line-height: 1.05; margin: 0; }
+.ws-busy-sub, .ws-done-sub { color: var(--muted); margin: 8px 0 0; overflow-wrap: anywhere; }
+.ws-bar { height: 10px; border-radius: 5px; background: var(--paper-2); margin-top: 18px; overflow: hidden; }
+.ws-bar i { display: block; height: 100%; width: 0; background: var(--steps); transition: width .2s; }
+.ws-error-text { margin-top: 10px; color: var(--ink-2); font-size: 16px; overflow-wrap: anywhere; }
+.ws-error-text ul { padding-left: 20px; margin: 0; }
+.ws-private { display: flex; gap: 10px; align-items: flex-start; margin: 14px 4px 0; font-size: 14.5px; color: var(--spruce-muted); }
+.ws-private svg { width: 16px; height: 16px; flex: none; margin-top: 3px; color: var(--steps); }
+.ws-band { margin: 0; padding: clamp(18px, 3vw, 36px) 0 0; }
+.ws-band img { width: 100%; height: auto; display: block; border-radius: 16px; }
+.ws-band figcaption { font-size: 14.5px; color: var(--muted); margin-top: 8px; max-width: 72ch; }
+@media (max-width: 900px) {
+  .ws-hero-grid { grid-template-columns: 1fr; gap: 0; }
+  .ws-hero-tool { padding-top: 26px; }
+  .ws-reads { display: none; }
+}
+
+/* ---------- the view ---------- */
+.ws-view { padding: clamp(40px, 5vw, 70px) 0 20px; }
+.ws-view:focus { outline: none; }
+.ws-view-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 18px; }
+.ws-coverage { margin: 8px 0 0; color: var(--muted); }
+.ws-periods { display: flex; flex-wrap: wrap; gap: 6px; }
+.ws-period { font: inherit; font-size: 15px; font-weight: 700; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line-2); background: var(--card); color: var(--ink); cursor: pointer; }
+.ws-period[aria-pressed="true"] { background: var(--spruce); border-color: var(--spruce); color: #fff; }
+.ws-period.is-locked { color: var(--muted); }
+.ws-free-note { margin: 14px 0 0; font-size: 15px; color: var(--ink-2); background: var(--card); border-left: 4px solid var(--persimmon); padding: 10px 14px; border-radius: 0 10px 10px 0; max-width: 80ch; }
+
+.ws-sheet { margin: 26px 0 0; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 18px 18px 14px; }
+.ws-sheet figcaption { font-size: 15px; color: var(--muted); margin: 0 0 6px; }
+.ws-sheet-grid { display: grid; grid-template-columns: 150px minmax(0, 1fr) 270px; gap: 0 14px; align-items: start; }
+.ws-sheet-labels { font-size: 14px; font-weight: 700; color: var(--ink-2); }
+.ws-label { display: flex; flex-direction: column; justify-content: center; line-height: 1.2; overflow: hidden; }
+.ws-label-steps, .ws-label-sleep { justify-content: flex-start; padding-top: 4px; }
+.ws-legend { font-weight: 400; font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+.ws-sw { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; vertical-align: 0; }
+.ws-sw-deep { background: var(--deep); } .ws-sw-light { background: var(--light); } .ws-sw-rem { background: var(--rem); } .ws-sw-awake { background: var(--awake); } .ws-sw-asleep { background: var(--asleep); }
+.ws-sheet-scroll { overflow-x: auto; overflow-y: hidden; scrollbar-width: thin; }
+.ws-sheet-svg { display: inline-block; cursor: crosshair; border-radius: 4px; }
+.ws-svg { display: block; }
+.ws-sv-month { font: 600 11px var(--sans); fill: var(--muted); }
+.ws-sv-tick { stroke: var(--line); stroke-width: 1; }
+.ws-sv-base { stroke: var(--line-2); stroke-width: 1; }
+.ws-sv-sel { fill: var(--persimmon); fill-opacity: 0.16; stroke: var(--persimmon); stroke-width: 1; }
+.ws-sv-steps { fill: var(--steps); } .ws-sv-steps.is-hi { fill: var(--steps-hi); }
+.ws-sv-deep { fill: var(--deep); } .ws-sv-light { fill: var(--light); } .ws-sv-rem { fill: var(--rem); } .ws-sv-awake { fill: var(--awake); } .ws-sv-asleep { fill: var(--asleep); }
+.ws-sv-line { fill: none; stroke-width: 1.6; stroke-linejoin: round; }
+.ws-sv-line.ws-sv-heart { stroke: var(--heart); } .ws-sv-dot.ws-sv-heart { fill: var(--heart); }
+.ws-sv-line.ws-sv-kg { stroke: var(--kg); } .ws-sv-dot.ws-sv-kg { fill: var(--kg); }
+.ws-sv-stress { fill: var(--stress); } .ws-sv-spo2 { fill: var(--spo2); } .ws-sv-wo { fill: var(--wo); } .ws-sv-bp { fill: var(--bp); }
+.ws-daycard { background: var(--paper); border-radius: 12px; padding: 14px 16px; font-size: 15px; min-height: 120px; }
+.ws-dc-date { font-weight: 700; margin: 0 0 8px; }
+.ws-daycard dl { margin: 0; display: grid; gap: 7px; }
+.ws-daycard dl div { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 8px; }
+.ws-daycard dt { color: var(--muted); }
+.ws-daycard dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; }
+.ws-dc-sub { display: block; font-weight: 400; color: var(--muted); }
+.ws-dc-stages { display: block; font-weight: 400; font-size: 13.5px; margin-top: 4px; }
+.ws-dc-stages span { display: block; }
+.ws-sheet-help { font-size: 14px; color: var(--muted); margin: 10px 0 0; }
+@media (max-width: 1080px) { .ws-sheet-grid { grid-template-columns: 120px minmax(0, 1fr); } .ws-daycard { grid-column: 1 / -1; margin-top: 14px; } }
+@media (max-width: 560px) {
+  .ws-sheet { padding: 14px 10px 12px; border-radius: 14px; }
+  .ws-sheet-grid { grid-template-columns: 78px minmax(0, 1fr); gap: 0 8px; }
+  .ws-sheet-labels { font-size: 12px; }
+  .ws-legend { display: none; }
+}
+
+.ws-panels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 22px; }
+.ws-card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px 22px; min-width: 0; }
+.ws-card-wide { grid-column: span 2; }
+.ws-card p { margin: 8px 0 0; }
+.ws-big { font-size: 19px; font-weight: 700; line-height: 1.4; }
+.ws-dot { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 10px; vertical-align: 2px; }
+.ws-dot-steps { background: var(--steps); } .ws-dot-sleep { background: var(--deep); } .ws-dot-heart { background: var(--heart); } .ws-dot-weight { background: var(--kg); } .ws-dot-workouts { background: var(--wo); } .ws-dot-stress { background: var(--stress); } .ws-dot-spo2 { background: var(--spo2); } .ws-dot-bp { background: var(--bp); }
+.ws-fig { margin: 14px 0 0; }
+.ws-fig figcaption { font-size: 13.5px; color: var(--muted); margin-top: 4px; }
+.ws-chart { width: 100%; min-height: 140px; }
+.ws-week { display: block; max-width: 100%; }
+.ws-c-steps { fill: var(--steps); } .ws-c-sleep { fill: var(--deep); }
+.ws-c-heart { fill: var(--heart); stroke: var(--heart); } .ws-c-kg { fill: var(--kg); stroke: var(--kg); }
+.ws-week-line { fill: none; stroke-width: 2.4; }
+.ws-week-axis { stroke: var(--line-2); }
+.ws-week-date, .ws-week-max { font: 600 13px var(--sans); fill: var(--muted); }
+.ws-week-max { fill: var(--ink); }
+.ws-nightbar { position: relative; height: 18px; border-radius: 5px; overflow: hidden; margin: 8px 0 10px; background: var(--paper-2); }
+.ws-nightbar span { position: absolute; top: 0; bottom: 0; }
+.ws-nb-deep { background: var(--deep); } .ws-nb-light { background: var(--light); } .ws-nb-rem { background: var(--rem); } .ws-nb-awake { background: var(--awake); }
+.ws-mini { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; }
+.ws-mini th, .ws-mini td { padding: 6px 4px; border: 0; text-align: right; }
+.ws-mini tr { border-bottom: 1px solid var(--line); }
+.ws-mini th[scope="row"], .ws-mini thead th:first-child { text-align: left; font-weight: 600; }
+.ws-mini thead th { font-size: 13px; color: var(--muted); font-weight: 700; }
+.ws-card-small { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px 28px; }
+.ws-card-small h4 { margin-top: 0; }
+.ws-small-item p { margin-top: 6px; }
+@media (max-width: 760px) { .ws-card-small { grid-template-columns: 1fr; } .ws-card-small h4 { margin-top: 10px; } }
+.ws-note { font-size: 14.5px; color: var(--muted); }
+.ws-missing { grid-column: 1 / -1; font-size: 14.5px; color: var(--muted); margin: 0; }
+.ws-table-wrap { overflow-x: auto; max-width: 100%; }
+@media (max-width: 1000px) { .ws-panels { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .ws-panels { grid-template-columns: 1fr; } .ws-card-wide { grid-column: auto; } .ws-card { padding: 18px 16px; } }
+
+/* ---------- Pro tools ---------- */
+.ws-pro-tools { margin-top: 44px; padding: clamp(22px, 3vw, 34px); background: var(--paper-2); border-radius: 20px; }
+.ws-pro-tools-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 18px; }
+.ws-tool { background: var(--card); border-radius: 14px; padding: 20px; min-width: 0; }
+.ws-tool-wide { grid-column: 1 / -1; }
+.ws-tool h3 { font-size: 27px; }
+.ws-tool p { margin: 8px 0 0; font-size: 15.5px; }
+.ws-fields { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 14px; }
+.ws-field { display: grid; gap: 4px; font-size: 14px; font-weight: 700; color: var(--ink-2); min-width: 150px; }
+.ws-status { min-height: 1.4em; font-size: 14.5px; color: var(--muted); margin: 10px 0 0; overflow-wrap: anywhere; }
+.ws-cmp { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 15.5px; font-variant-numeric: tabular-nums; }
+.ws-cmp th, .ws-cmp td { padding: 8px 10px; border: 0; text-align: right; white-space: nowrap; }
+.ws-cmp tr { border-bottom: 1px solid var(--line); }
+.ws-cmp th[scope="row"], .ws-cmp thead th:first-child { text-align: left; font-weight: 600; white-space: normal; }
+.ws-cmp thead th { font-size: 13.5px; color: var(--muted); }
+.ws-cmp.is-locked td { color: var(--muted); }
+.ws-cmp td:first-child { text-align: left; }
+.ws-log { max-height: none; }
+#log-panel { max-height: 460px; overflow: auto; }
+.ws-tabs { display: flex; gap: 6px; margin-top: 14px; }
+.ws-tabs [role="tab"] { font: inherit; font-size: 15px; font-weight: 700; padding: 7px 14px; border-radius: 8px; border: 1px solid var(--line-2); background: var(--card); color: var(--ink); cursor: pointer; }
+.ws-tabs [aria-selected="true"] { background: var(--ink); color: var(--card); border-color: var(--ink); }
+.ws-read { margin-top: 26px; font-size: 15px; }
+.ws-read summary { cursor: pointer; font-weight: 700; }
+.ws-read ul { padding-left: 20px; }
+@media (max-width: 1000px) { .ws-pro-tools-grid { grid-template-columns: 1fr; } }
+
+/* ---------- Pro pitch ---------- */
+.ws-pro { background: var(--spruce); color: var(--spruce-ink); padding: clamp(46px, 6vw, 84px) 0; margin-top: clamp(40px, 5vw, 70px); }
+.ws-pro h2 { color: #fff; }
+.ws-pro-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 28px 56px; align-items: start; }
+.ws-pro-list { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 12px; }
+.ws-pro-list li { padding-left: 30px; position: relative; }
+.ws-pro-list li::before { content: ""; position: absolute; left: 0; top: 0.2em; width: 5px; height: 18px; border-radius: 2px; background: var(--steps); box-shadow: 8px 6px 0 -1px var(--light); }
+.ws-pro-card { background: var(--spruce-2); border-radius: 18px; padding: 24px; }
+.ws-price { font-family: var(--head); font-size: 72px; font-weight: 800; line-height: 1; margin: 0; color: #fff; }
+.ws-price span { font-family: var(--sans); font-size: 18px; font-weight: 400; color: var(--spruce-muted); }
+.ws-pro-card p { margin: 10px 0 0; }
+.ws-pro-card .btn { margin-top: 16px; width: 100%; }
+.ws .ws-btn-pro { background: var(--persimmon); border-color: var(--persimmon); color: var(--persimmon-ink); }
+.ws .ws-btn-pro:hover { background: #ff9566; border-color: #ff9566; color: var(--persimmon-ink); }
+.ws .ws-quiet-dark { color: #fff; border-color: #4f7d71; }
+.ws .ws-quiet-dark:hover { border-color: #fff; }
+.ws-pro-state { min-height: 1.2em; color: #ffd0b8; font-weight: 700; }
+.ws-small { font-size: 14px; color: var(--spruce-muted); }
+.ws-shots { grid-column: 1 / -1; margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start; }
+.ws-shots img { width: min(300px, 44vw); height: auto; border-radius: 6px; display: block; }
+.ws-shots figcaption { flex-basis: 100%; font-size: 14px; color: var(--spruce-muted); }
+@media (max-width: 860px) { .ws-pro-grid { grid-template-columns: 1fr; } }
+
+/* ---------- how, FAQ ---------- */
+.ws-how { padding: clamp(46px, 6vw, 80px) 0 10px; }
+.ws-how-intro { max-width: 70ch; color: var(--ink-2); }
+.ws-how-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 48px; margin-top: 20px; }
+.ws-how-grid h3 { font-size: 30px; }
+.ws-how-grid ol { padding-left: 22px; margin: 12px 0 0; display: grid; gap: 10px; }
+.ws-source { font-size: 14.5px; color: var(--muted); margin-top: 24px; max-width: 80ch; }
+.ws-faq { padding: clamp(36px, 5vw, 64px) 0 clamp(46px, 6vw, 80px); }
+.ws-faq-list { margin-top: 18px; display: grid; gap: 0; border-top: 1px solid var(--line); max-width: 880px; }
+.ws-faq details { border-bottom: 1px solid var(--line); padding: 14px 2px; }
+.ws-faq summary { cursor: pointer; font-weight: 700; font-size: 18px; }
+.ws-faq details p { margin: 10px 0 0; color: var(--ink-2); max-width: 72ch; }
+.ws-disclaimer { font-size: 14.5px; color: var(--muted); max-width: 80ch; margin-top: 28px; }
+@media (max-width: 760px) { .ws-how-grid { grid-template-columns: 1fr; } }
+
+/* ---------- guide pages ---------- */
+.ws-article { padding: 10px 0 70px; }
+.ws-article .lede { color: var(--ink-2); }
+.ws-article h2 { margin-top: 44px; font-size: clamp(30px, 3.4vw, 44px); }
+.ws-article p, .ws-article li { max-width: 72ch; }
+.ws-article ol, .ws-article ul { padding-left: 22px; display: grid; gap: 8px; }
+.ws-article table { border-collapse: collapse; width: 100%; max-width: 880px; font-size: 15.5px; margin-top: 14px; }
+.ws-article th, .ws-article td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.ws-article thead th { font-size: 14px; color: var(--muted); }
+.ws-article code { font-size: 0.9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+.ws-article .ws-cta { margin-top: 26px; }
+.ws-plain-hero { display: flow-root; background: var(--spruce); color: var(--spruce-ink); padding-bottom: 44px; margin-bottom: 26px; }
+.ws-plain-hero h1 { color: #fff; max-width: 20ch; }
+.ws-plain-hero .crumbs, .ws-plain-hero .crumbs a { color: var(--spruce-muted); }
+.ws-plain-hero .lede { color: var(--spruce-ink); }
+@media (prefers-reduced-motion: reduce) { .ws-bar i { transition: none; } }
+</style>
+<script src="/assets/site.js" defer></script>
+<script src="/assets/license.js" defer></script>
+<script type="module" src="/samsung-health-viewer/js/app.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/de/samsung-health-am-pc/#app","name":"Wristory","alternateName":"Wristory, Samsung Health am PC","url":"https://peakappsstudio.com/de/samsung-health-am-pc/","description":"Samsung Health gibt es nicht für den PC. Öffne den Datendownload der App im Browser: Schritte, Schlafphasen, Puls, Gewicht, Training. Nichts wird hochgeladen.","applicationCategory":"HealthApplication","operatingSystem":"Any (web browser)","inLanguage":"de","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Wristory Pro","price":"7","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/wristory-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Wristory, Samsung Health am PC","item":"https://peakappsstudio.com/de/samsung-health-am-pc/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Gibt es Samsung Health für den PC?","acceptedAnswer":{"@type":"Answer","text":"Nein. Samsung Health ist eine App für Galaxy-Handys und -Uhren, eine Version für Windows, Mac oder das Web hat Samsung nicht veröffentlicht. Ein Android-Emulator kann die Handy-App am PC starten, dann meldest du dich aber im Emulator mit deinem Gesundheitskonto an. Wristory liest stattdessen die Daten, die dir die App zum Herunterladen gibt."}},{"@type":"Question","name":"Werden meine Gesundheitsdaten hochgeladen?","acceptedAnswer":{"@type":"Answer","text":"Nein. Die Seite liest die Dateien mit deinem Browser auf deinem Rechner. Du kannst die Seite laden, das Netz abschalten und deine Dateien öffnen: Es funktioniert weiter. Die einzige Anfrage, die Wristory stellt, ist die Pro-Lizenzprüfung, die nur den Schlüssel an Gumroad sendet."}},{"@type":"Question","name":"Was ist kostenlos, und was bringt Pro?","acceptedAnswer":{"@type":"Answer","text":"Kostenlos: die letzten 90 Tage deines Exports, mit dem Tagesblatt und allen Werten, die der Export enthält. Pro, einmalig 7 $, öffnet alle Jahre und bringt Jahr gegen Jahr, die Excel- und CSV-Dateien, den PDF-Bericht, das Jahresposter und die vollständigen Blutdruck- und Gewichtstabellen."}},{"@type":"Question","name":"Kann ich Samsung-Health-Daten in Excel öffnen?","acceptedAnswer":{"@type":"Answer","text":"Der Download ist ein Ordner mit CSV-Dateien, eine pro Datenart. Excel öffnet jede davon, aber die Spalten sind roh: Zeiten in UTC mit separatem Versatz, Dauern in Millisekunden, Schlafphasen als Codes wie 40003, und deutsches Excel trennt die Spalten oft falsch. Wristory Pro schreibt eine Excel-Datei mit einer Zeile pro Tag in klaren Einheiten, dazu Blätter für Training, Schlaf, Gewicht und Blutdruck."}},{"@type":"Question","name":"Mein ZIP fragt nach einem Passwort. Was nun?","acceptedAnswer":{"@type":"Answer","text":"Ein Download, den du auf Samsungs Datenschutz-Website anforderst, kommt als ZIP mit Passwort, das Samsung dir per E-Mail schickt. Browser können solche ZIPs nicht öffnen. Entpacke es am PC mit diesem Passwort und wähle hier den entpackten Ordner. Der Download aus der App selbst hat kein Passwort."}},{"@type":"Question","name":"Warum sind manche Tage leer?","acceptedAnswer":{"@type":"Answer","text":"Ein Tag ist leer, wenn weder Handy noch Uhr etwas aufgezeichnet haben, zum Beispiel während die Uhr geladen hat. Wristory füllt keine Lücken und rät nichts."}},{"@type":"Question","name":"Kann ich das meiner Ärztin oder meinem Arzt zeigen?","acceptedAnswer":{"@type":"Answer","text":"Pro erstellt einen PDF-Bericht für den Zeitraum deiner Wahl: Durchschnitte, eine Tabelle Woche für Woche und jede Blutdruck- und Gewichtsmessung. Es sind deine eigenen Aufzeichnungen von Handy und Uhr, keine medizinische Untersuchung, und Wristory deutet sie nicht."}},{"@type":"Question","name":"Liest es auch Downloads von älteren Handys?","acceptedAnswer":{"@type":"Answer","text":"Ja. Downloads älterer App-Versionen (Tageszeilen mit einer Zahl statt eines Datums, Dateien ohne die erste Zeile über die Datei, Handys ohne Uhr) werden ebenfalls gelesen. Kann eine Datei nicht gelesen werden, steht in der Liste dessen, was Wristory gelesen hat, welche und warum."}}]}]}
+</script>
+<script src="/assets/pro-source.js" data-campaign="samsung-health-viewer" defer></script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
+</head>
+<body class="ws" style="--accent:#123f37">
+<a class="skip" href="#main">Zum Inhalt springen</a>
+<header class="site-head ws-head">
+  <div class="wrap">
+    <a class="brand" href="/de/samsung-health-am-pc/" aria-label="Wristory, deine Samsung-Health-Daten am PC">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="6" width="5" height="9" rx="1" fill="#f2a516"/><rect x="10" y="3" width="5" height="12" rx="1" fill="#f2a516"/><rect x="17" y="8" width="5" height="7" rx="1" fill="#f2a516"/><rect x="24" y="5" width="5" height="10" rx="1" fill="#f2a516"/><rect x="3" y="17" width="5" height="10" rx="1" fill="#8fa8f0"/><rect x="10" y="17" width="5" height="8" rx="1" fill="#8fa8f0"/><rect x="17" y="17" width="5" height="12" rx="1" fill="#8fa8f0"/><rect x="24" y="17" width="5" height="9" rx="1" fill="#8fa8f0"/><rect x="3" y="17" width="5" height="4" fill="#5b70d6"/><rect x="10" y="17" width="5" height="3" fill="#5b70d6"/><rect x="17" y="17" width="5" height="5" fill="#5b70d6"/><rect x="24" y="17" width="5" height="3" fill="#5b70d6"/></svg>
+      <span>Wristory</span>
+    </a>
+    <nav class="head-nav" aria-label="Wristory">
+      <span class="ws-wide" aria-current="page">Daten öffnen</span>
+      <a class="ws-wide" href="/samsung-health-viewer/export-samsung-health-data/" hreflang="en" lang="en">Export-Anleitung (Englisch)</a>
+      <a href="/samsung-health-viewer/" hreflang="en" lang="en">English</a>
+      <a href="/pt-br/samsung-health-no-pc/" hreflang="pt-BR" lang="pt-BR">Português</a>
+      <a href="/ko/samsung-health-pc/" hreflang="ko" lang="ko">한국어</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="ws-hero" aria-labelledby="h1">
+<div class="wrap">
+<nav class="crumbs" aria-label="Brotkrumen"><ol><li><a href="/tools/">Tools</a></li><li aria-current="page">Wristory, Samsung Health am PC</li></ol></nav>
+<div class="ws-hero-grid">
+<div class="ws-hero-copy">
+<h1 id="h1">Samsung Health am PC auswerten, direkt im Browser</h1>
+<p class="lede">Samsung Health läuft nur auf Handy und Uhr, eine PC- oder Web-Version gibt es nicht. Die App kann aber alles, was sie aufgezeichnet hat, als Ordner mit Dateien speichern (Einstellungen, Persönliche Daten herunterladen). Öffne diesen Ordner oder ein ZIP davon hier und sieh deine letzten 90 Tage auf dem großen Bildschirm. Die Dateien werden in diesem Tab gelesen und nie hochgeladen.</p>
+<ul class="ws-reads" aria-label="Was Wristory liest">
+<li>Schritte, Strecke und aktive Minuten, Tag für Tag</li>
+<li>Schlaf: Schlafzeit, Tiefschlaf, leichter Schlaf, REM und wach</li>
+<li>Puls, und Ruhe- oder Schlafpuls, wenn die Uhr ihn misst</li>
+<li>Gewicht, Blutdruck, Training, Stress und Blutsauerstoff</li>
+</ul>
+</div>
+<div class="ws-hero-tool">
+<div class="ws-panel" id="panel" data-state="idle">
+<div class="ws-stage" id="stage-idle">
+<div class="ws-drop" id="drop">
+<h2 class="ws-drop-title" id="drop-title" tabindex="-1">Öffne deinen Samsung-Health-Download</h2>
+<p class="ws-drop-text">Der Ordner, den die App unter Eigene Dateien, Downloads, Samsung Health ablegt (sein Name beginnt mit samsunghealth_), oder ein ZIP davon. Einzelne CSV-Dateien daraus gehen auch.</p>
+<div class="ws-actions">
+<button type="button" class="btn btn-primary" id="btn-choose">ZIP oder CSV-Dateien wählen</button>
+<button type="button" class="btn ws-quiet" id="btn-folder">Ordner wählen</button>
+</div>
+<input type="file" id="file-input" class="sr-only" tabindex="-1" aria-hidden="true" multiple accept=".zip,.csv,application/zip,text/csv">
+<input type="file" id="folder-input" class="sr-only" tabindex="-1" aria-hidden="true" webkitdirectory multiple>
+<p class="ws-drop-note"><span class="ws-drag">Oder zieh ihn auf dieses Feld. </span>Keine Dateien zur Hand? <button type="button" class="ws-linkbtn" id="btn-sample">Beispiel ansehen</button></p>
+</div>
+<p class="ws-nofile">Der Download bleibt auf dem Handy. <a href="#how">So kommt er auf den PC</a>, in wenigen Schritten.</p>
+</div>
+<div class="ws-stage" id="stage-busy" hidden>
+<p class="ws-busy-title" id="busy-title" tabindex="-1">Deine Samsung-Health-Dateien werden gelesen</p>
+<p class="ws-busy-sub" id="busy-sub" aria-live="polite"></p>
+<div class="ws-bar" role="progressbar" aria-labelledby="busy-title" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="busy-bar"><i></i></div>
+</div>
+<div class="ws-stage" id="stage-error" hidden>
+<p class="ws-error-title" id="error-title" tabindex="-1" role="alert"></p>
+<div class="ws-error-text" id="error-text"></div>
+<div class="ws-actions"><button type="button" class="btn btn-primary" id="btn-retry">Andere Dateien wählen</button><button type="button" class="btn ws-quiet" id="btn-error-sample">Beispiel ansehen</button></div>
+</div>
+<div class="ws-stage" id="stage-done" hidden>
+<p class="ws-done-title" id="done-title" tabindex="-1"></p>
+<p class="ws-done-sub" id="done-sub"></p>
+<div class="ws-actions"><a class="btn btn-primary" href="#view" id="btn-see">Daten ansehen</a><button type="button" class="btn ws-quiet" id="btn-reset">Anderen Download öffnen</button></div>
+</div>
+</div>
+<p class="ws-private"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 9V6.5a5 5 0 0 1 10 0V9" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="3.2" y="9" width="13.6" height="9" rx="2" fill="currentColor"/></svg><span>Deine Gesundheitsdaten werden in diesem Tab gelesen und nie hochgeladen. Wristory sendet nichts außer einem Pro-Lizenzschlüssel an Gumroad, wenn du einen einfügst. Seitenaufrufe zählen wir mit Cloudflare Web Analytics: ohne Cookies, ohne personenbezogene Daten und nie mit deinen Dateien.</span></p>
+</div>
+</div>
+</div>
+</section>
+<figure class="ws-band">
+<div class="wrap">
+<picture><source type="image/webp" srcset="/samsung-health-viewer/img/sheet-800.webp 800w, /samsung-health-viewer/img/sheet-1280.webp 1280w, /samsung-health-viewer/img/sheet-1920.webp 1920w, /samsung-health-viewer/img/sheet-2480.webp 2480w" sizes="(max-width: 1336px) calc(100vw - 32px), 1240px"><img src="/samsung-health-viewer/img/sheet-1280.webp" width="1240" height="400" alt="Ein 3D-Streifen aus 90 erfundenen Tagen: orange Säulen für die Schritte, darunter blaue Blöcke für die Schlafphasen jeder Nacht" fetchpriority="high"></picture>
+<figcaption>Neunzig Tage des Beispiel-Exports als Tagesblatt von Wristory: oben die Schritte, darunter die Schlafphasen jeder Nacht, eine Spalte pro Tag.</figcaption>
+</div>
+</figure>
+
+<section class="ws-view" id="view" hidden aria-labelledby="view-title" tabindex="-1">
+<div class="wrap">
+<div class="ws-view-head">
+<div><h2 id="view-title">Deine Tage nebeneinander</h2><p class="ws-coverage" id="coverage"></p></div>
+<div class="ws-periods" id="periods" role="group" aria-label="Zeitraum"></div>
+</div>
+<p class="ws-free-note" id="free-note" hidden></p>
+
+<figure class="ws-sheet" id="sheet-fig" aria-labelledby="sheet-cap">
+<figcaption id="sheet-cap">Eine Spalte pro Tag: oben die Schritte, darunter der Schlaf der Nacht, dann Puls, Gewicht und der Rest.</figcaption>
+<div class="ws-sheet-grid">
+<div class="ws-sheet-labels" id="sheet-labels" aria-hidden="true"></div>
+<div class="ws-sheet-scroll" id="sheet-scroll"><div id="sheet" class="ws-sheet-svg" tabindex="0" role="group" aria-describedby="daycard"></div></div>
+<aside class="ws-daycard" id="daycard" aria-live="polite"></aside>
+</div>
+<p class="ws-sheet-help">Wähl einen Tag, um seine Werte zu lesen. Mit der Tastatur: das Blatt fokussieren und die Pfeiltasten nutzen.</p>
+</figure>
+
+<div class="ws-panels" id="panels"></div>
+
+<section class="ws-pro-tools" id="pro-tools" aria-labelledby="pro-tools-h">
+<h2 id="pro-tools-h">Pro: alle Jahre und Dateien zum Behalten</h2>
+<div class="ws-pro-tools-grid">
+<section class="ws-tool ws-tool-wide" aria-labelledby="cmp-h">
+<h3 id="cmp-h">Jahr gegen Jahr<span class="ws-tag">Pro</span></h3>
+<p class="ws-note">Zwei Jahre nebeneinander, Wert für Wert. Ein Unterschied zeigt nur, dass sich etwas geändert hat, nicht warum.</p>
+<div class="ws-fields"><label class="ws-field"><span>Erstes Jahr</span><select class="select" id="cmp-a"></select></label><label class="ws-field"><span>Zweites Jahr</span><select class="select" id="cmp-b"></select></label></div>
+<div id="cmp-table" class="ws-table-wrap"></div>
+</section>
+<section class="ws-tool" aria-labelledby="xl-h">
+<h3 id="xl-h">Excel-Datei und CSV<span class="ws-tag">Pro</span></h3>
+<p>Ein Tabellenblatt pro Datenart: eine Zeile pro Tag mit allen Werten, dazu Trainings, Schlafphasen, Gewicht und Blutdruckmessungen. Klare Einheiten: Schritte, Minuten, Kilogramm, Schläge pro Minute.</p>
+<div class="ws-actions"><button type="button" class="btn btn-primary" id="btn-xlsx">Excel-Datei herunterladen</button><button type="button" class="btn ws-quiet" id="btn-csv">CSV-Dateien herunterladen</button></div>
+<p class="ws-status" id="xl-status" role="status"></p>
+</section>
+<section class="ws-tool" aria-labelledby="pdf-h">
+<h3 id="pdf-h">PDF-Bericht<span class="ws-tag">Pro</span></h3>
+<p>Ein paar Seiten mit nackten Zahlen für den Zeitraum deiner Wahl: Durchschnitte, Woche für Woche, jede Blutdruck- und Gewichtsmessung. Gedacht für Ärztin, Arzt oder Coach. Er gibt keine Ratschläge.</p>
+<div class="ws-fields"><label class="ws-field"><span>Zeitraum</span><select class="select" id="pdf-period"></select></label></div>
+<div class="ws-actions"><button type="button" class="btn btn-primary" id="btn-pdf">PDF erstellen</button></div>
+<p class="ws-status" id="pdf-status" role="status"></p>
+</section>
+<section class="ws-tool" aria-labelledby="poster-h">
+<h3 id="poster-h">Jahresposter<span class="ws-tag">Pro</span></h3>
+<p>Dein Jahr als Druck: Schritte und Schlaf, eine Linie pro Tag, mit den Summen des Jahres. PNG für den Bildschirm, PDF für A3 oder A4.</p>
+<div class="ws-fields"><label class="ws-field"><span>Jahr</span><select class="select" id="poster-year"></select></label></div>
+<div class="ws-actions"><button type="button" class="btn btn-primary" data-poster="png">PNG herunterladen</button><button type="button" class="btn ws-quiet" data-poster="A3">PDF für A3</button><button type="button" class="btn ws-quiet" data-poster="A4">PDF für A4</button></div>
+<p class="ws-status" id="poster-status" role="status"></p>
+</section>
+<section class="ws-tool ws-tool-wide" aria-labelledby="log-h">
+<h3 id="log-h">Blutdruck- und Gewichtstabellen<span class="ws-tag">Pro</span></h3>
+<p class="ws-note">Jede Messung im Zeitraum, die neueste zuerst, mit Datum und Uhrzeit.</p>
+<div class="ws-tabs" role="tablist" aria-label="Blutdruck- und Gewichtstabellen"><button type="button" role="tab" id="log-tab-bp" aria-selected="true" aria-controls="log-panel">Blutdruck</button><button type="button" role="tab" id="log-tab-weight" aria-selected="false" aria-controls="log-panel" tabindex="-1">Gewicht</button></div>
+<div id="log-panel" role="tabpanel" class="ws-table-wrap" tabindex="0"></div>
+</section>
+</div>
+</section>
+
+<details class="ws-read" id="read-details"><summary>Was Wristory aus deinen Dateien gelesen hat</summary><div id="read-list"></div></details>
+</div>
+</section>
+
+<section class="ws-pro" id="pro" aria-labelledby="pro-h">
+<div class="wrap ws-pro-grid">
+<div>
+<h2 id="pro-h">Alle Jahre, und deine Daten in Dateien zum Behalten</h2>
+<ul class="ws-pro-list">
+<li>Alle Jahre deines Exports, nicht nur die letzten 90 Tage.</li>
+<li>Jahr gegen Jahr: zwei Jahre nebeneinander, Wert für Wert.</li>
+<li>Eine Excel-Datei und CSV-Dateien: eine Zeile pro Tag, dazu Trainings, Schlafphasen, Gewicht und Blutdruck.</li>
+<li>Ein PDF-Bericht für jeden Zeitraum, für Ärztin, Arzt oder Coach: nackte Zahlen, keine Ratschläge.</li>
+<li>Ein Jahresposter deiner Schritte und deines Schlafs, als PNG und als PDF für A3 und A4.</li>
+<li>Vollständige Blutdruck- und Gewichtstabellen, jede Messung mit Datum und Uhrzeit.</li>
+</ul>
+</div>
+<div class="ws-pro-card">
+<p class="ws-price">7 $ <span>einmalig</span></p>
+<p>Einmal 7 US-Dollar, kein Abo. Den Schlüssel kannst du in jedem deiner Browser einfügen.</p>
+<a class="btn ws-btn-pro" data-buy-pro href="https://dorukctn.gumroad.com/l/wristory-pro">Pro bei Gumroad kaufen</a>
+<button type="button" class="btn ws-quiet ws-quiet-dark" data-enter-key>Ich habe schon einen Schlüssel</button>
+<p class="ws-pro-state" id="pro-state" role="status"></p>
+<p class="ws-small">Zahlung und Schlüssel kommen von Gumroad. Deine Gesundheitsdaten sind nicht Teil des Kaufs und werden nirgendwohin gesendet.</p>
+</div>
+<figure class="ws-shots">
+<picture><source type="image/webp" srcset="/samsung-health-viewer/img/report-de-480.webp 480w, /samsung-health-viewer/img/report-de-720.webp 720w" sizes="(max-width: 700px) 44vw, 300px"><img src="/samsung-health-viewer/img/report-de-480.webp" width="480" height="679" alt="Erste Seite eines Wristory-PDF-Berichts aus dem Beispiel-Export: Durchschnitte für Schritte, Schlaf, Puls und Gewicht und eine Tabelle Woche für Woche" loading="lazy" decoding="async"></picture>
+<picture><source type="image/webp" srcset="/samsung-health-viewer/img/poster-de-480.webp 480w, /samsung-health-viewer/img/poster-de-720.webp 720w" sizes="(max-width: 700px) 44vw, 300px"><img src="/samsung-health-viewer/img/poster-de-480.webp" width="480" height="679" alt="Ein Wristory-Jahresposter aus dem Beispiel-Export: eine Linie pro Tag, oben Schritte, unten Schlaf" loading="lazy" decoding="async"></picture>
+<figcaption>Von Wristory aus dem Beispiel-Export erstellt.</figcaption>
+</figure>
+</div>
+</section>
+
+<section class="ws-how" id="how" aria-labelledby="how-h">
+<div class="wrap">
+<h2 id="how-h">So kommen deine Samsung-Health-Daten auf den PC</h2>
+<p class="ws-how-intro">Samsung Health speichert den Download auf dem Handy selbst, per E-Mail kommt nichts. Das sind die Schritte aus Samsungs Support-Seite (die Menünamen können je nach App-Version leicht abweichen):</p>
+<div class="ws-how-grid">
+<div><h3>Auf dem Handy</h3><ol>
+<li>Öffne Samsung Health, tippe auf die drei Punkte (Weitere Optionen) und dann auf Einstellungen.</li>
+<li>Such Persönliche Daten herunterladen, tippe auf Herunterladen und erlaube, was abgefragt wird. Melde dich bei Bedarf mit deinem Samsung-Konto an, warte, bis es fertig ist, und tippe auf OK.</li>
+<li>Öffne Eigene Dateien, dann Downloads, dann Samsung Health. Deine Daten sind der Ordner darin, dessen Name mit samsunghealth_ beginnt.</li>
+</ol></div>
+<div><h3>Auf den PC</h3><ol>
+<li>Halte in Eigene Dateien diesen Ordner gedrückt, tippe auf Mehr und dann auf Komprimieren. Daneben entsteht ein ZIP.</li>
+<li>Schick dir das ZIP per E-Mail, Google Drive, OneDrive oder Quick Share. Oder verbinde das Handy per USB-Kabel und kopiere den Ordner.</li>
+<li>Wähl am PC oben auf dieser Seite das ZIP oder den Ordner. Entpacken musst du nichts.</li>
+</ol></div>
+</div>
+<p class="ws-source">Quelle: Samsungs Support-Seite <a href="https://www.samsung.com/us/support/answer/ANS10001379/" hreflang="en">Download or erase your personal data from Samsung Health</a> (Englisch), zuletzt geprüft am 22. Oktober 2026. Mehr Details (auf Englisch) unter <a href="/samsung-health-viewer/export-samsung-health-data/" hreflang="en">Samsung-Health-Daten exportieren</a>.</p>
+</div>
+</section>
+
+<section class="ws-faq" aria-labelledby="faq-h">
+<div class="wrap">
+<h2 id="faq-h">Fragen</h2>
+<div class="ws-faq-list">
+<details><summary>Gibt es Samsung Health für den PC?</summary><p>Nein. Samsung Health ist eine App für Galaxy-Handys und -Uhren, eine Version für Windows, Mac oder das Web hat Samsung nicht veröffentlicht. Ein Android-Emulator kann die Handy-App am PC starten, dann meldest du dich aber im Emulator mit deinem Gesundheitskonto an. Wristory liest stattdessen die Daten, die dir die App zum Herunterladen gibt.</p></details>
+<details><summary>Werden meine Gesundheitsdaten hochgeladen?</summary><p>Nein. Die Seite liest die Dateien mit deinem Browser auf deinem Rechner. Du kannst die Seite laden, das Netz abschalten und deine Dateien öffnen: Es funktioniert weiter. Die einzige Anfrage, die Wristory stellt, ist die Pro-Lizenzprüfung, die nur den Schlüssel an Gumroad sendet.</p></details>
+<details><summary>Was ist kostenlos, und was bringt Pro?</summary><p>Kostenlos: die letzten 90 Tage deines Exports, mit dem Tagesblatt und allen Werten, die der Export enthält. Pro, einmalig 7 $, öffnet alle Jahre und bringt Jahr gegen Jahr, die Excel- und CSV-Dateien, den PDF-Bericht, das Jahresposter und die vollständigen Blutdruck- und Gewichtstabellen.</p></details>
+<details><summary>Kann ich Samsung-Health-Daten in Excel öffnen?</summary><p>Der Download ist ein Ordner mit CSV-Dateien, eine pro Datenart. Excel öffnet jede davon, aber die Spalten sind roh: Zeiten in UTC mit separatem Versatz, Dauern in Millisekunden, Schlafphasen als Codes wie 40003, und deutsches Excel trennt die Spalten oft falsch. Wristory Pro schreibt eine Excel-Datei mit einer Zeile pro Tag in klaren Einheiten, dazu Blätter für Training, Schlaf, Gewicht und Blutdruck.</p></details>
+<details><summary>Mein ZIP fragt nach einem Passwort. Was nun?</summary><p>Ein Download, den du auf Samsungs Datenschutz-Website anforderst, kommt als ZIP mit Passwort, das Samsung dir per E-Mail schickt. Browser können solche ZIPs nicht öffnen. Entpacke es am PC mit diesem Passwort und wähle hier den entpackten Ordner. Der Download aus der App selbst hat kein Passwort.</p></details>
+<details><summary>Warum sind manche Tage leer?</summary><p>Ein Tag ist leer, wenn weder Handy noch Uhr etwas aufgezeichnet haben, zum Beispiel während die Uhr geladen hat. Wristory füllt keine Lücken und rät nichts.</p></details>
+<details><summary>Kann ich das meiner Ärztin oder meinem Arzt zeigen?</summary><p>Pro erstellt einen PDF-Bericht für den Zeitraum deiner Wahl: Durchschnitte, eine Tabelle Woche für Woche und jede Blutdruck- und Gewichtsmessung. Es sind deine eigenen Aufzeichnungen von Handy und Uhr, keine medizinische Untersuchung, und Wristory deutet sie nicht.</p></details>
+<details><summary>Liest es auch Downloads von älteren Handys?</summary><p>Ja. Downloads älterer App-Versionen (Tageszeilen mit einer Zahl statt eines Datums, Dateien ohne die erste Zeile über die Datei, Handys ohne Uhr) werden ebenfalls gelesen. Kann eine Datei nicht gelesen werden, steht in der Liste dessen, was Wristory gelesen hat, welche und warum.</p></details>
+</div>
+<p class="ws-disclaimer">Wristory zeigt deine eigenen Werte so, wie Handy und Uhr sie aufgezeichnet haben. Es ist kein Medizinprodukt, keine Diagnose und gibt keinen medizinischen Rat. Wenn sich zwei Dinge in deinen Daten gemeinsam bewegen, ist das ein Zusammenhang, keine Ursache. Wristory ist ein unabhängiges Tool von Peak Apps Studio und steht in keiner Verbindung zu Samsung Electronics, wird von Samsung weder unterstützt noch gesponsert. Samsung und Samsung Health sind Marken der Samsung Electronics Co., Ltd.</p>
+</div>
+</section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:700">Wristory</p>
+      <p style="margin:0;max-width:46ch">Sieh deine Samsung-Health-Daten am PC, aus den Dateien, die dir die App zum Herunterladen gibt. Die Dateien werden von dieser Seite auf deinem Gerät gelesen und nie hochgeladen.</p>
+      <p style="margin:12px 0 0;max-width:46ch">Wristory ist ein unabhängiges Tool von <a href="https://peakappsstudio.com/">Peak Apps Studio</a> und steht in keiner Verbindung zu Samsung Electronics. Samsung und Samsung Health sind Marken der Samsung Electronics Co., Ltd. Kein Medizinprodukt und keine Diagnose.</p>
+    </div>
+    <div>
+      <h2>Deine Daten</h2>
+      <ul>
+        <li><span aria-current="page">Samsung-Health-Daten öffnen</span></li>
+        <li><a href="/samsung-health-viewer/export-samsung-health-data/" hreflang="en" lang="en">Samsung-Health-Daten exportieren (Englisch)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Andere Sprachen</h2>
+      <ul>
+        <li><a href="/samsung-health-viewer/" hreflang="en" lang="en">Samsung Health on a PC (English)</a></li>
+        <li><a href="/pt-br/samsung-health-no-pc/" hreflang="pt-BR" lang="pt-BR">Samsung Health no PC (português)</a></li>
+        <li><a href="/ko/samsung-health-pc/" hreflang="ko" lang="ko">삼성헬스 PC에서 보기 (한국어)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Über</h2>
+      <ul>
+        <li><a href="/samsung-health-viewer/privacy/" hreflang="en" lang="en">Datenschutz (Englisch)</a></li>
+        <li><a href="/tools/">Weitere Tools von Peak Apps</a></li>
+        <li><a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
