@@ -20,6 +20,7 @@ Each tool page explains what the tool does, how to use it and its limits; the gu
 - [Nightjar](https://peakappsstudio.com/oura-export-viewer/): Every night's sleep stages, HRV, heart rate, temperature, SpO2 and stress from your own Oura export, without a membership.
 - [Dayfold](https://peakappsstudio.com/daylio-viewer/): Open a Daylio backup on a PC, Mac or any browser: calendar, search, mood charts and the Year in Pixels. Nothing is uploaded.
 - [Wristory](https://peakappsstudio.com/samsung-health-viewer/): See your Samsung Health data on a PC, from the app's own Download personal data files: steps, sleep stages, heart rate, weight, workouts, stress and blood oxygen, in the browser. Nothing is uploaded.
+- [Notelift](https://peakappsstudio.com/colornote-viewer/): Open a ColorNote backup on a PC or in any browser: read, search and save every note, with your backup password. Nothing is uploaded.
 
 ## Home project tools (3D)
 
@@ -65,6 +66,10 @@ Each tool page explains what the tool does, how to use it and its limits; the gu
 - [Samsung Health am PC auswerten, direkt im Browser (German)](https://peakappsstudio.com/de/samsung-health-am-pc/): Samsung Health gibt es nicht für den PC. Öffne den Datendownload der App im Browser: Schritte, Schlafphasen, Puls, Gewicht, Training. Nichts wird hochgeladen.
 - [Seus dados do Samsung Health no PC, em qualquer navegador (Brazilian Portuguese)](https://peakappsstudio.com/pt-br/samsung-health-no-pc/): O Samsung Health não tem versão para PC. Abra no navegador os dados pessoais baixados do app: passos, fases do sono, frequência cardíaca, peso e treinos.
 - [삼성헬스 기록을 PC 브라우저에서 보세요 (Korean)](https://peakappsstudio.com/ko/samsung-health-pc/): 삼성헬스는 PC버전이 없습니다. 앱에서 내려받은 개인 데이터를 브라우저로 열어 걸음 수, 수면 단계, 심박수, 체중, 운동 기록을 큰 화면으로 보세요. 업로드는 없습니다.
+- [Abre tus notas de ColorNote en el PC (Spanish)](https://peakappsstudio.com/es/abrir-colornote-en-pc/): Lee tus notas de ColorNote en el ordenador: abre el archivo .backup del móvil con su contraseña, busca en todas las notas y guárdalas. Gratis, sin subir nada.
+- [カラーノートのメモを、PCのブラウザで読む (Japanese)](https://peakappsstudio.com/ja/colornote-pc/): カラーノート（ColorNote）のバックアップファイルをパソコンのブラウザで開き、パスワードで復号してメモを読む・検索する・保存する。無料、アップロードなし。
+- [컬러노트 메모를 PC 브라우저에서 읽기 (Korean)](https://peakappsstudio.com/ko/colornote-pc/): 컬러노트(ColorNote) 백업 파일을 PC 브라우저에서 비밀번호로 열고, 모든 메모를 읽고 검색하고 저장하세요. 무료이며 파일은 업로드되지 않습니다.
+- [Abra suas notas do ColorNote no PC (Brazilian Portuguese)](https://peakappsstudio.com/pt-br/abrir-colornote-no-pc/): Leia suas notas do ColorNote no computador: abra o arquivo .backup do celular com a senha, pesquise todas as notas e salve. Grátis, sem enviar nada.
 
 ## Apps
 
