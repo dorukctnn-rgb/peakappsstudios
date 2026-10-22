@@ -199,6 +199,7 @@ function buildShell() {
   $('cur-label').textContent = T.currencyLabel;
   $('currency').value = state.currency;
   $('currency').title = T.currencyHint;
+  $('currency').placeholder = T.currencyPlaceholder;
   $('btn-add').textContent = LANG === 'pl' ? 'Dodaj kolejny plik' : 'Add another file';
   $('views').innerHTML = `
 <div class="fb-view" id="view-overview" role="tabpanel" aria-labelledby="tab-overview"><div class="fb-odo" id="ov-odo"></div><dl class="fb-stats" id="ov-stats"></dl><div class="fb-charts" id="ov-charts"></div></div>
