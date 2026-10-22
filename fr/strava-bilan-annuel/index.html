@@ -1,0 +1,918 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src https://api.gumroad.com https://cloudflareinsights.com; worker-src 'self'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bilan annuel Strava gratuit, depuis votre export | Yearlap</title>
+<meta name="description" content="Votre bilan annuel Strava, le récap de l’année, gratuit et sans abonnement : distance, heures, dénivelé, sports, séries et cartes. Rien n’est envoyé.">
+<link rel="canonical" href="https://peakappsstudio.com/fr/strava-bilan-annuel/">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/strava-year-in-review/">
+<link rel="alternate" hreflang="de" href="https://peakappsstudio.com/de/strava-jahresrueckblick/">
+<link rel="alternate" hreflang="nl" href="https://peakappsstudio.com/nl/strava-jaaroverzicht/">
+<link rel="alternate" hreflang="fr" href="https://peakappsstudio.com/fr/strava-bilan-annuel/">
+<link rel="alternate" hreflang="es" href="https://peakappsstudio.com/es/strava-resumen-anual/">
+<link rel="alternate" hreflang="it" href="https://peakappsstudio.com/it/strava-riepilogo-annuale/">
+<link rel="alternate" hreflang="pt-BR" href="https://peakappsstudio.com/pt-br/strava-retrospectiva/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/strava-year-in-review/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Votre bilan annuel Strava, gratuit, à partir de votre propre export | Yearlap">
+<meta property="og:description" content="Ouvrez l’export complet de Strava et voyez votre année : distance, heures, dénivelé, sports, séries, une horloge de la semaine et des cartes à partager. Rien n’est envoyé.">
+<meta property="og:url" content="https://peakappsstudio.com/fr/strava-bilan-annuel/">
+<meta property="og:image" content="https://peakappsstudio.com/strava-year-in-review/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0f1b2d">
+<link rel="icon" href="/strava-year-in-review/img/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/strava-year-in-review/fonts/yearlap-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/strava-year-in-review/fonts/yearlap-text.woff2" as="font" type="font/woff2" crossorigin>
+<style data-from="/assets/tools.css">
+/* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
+
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e1;
+  --card: #fbfaf7;
+  --ink: #141518;
+  --ink-2: #33363d;
+  --muted: #676b74;
+  --line: rgba(20, 21, 24, 0.12);
+  --line-2: rgba(20, 21, 24, 0.22);
+  --accent: #1f5c4d;          /* each tool overrides this on <body style="--accent:..."> */
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  --warn: #9a4a12;
+  --ok: #2c6a3f;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+    --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+  --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; }
+img { display: block; height: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 10px; z-index: 100; background: var(--ink); color: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 10px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-head { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand-sub { font-family: var(--sans); font-size: 14.5px; letter-spacing: 0; color: var(--muted); font-weight: 500; padding-left: 10px; border-left: 1px solid var(--line-2); }
+.head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
+.head-nav a:hover { background: var(--paper-2); color: var(--ink); }
+.head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
+@media (max-width: 640px) { .brand-sub { display: none; } }
+@media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
+
+/* ---------- Type ---------- */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+h1 { font-size: clamp(32px, 4.6vw, 54px); }
+h1 em, h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 19px; letter-spacing: -0.01em; }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; margin: 16px 0 0; }
+.mono { font-family: var(--mono); }
+.muted { color: var(--muted); }
+small, .small { font-size: 13.5px; }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 22px 0 0; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-2); }
+.crumbs a { text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.tool-hero { padding: 28px 0 24px; display: grid; gap: 8px; }
+.tool-hero .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.tool-hero .facts li { display: inline-flex; align-items: center; gap: 8px; }
+.tool-hero .facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Tool shell ---------- */
+.tool { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.tool-panel { padding: 22px; border-right: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.tool-stage { position: relative; min-height: 460px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper); display: grid; place-items: center; padding: 22px; }
+.tool-stage canvas, .tool-stage svg, .tool-stage img { max-height: 70vh; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px -12px rgba(0,0,0,.18); background: #fff; }
+.stage-bar { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.tool-foot { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 14px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--paper); }
+.tool-foot .spacer { flex: 1; }
+@media (max-width: 860px) {
+  .tool { grid-template-columns: 1fr; }
+  .tool-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tool-stage { min-height: 320px; }
+}
+
+/* ---------- Form controls ---------- */
+.group { display: grid; gap: 10px; }
+.group-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > label { font-size: 13px; color: var(--ink-2); }
+.input, .select { width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 8px; padding: 9px 11px; transition: border-color .15s, box-shadow .15s; }
+.input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input-unit { position: relative; }
+.input-unit .input { padding-right: 38px; font-family: var(--mono); font-size: 14.5px; }
+.input-unit i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 3px; flex: none; }
+.seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line-2); border-radius: 9px; padding: 3px; gap: 3px; background: var(--paper); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.warn { font-size: 13.5px; color: var(--warn); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.btn { --b: var(--line-2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 500; line-height: 1; padding: 11px 16px; border-radius: 9px; border: 1px solid var(--b); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; transition: transform .15s var(--ease), background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklab, var(--accent) 86%, #000); color: var(--accent-ink); border-color: transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-ink:hover { color: var(--paper); background: var(--ink-2); }
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.pro-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: var(--ink); color: var(--paper); }
+
+/* ---------- Drop zone ---------- */
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 18px 14px; background: var(--paper); cursor: pointer; transition: border-color .15s, background .15s; font-size: 14.5px; }
+.drop:hover, .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Content ---------- */
+.section { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prose { max-width: 70ch; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose h2 { margin: 1.6em 0 .5em; }
+.prose h3 { margin: 1.4em 0 .4em; }
+.prose code, .prose kbd { font-family: var(--mono); font-size: .9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+.two-col > * { min-width: 0; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: 3px; }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 13px; background: var(--paper); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 15px; }
+.source { font-size: 13px; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--line-2); margin-top: 18px; }
+.faq details { border-bottom: 1px solid var(--line-2); }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 13px; font-family: var(--mono); font-size: 18px; color: var(--muted); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 18px; color: var(--ink-2); max-width: 70ch; }
+
+/* ---------- Pro ---------- */
+.pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--card); }
+.pro-left { padding: clamp(22px, 3vw, 36px); }
+.pro-right { padding: clamp(22px, 3vw, 36px); background: var(--ink); color: var(--paper); display: grid; align-content: center; gap: 14px; }
+.pro-right .price { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pro-right .price small { font-size: 15px; font-weight: 400; color: color-mix(in oklab, var(--paper) 70%, transparent); letter-spacing: 0; }
+.pro-right .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.pro-right .btn-primary:hover { background: #fff; color: var(--ink); }
+.pro-right .fine { font-size: 13px; color: color-mix(in oklab, var(--paper) 65%, transparent); margin: 0; }
+.pro-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.pro-list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.pro-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border: 1.5px solid var(--accent); border-radius: 2px; transform: rotate(45deg); }
+@media (max-width: 760px) { .pro { grid-template-columns: 1fr; } }
+
+/* ---------- A real file, shown ---------- */
+.shot { margin: 22px 0 0; }
+.shot img { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; }
+.shot figcaption { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+.shot figcaption strong { font-weight: 600; color: var(--ink-2); }
+.shot-sm { max-width: 920px; }
+
+/* ---------- Where free stops and Pro starts ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; margin: 26px 0 0; background: var(--card); }
+.split > div { padding: 18px 20px 20px; }
+.split > div + div { border-left: 1px solid var(--line-2); background: var(--accent-soft); }
+.split h3 { font-size: 15.5px; margin: 0; }
+.split > div > p { margin: 5px 0 0; font-size: 13.5px; color: var(--muted); }
+.split ul { list-style: none; margin: 13px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
+.split li { position: relative; padding-left: 18px; }
+.split li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; border-radius: 1px; background: var(--line-2); }
+.split > div + div li::before { background: var(--accent); }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } .split > div + div { border-left: 0; border-top: 1px solid var(--line-2); } }
+
+/* ---------- A file list, as the archive really holds it ---------- */
+.filelist { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 5px; }
+.filelist li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filelist li span { color: var(--muted); }
+
+/* ---------- License dialog ---------- */
+.license-dialog { border: 1px solid var(--line-2); border-radius: 14px; padding: 0; width: min(440px, calc(100% - 32px)); background: var(--card); color: var(--ink); }
+.license-dialog::backdrop { background: rgba(10, 11, 13, .45); }
+.license-dialog form { padding: 22px; display: grid; gap: 14px; }
+.license-status { font-size: 14px; min-height: 1.4em; margin: 0; }
+.license-status[data-state="ok"] { color: var(--ok); }
+.license-status[data-state="err"] { color: var(--warn); }
+
+/* ---------- Related / cards ---------- */
+.related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line-2); margin-top: 22px; }
+.related a { display: grid; gap: 4px; padding: 18px 18px 18px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.related a strong { font-weight: 600; }
+.related a span { font-size: 14px; color: var(--muted); }
+.related a:hover strong { color: var(--accent); }
+
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
+/* ---------- Footer ---------- */
+.site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
+.site-foot h2 { font-size: 15px; font-family: var(--sans); letter-spacing: 0; font-weight: 600; color: var(--ink); margin: 0 0 10px; }
+.site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+@media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- "New from Peak Apps": the cross-promotion card the build puts above the footer (src/crosspromo.json) ---------- */
+.peak-new { margin-top: clamp(56px, 8vw, 104px); }
+.peak-new + .site-foot { margin-top: 28px; }
+.peak-new-card { display: grid; gap: 4px; max-width: 640px; padding: 16px 20px 18px; border: 1px solid var(--line-2); border-left: 4px solid var(--tool, var(--accent)); border-radius: var(--radius); background: var(--card); color: var(--ink); text-decoration: none; transition: border-color .2s var(--ease); }
+.peak-new-card:hover { border-color: var(--tool, var(--accent)); }
+.peak-new-card:focus-visible { outline: 2px solid var(--tool, var(--accent)); outline-offset: 3px; }
+.peak-new-kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.peak-new-card strong { font-size: 17px; font-weight: 600; line-height: 1.3; }
+.peak-new-line { font-size: 14px; line-height: 1.5; color: var(--ink-2); max-width: 62ch; }
+
+/* ---------- Home project tools: the shared block on Without Planning and Dropped Kerb Check ---------- */
+.home-block { margin: clamp(36px, 5vw, 60px) 0 0; border-top: 1px solid var(--line-2); padding-top: 16px; }
+.home-title { margin: 0 0 10px; font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink); }
+.home-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px 24px; }
+.home-list a { display: grid; gap: 3px; padding: 2px 0 2px 14px; border-left: 4px solid var(--tool, var(--accent)); text-decoration: none; color: var(--ink); }
+.home-list a strong { font-weight: 700; font-size: 16px; }
+.home-list a span { color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+.home-list a:hover strong { color: var(--tool, var(--accent)); }
+.home-list a[aria-current="page"] span { color: var(--ink-2); }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .3s var(--ease); z-index: 90; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media print { .site-head, .site-foot, .tool-panel, .tool-foot, .no-print { display: none !important; } body { background: #fff; } }
+
+/* The hidden attribute must win over component display rules. */
+[hidden] { display: none !important; }
+</style>
+<style data-from="/strava-year-in-review/tool.css">
+/* Yearlap (peakappsstudio.com/strava-year-in-review). A night track: deep navy for the hero and the poster, a lane-line
+ * red for actions and routes, glacier blue for bars, chalk for the reading sections, gold only for a best day.
+ * Kanit ExtraBold Italic for headings and numbers, Reddit Sans for reading (tabular figures in tables).
+ * One moment of motion: the hero's year strip rises once. Font licences (SIL OFL 1.1): vendor/OFL-Kanit.txt, vendor/OFL-RedditSans.txt. */
+@font-face { font-family: "Yearlap Display"; src: url("/strava-year-in-review/fonts/yearlap-display.woff2") format("woff2"); font-weight: 800; font-style: italic; font-display: swap; }
+@font-face { font-family: "Yearlap Text"; src: url("/strava-year-in-review/fonts/yearlap-text.woff2") format("woff2"); font-weight: 400 800; font-display: swap; }
+@font-face { font-family: "Yearlap Fallback"; src: local("Arial"); size-adjust: 96%; ascent-override: 96%; descent-override: 25%; }
+
+body.yl {
+  --night: #0f1b2d; --night-2: #18283f; --red: #ff3d57; --red-ink: #d3203f; --glacier: #b9e4f4; --glacier-2: #dff1f8; --gold: #ffc53d; --gold-ink: #8a5f00;
+  --paper: #eef2f4; --paper-2: #e2e8ec; --card: #ffffff; --ink: #0f1b2d; --ink-2: #2c3b52; --muted: #4b5a6e;
+  --line: rgba(15, 27, 45, 0.13); --line-2: rgba(15, 27, 45, 0.26);
+  --accent: #d3203f; --accent-ink: #ffffff; --warn: #b3261e; --ok: #1d7a45;
+  --sans: "Yearlap Text", "Yearlap Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --yl-display: "Yearlap Display", "Arial Black", "Yearlap Fallback", sans-serif;
+  color-scheme: light;
+  background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.55;
+}
+.yl h1, .yl h2, .yl h3 { font-family: var(--yl-display); font-weight: 800; font-style: italic; letter-spacing: -0.012em; color: var(--ink); }
+.yl h1 { font-size: clamp(36px, 5.1vw, 66px); line-height: 1.02; margin: 18px 0 0; max-width: 16ch; color: #fff; }
+.yl h2 { font-size: clamp(28px, 3.3vw, 42px); line-height: 1.06; margin: 0; }
+.yl h3 { font-size: clamp(21px, 2vw, 25px); line-height: 1.15; margin: 0 0 14px; }
+.yl h4, .yl .yl-sub-h { font-family: var(--sans); font-style: normal; font-weight: 700; font-size: 15px; margin: 18px 0 8px; color: var(--ink-2); }
+.yl a { color: var(--red-ink); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+.yl :focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+.yl .lede { color: #d6e2ee; font-size: clamp(17px, 1.45vw, 19px); line-height: 1.5; max-width: 60ch; }
+.yl .btn { font-weight: 700; border-radius: 10px; padding: 12px 18px; font-size: 16px; }
+.yl .btn-sm { padding: 8px 13px; font-size: 14.5px; }
+.yl .btn-primary { background: var(--red-ink); border-color: var(--red-ink); color: #fff; }
+.yl .btn-primary:hover { background: #b51533; border-color: #b51533; color: #fff; }
+.yl .yl-btn-quiet { background: transparent; border: 1.5px solid var(--ink); color: var(--ink); }
+.yl .yl-btn-quiet:hover { background: var(--glacier-2); }
+.yl .yl-btn-pro { background: var(--gold); border: 1.5px solid var(--gold); color: var(--night); }
+.yl .yl-btn-pro:hover { background: #ffb800; border-color: #ffb800; color: var(--night); }
+.yl .yl-lock { width: 15px; height: 15px; flex: none; }
+.yl .select, .yl .input { font: inherit; font-size: 15px; padding: 8px 10px; border-radius: 9px; border: 1.5px solid var(--line-2); background: var(--card); color: var(--ink); max-width: min(100%, 360px); }
+.yl .input { width: 100%; }
+.yl .crumbs { color: #a9b8c9; }
+.yl .crumbs a { color: #d6e2ee; }
+.yl .crumbs li + li::before { color: #51647d; }
+
+/* header and footer on the tool's own pages */
+.yl .site-head.yl-head { background: var(--night); border-bottom: 1px solid rgba(255, 255, 255, 0.08); color: #fff; }
+.yl .yl-head .brand { color: #fff; display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--yl-display); font-style: italic; font-weight: 800; font-size: 22px; letter-spacing: -0.01em; }
+.yl .yl-head .brand svg { width: 38px; height: 22px; }
+.yl .yl-head .head-nav { margin-left: auto; display: flex; gap: 6px 18px; align-items: center; flex-wrap: wrap; }
+.yl .yl-head .head-nav a { color: #d6e2ee; text-decoration: none; font-size: 15px; font-weight: 600; }
+.yl .yl-head .head-nav a:hover { color: #fff; text-decoration: underline; }
+.yl .yl-head .head-nav [aria-current="page"] { color: #fff; }
+@media (max-width: 720px) { .yl .yl-head .yl-wide { display: none; } }
+@media (max-width: 420px) { .yl .yl-head .head-nav { gap: 4px 12px; } .yl .yl-head .head-nav a { font-size: 14px; } }
+
+/* ---------- hero ---------- */
+.yl-hero { background: var(--night); color: #fff; overflow: hidden; }
+.yl-hero-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(24px, 4vw, 64px); align-items: start; padding-bottom: clamp(18px, 3vw, 34px); }
+.yl-hero-copy { min-width: 0; }
+.yl-panel { margin-top: 28px; background: var(--card); color: var(--ink); border-radius: 18px; border-top: 6px solid var(--red); padding: clamp(18px, 2.4vw, 28px); box-shadow: 0 24px 40px -20px rgba(0, 0, 0, 0.55); }
+.yl-drop { border: 2px dashed rgba(15, 27, 45, 0.24); border-radius: 13px; padding: clamp(16px, 2.2vw, 24px); background: #f6f9fa; transition: background .15s, border-color .15s; }
+.yl-drop.is-over { background: var(--glacier-2); border-color: var(--red-ink); }
+.yl .yl-drop-title { font-size: clamp(22px, 2.3vw, 27px); margin: 0; color: var(--ink); }
+.yl-drop-text { margin: 8px 0 0; color: var(--ink-2); max-width: 56ch; }
+.yl-drop-note { margin: 14px 0 0; font-size: 14.5px; color: var(--muted); }
+.yl-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; align-items: center; }
+.yl-nofile { margin: 14px 0 0; font-size: 15.5px; color: var(--ink-2); }
+.yl-private { display: flex; gap: 10px; align-items: flex-start; margin: 20px 0 0; font-size: 15px; color: #c4d2e0; max-width: 62ch; }
+.yl-private svg { width: 18px; height: 18px; flex: none; margin-top: 3px; color: var(--red); }
+.yl-stage[hidden] { display: none !important; }
+.yl-busy-title, .yl-done-title, .yl-error-title { font-family: var(--yl-display); font-style: italic; font-weight: 800; font-size: clamp(21px, 2.3vw, 26px); line-height: 1.15; margin: 0; overflow-wrap: anywhere; }
+.yl-error-title { color: var(--warn); }
+.yl-busy-sub, .yl-done-sub { margin: 8px 0 0; color: var(--ink-2); overflow-wrap: anywhere; }
+.yl-error-text { margin-top: 8px; color: var(--ink-2); overflow-wrap: anywhere; }
+.yl-error-text ul { margin: 8px 0 0; padding-left: 20px; }
+.yl-busy-bar { height: 10px; margin-top: 16px; border-radius: 99px; background: var(--paper-2); overflow: hidden; }
+.yl-busy-bar i { display: block; height: 100%; width: 0; background: var(--red-ink); border-radius: 99px; transition: width .25s; }
+.yl-hero-art { margin: 18px 0 0; display: grid; gap: 10px; justify-items: center; }
+.yl-hero-art img { width: min(100%, 560px); height: auto; display: block; }
+.yl-hero-art figcaption { font-size: 14px; color: #a9b8c9; max-width: 44ch; text-align: center; }
+.yl-hero-strip { line-height: 0; }
+.yl-hero-strip svg { display: block; width: 100%; height: clamp(54px, 7vw, 92px); }
+.yl-hero-strip .ticks, .yl-hero-strip .big { transform-origin: 50% 100%; transform-box: view-box; animation: yl-rise 1.1s cubic-bezier(.2, .8, .2, 1) .1s both; }
+.yl-hero-strip .ticks { fill: var(--glacier); opacity: 0.85; }
+.yl-hero-strip .big { fill: var(--gold); }
+.yl-hero-strip .base { fill: rgba(255, 255, 255, 0.18); }
+@keyframes yl-rise { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@media (prefers-reduced-motion: reduce) { .yl-hero-strip .ticks, .yl-hero-strip .big { animation: none; } }
+
+/* ---------- results ---------- */
+.yl-results { padding: clamp(32px, 5vw, 60px) 0; scroll-margin-top: 64px; }
+.yl-results[hidden] { display: none; }
+.yl-res-head { display: grid; gap: 12px; }
+.yl-res-controls { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; }
+.yl-years { display: flex; flex-wrap: wrap; gap: 8px; }
+.yl-years button, .yl-seg button, .yl-card-picks button, .yl-tabs button { font: inherit; font-size: 15px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 9px; border: 1.5px solid var(--ink); background: var(--card); color: var(--ink); cursor: pointer; }
+.yl-years button[aria-pressed="true"], .yl-seg button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+.yl-years button[data-locked], .yl-card-picks button[data-locked] { border-style: dashed; color: var(--ink-2); background: transparent; }
+.yl-seg { display: inline-flex; }
+.yl-seg button { border-radius: 0; margin-left: -1.5px; }
+.yl-seg button:first-child { border-radius: 9px 0 0 9px; margin-left: 0; }
+.yl-seg button:last-child { border-radius: 0 9px 9px 0; }
+.yl-seg-sm button { padding: 5px 11px; font-size: 14px; }
+.yl-tz { display: flex; align-items: center; gap: 8px; font-size: 15px; color: var(--ink-2); flex-wrap: wrap; min-width: 0; }
+.yl-tz .select { max-width: 220px; }
+.yl-coverage { margin: 0; color: var(--ink-2); }
+
+.yl-totals { margin-top: 26px; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 18px 40px; align-items: end; background: var(--card); border-radius: 18px; padding: clamp(20px, 3vw, 36px); border-top: 6px solid var(--red); }
+.yl-big { margin: 0; font-family: var(--yl-display); font-style: italic; font-weight: 800; font-size: clamp(64px, 10vw, 140px); line-height: 0.95; color: var(--red-ink); letter-spacing: -0.02em; overflow-wrap: anywhere; }
+.yl-big-u { font-size: 0.42em; color: var(--ink); }
+.yl-big-l { margin: 4px 0 0; font-weight: 700; color: var(--ink-2); }
+.yl-total-sub { margin: 6px 0 0; color: var(--muted); }
+.yl-kpis { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; margin: 0; }
+.yl-kpis div { border-left: 3px solid var(--glacier); padding-left: 12px; min-width: 0; }
+.yl-kpis dt { font-size: 14px; color: var(--muted); font-weight: 600; }
+.yl-kpis dd { margin: 2px 0 0; font-family: var(--yl-display); font-style: italic; font-weight: 800; font-size: clamp(24px, 2.6vw, 34px); line-height: 1.1; overflow-wrap: anywhere; }
+.yl-kpis-sm dd { font-size: clamp(20px, 2vw, 26px); }
+.yl-kpis-sm { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); margin-bottom: 8px; }
+.yl-strip-box { grid-column: 1 / -1; margin: 6px 0 0; }
+.yl-strip-box[hidden] { display: none; }
+.yl-strip-box canvas { width: 100%; height: 96px; display: block; }
+.yl-strip-box figcaption { font-size: 14px; color: var(--muted); margin-top: 6px; }
+
+.yl-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 18px; }
+.yl-block { background: var(--card); border-radius: 16px; padding: clamp(18px, 2.4vw, 28px); min-width: 0; }
+.yl-block-head { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; align-items: baseline; }
+.yl-block-head h3 { margin-bottom: 10px; }
+.yl-sports { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.yl-sports li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; }
+.yl-sports .t { font-weight: 800; overflow-wrap: anywhere; }
+.yl-sports .v { font-weight: 700; font-variant-numeric: tabular-nums; }
+.yl-sports .s { grid-column: 1 / -1; font-size: 14px; color: var(--muted); }
+.yl-sports .bar { grid-column: 1 / -1; height: 8px; border-radius: 99px; background: var(--paper-2); overflow: hidden; }
+.yl-sports .bar i { display: block; height: 100%; background: var(--c, var(--red-ink)); border-radius: 99px; }
+.yl-more { margin: 10px 0 0; font-size: 14px; color: var(--muted); }
+.yl-more:empty { display: none; }
+.yl-bars { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 6px; align-items: end; height: 190px; }
+.yl-bars .col { display: grid; grid-template-rows: 1fr auto; height: 100%; gap: 6px; min-width: 0; }
+.yl-bars .col span { align-self: end; display: block; background: var(--night); border-radius: 5px 5px 0 0; min-height: 3px; }
+.yl-bars .col.top span { background: var(--red-ink); }
+.yl-bars .col b { font-size: 12px; font-weight: 600; color: var(--muted); text-align: center; overflow: hidden; text-overflow: clip; white-space: nowrap; }
+.yl-block-wide { grid-column: span 1; }
+.yl-clock { width: 100%; display: block; }
+.yl-note { margin: 10px 0 0; font-size: 14.5px; color: var(--muted); max-width: 70ch; }
+.yl-note:empty { display: none; }
+.yl-dl { margin: 0; display: grid; gap: 12px; }
+.yl-dl div { display: grid; gap: 2px; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+.yl-dl div:last-child { border-bottom: 0; padding-bottom: 0; }
+.yl-dl dt { font-size: 14px; color: var(--muted); font-weight: 700; }
+.yl-dl dd { margin: 0; overflow-wrap: anywhere; }
+.yl-dl .big { font-family: var(--yl-display); font-style: italic; font-weight: 800; font-size: 22px; color: var(--red-ink); margin-right: 4px; }
+
+.yl-share { margin-top: 18px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 330px); gap: 28px; background: var(--night); color: #fff; border-radius: 18px; padding: clamp(20px, 3vw, 36px); align-items: start; }
+.yl .yl-share h3 { color: #fff; }
+.yl-share-copy p { color: #c4d2e0; margin: 0; max-width: 60ch; }
+.yl-share .yl-note { color: #a9b8c9; }
+.yl-card-picks { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.yl-share .yl-card-picks button { background: transparent; color: #fff; border-color: rgba(255, 255, 255, 0.5); }
+.yl-share .yl-card-picks button[aria-checked="true"] { background: #fff; color: var(--night); border-color: #fff; }
+.yl-share .yl-card-picks button[data-locked] { color: #c4d2e0; }
+.yl-share .yl-card-picks button[disabled] { opacity: 0.4; cursor: not-allowed; }
+.yl-share .yl-btn-quiet { color: #fff; border-color: #fff; }
+.yl-share .yl-btn-quiet:hover { background: var(--night-2); }
+.yl-card-frame canvas { width: 100%; height: auto; aspect-ratio: 9 / 16; display: block; border-radius: 14px; background: var(--night-2); box-shadow: 0 18px 30px -16px rgba(0, 0, 0, 0.6); }
+
+.yl-pro-zone { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 18px; }
+.yl-pro-zone > :first-child, .yl-pro-zone > :last-child { grid-column: 1 / -1; }
+.yl-locked-note { border: 1.5px dashed var(--line-2); border-radius: 12px; padding: 16px; background: #f8fafb; }
+.yl-locked-note p { margin: 0 0 12px; color: var(--ink-2); max-width: 70ch; }
+.yl-locked-note p:last-child { margin: 0; }
+.yl-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.yl-tabs button[aria-selected="true"] { background: var(--ink); color: #fff; box-shadow: inset 0 -4px 0 var(--c, var(--red)); }
+.yl-sport-cols { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px; }
+.yl-buckets { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.yl-buckets li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; font-size: 15px; }
+.yl-buckets b { font-variant-numeric: tabular-nums; }
+.yl-buckets i { grid-column: 1 / -1; height: 6px; background: var(--glacier); border-radius: 99px; display: block; min-width: 2px; }
+.yl-scroll { overflow-x: auto; max-width: 100%; }
+.yl table { border-collapse: collapse; width: 100%; font-size: 15px; font-variant-numeric: tabular-nums; }
+.yl caption { text-align: left; font-size: 14px; color: var(--muted); padding-bottom: 8px; caption-side: top; }
+.yl th, .yl td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.yl thead th { font-size: 13.5px; color: var(--muted); font-weight: 700; white-space: nowrap; }
+.yl tbody th { font-weight: 800; }
+.yl .num { text-align: right; white-space: nowrap; }
+.yl-poster-opts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; align-items: end; }
+.yl-field { display: grid; gap: 6px; font-size: 14.5px; font-weight: 600; color: var(--ink-2); min-width: 0; }
+.yl-poster-frame { margin-top: 14px; display: grid; justify-items: center; }
+.yl-poster-frame[hidden] { display: none; }
+.yl-poster-frame canvas { max-width: 100%; display: block; border-radius: 6px; box-shadow: 0 14px 26px -14px rgba(15, 27, 45, 0.6); }
+.yl-res-foot { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; }
+.yl-files { flex: 1 1 320px; min-width: 0; }
+.yl-files summary { cursor: pointer; font-weight: 700; padding: 10px 0; }
+.yl-files ul { margin: 6px 0 0; padding-left: 20px; color: var(--ink-2); font-size: 15px; overflow-wrap: anywhere; }
+.yl-empty { color: var(--muted); }
+
+/* ---------- reading sections ---------- */
+.yl-request, .yl-lang, .yl-pro, .yl-why, .yl-faq { margin-top: clamp(48px, 7vw, 88px); }
+.yl-request-head p { color: var(--ink-2); max-width: 64ch; }
+.yl-steps { list-style: none; counter-reset: s; margin: 22px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; border-top: 3px solid var(--ink); }
+.yl-steps li { counter-increment: s; padding: 16px 16px 0 0; position: relative; color: var(--ink-2); font-size: 15.5px; }
+.yl-steps li::before { content: counter(s); display: block; font-family: var(--yl-display); font-style: italic; font-weight: 800; font-size: 40px; line-height: 1; color: var(--red-ink); margin-bottom: 8px; }
+.yl-steps li::after { content: ""; position: absolute; top: -9px; left: 0; width: 14px; height: 14px; border-radius: 50%; background: var(--paper); border: 3px solid var(--ink); }
+.yl-steps strong { color: var(--ink); display: block; }
+.yl-request-more { margin-top: 22px; color: var(--ink-2); font-size: 15.5px; max-width: 80ch; }
+.yl-lang { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+.yl-lang-copy p { color: var(--ink-2); max-width: 62ch; }
+.yl-lang-table { background: var(--card); border-radius: 14px; overflow: hidden; }
+.yl-lang-table caption { padding: 0 0 10px; }
+.yl-lang-table td, .yl-lang-table th { font-size: 14.5px; }
+.yl-pro { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); gap: clamp(24px, 4vw, 56px); background: var(--night); color: #fff; border-radius: 22px; padding: clamp(24px, 4vw, 48px); align-items: center; }
+.yl .yl-pro h2 { color: #fff; }
+.yl-price { margin: 10px 0 0; font-size: 18px; color: #d6e2ee; }
+.yl-price-n { font-family: var(--yl-display); font-style: italic; font-weight: 800; font-size: 44px; color: var(--gold); margin-right: 6px; }
+.yl-pro-list { margin: 16px 0 0; padding-left: 20px; color: #d6e2ee; display: grid; gap: 6px; max-width: 64ch; }
+.yl-pro .yl-btn-quiet { color: #fff; border-color: #fff; }
+.yl-pro .yl-btn-quiet:hover { background: var(--night-2); }
+.yl-pro .yl-note { color: #a9b8c9; }
+.yl-pro .btn-primary { background: var(--red); border-color: var(--red); color: var(--night); }
+.yl-pro .btn-primary:hover { background: #ff5d73; border-color: #ff5d73; color: var(--night); }
+.yl-pro-art { margin: 0; display: grid; gap: 10px; justify-items: center; }
+.yl-pro-art img { width: min(100%, 360px); height: auto; display: block; border-radius: 6px; box-shadow: 0 20px 34px -18px rgba(0, 0, 0, 0.8); }
+.yl-pro-art figcaption { font-size: 14px; color: #a9b8c9; text-align: center; }
+.yl-why p { color: var(--ink-2); max-width: 70ch; }
+.yl-faq details { border-bottom: 1px solid var(--line-2); padding: 4px 0; max-width: 820px; }
+.yl-faq summary { cursor: pointer; font-weight: 800; padding: 12px 0; list-style-position: outside; }
+.yl-faq details p { margin: 0 0 14px; color: var(--ink-2); max-width: 72ch; }
+.yl-guide { max-width: 760px; }
+.yl-guide p, .yl-guide li { color: var(--ink-2); }
+.yl-guide h2 { margin-top: 40px; }
+.yl-guide-hero { padding-bottom: clamp(28px, 4vw, 48px); }
+.yl-guide-hero .lede { margin-top: 14px; }
+
+/* ---------- narrow screens ---------- */
+@media (max-width: 1000px) {
+  .yl-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 18px; }
+  .yl-poster-opts { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+@media (max-width: 860px) {
+  .yl-hero-grid, .yl-totals, .yl-share, .yl-lang, .yl-pro, .yl-sport-cols { grid-template-columns: minmax(0, 1fr); }
+  .yl-grid, .yl-pro-zone { grid-template-columns: minmax(0, 1fr); }
+  .yl-hero-art img { width: min(100%, 440px); }
+  .yl-card-frame { max-width: 320px; }
+  .yl-drag-hint { display: none; }
+}
+@media (max-width: 520px) {
+  .yl .btn { width: 100%; }
+  .yl-steps { grid-template-columns: minmax(0, 1fr); }
+  .yl-poster-opts { grid-template-columns: minmax(0, 1fr); }
+  .yl-bars { gap: 3px; height: 160px; }
+  .yl-bars .col b { font-size: 10.5px; }
+  .yl-kpis { gap: 12px 16px; }
+  .yl-tz .select { max-width: 100%; }
+}
+
+/* fixes that need to win over the table and heading rules above */
+
+.yl .site-foot h2 { font-family: var(--sans); font-style: normal; font-weight: 700; font-size: 15px; letter-spacing: 0; margin: 0 0 10px; }
+.yl td.num, .yl th.num { font-family: var(--sans); font-variant-numeric: tabular-nums; }
+.yl th { background: transparent; }
+.yl tbody th { font-size: 15px; }
+.yl-pro-zone { grid-template-columns: minmax(0, 1fr); }
+
+/* the hero render fades into the night band at its edges */
+.yl-hero-art img { -webkit-mask-image: radial-gradient(ellipse 72% 70% at 50% 52%, #000 62%, transparent 100%); mask-image: radial-gradient(ellipse 72% 70% at 50% 52%, #000 62%, transparent 100%); }
+/* without Pro the four Pro parts sit two by two; the poster one shows a real poster */
+body.yl:not(.yl-is-pro) .yl-pro-zone { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+body.yl:not(.yl-is-pro) .yl-pro-zone > * { grid-column: auto; }
+.yl-locked-poster { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 16px; align-items: start; }
+.yl-locked-poster img { width: 96px; height: auto; border-radius: 4px; box-shadow: 0 8px 16px -10px rgba(15, 27, 45, 0.7); }
+@media (max-width: 860px) { body.yl:not(.yl-is-pro) .yl-pro-zone { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 560px) { .yl .yl-head .yl-mid { display: none; } }
+.yl h1 { max-width: 17ch; }
+html[lang="de"] .yl h1, html[lang="nl"] .yl h1 { max-width: 19ch; }
+
+/* Garmin pages: two ways to get the data, side by side; the link to the sibling page */
+html[lang="fr"] .yl h1 { max-width: 19ch; }
+.yl-ways { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); margin-top: 26px; }
+.yl-way h3 { margin: 0 0 6px; }
+.yl-way > p { color: var(--ink-2); margin: 0; max-width: 56ch; }
+.yl-way-tag { display: block; font-size: 13px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--red-ink); margin: 0 0 8px; }
+.yl-steps.yl-steps-v { grid-template-columns: minmax(0, 1fr); border-top: 0; border-left: 3px solid var(--ink); margin: 20px 0 0 7px; row-gap: 0; }
+.yl-steps-v li { padding: 0 0 18px 26px; }
+.yl-steps-v li::before { font-size: 30px; margin-bottom: 4px; }
+.yl-steps-v li::after { top: 6px; left: -9px; }
+.yl-steps-v li:last-child { padding-bottom: 0; }
+.yl-sibling { margin-top: clamp(36px, 5vw, 56px); padding: 18px 22px; border: 1.5px solid var(--line-2); border-radius: 16px; background: var(--card); display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; justify-content: space-between; }
+.yl-sibling p { margin: 0; color: var(--ink-2); max-width: 70ch; }
+.yl-sibling a { font-weight: 800; }
+@media (max-width: 860px) { .yl-ways { grid-template-columns: minmax(0, 1fr); } }
+.yl-kpis dd small { display: block; font-family: var(--sans); font-style: normal; font-weight: 600; font-size: 13.5px; line-height: 1.35; letter-spacing: 0; color: var(--ink-2); margin-top: 4px; }
+</style>
+<script src="/assets/site.js" defer></script>
+<script src="/assets/license.js" defer></script>
+<script type="module" src="/strava-year-in-review/js/app.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/fr/strava-bilan-annuel/#app","name":"Yearlap","alternateName":"Bilan annuel Strava à partir de votre export","url":"https://peakappsstudio.com/fr/strava-bilan-annuel/","description":"Lit dans le navigateur le fichier activities.csv de l’export complet de Strava, dans toutes les langues d’export, et montre une année d’entraînement : distance, temps en mouvement, dénivelé, sports, mois, une horloge de la semaine, l’activité la plus longue, la plus grosse journée et la plus longue série, avec des cartes au format 9:16. Rien n’est envoyé.","applicationCategory":"SportsApplication","operatingSystem":"Any (web browser)","inLanguage":"fr","offers":[{"@type":"Offer","name":"Gratuit","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Yearlap Pro","price":"5","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/yearlap-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Yearlap : bilan annuel Strava","item":"https://peakappsstudio.com/fr/strava-bilan-annuel/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Peut-on voir son bilan annuel Strava gratuitement, sans abonnement ?","acceptedAnswer":{"@type":"Answer","text":"Le bilan de Strava lui-même, Year in Sport, est réservé aux abonnés depuis décembre 2025. Vous gardez en revanche le droit de télécharger vos données gratuitement : demandez l’archive de votre compte à Strava, ouvrez le ZIP sur cette page, et Yearlap vous montre votre année, avec des cartes à partager."}},{"@type":"Question","name":"Comment télécharger mes données Strava ?","acceptedAnswer":{"@type":"Answer","text":"Sur strava.com (pas dans l’app) : Paramètres, puis Mon compte, puis Démarrer dans la rubrique Télécharger votre compte, et enfin Demander le téléchargement. Strava vous envoie un lien par e-mail ; d’après son aide, cela peut prendre quelques heures."}},{"@type":"Question","name":"Mon export est en français. Ça marche ?","acceptedAnswer":{"@type":"Answer","text":"Oui. Strava écrit les noms des colonnes, les dates et l’une des colonnes de distance dans la langue de votre compte, par exemple 18 mai 2026 et 4,97. Yearlap lit les colonnes par leur position et prend les chiffres dans les colonnes de valeurs brutes de l’export : un export en français, en anglais ou en néerlandais donne les mêmes totaux."}},{"@type":"Question","name":"Mon export Strava est-il envoyé quelque part ?","acceptedAnswer":{"@type":"Answer","text":"Non. Le ZIP est ouvert par JavaScript dans votre onglet et n’est jamais envoyé à un serveur. Seuls activities.csv, bikes.csv et shoes.csv sont ouverts, et les fichiers de parcours uniquement si vous dessinez le poster Pro ; les photos et les données de profil restent fermées. Quand vous fermez l’onglet, tout disparaît."}},{"@type":"Question","name":"Pourquoi mes chiffres diffèrent-ils de ceux de Strava ?","acceptedAnswer":{"@type":"Answer","text":"Yearlap additionne le temps en mouvement, la distance et le dénivelé inscrits pour chaque activité dans activities.csv. Strava écrit les heures de départ en UTC ; Yearlap compte donc les jours et les heures dans le fuseau horaire que vous choisissez, par défaut celui de votre appareil. Strava ne publie pas le détail de son calcul, de petits écarts sont donc normaux."}},{"@type":"Question","name":"Puis-je voir mes statistiques Strava de l’an dernier ?","acceptedAnswer":{"@type":"Answer","text":"Oui. En version gratuite, Yearlap montre l’année la plus récente de votre export, et en janvier et février l’année précédente si elle y figure. Les autres années, les totaux toutes années et la comparaison d’une année à l’autre font partie de Pro."}},{"@type":"Question","name":"Yearlap vient-il de Strava ?","acceptedAnswer":{"@type":"Answer","text":"Non. Yearlap est un outil indépendant de Peak Apps Studio, sans lien avec Strava. Il ne se connecte jamais à Strava et ne demande jamais vos identifiants."}}]}]}
+</script>
+<script src="/assets/pro-source.js" defer></script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
+</head>
+<body class="yl" style="--accent:#d3203f">
+<a class="skip" href="#main">Aller au contenu</a>
+<header class="site-head yl-head">
+  <div class="wrap">
+    <a class="brand" href="/fr/strava-bilan-annuel/" aria-label="Yearlap, votre bilan annuel Strava à partir de votre export">
+      <svg viewBox="0 0 38 22" aria-hidden="true"><rect x="2" y="2" width="34" height="18" rx="9" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="3.2"/><rect x="2" y="2" width="34" height="18" rx="9" fill="none" stroke="#ff3d57" stroke-width="3.2" stroke-linecap="round" pathLength="100" stroke-dasharray="72 100"/></svg>
+      <span>Yearlap</span>
+    </a>
+    <nav class="head-nav" aria-label="Yearlap">
+      <span class="yl-wide" aria-current="page">Ouvrir mon export</span>
+      <a class="yl-mid" href="/fr/strava-bilan-annuel/#obtenir">Obtenir mon export</a>
+      <a href="/strava-year-in-review/" hreflang="en" lang="en" aria-label="English">EN</a>
+      <a href="/de/strava-jahresrueckblick/" hreflang="de" lang="de" aria-label="Deutsch">DE</a>
+      <a href="/nl/strava-jaaroverzicht/" hreflang="nl" lang="nl" aria-label="Nederlands">NL</a>
+      <a href="/es/strava-resumen-anual/" hreflang="es" lang="es" aria-label="Español">ES</a>
+      <a href="/it/strava-riepilogo-annuale/" hreflang="it" lang="it" aria-label="Italiano">IT</a>
+      <a href="/pt-br/strava-retrospectiva/" hreflang="pt-BR" lang="pt-BR" aria-label="Português (Brasil)">PT</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="yl-hero" aria-labelledby="h1">
+<div class="wrap">
+<nav class="crumbs" aria-label="Fil d’Ariane"><ol><li><a href="/tools/" hreflang="en">Tools</a></li><li aria-current="page">Yearlap : bilan annuel Strava</li></ol></nav>
+<div class="yl-hero-grid">
+<div class="yl-hero-copy">
+<h1 id="h1">Votre bilan annuel Strava, gratuit, à partir de votre propre export</h1>
+<p class="lede">Strava ne montre plus son bilan de l’année qu’aux abonnés. L’export complet, que chaque athlète obtient gratuitement, contient pourtant toute l’année. Ouvrez-le ici : distance, heures, dénivelé, vos sports et vos mois, les heures où vous vous entraînez, votre plus grosse journée et votre plus longue série. Ensuite, enregistrez une carte pour vos stories. Tout se passe dans cet onglet du navigateur, le fichier n’est jamais envoyé.</p>
+<div class="yl-panel" id="panel" data-state="idle">
+<div class="yl-stage" id="stage-idle">
+<div class="yl-drop" id="drop">
+<h2 class="yl-drop-title" id="drop-title" tabindex="-1">Ouvrez votre export Strava</h2>
+<p class="yl-drop-text">Le ZIP reçu par e-mail de Strava, tel quel, ou seulement le activities.csv qu’il contient. Les exports dans toutes les langues fonctionnent, en français aussi.</p>
+<div class="yl-actions">
+<button type="button" class="btn btn-primary" id="btn-choose">Choisir le ZIP</button>
+<button type="button" class="btn yl-btn-quiet" id="btn-folder">Choisir le dossier décompressé</button>
+<button type="button" class="btn yl-btn-quiet" id="btn-sample">Voir l’exemple</button>
+</div>
+<input type="file" id="file-input" class="sr-only" tabindex="-1" aria-hidden="true" multiple accept=".zip,.csv,.gpx,.fit,.tcx,.gz,application/zip,text/csv,application/x-zip-compressed">
+<input type="file" id="folder-input" class="sr-only" tabindex="-1" aria-hidden="true" webkitdirectory multiple>
+<p class="yl-drop-note"><span class="yl-drag-hint">Ou glissez le ZIP ou le dossier dans ce cadre. </span>L’exemple est un sportif inventé, créé dans votre navigateur.</p>
+</div>
+<p class="yl-nofile">Pas encore d’export ? <a href="#obtenir">Demandez-le à Strava maintenant</a> ; l’e-mail peut mettre quelques heures à arriver.</p>
+</div>
+<div class="yl-stage" id="stage-busy" hidden>
+<p class="yl-busy-title" id="busy-title" tabindex="-1">Lecture de votre export</p>
+<p class="yl-busy-sub" id="busy-sub" aria-live="polite">Démarrage</p>
+<div class="yl-busy-bar" role="progressbar" aria-labelledby="busy-title" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="busy-bar"><i></i></div>
+</div>
+<div class="yl-stage" id="stage-error" hidden>
+<p class="yl-error-title" id="error-title" tabindex="-1" role="alert">Aucune activité dans ce fichier</p>
+<div class="yl-error-text" id="error-text"></div>
+<div class="yl-actions"><button type="button" class="btn btn-primary" id="btn-retry">Choisir un autre fichier</button><button type="button" class="btn yl-btn-quiet" id="btn-error-sample">Voir l’exemple</button></div>
+</div>
+<div class="yl-stage" id="stage-done" hidden>
+<p class="yl-done-title" id="done-title" tabindex="-1"></p>
+<p class="yl-done-sub" id="done-sub"></p>
+<div class="yl-actions"><a class="btn btn-primary" href="#results" id="btn-see">Voir votre année</a><button type="button" class="btn yl-btn-quiet" id="btn-reset">Ouvrir un autre export</button></div>
+</div>
+</div>
+<p class="yl-private"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 9V6.5a5 5 0 0 1 10 0V9" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="3.2" y="9" width="13.6" height="9" rx="2" fill="currentColor"/></svg><span>Votre export est lu dans cet onglet et n’est jamais envoyé. Seuls activities.csv et les listes de matériel sont ouverts ; les photos et les données de profil du même ZIP restent fermées. Nous comptons les visites avec Cloudflare Web Analytics : pas de cookies, pas de données personnelles, et jamais vos fichiers.</span></p>
+</div>
+<figure class="yl-hero-art">
+<picture><source type="image/webp" srcset="/strava-year-in-review/img/lap-640.webp 640w, /strava-year-in-review/img/lap-960.webp 960w, /strava-year-in-review/img/lap-1280.webp 1280w" sizes="(max-width: 860px) 92vw, 560px"><img src="/strava-year-in-review/img/lap-960.webp" width="960" height="1080" alt="Une année d’entraînement autour d’une piste d’athlétisme : une colonne par jour, plus haute quand le sportif de l’exemple s’est entraîné plus longtemps, la plus grosse journée en or" fetchpriority="high"></picture>
+<figcaption>L’année du sportif de l’exemple en un tour : 365 jours autour de la piste, plus hauts quand il s’est entraîné plus longtemps.</figcaption>
+</figure>
+</div>
+</div>
+<div class="yl-hero-strip" aria-hidden="true">
+<!-- hero-strip:start -->
+<svg viewBox="0 0 1460 92" preserveAspectRatio="none" focusable="false"><rect class="base" x="0" y="90.5" width="1460" height="1.5"/><path class="ticks" d="M0.0 68.2h2.4V92h-2.4zM4.0 70.7h2.4V92h-2.4zM16.0 56.8h2.4V92h-2.4zM24.0 70.4h2.4V92h-2.4zM28.0 60.9h2.4V92h-2.4zM32.0 68.6h2.4V92h-2.4zM40.0 56.4h2.4V92h-2.4zM52.0 68.7h2.4V92h-2.4zM64.0 64.2h2.4V92h-2.4zM76.0 63.0h2.4V92h-2.4zM80.0 71.4h2.4V92h-2.4zM88.0 68.2h2.4V92h-2.4zM96.0 58.2h2.4V92h-2.4zM100.0 59.8h2.4V92h-2.4zM104.0 62.5h2.4V92h-2.4zM108.0 67.9h2.4V92h-2.4zM116.0 68.2h2.4V92h-2.4zM124.0 57.1h2.4V92h-2.4zM128.0 52.5h2.4V92h-2.4zM136.0 68.6h2.4V92h-2.4zM140.0 63.2h2.4V92h-2.4zM144.0 65.7h2.4V92h-2.4zM148.0 64.9h2.4V92h-2.4zM156.0 52.3h2.4V92h-2.4zM164.0 69.3h2.4V92h-2.4zM172.0 68.4h2.4V92h-2.4zM184.0 58.8h2.4V92h-2.4zM188.0 66.5h2.4V92h-2.4zM192.0 67.1h2.4V92h-2.4zM196.0 59.8h2.4V92h-2.4zM200.0 69.9h2.4V92h-2.4zM204.0 65.3h2.4V92h-2.4zM212.0 54.2h2.4V92h-2.4zM220.0 67.3h2.4V92h-2.4zM236.0 50.0h2.4V92h-2.4zM240.0 20.9h2.4V92h-2.4zM244.0 64.6h2.4V92h-2.4zM248.0 69.7h2.4V92h-2.4zM256.0 69.7h2.4V92h-2.4zM264.0 47.0h2.4V92h-2.4zM268.0 58.1h2.4V92h-2.4zM280.0 62.0h2.4V92h-2.4zM284.0 64.9h2.4V92h-2.4zM292.0 45.5h2.4V92h-2.4zM296.0 57.0h2.4V92h-2.4zM300.0 62.7h2.4V92h-2.4zM304.0 68.0h2.4V92h-2.4zM312.0 69.7h2.4V92h-2.4zM320.0 51.0h2.4V92h-2.4zM324.0 50.9h2.4V92h-2.4zM328.0 67.1h2.4V92h-2.4zM332.0 66.7h2.4V92h-2.4zM336.0 60.9h2.4V92h-2.4zM348.0 49.3h2.4V92h-2.4zM352.0 52.5h2.4V92h-2.4zM356.0 62.2h2.4V92h-2.4zM360.0 65.3h2.4V92h-2.4zM364.0 63.9h2.4V92h-2.4zM368.0 69.1h2.4V92h-2.4zM376.0 39.1h2.4V92h-2.4zM380.0 14.8h2.4V92h-2.4zM384.0 64.9h2.4V92h-2.4zM396.0 63.7h2.4V92h-2.4zM408.0 50.2h2.4V92h-2.4zM424.0 68.6h2.4V92h-2.4zM432.0 44.1h2.4V92h-2.4zM436.0 50.7h2.4V92h-2.4zM440.0 64.3h2.4V92h-2.4zM444.0 63.2h2.4V92h-2.4zM452.0 63.9h2.4V92h-2.4zM464.0 51.9h2.4V92h-2.4zM468.0 62.8h2.4V92h-2.4zM472.0 66.9h2.4V92h-2.4zM476.0 68.2h2.4V92h-2.4zM488.0 33.0h2.4V92h-2.4zM496.0 63.2h2.4V92h-2.4zM500.0 66.5h2.4V92h-2.4zM504.0 63.1h2.4V92h-2.4zM512.0 65.8h2.4V92h-2.4zM516.0 40.0h2.4V92h-2.4zM520.0 48.1h2.4V92h-2.4zM528.0 64.1h2.4V92h-2.4zM536.0 68.7h2.4V92h-2.4zM544.0 33.9h2.4V92h-2.4zM548.0 49.8h2.4V92h-2.4zM552.0 62.7h2.4V92h-2.4zM556.0 68.1h2.4V92h-2.4zM568.0 64.2h2.4V92h-2.4zM576.0 48.3h2.4V92h-2.4zM584.0 67.5h2.4V92h-2.4zM588.0 64.3h2.4V92h-2.4zM592.0 67.6h2.4V92h-2.4zM596.0 66.8h2.4V92h-2.4zM600.0 31.9h2.4V92h-2.4zM604.0 21.4h2.4V92h-2.4zM608.0 64.9h2.4V92h-2.4zM612.0 65.3h2.4V92h-2.4zM616.0 64.6h2.4V92h-2.4zM620.0 64.4h2.4V92h-2.4zM624.0 64.6h2.4V92h-2.4zM628.0 48.6h2.4V92h-2.4zM632.0 54.3h2.4V92h-2.4zM640.0 68.7h2.4V92h-2.4zM648.0 68.9h2.4V92h-2.4zM660.0 54.9h2.4V92h-2.4zM664.0 65.1h2.4V92h-2.4zM668.0 66.0h2.4V92h-2.4zM676.0 65.8h2.4V92h-2.4zM684.0 46.6h2.4V92h-2.4zM688.0 47.2h2.4V92h-2.4zM696.0 62.9h2.4V92h-2.4zM704.0 63.5h2.4V92h-2.4zM708.0 67.8h2.4V92h-2.4zM712.0 41.5h2.4V92h-2.4zM716.0 49.1h2.4V92h-2.4zM720.0 62.4h2.4V92h-2.4zM724.0 67.0h2.4V92h-2.4zM728.0 66.7h2.4V92h-2.4zM732.0 68.2h2.4V92h-2.4zM736.0 67.0h2.4V92h-2.4zM740.0 34.8h2.4V92h-2.4zM744.0 13.9h2.4V92h-2.4zM748.0 63.4h2.4V92h-2.4zM752.0 67.3h2.4V92h-2.4zM756.0 69.3h2.4V92h-2.4zM760.0 65.4h2.4V92h-2.4zM772.0 48.9h2.4V92h-2.4zM780.0 69.7h2.4V92h-2.4zM788.0 64.4h2.4V92h-2.4zM800.0 51.6h2.4V92h-2.4zM804.0 65.7h2.4V92h-2.4zM808.0 68.2h2.4V92h-2.4zM812.0 62.8h2.4V92h-2.4zM816.0 68.4h2.4V92h-2.4zM824.0 38.5h2.4V92h-2.4zM828.0 54.2h2.4V92h-2.4zM832.0 67.2h2.4V92h-2.4zM836.0 65.1h2.4V92h-2.4zM840.0 63.3h2.4V92h-2.4zM852.0 38.4h2.4V92h-2.4zM856.0 21.9h2.4V92h-2.4zM860.0 65.6h2.4V92h-2.4zM864.0 68.4h2.4V92h-2.4zM872.0 70.0h2.4V92h-2.4zM876.0 69.1h2.4V92h-2.4zM880.0 37.4h2.4V92h-2.4zM884.0 54.2h2.4V92h-2.4zM888.0 65.0h2.4V92h-2.4zM892.0 64.4h2.4V92h-2.4zM900.0 65.1h2.4V92h-2.4zM908.0 42.2h2.4V92h-2.4zM912.0 56.3h2.4V92h-2.4zM916.0 65.8h2.4V92h-2.4zM920.0 68.4h2.4V92h-2.4zM924.0 62.6h2.4V92h-2.4zM928.0 68.3h2.4V92h-2.4zM936.0 38.8h2.4V92h-2.4zM940.0 49.0h2.4V92h-2.4zM944.0 67.1h2.4V92h-2.4zM948.0 65.0h2.4V92h-2.4zM960.0 64.4h2.4V92h-2.4zM968.0 56.0h2.4V92h-2.4zM972.0 67.1h2.4V92h-2.4zM976.0 64.9h2.4V92h-2.4zM980.0 65.1h2.4V92h-2.4zM988.0 68.0h2.4V92h-2.4zM992.0 40.5h2.4V92h-2.4zM996.0 18.1h2.4V92h-2.4zM1000.0 62.3h2.4V92h-2.4zM1004.0 64.7h2.4V92h-2.4zM1012.0 68.3h2.4V92h-2.4zM1024.0 52.4h2.4V92h-2.4zM1028.0 63.4h2.4V92h-2.4zM1032.0 70.5h2.4V92h-2.4zM1040.0 69.0h2.4V92h-2.4zM1052.0 51.8h2.4V92h-2.4zM1056.0 67.3h2.4V92h-2.4zM1064.0 69.0h2.4V92h-2.4zM1068.0 65.1h2.4V92h-2.4zM1076.0 48.4h2.4V92h-2.4zM1080.0 53.0h2.4V92h-2.4zM1088.0 64.5h2.4V92h-2.4zM1092.0 63.4h2.4V92h-2.4zM1096.0 66.4h2.4V92h-2.4zM1104.0 37.5h2.4V92h-2.4zM1108.0 27.2h2.4V92h-2.4zM1112.0 65.1h2.4V92h-2.4zM1120.0 68.8h2.4V92h-2.4zM1124.0 68.5h2.4V92h-2.4zM1132.0 46.4h2.4V92h-2.4zM1136.0 39.4h2.4V92h-2.4zM1140.0 64.1h2.4V92h-2.4zM1144.0 70.4h2.4V92h-2.4zM1152.0 67.0h2.4V92h-2.4zM1160.0 40.0h2.4V92h-2.4zM1164.0 51.3h2.4V92h-2.4zM1168.0 64.9h2.4V92h-2.4zM1172.0 65.2h2.4V92h-2.4zM1180.0 68.6h2.4V92h-2.4zM1184.0 64.2h2.4V92h-2.4zM1188.0 41.8h2.4V92h-2.4zM1192.0 55.0h2.4V92h-2.4zM1200.0 70.6h2.4V92h-2.4zM1204.0 65.7h2.4V92h-2.4zM1208.0 67.7h2.4V92h-2.4zM1216.0 42.2h2.4V92h-2.4zM1220.0 15.0h2.4V92h-2.4zM1224.0 66.3h2.4V92h-2.4zM1228.0 67.7h2.4V92h-2.4zM1232.0 62.4h2.4V92h-2.4zM1236.0 71.1h2.4V92h-2.4zM1244.0 43.4h2.4V92h-2.4zM1248.0 53.2h2.4V92h-2.4zM1256.0 70.7h2.4V92h-2.4zM1272.0 44.8h2.4V92h-2.4zM1276.0 60.0h2.4V92h-2.4zM1284.0 70.9h2.4V92h-2.4zM1292.0 68.0h2.4V92h-2.4zM1296.0 65.1h2.4V92h-2.4zM1300.0 40.8h2.4V92h-2.4zM1304.0 59.9h2.4V92h-2.4zM1312.0 66.9h2.4V92h-2.4zM1316.0 67.8h2.4V92h-2.4zM1320.0 68.9h2.4V92h-2.4zM1328.0 49.8h2.4V92h-2.4zM1332.0 59.2h2.4V92h-2.4zM1336.0 62.4h2.4V92h-2.4zM1340.0 68.5h2.4V92h-2.4zM1344.0 62.5h2.4V92h-2.4zM1348.0 67.2h2.4V92h-2.4zM1360.0 56.1h2.4V92h-2.4zM1368.0 68.1h2.4V92h-2.4zM1372.0 67.0h2.4V92h-2.4zM1380.0 67.9h2.4V92h-2.4zM1384.0 55.6h2.4V92h-2.4zM1388.0 54.3h2.4V92h-2.4zM1396.0 69.3h2.4V92h-2.4zM1404.0 66.4h2.4V92h-2.4zM1412.0 59.7h2.4V92h-2.4zM1416.0 57.7h2.4V92h-2.4zM1424.0 66.4h2.4V92h-2.4zM1432.0 66.8h2.4V92h-2.4zM1444.0 53.7h2.4V92h-2.4zM1448.0 66.1h2.4V92h-2.4zM1452.0 67.8h2.4V92h-2.4zM1456.0 62.4h2.4V92h-2.4z"/><rect class="big" x="768.0" y="6.0" width="2.4" height="86.0"/></svg>
+<!-- hero-strip:end -->
+</div>
+</section>
+
+<section class="yl-results" id="results" hidden aria-labelledby="res-title" tabindex="-1">
+<div class="wrap">
+<div class="yl-res-head">
+<h2 id="res-title">Votre année de sport</h2>
+<div class="yl-res-controls">
+<div class="yl-years" id="years" role="group" aria-label="Année"></div>
+<div class="yl-seg" id="units" role="group" aria-label="Unités"><button type="button" data-u="metric" aria-pressed="true">km</button><button type="button" data-u="imperial" aria-pressed="false">mi</button></div>
+<div class="yl-tz"><label for="tz">Fuseau horaire</label><select id="tz" class="select"></select></div>
+</div>
+<p class="yl-coverage" id="coverage"></p>
+</div>
+
+<div class="yl-totals">
+<div class="yl-total-main"><p class="yl-big"><span id="t-dist">0</span> <span class="yl-big-u" id="t-dist-u">km</span></p><p class="yl-big-l" id="t-dist-l">Distance</p><p class="yl-total-sub" id="t-sub"></p></div>
+<dl class="yl-kpis">
+<div><dt>Activités</dt><dd id="t-count">0</dd></div>
+<div><dt>Temps en mouvement</dt><dd id="t-time">0</dd></div>
+<div><dt>Dénivelé positif</dt><dd id="t-elev">0</dd></div>
+<div><dt>Jours actifs</dt><dd id="t-days">0</dd></div>
+</dl>
+<figure class="yl-strip-box" id="strip-box"><canvas id="strip" height="96" aria-hidden="true"></canvas><figcaption id="strip-cap"></figcaption></figure>
+</div>
+
+<div class="yl-grid">
+<section class="yl-block" aria-labelledby="sports-h">
+<h3 id="sports-h">Sports</h3>
+<ol class="yl-sports" id="sports"></ol>
+<p class="yl-more" id="sports-more"></p>
+</section>
+<section class="yl-block" id="months-block" aria-labelledby="months-h">
+<div class="yl-block-head"><h3 id="months-h" data-months="Mois après mois" data-years="Année après année">Mois après mois</h3>
+<div class="yl-seg yl-seg-sm" id="month-metric" role="group" aria-label="Afficher"><button type="button" data-m="dist" aria-pressed="true">Distance</button><button type="button" data-m="time" aria-pressed="false">Temps</button></div></div>
+<div class="yl-bars" id="months"></div>
+</section>
+<section class="yl-block yl-block-wide" aria-labelledby="clock-h">
+<h3 id="clock-h">Quand vous vous entraînez</h3>
+<canvas id="clock" class="yl-clock" aria-describedby="clock-note"></canvas>
+<p class="yl-note" id="clock-note"></p>
+<div class="sr-only"><table id="clock-table"><caption>Activités commencées par jour de la semaine et par tranche de trois heures</caption></table></div>
+</section>
+<section class="yl-block yl-block-wide" aria-labelledby="facts-h">
+<h3 id="facts-h">Temps forts</h3>
+<dl class="yl-dl" id="facts"></dl>
+</section>
+</div>
+
+<section class="yl-share" id="share" aria-labelledby="share-h">
+<div class="yl-share-copy">
+<h3 id="share-h">Enregistrez une carte pour votre story</h3>
+<p>Les cartes font 1080 sur 1920 pixels, le format d’une story sur téléphone. Elles sont dessinées dans cet onglet à partir de vos chiffres et portent en petit, en bas, l’adresse de cette page. Trois sont gratuites, Pro en ajoute six.</p>
+<div class="yl-card-picks" id="card-picks" role="radiogroup" aria-label="Carte"></div>
+<div class="yl-actions">
+<button type="button" class="btn btn-primary" id="btn-save-card">Enregistrer la carte en PNG</button>
+<button type="button" class="btn yl-btn-quiet" id="btn-share-card" hidden>Partager</button>
+</div>
+<p class="yl-note" id="card-note"></p>
+</div>
+<div class="yl-card-frame"><canvas id="card-canvas" width="1080" height="1920" aria-label="Aperçu de la carte"></canvas></div>
+</section>
+
+<div class="yl-pro-zone">
+<section class="yl-block yl-pro-block" id="sport-pages" aria-labelledby="sport-h">
+<h3 id="sport-h">Sport par sport</h3>
+<div class="yl-tabs" id="sport-tabs" role="tablist" aria-label="Sports"></div>
+<div id="sport-body" role="tabpanel"></div>
+</section>
+<section class="yl-block yl-pro-block" aria-labelledby="gear-h">
+<h3 id="gear-h">Kilomètres par matériel</h3>
+<div id="gear-body"></div>
+</section>
+<section class="yl-block yl-pro-block" aria-labelledby="compare-h">
+<h3 id="compare-h">Comparaison d’une année à l’autre</h3>
+<div id="compare-body"></div>
+</section>
+<section class="yl-block yl-pro-block" aria-labelledby="poster-h">
+<h3 id="poster-h">Poster des parcours</h3>
+<div id="poster-locked"></div>
+<div class="yl-poster-tools" id="poster-tools" hidden>
+<div class="yl-poster-opts">
+<label class="yl-field"><span>Sport</span><select id="poster-sport" class="select"></select></label>
+<label class="yl-field"><span>Nom sur le poster (facultatif)</span><input id="poster-name" class="input" maxlength="48" autocomplete="off"></label>
+<div class="yl-field"><span id="theme-l">Couleurs</span><div class="yl-seg" id="poster-theme" role="group" aria-labelledby="theme-l"><button type="button" data-theme="night" aria-pressed="true">Nuit</button><button type="button" data-theme="chalk" aria-pressed="false">Craie</button></div></div>
+</div>
+<div class="yl-actions"><button type="button" class="btn btn-primary" id="btn-poster">Dessiner le poster</button><button type="button" class="btn yl-btn-quiet" id="btn-poster-save" disabled>Enregistrer le poster en PNG</button></div>
+<p class="yl-note" id="poster-status" aria-live="polite"></p>
+<div class="yl-poster-frame" id="poster-frame" hidden><canvas id="poster-canvas" aria-label="Aperçu du poster des parcours"></canvas></div>
+</div>
+</section>
+</div>
+
+<div class="yl-res-foot">
+<button type="button" class="btn" id="btn-csv"><svg class="yl-lock" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 9V6.5a4 4 0 0 1 8 0V9" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="4" y="9" width="12" height="8.5" rx="2" fill="currentColor"/></svg><span>Télécharger le CSV</span></button>
+<details class="yl-files"><summary>Ce qui a été lu</summary><div id="files-read"></div></details>
+</div>
+</div>
+</section>
+
+<section class="yl-request wrap" id="obtenir" aria-labelledby="request-h">
+<div class="yl-request-head">
+<h2 id="request-h">Comment obtenir votre export Strava</h2>
+<p>Strava parle d’export en masse ou d’archive de votre compte. Il est gratuit pour tous les comptes, abonnés ou non, et se demande sur le site web : l’app n’a pas de bouton pour cela.</p>
+</div>
+<ol class="yl-steps">
+<li><strong>Connectez-vous sur strava.com,</strong> dans le navigateur, de préférence sur un ordinateur.</li>
+<li><strong>Ouvrez Paramètres, puis Mon compte.</strong> Le menu se trouve en haut à droite, sous votre nom.</li>
+<li><strong>Dans la rubrique Télécharger votre compte, choisissez Démarrer,</strong> puis Demander le téléchargement sur la page suivante.</li>
+<li><strong>Attendez l’e-mail.</strong> D’après l’aide de Strava, cela peut prendre quelques heures. Le lien qu’il contient télécharge un fichier ZIP.</li>
+<li><strong>Ouvrez ce ZIP ici, tel quel.</strong> Inutile de le décompresser, quelle que soit sa taille : Yearlap ne lit que les parties dont il a besoin.</li>
+</ol>
+<p class="yl-request-more">Ce que contient le ZIP et que faire si l’e-mail n’arrive pas : <a href="/strava-year-in-review/export-strava-data/" hreflang="en">guide détaillé (en anglais)</a>. Source : <a href="https://support.strava.com/fr/articles/15401919-comment-exporter-mes-donnees-strava" rel="noopener" target="_blank">aide Strava, “Comment exporter mes données Strava ?”</a>, consultée le 22 octobre 2026.</p>
+</section>
+
+<section class="yl-lang wrap" aria-labelledby="lang-h">
+<div class="yl-lang-copy">
+<h2 id="lang-h">Fonctionne avec les exports en français</h2>
+<p>Strava écrit l’export dans la langue de votre compte : les noms des colonnes, les dates et l’une des deux colonnes de distance. Beaucoup d’outils cherchent “Activity Date” et “Distance” et échouent dès qu’autre chose est écrit à la place. On conseille parfois de passer Strava en anglais et de redemander l’export, ce qui coûte encore des heures. Un utilisateur a même constaté que changer la langue du site ne changeait pas la langue de son export.</p>
+<p>Yearlap n’a pas besoin des mots. Les colonnes sont dans le même ordre quelle que soit la langue, et l’export en répète deux dans un bloc de valeurs brutes (secondes et mètres, toujours avec un point). Yearlap repère cette répétition, y lit les chiffres et comprend les dates en français, en anglais, en allemand, en néerlandais, en espagnol, en italien, en portugais et dans d’autres langues. Vos sports gardent les noms de votre export : Vélo reste Vélo.</p>
+</div>
+<div class="yl-scroll">
+<table class="yl-lang-table">
+<caption>Les mêmes colonnes dans trois langues d’export. Les valeurs anglaises et françaises viennent d’exports publiés par des utilisateurs ; les néerlandaises sont un exemple au format néerlandais.</caption>
+<thead><tr><th scope="col">Colonne</th><th scope="col">Anglais</th><th scope="col">Français</th><th scope="col">Néerlandais</th></tr></thead>
+<tbody>
+<tr><th scope="row">2</th><td>Activity Date</td><td>Date de l’activité</td><td>Datum van activiteit</td></tr>
+<tr><th scope="row">Date</th><td>Aug 1, 2020, 12:02:05 AM</td><td>18 mai 2026, 05:35:05</td><td>3 mrt 2026, 06:30:00</td></tr>
+<tr><th scope="row">7</th><td>Distance: 73.47</td><td>Distance: 4,97</td><td>Afstand: 10,02</td></tr>
+<tr><th scope="row">18</th><td>Distance: 73472.5</td><td>Distance: 4978.7</td><td>Afstand: 10021.4</td></tr>
+<tr><th scope="row">4</th><td>Ride</td><td>Vélo</td><td>Fietsrit</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="yl-pro wrap" id="pro" aria-labelledby="pro-h">
+<div class="yl-pro-copy">
+<h2 id="pro-h">Yearlap Pro</h2>
+<p class="yl-price"><span class="yl-price-n">5 $</span> une fois. Sans abonnement, sans compte.</p>
+<ul class="yl-pro-list">
+<li>Toutes les années de votre export, et les totaux toutes années confondues.</li>
+<li>La comparaison d’une année à l’autre : distance, temps, dénivelé et jours actifs, avec l’écart par rapport à l’année précédente.</li>
+<li>Les kilomètres par matériel : la distance parcourue par chaque paire de chaussures et chaque vélo, cette année et depuis le début.</li>
+<li>Une page par sport : totaux, mois, allure ou vitesse moyenne, la sortie la plus longue et la plus rapide.</li>
+<li>Le poster des parcours : chaque parcours de l’année côte à côte, à partir des fichiers GPS de votre export, en PNG de 3000 sur 4243 pixels à imprimer.</li>
+<li>Les neuf cartes pour vos stories et un CSV de votre année.</li>
+</ul>
+<div class="yl-actions"><a class="btn btn-primary" data-buy-pro href="https://dorukctn.gumroad.com/l/yearlap-pro">Acheter Pro pour 5 $</a><button type="button" class="btn yl-btn-quiet" data-enter-key>J’ai déjà une clé</button></div>
+<p class="yl-note" id="pro-state">Pro n’est pas actif dans ce navigateur.</p>
+<p class="yl-note">Le paiement et la clé de licence passent par Gumroad (en anglais). La clé fonctionne dans chaque navigateur où vous la collez, sur toutes les pages Yearlap, celles pour Garmin comprises.</p>
+</div>
+<figure class="yl-pro-art">
+<img src="/strava-year-in-review/img/poster-sample-720.webp" srcset="/strava-year-in-review/img/poster-sample-480.webp 480w, /strava-year-in-review/img/poster-sample-720.webp 720w" sizes="(max-width: 860px) 80vw, 360px" width="720" height="1018" loading="lazy" alt="Un poster des parcours de Yearlap Pro pour le sportif de l’exemple : tous les parcours de l’année en grille, course en rouge, vélo en bleu glacier, marche en or">
+<figcaption>Un vrai poster Pro, dessiné par cette page à partir des parcours du sportif de l’exemple.</figcaption>
+</figure>
+</section>
+
+<section class="yl-why wrap" aria-labelledby="why-h">
+<h2 id="why-h">Pourquoi un bilan annuel gratuit</h2>
+<p>En décembre 2025, Strava a réservé son bilan de l’année, Year in Sport, aux abonnés. <a href="https://www.cnet.com/health/fitness/strava-yearly-roundup-now-requires-80-subscription/" rel="noopener" target="_blank" hreflang="en">CNET</a> parlait d’un abonnement à 80 dollars par an, et Strava écrivait lui-même le 9 décembre 2025 que le bilan était “available now to subscribers”. Vos activités, et le droit de les télécharger, restent à vous avec un compte gratuit. Yearlap fait de ce téléchargement votre récap de l’année et ne fait payer que les extras.</p>
+<div class="yl-sibling"><p>Vous vous entraînez avec une montre Garmin ? <a href="/fr/garmin-bilan-annuel/">Yearlap lit aussi vos données Garmin</a>, la liste d’activités de Garmin Connect ou l’archive complète, avec la même clé Pro.</p></div>
+</section>
+
+<section class="yl-faq wrap" aria-labelledby="faq-h">
+<h2 id="faq-h">Questions</h2>
+<details><summary>Peut-on voir son bilan annuel Strava gratuitement, sans abonnement ?</summary><p>Le bilan de Strava lui-même, Year in Sport, est réservé aux abonnés depuis décembre 2025. Vous gardez en revanche le droit de télécharger vos données gratuitement : demandez l’archive de votre compte à Strava, ouvrez le ZIP sur cette page, et Yearlap vous montre votre année, avec des cartes à partager.</p></details>
+<details><summary>Comment télécharger mes données Strava ?</summary><p>Sur strava.com (pas dans l’app) : Paramètres, puis Mon compte, puis Démarrer dans la rubrique Télécharger votre compte, et enfin Demander le téléchargement. Strava vous envoie un lien par e-mail ; d’après son aide, cela peut prendre quelques heures. <a href="#obtenir">Étape par étape</a>.</p></details>
+<details><summary>Mon export est en français. Ça marche ?</summary><p>Oui. Strava écrit les noms des colonnes, les dates et l’une des colonnes de distance dans la langue de votre compte, par exemple 18 mai 2026 et 4,97. Yearlap lit les colonnes par leur position et prend les chiffres dans les colonnes de valeurs brutes de l’export : un export en français, en anglais ou en néerlandais donne les mêmes totaux.</p></details>
+<details><summary>Mon export Strava est-il envoyé quelque part ?</summary><p>Non. Le ZIP est ouvert par JavaScript dans votre onglet et n’est jamais envoyé à un serveur. Seuls activities.csv, bikes.csv et shoes.csv sont ouverts, et les fichiers de parcours uniquement si vous dessinez le poster Pro ; les photos et les données de profil restent fermées. Quand vous fermez l’onglet, tout disparaît. <a href="/strava-year-in-review/privacy/" hreflang="en">Confidentialité (en anglais)</a>.</p></details>
+<details><summary>Pourquoi mes chiffres diffèrent-ils de ceux de Strava ?</summary><p>Yearlap additionne le temps en mouvement, la distance et le dénivelé inscrits pour chaque activité dans activities.csv. Strava écrit les heures de départ en UTC ; Yearlap compte donc les jours et les heures dans le fuseau horaire que vous choisissez, par défaut celui de votre appareil. Strava ne publie pas le détail de son calcul, de petits écarts sont donc normaux.</p></details>
+<details><summary>Puis-je voir mes statistiques Strava de l’an dernier ?</summary><p>Oui. En version gratuite, Yearlap montre l’année la plus récente de votre export, et en janvier et février l’année précédente si elle y figure. Les autres années, les totaux toutes années et la comparaison d’une année à l’autre font partie de Pro.</p></details>
+<details><summary>Yearlap vient-il de Strava ?</summary><p>Non. Yearlap est un outil indépendant de Peak Apps Studio, sans lien avec Strava. Il ne se connecte jamais à Strava et ne demande jamais vos identifiants. Strava est une marque de Strava, Inc.</p></details>
+</section>
+</main>
+<aside class="peak-new" aria-label="Nouveau chez Peak Apps">
+  <div class="wrap">
+    <a class="peak-new-card" href="/fr/corriger-date-photos/" style="--tool:#c4360e">
+      <span class="peak-new-kicker">Nouveau chez Peak Apps</span>
+      <strong>Corriger la date des photos Snapchat</strong>
+      <span class="peak-new-line">Remettez la vraie date, l’heure et le lieu dans les photos d’un export Snapchat Memories. Gratuit, rien n’est envoyé.</span>
+    </a>
+  </div>
+</aside>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:700">Yearlap</p>
+      <p style="margin:0;max-width:46ch">Un bilan annuel à partir de l’export complet que Strava donne à chaque athlète. Votre export est ouvert par cette page sur votre propre appareil et n’est jamais envoyé.</p>
+      <p style="margin:12px 0 0;max-width:46ch">Yearlap est un outil indépendant de <a href="https://peakappsstudio.com/">Peak Apps Studio</a>, sans lien avec Strava, Inc., qui ne l’approuve ni ne le parraine. Strava est une marque de Strava, Inc.</p>
+    </div>
+    <div>
+      <h2>Votre export</h2>
+      <ul>
+        <li><span aria-current="page">Ouvrir l’export</span></li>
+        <li><a href="/fr/strava-bilan-annuel/#obtenir">Comment le demander</a></li>
+        <li><a href="/strava-year-in-review/export-strava-data/" hreflang="en">Guide détaillé (en anglais)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Aussi pour Garmin</h2>
+      <ul>
+        <li><a href="/fr/garmin-bilan-annuel/">Bilan annuel Garmin</a></li>
+      </ul>
+      <h2 style="margin-top:18px">Autres langues</h2>
+      <ul>
+        <li><a href="/strava-year-in-review/" hreflang="en" lang="en">Strava year in review (English)</a></li>
+        <li><a href="/de/strava-jahresrueckblick/" hreflang="de" lang="de">Strava-Jahresrückblick (Deutsch)</a></li>
+        <li><a href="/nl/strava-jaaroverzicht/" hreflang="nl" lang="nl">Strava-jaaroverzicht (Nederlands)</a></li>
+        <li><a href="/es/strava-resumen-anual/" hreflang="es" lang="es">Resumen anual de Strava (español)</a></li>
+        <li><a href="/it/strava-riepilogo-annuale/" hreflang="it" lang="it">Riepilogo annuale Strava (italiano)</a></li>
+        <li><a href="/pt-br/strava-retrospectiva/" hreflang="pt-BR" lang="pt-BR">Retrospectiva do Strava (português)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>À propos</h2>
+      <ul>
+        <li><a href="/strava-year-in-review/privacy/" hreflang="en">Confidentialité (en anglais)</a></li>
+        <li><a href="/tools/" hreflang="en">Autres outils (en anglais)</a></li>
+        <li><a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
