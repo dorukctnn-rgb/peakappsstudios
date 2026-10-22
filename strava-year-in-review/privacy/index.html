@@ -570,6 +570,23 @@ body.yl:not(.yl-is-pro) .yl-pro-zone > * { grid-column: auto; }
 @media (max-width: 560px) { .yl .yl-head .yl-mid { display: none; } }
 .yl h1 { max-width: 17ch; }
 html[lang="de"] .yl h1, html[lang="nl"] .yl h1 { max-width: 19ch; }
+
+/* Garmin pages: two ways to get the data, side by side; the link to the sibling page */
+html[lang="fr"] .yl h1 { max-width: 19ch; }
+.yl-ways { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); margin-top: 26px; }
+.yl-way h3 { margin: 0 0 6px; }
+.yl-way > p { color: var(--ink-2); margin: 0; max-width: 56ch; }
+.yl-way-tag { display: block; font-size: 13px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--red-ink); margin: 0 0 8px; }
+.yl-steps.yl-steps-v { grid-template-columns: minmax(0, 1fr); border-top: 0; border-left: 3px solid var(--ink); margin: 20px 0 0 7px; row-gap: 0; }
+.yl-steps-v li { padding: 0 0 18px 26px; }
+.yl-steps-v li::before { font-size: 30px; margin-bottom: 4px; }
+.yl-steps-v li::after { top: 6px; left: -9px; }
+.yl-steps-v li:last-child { padding-bottom: 0; }
+.yl-sibling { margin-top: clamp(36px, 5vw, 56px); padding: 18px 22px; border: 1.5px solid var(--line-2); border-radius: 16px; background: var(--card); display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; justify-content: space-between; }
+.yl-sibling p { margin: 0; color: var(--ink-2); max-width: 70ch; }
+.yl-sibling a { font-weight: 800; }
+@media (max-width: 860px) { .yl-ways { grid-template-columns: minmax(0, 1fr); } }
+.yl-kpis dd small { display: block; font-family: var(--sans); font-style: normal; font-weight: 600; font-size: 13.5px; line-height: 1.35; letter-spacing: 0; color: var(--ink-2); margin-top: 4px; }
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Yearlap: Strava year in review","item":"https://peakappsstudio.com/strava-year-in-review/"},{"@type":"ListItem","position":3,"name":"Privacy","item":"https://peakappsstudio.com/strava-year-in-review/privacy/"}]}
@@ -599,7 +616,7 @@ html[lang="de"] .yl h1, html[lang="nl"] .yl h1 { max-width: 19ch; }
 <div class="wrap">
 <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/strava-year-in-review/">Yearlap</a></li><li aria-current="page">Privacy</li></ol></nav>
 <h1>Privacy</h1>
-<p class="lede">Last updated 22 October 2026. This page covers Yearlap at peakappsstudio.com/strava-year-in-review, and its German and Dutch pages.</p>
+<p class="lede">Last updated 22 October 2026. This page covers Yearlap at peakappsstudio.com/strava-year-in-review, its German and Dutch pages, and the Garmin pages in German, Dutch and French (peakappsstudio.com/de/garmin-jahresrueckblick and its other languages).</p>
 </div>
 </section>
 <article class="wrap yl-guide">
@@ -611,8 +628,12 @@ html[lang="de"] .yl h1, html[lang="nl"] .yl h1 { max-width: 19ch; }
 <li><strong>Visit counts.</strong> We count page visits with Cloudflare Web Analytics, which uses no cookies and no personal data. It never sees your files.</li>
 <li><strong>Buying Pro.</strong> The buy button opens Gumroad, which handles payment under its own privacy policy. We get your email address and the purchase from Gumroad, to answer questions and refunds.</li>
 </ul>
+<h2>Garmin files</h2>
+<p>The Garmin pages read the same way, in the same tab. From the Activities.csv of Garmin Connect they read the activity list. From the archive of Export Your Data they open only the activity summaries, the daily step totals, the sleep records and, when you draw the Pro route poster, the original activity files; your profile, weight, devices and the other files in the archive are not opened. Nothing is sent or stored.</p>
 <h2>Strava</h2>
 <p>Yearlap never connects to Strava and never asks for your Strava login. It is not affiliated with Strava, Inc.</p>
+<h2>Garmin</h2>
+<p>Yearlap never connects to Garmin Connect and never asks for your Garmin login. It is not affiliated with Garmin Ltd. or its subsidiaries.</p>
 <h2>Contact</h2>
 <p>Peak Apps Studio, <a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a>.</p>
 <p><a href="/strava-year-in-review/">Back to Yearlap</a></p>
@@ -642,7 +663,13 @@ html[lang="de"] .yl h1, html[lang="nl"] .yl h1 { max-width: 19ch; }
       </ul>
     </div>
     <div>
-      <h2>Other languages</h2>
+      <h2>For Garmin data</h2>
+      <ul>
+        <li><a href="/de/garmin-jahresrueckblick/" hreflang="de" lang="de">Garmin-Jahresrückblick (Deutsch)</a></li>
+        <li><a href="/nl/garmin-jaaroverzicht/" hreflang="nl" lang="nl">Garmin-jaaroverzicht (Nederlands)</a></li>
+        <li><a href="/fr/garmin-bilan-annuel/" hreflang="fr" lang="fr">Bilan annuel Garmin (français)</a></li>
+      </ul>
+      <h2 style="margin-top:18px">Other languages</h2>
       <ul>
         <li><a href="/de/strava-jahresrueckblick/" hreflang="de" lang="de">Strava-Jahresrückblick (Deutsch)</a></li>
         <li><a href="/nl/strava-jaaroverzicht/" hreflang="nl" lang="nl">Strava-jaaroverzicht (Nederlands)</a></li>

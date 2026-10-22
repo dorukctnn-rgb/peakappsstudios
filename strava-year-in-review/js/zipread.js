@@ -64,6 +64,21 @@ export async function openZip(blob) {
   return { blob, entries };
 }
 
+// A ZIP inside the ZIP (a Garmin export keeps its original activity files that way): a stored entry is handed on as a
+// slice of the file on disk, so nothing is loaded; a compressed one is unpacked in memory, up to max bytes.
+export async function entryBlob(zip, e, max = 1.2e9) {
+  if (e.encrypted) throw new Error('zip: encrypted entry');
+  if (e.method === 0) {
+    const h = await bytes(zip.blob, e.loff, e.loff + 30);
+    const hv = new DataView(h.buffer, h.byteOffset, h.byteLength);
+    if (h.length < 30 || u32(hv, 0) !== 0x04034b50) throw new Error('zip: bad local header');
+    const start = e.loff + 30 + u16(hv, 26) + u16(hv, 28);
+    return zip.blob.slice(start, start + e.csize);
+  }
+  if (e.usize > max) throw new Error('zip: inner archive too large');
+  return new Blob([await readEntry(zip, e)]);
+}
+
 export async function readEntry(zip, e) {
   if (e.encrypted) throw new Error('zip: encrypted entry');
   let buf = await bytes(zip.blob, e.loff, Math.min(zip.blob.size, e.loff + 30 + 512 + e.csize));

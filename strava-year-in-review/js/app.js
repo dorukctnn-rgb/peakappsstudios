@@ -1,7 +1,8 @@
-/* Yearlap page logic (English, German and Dutch pages). The export goes to the worker (worker.js) in this tab; the page
- * only shows what the worker works out. The one network request the page itself can make is the Pro license check, to
- * Gumroad, when you paste a key. */
-import { strings, fill, ADDRESS } from './i18n.js';
+/* Yearlap page logic (the Strava pages in English, German and Dutch; the Garmin pages in German, Dutch and French,
+ * marked <body data-source="garmin">). The export goes to the worker (worker.js) in this tab; the page only shows what
+ * the worker works out. The one network request the page itself can make is the Pro license check, to Gumroad, when you
+ * paste a key. */
+import { strings, fill, ADDRESS, ADDRESS_GARMIN } from './i18n.js';
 import { makeFmt } from './fmt.js';
 import { drawCard, cardFileName, CARD_TYPES, drawStrip, drawClock, bigIndexOf } from './cards.js';
 import { drawPoster, PW, PH } from './poster.js';
@@ -14,7 +15,10 @@ const YEARLAP_PRO_URL = 'https://dorukctn.gumroad.com/l/yearlap-pro';
 const PRO_READY = !!YEARLAP_PRO_PRODUCT_ID && YEARLAP_PRO_PRODUCT_ID !== 'PENDING';
 
 const LANG = (document.documentElement.lang || 'en').slice(0, 2);
-const T = strings(LANG);
+const PAGE_SOURCE = document.body.dataset.source === 'garmin' ? 'garmin' : 'strava';
+// the words follow the export that was opened (a Strava export on a Garmin page gets the Strava wording, and back)
+let T = strings(LANG, PAGE_SOURCE);
+const ADDR = (PAGE_SOURCE === 'garmin' ? ADDRESS_GARMIN : ADDRESS)[LANG] || ADDRESS.en;
 const $ = id => document.getElementById(id);
 const DAY = 864e5;
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -38,6 +42,8 @@ function setupLicense() {
   const L = LANG === 'en' ? {} : {
     strings: LANG === 'de'
       ? { title: 'Pro holen', buy: 'Pro bei Gumroad kaufen', keyLabel: 'Schon gekauft? Füge deinen Lizenzschlüssel ein', verify: 'Aktivieren', close: 'Schließen', checking: 'Wird bei Gumroad geprüft…', badKey: 'Das sieht nicht wie ein Lizenzschlüssel aus. Er steht in deiner Kaufbestätigung von Gumroad.', network: 'Gumroad war nicht erreichbar. Prüfe die Verbindung und versuche es noch einmal.', ok: 'Pro ist in diesem Browser aktiv. Danke.', refunded: 'Dieser Kauf wurde erstattet oder ist beendet, Pro ist aus.', rejected: 'Dieser Lizenzschlüssel wurde nicht angenommen.', active: 'Pro ist in diesem Browser aktiv.' }
+      : LANG === 'fr'
+      ? { title: 'Passer à Pro', buy: 'Acheter Pro sur Gumroad', keyLabel: 'Déjà acheté ? Collez votre clé de licence', verify: 'Activer', close: 'Fermer', checking: 'Vérification auprès de Gumroad…', badKey: 'Cela ne ressemble pas à une clé de licence. Elle figure dans votre confirmation d’achat Gumroad.', network: 'Gumroad est injoignable. Vérifiez votre connexion et réessayez.', ok: 'Pro est actif dans ce navigateur. Merci.', refunded: 'Cet achat a été remboursé ou a pris fin, Pro est désactivé.', rejected: 'Cette clé de licence n’a pas été acceptée.', active: 'Pro est actif dans ce navigateur.' }
       : { title: 'Pro nemen', buy: 'Pro kopen bij Gumroad', keyLabel: 'Al gekocht? Plak je licentiesleutel', verify: 'Activeren', close: 'Sluiten', checking: 'Wordt bij Gumroad gecontroleerd…', badKey: 'Dat lijkt geen licentiesleutel. Je vindt hem in je aankoopbevestiging van Gumroad.', network: 'Gumroad was niet bereikbaar. Controleer je verbinding en probeer het opnieuw.', ok: 'Pro is actief in deze browser. Dank je.', refunded: 'Deze aankoop is terugbetaald of beëindigd, dus Pro staat uit.', rejected: 'Deze licentiesleutel is niet geaccepteerd.', active: 'Pro is actief in deze browser.' },
     localMessages: true,
   };
@@ -88,7 +94,7 @@ function start(items) {
   setBar(4);
   stage('busy');
   focusEl($('busy-title'));
-  w.postMessage({ type: 'files', files: items, tz });
+  w.postMessage({ type: 'files', files: items, tz, lang: LANG });
 }
 function startSample() {
   const w = getWorker();
@@ -98,7 +104,7 @@ function startSample() {
   $('busy-sub').textContent = T.sampleSub;
   setBar(40);
   stage('busy');
-  w.postMessage({ type: 'sample', tz });
+  w.postMessage({ type: 'sample', tz, lang: LANG, source: PAGE_SOURCE });
 }
 
 function onWorker(ev) {
@@ -115,6 +121,7 @@ function onWorker(ev) {
     if (m.compare) state.compare = m.compare;
     if (m.alltime) state.alltime = m.alltime;
     state.gear = m.gear || null;
+    state.wellness = m.wellness || null;
     render();
     return;
   }
@@ -135,6 +142,8 @@ function problemList(meta) {
 }
 function loaded(meta, m) {
   state.meta = meta;
+  T = strings(LANG, meta.count ? meta.source : PAGE_SOURCE);
+  $('tz').closest('.yl-tz').hidden = meta.source === 'garmin';
   if (m.tzChange) {
     const ys = meta.years.map(y => y.year);
     if (state.year !== 'all' && !ys.includes(state.year)) state.year = ys[ys.length - 1];
@@ -158,7 +167,8 @@ function loaded(meta, m) {
   const probs = problemList(meta);
   const lay = meta.layout || {};
   const routes = meta.routes.available ? fill(T.routesSome, { n: F.n(meta.routes.available) }) : T.routesNone;
-  $('done-sub').textContent = m.sample ? T.doneSampleSub : `${fill(T.doneSub, { lang: T.langs[lay.lang] || T.langs.other, how: lay.how === 'position' ? T.howPos : lay.how === 'names' ? T.howNames : '', routes })}${probs.length ? ' ' + probs.join(' ') : ''}`;
+  const langName = lay.garmin ? (T.glangs[lay.lang] || T.glangs.other) : (T.langs[lay.lang] || T.langs.other);
+  $('done-sub').textContent = m.sample ? T.doneSampleSub : `${fill(T.doneSub, { lang: langName, how: lay.how === 'position' ? T.howPos : lay.how === 'names' ? T.howNames : '', routes })}${probs.length ? ' ' + probs.join(' ') : ''}`;
   stage('done');
   fillTz();
   buildYears();
@@ -256,6 +266,7 @@ function render() {
   renderSportPages(s);
   renderGear();
   renderCompare();
+  renderWellness();
   renderPoster();
   renderFiles();
   $('btn-csv').querySelector('.yl-lock').style.display = state.pro ? 'none' : '';
@@ -380,7 +391,7 @@ $('card-picks').addEventListener('keydown', e => {
 });
 function cardData() {
   const y = state.year;
-  return { T, f: F, year: y, running: y !== 'all' && y === currentYearInTz(), stats: state.stats, compare: state.compare, alltime: state.alltime, gear: state.gear, routes: state.routes, address: ADDRESS[LANG] || ADDRESS.en };
+  return { T, f: F, year: y, running: y !== 'all' && y === currentYearInTz(), stats: state.stats, compare: state.compare, alltime: state.alltime, gear: state.gear, routes: state.routes, address: ADDR };
 }
 async function fontsReady() {
   try { await Promise.all([document.fonts.load('italic 800 80px "Yearlap Display"'), document.fonts.load('700 40px "Yearlap Text"'), document.fonts.load('400 40px "Yearlap Text"')]); } catch (e) { /* draw with the fallback */ }
@@ -489,6 +500,7 @@ function selectSport(type) {
 /* ---------- Pro: gear ---------- */
 function renderGear() {
   const box = $('gear-body');
+  if (!box) return;
   const n = state.meta ? state.meta.gear : 0;
   if (!state.pro) { box.innerHTML = n ? lockedNote(fill(T.lockGear, { n: F.n(n) }), T.proGear, 'btn-gear-pro') : `<div class="yl-locked-note"><p>${esc(T.lockGearNone)}</p></div>`; return; }
   const g = state.gear;
@@ -513,13 +525,39 @@ function renderCompare() {
   box.innerHTML = `<div class="yl-scroll"><table><caption>${esc(T.cCaption)}</caption><thead><tr><th scope="col">${esc(T.cYear)}</th><th scope="col" class="num">${esc(T.cActs)}</th><th scope="col" class="num">${esc(T.cDist)}</th><th scope="col" class="num">${esc(T.cTime)}</th><th scope="col" class="num">${esc(T.cElev)}</th><th scope="col" class="num">${esc(T.cDays)}</th><th scope="col" class="num">${esc(T.cChange)}</th><th scope="col">${esc(T.cTop)}</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
+/* ---------- Pro: steps and sleep (Garmin's archive) ---------- */
+function renderWellness() {
+  const box = $('well-body');
+  if (!box) return;
+  const w = state.meta ? state.meta.wellness : null;
+  if (!w || (!w.stepDays && !w.sleepNights)) { box.innerHTML = `<div class="yl-locked-note"><p>${esc(T.wellNeed)}</p></div>`; return; }
+  if (!state.pro) { box.innerHTML = lockedNote(fill(T.lockWell, { days: F.n(w.stepDays), nights: F.n(w.sleepNights) }), T.proWell, 'btn-well-pro'); return; }
+  const s = state.wellness;
+  if (!s) { box.innerHTML = '<p class="yl-empty">…</p>'; return; }
+  if (!s.steps && !s.sleep) { box.innerHTML = `<div class="yl-locked-note"><p>${esc(T.wNoneYear)}</p></div>`; return; }
+  const kp = [];
+  if (s.steps) kp.push([T.wSteps, F.n(s.steps.total)], [T.wStepsAvg, F.n(s.steps.avg)], [T.wStepsBest, F.n(s.steps.best.steps), F.date(s.steps.best.day)], [T.wOver10k, F.n(s.steps.over10k)]);
+  if (s.sleep) kp.push([T.wSleep, F.hm(s.sleep.avg)], [T.wNights, F.n(s.sleep.nights)], [T.wDeep, F.hm(s.sleep.deep)], [T.wRem, F.hm(s.sleep.rem)], [T.wOver7, F.n(s.sleep.over7)], [T.wLongest, F.hm(s.sleep.longest.secs), F.date(s.sleep.longest.day)]);
+  const all = state.year === 'all';
+  box.innerHTML = `<dl class="yl-kpis yl-kpis-sm yl-well-kpis">${kp.map(([k, v, sub]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}${sub ? `<small>${esc(sub)}</small>` : ''}</dd></div>`).join('')}</dl>
+<div class="yl-sport-cols">${s.steps ? `<div><h4 class="yl-sub-h">${esc(all ? T.wStepsYears : T.wStepsMonths)}</h4><div class="yl-bars" id="well-steps"></div></div>` : ''}${s.sleep ? `<div><h4 class="yl-sub-h">${esc(all ? T.wSleepYears : T.wSleepMonths)}</h4><div class="yl-bars" id="well-sleep"></div></div>` : ''}</div>`;
+  const draw = (id, part, fmtv) => {
+    if (!part) return;
+    if (all) { const ys = part.years.slice(-12); $(id).style.gridTemplateColumns = `repeat(${Math.max(ys.length, 1)}, minmax(0, 1fr))`; bars($(id), ys.map(y => y.avg), ys.map(y => `'${String(y.year).slice(2)}`), ys.map(y => String(y.year)), fmtv); }
+    else bars($(id), part.months, F.monS.map(x => x.slice(0, 3)), F.monL, fmtv);
+  };
+  draw('well-steps', s.steps, v => F.n(v));
+  draw('well-sleep', s.sleep, v => F.hm(v));
+}
+
 /* ---------- Pro: route poster ---------- */
 function renderPoster() {
   const lock = $('poster-locked'), tools = $('poster-tools');
   const avail = state.meta ? state.meta.routes.available : 0;
   if (!state.pro) {
     tools.hidden = true; lock.hidden = false;
-    lock.innerHTML = `<div class="yl-locked-poster"><img src="/strava-year-in-review/img/poster-sample-480.webp" width="480" height="679" loading="lazy" alt="">${lockedNote(fill(T.lockPoster, { n: F.n(avail) }), T.proPoster, 'btn-poster-pro')}</div>`;
+    const text = state.meta && state.meta.routes.garmin ? `${T.lockPoster} ${avail ? T.lockPosterHas : T.lockPosterNeed}` : fill(T.lockPoster, { n: F.n(avail) });
+    lock.innerHTML = `<div class="yl-locked-poster"><img src="/strava-year-in-review/img/poster-sample-480.webp" width="480" height="679" loading="lazy" alt="">${lockedNote(text, T.proPoster, 'btn-poster-pro')}</div>`;
     return;
   }
   lock.hidden = true; tools.hidden = false;
@@ -560,7 +598,7 @@ function routesArrived(m) {
   renderCardPicks();
 }
 function posterOpts() {
-  return { routes: state.routes || [], year: state.year, name: $('poster-name').value.trim().slice(0, 48), theme: state.posterTheme, f: F, T, address: ADDRESS[LANG] || ADDRESS.en, sport: state.posterSport || '' };
+  return { routes: state.routes || [], year: state.year, name: $('poster-name').value.trim().slice(0, 48), theme: state.posterTheme, f: F, T, address: ADDR, sport: state.posterSport || '' };
 }
 async function drawPosterPreview() {
   await fontsReady();
@@ -594,7 +632,7 @@ $('btn-csv').addEventListener('click', () => {
 function renderFiles() {
   const meta = state.meta;
   if (!meta) return;
-  const li = meta.files.map(f => `<li>${esc(fill(T.filesRows, { name: f.name, n: F.n(f.rows), cols: F.n(f.columns), lang: (T.langs[f.lang] || T.langs.other) + (f.how === 'position' ? T.howPos : f.how === 'names' ? T.howNames : '') }))}</li>`);
+  const li = meta.files.map(f => `<li>${esc(fill(T.filesRows, { name: f.name, n: F.n(f.rows), cols: F.n(f.columns), lang: (f.garmin ? (T.glangs[f.lang] || T.glangs.other) : (T.langs[f.lang] || T.langs.other)) + (f.how === 'position' ? T.howPos : f.how === 'names' ? T.howNames : '') }))}</li>`);
   const c = meta.counts, notes = [];
   if (c.dup) notes.push(fill(T.counts_dup, { n: F.n(c.dup) }));
   if (c.bad) notes.push(fill(T.counts_bad, { n: F.n(c.bad) }));
@@ -615,7 +653,7 @@ $('btn-sample').addEventListener('click', startSample);
 $('btn-error-sample').addEventListener('click', startSample);
 $('btn-reset').addEventListener('click', () => {
   if (worker) worker.postMessage({ type: 'reset' });
-  Object.assign(state, { meta: null, stats: null, compare: null, alltime: null, gear: null, year: null, sample: false, routes: null, routesKey: '', sport: null, sportStats: null });
+  Object.assign(state, { meta: null, stats: null, compare: null, alltime: null, gear: null, wellness: null, year: null, sample: false, routes: null, routesKey: '', sport: null, sportStats: null });
   $('results').hidden = true;
   $('poster-frame').hidden = true;
   stage('idle');
