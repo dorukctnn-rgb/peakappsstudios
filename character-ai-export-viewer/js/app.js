@@ -18,7 +18,7 @@
     productId: PRO_READY ? GUMROAD.productId : 'PENDING',
     permalink: GUMROAD.permalink,
     buyUrl: GUMROAD.url,
-    pitch: `Pro keeps the whole archive: every chat in one offline book with search, a PDF and an EPUB, and several exports merged into one. ${GUMROAD.price}, once.`,
+    pitch: `Pro keeps and moves the whole archive: every character and chat as cards and chat files for SillyTavern and other apps in one ZIP, every chat in one offline book with search, a PDF and an EPUB, and several exports merged into one. ${GUMROAD.price}, once.`,
   };
 
   const BASE = '/character-ai-export-viewer/';
@@ -38,7 +38,7 @@
   const waiting = new Map();
   function startWorker() {
     if (worker) return worker;
-    worker = new Worker(`${BASE}js/worker.js?v=1`);
+    worker = new Worker(`${BASE}js/worker.js?v=2`);
     worker.onmessage = (e) => {
       const m = e.data || {};
       if (m.type === 'progress') return onProgress(m);
@@ -78,6 +78,7 @@
   let allowMerge = false;
   let passFor = null;
   let pro = false;
+  const hooks = { open: [], close: [] };
 
   const ERRORS = {
     not_export: 'This doesn’t look like a Character.AI export. Open the ZIP from the export email, or the message.json inside it.',
@@ -96,7 +97,7 @@
       $('cb-bar').style.width = '100%';
       $('cb-busy-text').textContent = 'Putting the chats in order…';
     } else if (m.phase === 'writing') {
-      toast(m.name === 'epub' ? 'Writing the EPUB…' : 'Writing the book…');
+      toast(m.name === 'epub' ? 'Writing the EPUB…' : m.name === 'zip' ? `Writing the ZIP: ${fmtN(m.done)} of ${fmtN(m.total)} chats…` : 'Writing the book…');
     }
   }
 
@@ -137,6 +138,7 @@
     show('cb-idle');
     $('cb-app-wrap').hidden = true;
     clearReader();
+    hooks.close.forEach((fn) => { try { fn(); } catch (e) { /* a part of the page */ } });
     call('close', {}).catch(() => {});
   }
 
@@ -242,6 +244,7 @@
     renderList();
     renderChars();
     renderFile();
+    hooks.open.forEach((fn) => { try { fn(r); } catch (e) { /* a part of the page */ } });
     selectTab(c.chats ? 'tab-chats' : c.characters ? 'tab-chars' : 'tab-file');
     clearReader();
     if (c.chats && window.matchMedia('(min-width: 900px)').matches) openChat(r.chats[0].id, 0);
@@ -472,15 +475,15 @@
   }
 
   // ---------------------------------------------------------------- tabs
+  const tabs = ['tab-chats', 'tab-chars', 'tab-move', 'tab-file'];
   function selectTab(id) {
-    for (const t of ['tab-chats', 'tab-chars', 'tab-file']) {
+    for (const t of tabs) {
       const on = t === id;
       $(t).setAttribute('aria-selected', String(on));
       $(t).tabIndex = on ? 0 : -1;
       $($(t).getAttribute('aria-controls')).hidden = !on;
     }
   }
-  const tabs = ['tab-chats', 'tab-chars', 'tab-file'];
   tabs.forEach((t, i) => {
     $(t).addEventListener('click', () => selectTab(t));
     $(t).addEventListener('keydown', (e) => {
@@ -529,5 +532,9 @@
   const warm = () => { try { startWorker(); } catch (e) { /* the first open will start it */ } };
   if ('requestIdleCallback' in window) requestIdleCallback(warm, { timeout: 1500 }); else setTimeout(warm, 300);
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setupPro); else setupPro();
-  window.Chatbound = { call, get overview() { return OV; } };
+  window.Chatbound = {
+    call, toast, download, esc, owner: () => (OV ? owner() : ''), names: () => names, selectTab,
+    needPro: (why) => needPro(why), get pro() { return pro; }, get overview() { return OV; },
+    onOpen: (fn) => hooks.open.push(fn), onClose: (fn) => hooks.close.push(fn),
+  };
 })();
