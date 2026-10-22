@@ -277,8 +277,11 @@ body.fb {
 .fb-doc table { width: 100%; border-collapse: collapse; font-size: 15.5px; line-height: 1.5; margin: 16px 0 8px; background: var(--card); }
 .fb-doc th, .fb-doc td { text-align: left; vertical-align: top; padding: 9px 10px; border: 1px solid var(--line); color: var(--ink-2); }
 .fb-doc thead th { background: var(--paper-2); color: var(--ink); font-weight: 700; }
+/* the shared table reset takes the last row's bottom border away; a guide table is a boxed grid and keeps it */
+.fb-doc tbody tr:last-child td { border-bottom: 1px solid var(--line); }
 /* on a phone each row of a guide table is a small card, every cell under its column's name */
 @media (max-width: 640px) {
+  .fb-doc tbody tr:last-child td { border-bottom: 0; }
   .fb-doc table, .fb-doc tbody, .fb-doc tr, .fb-doc td { display: block; width: auto; }
   .fb-doc thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .fb-doc table { background: transparent; }
