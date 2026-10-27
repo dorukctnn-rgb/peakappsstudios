@@ -1,0 +1,47 @@
+DAY14: GOOGLE PLAY CLOSED TEST CHECKLIST (12 testers, 14 days)
+https://peakappsstudio.com/play-12-testers/console-checklist/
+
+Tags: [Google] stated on Google's help pages (read 27 October 2026), [Our runs] seen in our own closed tests in October 2026,
+[Our rule] how we choose to work. Console's wording changes: if a menu is not where we say, search its help.
+Day14 is an independent kit by Peak Apps Studio and is not affiliated with Google.
+
+BEFORE YOU OPEN THE CLOSED TEST
+Do these first. A closed test opened with a missing country or an unreadable opt-in link costs you days you cannot get back.
+[ ] The app is complete enough to review: the store listing, a privacy policy address, and the declarations in App content (Data safety, content rating, target audience, ads, App access). Google tells you to check app content and features, targeting and content rating, and that the app does not crash or miss screens, before you apply. [Google]
+[ ] If the app needs a login, App access holds working test credentials. Google lists working test credentials among the things to check before you apply. [Google]
+[ ] The closed testing track exists, a release is uploaded to it and sent for review, and it has passed. The opt-in link works only after that. [Our runs]
+[ ] Countries: every country your testers live in is on the track. A tester in a missing country sees "This item isn't available in your country". [Our runs]
+[ ] The build runs on the phones your testers have. A build without 32-bit libraries cannot be installed on a 32-bit-only phone. Ask testers for the model. [Our runs]
+[ ] The tester list is set: the Google Groups and e-mail lists you will use are added to the track and saved. A group that is not on the track gives its members "App not available for this account". [Our runs]
+[ ] You opened the opt-in link yourself, from a Google account that is not the developer account, and it said you could become a tester. [Our runs]
+[ ] You wrote three small tasks for testers, each with an end, and a place for feedback to arrive (an e-mail address you read). [Our rule]
+[ ] You copied the tracker and decided who updates it every day. [Our rule]
+
+DURING THE 14 DAYS
+The test is won or lost here. Most of this takes ten minutes a day.
+[ ] Each day you read the Dashboard counter and wrote its sentence in the daily log: N testers currently opted-in before 12, then 12 testers have currently been opted in for N days continuously. [Our runs]
+[ ] Testers were told to stay opted in for at least 14 days. A tester who leaves early does not count, and one who rejoins must be opted in for 14 consecutive days. [Google]
+[ ] You keep 15 to 20 opt-ins, not 12, and you replace people who leave the same week. [Our rule]
+[ ] Testers were asked to keep the app installed until the review is over, not only until day 14. [Our rule]
+[ ] Every report is answered within a day and logged, with what you did about it. [Our rule]
+[ ] At least one update went out that answers a real report, with its date and the phone you checked it on. You need this for question 8. [Our rule]
+[ ] You looked at Android vitals and the Pre-launch report. Console may show "Data unavailable" for a young app; write down what you saw. [Our runs]
+[ ] You walked through the release build yourself on a real phone, every screen, once, and wrote down the date and the model. You need this for question 9. [Our rule]
+
+BEFORE YOU PRESS APPLY FOR PRODUCTION
+Google says review is not a troubleshooting step. Be sure first.
+[ ] The Dashboard shows 14 days, or its testing step is ticked, and Apply for production is open. We saw the counter reach 14 on the expected date at different hours, so check the morning after as well. [Our runs]
+[ ] At least 12 testers are opted in today. The count has to hold on the day you apply. [Google]
+[ ] You opened the live form and read its questions and choices. Ours differed from our drafts in four places (see the differences). [Our runs]
+[ ] You wrote the nine answers from your log. There is no {brace} left in any of them, and each is under 300 characters. [Our rule]
+[ ] You checked policy compliance of the app yourself: content and features, targeting and content rating, reliability. [Google]
+[ ] You will not leave the form before Next or Apply. Google says nothing is saved if you click Discard or leave. [Google]
+
+AFTER YOU APPLY
+Waiting is also work: the testers must stay.
+[ ] Console shows "Applied" with the date and time. You wrote both in the log. [Our runs]
+[ ] Google says review usually takes seven days or less and that it e-mails the account owner. You watch that inbox. [Google]
+[ ] Testers stay opted in and keep the app installed until you hear. [Our rule]
+[ ] You wait seven days before you contact support, and you say the date you applied. [Our rule]
+[ ] If it is rejected, you read what to change before you apply again. [Our rule]
+
