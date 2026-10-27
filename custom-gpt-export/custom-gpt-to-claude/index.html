@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src https://cloudflareinsights.com; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Move a custom GPT to Claude: as a skill or as a project</title>
+<meta name="description" content="Move a custom GPT to Claude before it retires: upload it as a skill (SKILL.md) or rebuild it as a Claude project with its instructions and files.">
+<link rel="canonical" href="https://peakappsstudio.com/custom-gpt-export/custom-gpt-to-claude/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Move a custom GPT to Claude">
+<meta property="og:description" content="Move a custom GPT to Claude before it retires: upload it as a skill (SKILL.md) or rebuild it as a Claude project with its instructions and files.">
+<meta property="og:url" content="https://peakappsstudio.com/custom-gpt-export/custom-gpt-to-claude/">
+<meta property="og:image" content="https://peakappsstudio.com/custom-gpt-export/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#9aa8ff">
+<link rel="icon" href="/custom-gpt-export/img/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/custom-gpt-export/fonts/skillcase-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/custom-gpt-export/fonts/skillcase-text.woff2" as="font" type="font/woff2" crossorigin>
+<style data-from="/assets/tools.css">
+/* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
+
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e1;
+  --card: #fbfaf7;
+  --ink: #141518;
+  --ink-2: #33363d;
+  --muted: #676b74;
+  --line: rgba(20, 21, 24, 0.12);
+  --line-2: rgba(20, 21, 24, 0.22);
+  --accent: #1f5c4d;          /* each tool overrides this on <body style="--accent:..."> */
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  --warn: #9a4a12;
+  --ok: #2c6a3f;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+    --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+  --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; }
+img { display: block; height: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 10px; z-index: 100; background: var(--ink); color: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 10px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-head { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand-sub { font-family: var(--sans); font-size: 14.5px; letter-spacing: 0; color: var(--muted); font-weight: 500; padding-left: 10px; border-left: 1px solid var(--line-2); }
+.head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
+.head-nav a:hover { background: var(--paper-2); color: var(--ink); }
+.head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
+@media (max-width: 640px) { .brand-sub { display: none; } }
+@media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
+
+/* ---------- Type ---------- */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+h1 { font-size: clamp(32px, 4.6vw, 54px); }
+h1 em, h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 19px; letter-spacing: -0.01em; }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; margin: 16px 0 0; }
+.mono { font-family: var(--mono); }
+.muted { color: var(--muted); }
+small, .small { font-size: 13.5px; }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 22px 0 0; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-2); }
+.crumbs a { text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.tool-hero { padding: 28px 0 24px; display: grid; gap: 8px; }
+.tool-hero .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.tool-hero .facts li { display: inline-flex; align-items: center; gap: 8px; }
+.tool-hero .facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Tool shell ---------- */
+.tool { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.tool-panel { padding: 22px; border-right: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.tool-stage { position: relative; min-height: 460px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper); display: grid; place-items: center; padding: 22px; }
+.tool-stage canvas, .tool-stage svg, .tool-stage img { max-height: 70vh; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px -12px rgba(0,0,0,.18); background: #fff; }
+.stage-bar { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.tool-foot { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 14px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--paper); }
+.tool-foot .spacer { flex: 1; }
+@media (max-width: 860px) {
+  .tool { grid-template-columns: 1fr; }
+  .tool-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tool-stage { min-height: 320px; }
+}
+
+/* ---------- Form controls ---------- */
+.group { display: grid; gap: 10px; }
+.group-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > label { font-size: 13px; color: var(--ink-2); }
+.input, .select { width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 8px; padding: 9px 11px; transition: border-color .15s, box-shadow .15s; }
+.input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input-unit { position: relative; }
+.input-unit .input { padding-right: 38px; font-family: var(--mono); font-size: 14.5px; }
+.input-unit i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 3px; flex: none; }
+.seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line-2); border-radius: 9px; padding: 3px; gap: 3px; background: var(--paper); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.warn { font-size: 13.5px; color: var(--warn); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.btn { --b: var(--line-2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 500; line-height: 1; padding: 11px 16px; border-radius: 9px; border: 1px solid var(--b); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; transition: transform .15s var(--ease), background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklab, var(--accent) 86%, #000); color: var(--accent-ink); border-color: transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-ink:hover { color: var(--paper); background: var(--ink-2); }
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.pro-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: var(--ink); color: var(--paper); }
+
+/* ---------- Drop zone ---------- */
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 18px 14px; background: var(--paper); cursor: pointer; transition: border-color .15s, background .15s; font-size: 14.5px; }
+.drop:hover, .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Content ---------- */
+.section { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prose { max-width: 70ch; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose h2 { margin: 1.6em 0 .5em; }
+.prose h3 { margin: 1.4em 0 .4em; }
+.prose code, .prose kbd { font-family: var(--mono); font-size: .9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+.two-col > * { min-width: 0; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: 3px; }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 13px; background: var(--paper); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 15px; }
+.source { font-size: 13px; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--line-2); margin-top: 18px; }
+.faq details { border-bottom: 1px solid var(--line-2); }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 13px; font-family: var(--mono); font-size: 18px; color: var(--muted); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 18px; color: var(--ink-2); max-width: 70ch; }
+
+/* ---------- Pro ---------- */
+.pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--card); }
+.pro-left { padding: clamp(22px, 3vw, 36px); }
+.pro-right { padding: clamp(22px, 3vw, 36px); background: var(--ink); color: var(--paper); display: grid; align-content: center; gap: 14px; }
+.pro-right .price { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pro-right .price small { font-size: 15px; font-weight: 400; color: color-mix(in oklab, var(--paper) 70%, transparent); letter-spacing: 0; }
+.pro-right .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.pro-right .btn-primary:hover { background: #fff; color: var(--ink); }
+.pro-right .fine { font-size: 13px; color: color-mix(in oklab, var(--paper) 65%, transparent); margin: 0; }
+.pro-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.pro-list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.pro-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border: 1.5px solid var(--accent); border-radius: 2px; transform: rotate(45deg); }
+@media (max-width: 760px) { .pro { grid-template-columns: 1fr; } }
+
+/* ---------- A real file, shown ---------- */
+.shot { margin: 22px 0 0; }
+.shot img { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; }
+.shot figcaption { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+.shot figcaption strong { font-weight: 600; color: var(--ink-2); }
+.shot-sm { max-width: 920px; }
+
+/* ---------- Where free stops and Pro starts ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; margin: 26px 0 0; background: var(--card); }
+.split > div { padding: 18px 20px 20px; }
+.split > div + div { border-left: 1px solid var(--line-2); background: var(--accent-soft); }
+.split h3 { font-size: 15.5px; margin: 0; }
+.split > div > p { margin: 5px 0 0; font-size: 13.5px; color: var(--muted); }
+.split ul { list-style: none; margin: 13px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
+.split li { position: relative; padding-left: 18px; }
+.split li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; border-radius: 1px; background: var(--line-2); }
+.split > div + div li::before { background: var(--accent); }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } .split > div + div { border-left: 0; border-top: 1px solid var(--line-2); } }
+
+/* ---------- A file list, as the archive really holds it ---------- */
+.filelist { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 5px; }
+.filelist li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filelist li span { color: var(--muted); }
+
+/* ---------- License dialog ---------- */
+.license-dialog { border: 1px solid var(--line-2); border-radius: 14px; padding: 0; width: min(440px, calc(100% - 32px)); background: var(--card); color: var(--ink); }
+.license-dialog::backdrop { background: rgba(10, 11, 13, .45); }
+.license-dialog form { padding: 22px; display: grid; gap: 14px; }
+.license-status { font-size: 14px; min-height: 1.4em; margin: 0; }
+.license-status[data-state="ok"] { color: var(--ok); }
+.license-status[data-state="err"] { color: var(--warn); }
+
+/* ---------- Related / cards ---------- */
+.related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line-2); margin-top: 22px; }
+.related a { display: grid; gap: 4px; padding: 18px 18px 18px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.related a strong { font-weight: 600; }
+.related a span { font-size: 14px; color: var(--muted); }
+.related a:hover strong { color: var(--accent); }
+
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
+/* ---------- Footer ---------- */
+.site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
+.site-foot h2 { font-size: 15px; font-family: var(--sans); letter-spacing: 0; font-weight: 600; color: var(--ink); margin: 0 0 10px; }
+.site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+@media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- "New from Peak Apps": the cross-promotion card the build puts above the footer (src/crosspromo.json) ---------- */
+.peak-new { margin-top: clamp(56px, 8vw, 104px); }
+.peak-new + .site-foot { margin-top: 28px; }
+.peak-new-card { display: grid; gap: 4px; max-width: 640px; padding: 16px 20px 18px; border: 1px solid var(--line-2); border-left: 4px solid var(--tool, var(--accent)); border-radius: var(--radius); background: var(--card); color: var(--ink); text-decoration: none; transition: border-color .2s var(--ease); }
+.peak-new-card:hover { border-color: var(--tool, var(--accent)); }
+.peak-new-card:focus-visible { outline: 2px solid var(--tool, var(--accent)); outline-offset: 3px; }
+.peak-new-kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.peak-new-card strong { font-size: 17px; font-weight: 600; line-height: 1.3; }
+.peak-new-line { font-size: 14px; line-height: 1.5; color: var(--ink-2); max-width: 62ch; }
+
+/* ---------- Home project tools: the shared block on Without Planning and Dropped Kerb Check ---------- */
+.home-block { margin: clamp(36px, 5vw, 60px) 0 0; border-top: 1px solid var(--line-2); padding-top: 16px; }
+.home-title { margin: 0 0 10px; font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink); }
+.home-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px 24px; }
+.home-list a { display: grid; gap: 3px; padding: 2px 0 2px 14px; border-left: 4px solid var(--tool, var(--accent)); text-decoration: none; color: var(--ink); }
+.home-list a strong { font-weight: 700; font-size: 16px; }
+.home-list a span { color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+.home-list a:hover strong { color: var(--tool, var(--accent)); }
+.home-list a[aria-current="page"] span { color: var(--ink-2); }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .3s var(--ease); z-index: 90; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media print { .site-head, .site-foot, .tool-panel, .tool-foot, .no-print { display: none !important; } body { background: #fff; } }
+
+/* The hidden attribute must win over component display rules. */
+[hidden] { display: none !important; }
+</style>
+<style data-from="/custom-gpt-export/tool.css">
+/* Skillcase: a custom GPT, packed for the move. The look is a hard-shell case: a periwinkle shell (the hero band and the
+   3D render), graphite foam inside (the "Your case" panel, where each part sits in its own cut-out) and one tomato-red
+   luggage tag (the deadline, the tag card and the main download). Headings in Krona One, wide and blunt like a case
+   stencil, renamed "Skillcase Display" as its licence asks; text in Overpass, a face drawn from highway signs, and its
+   mono only where people paste code-like text (instructions, schemas, SKILL.md, GPT ids). Cool aluminium greys, no cream. */
+@font-face { font-family: "Skillcase Display"; src: url("/custom-gpt-export/fonts/skillcase-display.woff2") format("woff2"); font-weight: 400 800; font-display: swap; }
+@font-face { font-family: "Skillcase Text"; src: url("/custom-gpt-export/fonts/skillcase-text.woff2") format("woff2"); font-weight: 400 700; font-display: swap; }
+@font-face { font-family: "Skillcase Mono"; src: url("/custom-gpt-export/fonts/skillcase-mono.woff2") format("woff2"); font-weight: 400 600; font-display: swap; }
+/* system faces sized to the web faces, so nothing jumps when the fonts arrive */
+@font-face { font-family: "Skillcase Display Fallback"; src: local("Arial Black"), local("ArialMT-Black"), local("Arial Bold"), local("Arial"); size-adjust: 117.9%; ascent-override: 84.1%; descent-override: 22%; line-gap-override: 0%; }
+@font-face { font-family: "Skillcase Text Fallback"; src: local("Arial"), local("ArialMT"), local("Helvetica"); size-adjust: 99.2%; ascent-override: 89%; descent-override: 38.6%; line-gap-override: 0%; }
+
+body.sc {
+  --shell: #9aa8ff; --shell-2: #8494f6; --shell-soft: #e6e9ff;
+  --tag: #ff5a3c; --tag-2: #e8472a;
+  --foam: #22243a; --foam-2: #2d3049; --foam-line: #3d4161; --foam-ink: #eef0ff; --foam-muted: #b9bdd8;
+  --ink: #12142e; --ink-2: #2c2f4a; --muted: #565a70;
+  --paper: #ffffff; --paper-2: #f4f5f9; --card: #ffffff; --floor: #eceef3;
+  --line: #dfe2ea; --line-2: #c4c8d6;
+  --link: #2b3bb8; --accent: #12142e; --accent-ink: #ffffff;
+  --ok: #1d7a45; --warn: #9a4a12; --bad: #b42318;
+  --sans: "Skillcase Text", "Skillcase Text Fallback", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --head: "Skillcase Display", "Skillcase Display Fallback", "Arial Black", Arial, sans-serif;
+  --mono: "Skillcase Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-family: var(--sans); font-size: 17.5px; line-height: 1.6; background: var(--paper); color: var(--ink);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.sc {
+    --ink: #eceefe; --ink-2: #d3d6ec; --muted: #a9adc4; --paper: #121320; --paper-2: #1a1c2c; --card: #1b1d2e; --floor: #0e0f1a;
+    --line: #2b2e44; --line-2: #3c4060; --link: #aab4ff; --shell-soft: #252a52; --accent: #eceefe; --accent-ink: #12142e;
+    --ok: #7fd3a0; --warn: #f0a46a; --bad: #ff8f7c;
+  }
+}
+:root[data-theme="dark"] body.sc {
+  --ink: #eceefe; --ink-2: #d3d6ec; --muted: #a9adc4; --paper: #121320; --paper-2: #1a1c2c; --card: #1b1d2e; --floor: #0e0f1a;
+  --line: #2b2e44; --line-2: #3c4060; --link: #aab4ff; --shell-soft: #252a52; --accent: #eceefe; --accent-ink: #12142e;
+  --ok: #7fd3a0; --warn: #f0a46a; --bad: #ff8f7c;
+}
+.sc a { color: var(--link); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.sc a:hover { color: var(--ink); }
+.sc h1, .sc h2, .sc h3 { font-family: var(--head); font-weight: 400; color: var(--ink); letter-spacing: -0.02em; }
+.sc h1 { font-size: clamp(32px, 4.3vw, 54px); line-height: 1.15; margin: 18px 0 0; text-wrap: balance; max-width: 17ch; }
+.sc h2 { font-size: clamp(23px, 2.4vw, 31px); line-height: 1.18; text-wrap: balance; }
+.sc h3 { font-size: 20px; line-height: 1.25; }
+.sc .lede { font-size: clamp(18px, 1.5vw, 20px); line-height: 1.6; color: var(--ink-2); max-width: 58ch; margin: 20px 0 0; }
+.sc .crumbs { font-size: 15px; margin-top: 18px; color: var(--muted); }
+.sc .crumbs a { color: var(--ink-2); }
+.sc .btn { font-family: var(--sans); font-size: 16.5px; font-weight: 700; line-height: 1.2; padding: 13px 18px; border-radius: 10px; white-space: normal; text-align: center; max-width: 100%; min-height: 48px; }
+.sc .btn-primary { background: var(--ink); border-color: var(--ink); color: #fff; }
+.sc .btn-primary:hover { background: #2a2d55; border-color: #2a2d55; color: #fff; }
+.sc .sc-quiet { background: var(--card); border: 1.5px solid var(--line-2); color: var(--ink); }
+.sc .sc-quiet:hover { border-color: var(--ink); color: var(--ink); }
+.sc .btn:focus-visible, .sc button:focus-visible, .sc a:focus-visible, .sc input:focus-visible, .sc select:focus-visible, .sc textarea:focus-visible, .sc summary:focus-visible, .sc [tabindex]:focus-visible { outline: 3px solid var(--tag); outline-offset: 2px; }
+.sc .input, .sc .select { font-family: var(--sans); font-size: 17px; padding: 11px 13px; border: 1.5px solid var(--line-2); border-radius: 9px; background: var(--card); color: var(--ink); width: 100%; min-width: 0; }
+.sc textarea.input { resize: vertical; line-height: 1.5; }
+.sc .input:focus, .sc .select:focus { border-color: var(--shell-2); box-shadow: 0 0 0 3px var(--shell-soft); }
+.sc .sc-mono, .sc pre { font-family: var(--mono); }
+.sc textarea.sc-mono { font-size: 15px; }
+.sc [hidden] { display: none !important; }
+.sc-small { font-size: 15.5px; color: var(--muted); }
+
+/* ---------- header and footer ---------- */
+.sc-head { background: var(--paper); border-bottom: 1px solid var(--line); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.sc-head .brand { gap: 10px; color: var(--ink); }
+.sc-head .brand svg { width: 30px; height: 26px; }
+.sc-head .brand span { font-family: var(--head); font-size: 19px; letter-spacing: -0.02em; }
+.sc-head .head-nav a { font-size: 15.5px; color: var(--ink-2); padding: 8px 10px; }
+.sc-head .head-nav [aria-current="page"] { font-size: 15.5px; color: var(--ink); padding: 8px 10px; font-weight: 700; }
+.sc-narrow { display: none; }
+@media (max-width: 1120px) { .sc-wide { display: none; } .sc-narrow { display: inline-block; } }
+@media (max-width: 480px) { .sc-head .head-nav [aria-current="page"] { display: none; } .sc-head .head-nav a { padding: 8px 8px; } }
+.sc .site-foot.sc-foot { background: var(--foam); color: var(--foam-muted); border-top: 0; font-size: 15.5px; padding: 44px 0 52px; }
+.sc .sc-foot .cols { grid-template-columns: 1.6fr 1.3fr 0.9fr; }
+@media (max-width: 860px) { .sc .sc-foot .cols { grid-template-columns: 1fr; } }
+.sc .sc-foot h2 { font-family: var(--sans); font-size: 16.5px; font-weight: 700; color: #fff; letter-spacing: 0; margin: 0 0 10px; }
+.sc .sc-foot a { color: #dfe3ff; }
+.sc .sc-foot a:hover { color: #fff; text-decoration: underline; }
+.sc .sc-foot ul { gap: 8px; }
+.sc-foot-brand { font-family: var(--head); font-size: 21px; color: #fff; margin: 0 0 8px; }
+.sc-foot-text { margin: 0 0 12px; max-width: 50ch; }
+
+/* ---------- the shell: the hero band ---------- */
+.sc-band { position: relative; background: var(--shell); color: var(--ink); isolation: isolate; overflow-x: clip; }
+/* the ribs moulded into a hard case's shell */
+.sc-band::before { content: ""; position: absolute; inset: 0; z-index: -1; background: repeating-linear-gradient(180deg, transparent 0 46px, rgba(18, 20, 46, 0.055) 46px 48px, transparent 48px 52px); pointer-events: none; }
+.sc-band, .sc-band h1, .sc-band h2, .sc-band .lede, .sc-band p, .sc-band li { color: #12142e; }
+.sc-band .crumbs, .sc-band .crumbs a { color: #2c2f4a; }
+.sc-band a { color: #12142e; }
+.sc-hero { padding: 6px 0 64px; }
+.sc-hero-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(28px, 4vw, 64px); align-items: start; margin-top: 4px; }
+@media (max-width: 980px) { .sc-hero-grid { grid-template-columns: minmax(0, 1fr); } }
+.sc-hero-grid > div { min-width: 0; }
+.sc-deadline { display: inline-block; margin: 24px 0 0; padding: 7px 14px 7px 12px; background: var(--tag); color: #12142e; border-radius: 6px 6px 6px 0; font-weight: 800; font-size: 17px; box-shadow: 3px 3px 0 #12142e; }
+.sc-band .sc-small { color: #2c2f4a; margin: 14px 0 0; font-size: 16px; }
+.sc-indep { margin: 18px 0 0; font-size: 15.5px; }
+
+/* the luggage tag: a white card with clipped top corners, a punched hole and a tomato reinforcement ring */
+.sc-tag { position: relative; background: #fff; color: #12142e; padding: 54px clamp(20px, 3vw, 32px) 28px; clip-path: polygon(34px 0, calc(100% - 34px) 0, 100% 34px, 100% 100%, 0 100%, 0 34px); border-radius: 0 0 12px 12px; box-shadow: 0 30px 50px -30px rgba(18, 20, 46, 0.6); border-bottom: 10px solid var(--tag); }
+.sc-tag-hole { position: absolute; top: 16px; left: 50%; width: 24px; height: 24px; margin-left: -12px; border-radius: 50%; background: var(--shell); box-shadow: 0 0 0 5px var(--tag); }
+.sc-tag h2 { font-size: 22px; margin: 0; color: #12142e; }
+.sc-tag-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 0; border-top: 1.5px dashed #c4c8d6; }
+.sc-tag-list li { display: grid; gap: 2px; padding: 11px 0; border-bottom: 1.5px dashed #c4c8d6; color: #12142e; }
+.sc-tag-list strong { font-weight: 700; font-size: 16.5px; }
+.sc-tag-list span { font-size: 15px; color: #565a70; }
+.sc-tag .sc-quiet { background: #fff; color: #12142e; border-color: #c4c8d6; }
+.sc-tag .btn-primary { background: #12142e; border-color: #12142e; color: #fff; }
+.sc-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+.sc-private { display: grid; grid-template-columns: 20px 1fr; gap: 10px; margin: 16px 0 0; line-height: 1.5; }
+.sc-private svg { width: 18px; height: 18px; margin-top: 3px; }
+.sc-tag .sc-private { color: #565a70; }
+
+/* ---------- the 3D render ---------- */
+.sc-figure { margin: 0; background: #e3e6ee; }
+.sc-figure img { width: 100%; height: auto; display: block; }
+.sc-figure figcaption { font-size: 15px; color: #565a70; padding: 4px var(--gutter) 12px; max-width: var(--max); margin: 0 auto; }
+
+/* ---------- the tool: forms on the left, the case on the right ---------- */
+.sc-tool { background: var(--floor); padding: clamp(36px, 5vw, 60px) 0; }
+.sc-tool-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 380px); gap: clamp(20px, 3vw, 36px); align-items: start; }
+@media (max-width: 980px) { .sc-tool-grid { grid-template-columns: minmax(0, 1fr); } }
+.sc-forms { display: grid; gap: 22px; min-width: 0; }
+.sc-card { background: var(--card); border: 1px solid var(--line-2); border-radius: 14px; padding: clamp(18px, 3vw, 30px); min-width: 0; scroll-margin-top: 80px; }
+.sc-card h2 { margin: 0; }
+.sc-hint { margin: 10px 0 0; color: var(--ink-2); font-size: 16px; }
+.sc-field { margin: 20px 0 0; display: grid; gap: 7px; min-width: 0; border: 0; padding: 0; }
+.sc-field > label, .sc-label, .sc-field legend { font-weight: 700; font-size: 16.5px; color: var(--ink); margin: 0; padding: 0; }
+.sc-opt { font-weight: 400; color: var(--muted); font-size: 15px; margin-left: 6px; }
+.sc-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0; font-size: 14.5px; color: var(--muted); }
+.sc-warn { margin: 4px 0 0; font-size: 15px; color: var(--warn); border-left: 3px solid var(--tag); padding: 2px 0 2px 10px; }
+.sc-caps { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 8px 18px; }
+.sc-caps legend { margin-bottom: 6px; }
+.sc-caps label { display: flex; gap: 10px; align-items: center; font-size: 16px; min-height: 40px; }
+.sc-caps input, .sc-pick input { width: 20px; height: 20px; accent-color: #12142e; flex: none; }
+.sc-drop { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; border: 2px dashed var(--line-2); border-radius: 12px; padding: 16px; transition: border-color .15s, background .15s; }
+.sc-drop.is-over { border-color: var(--shell-2); background: var(--shell-soft); }
+.sc-files { list-style: none; padding: 0; margin: 4px 0 0; display: grid; gap: 8px; }
+.sc-files li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; border: 1px solid var(--line); border-radius: 10px; padding: 8px 8px 8px 12px; background: var(--paper-2); }
+.sc-file-name { font-family: var(--mono); font-size: 14.5px; overflow-wrap: anywhere; }
+.sc-file-meta { grid-column: 1; font-size: 14px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; }
+.sc-files .sc-remove { grid-row: 1 / span 2; grid-column: 2; }
+.sc .sc-remove { min-height: 40px; padding: 8px 12px; font-size: 15px; }
+.sc-chip { display: inline-block; font-size: 13.5px; font-weight: 700; line-height: 1.3; border-radius: 999px; padding: 3px 10px; white-space: nowrap; }
+.sc-chip-warn { background: #fff1ec; color: #8a2f12; border: 1px solid #ffc9b8; white-space: normal; }
+.sc-action { border: 1px solid var(--line-2); border-radius: 12px; padding: 12px 14px 14px; margin: 4px 0 12px; display: grid; gap: 8px; background: var(--paper-2); min-width: 0; }
+.sc-action-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.sc-two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 10px; }
+.sc-two label { display: grid; gap: 5px; font-size: 15px; font-weight: 600; min-width: 0; }
+@media (max-width: 560px) { .sc-two { grid-template-columns: minmax(0, 1fr); } }
+.sc-act-sum.is-bad, .sc-status.is-bad { color: var(--bad); }
+.sc-add { justify-self: start; }
+.sc-sample-tag { display: inline-block; font-size: 14px; font-weight: 700; background: var(--shell-soft); color: var(--ink); border-radius: 6px; padding: 2px 9px; margin-left: 4px; }
+.sc-status { min-height: 1.4em; margin: 10px 0 0; font-size: 15.5px; color: var(--ok); }
+
+/* the GPTs found in an export */
+.sc-gpts { display: grid; gap: 12px; margin-top: 12px; }
+.sc-gpt { border: 1px solid var(--line-2); border-radius: 12px; padding: 12px 14px; display: grid; gap: 6px; min-width: 0; background: var(--card); }
+.sc-gpt:has(input[name="gpt-pick"]:checked) { border-color: var(--ink); box-shadow: inset 5px 0 0 var(--shell); }
+.sc-gpt p { margin: 0; }
+.sc-gpt-top { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+.sc-pick { display: flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 600; min-height: 40px; }
+.sc-none { margin-bottom: 2px; }
+.sc-gpt-id { font-size: 15px; display: flex; flex-wrap: wrap; gap: 4px 14px; overflow-wrap: anywhere; }
+.sc-gpt-id .sc-mono { font-size: 14.5px; }
+.sc-titles { overflow-wrap: anywhere; }
+.sc-gpt-label { display: grid; gap: 5px; font-size: 15px; font-weight: 600; max-width: 420px; }
+.sc-projects { margin-top: 14px; }
+.sc-projects summary { cursor: pointer; font-weight: 600; color: var(--link); min-height: 44px; display: flex; align-items: center; }
+
+/* ---------- the case: graphite foam with a cut-out for each part ---------- */
+.sc-case { position: sticky; top: 76px; min-width: 0; }
+@media (max-width: 980px) { .sc-case { position: static; } }
+.sc-case-in { background: var(--foam); color: var(--foam-ink); border-radius: 16px; padding: 22px 20px 20px; border: 6px solid var(--shell); box-shadow: 0 26px 48px -30px rgba(18, 20, 46, 0.7); }
+.sc-case h2 { color: #fff; margin: 0; font-size: 24px; }
+.sc-manifest { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 7px; }
+.sc-manifest li { display: flex; justify-content: space-between; align-items: center; gap: 10px; background: #1a1c2e; border: 1px solid var(--foam-line); border-radius: 9px; padding: 8px 10px; box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.35); font-size: 15px; }
+.sc-m-label { color: var(--foam-ink); font-weight: 600; min-width: 0; overflow-wrap: anywhere; }
+.sc-m-detail { color: var(--foam-muted); font-weight: 400; }
+.sc-manifest .sc-chip { background: transparent; color: var(--foam-muted); border: 1px solid var(--foam-line); }
+.sc-manifest .is-in .sc-chip { background: var(--shell); color: #12142e; border-color: var(--shell); }
+.sc-manifest .is-rebuild .sc-chip { background: transparent; color: #ffb8a8; border-color: var(--tag); white-space: normal; text-align: right; }
+.sc-dl { display: grid; gap: 9px; margin-top: 18px; }
+.sc-dl .sc-small { color: var(--foam-muted); margin: -2px 0 6px; font-size: 14.5px; }
+.sc-case .btn-primary { background: var(--tag); border-color: var(--tag); color: #12142e; }
+.sc-case .btn-primary:hover { background: #ff7458; border-color: #ff7458; color: #12142e; }
+.sc-case .sc-quiet { background: transparent; color: #fff; border-color: var(--foam-line); }
+.sc-case .sc-quiet:hover { border-color: #fff; color: #fff; }
+.sc-case .sc-status { color: #9fe0b8; }
+.sc-case .sc-status.is-bad { color: #ffb8a8; }
+.sc-case a { color: #dfe3ff; }
+.sc-preview { margin-top: 12px; border-top: 1px solid var(--foam-line); padding-top: 8px; }
+.sc-preview summary { cursor: pointer; font-weight: 700; color: #dfe3ff; min-height: 44px; display: flex; align-items: center; }
+.sc-preview pre { margin: 6px 0 0; font-size: 12.5px; line-height: 1.5; background: #111226; color: #e7e9ff; border-radius: 8px; padding: 12px; max-height: 340px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
+.sc-case .sc-private { color: var(--foam-muted); font-size: 14.5px; }
+
+/* ---------- sections and guides ---------- */
+.sc-section { padding: clamp(48px, 6vw, 80px) 0 clamp(8px, 2vw, 16px); }
+.sc-section.sc-alt { background: var(--paper-2); padding-bottom: clamp(48px, 6vw, 72px); margin-top: clamp(40px, 5vw, 64px); }
+.sc-prose { max-width: 74ch; }
+.sc-prose p, .sc-prose li { color: var(--ink-2); }
+.sc-prose h2 { margin: 1.5em 0 .45em; }
+.sc-prose h3 { margin: 1.4em 0 .4em; }
+.sc-prose > h2:first-child { margin-top: 0; }
+.sc-prose table, .sc-article table { width: 100%; border-collapse: collapse; font-size: 16px; }
+.sc-prose caption, .sc-article caption { text-align: left; font-size: 15px; color: var(--muted); padding: 10px 14px; caption-side: top; }
+.sc-prose th, .sc-prose td, .sc-article th, .sc-article td { text-align: left; vertical-align: top; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+.sc-prose th, .sc-article th { font-weight: 700; color: var(--ink); background: var(--paper-2); }
+.sc-prose td:first-child, .sc-article td:first-child { font-weight: 700; color: var(--ink); }
+@media (max-width: 640px) {
+  .sc-prose table, .sc-prose tbody, .sc-prose tr, .sc-prose td, .sc-prose th, .sc-article table, .sc-article tbody, .sc-article tr, .sc-article td, .sc-article th { display: block; width: 100%; }
+  .sc-prose thead, .sc-article thead { display: none; }
+  .sc-prose caption, .sc-article caption { display: block; width: auto; }
+  .sc-prose td, .sc-article td { border-bottom: 0; padding: 3px 0; }
+  .sc-prose tr, .sc-article tr { border-bottom: 1px solid var(--line); padding: 10px 14px; }
+  .sc-prose td[data-label]::before, .sc-article td[data-label]::before { content: attr(data-label); display: block; font-size: 14px; font-weight: 700; color: var(--muted); margin-top: 6px; }
+}
+.sc-steps { counter-reset: s; list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 14px; }
+.sc-steps li { counter-increment: s; display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: start; }
+.sc-steps li::before { content: counter(s); display: grid; place-items: center; width: 34px; height: 34px; border-radius: 8px; background: var(--shell); color: #12142e; font-family: var(--head); font-size: 16px; }
+.sc-source { font-size: 15px; color: var(--muted); border-top: 1px solid var(--line); margin-top: 26px; padding-top: 14px; }
+.sc-callout { border-left: 6px solid var(--tag); background: var(--card); border-radius: 0 10px 10px 0; padding: 12px 16px; margin: 22px 0; }
+.sc-callout p { margin: 0; color: var(--ink); }
+.sc-faq { margin-top: 18px; border-top: 1px solid var(--line-2); max-width: 76ch; }
+.sc-faq details { border-bottom: 1px solid var(--line-2); }
+.sc-faq summary { cursor: pointer; font-weight: 700; font-size: 18px; padding: 15px 0; min-height: 44px; }
+.sc-faq details p { margin: 0 0 18px; color: var(--ink-2); }
+.sc-related { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 0 28px; margin-top: 18px; }
+.sc-related a { display: block; padding: 14px 0 14px 16px; border-left: 4px solid var(--shell); margin: 6px 0; text-decoration: none; color: var(--ink); font-weight: 700; font-size: 17.5px; }
+.sc-related a span { display: block; font-weight: 400; font-size: 15.5px; color: var(--muted); margin-top: 2px; }
+.sc-related a:hover { border-left-color: var(--tag); color: var(--link); }
+.sc-guide-hero { padding: 6px 0 52px; }
+.sc-checked { margin: 18px 0 0; font-size: 15.5px; }
+.sc-article { padding-top: clamp(36px, 5vw, 56px); }
+.sc-article .table-wrap { margin: 18px 0; }
+.sc-cta { margin: 34px 0; background: var(--shell); border-radius: 16px; padding: clamp(20px, 3vw, 30px); color: #12142e; }
+.sc-cta h2 { margin: 0; color: #12142e; font-size: 24px; }
+.sc-cta p { color: #12142e; margin: 10px 0 0; }
+.sc-cta .btn-primary { background: #12142e; border-color: #12142e; color: #fff; }
+.sc-cta .sc-quiet { background: #fff; color: #12142e; border-color: #12142e; }
+.sc-article pre { font-size: 14px; line-height: 1.5; background: var(--paper-2); border: 1px solid var(--line); border-radius: 10px; padding: 14px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
+.sc-article code { font-family: var(--mono); font-size: 0.92em; }
+@media (prefers-reduced-motion: no-preference) { .sc-tag { animation: sc-swing 900ms cubic-bezier(.2, .7, .2, 1) 1; transform-origin: 50% 0; } }
+@keyframes sc-swing { 0% { transform: rotate(-3deg); } 55% { transform: rotate(1.2deg); } 100% { transform: rotate(0); } }
+@media print { .sc-band::before { display: none; } }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/custom-gpt-export/#app","name":"Skillcase","alternateName":"Custom GPT export","url":"https://peakappsstudio.com/custom-gpt-export/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"Article","@id":"https://peakappsstudio.com/custom-gpt-export/custom-gpt-to-claude/#article","headline":"Move a custom GPT to Claude","description":"Move a custom GPT to Claude before it retires: upload it as a skill (SKILL.md) or rebuild it as a Claude project with its instructions and files.","url":"https://peakappsstudio.com/custom-gpt-export/custom-gpt-to-claude/","inLanguage":"en","dateModified":"2026-10-27","datePublished":"2026-10-27","author":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"about":{"@id":"https://peakappsstudio.com/custom-gpt-export/#app"},"citation":["https://support.claude.com/en/articles/12512180-using-skills-in-claude","https://support.claude.com/en/articles/9517075-what-are-projects","https://agentskills.io/specification","https://learn.chatgpt.com/docs/migrate-custom-gpts"]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Custom GPT export","item":"https://peakappsstudio.com/custom-gpt-export/"},{"@type":"ListItem","position":3,"name":"To Claude","item":"https://peakappsstudio.com/custom-gpt-export/custom-gpt-to-claude/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I import a custom GPT into Claude directly?","acceptedAnswer":{"@type":"Answer","text":"Not from ChatGPT. Copy the GPT's setup and files out first, then add them to Claude as a skill (one ZIP upload) or as a project (paste the instructions, upload the files). Skillcase builds the skill ZIP and the project text from what you paste."}},{"@type":"Question","name":"Do Claude skills work on the free plan?","acceptedAnswer":{"@type":"Answer","text":"Anthropic says skills are available on Free, Pro, Max, Team and Enterprise plans, and that they need code execution turned on."}},{"@type":"Question","name":"Is a Claude project the same as a custom GPT?","acceptedAnswer":{"@type":"Answer","text":"They hold the same kinds of things, instructions and files, but you chat inside a project rather than open a GPT. Anthropic says projects are on every plan, and free accounts can have up to five."}}]}]}
+</script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
+</head>
+<body class="sc" style="--accent:#12142e">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head sc-head">
+  <div class="wrap">
+    <a class="brand" href="/custom-gpt-export/" aria-label="Skillcase, export your custom GPT">
+      <svg viewBox="0 0 30 26" aria-hidden="true" focusable="false"><path d="M7 3h16l5 5v15a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8z" fill="#9aa8ff" stroke="#12142e" stroke-width="1.5" stroke-linejoin="round"/><circle cx="15" cy="7.6" r="2.3" fill="#fff" stroke="#ff5a3c" stroke-width="1.8"/><path d="M7.5 14.5h15M7.5 18.5h10" stroke="#12142e" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <span>Skillcase</span>
+    </a>
+    <nav class="head-nav" aria-label="Skillcase">
+      <a href="/custom-gpt-export/">Export a GPT</a>
+      <a class="sc-wide" href="/custom-gpt-export/custom-gpts-going-away/">Going away?</a>
+      <span class="sc-wide" aria-current="page">To Claude</span>
+      <a class="sc-wide" href="/custom-gpt-export/custom-gpt-to-gemini/">To Gemini</a>
+      <a class="sc-wide" href="/custom-gpt-export/save-custom-gpt-chats/">Save chats</a>
+      <a class="sc-wide" href="/custom-gpt-export/migrate-to-plugin/">To a plugin</a>
+      <a class="sc-narrow" href="#guides">Guides</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="sc-band sc-guide-hero" aria-labelledby="h1">
+<div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/custom-gpt-export/">Custom GPT export</a></li><li aria-current="page">To Claude</li></ol></nav>
+<h1 id="h1">Move a custom GPT to Claude</h1>
+<p class="lede">Claude can take a custom GPT in two ways: as a skill, a folder with a SKILL.md file of instructions and the GPT's files, or as a project with the same instructions and files as its knowledge. Here is which to pick and how to do each.</p>
+<p class="sc-checked">Last checked: October 27, 2026, against the companies' own help pages. Not affiliated with OpenAI.</p>
+</div>
+</section>
+<article class="wrap sc-prose sc-article">
+<h2>Skill or project?</h2>
+<div class="table-wrap"><table>
+<caption>The two ways to bring a custom GPT into Claude</caption>
+<thead><tr><th scope="col"></th><th scope="col">Claude skill</th><th scope="col">Claude project</th></tr></thead>
+<tbody>
+<tr><td>What you add</td><td data-label="Claude skill">One ZIP: a folder with SKILL.md and the GPT's files</td><td data-label="Claude project">The instructions, pasted, and the files, uploaded</td></tr>
+<tr><td>How you use it</td><td data-label="Claude skill">Claude uses the skill when a request fits its description</td><td data-label="Claude project">You chat inside the project</td></tr>
+<tr><td>Plans</td><td data-label="Claude skill">Free, Pro, Max, Team and Enterprise</td><td data-label="Claude project">Every plan; free accounts can have up to five projects</td></tr>
+<tr><td>Needs</td><td data-label="Claude skill">Code execution turned on</td><td data-label="Claude project">Nothing extra</td></tr>
+</tbody></table></div>
+<p>Pick the project if you used the GPT as a place to work on one thing with its files close at hand. Pick the skill if you want its instructions to come up in any chat when the task fits. You can do both from the same backup.</p>
+
+<h2>As a skill</h2>
+<ol class="sc-steps">
+<li><span><a href="/custom-gpt-export/">Pack your GPT with Skillcase</a> and download "Skill for Claude and ChatGPT". It is a ZIP with a folder named after your GPT, holding SKILL.md, the knowledge files in references/ and any action schemas in assets/.</span></li>
+<li><span>In Claude, turn on code execution: Anthropic says skills need it (on Free, Pro and Max: Settings, Capabilities, "Code execution and file creation", called "Create and edit files" in the newer settings layout).</span></li>
+<li><span>Open Customize, then Skills, click +, choose Create skill, then Upload a skill, and pick the ZIP.</span></li>
+<li><span>Try one of your GPT's conversation starters. They are listed at the end of SKILL.md.</span></li>
+</ol>
+<p>Claude rejects a skill whose folder name does not match its name, or whose name or description has characters it does not accept. Skillcase writes the name the way the <a href="https://agentskills.io/specification" rel="nofollow noopener">Specification</a> asks: lowercase letters, numbers and single hyphens, at most 64 characters, matching the folder.</p>
+
+<h2>As a project</h2>
+<ol class="sc-steps">
+<li><span>In Claude, create a project and give it your GPT's name.</span></li>
+<li><span>Paste the GPT's instructions into the project's instructions. On the Skillcase page, "Copy the Claude project instructions" puts them on your clipboard.</span></li>
+<li><span>Upload the knowledge files to the project's knowledge. Anthropic says Claude uses those files as context for the chats in the project.</span></li>
+<li><span>To bring your old chats along, upload all-chats.md from the backup's chats folder too.</span></li>
+</ol>
+
+<h2>What does not move</h2>
+<ul>
+<li><strong>Custom actions.</strong> A GPT action calls an outside API through an OpenAPI schema. Neither a project nor the skill runs it; the backup keeps the schema and a list of its operations for whoever rebuilds the connection.</li>
+<li><strong>The model.</strong> The GPT's model setting has no match in Claude; pick a model in Claude as usual.</li>
+<li><strong>Conversation starters as buttons.</strong> They are kept as text in SKILL.md and the backup.</li>
+</ul>
+
+<div class="sc-cta">
+<h2>Pack your GPT before December 11</h2>
+<p>Paste your GPT's setup, add its knowledge files and your ChatGPT export, and download a backup you can open anywhere, a skill for Claude, Gemini and ChatGPT, and your chats as Markdown. Free, in your browser, and nothing is uploaded.</p>
+<div class="sc-actions"><a class="btn btn-primary" href="/custom-gpt-export/">Export your custom GPT</a><a class="btn sc-quiet" href="/custom-gpt-export/#how">Where each part of a GPT is</a></div>
+</div>
+
+<h2 id="faq-h">Questions</h2>
+<div class="sc-faq">
+<details><summary>Can I import a custom GPT into Claude directly?</summary><p>Not from ChatGPT. Copy the GPT's setup and files out first, then add them to Claude as a skill (one ZIP upload) or as a project (paste the instructions, upload the files). Skillcase builds the skill ZIP and the project text from what you paste.</p></details>
+<details><summary>Do Claude skills work on the free plan?</summary><p>Anthropic says skills are available on Free, Pro, Max, Team and Enterprise plans, and that they need code execution turned on.</p></details>
+<details><summary>Is a Claude project the same as a custom GPT?</summary><p>They hold the same kinds of things, instructions and files, but you chat inside a project rather than open a GPT. Anthropic says projects are on every plan, and free accounts can have up to five.</p></details>
+</div>
+
+<p class="sc-source">Sources: <a href="https://support.claude.com/en/articles/12512180-using-skills-in-claude" rel="nofollow noopener">Anthropic: Using Skills in Claude</a>; <a href="https://support.claude.com/en/articles/9517075-what-are-projects" rel="nofollow noopener">Anthropic: What are projects?</a>; <a href="https://agentskills.io/specification" rel="nofollow noopener">Agent Skills: Specification</a>; <a href="https://learn.chatgpt.com/docs/migrate-custom-gpts" rel="nofollow noopener">OpenAI: Moving your custom GPT workflows to plugins</a>. Last checked: October 27, 2026. Skillcase is an independent tool by Peak Apps Studio and is not affiliated with OpenAI, Anthropic, Google or Ollama.</p>
+</article>
+
+<section class="sc-section sc-alt" aria-labelledby="more-h">
+<div class="wrap">
+<h2 id="more-h">More about the GPT retirement</h2>
+<div class="sc-related">
+<a href="/custom-gpt-export/">Export your custom GPT<span>The backup and the skills, made in your browser</span></a>
+<a href="/custom-gpt-export/custom-gpts-going-away/">Are custom GPTs going away?<span>The dates, what stops and what stays, from OpenAI's own pages</span></a>
+<a href="/custom-gpt-export/custom-gpt-to-gemini/">Move a custom GPT to Gemini<span>Why a skill and not a Gem, and the file rules</span></a>
+<a href="/custom-gpt-export/save-custom-gpt-chats/">Save your custom GPT chats<span>Find a GPT's chats in the ChatGPT export</span></a>
+<a href="/custom-gpt-export/migrate-to-plugin/">Migrate a custom GPT to a plugin<span>What moves, what does not, and what to keep first</span></a>
+</div>
+</div>
+</section>
+</main>
+<aside class="peak-new" aria-label="New from Peak Apps">
+  <div class="wrap">
+    <a class="peak-new-card" href="/photo-date-fixer/" style="--tool:#c4360e">
+      <span class="peak-new-kicker">New from Peak Apps</span>
+      <strong>Photo Date Fixer</strong>
+      <span class="peak-new-line">Put the real date, time and place back into the photos of a Snapchat Memories export. Free, and nothing is uploaded.</span>
+    </a>
+  </div>
+</aside>
+<footer class="site-foot sc-foot" id="guides">
+  <div class="wrap cols">
+    <div>
+      <p class="sc-foot-brand">Skillcase</p>
+      <p class="sc-foot-text">Pack a custom GPT before it retires: its instructions, knowledge files, action schemas and chats, as a backup and as a skill for Claude, Gemini and ChatGPT. Everything is packed on your own device and never uploaded.</p>
+      <p class="sc-foot-text">Skillcase is an independent tool by <a href="https://peakappsstudio.com/">Peak Apps Studio</a>. Not affiliated with OpenAI, Anthropic, Google or Ollama. ChatGPT, GPTs, Claude and Gemini are trademarks of their owners, named here only to say which files the tool reads and writes.</p>
+    </div>
+    <div>
+      <h2>Guides</h2>
+      <ul>
+        <li><a href="/custom-gpt-export/">Export your custom GPT</a></li>
+        <li><a href="/custom-gpt-export/custom-gpts-going-away/">Are custom GPTs going away?</a></li>
+        <li><span aria-current="page">Move a custom GPT to Claude</span></li>
+        <li><a href="/custom-gpt-export/custom-gpt-to-gemini/">Move a custom GPT to Gemini</a></li>
+        <li><a href="/custom-gpt-export/save-custom-gpt-chats/">Save your custom GPT chats</a></li>
+        <li><a href="/custom-gpt-export/migrate-to-plugin/">Migrate a custom GPT to a plugin</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/privacy/">Privacy</a></li>
+        <li><a href="/tools/">More tools by Peak Apps</a></li>
+        <li><a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
