@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src https://cloudflareinsights.com; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yahoo notes missing on iPhone? The Notes folder explained</title>
+<meta name="description" content="Why Yahoo notes disappeared from an iPhone, what the Notes folder in Yahoo Mail is, how to keep those notes in iCloud and what cannot be recovered.">
+<link rel="canonical" href="https://peakappsstudio.com/yahoo-notepad/iphone-notes/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Yahoo notes missing on iPhone: what the Notes folder is">
+<meta property="og:description" content="Why Yahoo notes disappeared from an iPhone, what the Notes folder in Yahoo Mail is, how to keep those notes in iCloud and what cannot be recovered.">
+<meta property="og:url" content="https://peakappsstudio.com/yahoo-notepad/iphone-notes/">
+<meta property="og:image" content="https://peakappsstudio.com/yahoo-notepad/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f6e48a">
+<link rel="icon" href="/yahoo-notepad/img/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/yahoo-notepad/fonts/lastleaf-display.woff2" as="font" type="font/woff2" crossorigin>
+<style data-from="/assets/tools.css">
+/* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
+
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e1;
+  --card: #fbfaf7;
+  --ink: #141518;
+  --ink-2: #33363d;
+  --muted: #676b74;
+  --line: rgba(20, 21, 24, 0.12);
+  --line-2: rgba(20, 21, 24, 0.22);
+  --accent: #1f5c4d;          /* each tool overrides this on <body style="--accent:..."> */
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  --warn: #9a4a12;
+  --ok: #2c6a3f;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+    --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+  --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; }
+img { display: block; height: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 10px; z-index: 100; background: var(--ink); color: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 10px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-head { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand-sub { font-family: var(--sans); font-size: 14.5px; letter-spacing: 0; color: var(--muted); font-weight: 500; padding-left: 10px; border-left: 1px solid var(--line-2); }
+.head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
+.head-nav a:hover { background: var(--paper-2); color: var(--ink); }
+.head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
+@media (max-width: 640px) { .brand-sub { display: none; } }
+@media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
+
+/* ---------- Type ---------- */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+h1 { font-size: clamp(32px, 4.6vw, 54px); }
+h1 em, h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 19px; letter-spacing: -0.01em; }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; margin: 16px 0 0; }
+.mono { font-family: var(--mono); }
+.muted { color: var(--muted); }
+small, .small { font-size: 13.5px; }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 22px 0 0; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-2); }
+.crumbs a { text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.tool-hero { padding: 28px 0 24px; display: grid; gap: 8px; }
+.tool-hero .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.tool-hero .facts li { display: inline-flex; align-items: center; gap: 8px; }
+.tool-hero .facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Tool shell ---------- */
+.tool { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.tool-panel { padding: 22px; border-right: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.tool-stage { position: relative; min-height: 460px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper); display: grid; place-items: center; padding: 22px; }
+.tool-stage canvas, .tool-stage svg, .tool-stage img { max-height: 70vh; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px -12px rgba(0,0,0,.18); background: #fff; }
+.stage-bar { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.tool-foot { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 14px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--paper); }
+.tool-foot .spacer { flex: 1; }
+@media (max-width: 860px) {
+  .tool { grid-template-columns: 1fr; }
+  .tool-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tool-stage { min-height: 320px; }
+}
+
+/* ---------- Form controls ---------- */
+.group { display: grid; gap: 10px; }
+.group-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > label { font-size: 13px; color: var(--ink-2); }
+.input, .select { width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 8px; padding: 9px 11px; transition: border-color .15s, box-shadow .15s; }
+.input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input-unit { position: relative; }
+.input-unit .input { padding-right: 38px; font-family: var(--mono); font-size: 14.5px; }
+.input-unit i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 3px; flex: none; }
+.seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line-2); border-radius: 9px; padding: 3px; gap: 3px; background: var(--paper); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.warn { font-size: 13.5px; color: var(--warn); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.btn { --b: var(--line-2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 500; line-height: 1; padding: 11px 16px; border-radius: 9px; border: 1px solid var(--b); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; transition: transform .15s var(--ease), background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklab, var(--accent) 86%, #000); color: var(--accent-ink); border-color: transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-ink:hover { color: var(--paper); background: var(--ink-2); }
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.pro-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: var(--ink); color: var(--paper); }
+
+/* ---------- Drop zone ---------- */
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 18px 14px; background: var(--paper); cursor: pointer; transition: border-color .15s, background .15s; font-size: 14.5px; }
+.drop:hover, .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Content ---------- */
+.section { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prose { max-width: 70ch; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose h2 { margin: 1.6em 0 .5em; }
+.prose h3 { margin: 1.4em 0 .4em; }
+.prose code, .prose kbd { font-family: var(--mono); font-size: .9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+.two-col > * { min-width: 0; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: 3px; }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 13px; background: var(--paper); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 15px; }
+.source { font-size: 13px; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--line-2); margin-top: 18px; }
+.faq details { border-bottom: 1px solid var(--line-2); }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 13px; font-family: var(--mono); font-size: 18px; color: var(--muted); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 18px; color: var(--ink-2); max-width: 70ch; }
+
+/* ---------- Pro ---------- */
+.pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--card); }
+.pro-left { padding: clamp(22px, 3vw, 36px); }
+.pro-right { padding: clamp(22px, 3vw, 36px); background: var(--ink); color: var(--paper); display: grid; align-content: center; gap: 14px; }
+.pro-right .price { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pro-right .price small { font-size: 15px; font-weight: 400; color: color-mix(in oklab, var(--paper) 70%, transparent); letter-spacing: 0; }
+.pro-right .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.pro-right .btn-primary:hover { background: #fff; color: var(--ink); }
+.pro-right .fine { font-size: 13px; color: color-mix(in oklab, var(--paper) 65%, transparent); margin: 0; }
+.pro-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.pro-list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.pro-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border: 1.5px solid var(--accent); border-radius: 2px; transform: rotate(45deg); }
+@media (max-width: 760px) { .pro { grid-template-columns: 1fr; } }
+
+/* ---------- A real file, shown ---------- */
+.shot { margin: 22px 0 0; }
+.shot img { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; }
+.shot figcaption { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+.shot figcaption strong { font-weight: 600; color: var(--ink-2); }
+.shot-sm { max-width: 920px; }
+
+/* ---------- Where free stops and Pro starts ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; margin: 26px 0 0; background: var(--card); }
+.split > div { padding: 18px 20px 20px; }
+.split > div + div { border-left: 1px solid var(--line-2); background: var(--accent-soft); }
+.split h3 { font-size: 15.5px; margin: 0; }
+.split > div > p { margin: 5px 0 0; font-size: 13.5px; color: var(--muted); }
+.split ul { list-style: none; margin: 13px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
+.split li { position: relative; padding-left: 18px; }
+.split li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; border-radius: 1px; background: var(--line-2); }
+.split > div + div li::before { background: var(--accent); }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } .split > div + div { border-left: 0; border-top: 1px solid var(--line-2); } }
+
+/* ---------- A file list, as the archive really holds it ---------- */
+.filelist { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 5px; }
+.filelist li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filelist li span { color: var(--muted); }
+
+/* ---------- License dialog ---------- */
+.license-dialog { border: 1px solid var(--line-2); border-radius: 14px; padding: 0; width: min(440px, calc(100% - 32px)); background: var(--card); color: var(--ink); }
+.license-dialog::backdrop { background: rgba(10, 11, 13, .45); }
+.license-dialog form { padding: 22px; display: grid; gap: 14px; }
+.license-status { font-size: 14px; min-height: 1.4em; margin: 0; }
+.license-status[data-state="ok"] { color: var(--ok); }
+.license-status[data-state="err"] { color: var(--warn); }
+
+/* ---------- Related / cards ---------- */
+.related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line-2); margin-top: 22px; }
+.related a { display: grid; gap: 4px; padding: 18px 18px 18px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.related a strong { font-weight: 600; }
+.related a span { font-size: 14px; color: var(--muted); }
+.related a:hover strong { color: var(--accent); }
+
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
+/* ---------- Footer ---------- */
+.site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
+.site-foot h2 { font-size: 15px; font-family: var(--sans); letter-spacing: 0; font-weight: 600; color: var(--ink); margin: 0 0 10px; }
+.site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+@media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- "New from Peak Apps": the cross-promotion card the build puts above the footer (src/crosspromo.json) ---------- */
+.peak-new { margin-top: clamp(56px, 8vw, 104px); }
+.peak-new + .site-foot { margin-top: 28px; }
+.peak-new-card { display: grid; gap: 4px; max-width: 640px; padding: 16px 20px 18px; border: 1px solid var(--line-2); border-left: 4px solid var(--tool, var(--accent)); border-radius: var(--radius); background: var(--card); color: var(--ink); text-decoration: none; transition: border-color .2s var(--ease); }
+.peak-new-card:hover { border-color: var(--tool, var(--accent)); }
+.peak-new-card:focus-visible { outline: 2px solid var(--tool, var(--accent)); outline-offset: 3px; }
+.peak-new-kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.peak-new-card strong { font-size: 17px; font-weight: 600; line-height: 1.3; }
+.peak-new-line { font-size: 14px; line-height: 1.5; color: var(--ink-2); max-width: 62ch; }
+
+/* ---------- Home project tools: the shared block on Without Planning and Dropped Kerb Check ---------- */
+.home-block { margin: clamp(36px, 5vw, 60px) 0 0; border-top: 1px solid var(--line-2); padding-top: 16px; }
+.home-title { margin: 0 0 10px; font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink); }
+.home-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px 24px; }
+.home-list a { display: grid; gap: 3px; padding: 2px 0 2px 14px; border-left: 4px solid var(--tool, var(--accent)); text-decoration: none; color: var(--ink); }
+.home-list a strong { font-weight: 700; font-size: 16px; }
+.home-list a span { color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+.home-list a:hover strong { color: var(--tool, var(--accent)); }
+.home-list a[aria-current="page"] span { color: var(--ink-2); }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .3s var(--ease); z-index: 90; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media print { .site-head, .site-foot, .tool-panel, .tool-foot, .no-print { display: none !important; } body { background: #fff; } }
+
+/* The hidden attribute must win over component display rules. */
+[hidden] { display: none !important; }
+</style>
+<style data-from="/yahoo-notepad/tool.css">
+/* Lastleaf: the Yahoo Notepad download, opened on a computer. The look is a legal pad: a canary page with pale blue
+   rules and a red double margin line, and the tool itself is the last leaf, torn off along its perforation. Ballpoint
+   blue for every button and link. Headings in Literata (a book face made for reading on screens, set as one static
+   bold cut); everything people read is the system font at 18px, for an older audience that reads before it clicks. */
+@font-face { font-family: "Lastleaf Display"; src: url("/yahoo-notepad/fonts/lastleaf-display.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+/* Georgia Bold sized to Literata, so the headings do not jump when the web font arrives */
+@font-face { font-family: "Lastleaf Display Fallback"; src: local("Georgia Bold"), local("Georgia-Bold"), local("Georgia"); font-weight: 700; size-adjust: 97.5%; ascent-override: 120.7%; descent-override: 31.6%; line-gap-override: 0%; }
+
+body.yn {
+  --canary: #f6e48a; --canary-2: #ecd665; --rule: rgba(45, 95, 160, 0.2); --margin: #d0423a; --margin-ink: #b3291f;
+  --pen: #2448a4; --pen-2: #1a357f; --pen-soft: #e3e9f7;
+  --ink: #1d2230; --ink-2: #353c4d; --muted: #545b6b;
+  --paper: #ffffff; --paper-2: #f3f5f8; --card: #ffffff; --desk: #eef1f5;
+  --line: #dde2ea; --line-2: #c3cad7; --mark: #fbe98f;
+  --accent: #2448a4; --accent-ink: #ffffff; --link: #2448a4;
+  --ok: #1d6b3f; --warn: #8a4a00;
+  --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --head: "Lastleaf Display", "Lastleaf Display Fallback", Georgia, serif;
+  font-family: var(--sans); font-size: 18px; line-height: 1.6; background: var(--paper); color: var(--ink);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.yn {
+    --ink: #eceff5; --ink-2: #cfd5e0; --muted: #a6aebd; --paper: #13161d; --paper-2: #1b1f29; --card: #1b1f29; --desk: #0f1218;
+    --line: #2a303d; --line-2: #3b4352; --pen: #8fa9ff; --pen-2: #b3c5ff; --pen-soft: #1f2a45; --link: #a9bdff; --mark: #6b5a12;
+    --accent: #8fa9ff; --accent-ink: #0f1430; --margin-ink: #ff8a7d; --ok: #7cc493; --warn: #e3a36b;
+  }
+}
+:root[data-theme="dark"] body.yn {
+  --ink: #eceff5; --ink-2: #cfd5e0; --muted: #a6aebd; --paper: #13161d; --paper-2: #1b1f29; --card: #1b1f29; --desk: #0f1218;
+  --line: #2a303d; --line-2: #3b4352; --pen: #8fa9ff; --pen-2: #b3c5ff; --pen-soft: #1f2a45; --link: #a9bdff; --mark: #6b5a12;
+  --accent: #8fa9ff; --accent-ink: #0f1430; --margin-ink: #ff8a7d; --ok: #7cc493; --warn: #e3a36b;
+}
+.yn a { color: var(--link); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.yn a:hover { color: var(--ink); }
+.yn h1, .yn h2, .yn h3 { font-family: var(--head); font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+.yn h1 { font-size: clamp(38px, 5vw, 62px); line-height: 1.04; margin: 18px 0 0; text-wrap: balance; max-width: 17ch; }
+.yn h2 { font-size: clamp(28px, 3vw, 38px); line-height: 1.12; text-wrap: balance; }
+.yn h3 { font-size: 23px; line-height: 1.2; }
+.yn .lede { font-size: clamp(19px, 1.6vw, 21px); line-height: 1.55; color: var(--ink-2); max-width: 56ch; margin: 18px 0 0; }
+.yn .crumbs { font-size: 15px; margin-top: 18px; color: var(--muted); }
+.yn .crumbs a { color: var(--ink-2); }
+.yn .btn { font-family: var(--sans); font-size: 17px; font-weight: 600; line-height: 1.2; padding: 14px 20px; border-radius: 8px; white-space: normal; text-align: center; max-width: 100%; min-height: 50px; }
+.yn .btn-primary { background: var(--pen); border-color: var(--pen); color: var(--accent-ink); }
+.yn .btn-primary:hover { background: var(--pen-2); border-color: var(--pen-2); color: var(--accent-ink); }
+.yn .yn-quiet { background: var(--card); border: 1.5px solid var(--line-2); color: var(--ink); }
+.yn .yn-quiet:hover { border-color: var(--ink); color: var(--ink); }
+.yn .btn:focus-visible, .yn button:focus-visible, .yn a:focus-visible, .yn input:focus-visible, .yn select:focus-visible, .yn summary:focus-visible, .yn [tabindex]:focus-visible { outline: 3px solid var(--pen); outline-offset: 2px; }
+.yn .input, .yn .select { font-family: var(--sans); font-size: 18px; padding: 12px 14px; border: 1.5px solid var(--line-2); border-radius: 8px; background: var(--card); color: var(--ink); }
+.yn .input:focus, .yn .select:focus { border-color: var(--pen); box-shadow: 0 0 0 3px var(--pen-soft); }
+.yn [hidden] { display: none !important; }
+
+/* ---------- header and footer ---------- */
+.yn-head { background: var(--paper); border-bottom: 1px solid var(--line); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.yn-head .brand { gap: 10px; color: var(--ink); }
+.yn-head .brand svg { width: 25px; height: 31px; }
+.yn-head .brand span { font-family: var(--head); font-size: 23px; font-weight: 700; letter-spacing: -0.01em; }
+.yn-head .head-nav a { font-size: 16px; color: var(--ink-2); padding: 8px 10px; }
+.yn-head .head-nav [aria-current="page"] { font-size: 16px; color: var(--ink); padding: 8px 10px; font-weight: 600; }
+.yn-narrow { display: none; }
+@media (max-width: 1080px) { .yn-wide { display: none; } .yn-narrow { display: inline-block; } }
+@media (max-width: 480px) { .yn-head .head-nav [aria-current="page"] { display: none; } .yn-head .head-nav a { padding: 8px 8px; } }
+.yn .site-foot.yn-foot { background: var(--ink); color: #cdd3df; border-top: 0; font-size: 16px; padding: 44px 0 52px; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .yn .site-foot.yn-foot { background: #0a0c11; } }
+:root[data-theme="dark"] .yn .site-foot.yn-foot { background: #0a0c11; }
+.yn .yn-foot .cols { grid-template-columns: 1.6fr 1.2fr 0.9fr; }
+@media (max-width: 860px) { .yn .yn-foot .cols { grid-template-columns: 1fr; } }
+.yn .yn-foot h2 { font-family: var(--sans); font-size: 17px; font-weight: 700; color: #fff; letter-spacing: 0; margin: 0 0 10px; }
+.yn .yn-foot a { color: #dfe6ff; }
+.yn .yn-foot a:hover { color: #fff; text-decoration: underline; }
+.yn .yn-foot ul { gap: 8px; }
+.yn-foot-brand { font-family: var(--head); font-weight: 700; font-size: 24px; color: #fff; margin: 0 0 8px; }
+.yn-foot-text { margin: 0 0 12px; max-width: 48ch; }
+
+/* ---------- the pad: canary, blue rules, the red double margin ---------- */
+.yn-pad { position: relative; background: var(--canary); color: #1d2230; isolation: isolate; }
+.yn-pad::before { content: ""; position: absolute; inset: 0; z-index: -1; background-image: repeating-linear-gradient(to bottom, transparent 0 35px, var(--rule) 35px 36px); background-position: 0 14px; pointer-events: none; }
+.yn-pad::after { content: ""; position: absolute; top: 0; bottom: 0; z-index: -1; width: 4px; left: max(4px, calc((100% - min(100% - 2 * var(--gutter), var(--max))) / 2 - 18px)); border-left: 1.5px solid var(--margin); border-right: 1.5px solid var(--margin); pointer-events: none; }
+.yn-pad, .yn-pad h1, .yn-pad h2, .yn-pad .lede, .yn-pad p, .yn-pad li { color: #1d2230; }
+.yn-pad .crumbs, .yn-pad .crumbs a, .yn-pad .yn-muted { color: #474d5c; }
+.yn-pad a { color: #1d3c93; }
+.yn-pad a:hover { color: #1d2230; }
+
+.yn-hero { padding: 6px 0 64px; }
+.yn-hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(28px, 4vw, 64px); align-items: start; margin-top: 4px; }
+@media (max-width: 980px) { .yn-hero-grid { grid-template-columns: minmax(0, 1fr); } }
+.yn-hero-grid > div, .yn-sheet, .yn-stage, .yn-map-form, .yn-map-form label, .yn-report { min-width: 0; }
+.yn-deadline { display: inline-block; margin: 22px 0 0; padding: 6px 12px; background: #fff; color: var(--margin-ink); border: 1.5px solid var(--margin); border-radius: 6px; font-weight: 700; font-size: 17px; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .yn-deadline { color: #b3291f; } }
+:root[data-theme="dark"] .yn-deadline { color: #b3291f; }
+.yn-facts { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 12px; max-width: 54ch; }
+.yn-facts li { display: grid; grid-template-columns: 26px 1fr; gap: 12px; align-items: start; font-size: 18px; }
+.yn-facts svg { width: 22px; height: 22px; margin-top: 3px; color: #1d3c93; }
+.yn-indep { margin: 22px 0 0; font-size: 16px; }
+
+/* ---------- the last leaf: the tool, torn off along its perforation ---------- */
+.yn-sheet { position: relative; background: var(--card); color: var(--ink); border-radius: 0 0 10px 10px; padding: 34px clamp(20px, 3vw, 34px) 28px; box-shadow: 0 1px 0 rgba(29, 34, 48, 0.08), 0 22px 44px -26px rgba(29, 34, 48, 0.45); }
+.yn-sheet::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 14px; background: radial-gradient(circle at 7px 0, var(--canary) 3.2px, transparent 3.8px) 0 0 / 14px 14px repeat-x; border-top: 1.5px dashed rgba(29, 34, 48, 0.28); }
+.yn-sheet h2, .yn-sheet p, .yn-sheet li { color: var(--ink); }
+.yn-stage-title { font-size: 27px; line-height: 1.15; margin: 0; }
+.yn-stage p { margin: 12px 0 0; }
+.yn-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+.yn-drop { border: 2px dashed var(--line-2); border-radius: 10px; padding: 22px 20px; transition: border-color .15s, background .15s; }
+.yn-drop.is-over { border-color: var(--pen); background: var(--pen-soft); }
+.yn-small { font-size: 16px; color: var(--muted); }
+.yn-sheet .yn-small { color: var(--muted); }
+.yn-bar { height: 8px; border-radius: 6px; background: var(--paper-2); overflow: hidden; margin-top: 18px; }
+.yn-bar i { display: block; height: 100%; width: 35%; background: var(--pen); border-radius: 6px; animation: yn-slide 1.2s ease-in-out infinite; }
+@keyframes yn-slide { 0% { transform: translateX(-100%); } 100% { transform: translateX(290%); } }
+@media (prefers-reduced-motion: reduce) { .yn-bar i { animation: none; width: 100%; opacity: .5; } }
+.yn-done-title { font-family: var(--head); font-weight: 700; font-size: 30px; line-height: 1.1; margin: 0; }
+.yn-error-title { font-family: var(--head); font-weight: 700; font-size: 26px; line-height: 1.15; margin: 0; color: var(--margin-ink); }
+.yn-set-aside { margin: 14px 0 0; padding: 0; list-style: none; font-size: 16px; color: var(--muted); display: grid; gap: 4px; }
+.yn-private { display: grid; grid-template-columns: 22px 1fr; gap: 10px; margin: 18px 4px 0; font-size: 16px; line-height: 1.5; }
+.yn-help-line { margin: 12px 4px 0; font-size: 16px; line-height: 1.5; }
+.yn-report-after { margin-top: 18px; }
+.yn-report-after details summary { cursor: pointer; color: var(--link); font-weight: 600; min-height: 44px; display: flex; align-items: center; }
+.yn-private svg { width: 20px; height: 20px; margin-top: 2px; color: #1d2230; }
+
+/* mapping: point at the fields */
+.yn-map-form { display: grid; gap: 14px; margin-top: 18px; }
+.yn-map-form label { display: grid; gap: 6px; font-weight: 600; font-size: 17px; }
+.yn-map-form .select { font-weight: 400; width: 100%; min-width: 0; max-width: 100%; text-overflow: ellipsis; }
+.yn-map-pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
+@media (max-width: 560px) { .yn-map-pair { grid-template-columns: minmax(0, 1fr); } }
+.yn-preview { border: 1px solid var(--line); border-radius: 8px; background: var(--paper-2); padding: 12px 14px; font-size: 16px; }
+.yn-preview ol { margin: 6px 0 0; padding-left: 22px; display: grid; gap: 6px; }
+.yn-preview strong { font-weight: 700; }
+.yn-report { margin-top: 20px; border-top: 1px solid var(--line); padding-top: 14px; }
+.yn-report summary { cursor: pointer; font-weight: 600; color: var(--link); min-height: 44px; display: flex; align-items: center; }
+.yn-report pre { font-family: ui-monospace, "Cascadia Mono", Consolas, "SF Mono", monospace; font-size: 13.5px; line-height: 1.45; background: var(--paper-2); border: 1px solid var(--line); border-radius: 8px; padding: 12px; max-height: 260px; max-width: 100%; overflow: auto; white-space: pre; }
+
+/* ---------- the 3D band ---------- */
+.yn-band { margin: 0; background: #e8ecf2; }
+.yn-band img { width: 100%; height: auto; display: block; }
+.yn-band figcaption { font-size: 15px; color: var(--muted); padding: 10px var(--gutter) 0; max-width: var(--max); margin: 0 auto; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .yn-band { background: #e8ecf2; } :root:not([data-theme="light"]) .yn-band figcaption { color: var(--muted); background: var(--paper); padding-bottom: 10px; } }
+
+/* ---------- the reader ---------- */
+.yn-reader { background: var(--desk); padding: clamp(36px, 5vw, 56px) 0 clamp(40px, 6vw, 64px); scroll-margin-top: 70px; }
+.yn-reader-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 18px; }
+.yn-sample-tag { display: inline-block; font-size: 15px; font-weight: 600; background: var(--mark); color: #1d2230; border-radius: 6px; padding: 3px 10px; }
+.yn-toolbar { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 12px; align-items: end; margin-top: 18px; }
+@media (max-width: 860px) { .yn-toolbar { grid-template-columns: 1fr; } }
+.yn-search { position: relative; }
+.yn-search svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: var(--muted); pointer-events: none; }
+.yn-search .input { width: 100%; padding-left: 44px; }
+.yn-sort { display: grid; gap: 4px; font-size: 15px; color: var(--muted); }
+.yn-save-note { margin: 10px 0 0; font-size: 16px; color: var(--muted); }
+.yn-status { min-height: 1.4em; margin: 8px 0 0; font-size: 16px; color: var(--ok); }
+.yn-grid { display: grid; grid-template-columns: 230px minmax(250px, 340px) minmax(0, 1fr); margin-top: 16px; background: var(--card); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; min-height: 560px; }
+.yn-rail { border-right: 1px solid var(--line); padding: 16px 12px; display: grid; align-content: start; gap: 4px; background: var(--paper-2); }
+.yn-rail h3 { font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--muted); margin: 4px 8px 6px; letter-spacing: 0; }
+.yn-rail button { display: flex; justify-content: space-between; gap: 10px; width: 100%; text-align: left; font: inherit; font-size: 17px; color: var(--ink); background: transparent; border: 0; border-radius: 8px; padding: 10px 10px; cursor: pointer; min-height: 44px; align-items: center; }
+.yn-rail button:hover { background: var(--card); }
+.yn-rail button[aria-pressed="true"] { background: var(--card); box-shadow: inset 3px 0 0 var(--pen); font-weight: 700; }
+.yn-rail .yn-count { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 15px; }
+.yn-listcol { border-right: 1px solid var(--line); display: flex; flex-direction: column; min-width: 0; }
+.yn-list-head { margin: 0; padding: 12px 16px; font-size: 15px; color: var(--muted); border-bottom: 1px solid var(--line); }
+.yn-list { list-style: none; margin: 0; padding: 0; max-height: 720px; overflow: auto; }
+.yn-item { display: grid; gap: 3px; width: 100%; text-align: left; font: inherit; color: var(--ink); background: transparent; border: 0; border-bottom: 1px solid var(--line); padding: 13px 16px; cursor: pointer; min-height: 44px; }
+.yn-item:hover { background: var(--paper-2); }
+.yn-item[aria-current="true"] { background: var(--pen-soft); box-shadow: inset 4px 0 0 var(--pen); }
+.yn-item-title { font-weight: 700; font-size: 17px; overflow-wrap: anywhere; }
+.yn-item-snip { font-size: 15.5px; color: var(--ink-2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+.yn-item-date { font-size: 14.5px; color: var(--muted); }
+.yn-empty { padding: 18px 16px; color: var(--muted); }
+.yn-more { margin: 12px 16px; }
+.yn-hit { background: var(--mark); color: inherit; border-radius: 3px; padding: 0 1px; }
+.yn-pane { padding: clamp(20px, 3vw, 34px); min-width: 0; }
+.yn-pane-empty { color: var(--muted); }
+.yn-note { border-left: 4px double var(--margin); padding-left: clamp(16px, 2vw, 26px); }
+.yn-note h3 { font-size: clamp(24px, 2.4vw, 30px); overflow-wrap: anywhere; margin: 0; }
+.yn-meta { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 12px 0 0; font-size: 15.5px; color: var(--muted); }
+.yn-meta div { display: flex; gap: 6px; }
+.yn-meta dt { font-weight: 600; }
+.yn-meta dd { margin: 0; }
+.yn-body { margin-top: 18px; font-size: 18px; line-height: 1.65; overflow-wrap: anywhere; unicode-bidi: plaintext; }
+.yn-body.is-text { white-space: pre-wrap; }
+.yn-body p, .yn-body ul, .yn-body ol, .yn-body blockquote, .yn-body pre { margin: 0 0 0.8em; }
+.yn-body h4 { font-family: var(--sans); font-size: 19px; margin: 0.6em 0 0.4em; }
+.yn-body pre { white-space: pre-wrap; font-family: ui-monospace, Consolas, monospace; font-size: 16px; }
+.yn-body table { border-collapse: collapse; }
+.yn-body td { border: 1px solid var(--line); padding: 4px 8px; }
+.yn-note-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.yn-back { display: none; margin-bottom: 16px; }
+.yn-coming { margin: 14px 0 0; font-size: 16px; color: var(--muted); }
+@media (max-width: 860px) {
+  .yn-grid { grid-template-columns: 1fr; min-height: 0; }
+  .yn-rail { border-right: 0; border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 6px; padding: 12px; }
+  .yn-rail h3 { width: 100%; margin: 0 4px 2px; }
+  .yn-rail button { width: auto; border: 1px solid var(--line-2); background: var(--card); padding: 8px 12px; }
+  .yn-rail button[aria-pressed="true"] { box-shadow: none; border-color: var(--pen); background: var(--pen-soft); }
+  .yn-listcol { border-right: 0; }
+  .yn-list { max-height: none; }
+  .yn-pane { display: none; }
+  .yn-reading .yn-pane { display: block; }
+  .yn-reading .yn-listcol, .yn-reading .yn-rail { display: none; }
+  .yn-back { display: inline-flex; }
+}
+
+/* ---------- sections and guides ---------- */
+.yn-section { padding: clamp(48px, 6vw, 80px) 0 0; }
+.yn-prose { max-width: 68ch; }
+.yn-prose p, .yn-prose li { color: var(--ink-2); }
+.yn-prose h2 { margin: 1.5em 0 .45em; }
+.yn-prose h3 { margin: 1.4em 0 .4em; }
+.yn-prose > h2:first-child { margin-top: 0; }
+.yn-steps { counter-reset: s; list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 14px; }
+.yn-steps li { counter-increment: s; display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: start; }
+.yn-steps li::before { content: counter(s); display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--margin); color: var(--margin-ink); font-weight: 700; font-family: var(--head); font-size: 19px; }
+.yn-source { font-size: 15.5px; color: var(--muted); border-top: 1px solid var(--line); margin-top: 26px; padding-top: 14px; }
+.yn-callout { border-left: 4px double var(--margin); padding: 4px 0 4px 18px; margin: 22px 0; }
+.yn-callout p { margin: 0; color: var(--ink); }
+.yn-faq { margin-top: 18px; border-top: 1px solid var(--line-2); max-width: 74ch; }
+.yn-faq details { border-bottom: 1px solid var(--line-2); }
+.yn-faq summary { cursor: pointer; font-weight: 700; font-size: 19px; padding: 16px 0; min-height: 44px; list-style-position: outside; }
+.yn-faq details p { margin: 0 0 18px; color: var(--ink-2); }
+.yn-related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; margin-top: 18px; border-top: 1px solid var(--line-2); }
+.yn-related a { display: block; padding: 16px 18px 16px 0; border-bottom: 1px solid var(--line-2); text-decoration: none; color: var(--ink); font-weight: 700; font-size: 18px; }
+.yn-related a span { display: block; font-weight: 400; font-size: 16px; color: var(--muted); margin-top: 2px; }
+.yn-related a:hover { color: var(--link); }
+.yn-guide-hero { padding: 6px 0 48px; }
+.yn-checked { margin: 18px 0 0; font-size: 16px; }
+.yn-article { padding-top: clamp(36px, 5vw, 56px); }
+.yn-article table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 17px; }
+.yn-article th, .yn-article td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.yn-article th { font-weight: 700; font-size: 16px; background: var(--paper-2); }
+.yn-article .table-wrap table { margin: 0; }
+.yn-cta { margin-top: 36px; max-width: 68ch; }
+.yn-cta .yn-sheet { padding-top: 30px; }
+.yn-cta-pad { padding: 30px clamp(16px, 3vw, 30px) 30px; border-radius: 12px; }
+@media (max-width: 640px) { .yn-article table, .yn-article tbody, .yn-article tr, .yn-article td, .yn-article th { display: block; width: 100%; } .yn-article thead { display: none; } .yn-article td { border-bottom: 0; padding: 4px 0; } .yn-article tr { border-bottom: 1px solid var(--line); padding: 10px 14px; } .yn-article td:first-child { font-weight: 700; } .yn-article td[data-label]::before { content: attr(data-label); display: block; font-size: 15px; font-weight: 700; color: var(--muted); margin-top: 6px; } }
+
+/* ---------- print one note ---------- */
+#print-area { display: none; }
+@media print {
+  body.yn-printing > *:not(#print-area) { display: none !important; }
+  body.yn-printing #print-area { display: block; font-family: Georgia, serif; font-size: 12pt; color: #000; }
+  #print-area h1 { font-family: Georgia, serif; font-size: 18pt; margin: 0 0 6pt; color: #000; }
+  #print-area .yn-print-meta { font-size: 10pt; color: #333; margin: 0 0 12pt; }
+  #print-area .yn-print-body { white-space: pre-wrap; }
+  #print-area .yn-print-foot { margin-top: 18pt; font-size: 9pt; color: #555; }
+}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/yahoo-notepad/#app","name":"Lastleaf","alternateName":"Yahoo Notepad file reader","url":"https://peakappsstudio.com/yahoo-notepad/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"Article","@id":"https://peakappsstudio.com/yahoo-notepad/iphone-notes/#article","headline":"Yahoo notes missing on iPhone: what the Notes folder is","description":"Why Yahoo notes disappeared from an iPhone, what the Notes folder in Yahoo Mail is, how to keep those notes in iCloud and what cannot be recovered.","url":"https://peakappsstudio.com/yahoo-notepad/iphone-notes/","inLanguage":"en","dateModified":"2026-10-27","datePublished":"2026-10-27","author":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"about":{"@id":"https://peakappsstudio.com/yahoo-notepad/#app"},"citation":["https://help.yahoo.com/kb/SLN5869.html","https://support.apple.com/guide/iphone/iph7262fd4fe/ios","https://support.apple.com/guide/icloud/mm2f42f05cb9/icloud","https://help.yahoo.com/kb/SLN15974.html","https://help.yahoo.com/kb/SLN37405.html"]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Yahoo Notepad","item":"https://peakappsstudio.com/yahoo-notepad/"},{"@type":"ListItem","position":3,"name":"iPhone notes","item":"https://peakappsstudio.com/yahoo-notepad/iphone-notes/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why did my Yahoo notes disappear from my iPhone?","acceptedAnswer":{"@type":"Answer","text":"Apple says notes in an account stop appearing on the iPhone when the account is removed or Notes is turned off for it, and that they stay in the account. Check Settings, Apps, Notes, Notes Accounts."}},{"@type":"Question","name":"Is the Notes folder in Yahoo Mail the same as Yahoo Notepad?","acceptedAnswer":{"@type":"Answer","text":"Yahoo's help pages describe them separately: the Notes folder holds notes synced one way from an iPhone, Notepad is opened with its own icon in Yahoo Mail. Yahoo has not said whether they share data, so we could not verify it."}},{"@type":"Question","name":"How do I recover deleted Yahoo Notepad notes?","acceptedAnswer":{"@type":"Answer","text":"You cannot. Yahoo says deleted Notepad notes do not go to the Trash and cannot be recovered. Notes that were not deleted are in the Notepad download until January 15, 2027."}}]}]}
+</script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
+</head>
+<body class="yn" style="--accent:#2448a4">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head yn-head">
+  <div class="wrap">
+    <a class="brand" href="/yahoo-notepad/" aria-label="Lastleaf, open your Yahoo Notepad notes">
+      <svg viewBox="0 0 25 31" aria-hidden="true" focusable="false"><path d="M3 6.5 5.4 4.6 7.8 6.3 10.2 4.4 12.6 6.2 15 4.5 17.4 6.3 19.8 4.6 22 6.2V27a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="#f6e48a" stroke="#1d2230" stroke-width="1.4" stroke-linejoin="round"/><path d="M7.4 7.5V28" stroke="#d0423a" stroke-width="1.2"/><path d="M9.6 12h9.6M9.6 16h9.6M9.6 20h9.6M9.6 24h6.4" stroke="#6f97c9" stroke-width="1.2" stroke-linecap="round"/></svg>
+      <span>Lastleaf</span>
+    </a>
+    <nav class="head-nav" aria-label="Lastleaf">
+      <a href="/yahoo-notepad/">Open your notes</a>
+      <a class="yn-wide" href="/yahoo-notepad/going-away/">Going away</a>
+      <a class="yn-wide" href="/yahoo-notepad/where-is-my-notepad/">Where is Notepad</a>
+      <a class="yn-wide" href="/yahoo-notepad/replacement/">Replacement</a>
+      <span class="yn-wide" aria-current="page">iPhone notes</span>
+      <a class="yn-wide" href="/yahoo-notepad/scam/">Scam emails</a>
+      <a class="yn-narrow" href="#guides">Guides</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="yn-pad yn-guide-hero" aria-labelledby="h1">
+<div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/yahoo-notepad/">Yahoo Notepad</a></li><li aria-current="page">iPhone notes</li></ol></nav>
+<h1 id="h1">Yahoo notes missing on iPhone: what the Notes folder is</h1>
+<p class="lede">If Yahoo notes disappeared from your iPhone, first find out which notes they were: notes the iPhone's own Notes app keeps in your Yahoo account, or Notepad notes you wrote in Yahoo Mail. They are described separately by Yahoo, and the fix is different for each.</p>
+<p class="yn-checked yn-muted">Last checked: October 27, 2026, against Yahoo's own help pages. Not affiliated with Yahoo.</p>
+</div>
+</section>
+<article class="wrap yn-prose yn-article">
+<h2>Two different things called notes</h2>
+<div class="table-wrap"><table>
+<thead><tr><th scope="col"><span class="sr-only">Question</span></th><th scope="col">Notes app on the iPhone, Yahoo account</th><th scope="col">Yahoo Notepad</th></tr></thead>
+<tbody>
+<tr><td>Where you wrote them</td><td data-label="Notes app on the iPhone, Yahoo account">In Apple's Notes app, in the Yahoo account section (<a href="https://support.apple.com/guide/iphone/iph7262fd4fe/ios" rel="nofollow noopener">Add or remove accounts in Notes on iPhone</a>)</td><td data-label="Yahoo Notepad">In Yahoo Mail, with the Notepad icon (<a href="https://help.yahoo.com/kb/SLN15974.html" rel="nofollow noopener">Add, edit, or delete notes in Yahoo Notepad</a>)</td></tr>
+<tr><td>Where Yahoo keeps them</td><td data-label="Notes app on the iPhone, Yahoo account">A folder called "Notes" in Yahoo Mail (<a href="https://help.yahoo.com/kb/SLN5869.html" rel="nofollow noopener">Sync Apple Notes with Yahoo Mail</a>)</td><td data-label="Yahoo Notepad">Notepad's notebooks</td></tr>
+<tr><td>Closing on January 15, 2027</td><td data-label="Notes app on the iPhone, Yahoo account">Yahoo has not said</td><td data-label="Yahoo Notepad">Yes (<a href="https://help.yahoo.com/kb/SLN37405.html" rel="nofollow noopener">Yahoo Notepad to be discontinued</a>)</td></tr>
+</tbody>
+</table></div>
+<div class="yn-callout"><p>Not verified: whether the Notes folder and Notepad hold the same notes, and whether the end of Notepad affects the Notes folder. Yahoo's help pages describe them separately and do not say either way (checked October 27, 2026). Until Yahoo does, keep a copy of both.</p></div>
+
+<h2>The Notes folder in Yahoo Mail</h2>
+<p>Yahoo's help page on Apple Notes says that when you add Yahoo Mail to an iPhone and leave "Notes" on, "a 'Notes' folder is created in your Yahoo Mail account". It also says:</p>
+<ul>
+<li>"This is a one-way sync from your iOS device to Yahoo."</li>
+<li>"The notes are not editable from Yahoo Mail."</li>
+<li>"If you add notes to the 'Notes' folder in Yahoo Mail, you won't see them in your iOS device's Notes app."</li>
+</ul>
+<p>So if the Notes folder in Yahoo Mail is missing, it may never have been made: Yahoo says it appears after at least one note syncs from the iPhone (<a href="https://help.yahoo.com/kb/SLN5869.html" rel="nofollow noopener">Sync Apple Notes with Yahoo Mail</a>).</p>
+
+<h2>Why Yahoo notes disappear from an iPhone</h2>
+<p>Apple's iPhone guide says that when you remove or delete an account, or turn off Notes for it, "the notes in that account no longer appear on your iPhone". Apple adds that the notes remain in the internet account and on other devices you had already set up (<a href="https://support.apple.com/guide/iphone/iph7262fd4fe/ios" rel="nofollow noopener">Add or remove accounts in Notes on iPhone</a>). To check, go to Settings, Apps, Notes, Notes Accounts: see whether your Yahoo account is listed, and whether Notes is on for it. Turning Notes back on for that account brings its notes back into view.</p>
+<p>Apple also says some Notes features are not available in accounts other than iCloud and On My iPhone, so notes kept in a Yahoo account can behave differently from your iCloud notes.</p>
+
+<h2>Keep those notes in iCloud</h2>
+<p>To keep notes from the Yahoo account in iCloud, the steps we can stand behind are simple: open each note, copy its text and paste it into a new note in the iCloud section of the Notes app. Apple's guide explains how to turn on iCloud for Notes (Settings, your name, iCloud, See All, Notes). We could not confirm on Apple's pages a way to move many notes between accounts at once, so we do not describe one here.</p>
+
+<h2>Can you recover Yahoo notes?</h2>
+<ul>
+<li><strong>Notepad notes you deleted:</strong> no. Yahoo says deleted Notepad notes "can't be recovered" (<a href="https://help.yahoo.com/kb/SLN15974.html" rel="nofollow noopener">Add, edit, or delete notes in Yahoo Notepad</a>). Notes that were not deleted are in the Notepad download until January 15, 2027; <a href="/yahoo-notepad/">open it on Lastleaf</a>.</li>
+<li><strong>iCloud notes you deleted:</strong> Apple says they stay in Recently Deleted for up to 30 days (<a href="https://support.apple.com/guide/icloud/mm2f42f05cb9/icloud" rel="nofollow noopener">Delete and recover notes on iCloud.com</a>). Apple's pages do not say the same for notes kept in a Yahoo account, so do not count on it.</li>
+<li><strong>Notes that vanished after an account was removed or Notes turned off:</strong> per Apple, they stay in the account; turn Notes back on for it.</li>
+</ul>
+
+<div class="yn-cta">
+<div class="yn-pad yn-cta-pad">
+<div class="yn-sheet">
+<h2 class="yn-stage-title">Open your Notepad file</h2>
+<p>Got the file from Yahoo's email? Open it in your browser, read every note it holds with its notebook and dates, and save them all as one text file. Built for the export Yahoo describes and tested on sample files. Free, and nothing is uploaded.</p>
+<div class="yn-actions"><a class="btn btn-primary" href="/yahoo-notepad/">Open the Notepad file</a><a class="btn yn-quiet" href="/yahoo-notepad/#get-file">How to ask Yahoo for it</a></div>
+</div>
+</div>
+</div>
+
+<h2 id="faq-h">Questions</h2>
+<div class="yn-faq">
+<details><summary>Why did my Yahoo notes disappear from my iPhone?</summary><p>Apple says notes in an account stop appearing on the iPhone when the account is removed or Notes is turned off for it, and that they stay in the account. Check Settings, Apps, Notes, Notes Accounts.</p></details>
+<details><summary>Is the Notes folder in Yahoo Mail the same as Yahoo Notepad?</summary><p>Yahoo's help pages describe them separately: the Notes folder holds notes synced one way from an iPhone, Notepad is opened with its own icon in Yahoo Mail. Yahoo has not said whether they share data, so we could not verify it.</p></details>
+<details><summary>How do I recover deleted Yahoo Notepad notes?</summary><p>You cannot. Yahoo says deleted Notepad notes do not go to the Trash and cannot be recovered. Notes that were not deleted are in the Notepad download until January 15, 2027.</p></details>
+</div>
+
+<p class="yn-source">Sources: <a href="https://help.yahoo.com/kb/SLN5869.html" rel="nofollow noopener">Yahoo Help: Sync Apple Notes with Yahoo Mail</a>; <a href="https://support.apple.com/guide/iphone/iph7262fd4fe/ios" rel="nofollow noopener">Apple iPhone User Guide: Add or remove accounts in Notes on iPhone</a>; <a href="https://support.apple.com/guide/icloud/mm2f42f05cb9/icloud" rel="nofollow noopener">Apple iCloud User Guide: Delete and recover notes on iCloud.com</a>; <a href="https://help.yahoo.com/kb/SLN15974.html" rel="nofollow noopener">Yahoo Help: Add, edit, or delete notes in Yahoo Notepad</a>; <a href="https://help.yahoo.com/kb/SLN37405.html" rel="nofollow noopener">Yahoo Help: Yahoo Notepad to be discontinued</a>. Last checked: October 27, 2026. Lastleaf is an independent tool by Peak Apps Studio and is not affiliated with Yahoo, Apple, Google, Microsoft or Evernote.</p>
+</article>
+
+<section class="yn-section" aria-labelledby="more-h">
+<div class="wrap">
+<h2 id="more-h">More about the Notepad shutdown</h2>
+<div class="yn-related">
+<a href="/yahoo-notepad/">Open your Notepad file<span>Read, search and save every note</span></a>
+<a href="/yahoo-notepad/going-away/">What to do before January 15<span>The date, the download and a short checklist</span></a>
+<a href="/yahoo-notepad/where-is-my-notepad/">Where is my Yahoo Notepad?<span>Finding it in Yahoo Mail, and what to do if it is missing</span></a>
+<a href="/yahoo-notepad/replacement/">Where to move your notes<span>Apple Notes, Google Keep, OneNote or Evernote</span></a>
+<a href="/yahoo-notepad/scam/">Real notice or scam?<span>How to check an email about Notepad</span></a>
+</div>
+</div>
+</section>
+</main>
+<aside class="peak-new" aria-label="New from Peak Apps">
+  <div class="wrap">
+    <a class="peak-new-card" href="/photo-date-fixer/" style="--tool:#c4360e">
+      <span class="peak-new-kicker">New from Peak Apps</span>
+      <strong>Photo Date Fixer</strong>
+      <span class="peak-new-line">Put the real date, time and place back into the photos of a Snapchat Memories export. Free, and nothing is uploaded.</span>
+    </a>
+  </div>
+</aside>
+<footer class="site-foot yn-foot" id="guides">
+  <div class="wrap cols">
+    <div>
+      <p class="yn-foot-brand">Lastleaf</p>
+      <p class="yn-foot-text">Open the Notepad file Yahoo emails you on any computer, read and search every note, and keep them as text. Your files are opened by this page on your own device and never uploaded.</p>
+      <p class="yn-foot-text">Lastleaf is an independent tool by <a href="https://peakappsstudio.com/">Peak Apps Studio</a>. Not affiliated with Yahoo. Yahoo is a trademark of its owner, named here only to say which notes the tool opens.</p>
+    </div>
+    <div>
+      <h2>Guides</h2>
+      <ul>
+        <li><a href="/yahoo-notepad/">Open your Notepad file</a></li>
+        <li><a href="/yahoo-notepad/going-away/">Yahoo Notepad is going away: what to do</a></li>
+        <li><a href="/yahoo-notepad/where-is-my-notepad/">Where is my Yahoo Notepad?</a></li>
+        <li><a href="/yahoo-notepad/replacement/">Move your notes to another app</a></li>
+        <li><span aria-current="page">Yahoo notes on an iPhone</span></li>
+        <li><a href="/yahoo-notepad/scam/">Real notice or scam email?</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/privacy/">Privacy</a></li>
+        <li><a href="/tools/">More tools by Peak Apps</a></li>
+        <li><a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
