@@ -365,7 +365,9 @@ body.cb a:hover { color: var(--cloth); }
 .cb-nav a:hover, body.cb .cb-nav a:hover { color: #fff; text-decoration: underline; }
 .cb-nav [aria-current="page"] { color: #fff; font-weight: 600; }
 @media (max-width: 899px) { .cb-nav .cb-wide { display: none; } }
-@media (max-width: 560px) { .cb-nav .hide-xs { display: none; } .cb-brand { font-size: 20px; } }
+/* the newest link shows only where all six fit on one line */
+@media (max-width: 1099px) { .cb-nav .cb-xl { display: none; } }
+@media (max-width: 600px) { .cb-nav .hide-xs { display: none; } .cb-brand { font-size: 20px; } }
 .cb-foot { background: var(--paper-2); border-top: 1px solid var(--line); }
 .cb a:focus-visible, .cb button:focus-visible, .cb input:focus-visible, .cb summary:focus-visible, .cb [tabindex]:focus-visible { outline: 3px solid var(--gilt); outline-offset: 2px; border-radius: 4px; }
 
@@ -566,6 +568,25 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
 .cb-table thead th { border-top: 0; color: var(--muted); font-weight: 600; font-size: 14px; }
 .cb-table code, .cb-sec code { font-size: .92em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
 .cb-src { font-size: 14px; color: var(--muted); }
+/* inside the bordered table box the first column keeps clear of the border */
+.table-wrap > .cb-table:not(.cb-stack) :is(th, td):first-child { padding-left: 14px; }
+@media (min-width: 641px) { .table-wrap > .cb-stack :is(th, td):first-child { padding-left: 14px; } }
+/* wide guide tables (class cb-stack) turn into labelled rows on a phone; pages.mjs writes each cell's column heading
+ * into data-label, and the first cell of a row becomes the row's title */
+@media (max-width: 640px) {
+  .cb-stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .cb-stack, .cb-stack tbody, .cb-stack tr, .cb-stack td, .cb-stack tbody th { display: block; width: auto; }
+  .cb-stack { margin: 0; }
+  .cb-stack tr { padding: 12px 14px; border-top: 1px solid var(--line); }
+  .cb-stack tbody tr:first-child { border-top: 0; }
+  .cb-stack td, .cb-stack tbody th { padding: 3px 0; border: 0; background: none; font-size: 15.5px; }
+  .cb-stack tr > :first-child { font-weight: 650; color: var(--ink); font-size: 16px; padding-bottom: 6px; }
+  .cb-stack td[data-label]:not(:first-child)::before { content: attr(data-label); display: block; font-size: 13px; font-weight: 600; color: var(--muted); }
+}
+/* the dated news note under the hero points (after them on a phone, below the drop panel) */
+.cb-news { margin: 18px 0 0; max-width: 36em; padding: 12px 14px; font-size: 15px; color: var(--ink-2); background: var(--paper-2); border: 1px solid var(--line); border-radius: var(--radius); }
+.cb-news b { color: var(--ink); }
+@media (max-width: 959px) { .cb-hero-grid .cb-news { order: 5; } }
 .cb-calc { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: end; padding: 16px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); margin: 16px 0; }
 .cb-calc label { display: grid; gap: 4px; font-weight: 600; font-size: 15px; }
 .cb-calc output { flex: 1 1 240px; font-size: 15.5px; color: var(--ink-2); }
@@ -593,7 +614,7 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
 </style>
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Character AI export viewer","item":"https://peakappsstudio.com/character-ai-export-viewer/"},{"@type":"ListItem","position":3,"name":"Move to SillyTavern","item":"https://peakappsstudio.com/character-ai-export-viewer/sillytavern/"}]},{"@type":"Article","headline":"Import your Character.AI characters and chats into SillyTavern","description":"Move Character.AI characters and chat history into SillyTavern from your data export: character cards (PNG) and chat files (JSONL), step by step.","dateModified":"2026-10-22","datePublished":"2026-10-22","author":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"publisher":{"@type":"Organization","name":"Peak Apps Studio"},"mainEntityOfPage":"https://peakappsstudio.com/character-ai-export-viewer/sillytavern/"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this the same as importing with CAI Tools?","acceptedAnswer":{"@type":"Answer","text":"It ends in the same place, from a different source. SillyTavern’s documentation points to the CAI Tools browser extension, which copies characters and chats from the Character.AI website while you are logged in. Chatbound reads the data export you downloaded, so it works from the file alone."}},{"@type":"Question","name":"Why are all the messages under the character’s name?","acceptedAnswer":{"@type":"Answer","text":"The layout was set to put every message under the character’s name. Choose “Turns, starting with the character” in Chatbound and save the chat file again."}},{"@type":"Question","name":"Can I import the JSON card instead of the PNG?","acceptedAnswer":{"@type":"Answer","text":"Yes. Import Character from File takes JSON as well as PNG. The PNG also carries a picture for the character."}},{"@type":"Question","name":"Where does SillyTavern keep the imported chats?","acceptedAnswer":{"@type":"Answer","text":"In its data folder on the computer that runs SillyTavern, under the character’s chats. Chatbound sends nothing anywhere; it makes the files in your browser."}},{"@type":"Question","name":"Is Chatbound made by SillyTavern or Character.AI?","acceptedAnswer":{"@type":"Answer","text":"No. Chatbound is an independent tool by Peak Apps Studio. It is not affiliated with Character Technologies, Janitor AI or SillyTavern."}}]}]}
+{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Character AI export viewer","item":"https://peakappsstudio.com/character-ai-export-viewer/"},{"@type":"ListItem","position":3,"name":"Move to SillyTavern","item":"https://peakappsstudio.com/character-ai-export-viewer/sillytavern/"}]},{"@type":"Article","headline":"Import your Character.AI characters and chats into SillyTavern","description":"Move Character.AI characters and chat history into SillyTavern from your data export: character cards (PNG) and chat files (JSONL), step by step.","dateModified":"2026-10-22","datePublished":"2026-10-22","author":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"publisher":{"@type":"Organization","name":"Peak Apps Studio"},"mainEntityOfPage":"https://peakappsstudio.com/character-ai-export-viewer/sillytavern/"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this the same as importing with CAI Tools?","acceptedAnswer":{"@type":"Answer","text":"It ends in the same place, from a different source. SillyTavern’s documentation points to the CAI Tools browser extension, which copies characters and chats from the Character.AI website while you are logged in. Chatbound reads the data export you downloaded, so it works from the file alone. CAI Tools or the export compares the two."}},{"@type":"Question","name":"Why are all the messages under the character’s name?","acceptedAnswer":{"@type":"Answer","text":"The layout was set to put every message under the character’s name. Choose “Turns, starting with the character” in Chatbound and save the chat file again."}},{"@type":"Question","name":"Can I import the JSON card instead of the PNG?","acceptedAnswer":{"@type":"Answer","text":"Yes. Import Character from File takes JSON as well as PNG. The PNG also carries a picture for the character."}},{"@type":"Question","name":"Where does SillyTavern keep the imported chats?","acceptedAnswer":{"@type":"Answer","text":"In its data folder on the computer that runs SillyTavern, under the character’s chats. Chatbound sends nothing anywhere; it makes the files in your browser."}},{"@type":"Question","name":"Is Chatbound made by SillyTavern or Character.AI?","acceptedAnswer":{"@type":"Answer","text":"No. Chatbound is an independent tool by Peak Apps Studio. It is not affiliated with Character Technologies, Janitor AI or SillyTavern."}}]}]}
 </script>
 <script src="/assets/pro-source.js" data-campaign="character-ai-export-viewer" defer></script>
 </head>
@@ -609,6 +630,7 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
       <a class="hide-xs" href="/character-ai-export-viewer/">Open an export</a>
       <a class="cb-wide" href="/character-ai-export-viewer/whats-in-the-export/">What’s in the file</a>
       <a class="cb-wide" href="/character-ai-export-viewer/export-password/">The ZIP password</a>
+      <a class="cb-xl" href="/character-ai-export-viewer/is-character-ai-shutting-down/">Shutting down?</a>
       <a href="/character-ai-export-viewer/#move">Move your chats</a>
       <a class="hide-xs" href="/character-ai-export-viewer/export-not-working/">Not working?</a>
     </nav>
@@ -671,7 +693,7 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
 <p class="cb-src">Sources: SillyTavern 1.19.0, its interface and import code (<a href="https://github.com/SillyTavern/SillyTavern" rel="noopener">github.com/SillyTavern/SillyTavern</a>, release branch), and the <a href="https://docs.sillytavern.app/usage/core-concepts/chatfilemanagement/" rel="noopener">Chat File Management</a> page of its documentation (checked 22 October 2026); <a href="https://github.com/malfoyslastname/character-card-spec-v2" rel="noopener">Character Card V2 specification</a>; <a href="https://aiinsightsnews.net/how-to-export-character-ai-chat/" rel="noopener">AIInsightsNews, “How to Export Character AI Chat in 2026”</a>, a hands-on account with screenshots of the email and the ZIP (25 May 2026, checked 21 October 2026).</p>
 <section class="cb-faq" aria-labelledby="faq-h">
 <h2 id="faq-h">Questions</h2>
-<details><summary>Is this the same as importing with CAI Tools?</summary><p>It ends in the same place, from a different source. SillyTavern’s documentation points to the CAI Tools browser extension, which copies characters and chats from the Character.AI website while you are logged in. Chatbound reads the data export you downloaded, so it works from the file alone.</p></details>
+<details><summary>Is this the same as importing with CAI Tools?</summary><p>It ends in the same place, from a different source. SillyTavern’s documentation points to the CAI Tools browser extension, which copies characters and chats from the Character.AI website while you are logged in. Chatbound reads the data export you downloaded, so it works from the file alone. <a href="${BASE}cai-tools/">CAI Tools or the export</a> compares the two.</p></details>
 <details><summary>Why are all the messages under the character’s name?</summary><p>The layout was set to put every message under the character’s name. Choose “Turns, starting with the character” in Chatbound and save the chat file again.</p></details>
 <details><summary>Can I import the JSON card instead of the PNG?</summary><p>Yes. Import Character from File takes JSON as well as PNG. The PNG also carries a picture for the character.</p></details>
 <details><summary>Where does SillyTavern keep the imported chats?</summary><p>In its data folder on the computer that runs SillyTavern, under the character’s chats. Chatbound sends nothing anywhere; it makes the files in your browser.</p></details>
@@ -701,13 +723,23 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
       <ul>
         <li><a href="/character-ai-export-viewer/">Open an export</a></li>
         <li><a href="/character-ai-export-viewer/whats-in-the-export/">What’s in the export file</a></li>
+        <li><a href="/character-ai-export-viewer/json-file/">Open the JSON files</a></li>
         <li><a href="/character-ai-export-viewer/export-password/">The ZIP password</a></li>
         <li><a href="/character-ai-export-viewer/export-not-working/">When the export isn’t working</a></li>
       </ul>
     </div>
     <div>
+      <h2>Keep your chats</h2>
+      <ul>
+        <li><a href="/character-ai-export-viewer/is-character-ai-shutting-down/">Is Character.AI shutting down?</a></li>
+        <li><a href="/character-ai-export-viewer/save-character-ai-chats/">How to save your chats</a></li>
+        <li><a href="/character-ai-export-viewer/cai-tools/">CAI Tools or the export</a></li>
+      </ul>
+    </div>
+    <div>
       <h2>Move to another app</h2>
       <ul>
+        <li><a href="/character-ai-export-viewer/character-ai-alternatives/">Alternatives that import your chats</a></li>
         <li><span aria-current="page">Character.AI to SillyTavern</span></li>
         <li><a href="/character-ai-export-viewer/janitor-ai/">Character.AI to Janitor AI</a></li>
         <li><a href="/character-ai-export-viewer/perchance/">Character.AI to Perchance</a></li>

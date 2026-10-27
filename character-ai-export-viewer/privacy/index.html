@@ -365,7 +365,9 @@ body.cb a:hover { color: var(--cloth); }
 .cb-nav a:hover, body.cb .cb-nav a:hover { color: #fff; text-decoration: underline; }
 .cb-nav [aria-current="page"] { color: #fff; font-weight: 600; }
 @media (max-width: 899px) { .cb-nav .cb-wide { display: none; } }
-@media (max-width: 560px) { .cb-nav .hide-xs { display: none; } .cb-brand { font-size: 20px; } }
+/* the newest link shows only where all six fit on one line */
+@media (max-width: 1099px) { .cb-nav .cb-xl { display: none; } }
+@media (max-width: 600px) { .cb-nav .hide-xs { display: none; } .cb-brand { font-size: 20px; } }
 .cb-foot { background: var(--paper-2); border-top: 1px solid var(--line); }
 .cb a:focus-visible, .cb button:focus-visible, .cb input:focus-visible, .cb summary:focus-visible, .cb [tabindex]:focus-visible { outline: 3px solid var(--gilt); outline-offset: 2px; border-radius: 4px; }
 
@@ -566,6 +568,25 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
 .cb-table thead th { border-top: 0; color: var(--muted); font-weight: 600; font-size: 14px; }
 .cb-table code, .cb-sec code { font-size: .92em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
 .cb-src { font-size: 14px; color: var(--muted); }
+/* inside the bordered table box the first column keeps clear of the border */
+.table-wrap > .cb-table:not(.cb-stack) :is(th, td):first-child { padding-left: 14px; }
+@media (min-width: 641px) { .table-wrap > .cb-stack :is(th, td):first-child { padding-left: 14px; } }
+/* wide guide tables (class cb-stack) turn into labelled rows on a phone; pages.mjs writes each cell's column heading
+ * into data-label, and the first cell of a row becomes the row's title */
+@media (max-width: 640px) {
+  .cb-stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .cb-stack, .cb-stack tbody, .cb-stack tr, .cb-stack td, .cb-stack tbody th { display: block; width: auto; }
+  .cb-stack { margin: 0; }
+  .cb-stack tr { padding: 12px 14px; border-top: 1px solid var(--line); }
+  .cb-stack tbody tr:first-child { border-top: 0; }
+  .cb-stack td, .cb-stack tbody th { padding: 3px 0; border: 0; background: none; font-size: 15.5px; }
+  .cb-stack tr > :first-child { font-weight: 650; color: var(--ink); font-size: 16px; padding-bottom: 6px; }
+  .cb-stack td[data-label]:not(:first-child)::before { content: attr(data-label); display: block; font-size: 13px; font-weight: 600; color: var(--muted); }
+}
+/* the dated news note under the hero points (after them on a phone, below the drop panel) */
+.cb-news { margin: 18px 0 0; max-width: 36em; padding: 12px 14px; font-size: 15px; color: var(--ink-2); background: var(--paper-2); border: 1px solid var(--line); border-radius: var(--radius); }
+.cb-news b { color: var(--ink); }
+@media (max-width: 959px) { .cb-hero-grid .cb-news { order: 5; } }
 .cb-calc { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: end; padding: 16px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); margin: 16px 0; }
 .cb-calc label { display: grid; gap: 4px; font-weight: 600; font-size: 15px; }
 .cb-calc output { flex: 1 1 240px; font-size: 15.5px; color: var(--ink-2); }
@@ -609,6 +630,7 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
       <a class="hide-xs" href="/character-ai-export-viewer/">Open an export</a>
       <a class="cb-wide" href="/character-ai-export-viewer/whats-in-the-export/">What’s in the file</a>
       <a class="cb-wide" href="/character-ai-export-viewer/export-password/">The ZIP password</a>
+      <a class="cb-xl" href="/character-ai-export-viewer/is-character-ai-shutting-down/">Shutting down?</a>
       <a href="/character-ai-export-viewer/#move">Move your chats</a>
       <a class="hide-xs" href="/character-ai-export-viewer/export-not-working/">Not working?</a>
     </nav>
@@ -673,13 +695,23 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
       <ul>
         <li><a href="/character-ai-export-viewer/">Open an export</a></li>
         <li><a href="/character-ai-export-viewer/whats-in-the-export/">What’s in the export file</a></li>
+        <li><a href="/character-ai-export-viewer/json-file/">Open the JSON files</a></li>
         <li><a href="/character-ai-export-viewer/export-password/">The ZIP password</a></li>
         <li><a href="/character-ai-export-viewer/export-not-working/">When the export isn’t working</a></li>
       </ul>
     </div>
     <div>
+      <h2>Keep your chats</h2>
+      <ul>
+        <li><a href="/character-ai-export-viewer/is-character-ai-shutting-down/">Is Character.AI shutting down?</a></li>
+        <li><a href="/character-ai-export-viewer/save-character-ai-chats/">How to save your chats</a></li>
+        <li><a href="/character-ai-export-viewer/cai-tools/">CAI Tools or the export</a></li>
+      </ul>
+    </div>
+    <div>
       <h2>Move to another app</h2>
       <ul>
+        <li><a href="/character-ai-export-viewer/character-ai-alternatives/">Alternatives that import your chats</a></li>
         <li><a href="/character-ai-export-viewer/sillytavern/">Character.AI to SillyTavern</a></li>
         <li><a href="/character-ai-export-viewer/janitor-ai/">Character.AI to Janitor AI</a></li>
         <li><a href="/character-ai-export-viewer/perchance/">Character.AI to Perchance</a></li>
