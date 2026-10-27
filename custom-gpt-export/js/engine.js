@@ -1,9 +1,11 @@
 /* Skillcase engine: plain functions shared by the worker, the page and the tests. It turns what you paste from a custom
- * GPT's editor (name, description, instructions, conversation starters, action schemas) plus the knowledge files you
- * pick into a portable backup and into skill folders in the open Agent Skills format (SKILL.md), and it reads the
- * conversations.json of a ChatGPT data export to find the chats you had with each GPT. No network, no storage: every
- * function takes data and returns data. Dates in files are written in UTC so a backup reads the same everywhere. */
-import { zipSync, strToU8 } from '../vendor/fflate.js';
+ * GPT's editor (name, description, instructions, conversation starters, action schemas) or from a Gemini Gem's editor
+ * (name, description, instructions, the Gemini tools it used) plus the knowledge files you pick into a portable backup and
+ * into skill folders in the open Agent Skills format (SKILL.md), and it reads the conversations.json of a ChatGPT data
+ * export to find the chats you had with each GPT. For a Gem it also works out which files Google's own move from Gems to
+ * skills leaves behind. No network, no storage: every function takes data and returns data. Dates in files are written
+ * in UTC so a backup reads the same everywhere. */
+import { zipSync, unzipSync, strToU8, strFromU8 } from '../vendor/fflate.js';
 
 export const TOOL_URL = 'https://peakappsstudio.com/custom-gpt-export/';
 export const TOOL_NAME = 'Skillcase';
@@ -39,12 +41,12 @@ const firstSentence = s => { const m = oneLine(s).match(/^(.{20,300}?[.!?])(\s|$
 
 /* ---------------- names ---------------- */
 /** A skill name under the Agent Skills rules: 1-64 characters, a-z, 0-9 and single hyphens, no hyphen at either end. */
-export function skillName(name) {
+export function skillName(name, fallback = 'my-gpt') {
   let s = String(name || '').replace(/ı/g, 'i').replace(/ß/g, 'ss').replace(/[æÆ]/g, 'ae').replace(/[øØ]/g, 'o').replace(/[œŒ]/g, 'oe').replace(/[łŁ]/g, 'l').replace(/[đĐ]/g, 'd');
   s = s.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   s = s.replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
   if (s.length > 64) s = s.slice(0, 64).replace(/-+$/, '');
-  return s || 'my-gpt';
+  return s || fallback;
 }
 export const isValidSkillName = s => typeof s === 'string' && s.length >= 1 && s.length <= 64 && /^[a-z0-9]+(-[a-z0-9]+)*$/.test(s);
 
@@ -71,14 +73,116 @@ export function uniqueNames(names) {
 const slugTitle = (s, n = 60) => skillName(clip(s, n)).slice(0, n).replace(/-+$/, '') || 'chat';
 
 /* ---------------- files ---------------- */
-const TEXT_EXT = new Set(['txt', 'md', 'markdown', 'csv', 'tsv', 'json', 'jsonl', 'xml', 'html', 'htm', 'yaml', 'yml', 'js', 'mjs', 'ts', 'py', 'java', 'c', 'h', 'cpp', 'cs', 'go', 'rb', 'php', 'sql', 'sh', 'css', 'ini', 'toml', 'log', 'tex', 'rst', 'srt', 'vtt']);
+const TEXT_EXT = new Set(['txt', 'md', 'markdown', 'csv', 'tsv', 'json', 'jsonl', 'xml', 'html', 'htm', 'yaml', 'yml', 'js', 'mjs', 'ts', 'py', 'java', 'c', 'h', 'cpp', 'cs', 'go', 'rb', 'php', 'sql', 'sh', 'css', 'ini', 'toml', 'log', 'tex', 'rst', 'srt', 'vtt', 'rtf', 'env', 'svg']);
+const NO_EXT_TEXT = /^(makefile|dockerfile)$/i;
 export const extOf = name => { const m = /\.([A-Za-z0-9]{1,10})$/.exec(String(name || '')); return m ? m[1].toLowerCase() : ''; };
-/** Plain text: a known text extension and no NUL byte in the first 8 KB. PDFs, Word and Excel files are not. */
+/** Plain text: a known text extension (or a Makefile or Dockerfile) and no NUL byte in the first 8 KB. PDFs, Word and
+ *  Excel files are not. */
 export function isPlainText(name, bytes) {
-  if (!TEXT_EXT.has(extOf(name))) return false;
+  if (!TEXT_EXT.has(extOf(name)) && !NO_EXT_TEXT.test(String(name || '').split(/[\\/]/).pop())) return false;
   const n = Math.min(bytes ? bytes.length : 0, 8192);
   for (let i = 0; i < n; i++) if (bytes[i] === 0) return false;
   return true;
+}
+
+/* ---------------- Gemini: what a skill takes, and what Google's move from Gems leaves out ---------------- */
+// Google, "Create & manage skills for Gemini Apps" (support.google.com/gemini/answer/17094296, checked 27 Oct 2026):
+// uploads take plain-text files, PDFs and images ("Rich media: .pdf, .jpg, .png, and other image types"); binary files
+// such as .docx, .doc and .xlsx are not supported; all files together at most 100 MB.
+const GEMINI_RICH_EXT = new Set(['pdf', 'jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp']);
+/** 'ok' when a Gemini skill upload takes the file, 'convert' for a Word (.docx) file Skillcase turns into text, else 'no'.
+ *  Without bytes, `plain` (from the page's first look at the file) stands in for the text check. */
+export function geminiUpload(name, bytes, plain) {
+  const ext = extOf(name);
+  if (GEMINI_RICH_EXT.has(ext)) return 'ok';
+  if (bytes ? isPlainText(name, bytes) : plain !== false && isPlainText(name, null)) return 'ok';
+  if (ext === 'docx') return 'convert';
+  return 'no';
+}
+// Google, "About the transition from Gems to skills" (support.google.com/gemini/answer/18560919, checked 27 Oct 2026):
+// the automatic move leaves out GitHub files, audio, video, legacy Office formats (.doc, .xls, .ppt) and archives
+// (.zip, .tar, .7z, .rar, .gz, .tgz), and above 100 MB it removes the largest files first. GitHub files are links, not
+// files people can add here, so they are not checked.
+const AUDIO_EXT = new Set(['mp3', 'wav', 'm4a', 'aac', 'flac', 'ogg', 'oga', 'opus', 'wma', 'aif', 'aiff', 'amr', 'mid', 'midi']);
+const VIDEO_EXT = new Set(['mp4', 'mov', 'avi', 'mkv', 'webm', 'wmv', 'm4v', 'mpg', 'mpeg', '3gp', 'flv']);
+const LEGACY_EXT = new Set(['doc', 'xls', 'ppt']);
+const ARCHIVE_EXT = new Set(['zip', 'tar', '7z', 'rar', 'gz', 'tgz']);
+/** Why Google's automatic move from Gems to skills leaves this file out, or '' when its type carries over. */
+export function gemMoveDrop(name) {
+  const ext = extOf(name);
+  if (AUDIO_EXT.has(ext)) return 'audio file';
+  if (VIDEO_EXT.has(ext)) return 'video file';
+  if (LEGACY_EXT.has(ext)) return 'legacy Office file';
+  if (ARCHIVE_EXT.has(ext)) return 'archive';
+  return '';
+}
+/** What Google's move does with a Gem's files: [{ index, name, size, why }] for each file it leaves out. Types first,
+ *  then, while the rest add up to more than 100 MB, the largest file, as Google describes. */
+export function gemMovePlan(files) {
+  const dropped = [];
+  const rest = [];
+  files.forEach((f, i) => {
+    const size = f.bytes ? f.bytes.length : (f.size || 0);
+    const why = gemMoveDrop(f.name);
+    if (why) dropped.push({ index: i, name: f.name, size, why });
+    else rest.push({ index: i, name: f.name, size });
+  });
+  let total = rest.reduce((n, f) => n + f.size, 0);
+  for (const f of [...rest].sort((a, b) => b.size - a.size || a.index - b.index)) {
+    if (total <= GEMINI_MAX_BYTES) break;
+    dropped.push({ ...f, why: 'over the 100 MB limit, largest first' });
+    total -= f.size;
+  }
+  return dropped.sort((a, b) => a.index - b.index);
+}
+
+/* ---------------- Word (.docx) to Markdown, for the Gemini skill ---------------- */
+const XML_ENT = { lt: '<', gt: '>', amp: '&', quot: '"', apos: "'" };
+const unxml = s => String(s).replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (m, e) => {
+  if (e[0] === '#') { const n = e[1] === 'x' || e[1] === 'X' ? parseInt(e.slice(2), 16) : parseInt(e.slice(1), 10); try { return String.fromCodePoint(n); } catch { return m; } }
+  return XML_ENT[e.toLowerCase()] != null ? XML_ENT[e.toLowerCase()] : m;
+});
+function docxPara(xml) {
+  let text = '';
+  for (const m of xml.matchAll(/<w:t(?:\s[^>]*)?>([^<]*)<\/w:t>|<w:tab\/>|<w:br\b[^>]*\/>|<w:cr\/>/g)) {
+    if (m[1] != null) text += unxml(m[1]);
+    else text += m[0].startsWith('<w:tab') ? '\t' : '\n';
+  }
+  const style = (/<w:pStyle w:val="([^"]+)"/.exec(xml) || [])[1] || '';
+  const hm = /^(?:heading|berschrift|titre|kop)\s?([1-6])$/i.exec(style);
+  const level = /^title$/i.test(style) ? 1 : hm ? Number(hm[1]) : 0;
+  return { text: text.replace(/[ \t]+\n/g, '\n').trim(), level, list: /<w:numPr>/.test(xml) };
+}
+/** The text of a Word (.docx) file as Markdown: paragraphs, headings, list items and tables, in order. Images, fields and
+ *  formatting are not kept; deleted (tracked) text is skipped. null when the file is not a readable .docx or has no text. */
+export function docxToMarkdown(bytes) {
+  let xml;
+  try {
+    const z = unzipSync(bytes, { filter: f => f.name === 'word/document.xml' });
+    if (!z['word/document.xml']) return null;
+    xml = strFromU8(z['word/document.xml']);
+  } catch { return null; }
+  const body = (/<w:body\b[^>]*>([\s\S]*)<\/w:body>/.exec(xml) || [null, xml])[1];
+  const blocks = [];
+  for (const m of body.matchAll(/<w:tbl\b[^>]*>[\s\S]*?<\/w:tbl>|<w:p\b(?:[^>]*\/>|[^>]*>[\s\S]*?<\/w:p>)/g)) {
+    const part = m[0];
+    if (part.startsWith('<w:tbl')) {
+      const rows = [...part.matchAll(/<w:tr\b[^>]*>([\s\S]*?)<\/w:tr>/g)].map(r => [...r[1].matchAll(/<w:tc\b[^>]*>([\s\S]*?)<\/w:tc>/g)]
+        .map(c => [...c[1].matchAll(/<w:p\b(?:[^>]*\/>|[^>]*>[\s\S]*?<\/w:p>)/g)].map(p => docxPara(p[0]).text).filter(Boolean).join(' ').replace(/\s+/g, ' ').replace(/\|/g, '\\|')));
+      const width = Math.max(0, ...rows.map(r => r.length));
+      if (!width || !rows.some(r => r.some(Boolean))) continue;
+      const line = r => `| ${Array.from({ length: width }, (_, i) => r[i] || '').join(' | ')} |`;
+      blocks.push({ kind: 'table', text: [line(rows[0]), `| ${Array(width).fill('---').join(' | ')} |`, ...rows.slice(1).map(line)].join('\n') });
+      continue;
+    }
+    const p = docxPara(part);
+    if (!p.text) continue;
+    if (p.level) blocks.push({ kind: 'p', text: `${'#'.repeat(p.level)} ${p.text.replace(/\n+/g, ' ')}` });
+    else if (p.list) blocks.push({ kind: 'li', text: `- ${p.text.replace(/\n+/g, ' ')}` });
+    else blocks.push({ kind: 'p', text: p.text });
+  }
+  if (!blocks.length) return null;
+  return blocks.map((b, i) => (i === 0 ? '' : b.kind === 'li' && blocks[i - 1].kind === 'li' ? '\n' : '\n\n') + b.text).join('') + '\n';
 }
 
 /* ---------------- secrets ---------------- */
@@ -100,18 +204,39 @@ export const CAPABILITIES = [
   ['code', 'Code Interpreter and data analysis'],
   ['canvas', 'Canvas'],
 ];
-/** Cleans the form's values into the shape every output uses. */
+// The Gemini tools a Gem could be set to use that Google says do not work with skills for now ("most default tools that
+// are available in Gems do not work with skills, including: Create video, Create music, Canvas, Deep research, Guided
+// learning", support.google.com/gemini/answer/18560919, checked 27 Oct 2026).
+export const GEM_TOOLS = [
+  ['canvas', 'Canvas'],
+  ['deep-research', 'Deep Research'],
+  ['video', 'Create video'],
+  ['music', 'Create music'],
+  ['guided-learning', 'Guided learning'],
+];
+/** Cleans the form's values into the shape every output uses. source 'gpt' (a custom GPT) or 'gem' (a Gemini Gem). */
 export function normalizeGpt(input = {}) {
-  const starters = (Array.isArray(input.starters) ? input.starters : String(input.starters || '').split(/\r?\n/))
+  const source = input.source === 'gem' ? 'gem' : 'gpt';
+  const gem = source === 'gem';
+  const starters = gem ? [] : (Array.isArray(input.starters) ? input.starters : String(input.starters || '').split(/\r?\n/))
     .map(oneLine).filter(Boolean).slice(0, 12);
   const caps = {};
-  for (const [k] of CAPABILITIES) caps[k] = !!(input.capabilities && input.capabilities[k]);
-  const actions = (input.actions || []).map(a => ({ schema: tidy(a && a.schema), auth: ['none', 'api_key', 'oauth'].includes(a && a.auth) ? a.auth : 'unknown', privacy: oneLine(a && a.privacy) }))
+  for (const [k] of CAPABILITIES) caps[k] = !gem && !!(input.capabilities && input.capabilities[k]);
+  const actions = gem ? [] : (input.actions || []).map(a => ({ schema: tidy(a && a.schema), auth: ['none', 'api_key', 'oauth'].includes(a && a.auth) ? a.auth : 'unknown', privacy: oneLine(a && a.privacy) }))
     .filter(a => a.schema);
-  const gptId = /^g-[A-Za-z0-9-]{4,}$/.test(oneLine(input.gptId)) ? oneLine(input.gptId) : '';
-  return { name: oneLine(input.name).slice(0, 200), description: oneLine(input.description).slice(0, 2000), instructions: tidy(input.instructions), starters, capabilities: caps, actions, gptId };
+  const gptId = !gem && /^g-[A-Za-z0-9-]{4,}$/.test(oneLine(input.gptId)) ? oneLine(input.gptId) : '';
+  const picked = input.gemTools || [];
+  const gemTools = gem ? GEM_TOOLS.map(([k]) => k).filter(k => (Array.isArray(picked) ? picked.includes(k) : !!picked[k])) : [];
+  return { source, name: oneLine(input.name).slice(0, 200), description: oneLine(input.description).slice(0, 2000), instructions: tidy(input.instructions), starters, capabilities: caps, actions, gptId, gemTools };
 }
-export const gptLabel = g => g.name || 'My GPT';
+const isGem = g => g.source === 'gem';
+/** "custom GPT" or "Gemini Gem", for sentences */
+export const kindName = g => (isGem(g) ? 'Gemini Gem' : 'custom GPT');
+const shortKind = g => (isGem(g) ? 'Gem' : 'GPT');
+export const gptLabel = g => g.name || (isGem(g) ? 'My Gem' : 'My GPT');
+/** the skill's name, from the GPT's or Gem's name */
+export const skillNameOf = g => skillName(g.name, isGem(g) ? 'my-gem' : 'my-gpt');
+const gemToolNames = g => GEM_TOOLS.filter(([k]) => g.gemTools && g.gemTools.includes(k)).map(([, l]) => l);
 
 /** what is filled in, for the page's manifest and the README */
 export function manifest(g, files = [], chats = []) {
@@ -196,46 +321,76 @@ export function skillDescription(g) {
   const name = gptLabel(g);
   let d = g.description || (g.instructions ? firstSentence(g.instructions) : '');
   d = oneLine(d);
-  let out = d || `Instructions carried over from the custom GPT "${name}".`;
+  let out = d || `Instructions carried over from the ${kindName(g)} "${name}".`;
   if (!/[.!?]$/.test(out)) out += '.';
   const st = g.starters.slice(0, 3).map(s => clip(s, 120));
   if (st.length) out += ` Use it for requests like ${st.map(s => `"${s}"`).join(', ')}.`;
-  else if (d) out += ` Carried over from the custom GPT "${name}".`;
+  else if (d) out += ` Carried over from the ${kindName(g)} "${name}".`;
   return clip(out, 1024);
 }
 
-/** The files a skill holds: every knowledge file for Claude and ChatGPT; plain text only for Gemini. */
+/** The files a skill holds: every knowledge file for Claude and ChatGPT. For Gemini: plain-text files, PDFs and images,
+ *  Word (.docx) files turned into Markdown, and at most 100 MB in all (the largest go first, as in Google's own move).
+ *  Returns { kept: [{ name, size, bytes, from }], left: [{ name, size, why }] }; `from` is the original name of a
+ *  converted file. Files given without bytes (the page's preview) count as converted. */
 export function skillFiles(files, variant) {
   const names = uniqueNames(files.map(f => safeFileName(f.name)));
-  const kept = [], left = [];
-  let total = 0;
+  const items = [], left = [];
   files.forEach((f, i) => {
-    const item = { name: names[i], size: f.bytes ? f.bytes.length : (f.size || 0), bytes: f.bytes };
-    if (variant === 'gemini' && !isPlainText(item.name, f.bytes)) { left.push({ ...item, why: 'not plain text' }); return; }
-    if (variant === 'gemini' && total + item.size > GEMINI_MAX_BYTES) { left.push({ ...item, why: 'over the 100 MB total' }); return; }
-    total += item.size;
-    kept.push(item);
+    const size = f.bytes ? f.bytes.length : (f.size || 0);
+    if (variant !== 'gemini') { items.push({ name: names[i], size, bytes: f.bytes }); return; }
+    const up = geminiUpload(names[i], f.bytes, f.plain);
+    if (up === 'ok') { items.push({ name: names[i], size, bytes: f.bytes }); return; }
+    if (up === 'convert') {
+      const md = f.bytes ? docxToMarkdown(f.bytes) : null;
+      const to = names[i].replace(/\.docx$/i, '.md');
+      if (md != null) {
+        const b = strToU8(`<!-- Converted from ${names[i].replace(/--/g, '-')} by Skillcase: the text, headings, lists and tables. Images and formatting are not kept. -->\n\n${md}`);
+        items.push({ name: to, size: b.length, bytes: b, from: names[i] });
+      } else if (!f.bytes) items.push({ name: to, size, from: names[i] });
+      else left.push({ name: names[i], size, why: 'a Word file whose text could not be read' });
+      return;
+    }
+    left.push({ name: names[i], size, why: 'a file type Gemini skills do not take' });
   });
-  return { kept, left };
+  if (variant === 'gemini') {
+    const unique = uniqueNames(items.map(x => x.name));
+    items.forEach((x, i) => { x.name = unique[i]; });
+    let total = items.reduce((n, x) => n + x.size, 0);
+    for (const x of [...items].sort((a, b) => b.size - a.size)) {
+      if (total <= GEMINI_MAX_BYTES) break;
+      x.drop = true;
+      total -= x.size;
+      left.push({ name: x.from || x.name, size: x.size, why: 'over the 100 MB total' });
+    }
+  }
+  return { kept: items.filter(x => !x.drop), left };
 }
 
 /** SKILL.md for the skill folder. variant 'claude' (Claude and ChatGPT) or 'gemini'. */
 export function skillMd(g, { files = [], variant = 'claude', today = '' } = {}) {
-  const name = skillName(g.name);
+  const name = skillNameOf(g);
+  const k = shortKind(g);
   const { kept, left } = skillFiles(files, variant);
-  const fm = ['---', `name: ${name}`, `description: ${yamlStr(skillDescription(g))}`, 'metadata:', `  source: ${yamlStr('ChatGPT custom GPT')}`, `  gpt-name: ${yamlStr(gptLabel(g))}`];
+  const fm = ['---', `name: ${name}`, `description: ${yamlStr(skillDescription(g))}`, 'metadata:'];
+  if (isGem(g)) fm.push(`  source: ${yamlStr('Gemini Gem')}`, `  gem-name: ${yamlStr(gptLabel(g))}`);
+  else fm.push(`  source: ${yamlStr('ChatGPT custom GPT')}`, `  gpt-name: ${yamlStr(gptLabel(g))}`);
   if (g.gptId) fm.push(`  gpt-id: ${yamlStr(g.gptId)}`);
   if (today) fm.push(`  exported-on: ${yamlStr(today)}`);
   fm.push(`  exported-with: ${yamlStr('Skillcase, peakappsstudio.com/custom-gpt-export')}`, '---', '');
   const body = [`# ${gptLabel(g)}`, ''];
-  body.push(g.instructions || '(The GPT had no instructions in this backup.)');
+  body.push(g.instructions || `(The ${k} had no instructions in this backup.)`);
   if (g.starters.length) body.push('', '## Conversation starters', '', 'These were the GPT\'s suggested first messages:', '', ...g.starters.map(s => `- ${s}`));
-  if (kept.length) body.push('', '## Reference files', '', 'These files were the GPT\'s knowledge. Read the one a request needs:', '', ...kept.map(f => `- [${f.name}](references/${encodeURI(f.name)})`));
+  if (kept.length) body.push('', '## Reference files', '', `These files were the ${k}'s knowledge. Read the one a request needs:`, '', ...kept.map(f => `- [${f.name}](references/${encodeURI(f.name)})`));
   const notes = [];
   if (g.actions.length) notes.push(`The GPT called ${g.actions.length === 1 ? 'an outside service' : 'outside services'} through custom actions. ${g.actions.length === 1 ? 'That action does' : 'Those actions do'} not run from this skill; the OpenAPI ${g.actions.length === 1 ? 'schema is' : 'schemas are'} in \`assets/actions/\` for whoever rebuilds the connection.`);
-  const caps = CAPABILITIES.filter(([k]) => g.capabilities[k]).map(([, l]) => l);
+  const caps = CAPABILITIES.filter(([c]) => g.capabilities[c]).map(([, l]) => l);
   if (caps.length) notes.push(`The GPT had these ChatGPT capabilities turned on: ${caps.join(', ')}. Whether they are available here depends on the assistant and its settings.`);
-  if (left.length) notes.push(`Left out of this ${variant === 'gemini' ? 'Gemini ' : ''}skill: ${left.map(f => `${f.name} (${f.why})`).join(', ')}. ${variant === 'gemini' ? 'Google says skills take plain-text files; convert these to text, or keep them in the full backup.' : ''}`.trim());
+  const tools = gemToolNames(g);
+  if (tools.length) notes.push(`The Gem was set to use these Gemini tools: ${tools.join(', ')}. Google says these Gem tools do not work with skills for now.`);
+  const conv = kept.filter(f => f.from);
+  if (conv.length) notes.push(`Word files turned into text for this Gemini skill, because Gemini skills do not take .docx files: ${conv.map(f => `${f.from} (now ${f.name})`).join(', ')}. Images and formatting from them are not kept.`);
+  if (left.length) notes.push(`Left out of this ${variant === 'gemini' ? 'Gemini ' : ''}skill: ${left.map(f => `${f.name} (${f.why})`).join(', ')}. ${variant === 'gemini' ? 'Google says skills take plain-text files, PDFs and images, up to 100 MB in all; keep these in the full backup.' : ''}`.trim());
   if (notes.length) body.push('', '## Not carried over', '', ...notes.map(n => `- ${n}`));
   return fm.join('\n') + body.join('\n') + '\n';
 }
@@ -243,7 +398,7 @@ export function skillMd(g, { files = [], variant = 'claude', today = '' } = {}) 
 /** The files of one skill folder, as { path: bytes }. Claude wants the folder inside the ZIP (named like the skill);
  *  Gemini takes a ZIP "with a SKILL.md file in its main folder", so its ZIP has SKILL.md at the top. */
 export function skillEntries(g, { files = [], variant = 'claude', today = '' } = {}) {
-  const name = skillName(g.name);
+  const name = skillNameOf(g);
   const root = variant === 'gemini' ? '' : `${name}/`;
   const out = { [`${root}SKILL.md`]: strToU8(skillMd(g, { files, variant, today })) };
   for (const f of skillFiles(files, variant).kept) out[`${root}references/${f.name}`] = f.bytes || new Uint8Array(0);
@@ -256,11 +411,12 @@ export const skillBodyLines = g => (g.instructions || '').split('\n').length + g
 /** project-instructions.md: the steps and the text to paste into a Claude project's instructions. */
 export function claudeProjectMd(g, { files = [] } = {}) {
   const names = uniqueNames(files.map(f => safeFileName(f.name)));
+  const k = shortKind(g);
   const lines = [`# ${gptLabel(g)} as a Claude project`, '',
-    '1. In Claude, create a project and name it after your GPT.',
+    `1. In Claude, create a project and name it after your ${k}.`,
     '2. Paste everything under "Instructions" below into the project\'s instructions.',
-    names.length ? '3. Upload the files listed under "Files" to the project\'s knowledge. They are in the backup\'s `knowledge` folder.' : '3. This GPT had no knowledge files in the backup, so there is nothing to upload.',
-    '', 'Anthropic says projects are available on every Claude plan, free included, and that free accounts can have up to five projects.', '', '## Instructions', '', g.instructions || '(The GPT had no instructions in this backup.)'];
+    names.length ? '3. Upload the files listed under "Files" to the project\'s knowledge. They are in the backup\'s `knowledge` folder.' : `3. This ${k} had no knowledge files in the backup, so there is nothing to upload.`,
+    '', 'Anthropic says projects are available on every Claude plan, free included, and that free accounts can have up to five projects.', '', '## Instructions', '', g.instructions || `(The ${k} had no instructions in this backup.)`];
   if (g.starters.length) lines.push('', '## Conversation starters (for you, not for the instructions)', '', ...g.starters.map(s => `- ${s}`));
   if (names.length) lines.push('', '## Files', '', ...names.map(n => `- ${n}`));
   return lines.join('\n') + '\n';
@@ -269,8 +425,8 @@ export function claudeProjectMd(g, { files = [] } = {}) {
 export function modelfile(g, { base = 'llama3.2', today = '' } = {}) {
   const sys = (g.instructions || '').replace(/"""/g, "'''");
   const lines = [
-    `# Modelfile made from the custom GPT "${oneLine(gptLabel(g)).replace(/"/g, "'")}" with Skillcase${today ? ` on ${today}` : ''}.`,
-    `# Replace ${base} with any model you have pulled, then run: ollama create ${skillName(g.name)} -f Modelfile`,
+    `# Modelfile made from the ${kindName(g)} "${oneLine(gptLabel(g)).replace(/"/g, "'")}" with Skillcase${today ? ` on ${today}` : ''}.`,
+    `# Replace ${base} with any model you have pulled, then run: ollama create ${skillNameOf(g)} -f Modelfile`,
     '# A Modelfile has no place for documents: the knowledge files are in the backup\'s knowledge folder.',
   ];
   if (/"""/.test(g.instructions || '')) lines.push("# Triple double quotes in the instructions were changed to ''' so the SYSTEM block stays closed.");
@@ -411,66 +567,110 @@ export function chatFileNames(chats) {
 }
 
 /* ---------------- the backup ---------------- */
-/** gpt.json: the portable record of the GPT (no file contents, no secrets) */
+const SRC_GOOGLE = [
+  '- Google, About the transition from Gems to skills: https://support.google.com/gemini/answer/18560919',
+  '- Google, Create and manage skills for Gemini Apps: https://support.google.com/gemini/answer/17094296',
+  '- Google, Use Gems in Gemini Apps: https://support.google.com/gemini/answer/15146780',
+  '- Google, Download your Gemini Apps data: https://support.google.com/gemini/answer/16920332',
+  '- Google Workspace, About the transition from Gems to skills: https://knowledge.workspace.google.com/admin/generative-ai/gemini-app/about-the-transition-to-skills',
+];
+/** gpt.json (gem.json for a Gem): the portable record (no file contents, no secrets) */
 export function gptJson(g, { files = [], chats = [], today = '', now = Date.now() } = {}) {
   const names = uniqueNames(files.map(f => safeFileName(f.name)));
+  const knowledge = files.map((f, i) => ({ name: names[i], size: f.bytes ? f.bytes.length : f.size || 0, type: f.type || '', path: `knowledge/${names[i]}` }));
+  const head = { exported_at: new Date(now).toISOString(), exported_on: today || undefined, exported_with: `${TOOL_NAME}, ${TOOL_URL}` };
+  if (isGem(g)) {
+    const moved = gemMovePlan(files);
+    return JSON.stringify({
+      format: 'skillcase-gem-backup', version: 1, ...head,
+      source: { product: 'Gemini Gem' },
+      name: g.name, description: g.description, instructions: g.instructions,
+      gemini_tools: gemToolNames(g),
+      knowledge_files: knowledge.map((k, i) => ({ ...k, left_out_by_google_move: (moved.find(m => m.index === i) || {}).why || null })),
+      skill_name: skillNameOf(g),
+    }, null, 2) + '\n';
+  }
   return JSON.stringify({
-    format: 'skillcase-gpt-backup', version: 1,
-    exported_at: new Date(now).toISOString(), exported_on: today || undefined, exported_with: `${TOOL_NAME}, ${TOOL_URL}`,
+    format: 'skillcase-gpt-backup', version: 1, ...head,
     source: { product: 'ChatGPT custom GPT', gpt_id: g.gptId || null, url: g.gptId ? `https://chatgpt.com/g/${g.gptId}` : null },
     name: g.name, description: g.description, instructions: g.instructions, conversation_starters: g.starters,
     capabilities: { web_search: g.capabilities.web, image_generation: g.capabilities.image, code_interpreter: g.capabilities.code, canvas: g.capabilities.canvas },
-    knowledge_files: files.map((f, i) => ({ name: names[i], size: f.bytes ? f.bytes.length : f.size || 0, type: f.type || '', path: `knowledge/${names[i]}` })),
+    knowledge_files: knowledge,
     actions: g.actions.map((a, i) => { const s = summarizeSchema(a.schema); return { file: `actions/${actionFile(a, i)}`, format: s.format, title: s.title, openapi: s.version, servers: s.servers, operations: s.operations, auth: a.auth, privacy_policy_url: a.privacy || null }; }),
-    skill_name: skillName(g.name),
+    skill_name: skillNameOf(g),
     chats: chats.length ? { count: chats.length, folder: 'chats/' } : null,
   }, null, 2) + '\n';
 }
 
 /** README.md: what is in the backup and how to put it back to work */
 export function readmeMd(g, { files = [], chats = [], today = '', checked = '' } = {}) {
-  const name = skillName(g.name);
-  const geminiLeft = skillFiles(files, 'gemini').left;
+  const name = skillNameOf(g);
+  const gem = isGem(g);
+  const k = shortKind(g);
+  const gm = skillFiles(files, 'gemini');
+  const geminiLeft = gm.left, geminiConv = gm.kept.filter(f => f.from);
   const rows = [
-    ['gpt.json', 'Everything about the GPT as data: name, description, instructions, starters, capabilities, file list, actions'],
+    [gem ? 'gem.json' : 'gpt.json', gem ? 'Everything about the Gem as data: name, description, instructions, Gemini tools, file list' : 'Everything about the GPT as data: name, description, instructions, starters, capabilities, file list, actions'],
     ['instructions.md', 'The instructions, exactly as pasted'],
   ];
   if (g.starters.length) rows.push(['conversation-starters.md', 'The conversation starters']);
-  if (files.length) rows.push(['knowledge/', `The ${files.length} knowledge file${files.length === 1 ? '' : 's'} you added`]);
+  if (files.length) rows.push(['knowledge/', `The ${files.length} knowledge file${files.length === 1 ? '' : 's'} you added, exactly as they were`]);
   if (g.actions.length) rows.push(['actions/', 'Each action\'s OpenAPI schema and a note on rebuilding it']);
-  rows.push([`skill/${name}/`, 'The GPT as a skill folder (SKILL.md) for Claude and ChatGPT']);
+  rows.push([`skill/${name}/`, `The ${k} as a skill folder (SKILL.md) for Claude and ChatGPT`]);
   rows.push(['skill-for-claude-and-chatgpt.zip', 'The same skill folder as a ZIP, ready to upload']);
-  rows.push(['skill-for-gemini.zip', `The skill for Gemini: SKILL.md at the top, plain-text files only${geminiLeft.length ? ` (${geminiLeft.length} left out)` : ''}`]);
+  const gNotes = [geminiConv.length ? `${geminiConv.length} Word file${geminiConv.length === 1 ? '' : 's'} turned into text` : '', geminiLeft.length ? `${geminiLeft.length} left out` : ''].filter(Boolean);
+  rows.push(['skill-for-gemini.zip', `The skill for Gemini: SKILL.md at the top, with the files Gemini skills take${gNotes.length ? ` (${gNotes.join(', ')})` : ''}`]);
   rows.push(['claude-project/project-instructions.md', 'The steps and text for a Claude project']);
   rows.push(['ollama/Modelfile', 'The instructions as a Modelfile for Ollama']);
   if (chats.length) rows.push(['chats/', `${chats.length} chat${chats.length === 1 ? '' : 's'} with the GPT from your ChatGPT export: one Markdown file each, all-chats.md and chats.json`]);
-  const L = [`# ${gptLabel(g)}: GPT backup`, '',
+  const L = [`# ${gptLabel(g)}: ${k} backup`, '',
     `Saved with Skillcase (${TOOL_URL})${today ? ` on ${today}` : ''}. Skillcase is an independent tool by Peak Apps Studio and is not affiliated with OpenAI, Anthropic, Google or Ollama.`, '',
-    '## What is in this folder', '', '| Path | What it is |', '| --- | --- |', ...rows.map(([p, w]) => `| \`${p}\` | ${w} |`), '',
-    '## Put it back to work', '',
-    '### ChatGPT', '',
-    'OpenAI is moving custom GPTs to plugins: its migration turns a GPT\'s instructions into a skill and copies the knowledge files. If you created the GPT and see "Migrate to plugin" next to it in My GPTs, use that first. OpenAI\'s skills follow the open Agent Skills format, the same SKILL.md folder as `skill/`.', '',
+    '## What is in this folder', '', '| Path | What it is |', '| --- | --- |', ...rows.map(([p, w]) => `| \`${p}\` | ${w} |`), ''];
+  const gemini = [
+    '### Gemini', '',
+    'In Gemini, open Customize, then Skills, click Create, then Upload, and pick `skill-for-gemini.zip` (Google says you can upload a SKILL.md file, or a folder or .zip with a SKILL.md file in its main folder). Review the skill and click Create. Google says skills take plain-text files, PDFs and images, up to 100 MB in all, and that you must be 18 or over with Keep Activity on.', ''];
+  const claude = [
     '### Claude', '',
     'Skill: in Claude, open Customize, then Skills, click +, choose Create skill, then Upload a skill, and pick `skill-for-claude-and-chatgpt.zip`. Anthropic says skills need code execution turned on in Settings.',
-    'Project: follow `claude-project/project-instructions.md`.', '',
-    '### Gemini', '',
-    'In the Gemini app, create a skill by uploading `skill-for-gemini.zip` (or the SKILL.md file inside it). Google says skills take plain-text files up to 100 MB in total, and that you must be 18 or over with Keep Activity on.', '',
-    '### A model on your own computer (Ollama)', '',
-    'Edit the FROM line of `ollama/Modelfile` to a model you have pulled, then run `ollama create ' + name + ' -f Modelfile`.', '',
-    '## Not in this backup', '',
-    '- API keys, tokens and OAuth secrets of actions. Enter them again where you rebuild a connection.',
-    '- The model the GPT was set to use. OpenAI says the selected model does not carry over in its migration either.',
-    '- Knowledge files you did not add on the Skillcase page.',
-  ];
-  if (geminiLeft.length) L.push(`- In the Gemini skill only: ${geminiLeft.map(f => f.name).join(', ')} (not plain text). They are in \`knowledge/\`.`);
-  L.push('', '## Sources', '',
+    'Project: follow `claude-project/project-instructions.md`.', ''];
+  const ollama = ['### A model on your own computer (Ollama)', '', 'Edit the FROM line of `ollama/Modelfile` to a model you have pulled, then run `ollama create ' + name + ' -f Modelfile`.', ''];
+  if (gem) {
+    const moved = gemMovePlan(files);
+    const tools = gemToolNames(g);
+    L.push('## What Google\'s move leaves behind', '',
+      'Google says Gems on personal Google accounts turn into skills and become read-only on November 17, 2026, and are removed from Gemini Apps on December 17, 2026. Workspace business, enterprise and non-profit accounts follow no sooner than March 1, 2027, and education accounts no sooner than June 1, 2027.', '',
+      moved.length ? `Google's automatic move leaves these files out, so this backup is where they are kept: ${moved.map(m => `${m.name} (${m.why})`).join(', ')}.` : 'None of the files you added is of a type Google\'s automatic move leaves out (audio, video, .doc, .xls, .ppt, archives), and together they are under its 100 MB limit.', '');
+    if (tools.length) L.push(`The Gem was set to use ${tools.join(', ')}. Google says these Gem tools do not work with skills for now.`, '');
+    L.push('## Put it back to work', '', ...gemini, ...claude,
+      '### ChatGPT', '',
+      'OpenAI\'s skills follow the same open Agent Skills format, the folder in `skill/`. OpenAI says standalone skills are available in the ChatGPT desktop app, Codex CLI and the IDE extension; in Codex, a skill folder in `~/.agents/skills` is picked up for your user.', '',
+      ...ollama,
+      '## Not in this backup', '',
+      '- Files you linked from Google Drive or NotebookLM, unless you added copies here. Google says a Gem uses the latest version of a Drive file, so it stays in your Drive.',
+      '- Your chats with the Gem. Google Takeout has them under My Activity, Gemini Apps; Takeout\'s "Gemini" item holds your Gems data.',
+      '- Knowledge files you did not add on the Skillcase page.');
+  } else {
+    L.push('## Put it back to work', '',
+      '### ChatGPT', '',
+      'OpenAI is moving custom GPTs to plugins: its migration turns a GPT\'s instructions into a skill and copies the knowledge files. If you created the GPT and see "Migrate to plugin" next to it in My GPTs, use that first. OpenAI\'s skills follow the open Agent Skills format, the same SKILL.md folder as `skill/`.', '',
+      ...claude, ...gemini, ...ollama,
+      '## Not in this backup', '',
+      '- API keys, tokens and OAuth secrets of actions. Enter them again where you rebuild a connection.',
+      '- The model the GPT was set to use. OpenAI says the selected model does not carry over in its migration either.',
+      '- Knowledge files you did not add on the Skillcase page.');
+  }
+  if (geminiLeft.length) L.push(`- In the Gemini skill only: ${geminiLeft.map(f => `${f.name} (${f.why})`).join(', ')}. They are in \`knowledge/\`.`);
+  L.push('', '## Sources', '');
+  if (gem) L.push(...SRC_GOOGLE);
+  else L.push(
     '- OpenAI, Moving your custom GPT workflows to plugins: https://learn.chatgpt.com/docs/migrate-custom-gpts',
     '- OpenAI, Custom GPT retirement and migration FAQ: https://help.openai.com/en/articles/20001519-custom-gpt-retirement-and-migration-faq',
+    '- Google, Create and manage skills for Gemini Apps: https://support.google.com/gemini/answer/17094296');
+  L.push(
     '- OpenAI, Build skills: https://learn.chatgpt.com/docs/build-skills',
     '- Agent Skills specification: https://agentskills.io/specification',
     '- Anthropic, Using Skills in Claude: https://support.claude.com/en/articles/12512180-using-skills-in-claude',
     '- Anthropic, What are projects?: https://support.claude.com/en/articles/9517075-what-are-projects',
-    '- Google, Create and manage skills for Gemini Apps: https://support.google.com/gemini/answer/17094296',
     '- Ollama, Modelfile reference: https://github.com/ollama/ollama/blob/main/docs/modelfile.mdx',
     checked ? `\nLast checked: ${checked}.` : '');
   return L.join('\n').replace(/\n+$/, '') + '\n';
@@ -478,12 +678,12 @@ export function readmeMd(g, { files = [], chats = [], today = '', checked = '' }
 
 /** Every file of the backup ZIP, as { path: bytes }. files: [{ name, type, bytes }]; chats: flattened chats. */
 export function backupEntries(g, { files = [], chats = [], label = '', today = '', now = Date.now(), checked = '' } = {}) {
-  const name = skillName(g.name);
-  const root = `${name}-gpt-backup/`;
+  const name = skillNameOf(g);
+  const root = `${name}-${isGem(g) ? 'gem' : 'gpt'}-backup/`;
   const out = {};
   const put = (p, s) => { out[root + p] = typeof s === 'string' ? strToU8(s) : s; };
   put('README.md', readmeMd(g, { files, chats, today, checked }));
-  put('gpt.json', gptJson(g, { files, chats, today, now }));
+  put(isGem(g) ? 'gem.json' : 'gpt.json', gptJson(g, { files, chats, today, now }));
   put('instructions.md', `# ${gptLabel(g)}: instructions\n\n${g.instructions || '(empty)'}\n`);
   if (g.starters.length) put('conversation-starters.md', `# ${gptLabel(g)}: conversation starters\n\n${g.starters.map(s => `- ${s}`).join('\n')}\n`);
   const names = uniqueNames(files.map(f => safeFileName(f.name)));

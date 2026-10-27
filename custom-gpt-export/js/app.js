@@ -1,6 +1,7 @@
 /* Skillcase page logic. What you type stays in this page; the files and the ChatGPT export you pick go to the worker
  * (worker.js) in this tab, which reads them and builds the ZIP files. The page makes no network request of its own:
- * nothing is uploaded or stored, and your files are never changed. Pro is not part of this version. */
+ * nothing is uploaded or stored, and your files are never changed. Pro is not part of this version. The page packs a
+ * custom GPT or, with "A Gemini Gem" ticked (or ?from=gem in the address), a Gemini Gem. */
 const $ = id => document.getElementById(id);
 const nf = new Intl.NumberFormat('en-US');
 const fDay = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
@@ -11,7 +12,8 @@ const CHECKED = 'October 27, 2026';
 const size = b => b >= 1048576 ? `${(b / 1048576).toFixed(1)} MB` : b >= 1024 ? `${Math.round(b / 1024)} KB` : `${b} bytes`;
 const dayOfT = t => (t == null ? '' : fDay.format(new Date(t < 1e11 ? t * 1000 : t)));
 
-const state = { files: [], fileSeq: 0, plain: {}, chats: null, pick: '', only: new Set(), labels: {}, sample: false, dirty: false, skillName: 'my-gpt' };
+const state = { mode: 'gpt', files: [], fileSeq: 0, info: {}, chats: null, pick: '', only: new Set(), labels: {}, sample: false, dirty: false, skillName: 'my-gpt' };
+const gemMode = () => state.mode === 'gem';
 let worker = null, seq = 0, previewSeq = 0, previewTimer = 0;
 const waiting = new Map();
 
@@ -39,6 +41,7 @@ function onWorker(ev) {
   }
   if (m.type === 'preview') showPreview(m);
   else if (m.type === 'sample-gpt') fillSample(m);
+  else if (m.type === 'sample-gem') fillSampleGem(m);
   else if (m.type === 'chats') showChats(m.data);
   else if (m.type === 'chats-failed') chatsFailed(m);
   else if (m.type === 'step') say('chats-status', m.text);
@@ -60,9 +63,30 @@ function gptInput() {
     capabilities: Object.fromEntries([...form.querySelectorAll('input[name="cap"]')].map(c => [c.value, c.checked])),
     actions: actionBlocks().map(b => ({ schema: b.querySelector('textarea').value, auth: b.querySelector('select').value, privacy: b.querySelector('input').value })),
     gptId: gptId(),
+    source: state.mode,
+    gemTools: [...form.querySelectorAll('input[name="gemtool"]:checked')].map(c => c.value),
   };
 }
 const fileMsg = () => state.files.map(f => ({ key: f.key, name: f.name, size: f.size, type: f.type, file: f.file, sample: f.sample, plain: f.plain }));
+
+/* ---------- a GPT or a Gem ---------- */
+const swaps = [...document.querySelectorAll('[data-gem]')];
+swaps.forEach(el => { el.dataset.gpt = el.textContent; });
+function setMode(mode, { push = true } = {}) {
+  state.mode = mode === 'gem' ? 'gem' : 'gpt';
+  document.body.dataset.mode = state.mode;
+  const radio = document.querySelector(`input[name="mode"][value="${state.mode}"]`);
+  if (radio) radio.checked = true;
+  swaps.forEach(el => { el.textContent = gemMode() ? el.dataset.gem : el.dataset.gpt; });
+  if (push && history.replaceState) {
+    const u = new URL(location.href);
+    if (gemMode()) u.searchParams.set('from', 'gem'); else u.searchParams.delete('from');
+    history.replaceState(null, '', u.pathname + u.search + u.hash);
+  }
+  renderFiles();
+  // on load there is nothing to preview yet, so the worker is not started until the page is used
+  if (push) changed(false); else renderManifest();
+}
 
 function addAction(a = {}) {
   const n = actionBlocks().length + 1;
@@ -86,8 +110,23 @@ function addAction(a = {}) {
 }
 function renumber() { actionBlocks().forEach((b, i) => { b.querySelector('.sc-act-n').textContent = String(i + 1); }); }
 
+function fileChips(key) {
+  const i = state.info[key];
+  if (!i) return '';
+  const chips = [];
+  if (gemMode() && i.moved) chips.push(`<span class="sc-chip sc-chip-warn">Google's move leaves it out (${esc(i.moved)}): kept in the backup</span>`);
+  if (i.gemini === 'convert') chips.push('<span class="sc-chip sc-chip-note">Word file: turned into text for the Gemini skill</span>');
+  else if (i.gemini === 'no' && !(gemMode() && i.moved)) chips.push('<span class="sc-chip sc-chip-warn">a file type Gemini skills do not take: left out of the Gemini skill</span>');
+  return chips.join('');
+}
+const movedCount = () => state.files.filter(f => state.info[f.key] && state.info[f.key].moved).length;
 function renderFiles() {
-  $('files-list').innerHTML = state.files.map(f => `<li data-key="${f.key}"><span class="sc-file-name">${esc(f.name)}</span><span class="sc-file-meta">${size(f.size)}${state.plain[f.key] === false ? '<span class="sc-chip sc-chip-warn">not plain text: left out of the Gemini skill</span>' : ''}</span><button type="button" class="btn sc-quiet sc-remove" data-remove="${f.key}" aria-label="Remove ${esc(f.name)}">Remove</button></li>`).join('');
+  $('files-list').innerHTML = state.files.map(f => `<li data-key="${f.key}"><span class="sc-file-name">${esc(f.name)}</span><span class="sc-file-meta">${size(f.size)}${fileChips(f.key)}</span><button type="button" class="btn sc-quiet sc-remove" data-remove="${f.key}" aria-label="Remove ${esc(f.name)}">Remove</button></li>`).join('');
+  const moved = movedCount();
+  const note = $('moved-note');
+  note.hidden = !(gemMode() && moved);
+  const which = moved === state.files.length ? (moved === 1 ? 'this file' : `all ${nf.format(moved)} of these files`) : `${nf.format(moved)} of these files`;
+  note.textContent = moved ? `Google's move to skills leaves ${which} out. Your copies stay in the backup's knowledge folder; on personal accounts the Gem and its files are removed on December 17, 2026.` : '';
 }
 function addFiles(list) {
   for (const file of [...(list || [])]) {
@@ -100,7 +139,7 @@ function addFiles(list) {
 
 /* ---------- the case: manifest, preview ---------- */
 function chatCount() {
-  if (!state.chats || !state.pick) return 0;
+  if (gemMode() || !state.chats || !state.pick) return 0;
   const g = state.chats.groups.find(x => x.id === state.pick);
   return g ? g.chats + g.mentions : 0;
 }
@@ -108,21 +147,29 @@ function renderManifest() {
   const v = gptInput();
   const starters = v.starters.split(/\r?\n/).filter(s => s.trim()).length;
   const acts = v.actions.filter(a => a.schema.trim()).length;
-  const rows = [
+  const head = [
     ['Name', v.name.trim() ? 'in' : 'empty', v.name.trim() ? esc(v.name.trim().slice(0, 40)) : ''],
     ['Description', v.description.trim() ? 'in' : 'empty', ''],
     ['Instructions', v.instructions.trim() ? 'in' : 'empty', v.instructions.trim() ? `${nf.format(v.instructions.length)} characters` : ''],
+  ];
+  const files = ['Knowledge files', state.files.length ? 'in' : 'empty', state.files.length ? nf.format(state.files.length) : ''];
+  const moved = movedCount();
+  const rows = gemMode() ? [...head, files,
+    ['Files Google\'s move leaves out', !state.files.length ? 'empty' : moved ? 'rebuild' : 'in', moved ? nf.format(moved) : '', !state.files.length ? 'Not added' : moved ? 'Kept here only' : 'None'],
+    ['Gemini tools', v.gemTools.length ? 'rebuild' : 'empty', v.gemTools.length ? nf.format(v.gemTools.length) : '', v.gemTools.length ? 'Not in skills yet' : 'None ticked'],
+  ] : [...head,
     ['Conversation starters', starters ? 'in' : 'empty', starters ? nf.format(starters) : ''],
-    ['Knowledge files', state.files.length ? 'in' : 'empty', state.files.length ? nf.format(state.files.length) : ''],
+    files,
     ['Action schemas', acts ? 'rebuild' : 'empty', acts ? nf.format(acts) : ''],
     ['Chats with the GPT', chatCount() ? 'in' : 'empty', chatCount() ? nf.format(chatCount()) : ''],
   ];
   const word = { in: 'Packed', empty: 'Not added', rebuild: 'Packed, rebuild later' };
-  $('manifest').innerHTML = rows.map(([label, st, detail]) => `<li class="is-${st}"><span class="sc-m-label">${label}${detail ? ` <span class="sc-m-detail">${detail}</span>` : ''}</span><span class="sc-chip">${word[st]}</span></li>`).join('');
+  $('manifest').innerHTML = rows.map(([label, st, detail, chip]) => `<li class="is-${st}"><span class="sc-m-label">${label}${detail ? ` <span class="sc-m-detail">${detail}</span>` : ''}</span><span class="sc-chip">${chip || word[st]}</span></li>`).join('');
   $('instr-count').textContent = `${nf.format(v.instructions.length)} characters, ${nf.format(v.instructions ? v.instructions.split('\n').length : 0)} lines`;
 }
-function changed() {
-  state.dirty = true;
+function changed(dirty = true) {
+  if (dirty) state.dirty = true;
+  if ($('dl-status').classList.contains('is-bad')) say('dl-status', '');
   renderManifest();
   clearTimeout(previewTimer);
   previewTimer = setTimeout(() => {
@@ -135,8 +182,9 @@ function showPreview(m) {
   $('preview').textContent = m.text;
   state.skillName = m.skillName;
   $('instr-long').hidden = !m.long;
-  for (const f of m.files || []) state.plain[f.key] = f.plain;
+  for (const f of m.files || []) state.info[f.key] = { plain: f.plain, gemini: f.gemini, moved: f.moved };
   renderFiles();
+  renderManifest();
   actionBlocks().forEach((b, i) => {
     const a = m.actions[i];
     const el = b.querySelector('.sc-act-sum');
@@ -162,7 +210,20 @@ function fillSample(m) {
   g.actions.forEach(a => addAction(a));
   $('f-link').value = `https://chatgpt.com/g/${g.gptId}-sourdough-coach`;
   state.files = m.files.map(f => ({ key: `f${++state.fileSeq}`, name: f.name, size: f.size, type: f.type, sample: true, plain: f.plain }));
-  state.files.forEach(f => { state.plain[f.key] = f.plain; });
+  state.sample = true;
+  $('sample-tag').hidden = false;
+  renderFiles();
+  changed();
+  state.dirty = false;
+  $('gpt-h').focus({ preventScroll: true });
+  $('your-gpt').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+}
+
+function fillSampleGem(m) {
+  const g = m.gem;
+  $('f-name').value = g.name; $('f-desc').value = g.description; $('f-instr').value = g.instructions;
+  form.querySelectorAll('input[name="gemtool"]').forEach(c => { c.checked = g.gemTools.includes(c.value); });
+  state.files = m.files.map(f => ({ key: `f${++state.fileSeq}`, name: f.name, size: f.size, type: f.type, sample: true, plain: f.plain }));
   state.sample = true;
   $('sample-tag').hidden = false;
   renderFiles();
@@ -241,13 +302,13 @@ const BUILD_ERRORS = { filestoobig: 'The knowledge files add up to more than 600
 async function build(kind) {
   const v = gptInput();
   const hasAny = v.name.trim() || v.instructions.trim() || state.files.length || chatCount();
-  if (kind === 'backup' && !hasAny) return say('dl-status', 'The case is empty. Paste your GPT\'s instructions, add files or open your ChatGPT export first.', true);
+  if (kind === 'backup' && !hasAny) return say('dl-status', gemMode() ? 'The case is empty. Paste your Gem\'s instructions or add its files first.' : 'The case is empty. Paste your GPT\'s instructions, add files or open your ChatGPT export first.', true);
   if (kind !== 'backup' && !v.instructions.trim()) return say('dl-status', 'Paste the instructions first: the skill and the Modelfile are made from them.', true);
   const labels = Object.assign({}, state.labels);
   if (state.pick && !labels[state.pick] && v.name.trim()) labels[state.pick] = v.name.trim();
   say('dl-status', 'Packing on this device');
   try {
-    const r = await call({ type: 'build', kind, gpt: v, files: fileMsg(), chatIds: state.pick ? [state.pick] : [], labels, today: today(), checked: CHECKED });
+    const r = await call({ type: 'build', kind, gpt: v, files: fileMsg(), chatIds: !gemMode() && state.pick ? [state.pick] : [], labels, today: today(), checked: CHECKED });
     download(r.blob, r.name);
     state.dirty = false;
     say('dl-status', `Saved ${r.name} (${size(r.blob.size)}).`);
@@ -316,12 +377,23 @@ $('btn-chats-clear').addEventListener('click', () => {
 });
 document.querySelectorAll('[data-kind]').forEach(b => b.addEventListener('click', () => build(b.dataset.kind)));
 $('dl-project').addEventListener('click', copyProject);
-$('btn-sample').addEventListener('click', () => {
+function loadSample(kind) {
   const w = getWorker();
   if (!w) return;
-  if (state.dirty && !confirm('Replace what you typed with the sample GPT?')) return;
-  w.postMessage({ type: 'sample-gpt' });
-});
+  if (state.dirty && !confirm(`Replace what you typed with the sample ${kind === 'gem' ? 'Gem' : 'GPT'}?`)) return;
+  if (state.mode !== kind) setMode(kind);
+  w.postMessage({ type: kind === 'gem' ? 'sample-gem' : 'sample-gpt' });
+}
+$('btn-sample').addEventListener('click', () => loadSample('gpt'));
+$('btn-sample-gem').addEventListener('click', () => loadSample('gem'));
+$('mode').addEventListener('change', e => { if (e.target.name === 'mode') setMode(e.target.value); });
+document.querySelectorAll('[data-mode-link]').forEach(a => a.addEventListener('click', e => {
+  e.preventDefault();
+  setMode(a.dataset.modeLink);
+  $('tool').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+  const r = document.querySelector(`input[name="mode"][value="${state.mode}"]`);
+  if (r) r.focus({ preventScroll: true });
+}));
 window.addEventListener('beforeunload', e => { if (state.dirty) { e.preventDefault(); e.returnValue = ''; } });
 // the secret warning lives under the instructions box
 {
@@ -329,5 +401,10 @@ window.addEventListener('beforeunload', e => { if (state.dirty) { e.preventDefau
   p.className = 'sc-warn'; p.id = 'secret-warn'; p.hidden = true;
   p.textContent = 'Something here looks like a key or token. Remove it before you download: a backup should never hold one.';
   $('f-instr').closest('.sc-field').appendChild(p);
+}
+{
+  const q = new URLSearchParams(location.search);
+  setMode(q.get('from') === 'gem' || location.hash === '#gem' ? 'gem' : 'gpt', { push: false });
+  state.dirty = false;
 }
 renderManifest();
