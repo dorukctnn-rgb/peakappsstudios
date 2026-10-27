@@ -312,7 +312,7 @@ export function structureReport(docs, extra = {}) {
       const x = extOf(p.name);
       out.push(`  .${x.toLowerCase()}${p.bytes ? `, ${Math.max(1, Math.round(p.bytes / 1024))} KB` : ''}${String(p.name).includes(' > ') ? ', inside a ZIP' : ''}: ${p.code}`);
     }
-  } else if (extra.problems) out.push(`Files that could not be read: ${extra.problems}`);
+  } else if (typeof extra.problems === 'number' && extra.problems) out.push(`Files that could not be read: ${extra.problems}`);
   if (!docs.length) out.push('', 'No file could be read as JSON, so there are no key names to show.');
   return out.slice(0, 600).join('\n');
 }
