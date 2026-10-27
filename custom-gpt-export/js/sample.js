@@ -1,7 +1,9 @@
 /* Skillcase sample: a made-up custom GPT ("Sourdough Coach") with two text knowledge files, one small PDF, an action
  * schema for a made-up API (api.example.com) and a made-up ChatGPT data export with chats in the shape OpenAI's export
- * uses. Nothing here comes from a real account. Used by "Try the sample GPT" on the page and by the tests. */
-import { strToU8 } from '../vendor/fflate.js';
+ * uses; and a made-up Gemini Gem ("Allotment Planner") with text files, a PDF, a real small Word file and two stand-ins
+ * (a voice note and a .doc) of the kinds Google's move from Gems to skills leaves out. Nothing here comes from a real
+ * account. Used by "Try the sample GPT" and "Try the sample Gem" on the page and by the tests. */
+import { strToU8, zipSync } from '../vendor/fflate.js';
 
 export const SAMPLE_GPT_ID = 'g-SampleSourdough01';
 export const SAMPLE_PROJECT_ID = 'g-p-sampleproject0001';
@@ -60,6 +62,63 @@ export function sampleFiles() {
     { name: 'bake-log-template.pdf', type: 'application/pdf', bytes: pdf },
   ];
 }
+
+/* ---- the made-up Gem ---- */
+// A real, minimal Word file: [Content_Types].xml, the package relationship and word/document.xml with a title, a heading,
+// a paragraph, two list items and a table. Word opens it; Skillcase turns it into Markdown for the Gemini skill.
+const xmlEsc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+export function docxBytes(blocks) {
+  const W = 'xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"';
+  const run = t => `<w:r><w:t xml:space="preserve">${xmlEsc(t)}</w:t></w:r>`;
+  const para = (t, style, list) => `<w:p>${style || list ? `<w:pPr>${style ? `<w:pStyle w:val="${style}"/>` : ''}${list ? '<w:numPr><w:ilvl w:val="0"/><w:numId w:val="1"/></w:numPr>' : ''}</w:pPr>` : ''}${run(t)}</w:p>`;
+  const body = blocks.map(b => {
+    if (b.table) return `<w:tbl><w:tblPr><w:tblW w:w="0" w:type="auto"/></w:tblPr>${b.table.map(r => `<w:tr>${r.map(c => `<w:tc><w:tcPr><w:tcW w:w="2400" w:type="dxa"/></w:tcPr>${para(c)}</w:tc>`).join('')}</w:tr>`).join('')}</w:tbl>`;
+    return para(b.text, b.style, b.list);
+  }).join('');
+  return zipSync({
+    '[Content_Types].xml': strToU8('<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>'),
+    '_rels/.rels': strToU8('<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>'),
+    'word/document.xml': strToU8(`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document ${W}><w:body>${body}<w:sectPr/></w:body></w:document>`),
+  }, { mtime: new Date(Date.UTC(2026, 0, 1)) });
+}
+export const SAMPLE_GEM_DOCX = [
+  { text: 'Seed order 2027 (made up)', style: 'Title' },
+  { text: 'What to order', style: 'Heading2' },
+  { text: 'Order by the end of January, so the early sowings arrive in time.' },
+  { text: 'Broad beans, Aquadulce', list: true },
+  { text: 'Tomatoes, Gardener’s Delight & Sungold', list: true },
+  { table: [['Crop', 'Packets', 'Sow from'], ['Broad beans', '2', 'November'], ['Tomatoes', '1', 'March']] },
+];
+export const SAMPLE_GEM = {
+  source: 'gem',
+  name: 'Allotment Planner',
+  description: 'Plans a small vegetable plot month by month and answers pest and sowing questions.',
+  instructions: [
+    'You are Allotment Planner, a practical guide for people with one small vegetable plot.',
+    '',
+    'How to answer:',
+    '- Ask for the plot size, the region and what is already growing before making a plan.',
+    '- Use sowing-calendar.csv for sowing months and plot-notes.md for the plot\'s beds.',
+    '- Give one job for this week first, then the month\'s other jobs.',
+    '- For a pest, name the likely culprit first and one organic fix.',
+    '',
+    'Keep answers under 150 words unless the gardener asks for a full plan.',
+  ].join('\n'),
+  gemTools: ['canvas'],
+};
+export function sampleGemFiles() {
+  return [
+    { name: 'sowing-calendar.csv', type: 'text/csv', bytes: strToU8('crop,sow_indoors,sow_outdoors,harvest\nbroad beans,,November or March,June to July\ntomatoes,March,,July to September\ncarrots,,April to June,July to October\n') },
+    { name: 'plot-notes.md', type: 'text/markdown', bytes: strToU8('# Plot notes (made up)\n\n- Bed 1: brassicas, netted.\n- Bed 2: roots, no manure this year.\n- Bed 3: beans and peas, canes stay up.\n') },
+    { name: 'seed-order.docx', type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', bytes: docxBytes(SAMPLE_GEM_DOCX) },
+    { name: 'plot-map.pdf', type: 'application/pdf', bytes: strToU8(PDF.replace('(Bake log, made up sample)', '(Plot map, made up sample)'), true) },
+    // stand-ins with made-up bytes, for the kinds of file Google's move from Gems to skills leaves out
+    { name: 'walk-round-voice-note.m4a', type: 'audio/mp4', bytes: new Uint8Array(4096).map((_, i) => (i * 13) & 255) },
+    { name: 'old-plot-plan.doc', type: 'application/msword', bytes: new Uint8Array([0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1, 0, 0, 0, 0, 7, 7, 7, 7]) },
+  ];
+}
+/** every sample file, GPT and Gem, by name (the worker looks the sample's files up by name) */
+export const allSampleFiles = () => sampleFiles().concat(sampleGemFiles());
 
 /* ---- the made-up export ---- */
 let n = 0;

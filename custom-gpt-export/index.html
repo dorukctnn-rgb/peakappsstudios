@@ -443,6 +443,7 @@ body.sc {
 .sc-warn { margin: 4px 0 0; font-size: 15px; color: var(--warn); border-left: 3px solid var(--tag); padding: 2px 0 2px 10px; }
 .sc-caps { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 8px 18px; }
 .sc-caps legend { margin-bottom: 6px; }
+.sc-caps > .sc-meta { grid-column: 1 / -1; }
 .sc-caps label { display: flex; gap: 10px; align-items: center; font-size: 16px; min-height: 40px; }
 .sc-caps input, .sc-pick input { width: 20px; height: 20px; accent-color: #12142e; flex: none; }
 .sc-drop { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; border: 2px dashed var(--line-2); border-radius: 12px; padding: 16px; transition: border-color .15s, background .15s; }
@@ -455,6 +456,7 @@ body.sc {
 .sc .sc-remove { min-height: 40px; padding: 8px 12px; font-size: 15px; }
 .sc-chip { display: inline-block; font-size: 13.5px; font-weight: 700; line-height: 1.3; border-radius: 999px; padding: 3px 10px; white-space: nowrap; }
 .sc-chip-warn { background: #fff1ec; color: #8a2f12; border: 1px solid #ffc9b8; white-space: normal; }
+.sc-chip-note { background: #e6e9ff; color: #12142e; border: 1px solid #b9c1ff; white-space: normal; }
 .sc-action { border: 1px solid var(--line-2); border-radius: 12px; padding: 12px 14px 14px; margin: 4px 0 12px; display: grid; gap: 8px; background: var(--paper-2); min-width: 0; }
 .sc-action-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
 .sc-two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 10px; }
@@ -555,11 +557,26 @@ body.sc {
 @media (prefers-reduced-motion: no-preference) { .sc-tag { animation: sc-swing 900ms cubic-bezier(.2, .7, .2, 1) 1; transform-origin: 50% 0; } }
 @keyframes sc-swing { 0% { transform: rotate(-3deg); } 55% { transform: rotate(1.2deg); } 100% { transform: rotate(0); } }
 @media print { .sc-band::before { display: none; } }
+
+/* ---------- what is packed: a custom GPT or a Gemini Gem (two tags to pick from) ---------- */
+.sc-mode { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; border: 0; padding: 0; margin: 0; min-width: 0; }
+.sc-mode legend { font-family: var(--head); font-size: 21px; letter-spacing: -0.02em; color: var(--ink); margin: 0 0 12px; padding: 0; }
+.sc-mode label { display: flex; gap: 12px; align-items: flex-start; background: var(--card); border: 1.5px solid var(--line-2); border-radius: 12px; padding: 14px 14px 16px; cursor: pointer; min-width: 0; min-height: 48px; }
+.sc-mode label > span { display: grid; gap: 3px; min-width: 0; }
+.sc-mode strong { font-size: 17.5px; color: var(--ink); }
+.sc-mode label > span > span { font-size: 15px; color: var(--muted); }
+.sc-mode input { width: 20px; height: 20px; margin: 3px 0 0; accent-color: #12142e; flex: none; }
+.sc-mode label:has(input:checked) { border-color: var(--ink); box-shadow: inset 0 -6px 0 var(--tag); }
+.sc-mode label:has(input:focus-visible) { outline: 3px solid var(--tag); outline-offset: 2px; }
+@media (max-width: 520px) { .sc-mode { grid-template-columns: minmax(0, 1fr); } }
+body.sc[data-mode="gem"] .sc-only-gpt, body.sc:not([data-mode="gem"]) .sc-only-gem { display: none !important; }
+.sc-sample-row { margin: 12px 0 0; }
+.sc-band .sc-gem-line { margin-top: 10px; }
 </style>
 <script src="/assets/site.js" defer></script>
 <script type="module" src="/custom-gpt-export/js/app.js"></script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/custom-gpt-export/#app","name":"Skillcase","alternateName":"Custom GPT export","url":"https://peakappsstudio.com/custom-gpt-export/","description":"Save a custom GPT before OpenAI retires GPTs on December 11, 2026: instructions, files, action schemas and chats, as a backup and a skill for Claude and Gemini.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","inLanguage":"en","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Custom GPT export","item":"https://peakappsstudio.com/custom-gpt-export/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"When are custom GPTs retired?","acceptedAnswer":{"@type":"Answer","text":"OpenAI's retirement FAQ gives December 11, 2026 as the standard retirement date. FedRAMP workspaces and affected Enterprise workspaces with an approved deferral have until February 11, 2027. OpenAI says the dates may change."}},{"@type":"Question","name":"Does the ChatGPT data export include my GPT's instructions?","acceptedAnswer":{"@type":"Answer","text":"OpenAI's help page on exporting describes your chat history and account data and does not list GPT settings. Copy the name, description, instructions and conversation starters from the GPT editor, and keep your own copies of the knowledge files."}},{"@type":"Question","name":"What happens to my chats with a GPT?","acceptedAnswer":{"@type":"Answer","text":"OpenAI's retirement FAQ says existing conversations with custom GPTs stay accessible after retirement. They do not move into a plugin, so a ChatGPT data export is how you keep a copy outside ChatGPT. Skillcase finds those chats in the export and saves them as Markdown."}},{"@type":"Question","name":"Can I save a GPT that someone else made?","acceptedAnswer":{"@type":"Answer","text":"You can copy instructions and files only from a GPT whose editor you can open, which usually means one you made. For someone else's GPT, OpenAI's guide says to ask its creator or a workspace admin to migrate it. Your own chats with it are in your ChatGPT data export, and Skillcase can save those."}},{"@type":"Question","name":"What happens to custom actions?","acceptedAnswer":{"@type":"Answer","text":"OpenAI says GPT custom actions do not transfer through its migration and need rebuilding with a supported connector or a custom MCP server. Skillcase keeps each action's OpenAPI schema with a list of its operations, so whoever rebuilds it starts from the real schema."}},{"@type":"Question","name":"Is anything uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. The page reads your text, files and export on your own device and builds the ZIP files there. Nothing is sent or stored, and Skillcase never asks for your OpenAI password."}},{"@type":"Question","name":"Is Skillcase made by OpenAI?","acceptedAnswer":{"@type":"Answer","text":"No. Skillcase is an independent tool by Peak Apps Studio and is not affiliated with OpenAI, Anthropic, Google or Ollama."}}]}]}
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/custom-gpt-export/#app","name":"Skillcase","alternateName":"Custom GPT export","url":"https://peakappsstudio.com/custom-gpt-export/","description":"Save a custom GPT before OpenAI retires GPTs on December 11, 2026: instructions, files, action schemas and chats, as a backup and a skill for Claude and Gemini. It packs a Gemini Gem too, and marks the files Google's move from Gems to skills leaves behind.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","inLanguage":"en","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Custom GPT export","item":"https://peakappsstudio.com/custom-gpt-export/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"When are custom GPTs retired?","acceptedAnswer":{"@type":"Answer","text":"OpenAI's retirement FAQ gives December 11, 2026 as the standard retirement date. FedRAMP workspaces and affected Enterprise workspaces with an approved deferral have until February 11, 2027. OpenAI says the dates may change."}},{"@type":"Question","name":"Does the ChatGPT data export include my GPT's instructions?","acceptedAnswer":{"@type":"Answer","text":"OpenAI's help page on exporting describes your chat history and account data and does not list GPT settings. Copy the name, description, instructions and conversation starters from the GPT editor, and keep your own copies of the knowledge files."}},{"@type":"Question","name":"What happens to my chats with a GPT?","acceptedAnswer":{"@type":"Answer","text":"OpenAI's retirement FAQ says existing conversations with custom GPTs stay accessible after retirement. They do not move into a plugin, so a ChatGPT data export is how you keep a copy outside ChatGPT. Skillcase finds those chats in the export and saves them as Markdown."}},{"@type":"Question","name":"Can I save a GPT that someone else made?","acceptedAnswer":{"@type":"Answer","text":"You can copy instructions and files only from a GPT whose editor you can open, which usually means one you made. For someone else's GPT, OpenAI's guide says to ask its creator or a workspace admin to migrate it. Your own chats with it are in your ChatGPT data export, and Skillcase can save those."}},{"@type":"Question","name":"What happens to custom actions?","acceptedAnswer":{"@type":"Answer","text":"OpenAI says GPT custom actions do not transfer through its migration and need rebuilding with a supported connector or a custom MCP server. Skillcase keeps each action's OpenAPI schema with a list of its operations, so whoever rebuilds it starts from the real schema."}},{"@type":"Question","name":"Is anything uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. The page reads your text, files and export on your own device and builds the ZIP files there. Nothing is sent or stored, and Skillcase never asks for your OpenAI password."}},{"@type":"Question","name":"Can Skillcase pack a Gemini Gem?","acceptedAnswer":{"@type":"Answer","text":"Yes. Choose \"A Gemini Gem\" above the form, paste the Gem's name, description and instructions, and add its knowledge files. Skillcase marks the files Google's own move to skills leaves out (audio, video, .doc, .xls, .ppt and archives, and the largest files above 100 MB), keeps every file in the backup, and turns Word (.docx) files into text for the Gemini skill. See what happens to Gems."}},{"@type":"Question","name":"Is Skillcase made by OpenAI?","acceptedAnswer":{"@type":"Answer","text":"No. Skillcase is an independent tool by Peak Apps Studio and is not affiliated with OpenAI, Anthropic, Google or Ollama."}}]}]}
 </script>
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
 </head>
@@ -578,6 +595,7 @@ body.sc {
       <a class="sc-wide" href="/custom-gpt-export/custom-gpt-to-gemini/">To Gemini</a>
       <a class="sc-wide" href="/custom-gpt-export/save-custom-gpt-chats/">Save chats</a>
       <a class="sc-wide" href="/custom-gpt-export/migrate-to-plugin/">To a plugin</a>
+      <a class="sc-wide" href="/custom-gpt-export/gemini-gems-going-away/">Gemini Gems</a>
       <a class="sc-narrow" href="#guides">Guides</a>
     </nav>
   </div>
@@ -593,7 +611,8 @@ body.sc {
 <p class="lede">OpenAI's standard retirement date for custom GPTs is December 11, 2026. Paste your GPT's setup here, add its knowledge files and your ChatGPT export, and keep all of it: a backup you can open anywhere, a skill for Claude, Gemini and ChatGPT, and your chats with the GPT.</p>
 <p class="sc-deadline">Custom GPTs retire on December 11, 2026</p>
 <p class="sc-small">Some Enterprise and FedRAMP workspaces have until February 11, 2027. <a href="/custom-gpt-export/custom-gpts-going-away/">What OpenAI says, with sources</a>.</p>
-<p class="sc-indep">Skillcase is an independent tool by Peak Apps Studio. Not affiliated with OpenAI.</p>
+<p class="sc-small sc-gem-line">Packing a Gemini Gem instead? Google makes Gems on personal accounts read-only on November 17, 2026. <a href="/custom-gpt-export/?from=gem#tool" data-mode-link="gem">Pack a Gem</a>, or see <a href="/custom-gpt-export/gemini-gems-going-away/">what Google's move leaves behind</a>.</p>
+<p class="sc-indep">Skillcase is an independent tool by Peak Apps Studio. Not affiliated with OpenAI or Google.</p>
 </div>
 <div class="sc-tag" aria-labelledby="tag-h">
 <span class="sc-tag-hole" aria-hidden="true"></span>
@@ -627,9 +646,16 @@ body.sc {
 <div class="wrap sc-tool-grid">
 <div class="sc-forms">
 
+<fieldset class="sc-mode" id="mode">
+<legend>What are you packing?</legend>
+<label><input type="radio" name="mode" value="gpt" checked><span><strong>A custom GPT</strong><span>ChatGPT. Retires December 11, 2026</span></span></label>
+<label><input type="radio" name="mode" value="gem"><span><strong>A Gemini Gem</strong><span>Gemini. Read-only from November 17, 2026</span></span></label>
+</fieldset>
+
 <form class="sc-card" id="your-gpt" autocomplete="off" aria-labelledby="gpt-h" novalidate>
-<h2 id="gpt-h" tabindex="-1">Your GPT's setup</h2>
-<p class="sc-hint">In ChatGPT, open My GPTs, choose your GPT's edit button and open Configure. Copy each box into the matching box here. <span class="sc-sample-tag" id="sample-tag" hidden>Sample GPT, made up by Skillcase</span></p>
+<h2 id="gpt-h" tabindex="-1" data-gem="Your Gem's setup">Your GPT's setup</h2>
+<p class="sc-hint"><span data-gem="In Gemini, open Gems, then choose Edit next to your Gem. Copy each box into the matching box here.">In ChatGPT, open My GPTs, choose your GPT's edit button and open Configure. Copy each box into the matching box here.</span> <span class="sc-sample-tag" id="sample-tag" hidden data-gem="Sample Gem, made up by Skillcase">Sample GPT, made up by Skillcase</span></p>
+<p class="sc-only-gem sc-sample-row"><button type="button" class="btn sc-quiet" id="btn-sample-gem">Try the sample Gem</button></p>
 <div class="sc-field"><label for="f-name">Name</label><input class="input" id="f-name" name="name" maxlength="200" spellcheck="false"></div>
 <div class="sc-field"><label for="f-desc">Description</label><input class="input" id="f-desc" name="description" maxlength="2000"></div>
 <div class="sc-field">
@@ -638,41 +664,63 @@ body.sc {
 <p class="sc-meta"><span id="instr-count" aria-live="polite">0 characters</span><span id="instr-hint">Paste them exactly: line breaks and Markdown are kept as they are.</span></p>
 <p class="sc-warn" id="instr-long" hidden>These instructions run past 500 lines. The Agent Skills specification suggests keeping SKILL.md under 500 lines; the skill still works, but consider moving long reference parts into a knowledge file.</p>
 </div>
-<div class="sc-field">
+<div class="sc-field sc-only-gpt">
 <label for="f-starters">Conversation starters <span class="sc-opt">one per line</span></label>
 <textarea class="input" id="f-starters" name="starters" rows="4"></textarea>
 </div>
-<fieldset class="sc-field sc-caps">
+<fieldset class="sc-field sc-caps sc-only-gpt">
 <legend>Capabilities that were on</legend>
 <label><input type="checkbox" name="cap" value="web"> Web search</label>
 <label><input type="checkbox" name="cap" value="image"> Image generation</label>
 <label><input type="checkbox" name="cap" value="code"> Code Interpreter and data analysis</label>
 <label><input type="checkbox" name="cap" value="canvas"> Canvas</label>
 </fieldset>
+<fieldset class="sc-field sc-caps sc-only-gem" aria-describedby="tools-hint">
+<legend>Gemini tools the Gem used</legend>
+<label><input type="checkbox" name="gemtool" value="canvas"> Canvas</label>
+<label><input type="checkbox" name="gemtool" value="deep-research"> Deep Research</label>
+<label><input type="checkbox" name="gemtool" value="video"> Create video</label>
+<label><input type="checkbox" name="gemtool" value="music"> Create music</label>
+<label><input type="checkbox" name="gemtool" value="guided-learning"> Guided learning</label>
+<p class="sc-meta" id="tools-hint">Google says these Gem tools do not work with skills for now. Ticking one notes it in the skill and the backup.</p>
+</fieldset>
 <div class="sc-field">
 <p class="sc-label" id="files-h">Knowledge files</p>
-<p class="sc-hint">Add your own copies of the files you uploaded to the GPT. OpenAI's help pages do not describe downloading them back from the GPT editor, so start from the copies on your computer.</p>
+<p class="sc-hint sc-only-gpt">Add your own copies of the files you uploaded to the GPT. OpenAI's help pages do not describe downloading them back from the GPT editor, so start from the copies on your computer.</p>
+<p class="sc-hint sc-only-gem">In the Gem's editor, click each file under Knowledge, then Download at the top, as Google's own steps say. Add the downloaded files here. A file you linked from Google Drive stays in your Drive; add a copy if you want it in the backup.</p>
 <div class="sc-drop" id="files-drop" role="group" aria-labelledby="files-h">
 <button type="button" class="btn sc-quiet" id="btn-files">Add files</button>
 <span class="sc-small">or drop them here</span>
 <input type="file" id="files-input" class="sr-only" tabindex="-1" aria-hidden="true" multiple>
 </div>
 <ul class="sc-files" id="files-list"></ul>
+<p class="sc-warn sc-only-gem" id="moved-note" hidden></p>
 </div>
-<div class="sc-field">
+<div class="sc-field sc-only-gpt">
 <p class="sc-label">Actions</p>
 <p class="sc-hint">In the GPT editor, open each action and copy its Schema box. Do not paste API keys or tokens: they are not part of the schema, and a backup should never hold them.</p>
 <div id="actions"></div>
 <button type="button" class="btn sc-quiet sc-add" id="btn-action">Add an action</button>
 </div>
-<div class="sc-field">
+<div class="sc-field sc-only-gpt">
 <label for="f-link">The GPT's link <span class="sc-opt">optional</span></label>
 <input class="input" id="f-link" name="link" inputmode="url" spellcheck="false" placeholder="https://chatgpt.com/g/g-...">
 <p class="sc-meta"><span id="link-hint">Saved in gpt.json, and used to find this GPT's chats in your export.</span></p>
 </div>
 </form>
 
-<section class="sc-card" id="chats" aria-labelledby="chats-h">
+<section class="sc-card sc-only-gem" id="gem-google" aria-labelledby="gg-h">
+<h2 id="gg-h">Keep Google's own copy too</h2>
+<p class="sc-hint">Your chats with a Gem are not part of the Gem. Google Takeout can send you both: its "Gemini" item holds your Gems data, and your Gemini chats are under My Activity.</p>
+<ol class="sc-steps">
+<li><span>Go to takeout.google.com, signed in to the account you use for Gemini, and choose Deselect all.</span></li>
+<li><span>Tick "Gemini" for your Gems data. For your chats, tick "My Activity", open "All activity data included", choose Deselect all, tick "Gemini Apps" and click OK.</span></li>
+<li><span>Choose Next step, then Create export. Google says it can take from a few hours to a few days, and an emailed link works for 7 days.</span></li>
+</ol>
+<p class="sc-small">Google's help page does not describe the layout of the Gems data in the archive, so Skillcase does not read it. Keep the archive next to your backup. Source: Google, <a href="https://support.google.com/gemini/answer/16920332" rel="nofollow noopener">Download your Gemini Apps data</a>, checked October 27, 2026.</p>
+</section>
+
+<section class="sc-card sc-only-gpt" id="chats" aria-labelledby="chats-h">
 <h2 id="chats-h" tabindex="-1">Your chats with the GPT</h2>
 <p class="sc-hint">In ChatGPT, open Settings, then Data controls, then Export data. OpenAI emails a link to a ZIP file; open that ZIP here as it is. Skillcase reads only the conversations file inside it and finds the chats you had with each GPT.</p>
 <div class="sc-drop" id="chats-drop" role="group" aria-labelledby="chats-h">
@@ -696,7 +744,7 @@ body.sc {
 <ul class="sc-manifest" id="manifest"></ul>
 <div class="sc-dl">
 <button type="button" class="btn btn-primary" id="dl-backup" data-kind="backup">Download the backup</button>
-<p class="sc-small">One ZIP with everything below, a README and gpt.json.</p>
+<p class="sc-small" data-gem="One ZIP with everything below, every file you added, a README and gem.json.">One ZIP with everything below, a README and gpt.json.</p>
 <button type="button" class="btn sc-quiet" id="dl-claude" data-kind="claude">Skill for Claude and ChatGPT</button>
 <button type="button" class="btn sc-quiet" id="dl-gemini" data-kind="gemini">Skill for Gemini</button>
 <button type="button" class="btn sc-quiet" id="dl-project">Copy the Claude project instructions</button>
@@ -729,6 +777,25 @@ body.sc {
 </div>
 </section>
 
+<section class="sc-section" id="gem-parts" aria-labelledby="gem-parts-h">
+<div class="wrap sc-prose">
+<h2 id="gem-parts-h">Where each part of a Gem is</h2>
+<p>Google turns Gems into skills on its own, but its move leaves some files and tools behind. A Gem is a name, a description, instructions, knowledge files and the Gemini tools it was set to use. Copy them from the Gem's editor while you still can: on personal accounts Gems become read-only on November 17, 2026 and are removed on December 17, 2026.</p>
+<div class="table-wrap"><table>
+<caption>What to copy from a Gem, where it is in Gemini, and what Google's move does with it</caption>
+<thead><tr><th scope="col">Part</th><th scope="col">Where it is in Gemini</th><th scope="col">Google's move to skills</th></tr></thead>
+<tbody>
+<tr><td>Name, description, instructions</td><td data-label="Where it is in Gemini">Gems, then Edit next to the Gem</td><td data-label="Google's move to skills">Carried over</td></tr>
+<tr><td>Knowledge files</td><td data-label="Where it is in Gemini">Edit, Knowledge: click each file, then Download</td><td data-label="Google's move to skills">Carried over, except audio, video, .doc, .xls, .ppt, archives and GitHub files. Above 100 MB, the largest files are removed first</td></tr>
+<tr><td>Files from Google Drive</td><td data-label="Where it is in Gemini">In your Drive: the Gem uses the latest version</td><td data-label="Google's move to skills">Google says adding Drive files to skills is coming "in the coming weeks"</td></tr>
+<tr><td>Gemini tools (Canvas, Deep Research, Create video, Create music, Guided learning)</td><td data-label="Where it is in Gemini">The Gem's settings</td><td data-label="Google's move to skills">Google says these do not work with skills for now</td></tr>
+<tr><td>Your chats with the Gem</td><td data-label="Where it is in Gemini">Google Takeout, My Activity, Gemini Apps</td><td data-label="Google's move to skills">Not part of a skill</td></tr>
+</tbody></table></div>
+<div class="sc-callout"><p>Google says skills need you to be 18 or over with Keep Activity on, while Gems were open from age 13 (or the age that applies in your country). If you are under 18, Google says your Gems move to skills at a later date.</p></div>
+<p class="sc-source">Sources: Google, <a href="https://support.google.com/gemini/answer/18560919" rel="nofollow noopener">About the transition from Gems to skills</a>, <a href="https://support.google.com/gemini/answer/15146780" rel="nofollow noopener">Use Gems in Gemini Apps</a>, <a href="https://support.google.com/gemini/answer/17094296" rel="nofollow noopener">Create and manage skills for Gemini Apps</a> and <a href="https://support.google.com/gemini/answer/16920332" rel="nofollow noopener">Download your Gemini Apps data</a>. Last checked: October 27, 2026. Not affiliated with Google.</p>
+</div>
+</section>
+
 <section class="sc-section sc-alt" id="formats" aria-labelledby="formats-h">
 <div class="wrap sc-prose">
 <h2 id="formats-h">Which file goes where</h2>
@@ -739,11 +806,11 @@ body.sc {
 <tbody>
 <tr><td>Claude</td><td data-label="File">Skill for Claude and ChatGPT (ZIP)</td><td data-label="How to add it">Customize, Skills, +, Create skill, Upload a skill. Anthropic says skills are on every plan, Free included, and need code execution turned on.</td></tr>
 <tr><td>Claude project</td><td data-label="File">The copied instructions and your knowledge files</td><td data-label="How to add it">Create a project, paste the instructions, upload the files to its knowledge. Anthropic says free accounts can have up to five projects.</td></tr>
-<tr><td>Gemini</td><td data-label="File">Skill for Gemini (ZIP)</td><td data-label="How to add it">Create a skill by uploading it. Google says you need to be 18 or over with Keep Activity on, and skills take plain-text files up to 100 MB in total.</td></tr>
+<tr><td>Gemini</td><td data-label="File">Skill for Gemini (ZIP)</td><td data-label="How to add it">Customize, Skills, Create, Upload. Google says you need to be 18 or over with Keep Activity on, and skills take plain-text files, PDFs and images, up to 100 MB in total. Skillcase turns Word (.docx) files into text for it.</td></tr>
 <tr><td>ChatGPT</td><td data-label="File">The skill folder in the backup</td><td data-label="How to add it">OpenAI's skills follow the same Agent Skills format; standalone skills are in the ChatGPT desktop app and Codex.</td></tr>
 <tr><td>Ollama</td><td data-label="File">Modelfile</td><td data-label="How to add it">Set FROM to a model you have pulled, then run ollama create with the file.</td></tr>
 </tbody></table></div>
-<div class="sc-callout"><p>Gemini Gems are being retired too. Google says Gems on personal accounts become read-only on November 17, 2026 and are removed on December 17, 2026, as they turn into skills. That is why Skillcase makes a Gemini skill, not a Gem.</p></div>
+<div class="sc-callout"><p>Gemini Gems are being retired too. Google says Gems on personal accounts become read-only on November 17, 2026 and are removed on December 17, 2026, as they turn into skills. That is why Skillcase makes a Gemini skill, not a Gem. Have a Gem of your own? <a href="/custom-gpt-export/?from=gem#tool" data-mode-link="gem">Pack it here</a> and see which of its files Google's move leaves behind.</p></div>
 <p class="sc-source">Sources: <a href="https://agentskills.io/specification" rel="nofollow noopener">Agent Skills specification</a>; OpenAI, <a href="https://learn.chatgpt.com/docs/build-skills" rel="nofollow noopener">Build skills</a>; Anthropic, <a href="https://support.claude.com/en/articles/12512180-using-skills-in-claude" rel="nofollow noopener">Using Skills in Claude</a> and <a href="https://support.claude.com/en/articles/9517075-what-are-projects" rel="nofollow noopener">What are projects?</a>; Google, <a href="https://support.google.com/gemini/answer/17094296" rel="nofollow noopener">Create and manage skills for Gemini Apps</a> and <a href="https://support.google.com/gemini/answer/18560919" rel="nofollow noopener">About the transition from Gems to skills</a>; Ollama, <a href="https://github.com/ollama/ollama/blob/main/docs/modelfile.mdx" rel="nofollow noopener">Modelfile reference</a>. Last checked: October 27, 2026.</p>
 </div>
 </section>
@@ -758,6 +825,7 @@ body.sc {
 <details><summary>Can I save a GPT that someone else made?</summary><p>You can copy instructions and files only from a GPT whose editor you can open, which usually means one you made. For someone else's GPT, OpenAI's guide says to ask its creator or a workspace admin to migrate it. Your own chats with it are in your ChatGPT data export, and Skillcase can save those.</p></details>
 <details><summary>What happens to custom actions?</summary><p>OpenAI says GPT custom actions do not transfer through its migration and need rebuilding with a supported connector or a custom MCP server. Skillcase keeps each action's OpenAPI schema with a list of its operations, so whoever rebuilds it starts from the real schema.</p></details>
 <details><summary>Is anything uploaded?</summary><p>No. The page reads your text, files and export on your own device and builds the ZIP files there. Nothing is sent or stored, and Skillcase never asks for your OpenAI password.</p></details>
+<details><summary>Can Skillcase pack a Gemini Gem?</summary><p>Yes. Choose "A Gemini Gem" above the form, paste the Gem's name, description and instructions, and add its knowledge files. Skillcase marks the files Google's own move to skills leaves out (audio, video, .doc, .xls, .ppt and archives, and the largest files above 100 MB), keeps every file in the backup, and turns Word (.docx) files into text for the Gemini skill. See <a href="/custom-gpt-export/gemini-gems-going-away/">what happens to Gems</a>.</p></details>
 <details><summary>Is Skillcase made by OpenAI?</summary><p>No. Skillcase is an independent tool by Peak Apps Studio and is not affiliated with OpenAI, Anthropic, Google or Ollama.</p></details>
 </div>
 </div>
@@ -765,13 +833,16 @@ body.sc {
 
 <section class="sc-section sc-alt" aria-labelledby="more-h">
 <div class="wrap">
-<h2 id="more-h">More about the GPT retirement</h2>
+<h2 id="more-h">More about the GPT and Gem retirements</h2>
 <div class="sc-related">
 <a href="/custom-gpt-export/custom-gpts-going-away/">Are custom GPTs going away?<span>The dates, what stops and what stays, from OpenAI's own pages</span></a>
 <a href="/custom-gpt-export/custom-gpt-to-claude/">Move a custom GPT to Claude<span>As a skill or as a project, step by step</span></a>
 <a href="/custom-gpt-export/custom-gpt-to-gemini/">Move a custom GPT to Gemini<span>Why a skill and not a Gem, and the file rules</span></a>
 <a href="/custom-gpt-export/save-custom-gpt-chats/">Save your custom GPT chats<span>Find a GPT's chats in the ChatGPT export</span></a>
 <a href="/custom-gpt-export/migrate-to-plugin/">Migrate a custom GPT to a plugin<span>What moves, what does not, and what to keep first</span></a>
+<a href="/custom-gpt-export/gemini-gems-going-away/">Are Gemini Gems going away?<span>Google's dates, and what its move to skills leaves behind</span></a>
+<a href="/custom-gpt-export/export-gemini-gems/">Export a Gemini Gem<span>Its instructions, its files and Google Takeout</span></a>
+<a href="/custom-gpt-export/gemini-gem-to-claude-chatgpt/">A Gemini Gem in Claude or ChatGPT<span>The equivalent in each, and how to move one</span></a>
 </div>
 </div>
 </section>
@@ -789,8 +860,8 @@ body.sc {
   <div class="wrap cols">
     <div>
       <p class="sc-foot-brand">Skillcase</p>
-      <p class="sc-foot-text">Pack a custom GPT before it retires: its instructions, knowledge files, action schemas and chats, as a backup and as a skill for Claude, Gemini and ChatGPT. Everything is packed on your own device and never uploaded.</p>
-      <p class="sc-foot-text">Skillcase is an independent tool by <a href="https://peakappsstudio.com/">Peak Apps Studio</a>. Not affiliated with OpenAI, Anthropic, Google or Ollama. ChatGPT, GPTs, Claude and Gemini are trademarks of their owners, named here only to say which files the tool reads and writes.</p>
+      <p class="sc-foot-text">Pack a custom GPT or a Gemini Gem before it retires: its instructions, knowledge files, action schemas and chats, as a backup and as a skill for Claude, Gemini and ChatGPT. Everything is packed on your own device and never uploaded.</p>
+      <p class="sc-foot-text">Skillcase is an independent tool by <a href="https://peakappsstudio.com/">Peak Apps Studio</a>. Not affiliated with OpenAI, Anthropic, Google or Ollama. ChatGPT, GPTs, Claude, Gemini and Gems are trademarks of their owners, named here only to say which files the tool reads and writes.</p>
     </div>
     <div>
       <h2>Guides</h2>
@@ -801,6 +872,9 @@ body.sc {
         <li><a href="/custom-gpt-export/custom-gpt-to-gemini/">Move a custom GPT to Gemini</a></li>
         <li><a href="/custom-gpt-export/save-custom-gpt-chats/">Save your custom GPT chats</a></li>
         <li><a href="/custom-gpt-export/migrate-to-plugin/">Migrate a custom GPT to a plugin</a></li>
+        <li><a href="/custom-gpt-export/gemini-gems-going-away/">Are Gemini Gems going away?</a></li>
+        <li><a href="/custom-gpt-export/export-gemini-gems/">Export a Gemini Gem</a></li>
+        <li><a href="/custom-gpt-export/gemini-gem-to-claude-chatgpt/">A Gemini Gem in Claude or ChatGPT</a></li>
       </ul>
     </div>
     <div>
