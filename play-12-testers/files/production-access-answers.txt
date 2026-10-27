@@ -1,0 +1,156 @@
+DAY14: PRODUCTION ACCESS ANSWER DRAFTS (Google Play, personal developer accounts)
+https://peakappsstudio.com/play-12-testers/production-access-answers/
+
+How to use this. Open the live form first: its questions and choices can differ from this file. Replace every {brace} with a fact from
+your own log. If you cannot, leave the claim out. Keep each text answer under 300 characters. The examples are adapted from the
+answers we sent for two of our own apps on 26 October 2026; Google had not replied when this was written. Nothing here is a promise
+that an application is approved: Google decides.
+Day14 is an independent kit by Peak Apps Studio and is not affiliated with Google.
+
+------------------------------------------------------------------------------
+1. HOW YOU FOUND THE TESTERS
+The form asks: How did you recruit testers for your closed test?
+Include: The channels you really used, who the testers are, and whether you paid anyone.
+
+Frame:
+We invited testers through {the channels you really used}. Many testers are {who they really are}. We {used no / used a} paid testing service.
+
+Example, adapted from our application:
+We invited testers through Google Groups test communities linked to the closed track, our own Google Group, developer testing groups on Facebook and Telegram, a peer-testing app and test-for-test swaps. Many testers are therefore developers and hobbyists. We used no paid testing service.
+
+Careful: Do not write "real users" or "friends and family" if the testers are other developers. Say who they are.
+
+Your answer:
+
+
+------------------------------------------------------------------------------
+2. HOW EASY IT WAS
+The form asks: How easy was it to recruit testers for your closed test?
+Include: A choice, not a text box. Pick the one your own log supports.
+
+Choices on our form (26 October 2026): Very difficult / Difficult / Neither easy nor difficult / Easy / Very easy
+These were the five choices on our form on 26 October 2026. Our draft had said "Somewhat easy", which the form did not offer, so open the live form before you decide. We picked Easy, because 12 testers had opted in by the second day.
+
+Your choice:
+
+
+------------------------------------------------------------------------------
+3. HOW THE TESTERS USED THE APP
+The form asks: Describe the engagement you received from testers during your closed test.
+Include: Google's page adds three parts to this question: whether testers used all the features, whether their use looked like real production use, and how it differed. Answer all three in one box.
+
+Frame:
+Google's counter shows 12 testers opted in for 14 days without a break. We asked them to {task 1}, {task 2} and {task 3}; {number} sent reports. Many are {who they really are}; we expect real {your audience} to {how they will really use it}.
+
+Example, adapted from our application:
+Google's counter shows 12 testers opted in for 14 days without a break. We asked them to finish the first lesson, make one deliberate mistake and change one setting; two sent reports. Many are developers; we expect real students to practise a few minutes daily for weeks.
+
+Careful: Do not give per-person usage numbers you cannot see. Console does not show them, and a made-up figure is the one thing in this form that can be checked against you.
+
+Your answer:
+
+
+------------------------------------------------------------------------------
+4. THE FEEDBACK YOU GOT
+The form asks: Provide a summary of the feedback that you received from testers and explain how you collected it.
+Include: The channels that really produced reports, how many reports came in, what each said and what you did about it.
+
+Frame:
+We collected feedback by {the channels that really produced reports}. {Number} reports came in: {report 1}; {report 2}. {What you did about each}.
+
+Example, adapted from our application:
+We collected feedback by email and from replies in the group threads; Play's private tester feedback stayed empty. Two reports: the welcome screen opened in English on a Turkish phone, and Play showed "Item not found" on an x86 emulator (we replied).
+
+Careful: If Play's testing feedback page in Console is empty, do not say testers used it. Ours was empty, our first draft said otherwise, and we corrected it before sending. One report with a real fix is worth more than five invented ones.
+
+Your answer:
+
+
+------------------------------------------------------------------------------
+5. WHO THE APP IS FOR
+The form asks: Who is the intended audience of your app?
+Include: One sentence about the people, their age range and what they do. It has to agree with your Target audience declaration.
+
+Frame:
+{Who} aged {age range} who {what they do}. This matches the Target audience declaration in Play Console ({the age groups you ticked}).
+
+Example, adapted from our application:
+Adults aged 18 and over who record videos, present or give talks: creators, teachers, students and speakers who want a script that scrolls with their voice. This matches the Target audience declaration in Play Console (18 and over only).
+
+Careful: Do not name an age group you did not tick in Target audience. Open that page and copy the groups.
+
+Your answer:
+
+
+------------------------------------------------------------------------------
+6. WHAT THE APP GIVES PEOPLE
+The form asks: Describe how your app provides value to users.
+Include: What it is, the one thing it does, what a person gets in the first minute, and what is free.
+
+Frame:
+It is a {what it is} that {the one thing it does}. {What a person gets in the first minute}. The core is {free / paid}; {offline / no account / no ads, only the facts that are true}.
+
+Example, adapted from our application:
+It is a teleprompter that listens and scrolls the script as you read aloud. Record a short take with the camera, then see a delivery report with pace, pauses and filler words. The core is free; voice follow runs on the phone (Android 13 and up). No ads, no account.
+
+Careful: No superlatives. Say what it does, in the order a new user meets it.
+
+Your answer:
+
+
+------------------------------------------------------------------------------
+7. INSTALLS YOU EXPECT IN THE FIRST YEAR
+The form asks: How many installs do you expect your app to have in your first year?
+Include: A choice. Pick the band you could defend if asked.
+
+Choices on our form (26 October 2026): 0 to 10K / 10K to 100K / 100K to 1M / 1M+ / I don't know
+These were the choices on our form. A new app with no advertising budget belongs in the first band, and we chose it. Our draft had a more precise estimate that the form had no room for.
+
+Your choice:
+
+
+------------------------------------------------------------------------------
+8. WHAT YOU CHANGED BECAUSE OF THE TEST
+The form asks: What changes did you make to your app based on what you learned during your closed test?
+Include: Each change, the report that caused it, the date it shipped and where you checked it. If nothing changed, say so and say why.
+
+Frame:
+In answer to a report that {what a tester said}, we {what you changed}. It shipped as an update on {date} and was checked on {a real phone} on {date}.
+
+Example, adapted from our application:
+In answer to a report that the welcome screen opened in English on a Turkish phone, note names now follow the phone's language. It shipped as an update on 19 Oct and was checked on a physical phone on 20 Oct.
+
+Example when nothing changed:
+The app code has not changed since the closed-test build: the one report was an emulator install problem, not an app defect. On 21 Oct we corrected the yearly plan's free-trial offers and the store text so the trial length comes from Play and is shown correctly.
+(This is the honest version for an app where nothing a tester said led to a code change. It is the weaker answer, and we sent it anyway rather than invent a fix. We do not know yet how Google reads it.)
+
+Careful: Never invent a change. "No code change, and here is why" at least reads true. A made-up fix does not.
+
+Your answer:
+
+
+------------------------------------------------------------------------------
+9. WHY YOU THINK IT IS READY
+The form asks: How did you decide that your app is ready for production?
+Include: The checks you really ran, with their numbers, the real phone you walked through the release build on, and the Console sections that are complete.
+
+Frame:
+{The checks you really ran, with numbers}. The release build was walked through on {a real phone} on {date}. {Console items that are complete}.
+
+Example, adapted from our application:
+Type checks, 217 unit tests and 86 end-to-end checks passed; the release build was walked through on a Samsung phone on 21 Oct. Android vitals lists no crashes or ANRs. Data safety, content rating, target audience and App access are complete.
+
+Careful: Look at Android vitals and the Pre-launch report in Console before you write that nothing crashes. Ours said "Data unavailable" for the crash rate, so we wrote only what the list showed.
+
+Your answer:
+
+
+------------------------------------------------------------------------------
+WHERE OUR DRAFTS AND THE LIVE FORM DIFFERED
+- Question 2: Our draft said "Somewhat easy". The form offered five choices and no "Somewhat". We chose Easy.
+- Question 4: Our draft said we collected feedback through Play's private tester feedback. That page in Console was empty. We rewrote it to the channels that really produced the two reports.
+- Question 7: Our draft estimated 1,000 to 10,000 installs. The form had ranges only. We chose 0 to 10K.
+- Question 9: Our draft listed the checks and the Console sections. We added the phone walk-through and what Android vitals showed, and cut the sentence about active products to fit.
+
+Source of the form's structure: Google Play Console Help, "App testing requirements for personal developer accounts"
+https://support.google.com/googleplay/android-developer/answer/14151465 (read 27 October 2026)
