@@ -1,0 +1,998 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src https://api.gumroad.com https://cloudflareinsights.com https://peak-funnel.railer-iot.workers.dev; worker-src 'self'; frame-src blob:; child-src blob:; media-src 'none'; object-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abrir a exportação do Character.AI no navegador</title>
+<meta name="description" content="Abra o ZIP protegido por senha da exportação do Character.AI no navegador. Leia e pesquise suas conversas, sem enviar nada para lugar nenhum.">
+<link rel="canonical" href="https://peakappsstudio.com/pt-br/abrir-exportacao-character-ai/">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/character-ai-export-viewer/">
+<link rel="alternate" hreflang="pt-BR" href="https://peakappsstudio.com/pt-br/abrir-exportacao-character-ai/">
+<link rel="alternate" hreflang="es" href="https://peakappsstudio.com/es/visor-exportacion-character-ai/">
+<link rel="alternate" hreflang="id" href="https://peakappsstudio.com/id/buka-ekspor-character-ai/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/character-ai-export-viewer/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Abrir a exportação do Character.AI no navegador">
+<meta property="og:description" content="Abra o ZIP protegido por senha da exportação do Character.AI no navegador. Leia e pesquise suas conversas, sem enviar nada para lugar nenhum.">
+<meta property="og:url" content="https://peakappsstudio.com/pt-br/abrir-exportacao-character-ai/">
+<meta property="og:image" content="https://peakappsstudio.com/character-ai-export-viewer/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Três livros encadernados em tecido com títulos dourados ao lado de um livro aberto cujas páginas são uma conversa diagramada">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#7b1830">
+<link rel="icon" href="/character-ai-export-viewer/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/character-ai-export-viewer/fonts/kalnia-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/character-ai-export-viewer/fonts/commissioner-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style data-from="/assets/tools.css">
+/* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
+
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e1;
+  --card: #fbfaf7;
+  --ink: #141518;
+  --ink-2: #33363d;
+  --muted: #676b74;
+  --line: rgba(20, 21, 24, 0.12);
+  --line-2: rgba(20, 21, 24, 0.22);
+  --accent: #1f5c4d;          /* each tool overrides this on <body style="--accent:..."> */
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  --warn: #9a4a12;
+  --ok: #2c6a3f;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+    --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+  --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; }
+img { display: block; height: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 10px; z-index: 100; background: var(--ink); color: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 10px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-head { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand-sub { font-family: var(--sans); font-size: 14.5px; letter-spacing: 0; color: var(--muted); font-weight: 500; padding-left: 10px; border-left: 1px solid var(--line-2); }
+.head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
+.head-nav a:hover { background: var(--paper-2); color: var(--ink); }
+.head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
+@media (max-width: 640px) { .brand-sub { display: none; } }
+@media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
+
+/* ---------- Type ---------- */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+h1 { font-size: clamp(32px, 4.6vw, 54px); }
+h1 em, h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 19px; letter-spacing: -0.01em; }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; margin: 16px 0 0; }
+.mono { font-family: var(--mono); }
+.muted { color: var(--muted); }
+small, .small { font-size: 13.5px; }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 22px 0 0; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-2); }
+.crumbs a { text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.tool-hero { padding: 28px 0 24px; display: grid; gap: 8px; }
+.tool-hero .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.tool-hero .facts li { display: inline-flex; align-items: center; gap: 8px; }
+.tool-hero .facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Tool shell ---------- */
+.tool { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.tool-panel { padding: 22px; border-right: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.tool-stage { position: relative; min-height: 460px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper); display: grid; place-items: center; padding: 22px; }
+.tool-stage canvas, .tool-stage svg, .tool-stage img { max-height: 70vh; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px -12px rgba(0,0,0,.18); background: #fff; }
+.stage-bar { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.tool-foot { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 14px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--paper); }
+.tool-foot .spacer { flex: 1; }
+@media (max-width: 860px) {
+  .tool { grid-template-columns: 1fr; }
+  .tool-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tool-stage { min-height: 320px; }
+}
+
+/* ---------- Form controls ---------- */
+.group { display: grid; gap: 10px; }
+.group-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > label { font-size: 13px; color: var(--ink-2); }
+.input, .select { width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 8px; padding: 9px 11px; transition: border-color .15s, box-shadow .15s; }
+.input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input-unit { position: relative; }
+.input-unit .input { padding-right: 38px; font-family: var(--mono); font-size: 14.5px; }
+.input-unit i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 3px; flex: none; }
+.seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line-2); border-radius: 9px; padding: 3px; gap: 3px; background: var(--paper); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.warn { font-size: 13.5px; color: var(--warn); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.btn { --b: var(--line-2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 500; line-height: 1; padding: 11px 16px; border-radius: 9px; border: 1px solid var(--b); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; transition: transform .15s var(--ease), background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklab, var(--accent) 86%, #000); color: var(--accent-ink); border-color: transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-ink:hover { color: var(--paper); background: var(--ink-2); }
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.pro-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: var(--ink); color: var(--paper); }
+
+/* ---------- Drop zone ---------- */
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 18px 14px; background: var(--paper); cursor: pointer; transition: border-color .15s, background .15s; font-size: 14.5px; }
+.drop:hover, .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Content ---------- */
+.section { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prose { max-width: 70ch; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose h2 { margin: 1.6em 0 .5em; }
+.prose h3 { margin: 1.4em 0 .4em; }
+.prose code, .prose kbd { font-family: var(--mono); font-size: .9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+.two-col > * { min-width: 0; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: 3px; }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 13px; background: var(--paper); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 15px; }
+.source { font-size: 13px; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--line-2); margin-top: 18px; }
+.faq details { border-bottom: 1px solid var(--line-2); }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 13px; font-family: var(--mono); font-size: 18px; color: var(--muted); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 18px; color: var(--ink-2); max-width: 70ch; }
+
+/* ---------- Pro ---------- */
+.pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--card); }
+.pro-left { padding: clamp(22px, 3vw, 36px); }
+.pro-right { padding: clamp(22px, 3vw, 36px); background: var(--ink); color: var(--paper); display: grid; align-content: center; gap: 14px; }
+.pro-right .price { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pro-right .price small { font-size: 15px; font-weight: 400; color: color-mix(in oklab, var(--paper) 70%, transparent); letter-spacing: 0; }
+.pro-right .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.pro-right .btn-primary:hover { background: #fff; color: var(--ink); }
+.pro-right .fine { font-size: 13px; color: color-mix(in oklab, var(--paper) 65%, transparent); margin: 0; }
+.pro-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.pro-list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.pro-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border: 1.5px solid var(--accent); border-radius: 2px; transform: rotate(45deg); }
+@media (max-width: 760px) { .pro { grid-template-columns: 1fr; } }
+
+/* ---------- A real file, shown ---------- */
+.shot { margin: 22px 0 0; }
+.shot img { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; }
+.shot figcaption { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+.shot figcaption strong { font-weight: 600; color: var(--ink-2); }
+.shot-sm { max-width: 920px; }
+
+/* ---------- Where free stops and Pro starts ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; margin: 26px 0 0; background: var(--card); }
+.split > div { padding: 18px 20px 20px; }
+.split > div + div { border-left: 1px solid var(--line-2); background: var(--accent-soft); }
+.split h3 { font-size: 15.5px; margin: 0; }
+.split > div > p { margin: 5px 0 0; font-size: 13.5px; color: var(--muted); }
+.split ul { list-style: none; margin: 13px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
+.split li { position: relative; padding-left: 18px; }
+.split li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; border-radius: 1px; background: var(--line-2); }
+.split > div + div li::before { background: var(--accent); }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } .split > div + div { border-left: 0; border-top: 1px solid var(--line-2); } }
+
+/* ---------- A file list, as the archive really holds it ---------- */
+.filelist { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 5px; }
+.filelist li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filelist li span { color: var(--muted); }
+
+/* ---------- License dialog ---------- */
+.license-dialog { border: 1px solid var(--line-2); border-radius: 14px; padding: 0; width: min(440px, calc(100% - 32px)); background: var(--card); color: var(--ink); }
+.license-dialog::backdrop { background: rgba(10, 11, 13, .45); }
+.license-dialog form { padding: 22px; display: grid; gap: 14px; }
+.license-status { font-size: 14px; min-height: 1.4em; margin: 0; }
+.license-status[data-state="ok"] { color: var(--ok); }
+.license-status[data-state="err"] { color: var(--warn); }
+
+/* ---------- Related / cards ---------- */
+.related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line-2); margin-top: 22px; }
+.related a { display: grid; gap: 4px; padding: 18px 18px 18px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.related a strong { font-weight: 600; }
+.related a span { font-size: 14px; color: var(--muted); }
+.related a:hover strong { color: var(--accent); }
+
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
+/* ---------- Footer ---------- */
+.site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
+.site-foot h2 { font-size: 15px; font-family: var(--sans); letter-spacing: 0; font-weight: 600; color: var(--ink); margin: 0 0 10px; }
+.site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+@media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- "New from Peak Apps": the cross-promotion card the build puts above the footer (src/crosspromo.json) ---------- */
+.peak-new { margin-top: clamp(56px, 8vw, 104px); }
+.peak-new + .site-foot { margin-top: 28px; }
+.peak-new-card { display: grid; gap: 4px; max-width: 640px; padding: 16px 20px 18px; border: 1px solid var(--line-2); border-left: 4px solid var(--tool, var(--accent)); border-radius: var(--radius); background: var(--card); color: var(--ink); text-decoration: none; transition: border-color .2s var(--ease); }
+.peak-new-card:hover { border-color: var(--tool, var(--accent)); }
+.peak-new-card:focus-visible { outline: 2px solid var(--tool, var(--accent)); outline-offset: 3px; }
+.peak-new-kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.peak-new-card strong { font-size: 17px; font-weight: 600; line-height: 1.3; }
+.peak-new-line { font-size: 14px; line-height: 1.5; color: var(--ink-2); max-width: 62ch; }
+
+/* ---------- Home project tools: the shared block on Without Planning and Dropped Kerb Check ---------- */
+.home-block { margin: clamp(36px, 5vw, 60px) 0 0; border-top: 1px solid var(--line-2); padding-top: 16px; }
+.home-title { margin: 0 0 10px; font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink); }
+.home-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px 24px; }
+.home-list a { display: grid; gap: 3px; padding: 2px 0 2px 14px; border-left: 4px solid var(--tool, var(--accent)); text-decoration: none; color: var(--ink); }
+.home-list a strong { font-weight: 700; font-size: 16px; }
+.home-list a span { color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+.home-list a:hover strong { color: var(--tool, var(--accent)); }
+.home-list a[aria-current="page"] span { color: var(--ink-2); }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .3s var(--ease); z-index: 90; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media print { .site-head, .site-foot, .tool-panel, .tool-foot, .no-print { display: none !important; } body { background: #fff; } }
+
+/* The hidden attribute must win over component display rules. */
+[hidden] { display: none !important; }
+</style>
+<style data-from="/character-ai-export-viewer/tool.css">
+/* Chatbound (Character.AI export viewer). Identity: oxblood bookcloth band with a gilt rule, cool endpaper ground,
+ * Kalnia (wide) for headings and book titles, Commissioner for everything read. Chats are set like a script:
+ * the *actions* between asterisks become stage directions in plum, upright (Commissioner has no italic). */
+@font-face{font-family:"Commissioner";font-style:normal;font-weight:400 700;font-display:swap;src:url(/character-ai-export-viewer/fonts/commissioner-cyrillic-ext.woff2) format("woff2");unicode-range:U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F}
+@font-face{font-family:"Commissioner";font-style:normal;font-weight:400 700;font-display:swap;src:url(/character-ai-export-viewer/fonts/commissioner-cyrillic.woff2) format("woff2");unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116}
+@font-face{font-family:"Commissioner";font-style:normal;font-weight:400 700;font-display:swap;src:url(/character-ai-export-viewer/fonts/commissioner-greek.woff2) format("woff2");unicode-range:U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF}
+@font-face{font-family:"Commissioner";font-style:normal;font-weight:400 700;font-display:swap;src:url(/character-ai-export-viewer/fonts/commissioner-vietnamese.woff2) format("woff2");unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB}
+@font-face{font-family:"Commissioner";font-style:normal;font-weight:400 700;font-display:swap;src:url(/character-ai-export-viewer/fonts/commissioner-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:"Commissioner";font-style:normal;font-weight:400 700;font-display:swap;src:url(/character-ai-export-viewer/fonts/commissioner-latin.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:"Kalnia";font-style:normal;font-weight:500 700;font-stretch:100% 125%;font-display:swap;src:url(/character-ai-export-viewer/fonts/kalnia-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:"Kalnia";font-style:normal;font-weight:500 700;font-stretch:100% 125%;font-display:swap;src:url(/character-ai-export-viewer/fonts/kalnia-latin.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+/* metric-matched fallbacks keep the first paint from shifting when the web fonts arrive */
+@font-face{font-family:"Commissioner fallback";src:local("Arial"),local("Helvetica Neue"),local("Helvetica");size-adjust:101%;ascent-override:96%;descent-override:24%;line-gap-override:0%}
+@font-face{font-family:"Kalnia fallback";src:local("Georgia"),local("Times New Roman");size-adjust:112%;ascent-override:88%;descent-override:25%;line-gap-override:0%}
+
+:root {
+  --cloth: #7b1830; --cloth-deep: #5e0f24; --cloth-ink: #ffffff;
+  --gilt: #f2c14e; --gilt-ink: #2a1a05;
+  --paper: #eef0f4; --paper-2: #e3e6ec; --card: #ffffff; --page: #ffffff;
+  --ink: #1c1724; --ink-2: #3a3442; --muted: #5b5566; --line: #d9dbe3; --line-2: #c3c6d1;
+  --direction: #6a3a63; --mark: #ffe08a; --ok: #1f6f45; --warn: #9a4a12; --bad: #a3202e;
+  --accent: var(--cloth); --accent-ink: #fff;
+  --sans: "Commissioner", "Commissioner fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display: "Kalnia", "Kalnia fallback", Georgia, serif;
+  --radius: 8px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --cloth: #7b1830; --cloth-deep: #94203d; --paper: #131117; --paper-2: #1a171f; --card: #1e1a23; --page: #1b1720;
+    --ink: #efeaf2; --ink-2: #d4ced8; --muted: #a9a1b1; --line: #2f2a35; --line-2: #463f4d;
+    --direction: #d7a6cc; --mark: #6b5410; --ok: #7cc493; --warn: #e3a36b; --bad: #f08a96;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --cloth: #7b1830; --cloth-deep: #94203d; --paper: #131117; --paper-2: #1a171f; --card: #1e1a23; --page: #1b1720;
+  --ink: #efeaf2; --ink-2: #d4ced8; --muted: #a9a1b1; --line: #2f2a35; --line-2: #463f4d;
+  --direction: #d7a6cc; --mark: #6b5410; --ok: #7cc493; --warn: #e3a36b; --bad: #f08a96;
+  color-scheme: dark;
+}
+body.cb { background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.6; font-variant-numeric: tabular-nums; }
+body.cb a:hover { color: var(--cloth); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) body.cb a:hover { color: var(--direction); } }
+
+/* ---- header and footer: the bookcloth band with its gilt rule ---- */
+.cb-head { background: var(--cloth); color: var(--cloth-ink); border-bottom: 3px solid var(--gilt); position: relative; }
+.cb-head .wrap { min-height: 60px; }
+.cb-brand { color: #fff; font-family: var(--display); font-stretch: 100%; font-weight: 700; font-size: 22px; letter-spacing: -0.005em; text-decoration: none; }
+.cb-brand svg { width: 26px; height: 26px; color: #fff; }
+.cb-brand:hover { color: #fff; }
+.cb-nav a { color: #f6dfe5; text-decoration: none; }
+.cb-nav a:hover, body.cb .cb-nav a:hover { color: #fff; text-decoration: underline; }
+.cb-nav [aria-current="page"] { color: #fff; font-weight: 600; }
+@media (max-width: 899px) { .cb-nav .cb-wide { display: none; } }
+/* the newest link shows only where all six fit on one line */
+@media (max-width: 1099px) { .cb-nav .cb-xl { display: none; } }
+@media (max-width: 600px) { .cb-nav .hide-xs { display: none; } .cb-brand { font-size: 20px; } }
+.cb-foot { background: var(--paper-2); border-top: 1px solid var(--line); }
+.cb a:focus-visible, .cb button:focus-visible, .cb input:focus-visible, .cb summary:focus-visible, .cb [tabindex]:focus-visible { outline: 3px solid var(--gilt); outline-offset: 2px; border-radius: 4px; }
+
+/* ---- type ---- */
+.cb h1, .cb h2, .cb-title { font-family: var(--display); font-stretch: 100%; font-weight: 650; letter-spacing: -0.01em; color: var(--ink); overflow-wrap: break-word; }
+.cb h1 { font-size: clamp(36px, 4.8vw, 62px); line-height: 1.04; margin: 0 0 18px; max-width: 13ch; }
+.cb h2 { font-size: clamp(26px, 3.2vw, 36px); line-height: 1.1; margin: 0 0 14px; }
+.cb h3 { font-family: var(--sans); font-size: 19px; line-height: 1.3; margin: 26px 0 8px; font-weight: 650; }
+.cb .lede { font-size: 19px; line-height: 1.55; color: var(--ink-2); max-width: 36em; margin: 0 0 18px; }
+.cb .crumbs { padding-top: 18px; }
+
+/* ---- hero: the tool is the hero ---- */
+.cb-hero { padding: 8px 0 44px; }
+.cb-hero-grid { display: grid; gap: 28px; align-items: start; }
+@media (min-width: 960px) { .cb-hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 48px; } }
+/* on a phone the drop panel comes right after the introduction, before the details */
+@media (max-width: 959px) { .cb-hero-text { display: contents; } .cb-hero-grid { gap: 0; } .cb-hero-grid .cb-panel { order: 2; margin: 6px 0 22px; } .cb-hero-grid .cb-meter { order: 3; } .cb-hero-grid .cb-points { order: 4; } }
+.cb-meter { display: block; margin: 6px 0 0; padding: 12px 14px; border-left: 3px solid var(--cloth); background: var(--card); border-radius: 0 var(--radius) var(--radius) 0; max-width: 34em; font-size: 15px; color: var(--ink-2); }
+.cb-meter strong { font-size: 24px; line-height: 1; color: var(--cloth); font-weight: 700; margin-right: 6px; }
+.cb-meter b { color: var(--ink); font-weight: 650; }
+.cb-meter small { display: block; font-size: 14.5px; color: var(--muted); margin-top: 4px; }
+.cb-meter a { color: inherit; }
+.cb-points { margin: 18px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; max-width: 36em; font-size: 16px; color: var(--ink-2); }
+.cb-points li { padding-left: 22px; position: relative; }
+.cb-points li::before { content: ""; position: absolute; left: 2px; top: .62em; width: 9px; height: 9px; border-radius: 2px; background: var(--cloth); transform: rotate(45deg); }
+
+/* the drop panel: a blank page on a cloth spine, with a gilt ribbon */
+.cb-panel { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: 4px var(--radius) var(--radius) 4px; box-shadow: inset 14px 0 0 var(--cloth), 0 18px 40px -28px rgba(40, 10, 25, .45); padding: 28px 24px 24px 40px; }
+.cb-panel::after { content: ""; position: absolute; top: -1px; right: 34px; width: 14px; height: 46px; background: var(--gilt); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%); }
+.cb-panel h2 { font-size: 26px; margin: 0 0 6px; padding-right: 40px; }
+.cb-panel p { margin: 0 0 14px; color: var(--ink-2); font-size: 16px; }
+.cb-drop { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; min-height: 190px; padding: 22px 16px; border: 2px dashed var(--line-2); border-radius: var(--radius); background: var(--paper); cursor: pointer; transition: background .15s, border-color .15s; }
+.cb-drop:hover, .cb-drop.is-over { border-color: var(--cloth); background: color-mix(in oklab, var(--cloth) 7%, var(--paper)); }
+.cb-drop strong { font-size: 19px; display: block; }
+.cb-drop span { color: var(--muted); font-size: 15px; }
+.cb-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.cb-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 16px; border-radius: 7px; border: 1px solid var(--line-2); background: var(--card); color: var(--ink); font: 600 15.5px/1.2 var(--sans); cursor: pointer; text-decoration: none; }
+.cb-btn:hover { border-color: var(--cloth); color: var(--ink); }
+.cb-btn[disabled] { opacity: .55; cursor: not-allowed; }
+.cb-btn-cloth { background: var(--cloth); border-color: var(--cloth); color: #fff; }
+.cb-btn-cloth:hover { background: var(--cloth-deep); border-color: var(--cloth-deep); color: #fff; }
+body.cb .cb-btn-cloth:hover { color: #fff; }
+.cb-btn-gilt { background: var(--gilt); border-color: #d9a52e; color: var(--gilt-ink); }
+body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
+.cb-btn-sm { min-height: 36px; padding: 7px 12px; font-size: 14.5px; }
+.cb-pro { display: inline-block; font-size: 11.5px; font-weight: 700; padding: 2px 6px; border-radius: 4px; background: var(--gilt); color: var(--gilt-ink); letter-spacing: .02em; }
+.cb-note { font-size: 14.5px; color: var(--muted); margin: 12px 0 0; }
+.cb-link { background: none; border: 0; padding: 0; color: inherit; font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+
+/* password, progress, errors */
+.cb-form { display: grid; gap: 10px; margin-top: 4px; }
+.cb-form label { font-weight: 600; font-size: 15.5px; }
+.cb-input { width: 100%; min-height: 46px; padding: 10px 12px; border-radius: 7px; border: 1px solid var(--line-2); background: var(--page); color: var(--ink); font: 400 16.5px/1.3 var(--sans); }
+.cb-input:focus { border-color: var(--cloth); outline: none; box-shadow: 0 0 0 3px color-mix(in oklab, var(--cloth) 22%, transparent); }
+.cb-alert { margin: 12px 0 0; padding: 12px 14px; border-radius: 7px; border: 1px solid color-mix(in oklab, var(--bad) 40%, transparent); background: color-mix(in oklab, var(--bad) 8%, var(--card)); color: var(--ink); font-size: 15.5px; }
+.cb-alert strong { color: var(--bad); }
+.cb-progress { height: 8px; border-radius: 99px; background: var(--paper-2); overflow: hidden; margin: 10px 0 6px; }
+.cb-progress span { display: block; height: 100%; width: 0; background: var(--cloth); transition: width .2s; }
+[hidden] { display: none !important; }
+
+/* ---- the reader app ---- */
+.cb-app { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; margin: 0 0 40px; }
+.cb-bar { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--line); background: var(--page); }
+.cb-who { min-width: 0; }
+.cb-who b { font-family: var(--display); font-size: 21px; display: block; line-height: 1.15; overflow-wrap: anywhere; }
+.cb-who span { color: var(--muted); font-size: 14.5px; }
+.cb-tabs { display: flex; gap: 4px; padding: 0 12px; border-bottom: 1px solid var(--line); background: var(--page); overflow-x: auto; }
+.cb-tabs button { border: 0; background: none; padding: 12px 12px 10px; font: 600 15px var(--sans); color: var(--muted); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap; }
+.cb-tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--cloth); }
+.cb-body { display: grid; min-height: 560px; }
+@media (min-width: 900px) { .cb-body { grid-template-columns: 340px minmax(0, 1fr); height: min(78vh, 900px); } }
+.cb-side { border-right: 1px solid var(--line); display: flex; flex-direction: column; min-height: 0; background: var(--paper); }
+.cb-search { padding: 12px; border-bottom: 1px solid var(--line); }
+.cb-search .cb-input { min-height: 42px; font-size: 15.5px; }
+.cb-count { font-size: 13.5px; color: var(--muted); margin: 8px 2px 0; }
+.cb-list { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1; min-height: 0; }
+.cb-list li + li { border-top: 1px solid var(--line); }
+.cb-item { display: block; width: 100%; text-align: left; border: 0; background: none; color: var(--ink); padding: 12px 14px; cursor: pointer; font: inherit; }
+.cb-item:hover { background: var(--card); }
+.cb-item[aria-current="true"] { background: var(--card); box-shadow: inset 3px 0 0 var(--cloth); }
+.cb-item b { display: block; font-size: 15.5px; line-height: 1.3; overflow-wrap: anywhere; }
+.cb-item small { display: block; color: var(--muted); font-size: 13.5px; margin-top: 2px; }
+.cb-item span { display: block; color: var(--ink-2); font-size: 14px; line-height: 1.45; margin-top: 4px; overflow-wrap: anywhere; }
+.cb-item mark, .cb-msg mark { background: var(--mark); color: inherit; border-radius: 2px; padding: 0 1px; }
+.cb-more-list { padding: 10px 14px; color: var(--muted); font-size: 14px; }
+.cb-main { min-width: 0; overflow-y: auto; min-height: 0; background: var(--page); }
+.cb-chat-head { padding: 18px clamp(16px, 3vw, 32px) 14px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--page); z-index: 1; }
+.cb-back { display: none; }
+.cb-name { font-family: var(--display); font-weight: 650; font-size: clamp(22px, 2.6vw, 28px); border: 1px solid transparent; background: none; color: var(--ink); width: 100%; padding: 2px 6px; margin-left: -7px; border-radius: 6px; }
+.cb-name::placeholder { color: var(--ink); opacity: 1; }
+.cb-name:hover { border-color: var(--line); }
+.cb-name:focus { border-color: var(--cloth); outline: none; }
+.cb-chat-meta { color: var(--muted); font-size: 14.5px; margin: 4px 0 10px; }
+.cb-save { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.cb-save > span { font-size: 14.5px; color: var(--muted); margin-right: 2px; }
+.cb-msgs { padding: 6px clamp(16px, 3vw, 32px) 30px; max-width: 54rem; }
+.cb-msg { display: grid; gap: 2px 22px; padding: 14px 0; border-top: 1px solid var(--line); }
+.cb-msg:first-child { border-top: 0; }
+@media (min-width: 640px) { .cb-msg { grid-template-columns: 7.2rem minmax(0, 1fr); } }
+.cb-msg time { font-size: 13px; line-height: 1.5; color: var(--muted); padding-top: 3px; }
+.cb-msg .who { display: block; color: var(--cloth); font-weight: 650; font-size: 14px; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cb-msg .who { color: var(--direction); } }
+.cb-text { min-width: 0; overflow-wrap: anywhere; font-size: 17px; line-height: 1.65; }
+.cb-text p { margin: 0 0 .65em; }
+.cb-text p:last-child { margin-bottom: 0; }
+.cb-text em { font-style: normal; color: var(--direction); }
+.cb-text strong { font-weight: 700; }
+.cb-msg.is-target { background: color-mix(in oklab, var(--gilt) 16%, transparent); border-radius: 6px; }
+.cb-msg img { max-width: min(100%, 420px); border-radius: 6px; margin-top: 6px; }
+.cb-pager { padding: 10px 0; }
+.cb-empty { padding: 40px clamp(16px, 3vw, 32px); color: var(--muted); max-width: 40em; }
+.cb-flag { margin: 10px 0 0; padding: 10px 12px; background: var(--paper); border-radius: 6px; font-size: 14px; color: var(--ink-2); }
+.cb-pane { padding: 22px clamp(16px, 3vw, 32px) 32px; overflow-y: auto; }
+.cb-pane-full { grid-column: 1 / -1; }
+.cb-char { padding: 18px 0; border-top: 1px solid var(--line); max-width: 54rem; }
+.cb-char:first-of-type { border-top: 0; }
+.cb-char h3 { margin: 0 0 2px; font-family: var(--display); font-size: 22px; }
+.cb-char dl { display: grid; gap: 4px 18px; margin: 12px 0; }
+@media (min-width: 640px) { .cb-char dl { grid-template-columns: 8.5rem minmax(0, 1fr); } }
+.cb-char dt { color: var(--muted); font-size: 14.5px; }
+.cb-char dd { margin: 0 0 6px; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 15.5px; }
+.cb-facts { width: 100%; border-collapse: collapse; font-size: 15px; max-width: 54rem; }
+.cb-facts th, .cb-facts td { text-align: left; padding: 8px 10px 8px 0; border-top: 1px solid var(--line); vertical-align: top; overflow-wrap: anywhere; }
+.cb-facts th { color: var(--muted); font-weight: 500; width: 40%; }
+.cb-keep { padding: 16px; border-top: 1px solid var(--line); background: color-mix(in oklab, var(--gilt) 12%, var(--page)); display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
+.cb-keep p { margin: 0; flex: 1 1 260px; font-size: 15px; color: var(--ink-2); }
+.cb-keep p b { color: var(--ink); }
+@media (max-width: 899px) {
+  .cb-body.is-reading .cb-side { display: none; }
+  .cb-body:not(.is-reading) .cb-main { display: none; }
+  .cb-back { display: inline-flex; margin: 0 0 8px -4px; }
+  .cb-side { border-right: 0; }
+  .cb-list { max-height: none; }
+  .cb-chat-head { position: static; }
+}
+
+/* ---- moving to another app: cards and chat files ---- */
+.cb-mv-intro { font-size: 14.5px; line-height: 1.45; color: var(--ink-2); margin: 0; }
+.cb-mv-intro a { color: inherit; }
+.cb-mv-all { padding: 12px 14px 14px; border-top: 1px solid var(--line); background: color-mix(in oklab, var(--gilt) 12%, var(--page)); }
+.cb-mv-all p { margin: 0 0 8px; font-size: 14px; line-height: 1.45; color: var(--ink-2); }
+.cb-mv-all p b { color: var(--ink); }
+.cb-mv-head { max-width: 40rem; }
+.cb-mv-head label, .cb-mv-label { display: block; font-weight: 600; font-size: 15px; margin: 14px 0 6px; }
+.cb-mv-head label { margin-top: 0; }
+.cb-mv-name { font-family: var(--display); font-size: 22px; font-weight: 650; }
+.cb-mv-card { display: grid; gap: 18px 28px; margin: 22px 0 8px; max-width: 58rem; }
+@media (min-width: 1100px) { .cb-mv-card { grid-template-columns: 170px minmax(0, 1fr); } }
+.cb-mv-pic { margin: 0; }
+.cb-mv-pic img { width: 160px; height: 240px; border-radius: 4px 6px 6px 4px; box-shadow: 0 12px 26px -16px rgba(40, 10, 25, .7); background: var(--paper-2); object-fit: cover; display: block; }
+.cb-mv-pic figcaption { font-size: 13.5px; line-height: 1.45; color: var(--muted); margin: 10px 0; max-width: 22rem; }
+.cb-mv-fields-wrap h3 { margin-top: 0; }
+.cb-mv-fields th { width: 32%; }
+.cb-mv-none { color: var(--muted); }
+.cb-mv-src { color: var(--muted); font-size: 13px; }
+.cb-mv-desc { min-height: 100px; resize: vertical; line-height: 1.5; }
+.cb-mv-get { margin-top: 16px; }
+.cb-mv-chat { border-top: 1px solid var(--line); margin-top: 26px; padding-top: 4px; max-width: 58rem; }
+.cb-mv-layout { border: 0; padding: 0; margin: 14px 0 4px; min-width: 0; }
+.cb-mv-layout legend { font-weight: 650; font-size: 15.5px; padding: 0; color: var(--ink); }
+.cb-mv-layout .cb-note { margin: 4px 0 6px; }
+.cb-mv-layout .cb-choice { padding: 5px 0; font-size: 15.5px; }
+.cb-mv-you { max-width: 20rem; }
+.cb-mv-preview { list-style: none; margin: 16px 0 0; padding: 0; border: 1px solid var(--line); border-radius: var(--radius); max-height: 470px; overflow-y: auto; background: var(--card); }
+.cb-mv-preview li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 14px; align-items: center; padding: 10px 14px; border-top: 1px solid var(--line); box-shadow: inset 3px 0 0 var(--cloth); }
+.cb-mv-preview li:first-child { border-top: 0; }
+.cb-mv-preview li.is-user { background: var(--paper); box-shadow: inset 3px 0 0 var(--line-2); }
+.cb-mv-preview .who { grid-column: 1; font-weight: 650; font-size: 13.5px; color: var(--cloth); }
+.cb-mv-preview li.is-user .who { color: var(--ink-2); }
+.cb-mv-preview p { grid-column: 1; margin: 0; font-size: 15px; line-height: 1.5; color: var(--ink-2); overflow-wrap: anywhere; }
+.cb-mv-preview .cb-link { grid-column: 2; grid-row: 1 / span 2; font-size: 13.5px; color: var(--muted); white-space: nowrap; padding: 8px 0; }
+.cb-mv-preview .cb-link:hover { color: var(--ink); }
+.cb-mv-preview li.cb-mv-more { display: block; box-shadow: none; background: var(--card); }
+@media (max-width: 560px) { .cb-mv-preview li { grid-template-columns: minmax(0, 1fr); } .cb-mv-preview .cb-link { grid-column: 1; grid-row: auto; justify-self: start; padding: 4px 0; } }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cb-mv-preview .who { color: var(--direction); } }
+:root[data-theme="dark"] .cb-mv-preview .who { color: var(--direction); }
+.cb-mv-free { margin: 22px 0 0; padding: 10px 12px; background: color-mix(in oklab, var(--gilt) 14%, var(--page)); border-radius: 6px; font-size: 14.5px; color: var(--ink-2); max-width: 58rem; }
+
+/* ---- dialog for "choose chats" (PDF) ---- */
+.cb-dialog { border: 1px solid var(--line); border-radius: 10px; padding: 22px; max-width: min(520px, calc(100vw - 32px)); background: var(--card); color: var(--ink); }
+.cb-dialog::backdrop { background: rgba(20, 10, 18, .45); }
+.cb-dialog h2 { font-size: 24px; }
+.cb-choice { display: flex; gap: 10px; align-items: flex-start; padding: 10px 0; }
+.cb-choice input { margin-top: 6px; accent-color: var(--cloth); }
+
+/* ---- content sections below the tool ---- */
+.cb-sec { padding: 52px 0; border-top: 1px solid var(--line); }
+.cb-sec .wrap > * { max-width: 46rem; }
+.cb-sec p, .cb-sec li { color: var(--ink-2); }
+.cb-sec a { color: var(--ink); }
+.cb-steps { list-style: none; counter-reset: s; padding: 0; margin: 14px 0 20px; display: grid; gap: 10px; }
+.cb-steps li { counter-increment: s; position: relative; padding: 2px 0 2px 44px; min-height: 30px; }
+.cb-steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--cloth); color: #fff; font: 700 15px/30px var(--sans); text-align: center; }
+.cb-cols { display: grid; gap: 8px 36px; }
+@media (min-width: 820px) { .cb-cols { grid-template-columns: 1fr 1fr; max-width: none !important; } .cb-cols > div { max-width: 30rem; } }
+.cb-table { width: 100%; border-collapse: collapse; margin: 14px 0 8px; font-size: 15.5px; }
+.cb-table th, .cb-table td { text-align: left; vertical-align: top; padding: 10px 12px 10px 0; border-top: 1px solid var(--line); }
+.cb-table thead th { border-top: 0; color: var(--muted); font-weight: 600; font-size: 14px; }
+.cb-table code, .cb-sec code { font-size: .92em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+.cb-src { font-size: 14px; color: var(--muted); }
+/* inside the bordered table box the first column keeps clear of the border */
+.table-wrap > .cb-table:not(.cb-stack) :is(th, td):first-child { padding-left: 14px; }
+@media (min-width: 641px) { .table-wrap > .cb-stack :is(th, td):first-child { padding-left: 14px; } }
+/* wide guide tables (class cb-stack) turn into labelled rows on a phone; pages.mjs writes each cell's column heading
+ * into data-label, and the first cell of a row becomes the row's title */
+@media (max-width: 640px) {
+  .cb-stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .cb-stack, .cb-stack tbody, .cb-stack tr, .cb-stack td, .cb-stack tbody th { display: block; width: auto; }
+  .cb-stack { margin: 0; }
+  .cb-stack tr { padding: 12px 14px; border-top: 1px solid var(--line); }
+  .cb-stack tbody tr:first-child { border-top: 0; }
+  .cb-stack td, .cb-stack tbody th { padding: 3px 0; border: 0; background: none; font-size: 15.5px; }
+  .cb-stack tr > :first-child { font-weight: 650; color: var(--ink); font-size: 16px; padding-bottom: 6px; }
+  .cb-stack td[data-label]:not(:first-child)::before { content: attr(data-label); display: block; font-size: 13px; font-weight: 600; color: var(--muted); }
+}
+/* the dated news note under the hero points (after them on a phone, below the drop panel) */
+.cb-news { margin: 18px 0 0; max-width: 36em; padding: 12px 14px; font-size: 15px; color: var(--ink-2); background: var(--paper-2); border: 1px solid var(--line); border-radius: var(--radius); }
+.cb-news b { color: var(--ink); }
+@media (max-width: 959px) { .cb-hero-grid .cb-news { order: 5; } }
+.cb-calc { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: end; padding: 16px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); margin: 16px 0; }
+.cb-calc label { display: grid; gap: 4px; font-weight: 600; font-size: 15px; }
+.cb-calc output { flex: 1 1 240px; font-size: 15.5px; color: var(--ink-2); }
+.cb-plans { display: grid; gap: 16px; margin: 18px 0; max-width: none !important; }
+@media (min-width: 820px) { .cb-plans { grid-template-columns: 1fr 1fr; } }
+.cb-plan { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 22px; }
+.cb-plan.is-pro { border-color: var(--cloth); box-shadow: inset 0 4px 0 var(--cloth); }
+.cb-plan h3 { margin: 0 0 4px; font-family: var(--display); font-size: 24px; }
+.cb-plan .price { font-size: 15px; color: var(--muted); margin: 0 0 10px; }
+.cb-plan ul { margin: 0 0 14px; padding-left: 20px; }
+.cb-figure { margin: 26px 0 0; max-width: none !important; }
+.cb-figure img { width: 100%; height: auto; border-radius: var(--radius); background: var(--paper-2); aspect-ratio: 16 / 10; object-fit: cover; }
+.cb-figure figcaption { font-size: 14px; color: var(--muted); margin-top: 8px; }
+.cb-faq details { border-top: 1px solid var(--line); padding: 14px 0; }
+.cb-faq summary { cursor: pointer; font-weight: 650; color: var(--ink); font-size: 17.5px; list-style-position: outside; }
+.cb-faq details p { margin: 10px 0 0; }
+.cb-aff { font-size: 14.5px; color: var(--muted); }
+.cb-guide { padding: 10px 0 56px; }
+.cb-guide .wrap > * { max-width: 46rem; }
+.cb-guide h2 { margin-top: 36px; }
+.cb-guide p, .cb-guide li { color: var(--ink-2); }
+.cb-cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 22px 0; padding: 18px 20px; background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--cloth); border-radius: 0 var(--radius) var(--radius) 0; }
+.cb-cta p { margin: 0; flex: 1 1 260px; }
+.cb-cta .cb-proline { flex: 1 1 100%; margin: 2px 0 0; padding-top: 12px; border-top: 1px solid var(--line); font-size: 15px; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { .cb * { transition: none !important; } }
+</style>
+<script src="/assets/license.js" defer></script>
+<script src="/pt-br/abrir-exportacao-character-ai/js/app.js?v=1" defer></script>
+<script src="/pt-br/abrir-exportacao-character-ai/js/migrate.js?v=1" defer></script>
+<script src="/pt-br/abrir-exportacao-character-ai/js/move.js?v=1" defer></script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/pt-br/abrir-exportacao-character-ai/#app","name":"Chatbound, leitor da exportação do Character.AI","url":"https://peakappsstudio.com/pt-br/abrir-exportacao-character-ai/","inLanguage":"pt-BR","description":"Abra o ZIP protegido por senha da exportação do Character.AI no navegador. Leia e pesquise suas conversas, sem enviar nada para lugar nenhum.","featureList":["Abre o ZIP da exportação do Character.AI protegido por senha","Busca em todas as mensagens","Salva conversas em HTML, texto e Markdown","Cartões de personagem (Character Card V2, PNG e JSON) a partir da exportação","Arquivos de conversa do SillyTavern (JSONL) a partir da exportação"],"applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Grátis","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Chatbound Pro","price":"8","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/chatbound-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Ferramentas","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Abrir a exportação do Character.AI","item":"https://peakappsstudio.com/pt-br/abrir-exportacao-character-ai/"}]}]}
+</script>
+<script src="/assets/pro-source.js" data-campaign="chatbound-ptbr" defer></script>
+</head>
+<body class="cb">
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header class="site-head cb-head">
+  <div class="wrap">
+    <a class="brand cb-brand" href="/pt-br/abrir-exportacao-character-ai/" aria-label="Chatbound, leitor da exportação do Character.AI">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 5.5h15.5a4 4 0 0 1 4 4V27H10a4 4 0 0 1-4-4V5.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M6 23a4 4 0 0 1 4-4h15.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M11.5 10.5h8M11.5 14h5.5" stroke="#f2c14e" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span>Chatbound</span>
+    </a>
+    <nav class="head-nav cb-nav" aria-label="Chatbound">
+      <span class="hide-xs" aria-current="page">Abrir uma exportação</span>
+      <a class="cb-wide" href="/pt-br/abrir-exportacao-character-ai/senha-do-zip/">Senha do ZIP</a>
+      <a href="/pt-br/abrir-exportacao-character-ai/exportacao-nao-chegou/">Não chegou?</a>
+      <a class="hide-xs" href="/pt-br/abrir-exportacao-character-ai/#pro">Pro</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap"><nav class="crumbs" aria-label="Caminho de navegação"><ol><li><a href="/tools/">Ferramentas</a></li><li aria-current="page">Abrir a exportação do Character.AI</li></ol></nav></div>
+
+<section class="cb-hero wrap" aria-labelledby="h1">
+  <div class="cb-hero-grid">
+    <div class="cb-hero-text">
+      <h1 id="h1">Abra a exportação de dados do Character.AI</h1>
+      <p class="lede">O Character.AI manda a sua exportação como um ZIP protegido por senha, cheio de arquivos JSON que nada no computador mostra como conversa. Solte o arquivo aqui e cada conversa abre como texto que você pode ler, pesquisar e salvar.</p>
+      <p class="cb-meter" role="status" aria-live="polite"><strong id="cb-sent">0</strong><b id="cb-sent-label">requisições de rede com o seu arquivo</b><small>Esta página lê a exportação no seu dispositivo e não tem para onde enviá-la. <a href="#nothing-uploaded">Como conferir</a></small></p>
+      <ul class="cb-points">
+        <li>Abre o ZIP protegido por senha com o e-mail da sua conta, que é a senha que o Character.AI usa.</li>
+          <li>Abre exportações grandes: em um teste que fizemos, uma exportação de 106 MB com 382.860 mensagens abriu em 10 a 16 segundos.</li>
+          <li>Salva uma conversa em HTML, texto simples ou Markdown, de graça.</li>
+          <li>Transforma seus personagens e conversas em cartões e arquivos de conversa que o SillyTavern, o Janitor AI e outros apps importam. <a href="#move">O que passa para o novo app</a></li>
+      </ul>
+      <p class="cb-news"><b>Ainda não pediu a exportação?</b> O Character.AI entrou com pedido de Chapter 11, a recuperação judicial dos EUA, em 12 de outubro de 2026 para vender a empresa, e diz que a plataforma será encerrada se nenhum comprador a mantiver no ar. A exportação pode levar de 3 a 4 semanas, então <a href="#get-export">peça agora</a>. <a href="/character-ai-export-viewer/is-character-ai-shutting-down/" hreflang="en" lang="en">Is Character.AI shutting down?</a> (em inglês)</p>
+    </div>
+
+    <section class="cb-panel" id="cb-start" aria-labelledby="cb-start-h" tabindex="-1">
+      <div id="cb-idle">
+        <h2 id="cb-start-h">Abra a sua exportação</h2>
+        <p>Use o ZIP que você baixou do e-mail do Character.AI, ou o <code>message.json</code> de uma exportação que você já descompactou.</p>
+        <label class="cb-drop" id="cb-drop" for="cb-file">
+          <strong>Solte o ZIP da exportação aqui</strong>
+          <span>ou toque para escolher nos seus arquivos</span>
+        </label>
+        <input id="cb-file" type="file" accept=".zip,.json,.jsonl,.txt,application/zip,application/json,image/*" multiple hidden>
+        <div class="cb-row" style="margin-top:14px">
+          <button class="cb-btn cb-btn-cloth" type="button" id="cb-choose">Escolher o arquivo</button>
+          <button class="cb-btn" type="button" id="cb-sample">Testar com uma exportação de exemplo</button>
+        </div>
+        <p class="cb-note">O exemplo tem conversas inventadas no mesmo formato de uma exportação de verdade, para você ver o leitor funcionando antes de o seu e-mail chegar.</p>
+      </div>
+
+      <form id="cb-pass" class="cb-form" hidden novalidate>
+        <h2>Digite a senha do ZIP</h2>
+        <p>O Character.AI protege a exportação com o e-mail da sua conta, em letras minúsculas. Ele fica só neste dispositivo e não é salvo.</p>
+        <label for="cb-email" id="cb-email-label">E-mail da sua conta do Character.AI</label>
+        <input class="cb-input" id="cb-email" type="email" autocomplete="email" spellcheck="false" autocapitalize="off" required>
+        <div class="cb-row"><button class="cb-btn cb-btn-cloth" type="submit">Abrir a exportação</button><button class="cb-btn" type="button" data-cb-reset>Escolher outro arquivo</button></div>
+        <p class="cb-alert" id="cb-pass-err" role="alert" hidden><strong>Esse e-mail não abriu o arquivo.</strong> Use o endereço para o qual o e-mail da exportação foi enviado. Maiúsculas e espaços não fazem diferença.</p>
+      </form>
+
+      <div id="cb-busy" hidden>
+        <h2>Abrindo a sua exportação</h2>
+        <p id="cb-busy-text">Lendo o arquivo…</p>
+        <div class="cb-progress" aria-hidden="true"><span id="cb-bar"></span></div>
+        <p class="cb-note">Exportações grandes levam alguns segundos a cada 100 MB. A página continua funcionando normalmente enquanto isso.</p>
+      </div>
+
+      <div id="cb-error" hidden>
+        <h2>Este arquivo não abriu</h2>
+        <p class="cb-alert" role="alert" id="cb-error-text"></p>
+        <div class="cb-row" style="margin-top:14px"><button class="cb-btn cb-btn-cloth" type="button" data-cb-reset>Escolher outro arquivo</button> <a class="cb-btn" href="/pt-br/abrir-exportacao-character-ai/exportacao-nao-chegou/">Ajuda com exportações que não abrem</a></div>
+      </div>
+
+      <div id="cb-merge" hidden>
+        <h2>Várias exportações de uma vez</h2>
+        <p id="cb-merge-text">Reunir exportações em um único arquivo faz parte do Pro. Você pode abrir o primeiro arquivo agora ou comprar o Pro para ler todos juntos, sem as mensagens repetidas.</p>
+        <div class="cb-row"><button class="cb-btn cb-btn-cloth" type="button" id="cb-merge-first">Abrir só o primeiro arquivo</button><button class="cb-btn cb-btn-gilt" type="button" id="cb-merge-pro">Reunir com o Pro</button></div>
+      </div>
+    </section>
+  </div>
+</section>
+
+<section class="wrap" id="cb-app-wrap" hidden aria-label="Suas conversas">
+  <div class="cb-app" id="cb-app">
+    <div class="cb-bar">
+      <div class="cb-who"><b id="cb-owner">Sua exportação</b><span id="cb-summary"></span></div>
+      <div class="cb-row">
+        <button class="cb-btn cb-btn-sm" type="button" id="cb-add">Adicionar outra exportação <span class="cb-pro">Pro</span></button>
+        <button class="cb-btn cb-btn-sm" type="button" data-cb-close>Fechar o arquivo</button>
+      </div>
+    </div>
+    <div class="cb-tabs" role="tablist" aria-label="Partes da exportação">
+      <button role="tab" type="button" id="tab-chats" aria-controls="cb-chats" aria-selected="true">Conversas</button>
+      <button role="tab" type="button" id="tab-chars" aria-controls="cb-chars" aria-selected="false">Personagens</button>
+      <button role="tab" type="button" id="tab-move" aria-controls="cb-move" aria-selected="false">Levar para outro app</button>
+      <button role="tab" type="button" id="tab-file" aria-controls="cb-file-info" aria-selected="false">Sobre este arquivo</button>
+    </div>
+    <div class="cb-body" id="cb-chats" role="tabpanel" aria-labelledby="tab-chats">
+      <aside class="cb-side" aria-label="Conversas e busca">
+        <div class="cb-search">
+          <label class="sr-only" for="cb-q">Buscar em todas as mensagens</label>
+          <input class="cb-input" id="cb-q" type="search" placeholder="Buscar em todas as mensagens" autocomplete="off" spellcheck="false">
+          <p class="cb-count" id="cb-count"></p>
+        </div>
+        <ul class="cb-list" id="cb-list"></ul>
+      </aside>
+      <section class="cb-main" id="cb-reader" aria-live="polite" tabindex="-1">
+        <div class="cb-empty" id="cb-reader-empty"><p>Escolha uma conversa na lista à esquerda. As conversas aparecem da mais recente para a mais antiga.</p></div>
+      </section>
+    </div>
+    <div class="cb-body" id="cb-chars" role="tabpanel" aria-labelledby="tab-chars" hidden><div class="cb-pane cb-pane-full" id="cb-chars-pane"></div></div>
+    <div class="cb-body" id="cb-move" role="tabpanel" aria-labelledby="tab-move" hidden>
+      <aside class="cb-side" aria-label="Personagens para levar">
+        <div class="cb-search">
+          <p class="cb-mv-intro">Cartões de personagem e arquivos de conversa para o SillyTavern, o Janitor AI, o Perchance e o Sakura, feitos a partir desta exportação. <a href="#move">O que passa para o novo app</a></p>
+          <p class="cb-count" id="cb-mv-count"></p>
+        </div>
+        <ul class="cb-list" id="cb-mv-list"></ul>
+        <div class="cb-mv-all">
+          <p><b>Tudo de uma vez.</b> Todos os personagens e todas as conversas em um único ZIP, com instruções de importação.</p>
+          <button class="cb-btn cb-btn-sm cb-btn-gilt" type="button" id="cb-mv-all">Salvar tudo em um ZIP <span class="cb-pro">Pro</span></button>
+        </div>
+      </aside>
+      <section class="cb-main cb-pane cb-mv-detail" id="cb-mv-detail" aria-label="O personagem a levar" tabindex="-1"></section>
+    </div>
+    <div class="cb-body" id="cb-file-info" role="tabpanel" aria-labelledby="tab-file" hidden><div class="cb-pane cb-pane-full" id="cb-file-pane"></div></div>
+    <div class="cb-keep">
+      <p><b>Guarde o histórico completo.</b> Todas as conversas em um livro offline com busca, em PDF ou em EPUB para o seu leitor de e-books.</p>
+      <div class="cb-row">
+        <button class="cb-btn cb-btn-sm cb-btn-gilt" type="button" data-cb-all="book">Livro (HTML) <span class="cb-pro">Pro</span></button>
+        <button class="cb-btn cb-btn-sm" type="button" data-cb-all="print">PDF <span class="cb-pro">Pro</span></button>
+        <button class="cb-btn cb-btn-sm" type="button" data-cb-all="epub">EPUB <span class="cb-pro">Pro</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<dialog class="cb-dialog" id="cb-pdf-dialog" aria-labelledby="cb-pdf-h">
+  <form method="dialog">
+    <h2 id="cb-pdf-h">Salvar em PDF</h2>
+    <p>A janela de impressão do navegador abre com as conversas já em páginas. Escolha <b>Salvar como PDF</b> como impressora.</p>
+    <label class="cb-choice"><input type="radio" name="scope" value="current" checked><span><b>Esta conversa</b><br><span class="cb-note" id="cb-pdf-current"></span></span></label>
+    <label class="cb-choice"><input type="radio" name="scope" value="all"><span><b>Todas as conversas</b><br><span class="cb-note" id="cb-pdf-all"></span></span></label>
+    <div class="cb-row" style="margin-top:12px"><button class="cb-btn cb-btn-cloth" value="go">Abrir a janela de impressão</button><button class="cb-btn" value="cancel">Cancelar</button></div>
+  </form>
+</dialog>
+
+<section class="cb-sec" id="get-export" aria-labelledby="get-export-h">
+  <div class="wrap">
+    <h2 id="get-export-h">Como pedir a sua exportação do Character.AI</h2>
+    <p>O Character.AI gera a exportação quando você pede nas configurações e depois manda um link por e-mail. A Central de Ajuda diz que ela pode levar <b>de 3 a 4 semanas</b> e que o link de download funciona por <b>7 dias</b> depois do envio do e-mail. <a href="/character-ai-export-viewer/save-character-ai-chats/" hreflang="en" lang="en">How to save your Character.AI chats</a> (em inglês) compara a exportação com as outras formas de guardar as conversas.</p>
+    <div class="cb-cols">
+      <div>
+        <h3>No aplicativo</h3>
+        <ol class="cb-steps">
+          <li>Abra o seu perfil.</li>
+          <li>Toque no ícone de configurações.</li>
+          <li>Toque em <b>Legal &amp; Privacy</b>.</li>
+          <li>Toque em <b>Export Data</b>. Um aviso de “Success” confirma o pedido.</li>
+        </ol>
+      </div>
+      <div>
+        <h3>No site</h3>
+        <ol class="cb-steps">
+          <li>Vá ao seu perfil e clique em <b>Profile Settings</b>.</li>
+          <li>Clique em <b>Account</b>.</li>
+          <li>Clique em <b>Manage Account &amp; Data</b>.</li>
+          <li>Clique em <b>Export Data</b>. Uma janela confirma que o e-mail vai chegar.</li>
+        </ol>
+      </div>
+    </div>
+    <h3>Quando esperar a exportação</h3>
+    <div class="cb-calc">
+      <label for="cb-asked">Pedi a minha exportação em <input class="cb-input" type="date" id="cb-asked"></label>
+      <output id="cb-asked-out" for="cb-asked">Escolha a data em que você tocou em Export Data.</output>
+    </div>
+    <h3>O e-mail e a senha</h3>
+    <p>Um relato prático de uma exportação real (AIInsightsNews, maio de 2026) mostra um e-mail de <code>accounts@character.ai</code> com o assunto “Character AI User Data Export”. Ele traz o link de um ZIP e diz: “The password is your lowercase email address.” (“A senha é o seu e-mail em letras minúsculas.”) Baixe o ZIP enquanto o link funciona, abra aqui e digite esse endereço quando o Chatbound pedir. Veja mais sobre a <a href="/pt-br/abrir-exportacao-character-ai/senha-do-zip/">senha do ZIP</a> e o que fazer se <a href="/pt-br/abrir-exportacao-character-ai/exportacao-nao-chegou/">a exportação não chegar ou o link expirar</a>.</p>
+    <p class="cb-src">Fontes: <a href="https://support.character.ai/hc/en-us/articles/56967715028891-How-do-I-download-my-data" rel="noopener" hreflang="en">Central de Ajuda do Character.AI, “How do I download my data?”</a> (em inglês, consultada em 21 de outubro de 2026); <a href="https://aiinsightsnews.net/how-to-export-character-ai-chat/" rel="noopener" hreflang="en">AIInsightsNews, “How to Export Character AI Chat in 2026”</a> (em inglês), um relato prático com capturas de tela do e-mail e do ZIP (25 de maio de 2026, consultado em 21 de outubro de 2026).</p>
+  </div>
+</section>
+
+<section class="cb-sec" id="inside" aria-labelledby="inside-h">
+  <div class="wrap">
+    <h2 id="inside-h">O que há dentro do arquivo</h2>
+    <p>O ZIP traz uma pasta com o seu nome de usuário, uma pasta <code>data</code> dentro dela e três arquivos JSON.</p>
+    <div class="table-wrap">
+      <table class="cb-table">
+        <thead><tr><th scope="col">Arquivo</th><th scope="col">O que contém</th><th scope="col">Como o Chatbound mostra</th></tr></thead>
+        <tbody>
+          <tr><td><code>message.json</code></td><td>Todas as mensagens, com <code>chat_id</code>, <code>raw_content</code> (o texto) e <code>create_time</code></td><td>Agrupadas em conversas pelo <code>chat_id</code>, em ordem cronológica</td></tr>
+          <tr><td><code>character.json</code></td><td>Os personagens que a sua conta criou: nome, slogan, descrição, saudação e definição</td><td>A aba Personagens, com cada definição pronta para copiar</td></tr>
+          <tr><td><code>user.json</code></td><td>Sua conta: nome, e-mail e data de cadastro</td><td>A aba Sobre este arquivo</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>As mensagens não têm nenhum campo que diga quem as enviou nem com qual personagem era a conversa, por isso o Chatbound mostra cada conversa em ordem cronológica, sem inventar nomes. Quando uma conversa começa com a saudação exata de um personagem que você criou, ele avisa. A explicação completa está em <a href="/character-ai-export-viewer/whats-in-the-export/" hreflang="en" lang="en">What’s in the Character.AI export</a> (em inglês). Já descompactou o arquivo? Veja como abrir os arquivos JSON diretamente: <a href="/character-ai-export-viewer/json-file/" hreflang="en" lang="en">Open the JSON files</a> (em inglês).</p>
+  </div>
+</section>
+
+<section class="cb-sec" id="move" aria-labelledby="move-h">
+  <div class="wrap">
+    <h2 id="move-h">Leve seus personagens e conversas para outro app</h2>
+    <p>Abra a exportação e vá à aba <b>Levar para outro app</b>. Para cada personagem, o Chatbound gera um cartão no formato Character Card V2, que o SillyTavern, o Janitor AI, o Perchance e o Sakura.fm importam, como imagem PNG com o cartão dentro ou como arquivo JSON. Cada conversa vira um arquivo de conversa do SillyTavern (JSONL). Tudo acontece no seu dispositivo, a partir do arquivo da exportação, então funciona sem o site do Character.AI.</p>
+    <h3>O que passa para o novo app</h3>
+    <div class="table-wrap">
+      <table class="cb-table">
+        <thead><tr><th scope="col">Na sua exportação</th><th scope="col">No cartão ou no arquivo de conversa</th></tr></thead>
+        <tbody>
+          <tr><td>Nome do personagem</td><td>Nome</td></tr>
+          <tr><td>Descrição</td><td>Descrição</td></tr>
+          <tr><td>Saudação</td><td>Primeira mensagem</td></tr>
+          <tr><td>Definição</td><td>Mensagens de exemplo. Se a sua definição é mais uma descrição do que um diálogo de exemplo, mova-a para o campo de descrição no novo app.</td></tr>
+          <tr><td>Slogan</td><td>Notas do criador, que os apps mostram, mas não enviam à IA</td></tr>
+          <tr><td>Cada conversa do <code>message.json</code></td><td>Um arquivo por conversa, com todas as mensagens em ordem e o horário de cada uma</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>O que não passa, porque a exportação não tem</h3>
+    <ul>
+      <li><b>Personagens feitos por outras pessoas.</b> A exportação só define os personagens que a sua conta criou. Para os outros, o cartão leva o nome que você digitar e a primeira mensagem da conversa (a saudação do personagem); a descrição você pode escrever.</li>
+          <li><b>Imagens.</b> A exportação não tem imagens dos personagens. Os cartões ganham uma imagem simples com a inicial, ou uma que você escolher.</li>
+          <li><b>Quem enviou cada mensagem.</b> O Chatbound organiza os turnos como uma conversa do Character.AI (saudação do personagem, depois você, depois o personagem) e mostra uma pré-visualização; onde a ordem sair do compasso, você troca a partir daquela mensagem.</li>
+          <li><b>Personalidade e cenário.</b> O Character.AI não tem esses campos, então ficam vazios. As memórias fixadas também não vêm na exportação.</li>
+    </ul>
+    <p>O SillyTavern e o Perchance importam cartões e conversas; o Janitor AI e o Sakura.fm importam só os cartões, não o histórico de conversas. Um personagem, com o cartão e todas as conversas, é de graça. O <a href="#pro">Pro</a> converte todos os personagens e conversas de uma vez em um único ZIP. Guias passo a passo (em inglês): <a href="/character-ai-export-viewer/sillytavern/" hreflang="en" lang="en">SillyTavern</a>, <a href="/character-ai-export-viewer/janitor-ai/" hreflang="en" lang="en">Janitor AI</a>, <a href="/character-ai-export-viewer/perchance/" hreflang="en" lang="en">Perchance</a> e <a href="/character-ai-export-viewer/sakura/" hreflang="en" lang="en">Sakura.fm</a>.</p>
+  </div>
+</section>
+
+<section class="cb-sec" id="pro" aria-labelledby="pro-h">
+  <div class="wrap">
+    <h2 id="pro-h">Grátis, e o Pro para o histórico completo</h2>
+    <div class="cb-plans">
+      <div class="cb-plan">
+        <h3>Grátis</h3>
+        <p class="price">Sem conta e sem limite de tamanho</p>
+        <ul>
+          <li>Abrir o ZIP da exportação protegido por senha, ou os arquivos JSON dele</li>
+          <li>Todas as conversas, das mais recentes às mais antigas, em uma leitura limpa</li>
+          <li>Busca em todas as mensagens</li>
+          <li>Saudações e definições dos seus personagens</li>
+          <li>Salvar qualquer conversa em HTML, texto simples ou Markdown</li>
+          <li>Levar um personagem para outro app: o cartão (PNG ou JSON) e as conversas como arquivos do SillyTavern</li>
+        </ul>
+      </div>
+      <div class="cb-plan is-pro">
+        <h3>Pro</h3>
+        <p class="price">US$ 8, pagamento único, para esta ferramenta nos seus dispositivos</p>
+        <ul>
+          <li>Todos os personagens e todas as conversas de uma vez, em um ZIP de cartões e arquivos de conversa, com instruções de importação</li>
+          <li>Um livro HTML offline com todas as conversas, capa, sumário e busca</li>
+          <li>Todas as conversas em PDF, já em páginas</li>
+          <li>Um EPUB para Apple Books, Google Play Livros, Kobo e outros leitores</li>
+          <li>Reunir várias exportações em um único arquivo, sem as mensagens repetidas, e então ler ou converter tudo junto</li>
+        </ul>
+        <div class="cb-row"><a class="cb-btn cb-btn-gilt" data-buy-pro href="https://dorukctn.gumroad.com/l/chatbound-pro">Comprar o Pro por US$ 8</a><button class="cb-btn" type="button" data-enter-key>Já tenho uma chave</button></div>
+        <p class="cb-note" id="cb-pro-state"></p>
+      </div>
+    </div>
+    <figure class="cb-figure">
+      <img src="/character-ai-export-viewer/img/books-1280.webp" srcset="/character-ai-export-viewer/img/books-640.webp 640w, /character-ai-export-viewer/img/books-1280.webp 1280w" sizes="(min-width: 1240px) 1160px, 92vw" width="1280" height="800" loading="lazy" decoding="async" alt="Três livros encadernados em tecido com títulos dourados ao lado de um livro aberto cujas páginas são uma conversa diagramada">
+      <figcaption>A ideia por trás do Pro: suas conversas encadernadas como livros que ficam com você. Uma ilustração em 3D, não a foto de um produto.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="cb-sec" id="nothing-uploaded" aria-labelledby="nu-h">
+  <div class="wrap">
+    <h2 id="nu-h">Como conferir que nada é enviado</h2>
+    <p>Suas conversas são privadas, então esta página foi feita sem nenhum meio de enviá-las a lugar algum, e você mesmo pode conferir.</p>
+    <ol class="cb-steps">
+      <li>Abra esta página e desligue o Wi-Fi ou os dados móveis. Abra a sua exportação: ela continua funcionando, porque nada precisa de internet.</li>
+          <li>Acompanhe o contador no topo. Ele conta toda requisição de rede que a página faz depois que você abre um arquivo (inclusive a contagem anônima de visitas) e fica em 0 enquanto você lê.</li>
+          <li>Abra as ferramentas do desenvolvedor do navegador, na aba Rede, e abra a sua exportação. Nenhuma requisição aparece ao abrir, nem ao ler, pesquisar ou salvar.</li>
+    </ol>
+    <p>A página também tem uma política de segurança que permite três conexões e nenhuma outra: a verificação de licença do Gumroad, usada só quando você cola uma chave do Pro; o Cloudflare Web Analytics, que conta as visitas sem cookies; e o nosso próprio contador de cliques do Pro, que soma um a um total diário quando você aperta um botão Pro (a página e o tipo de site de onde você veio, sem cookie e sem guardar o IP). Na aba Rede você verá a contagem de visitas quando a página carrega e a contagem de cliques quando você aperta um botão Pro. O seu arquivo, o seu e-mail e as suas conversas nunca são enviados a nenhum deles, nem a qualquer outro lugar. A seção <a href="#privacidade">Privacidade</a> abaixo lista exatamente o que a página envia e guarda.</p>
+  </div>
+</section>
+
+<section class="cb-sec" id="privacidade" aria-labelledby="priv-h">
+  <div class="wrap">
+    <h2 id="priv-h">Privacidade: o que esta página envia e guarda</h2>
+    <p class="cb-src">Tradução da página de privacidade em inglês, verificada em 22 de outubro de 2026. Se houver diferença, vale o texto em inglês.</p>
+    <h3>Em resumo</h3>
+    <ul>
+      <li>A sua exportação é aberta por esta página dentro do seu navegador. Nunca recebemos o seu arquivo, as suas conversas, os seus personagens nem o seu e-mail.</li>
+          <li>A página não cria cookies e não mostra anúncios.</li>
+          <li> Contamos as visitas com o Cloudflare Web Analytics: sem cookies, sem dados pessoais e nunca com os seus arquivos. Quando você clica em um botão Pro, um contador próprio soma um a um total diário desta ferramenta, com a página e o tipo de site que enviou você: sem cookies, sem dados pessoais, sem guardar o endereço IP e nunca com os seus arquivos.</li>
+          <li>Se você comprar o Pro, a sua chave de licença é verificada no Gumroad quando você a cola.</li>
+    </ul>
+    <h3>O arquivo da exportação</h3>
+    <p>Quando você solta ou escolhe um arquivo, a página o entrega a um script de trabalho (worker) na mesma aba do navegador. O worker lê o arquivo no seu dispositivo, abre-o com o e-mail que você digita e mantém as conversas na memória da aba enquanto ela está aberta. Fechar o arquivo ou a aba apaga tudo. Nenhuma parte do arquivo, nem nada lido dele, é enviado pela rede. Os arquivos que você salva (HTML, texto, Markdown, o livro, o EPUB, o layout de impressão para PDF, os cartões de personagem, os arquivos de conversa e o ZIP deles) são feitos no navegador e vão direto para os seus downloads. Uma imagem que você escolhe para um cartão é lida do mesmo jeito, no seu dispositivo.</p>
+    <p>A política de segurança da página manda o navegador permitir apenas três conexões: a verificação de licença do Gumroad, o contador de visitas do Cloudflare e o nosso contador de cliques do Pro. O worker que lê o seu arquivo não tem código de rede.</p>
+    <h3>O e-mail que você digita</h3>
+    <p>O Character.AI protege a exportação com o seu e-mail. Você o digita para a página poder abrir o arquivo. Ele fica na memória da aba só para isso, nunca é guardado e nunca é enviado a lugar nenhum.</p>
+    <h3>O que o seu navegador guarda</h3>
+    <ul>
+      <li><b>Nomes que você dá às conversas.</b> Se você renomeia uma conversa, o nome fica no armazenamento local deste navegador, em <code>chatbound:names</code>, junto do id da conversa na exportação, para estar lá da próxima vez. Só contém os nomes que você digitou.</li>
+      <li><b>Nomes que você dá aos personagens.</b> Ao digitar o nome de um personagem na aba Levar para outro app, ele fica em <code>chatbound:characters</code>, junto de um id feito a partir da saudação do personagem.</li>
+      <li><b>O seu personagem gratuito.</b> A versão gratuita converte um personagem. O personagem escolhido fica em <code>chatbound:free-character</code> (o id e o nome).</li>
+      <li><b>A sua licença Pro.</b> Depois que uma chave é aceita, a chave e o e-mail de compra que o Gumroad devolve ficam no armazenamento local, em <code>peak-license:chatbound</code>, para o Pro continuar ativo. A chave é verificada de novo no Gumroad cerca de uma vez por semana.</li>
+    </ul>
+    <p>Você pode apagar tudo isso limpando os dados deste site nas configurações do navegador.</p>
+    <h3>Gumroad</h3>
+    <p>O pagamento do Pro acontece no Gumroad, que cuida do seu cartão e do recibo conforme a política de privacidade dele. Quando você cola uma chave de licença, a página envia a chave e o id do produto à API de licenças do Gumroad para verificá-la. Nada da sua exportação vai junto.</p>
+    <h3>Contagem de visitas e hospedagem</h3>
+    <p>O Cloudflare Web Analytics conta as visitas com um pequeno script de static.cloudflareinsights.com. Ele não cria cookies e registra o endereço da página, o site de origem, o navegador, o país e a velocidade de carregamento, sem identificar você. O nosso contador, um pequeno Worker nosso, na Cloudflare, soma um a um total diário quando você aperta um botão Pro na página da ferramenta ou a janela do Pro se abre ali. Ele guarda o evento (um clique em botão ou a abertura da janela), a ferramenta, o endereço da página sem nada depois de ? ou #, a parte da página em que está o botão e uma única palavra que indica o tipo de site de onde você veio. Não guarda cookie, endereço IP, dados do navegador, hora do dia nem nada que diferencie um visitante de outro, e nunca recebe o seu arquivo, o seu e-mail nem as suas conversas. O site é hospedado na Vercel, que processa os dados técnicos de cada requisição de página (como o seu endereço IP) para servir e proteger o site.</p>
+    <h3>Crianças</h3>
+    <p>O Chatbound não coleta informações pessoais de ninguém, de nenhuma idade.</p>
+    <h3>Contato</h3>
+    <p>Peak Apps Studio, <a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a>. Os <a href="/character-ai-export-viewer/terms/" hreflang="en" lang="en">termos de uso</a> estão em inglês.</p>
+  </div>
+</section>
+
+<section class="cb-sec cb-faq" id="faq" aria-labelledby="faq-h">
+  <div class="wrap">
+    <h2 id="faq-h">Perguntas frequentes</h2>
+    <details><summary>Qual é a senha do ZIP da exportação do Character.AI?</summary><p>O e-mail da sua conta do Character.AI, todo em letras minúsculas. O e-mail da exportação diz isso. O Chatbound pede o endereço depois que você solta o ZIP e ignora maiúsculas e espaços a mais. <a href="/pt-br/abrir-exportacao-character-ai/senha-do-zip/">Mais sobre a senha do ZIP</a>.</p></details>
+    <details><summary>Por que não aparece quem disse o quê?</summary><p>A exportação não registra isso. Cada mensagem do <code>message.json</code> traz o texto, o horário e a conversa a que pertence, e nada sobre quem a enviou. O Chatbound mostra as mensagens em ordem cronológica e nunca inventa nomes.</p></details>
+    <details><summary>O e-mail da exportação não chegou.</summary><p>O Character.AI diz que a exportação pode levar de 3 a 4 semanas. Confira a caixa de spam e a caixa de entrada do e-mail da sua conta. Se o link do e-mail expirou (ele vale por 7 dias), peça uma nova exportação nas configurações. Há mais soluções em <a href="/pt-br/abrir-exportacao-character-ai/exportacao-nao-chegou/">exportação que não chegou ou link expirado</a>.</p></details>
+    <details><summary>Uma exportação muito grande abre?</summary><p>Abre. O arquivo é lido em partes por um worker em segundo plano, então a página não trava. Em um teste que fizemos, um ZIP protegido por senha de 106 MB com 288 MB de mensagens (382.860 delas) abriu em 9,5 a 16 segundos em um notebook, e a página nunca ficou parada por mais de um quarto de segundo. No celular, exportações muito grandes funcionam, mas demoram mais e precisam de memória livre.</p></details>
+    <details><summary>Funciona no celular?</summary><p>Funciona, em um navegador atualizado no Android ou no iPhone. Baixe antes o ZIP pelo link do e-mail e escolha-o em Arquivos ou Downloads.</p></details>
+    <details><summary>O Character.AI vai fechar?</summary><p>Por enquanto, não. O Character.AI entrou com pedido de Chapter 11 em 12 de outubro de 2026 para vender a empresa, e o site continua funcionando. A empresa diz que a plataforma será encerrada se nenhum comprador se dispuser a mantê-la no ar e espera concluir a venda até o fim de novembro ou o início de dezembro de 2026. Peça a sua exportação agora: <a href="/character-ai-export-viewer/is-character-ai-shutting-down/" hreflang="en" lang="en">What the bankruptcy means for your chats</a> (em inglês).</p></details>
+    <details><summary>Isto é feito pelo Character.AI?</summary><p>Não. O Chatbound é uma ferramenta independente da Peak Apps Studio e não tem vínculo com a Character Technologies, Inc., o Janitor AI, o SillyTavern, o Perchance nem o Sakura.fm, nem é endossado ou patrocinado por eles.</p></details>
+  </div>
+</section>
+<div class="wrap"><p class="cb-aff">O Chatbound não tem vínculo com a Character Technologies, o Janitor AI nem o SillyTavern. Character.AI, Janitor AI, SillyTavern, Perchance e Sakura.fm são marcas de seus respectivos donos, usadas aqui apenas para dizer qual exportação esta ferramenta lê e quais apps podem importar o que ela gera.</p></div>
+</main>
+<footer class="site-foot cb-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Chatbound</p>
+      <p style="margin:0;max-width:46ch">Um leitor para a exportação de dados que o Character.AI manda por e-mail, e um jeito de levar os personagens e as conversas para outros apps. A sua exportação é aberta por esta página no seu próprio dispositivo e nunca é enviada.</p>
+      <p style="margin:12px 0 0;max-width:46ch">O Chatbound é uma ferramenta independente e não tem vínculo com a Character Technologies, o Janitor AI nem o SillyTavern, nem é endossado ou patrocinado por eles. Character.AI e os nomes dos apps para os quais ele leva os dados pertencem aos seus donos.</p>
+    </div>
+    <div>
+      <h2>A sua exportação</h2>
+      <ul>
+        <li><span aria-current="page">Abrir uma exportação</span></li>
+        <li><a href="/pt-br/abrir-exportacao-character-ai/senha-do-zip/">Senha do ZIP</a></li>
+        <li><a href="/pt-br/abrir-exportacao-character-ai/exportacao-nao-chegou/">Não chegou?</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Em outros idiomas</h2>
+      <ul>
+        <li><a href="/character-ai-export-viewer/" hreflang="en" lang="en">English</a></li>
+        <li><span lang="pt-BR" aria-current="page">Português</span></li>
+        <li><a href="/es/visor-exportacion-character-ai/" hreflang="es" lang="es">Español</a></li>
+        <li><a href="/id/buka-ekspor-character-ai/" hreflang="id" lang="id">Bahasa Indonesia</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Sobre</h2>
+      <ul>
+        <li><a href="/pt-br/abrir-exportacao-character-ai/#privacidade">Privacidade</a></li>
+        <li><a href="/character-ai-export-viewer/terms/" hreflang="en" lang="en">Termos de uso (em inglês)</a></li>
+        <li><a href="/tools/">Mais ferramentas da Peak Apps</a></li>
+        <li><a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
