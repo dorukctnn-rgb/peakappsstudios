@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Test Android apps before release | Peak Apps testers</title>
+<meta name="description" content="Join the closed tests of new Peak Apps Android apps on Google Play: pick up to three apps, keep them for 14 days and tell us what breaks.">
+<link rel="canonical" href="https://peakappsstudio.com/testers/">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/testers/">
+<link rel="alternate" hreflang="tr" href="https://peakappsstudio.com/testers/tr/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/testers/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Test our new Android apps before they reach Google Play">
+<meta property="og:description" content="Join the closed tests of new Peak Apps Android apps on Google Play: pick up to three apps, keep them for 14 days and tell us what breaks.">
+<meta property="og:url" content="https://peakappsstudio.com/testers/">
+<meta property="og:locale" content="en_US">
+<link rel="icon" href="/testers/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/testers/fonts/testers-display-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/testers/fonts/testers-text.woff2" as="font" type="font/woff2" crossorigin>
+<style>@font-face{font-family:"Testers Display";src:url(/testers/fonts/testers-display-800.woff2) format("woff2");font-weight:800;font-display:swap}
+@font-face{font-family:"Testers Text";src:url(/testers/fonts/testers-text.woff2) format("woff2");font-weight:400 700;font-display:swap}
+:root{--plum:#4b2a7b;--ink:#231638;--muted:#5e5672;--paper:#f6f3fa;--card:#ffffff;--line:#e2daee;--gold:#ffc23d;--gold-soft:#fff1cc;--btn:#4b2a7b;--btn-ink:#ffffff;--ok:#1d7a45;--warn:#9a4a12;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--plum:#cdb0f7;--ink:#f1ecf8;--muted:#b7adc9;--paper:#15111d;--card:#1f1929;--line:#3a3150;--gold:#ffc23d;--gold-soft:#3b2f14;--btn:#cdb0f7;--btn-ink:#15111d;--ok:#6fd39a;--warn:#f0a36b;color-scheme:dark}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.6 "Testers Text",system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:var(--plum);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid var(--gold);outline-offset:2px}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+.narrow{max-width:680px}
+.top{border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;min-height:56px;gap:12px}
+.top a{color:var(--ink);text-decoration:none;font-weight:600}
+.top a.lang{font-weight:500;color:var(--muted)}
+h1,h2{font-family:"Testers Display","Testers Text",system-ui,sans-serif;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+h1{font-size:clamp(30px,5.6vw,52px);line-height:1.08;margin:40px 0 14px;max-width:18ch}
+h2{font-size:clamp(22px,3.2vw,30px);line-height:1.2;margin:48px 0 12px}
+h3{font-size:19px;margin:0 0 4px}
+p{margin:0 0 14px}
+.lead{font-size:clamp(17px,2.3vw,20px);color:var(--muted);max-width:60ch}
+.btn{display:inline-block;background:var(--btn);color:var(--btn-ink);border:0;border-radius:10px;padding:14px 22px;font:700 17px/1.2 "Testers Text",system-ui,sans-serif;cursor:pointer;text-decoration:none}
+.btn:hover{filter:brightness(1.08)}
+.btn[disabled]{opacity:.6;cursor:wait}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin:0 0 14px}
+.steps{margin:10px 0 0;padding-left:22px}
+.steps li{margin:0 0 8px}
+.muted{color:var(--muted)}
+.small{font-size:15px}
+.note{background:var(--gold-soft);border-left:4px solid var(--gold);padding:12px 14px;border-radius:8px;margin:16px 0}
+.err{color:var(--warn);font-weight:600}
+.ok{color:var(--ok);font-weight:600}
+footer.foot{border-top:1px solid var(--line);margin-top:56px;padding:24px 0 40px;font-size:15px;color:var(--muted)}
+footer.foot a{color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.btn{transition:filter .15s}}
+.hero{padding:8px 0 4px}
+.strip{margin:28px 0 8px;display:grid;grid-template-columns:repeat(15,minmax(0,1fr));gap:4px;max-width:720px}
+.strip .d{position:relative;height:38px;border-radius:6px;background:var(--card);border:1px solid var(--line);display:flex;align-items:flex-end;justify-content:center;font-size:11px;color:var(--muted);padding-bottom:3px;font-variant-numeric:tabular-nums}
+.strip .d.m{background:var(--gold);border-color:var(--gold);color:#231638;font-weight:700}
+.strip .d.j,.strip .d.e{background:var(--plum);border-color:var(--plum);color:var(--paper);font-weight:700}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px;color:var(--muted);margin:6px 0 0}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:6px}
+.cols{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:40px;align-items:start;margin-top:36px}
+@media (max-width:820px){.cols{grid-template-columns:1fr;gap:8px}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+.panel h2{margin-top:0}
+fieldset{border:0;margin:0 0 18px;padding:0}
+legend{font-weight:700;font-size:18px;margin:0 0 10px;padding:0}
+.count{font-size:14px;color:var(--muted);margin:-4px 0 10px}
+.apps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.app{display:grid;grid-template-columns:52px 1fr 28px;gap:12px;align-items:start;padding:12px;border:1px solid var(--line);border-radius:12px;cursor:pointer;background:var(--paper)}
+.app:hover{border-color:var(--plum)}
+.app img{width:52px;height:52px;border-radius:12px;display:block}
+.app .nm{font-weight:700;font-size:18px;line-height:1.25}
+.app .ln{font-size:15px;color:var(--ink);margin:2px 0 0}
+.app .nd{font-size:14px;color:var(--muted);margin:4px 0 0}
+.app .tag{display:inline-block;margin-top:6px;font-size:13px;font-weight:700;background:var(--gold-soft);border:1px solid var(--gold);color:var(--ink);border-radius:999px;padding:1px 9px}
+.app input{width:22px;height:22px;margin:2px 0 0;accent-color:var(--plum)}
+.app:has(input:checked){border-color:var(--plum);box-shadow:inset 0 0 0 1px var(--plum);background:var(--card)}
+.app:has(input:disabled:not(:checked)){opacity:.55;cursor:not-allowed}
+label.field{display:block;font-weight:700;font-size:18px;margin:0 0 6px}
+input[type=email]{width:100%;font:400 17px/1.3 "Testers Text",system-ui,sans-serif;padding:13px 14px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink)}
+.hint{font-size:14px;color:var(--muted);margin:6px 0 16px}
+.check{display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:start;font-size:15px;margin:0 0 12px;cursor:pointer}
+.check input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--plum)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.result{margin:14px 0 0;font-weight:600}
+.result.ok{color:var(--ok)}
+.result.err{color:var(--warn)}
+ol.what{margin:0;padding-left:22px}
+ol.what li{margin:0 0 10px}
+.sec{max-width:720px}
+dl.faq dt{font-weight:700;margin:18px 0 4px}
+dl.faq dd{margin:0;color:var(--ink)}
+@media (max-width:520px){.panel{padding:14px}.app{grid-template-columns:40px 1fr 24px;gap:10px;padding:10px}.app img{width:40px;height:40px;border-radius:10px}.app .nm{font-size:17px}.strip{gap:3px}.strip .d{height:32px;font-size:10px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a href="/">Peak Apps Studio</a><a class="lang" href="/testers/tr/" hreflang="tr">Türkçe</a></div></header>
+<main class="wrap">
+<section class="hero">
+<h1>Test our new Android apps before they reach Google Play</h1>
+<p class="lead">Google opens a new app to everyone only after at least 12 people have tested it for 14 days in a row. Pick up to three of our apps, keep them on your phone for two weeks and tell us what breaks.</p>
+<div class="strip" role="img" aria-label="Day 0 you join. On days 1, 3, 7, 10 and 13 a short mail brings one small task. On day 14 the test is done."><div class="d j" aria-hidden="true">0</div><div class="d m" aria-hidden="true">1</div><div class="d" aria-hidden="true">2</div><div class="d m" aria-hidden="true">3</div><div class="d" aria-hidden="true">4</div><div class="d" aria-hidden="true">5</div><div class="d" aria-hidden="true">6</div><div class="d m" aria-hidden="true">7</div><div class="d" aria-hidden="true">8</div><div class="d" aria-hidden="true">9</div><div class="d m" aria-hidden="true">10</div><div class="d" aria-hidden="true">11</div><div class="d" aria-hidden="true">12</div><div class="d m" aria-hidden="true">13</div><div class="d e" aria-hidden="true">14</div></div>
+<p class="legend"><span><i style="background:var(--plum)"></i>Day 0: you join</span><span><i style="background:var(--gold)"></i>short mail</span><span><i style="background:var(--plum)"></i>Day 14: done</span></p>
+<p class="muted small">Day 0 you join. On days 1, 3, 7, 10 and 13 a short mail brings one small task. On day 14 the test is done.</p>
+</section>
+<div class="cols">
+<form id="signup" class="panel" method="post" action="/testers/api/signup" novalidate>
+<div class="fields">
+<fieldset>
+<legend>1. Pick up to 3 apps</legend>
+<p class="count" id="count" aria-live="polite"></p>
+<ul class="apps" id="apps">
+<li><label class="app"><img src="/testers/img/glidecue.webp" alt="" width="52" height="52" loading="lazy"><span><span class="nm">Glidecue</span><span class="ln" style="display:block">A teleprompter that follows your voice as you read, with a short report on pace, pauses and filler words.</span><span class="nd" style="display:block">Voice follow needs Android 13 or later. The rest works on older phones too.</span><span class="tag">Lifetime Pro code</span></span><input type="checkbox" name="apps" value="glidecue"></label></li>
+<li><label class="app"><img src="/testers/img/bodyarcade.webp" alt="" width="52" height="52" loading="lazy"><span><span class="nm">BodyArcade</span><span class="ln" style="display:block">Fitness games you play with your body in front of the phone camera: jump, duck, squat and lean to clear the road.</span><span class="nd" style="display:block">Needs a front camera and a bit of room; the seated mode works without. Pose tracking runs on the phone and the video never leaves it.</span></span><input type="checkbox" name="apps" value="bodyarcade"></label></li>
+<li><label class="app"><img src="/testers/img/parrotly.webp" alt="" width="52" height="52" loading="lazy"><span><span class="nm">Parrotly</span><span class="ln" style="display:block">A party game for one phone: the parrot plays a sound, each player copies it with their voice and gets a score from 0 to 100.</span><span class="nd" style="display:block">Uses the microphone. No account and no internet; each recording is scored on the phone and deleted when the game ends.</span><span class="tag">Lifetime Pro code</span></span><input type="checkbox" name="apps" value="parrotly"></label></li>
+<li><label class="app"><img src="/testers/img/okultakip.webp" alt="" width="52" height="52" loading="lazy"><span><span class="nm">OkulTakip</span><span class="ln" style="display:block">A school bus tracker: parents see the bus on a live map and get a note when their child gets on and off.</span><span class="nd" style="display:block">Screens in Turkish and English. The full test uses two phones, one as driver and one as parent; one phone can test the driver side.</span></span><input type="checkbox" name="apps" value="okultakip"></label></li>
+</ul>
+</fieldset>
+<label class="field" for="email">2. Your e-mail address</label>
+<input id="email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="254">
+<p class="hint">The test links come here. Any address works; what joins the test is the Google account on your phone.</p>
+<label class="check"><input type="checkbox" name="news" value="1"><span>Also tell me when a new app opens for testing (one mail per app).</span></label>
+<label class="check"><input type="checkbox" name="consent" value="1" required><span>I agree to get the mails described on this page: one to confirm, one with the test links and five short ones over the 14 days. Every mail has a one-click unsubscribe.</span></label>
+<div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+<input type="hidden" name="lang" value="en"><input type="hidden" name="tz" value=""><input type="hidden" name="ts" value=""><input type="hidden" name="src" value="">
+</div>
+<button class="btn" type="submit">Send me the test links</button>
+<p id="result" class="result" aria-live="polite"></p>
+<noscript><p class="small muted">The form also works without JavaScript; the reply opens as a new page.</p></noscript>
+</form>
+<aside class="sec">
+<h2>What testing means</h2>
+<ol class="what"><li>An Android phone and the Google account on it.</li><li>Join our Google Group once. It is on the list of every test, so it opens all of them.</li><li>On each app&#39;s test page tap &quot;Become a tester&quot;, then install the app from Google Play.</li><li>Keep it installed for 14 days and open it for a minute on most days.</li><li>Reply to any of our mails when something breaks. One line with your phone model helps.</li></ol>
+<p class="note small">We never ask for reviews, ratings or money. Please do not buy anything inside the apps during the test.</p>
+</aside>
+</div>
+<section class="sec">
+<h2>What you get</h2>
+<p>For apps marked &quot;Lifetime Pro code&quot;: after the 14 days, email info@peakappsstudio.com from the Google account you tested with and we send you a lifetime Pro code for that app. There is no other reward and no payment.</p>
+<h2>How the mails work</h2>
+<p>Seven mails over the 14 days at most: one to confirm, one with the links, then days 1, 3, 7, 10 and 13. Each brings one small task, what changed in the app when something did, and a &quot;still installed&quot; link that tells us the test is alive. If you tick the box, you also get one mail when a new app opens for testing.</p>
+<h2>Your data</h2>
+<p>We keep your e-mail address, your language and time zone, the apps you picked, when you signed up and confirmed, and which &quot;still installed&quot; links you pressed.</p>
+<p>It is stored on Cloudflare, and the mails go out through ForwardEmail, our mail provider. We do not share it, sell it or add it to any other list.</p>
+<p>Sign-ups that are not confirmed are deleted after 7 days. Unsubscribing deletes your address from the list; we keep it only on a do-not-mail list so it is never mailed again.</p>
+<p>Questions, a copy of what we hold or a deletion request: info@peakappsstudio.com. This section is the privacy notice for the tester list.</p>
+<h2>Questions</h2>
+<dl class="faq"><dt>Why a Google Group?</dt><dd>Google lets only listed accounts into a closed test. Our group is on the list of every one of our tests, so joining it once opens all of them. In the group settings you can set group mail to &quot;No email&quot;.</dd><dt>Google says the app is not available.</dt><dd>Chrome or Play is signed in with a different Google account than the one that joined the group. Switch the account and open the test link again.</dd><dt>Can I test on an iPhone?</dt><dd>No. These are Google Play tests, so they need an Android phone.</dd><dt>Can I stop?</dt><dd>Yes, at any time. Every mail has a one-click unsubscribe, and each test has a leave button on its Google Play test page.</dd><dt>I unsubscribed and want back in.</dt><dd>Write to info@peakappsstudio.com from that address and we put you back.</dd></dl>
+</section>
+</main>
+<footer class="foot"><div class="wrap">Peak Apps Studio makes small apps and web tools. <a href="/">peakappsstudio.com</a> &middot; <a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></div></footer>
+<script>(function(){
+var f=document.getElementById('signup');if(!f||!window.fetch)return;
+var MAX=3,L={"picked":"{n} of 3 picked","lifetime":"Lifetime Pro code","submit":"Send me the test links","sending":"Sending"},M={"check_inbox":"Check your inbox. We sent a confirmation link, and nothing starts until you click it. If nothing arrives within 10 minutes, look in spam. Already on the list? Use \"Change your apps\" in any of our mails.","consent_missing":"Please tick the box to agree to the test mails.","bad_email":"That e-mail address does not look right.","bad_domain":"That e-mail domain cannot receive mail. Please check the spelling.","no_apps":"Pick at least one app.","too_many_apps":"Pick at most three apps. Testing more at once rarely works.","unknown_app":"One of these apps no longer takes testers. Please reload the page.","own_address":"This is one of our own addresses, so the form does not mail it.","rate_limited":"Too many sign-ups from here right now. Please try again in an hour.","error":"Something went wrong on our side. Please try again in a few minutes."};
+var out=document.getElementById('result'),cnt=document.getElementById('count'),list=document.getElementById('apps');
+f.ts.value=String(Date.now());
+try{f.tz.value=Intl.DateTimeFormat().resolvedOptions().timeZone||''}catch(e){}
+try{var s=new URLSearchParams(location.search).get('src');if(s&&/^[a-z0-9-]{1,32}$/.test(s))f.src.value=s}catch(e){}
+function boxes(){return list.querySelectorAll('input[name=apps]')}
+function sync(){var b=boxes(),n=0,i;for(i=0;i<b.length;i++)if(b[i].checked)n++;for(i=0;i<b.length;i++)b[i].disabled=!b[i].checked&&n>=MAX;cnt.textContent=L.picked.replace('{n}',n)}
+list.addEventListener('change',sync);sync();
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+fetch('/testers/api/apps?lang=en',{headers:{accept:'application/json'}}).then(function(r){return r.ok?r.json():null}).then(function(j){
+ if(!j||!j.apps)return;var have=[].map.call(boxes(),function(b){return b.value}).join(','),now=j.apps.map(function(a){return a.key}).join(',');
+ if(have===now||!j.apps.length)return;var keep={};[].forEach.call(boxes(),function(b){if(b.checked)keep[b.value]=1});
+ list.innerHTML=j.apps.map(function(a){return '<li><label class="app"><img src="/testers/'+esc(a.icon||'img/blank.webp')+'" alt="" width="52" height="52"><span><span class="nm">'+esc(a.name)+'</span><span class="ln" style="display:block">'+esc(a.line)+'</span>'+(a.needs?'<span class="nd" style="display:block">'+esc(a.needs)+'</span>':'')+(a.thanks==='lifetime'?'<span class="tag">'+esc(L.lifetime)+'</span>':'')+'</span><input type="checkbox" name="apps" value="'+esc(a.key)+'"'+(keep[a.key]?' checked':'')+'></label></li>'}).join('');sync();
+}).catch(function(){});
+f.addEventListener('submit',function(e){e.preventDefault();var btn=f.querySelector('button[type=submit]');
+ var apps=[].filter.call(boxes(),function(b){return b.checked}).map(function(b){return b.value});
+ var body={email:f.email.value,apps:apps,lang:'en',tz:f.tz.value,news:f.news.checked,consent:f.consent.checked,website:f.website.value,ts:Number(f.ts.value),src:f.src.value||null};
+ btn.disabled=true;btn.textContent=L.sending;out.className='result';out.textContent='';
+ fetch(f.action,{method:'POST',headers:{'content-type':'application/json',accept:'application/json'},body:JSON.stringify(body)}).then(function(r){return r.json().catch(function(){return{ok:false,code:'error'}})}).then(function(j){
+  out.textContent=j.message||M[j.code]||M.error;out.className='result '+(j.ok?'ok':'err');
+  if(j.ok){f.querySelector('.fields').hidden=true;btn.hidden=true}else{btn.disabled=false;btn.textContent=L.submit}
+ }).catch(function(){out.textContent=M.error;out.className='result err';btn.disabled=false;btn.textContent=L.submit});
+});
+})();</script>
+</body>
+</html>

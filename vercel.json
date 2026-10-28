@@ -114,6 +114,10 @@
   ],
   "rewrites": [
     {
+      "source": "/testers/api/:path*",
+      "destination": "https://peak-tester-engine.railer-iot.workers.dev/api/:path*"
+    },
+    {
       "source": "/privacy",
       "has": [
         {
