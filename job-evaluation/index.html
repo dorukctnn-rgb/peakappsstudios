@@ -535,6 +535,32 @@ body.pe-je { --pe-accent: var(--pe-tab-je-ink); --pe-accent-fill: var(--pe-tab-j
    that read the page, such as contrast checkers) */
 .pe #method, .pe #proof, .pe #pro, .pe #faq { content-visibility: auto; contain-intrinsic-size: auto 900px; }
 </style>
+<style data-from="/assets/pro-lead.css">
+/* Pro lead: a short note near the top of a page that says what Pro adds for the task the page is about, what it costs and
+ * how it is paid. One sheet on the filing desk of the pay equity family (scoped to body.pe), with the tool's own colour as
+ * its divider tab. Used by the pages that carry the note (Job Evaluation, the Equality Action Plan guides); it needs
+ * /assets/tools.css and /assets/pay-equity.css loaded before it. Markup:
+ *   <div class="pro-lead" data-pro-place="top-block" role="group" aria-labelledby="pro-lead-h">
+ *     <p class="pro-lead-head"><span class="pro-tag">Pro</span><strong id="pro-lead-h">...</strong></p>
+ *     <p>what it adds, the price, one-time or not</p>
+ *     <p class="pro-lead-actions"><a class="btn btn-primary btn-sm" ...>...</a><a class="btn btn-sm" ...>...</a></p>
+ *     <p class="pro-lead-fine">one honest line</p>
+ *   </div>
+ */
+.pe .pro-lead { margin: 22px 0 0; padding: 14px 18px 16px; background: var(--card); border: 1px solid var(--line-2); border-top: 3px solid var(--accent-fill); border-radius: 0 var(--pe-r) var(--pe-r) var(--pe-r); max-width: 760px; }
+.pe .pro-lead p { margin: 0; font-size: 15.5px; line-height: 1.5; color: var(--ink-2); max-width: none; }
+.pe .pro-lead .pro-lead-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; margin: 0 0 6px; }
+.pe .pro-lead .pro-lead-head strong { font-size: 16.5px; font-weight: 700; line-height: 1.3; color: var(--ink); }
+.pe .pro-lead .pro-lead-actions { display: flex; flex-wrap: wrap; gap: 8px 10px; margin-top: 12px; }
+.pe .pro-lead .pro-lead-actions .btn { white-space: normal; text-align: center; }
+.pe .pro-lead .pro-lead-fine { margin-top: 10px; font-size: 13.5px; color: var(--muted); }
+.pe .g-main > .pro-lead { margin: 0 0 40px; }
+@media (max-width: 520px) {
+  .pe .pro-lead { padding: 13px 14px 15px; }
+  .pe .pro-lead .pro-lead-actions .btn { flex: 1 1 100%; }
+}
+@media print { .pe .pro-lead { display: none; } }
+</style>
 <style data-from="/job-evaluation/tool.css">
 /* Job Evaluation: the tool's own identity, on the pay equity family's layout (/assets/pay-equity.css gives the sheets,
  * tables and controls; this file replaces its type and colours on body.pe-je). The subject is a points scale cut into
@@ -985,9 +1011,10 @@ body.pe.pe-je {
   {"@type":"Question","name":"Which roles should I evaluate?","acceptedAnswer":{"@type":"Answer","text":"Each distinct job, not each person: people doing the same work share one role. Rate what the job requires, not the qualifications or performance of whoever holds it. Use the job titles from your payroll if you want to add the categories to a payroll export later."}},
   {"@type":"Question","name":"What is a category of workers?","acceptedAnswer":{"@type":"Answer","text":"Article 3(1)(h) of Directive (EU) 2023/970 defines it as workers performing the same work or work of equal value, grouped in a non-arbitrary way on objective, gender-neutral criteria. Here, the roles whose points fall in the same grade form one category, as the guidelines suggest. The categories decide which averages a worker receives on request (Article 7) and the gaps reported under Article 9(1)(g)."}},
   {"@type":"Question","name":"Do workers’ representatives have to be involved?","acceptedAnswer":{"@type":"Answer","text":"Article 4(4) says the criteria are agreed with workers’ representatives where such representatives exist, and Article 3(1)(h) mentions their cooperation in grouping workers in accordance with national law. National law may also give them a formal say: in the Netherlands the works council must consent to a job evaluation system, and in Germany the works council co-determines pay structures. Involve them before the scores are final."}},
-  {"@type":"Question","name":"Is anything uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. The roles, scores and any payroll file you merge are processed by this page in your browser. Nothing is sent to a server and closing the tab discards it, unless you save the evaluation file to your own computer. With Pro, only the licence key is sent to Gumroad to check it. We count page visits with Cloudflare Web Analytics: no cookies, no personal data, and never your files."}},
+  {"@type":"Question","name":"Is anything uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. The roles, scores and any payroll file you merge are processed by this page in your browser. Nothing is sent to a server and closing the tab discards it, unless you save the evaluation file to your own computer. With Pro, only the licence key is sent to Gumroad to check it. We count page visits with Cloudflare Web Analytics: no cookies, no personal data, and never your files. When you click a Pro button, a counter of our own adds one to a daily total for this tool, with the page and the kind of site that sent you: no cookies, no personal data, no IP address kept, and never your files."}},
   {"@type":"Question","name":"Does it work for equal value claims in the UK?","acceptedAnswer":{"@type":"Answer","text":"The Equality Act 2010 treats work as equal when it is rated as equivalent by a job evaluation study (section 65(4)), and a tribunal must accept a study’s different values unless it suspects the study discriminates because of sex or is otherwise unreliable (section 131(6)). Whether an evaluation counts as such a study depends on how it was carried out, so the record of the scheme, the scores and the reasons matters."}},
-  {"@type":"Question","name":"What does Pro include?","acceptedAnswer":{"@type":"Answer","text":"For $99, once, per organisation: as many roles as you need, your own weights, level descriptions, subfactors and grades, the methodology record PDF, the categories CSV, the payroll merge that adds each worker’s category for the Pay Gap Report and the Pay Transparency Kit, and saving and reopening the evaluation as a file."}}
+  {"@type":"Question","name":"What does Pro include?","acceptedAnswer":{"@type":"Answer","text":"For $99, once, per organisation: as many roles as you need, your own weights, level descriptions, subfactors and grades, the methodology record PDF, the categories CSV, the payroll merge that adds each worker’s category for the Pay Gap Report and the Pay Transparency Kit, and saving and reopening the evaluation as a file."}},
+  {"@type":"Question","name":"How many roles are free, and is Pro a subscription?","acceptedAnswer":{"@type":"Answer","text":"Up to five roles are free, with the default factor plan, the grades, the categories of work of equal value and all four bias checks on screen. Pro is a single payment of $99 per organisation on Gumroad, and it is not a subscription. It lifts the five-role limit and adds your own weights and grades, the methodology record PDF, the categories CSV, the payroll merge and saving the evaluation as a file. Your licence key turns Pro on in the browser where you enter it."}}
  ]}
 ]}
 </script>
@@ -1047,6 +1074,13 @@ body.pe.pe-je {
       <figcaption>The sample company below: each of its 15 roles as tall as its points, in the grade it falls into, teal where at least 60% of the holders are women and grey where at least 60% are men. The cleaner in Grade 3 and the warehouse operative in Grade 4 are the pair the bias checks flag.</figcaption>
     </figure>
   </header>
+
+  <div class="pro-lead" data-pro-place="top-block" role="group" aria-labelledby="pro-lead-h">
+    <p class="pro-lead-head"><span class="pro-tag">Pro</span><strong id="pro-lead-h">Five roles are free. Pro scores every role and writes the record.</strong></p>
+    <p>Pro costs $99, paid once per organisation. It adds your own weights, levels and grades, the methodology record PDF, the categories CSV, and the payroll merge that feeds the Pay Gap Report and the Pay Transparency Kit. The evaluation on this page stays free.</p>
+    <p class="pro-lead-actions"><a class="btn btn-primary btn-sm" data-buy-pro href="https://dorukctn.gumroad.com/l/job-evaluation-pro">Buy Pro on Gumroad</a><a class="btn btn-sm" href="#proof">See the sample record</a></p>
+    <p class="pro-lead-fine">One payment through Gumroad, no subscription.</p>
+  </div>
 
   <section class="je" id="tool" aria-label="Job evaluation tool" data-state="empty">
     <!-- Before any role -->
@@ -1189,7 +1223,7 @@ body.pe.pe-je {
     <p class="sr-only" id="status" aria-live="polite"></p>
   </section>
 
-  <p class="je-privacy small muted">Everything here runs in your browser: the roles, the scores and any payroll file you merge are never uploaded. We count page visits with Cloudflare Web Analytics: no cookies, no personal data, and never your files. Close the tab and they are gone.</p>
+  <p class="je-privacy small muted">Everything here runs in your browser: the roles, the scores and any payroll file you merge are never uploaded. We count page visits with Cloudflare Web Analytics: no cookies, no personal data, and never your files. When you click a Pro button, a counter of our own adds one to a daily total for this tool, with the page and the kind of site that sent you: no cookies, no personal data, no IP address kept, and never your files. Close the tab and they are gone.</p>
 
   <section class="section two-col" id="method">
     <div class="prose">
@@ -1269,9 +1303,10 @@ body.pe.pe-je {
       <details><summary>Which roles should I evaluate?</summary><div class="answer"><p>Each distinct job, not each person: people doing the same work share one role. Rate what the job requires, not the qualifications or performance of whoever holds it. Use the job titles from your payroll if you want to add the categories to a payroll export later.</p></div></details>
       <details><summary>What is a category of workers?</summary><div class="answer"><p>Article 3(1)(h) of Directive (EU) 2023/970 defines it as workers performing the same work or work of equal value, grouped in a non-arbitrary way on objective, gender-neutral criteria. Here, the roles whose points fall in the same grade form one category, as the guidelines suggest. The categories decide which averages a worker receives on request (Article 7) and the gaps reported under Article 9(1)(g). <a href="/job-evaluation/work-of-equal-value/">Work of equal value, with examples</a>.</p></div></details>
       <details><summary>Do workers’ representatives have to be involved?</summary><div class="answer"><p>Article 4(4) says the criteria are agreed with workers’ representatives where such representatives exist, and Article 3(1)(h) mentions their cooperation in grouping workers in accordance with national law. National law may also give them a formal say: in the Netherlands the works council must consent to a job evaluation system, and in Germany the works council co-determines pay structures. Involve them before the scores are final.</p></div></details>
-      <details><summary>Is anything uploaded?</summary><div class="answer"><p>No. The roles, scores and any payroll file you merge are processed by this page in your browser. Nothing is sent to a server and closing the tab discards it, unless you save the evaluation file to your own computer. With Pro, only the licence key is sent to Gumroad to check it. We count page visits with Cloudflare Web Analytics: no cookies, no personal data, and never your files.</p></div></details>
+      <details><summary>Is anything uploaded?</summary><div class="answer"><p>No. The roles, scores and any payroll file you merge are processed by this page in your browser. Nothing is sent to a server and closing the tab discards it, unless you save the evaluation file to your own computer. With Pro, only the licence key is sent to Gumroad to check it. We count page visits with Cloudflare Web Analytics: no cookies, no personal data, and never your files. When you click a Pro button, a counter of our own adds one to a daily total for this tool, with the page and the kind of site that sent you: no cookies, no personal data, no IP address kept, and never your files.</p></div></details>
       <details><summary>Does it work for equal value claims in the UK?</summary><div class="answer"><p>The Equality Act 2010 treats work as equal when it is rated as equivalent by a job evaluation study (section 65(4)), and a tribunal must accept a study’s different values unless it suspects the study discriminates because of sex or is otherwise unreliable (section 131(6)). Whether an evaluation counts as such a study depends on how it was carried out, so the record of the scheme, the scores and the reasons matters.</p></div></details>
       <details><summary>What does Pro include?</summary><div class="answer"><p>For $99, once, per organisation: as many roles as you need, your own weights, level descriptions, subfactors and grades, the methodology record PDF, the categories CSV, the payroll merge that adds each worker’s category for the Pay Gap Report and the Pay Transparency Kit, and saving and reopening the evaluation as a file.</p></div></details>
+      <details><summary>How many roles are free, and is Pro a subscription?</summary><div class="answer"><p>Up to five roles are free, with the default factor plan, the grades, the categories of work of equal value and all four bias checks on screen. Pro is a single payment of $99 per organisation on Gumroad, and it is not a subscription. It lifts the five-role limit and adds your own weights and grades, the methodology record PDF, the categories CSV, the payroll merge and saving the evaluation as a file. Your licence key turns Pro on in the browser where you enter it.</p></div></details>
     </div>
   </section>
 

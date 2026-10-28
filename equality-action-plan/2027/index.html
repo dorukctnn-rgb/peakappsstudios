@@ -19,6 +19,32 @@
 <link rel="stylesheet" href="/assets/tools.css">
 <link rel="stylesheet" href="/assets/pay-equity.css">
 <link rel="stylesheet" href="/equality-action-plan/tool.css">
+<style data-from="/assets/pro-lead.css">
+/* Pro lead: a short note near the top of a page that says what Pro adds for the task the page is about, what it costs and
+ * how it is paid. One sheet on the filing desk of the pay equity family (scoped to body.pe), with the tool's own colour as
+ * its divider tab. Used by the pages that carry the note (Job Evaluation, the Equality Action Plan guides); it needs
+ * /assets/tools.css and /assets/pay-equity.css loaded before it. Markup:
+ *   <div class="pro-lead" data-pro-place="top-block" role="group" aria-labelledby="pro-lead-h">
+ *     <p class="pro-lead-head"><span class="pro-tag">Pro</span><strong id="pro-lead-h">...</strong></p>
+ *     <p>what it adds, the price, one-time or not</p>
+ *     <p class="pro-lead-actions"><a class="btn btn-primary btn-sm" ...>...</a><a class="btn btn-sm" ...>...</a></p>
+ *     <p class="pro-lead-fine">one honest line</p>
+ *   </div>
+ */
+.pe .pro-lead { margin: 22px 0 0; padding: 14px 18px 16px; background: var(--card); border: 1px solid var(--line-2); border-top: 3px solid var(--accent-fill); border-radius: 0 var(--pe-r) var(--pe-r) var(--pe-r); max-width: 760px; }
+.pe .pro-lead p { margin: 0; font-size: 15.5px; line-height: 1.5; color: var(--ink-2); max-width: none; }
+.pe .pro-lead .pro-lead-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; margin: 0 0 6px; }
+.pe .pro-lead .pro-lead-head strong { font-size: 16.5px; font-weight: 700; line-height: 1.3; color: var(--ink); }
+.pe .pro-lead .pro-lead-actions { display: flex; flex-wrap: wrap; gap: 8px 10px; margin-top: 12px; }
+.pe .pro-lead .pro-lead-actions .btn { white-space: normal; text-align: center; }
+.pe .pro-lead .pro-lead-fine { margin-top: 10px; font-size: 13.5px; color: var(--muted); }
+.pe .g-main > .pro-lead { margin: 0 0 40px; }
+@media (max-width: 520px) {
+  .pe .pro-lead { padding: 13px 14px 15px; }
+  .pe .pro-lead .pro-lead-actions .btn { flex: 1 1 100%; }
+}
+@media print { .pe .pro-lead { display: none; } }
+</style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
  {"@type":"Article","headline":"Equality action plans 2027: what is mandatory and when","description":"What GOV.UK, Business.gov.uk, the EHRC and Acas say about when equality action plans become mandatory, what section 78A of the Equality Act 2010 allows, the 2027 deadlines, and how advisers read the start date.","url":"https://peakappsstudio.com/equality-action-plan/2027/","dateModified":"2026-10-10","inLanguage":"en-GB","about":{"@id":"https://peakappsstudio.com/equality-action-plan/#app"},"author":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
@@ -27,7 +53,8 @@
   {"@type":"Question","name":"Do we have to publish an action plan with our April 2027 gender pay gap report?","acceptedAnswer":{"@type":"Answer","text":"Not under the law as it stood on 10 October 2026. GOV.UK says you can voluntarily publish your first action plan during the 2026 to 2027 reporting year, by 4 April 2027 for private, voluntary and other employers or 30 March 2027 for most public authorities. A duty needs regulations under section 78A of the Equality Act 2010, and none had been made."}},
   {"@type":"Question","name":"Is a menopause action plan a legal requirement?","acceptedAnswer":{"@type":"Answer","text":"Not yet. Supporting employees going through the menopause is one of the matters an equality action plan can be required to cover under section 78A. Once regulations are made, the plan will have to include at least one menopause action if the format stays as GOV.UK has set it out. Until then it is voluntary."}},
   {"@type":"Question","name":"What happens if we do not publish one?","acceptedAnswer":{"@type":"Answer","text":"Nothing, while plans are voluntary. Section 78A lets the regulations provide for a failure to comply to be enforced by prescribed means other than as a criminal offence. What those means are will be set out in the regulations."}},
-  {"@type":"Question","name":"Does it apply in Northern Ireland?","acceptedAnswer":{"@type":"Answer","text":"No. Section 78A extends to England and Wales and Scotland, and Business.gov.uk says the duty will apply to large private sector employers in England, Scotland and Wales and to English and specific cross-border public authorities."}}
+  {"@type":"Question","name":"Does it apply in Northern Ireland?","acceptedAnswer":{"@type":"Answer","text":"No. Section 78A extends to England and Wales and Scotland, and Business.gov.uk says the duty will apply to large private sector employers in England, Scotland and Wales and to English and specific cross-border public authorities."}},
+  {"@type":"Question","name":"Do we need Pro to publish a voluntary plan?","acceptedAnswer":{"@type":"Answer","text":"No. The free builder writes the plan in the format the gender pay gap service asks for, checks the rules as you write and gives you the whole plan as text. Pro costs $79, paid once per organisation for every reporting entity in it, and it is not a subscription. It adds the Step 1 analysis from an HR export, a sign-off pack PDF with an approval page, a page for your website as HTML and PDF, a measures tracker and a staff consultation kit."}}
  ]}
 ]}
 </script>
@@ -84,6 +111,13 @@
 
   <div class="g-wrap">
     <div class="g-main">
+      <div class="pro-lead" data-pro-place="top-block" role="group" aria-labelledby="pro-lead-h">
+        <p class="pro-lead-head"><span class="pro-tag">Pro</span><strong id="pro-lead-h">Free builds the plan. Pro covers the paperwork around it.</strong></p>
+        <p>If you publish a voluntary plan with your 2026 figures, the builder is free. Pro costs $79, paid once per organisation for every reporting entity in it. It adds the Step 1 analysis from your HR export, a sign-off pack with an approval page for the responsible person, a page for your website and a measures tracker for next year’s review.</p>
+        <p class="pro-lead-actions"><a class="btn btn-primary btn-sm" href="/equality-action-plan/#proof">See the sample sign-off pack</a><a class="btn btn-sm" href="https://dorukctn.gumroad.com/l/equality-action-plan-pro">Buy Pro on Gumroad</a></p>
+        <p class="pro-lead-fine">Plans are voluntary until regulations are made, so Pro is not a legal requirement. One payment through Gumroad, no subscription.</p>
+      </div>
+
       <section id="govuk">
         <h2>What the government says, word for word</h2>
         <blockquote><p>Employers with 250 or more employees have the option to produce and publish a voluntary action plan alongside their gender pay gap data. Subject to legislation, these will become mandatory from spring 2027.</p><cite>GOV.UK, <a href="https://www.gov.uk/government/publications/creating-an-action-plan-guidance-for-employers/overview" rel="noopener">Creating an action plan: guidance for employers, Overview</a> (updated 13 May 2026)</cite></blockquote>
@@ -148,6 +182,7 @@
           <details><summary>Is a menopause action plan a legal requirement?</summary><div class="answer"><p>Not yet. Supporting employees going through the menopause is one of the matters an equality action plan can be required to cover under section 78A. Once regulations are made, the plan will have to include at least one menopause action if the format stays as GOV.UK has set it out. Until then it is voluntary. <a href="/equality-action-plan/menopause-action-plan-template/">The six menopause actions</a>.</p></div></details>
           <details><summary>What happens if we do not publish one?</summary><div class="answer"><p>Nothing, while plans are voluntary. Section 78A lets the regulations provide for a failure to comply to be enforced by prescribed means other than as a criminal offence. What those means are will be set out in the regulations.</p></div></details>
           <details><summary>Does it apply in Northern Ireland?</summary><div class="answer"><p>No. Section 78A extends to England and Wales and Scotland, and Business.gov.uk says the duty will apply to large private sector employers in England, Scotland and Wales and to English and specific cross-border public authorities.</p></div></details>
+          <details><summary>Do we need Pro to publish a voluntary plan?</summary><div class="answer"><p>No. The free builder writes the plan in the format the gender pay gap service asks for, checks the rules as you write and gives you the whole plan as text. Pro costs $79, paid once per organisation for every reporting entity in it, and it is not a subscription. It adds the Step 1 analysis from an HR export, a sign-off pack PDF with an approval page, a page for your website as HTML and PDF, a measures tracker and a staff consultation kit.</p></div></details>
         </div>
       </section>
 

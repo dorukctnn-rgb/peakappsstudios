@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src https://api.gumroad.com https://cloudflareinsights.com; worker-src 'self'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src https://api.gumroad.com https://cloudflareinsights.com https://peak-funnel.railer-iot.workers.dev; worker-src 'self'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Oura Ring sans abonnement : toutes vos données | Nightjar</title>
@@ -694,7 +694,7 @@ html[lang="ja"] .nj .lede { line-height: 1.8; }
 <div class="nj-actions"><a class="btn btn-primary" href="#results" id="btn-see">Voir vos nuits</a><button type="button" class="btn nj-quiet" id="btn-reset">Ouvrir un autre export</button></div>
 </div>
 </div>
-<p class="nj-private"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 9V6.5a5 5 0 0 1 10 0V9" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="3.2" y="9" width="13.6" height="9" rx="2" fill="currentColor"/></svg><span>Vos données de santé restent sur votre appareil. L’export est lu dans cet onglet et jamais envoyé, et les fichiers comme l’historique de localisation, les repas ou les médicaments ne sont même pas ouverts. Nous comptons les visites avec Cloudflare Web Analytics : pas de cookies, pas de données personnelles, et jamais vos fichiers.</span></p>
+<p class="nj-private"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 9V6.5a5 5 0 0 1 10 0V9" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="3.2" y="9" width="13.6" height="9" rx="2" fill="currentColor"/></svg><span>Vos données de santé restent sur votre appareil. L’export est lu dans cet onglet et jamais envoyé, et les fichiers comme l’historique de localisation, les repas ou les médicaments ne sont même pas ouverts. Nous comptons les visites avec Cloudflare Web Analytics : pas de cookies, pas de données personnelles, et jamais vos fichiers. Quand vous cliquez sur un bouton Pro, un compteur à nous ajoute un à un total quotidien pour cet outil, avec la page et le type de site qui vous a envoyé : pas de cookies, pas de données personnelles, pas d’adresse IP conservée, et jamais vos fichiers.</span></p>
 </div>
 <figure class="nj-hero-art">
 <picture><source type="image/webp" srcset="/oura-export-viewer/img/weave-640.webp 640w, /oura-export-viewer/img/weave-960.webp 960w, /oura-export-viewer/img/weave-1280.webp 1280w" sizes="(max-width: 900px) 92vw, 540px"><img src="/oura-export-viewer/img/weave-960.webp" width="960" height="1080" alt="Quatre-vingt-dix nuits de la personne d’exemple tissées en bloc : une rangée par nuit, sommeil profond en indigo, léger en pervenche, paradoxal en turquoise et éveil en abricot"></picture>
