@@ -610,6 +610,7 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
 .cb-guide p, .cb-guide li { color: var(--ink-2); }
 .cb-cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 22px 0; padding: 18px 20px; background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--cloth); border-radius: 0 var(--radius) var(--radius) 0; }
 .cb-cta p { margin: 0; flex: 1 1 260px; }
+.cb-cta .cb-proline { flex: 1 1 100%; margin: 2px 0 0; padding-top: 12px; border-top: 1px solid var(--line); font-size: 15px; color: var(--muted); }
 @media (prefers-reduced-motion: reduce) { .cb * { transition: none !important; } }
 </style>
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
@@ -648,11 +649,12 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
 <li>Your export is opened by this page inside your browser. We never receive your file, your chats, your characters or your email address.</li>
 <li>The page sets no cookies and shows no ads.</li>
 <li>Visits are counted with Cloudflare Web Analytics, which uses no cookies and collects no personal data.</li>
+<li>When you press a Pro button on the tool page, our own counter adds one to a daily total. It keeps no cookie, no IP address and nothing about you.</li>
 <li>If you buy Pro, your licence key is checked with Gumroad when you paste it.</li>
 </ul>
 <h2>Your export file</h2>
 <p>When you drop or choose a file, the page hands it to a worker script in the same browser tab. The worker reads it from your device, opens it with the email address you type, and keeps the chats in the tab’s memory while it is open. Closing the file or the tab clears them. No part of the file, and nothing read from it, is sent over the network. The files you save (HTML, text, Markdown, the book, the EPUB, the print layout for PDF, character cards, chat files and the ZIP of them) are made in your browser and go straight to your downloads. A picture you choose for a character card is read the same way, on your device.</p>
-<p>The page’s security policy tells your browser to allow only two connections: Gumroad’s licence check and Cloudflare’s visit counter. The worker that reads your file has no network code. <a href="/character-ai-export-viewer/#nothing-uploaded">How to check that nothing is uploaded</a> shows how to confirm this in your browser.</p>
+<p>The page’s security policy tells your browser to allow only three connections: Gumroad’s licence check, Cloudflare’s visit counter and our own Pro click counter. The worker that reads your file has no network code. <a href="/character-ai-export-viewer/#nothing-uploaded">How to check that nothing is uploaded</a> shows how to confirm this in your browser.</p>
 <h2>The email address you type</h2>
 <p>Character.AI locks the export with your email address. You type it so the page can open the file. It stays in the tab’s memory for that purpose, is never stored and is never sent anywhere.</p>
 <h2>What your browser keeps</h2>
@@ -666,7 +668,7 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
 <h2>Gumroad</h2>
 <p>Payment for Pro happens on Gumroad, which handles your card and receipt under its own privacy policy. When you paste a licence key, the page sends the key and the product id to Gumroad’s licence API to check it. Nothing from your export is included.</p>
 <h2>Visit counting and hosting</h2>
-<p>Cloudflare Web Analytics counts page visits with a small script from <code>static.cloudflareinsights.com</code>. It sets no cookies and records the page address, the referring site, the browser and country and how fast the page loaded, without identifying you. The site is hosted by Vercel, which processes the technical data of each page request (such as your IP address) to serve and protect the site.</p>
+<p>Cloudflare Web Analytics counts page visits with a small script from <code>static.cloudflareinsights.com</code>. It sets no cookies and records the page address, the referring site, the browser and country and how fast the page loaded, without identifying you. Our own counter, a small Cloudflare Worker of ours, adds one to a daily total when you press a Pro button on the tool page or the Pro window opens there. It stores the event (a button press, or the window opening), the tool, the page address without anything after a ? or #, the part of the page the button is in and the one word for the kind of site that sent you. It stores no cookie, no IP address, no browser details, no time of day and nothing that tells one visitor from another, and it never receives your file, your email address or your chats. The site is hosted by Vercel, which processes the technical data of each page request (such as your IP address) to serve and protect the site.</p>
 <h2>Children</h2>
 <p>Chatbound collects no personal information from anyone, of any age.</p>
 <h2>Contact</h2>

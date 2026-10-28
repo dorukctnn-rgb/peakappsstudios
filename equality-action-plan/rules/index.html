@@ -19,6 +19,32 @@
 <link rel="stylesheet" href="/assets/tools.css">
 <link rel="stylesheet" href="/assets/pay-equity.css">
 <link rel="stylesheet" href="/equality-action-plan/tool.css">
+<style data-from="/assets/pro-lead.css">
+/* Pro lead: a short note near the top of a page that says what Pro adds for the task the page is about, what it costs and
+ * how it is paid. One sheet on the filing desk of the pay equity family (scoped to body.pe), with the tool's own colour as
+ * its divider tab. Used by the pages that carry the note (Job Evaluation, the Equality Action Plan guides); it needs
+ * /assets/tools.css and /assets/pay-equity.css loaded before it. Markup:
+ *   <div class="pro-lead" data-pro-place="top-block" role="group" aria-labelledby="pro-lead-h">
+ *     <p class="pro-lead-head"><span class="pro-tag">Pro</span><strong id="pro-lead-h">...</strong></p>
+ *     <p>what it adds, the price, one-time or not</p>
+ *     <p class="pro-lead-actions"><a class="btn btn-primary btn-sm" ...>...</a><a class="btn btn-sm" ...>...</a></p>
+ *     <p class="pro-lead-fine">one honest line</p>
+ *   </div>
+ */
+.pe .pro-lead { margin: 22px 0 0; padding: 14px 18px 16px; background: var(--card); border: 1px solid var(--line-2); border-top: 3px solid var(--accent-fill); border-radius: 0 var(--pe-r) var(--pe-r) var(--pe-r); max-width: 760px; }
+.pe .pro-lead p { margin: 0; font-size: 15.5px; line-height: 1.5; color: var(--ink-2); max-width: none; }
+.pe .pro-lead .pro-lead-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; margin: 0 0 6px; }
+.pe .pro-lead .pro-lead-head strong { font-size: 16.5px; font-weight: 700; line-height: 1.3; color: var(--ink); }
+.pe .pro-lead .pro-lead-actions { display: flex; flex-wrap: wrap; gap: 8px 10px; margin-top: 12px; }
+.pe .pro-lead .pro-lead-actions .btn { white-space: normal; text-align: center; }
+.pe .pro-lead .pro-lead-fine { margin-top: 10px; font-size: 13.5px; color: var(--muted); }
+.pe .g-main > .pro-lead { margin: 0 0 40px; }
+@media (max-width: 520px) {
+  .pe .pro-lead { padding: 13px 14px 15px; }
+  .pe .pro-lead .pro-lead-actions .btn { flex: 1 1 100%; }
+}
+@media print { .pe .pro-lead { display: none; } }
+</style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
  {"@type":"Article","headline":"Equality action plan rules: minimums, word limits and deadlines","description":"The rules of the GOV.UK equality action plan format for employers with 250 or more employees: the 18 actions in five groups, the minimum of two actions with one on the gender pay gap and one on menopause, two new or in progress, the 100 and 200 word limits, the responsible person, legal entities and the 2027 deadlines, with sources.","url":"https://peakappsstudio.com/equality-action-plan/rules/","dateModified":"2026-10-10","inLanguage":"en-GB","about":{"@id":"https://peakappsstudio.com/equality-action-plan/#app"},"author":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},
@@ -26,7 +52,8 @@
  {"@type":"FAQPage","mainEntity":[
   {"@type":"Question","name":"Can we write our own actions?","acceptedAnswer":{"@type":"Answer","text":"The guidance asks you to choose from the government’s list of 18 actions and does not describe adding your own. You can say how you will carry out each one in its supporting text, and add background in the overall narrative."}},
   {"@type":"Question","name":"Can an embedded action count towards the two required actions?","acceptedAnswer":{"@type":"Answer","text":"It counts as one of your actions, and an embedded menopause action meets the menopause minimum. But at least 2 actions must be new or in progress, so a plan of one embedded pay gap action and one embedded menopause action does not meet the rules."}},
-  {"@type":"Question","name":"Can we put a link in the supporting text?","acceptedAnswer":{"@type":"Answer","text":"No. Step 3 says you cannot add links or upload files in the text for each action. The service asks separately for a link to the relevant page on your own website, such as your equality policies or strategy."}}
+  {"@type":"Question","name":"Can we put a link in the supporting text?","acceptedAnswer":{"@type":"Answer","text":"No. Step 3 says you cannot add links or upload files in the text for each action. The service asks separately for a link to the relevant page on your own website, such as your equality policies or strategy."}},
+  {"@type":"Question","name":"Which of these rules does Pro help with?","acceptedAnswer":{"@type":"Answer","text":"None of the rules require Pro, and the free builder checks the minimums, the statuses and the word limits as you write. Pro helps with the paperwork around them: an approval page with name, role and date for the responsible person, a page for your own website, a measures tracker for the yearly review, and the Step 1 analysis from your HR export. It costs $79, paid once per organisation, and covers every reporting entity in it."}}
  ]}
 ]}
 </script>
@@ -83,6 +110,13 @@
 
   <div class="g-wrap">
     <div class="g-main">
+      <div class="pro-lead" data-pro-place="top-block" role="group" aria-labelledby="pro-lead-h">
+        <p class="pro-lead-head"><span class="pro-tag">Pro</span><strong id="pro-lead-h">The builder checks these rules for free. Pro covers the paperwork around them.</strong></p>
+        <p>Pro costs $79, paid once per organisation for every reporting entity in it. For the rules on this page it adds an approval page for the responsible person, a plan page for your own website, a measures tracker for the yearly review and the Step 1 analysis from your HR export.</p>
+        <p class="pro-lead-actions"><a class="btn btn-primary btn-sm" href="/equality-action-plan/#proof">See the sample sign-off pack</a><a class="btn btn-sm" href="https://dorukctn.gumroad.com/l/equality-action-plan-pro">Buy Pro on Gumroad</a></p>
+        <p class="pro-lead-fine">None of the rules require Pro. One payment through Gumroad, no subscription.</p>
+      </div>
+
       <section id="summary">
         <h2>The rules in one table</h2>
         <p>Rules as of <strong>10 October 2026</strong>. Plans are voluntary for the 2026 to 2027 reporting year; the regulations that will make them mandatory may change any of this.</p>
@@ -192,6 +226,7 @@
           <details><summary>Can we write our own actions?</summary><div class="answer"><p>The guidance asks you to choose from the government’s list of 18 actions and does not describe adding your own. You can say how you will carry out each one in its supporting text, and add background in the overall narrative.</p></div></details>
           <details><summary>Can an embedded action count towards the two required actions?</summary><div class="answer"><p>It counts as one of your actions, and an embedded menopause action meets the menopause minimum. But at least 2 actions must be new or in progress, so a plan of one embedded pay gap action and one embedded menopause action does not meet the rules.</p></div></details>
           <details><summary>Can we put a link in the supporting text?</summary><div class="answer"><p>No. Step 3 says you cannot add links or upload files in the text for each action. The service asks separately for a link to the relevant page on your own website, such as your equality policies or strategy.</p></div></details>
+          <details><summary>Which of these rules does Pro help with?</summary><div class="answer"><p>None of the rules require Pro, and the free builder checks the minimums, the statuses and the word limits as you write. Pro helps with the paperwork around them: an approval page with name, role and date for the responsible person, a page for your own website, a measures tracker for the yearly review, and the Step 1 analysis from your HR export. It costs $79, paid once per organisation, and covers every reporting entity in it.</p></div></details>
         </div>
       </section>
 

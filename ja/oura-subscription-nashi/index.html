@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src https://api.gumroad.com https://cloudflareinsights.com; worker-src 'self'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src https://api.gumroad.com https://cloudflareinsights.com https://peak-funnel.railer-iot.workers.dev; worker-src 'self'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Oura Ringをサブスクなしで。全データをエクスポートから見る | Nightjar</title>
@@ -697,7 +697,7 @@ html[lang="ja"] .nj .lede { line-height: 1.8; }
 <div class="nj-actions"><a class="btn btn-primary" href="#results" id="btn-see">睡眠データを見る</a><button type="button" class="btn nj-quiet" id="btn-reset">別のエクスポートを開く</button></div>
 </div>
 </div>
-<p class="nj-private"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 9V6.5a5 5 0 0 1 10 0V9" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="3.2" y="9" width="13.6" height="9" rx="2" fill="currentColor"/></svg><span>健康データはあなたの端末から出ません。エクスポートはこのタブの中で読み込まれ、アップロードされません。位置情報の履歴、食事、服薬などのファイルは開きもしません。 ページの閲覧数は Cloudflare Web Analytics で数えています。Cookie も個人データも使わず、あなたのファイルには触れません。</span></p>
+<p class="nj-private"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 9V6.5a5 5 0 0 1 10 0V9" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="3.2" y="9" width="13.6" height="9" rx="2" fill="currentColor"/></svg><span>健康データはあなたの端末から出ません。エクスポートはこのタブの中で読み込まれ、アップロードされません。位置情報の履歴、食事、服薬などのファイルは開きもしません。 ページの閲覧数は Cloudflare Web Analytics で数えています。Cookie も個人データも使わず、あなたのファイルには触れません。 Pro ボタンを押すと、自前のカウンターがこのツールの1日の合計に1を加えます。記録するのはページと、どの種類のサイトから来たかだけです。Cookie も個人データも使わず、IP アドレスも保存せず、あなたのファイルには触れません。</span></p>
 </div>
 <figure class="nj-hero-art">
 <picture><source type="image/webp" srcset="/oura-export-viewer/img/weave-640.webp 640w, /oura-export-viewer/img/weave-960.webp 960w, /oura-export-viewer/img/weave-1280.webp 1280w" sizes="(max-width: 900px) 92vw, 540px"><img src="/oura-export-viewer/img/weave-960.webp" width="960" height="1080" alt="サンプル人物の90夜分の睡眠を織物のように並べたもの。1夜が1列で、深い睡眠は藍色、浅い睡眠は薄い青、レム睡眠は青緑、覚醒はアプリコット色"></picture>

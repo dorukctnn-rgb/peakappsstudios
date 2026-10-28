@@ -1,0 +1,24 @@
+/* Pro lead: a short note near the top of a page that says what Pro adds for the task the page is about, what it costs and
+ * how it is paid. One sheet on the filing desk of the pay equity family (scoped to body.pe), with the tool's own colour as
+ * its divider tab. Used by the pages that carry the note (Job Evaluation, the Equality Action Plan guides); it needs
+ * /assets/tools.css and /assets/pay-equity.css loaded before it. Markup:
+ *   <div class="pro-lead" data-pro-place="top-block" role="group" aria-labelledby="pro-lead-h">
+ *     <p class="pro-lead-head"><span class="pro-tag">Pro</span><strong id="pro-lead-h">...</strong></p>
+ *     <p>what it adds, the price, one-time or not</p>
+ *     <p class="pro-lead-actions"><a class="btn btn-primary btn-sm" ...>...</a><a class="btn btn-sm" ...>...</a></p>
+ *     <p class="pro-lead-fine">one honest line</p>
+ *   </div>
+ */
+.pe .pro-lead { margin: 22px 0 0; padding: 14px 18px 16px; background: var(--card); border: 1px solid var(--line-2); border-top: 3px solid var(--accent-fill); border-radius: 0 var(--pe-r) var(--pe-r) var(--pe-r); max-width: 760px; }
+.pe .pro-lead p { margin: 0; font-size: 15.5px; line-height: 1.5; color: var(--ink-2); max-width: none; }
+.pe .pro-lead .pro-lead-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; margin: 0 0 6px; }
+.pe .pro-lead .pro-lead-head strong { font-size: 16.5px; font-weight: 700; line-height: 1.3; color: var(--ink); }
+.pe .pro-lead .pro-lead-actions { display: flex; flex-wrap: wrap; gap: 8px 10px; margin-top: 12px; }
+.pe .pro-lead .pro-lead-actions .btn { white-space: normal; text-align: center; }
+.pe .pro-lead .pro-lead-fine { margin-top: 10px; font-size: 13.5px; color: var(--muted); }
+.pe .g-main > .pro-lead { margin: 0 0 40px; }
+@media (max-width: 520px) {
+  .pe .pro-lead { padding: 13px 14px 15px; }
+  .pe .pro-lead .pro-lead-actions .btn { flex: 1 1 100%; }
+}
+@media print { .pe .pro-lead { display: none; } }

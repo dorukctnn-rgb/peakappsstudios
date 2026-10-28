@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; media-src 'self' blob:; font-src 'self'; connect-src https://api.gumroad.com https://cloudflareinsights.com; worker-src 'self'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; media-src 'self' blob:; font-src 'self'; connect-src https://api.gumroad.com https://cloudflareinsights.com https://peak-funnel.railer-iot.workers.dev; worker-src 'self'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Daylio en PC: abre tu copia en el navegador | Dayfold</title>
@@ -711,7 +711,7 @@ body.df {
 <div class="df-actions"><a class="btn btn-primary" href="#journal" id="btn-see">Leer tu diario</a><button type="button" class="btn df-btn-quiet" id="btn-reset">Abrir otra copia</button></div>
 </div>
 </div>
-<p class="df-private"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 9V6.5a5 5 0 0 1 10 0V9" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="3.2" y="9" width="13.6" height="9" rx="2" fill="currentColor"/></svg><span>Tu diario se lee en esta pestaña y nunca se sube, y Dayfold nunca modifica el archivo de la copia. Contamos las visitas con Cloudflare Web Analytics: sin cookies, sin datos personales y nunca con tus archivos.</span></p>
+<p class="df-private"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 9V6.5a5 5 0 0 1 10 0V9" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="3.2" y="9" width="13.6" height="9" rx="2" fill="currentColor"/></svg><span>Tu diario se lee en esta pestaña y nunca se sube, y Dayfold nunca modifica el archivo de la copia. Contamos las visitas con Cloudflare Web Analytics: sin cookies, sin datos personales y nunca con tus archivos. Cuando haces clic en un botón Pro, un contador propio suma uno a un total diario de esta herramienta, con la página y el tipo de sitio que te envió: sin cookies, sin datos personales, sin guardar la dirección IP y nunca con tus archivos.</span></p>
 </div>
 </div>
 <figure class="df-band">

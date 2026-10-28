@@ -686,7 +686,7 @@ body.sc[data-mode="gem"] .sc-only-gpt, body.sc:not([data-mode="gem"]) .sc-only-g
 </fieldset>
 <div class="sc-field">
 <p class="sc-label" id="files-h">Knowledge files</p>
-<p class="sc-hint sc-only-gpt">Add your own copies of the files you uploaded to the GPT. OpenAI's help pages do not describe downloading them back from the GPT editor, so start from the copies on your computer.</p>
+<p class="sc-hint sc-only-gpt">Add your own copies of the files you uploaded to the GPT. OpenAI's help pages do not describe downloading them back from the GPT editor, so start from the copies on your computer. Lost them? <a href="/custom-gpt-export/knowledge-files/">What to try</a>.</p>
 <p class="sc-hint sc-only-gem">In the Gem's editor, click each file under Knowledge, then Download at the top, as Google's own steps say. Add the downloaded files here. A file you linked from Google Drive stays in your Drive; add a copy if you want it in the backup.</p>
 <div class="sc-drop" id="files-drop" role="group" aria-labelledby="files-h">
 <button type="button" class="btn sc-quiet" id="btn-files">Add files</button>
@@ -698,7 +698,7 @@ body.sc[data-mode="gem"] .sc-only-gpt, body.sc:not([data-mode="gem"]) .sc-only-g
 </div>
 <div class="sc-field sc-only-gpt">
 <p class="sc-label">Actions</p>
-<p class="sc-hint">In the GPT editor, open each action and copy its Schema box. Do not paste API keys or tokens: they are not part of the schema, and a backup should never hold them.</p>
+<p class="sc-hint">In the GPT editor, open each action and copy its Schema box. Do not paste API keys or tokens: they are not part of the schema, and a backup should never hold them. <a href="/custom-gpt-export/gpt-actions/">What to save from an action</a>.</p>
 <div id="actions"></div>
 <button type="button" class="btn sc-quiet sc-add" id="btn-action">Add an action</button>
 </div>
@@ -722,7 +722,7 @@ body.sc[data-mode="gem"] .sc-only-gpt, body.sc:not([data-mode="gem"]) .sc-only-g
 
 <section class="sc-card sc-only-gpt" id="chats" aria-labelledby="chats-h">
 <h2 id="chats-h" tabindex="-1">Your chats with the GPT</h2>
-<p class="sc-hint">In ChatGPT, open Settings, then Data controls, then Export data. OpenAI emails a link to a ZIP file; open that ZIP here as it is. Skillcase reads only the conversations file inside it and finds the chats you had with each GPT.</p>
+<p class="sc-hint">In ChatGPT, open Settings, then Data controls, then Export data. OpenAI emails a link to a ZIP file; open that ZIP here as it is. Skillcase reads only the conversations file inside it and finds the chats you had with each GPT. <a href="/custom-gpt-export/conversations-json/">What is in the export, and why conversations.json is hard to read</a>.</p>
 <div class="sc-drop" id="chats-drop" role="group" aria-labelledby="chats-h">
 <button type="button" class="btn sc-quiet" id="btn-chats">Open the ChatGPT export</button>
 <span class="sc-small">a .zip, or conversations.json</span>
@@ -840,6 +840,9 @@ body.sc[data-mode="gem"] .sc-only-gpt, body.sc:not([data-mode="gem"]) .sc-only-g
 <a href="/custom-gpt-export/custom-gpt-to-gemini/">Move a custom GPT to Gemini<span>Why a skill and not a Gem, and the file rules</span></a>
 <a href="/custom-gpt-export/save-custom-gpt-chats/">Save your custom GPT chats<span>Find a GPT's chats in the ChatGPT export</span></a>
 <a href="/custom-gpt-export/migrate-to-plugin/">Migrate a custom GPT to a plugin<span>What moves, what does not, and what to keep first</span></a>
+<a href="/custom-gpt-export/knowledge-files/">Download a GPT's knowledge files<span>No download button is documented: what to try first</span></a>
+<a href="/custom-gpt-export/gpt-actions/">Custom GPT actions do not migrate<span>The schema, the sign-in method and the settings to save</span></a>
+<a href="/custom-gpt-export/conversations-json/">Open ChatGPT's conversations.json<span>What is in the export ZIP, and how to read the chats</span></a>
 <a href="/custom-gpt-export/gemini-gems-going-away/">Are Gemini Gems going away?<span>Google's dates, and what its move to skills leaves behind</span></a>
 <a href="/custom-gpt-export/export-gemini-gems/">Export a Gemini Gem<span>Its instructions, its files and Google Takeout</span></a>
 <a href="/custom-gpt-export/gemini-gem-to-claude-chatgpt/">A Gemini Gem in Claude or ChatGPT<span>The equivalent in each, and how to move one</span></a>
@@ -872,6 +875,9 @@ body.sc[data-mode="gem"] .sc-only-gpt, body.sc:not([data-mode="gem"]) .sc-only-g
         <li><a href="/custom-gpt-export/custom-gpt-to-gemini/">Move a custom GPT to Gemini</a></li>
         <li><a href="/custom-gpt-export/save-custom-gpt-chats/">Save your custom GPT chats</a></li>
         <li><a href="/custom-gpt-export/migrate-to-plugin/">Migrate a custom GPT to a plugin</a></li>
+        <li><a href="/custom-gpt-export/knowledge-files/">Download a GPT's knowledge files</a></li>
+        <li><a href="/custom-gpt-export/gpt-actions/">Custom GPT actions do not migrate</a></li>
+        <li><a href="/custom-gpt-export/conversations-json/">Open ChatGPT's conversations.json</a></li>
         <li><a href="/custom-gpt-export/gemini-gems-going-away/">Are Gemini Gems going away?</a></li>
         <li><a href="/custom-gpt-export/export-gemini-gems/">Export a Gemini Gem</a></li>
         <li><a href="/custom-gpt-export/gemini-gem-to-claude-chatgpt/">A Gemini Gem in Claude or ChatGPT</a></li>

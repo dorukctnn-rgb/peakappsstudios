@@ -76,11 +76,11 @@ function summary(msg) {
       for (const c of r.collections.slice(0, 40)) add(c.title);
     } else if (r.warnings.includes('cloud-only')) {
       $('done-title').textContent = `Edge kept only the names of ${plural(r.names.length, 'collection', 'collections')} here`;
-      $('done-sub').innerHTML = 'Their pages are not in this file: they were kept online. Microsoft says personal accounts can still see their collections at <a href="https://www.bing.com/saves" rel="nofollow noopener">bing.com/saves</a>. <a href="/edge-collections/bing-saves/">How to keep a copy from there</a>.';
+      $('done-sub').innerHTML = 'Their pages are not in this file: they were kept online. Microsoft says personal accounts can still see their collections at <a href="https://www.bing.com/saves" rel="nofollow noopener">bing.com/saves</a>. <a href="/edge-collections/bing-saves/">How to keep a copy from there</a>. If the page will not load, see <a href="/edge-collections/bing-saves-not-working/">Bing Saves not working</a>.';
       for (const n of r.names.slice(0, 40)) add(n);
     } else {
       $('done-title').textContent = 'This file holds no collections';
-      $('done-sub').innerHTML = 'Three common reasons: the collections were in another Edge profile (try the file in <code>Profile 1</code>), they were kept online for a personal Microsoft account (see <a href="/edge-collections/bing-saves/">Bing Saves</a>), or they were moved to Favorites when Edge offered it.';
+      $('done-sub').innerHTML = 'Three common reasons: the collections were in another Edge profile (try the file in <code>Profile 1</code>), they were kept online for a personal Microsoft account (see <a href="/edge-collections/bing-saves/">Bing Saves</a>), or they were moved to Favorites when Edge offered it. <a href="/edge-collections/file-is-empty/">More places to look</a>.';
     }
   } else {
     const parts = [plural(pages, 'web page', 'web pages'), notes && plural(notes, 'note', 'notes'), clips && plural(clips, 'clipped text', 'clipped texts'), images && plural(images, 'picture', 'pictures')].filter(Boolean);

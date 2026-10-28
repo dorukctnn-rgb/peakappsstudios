@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src https://api.gumroad.com https://cloudflareinsights.com; worker-src 'self'; frame-src blob:; child-src blob:; media-src 'none'; object-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src https://api.gumroad.com https://cloudflareinsights.com https://peak-funnel.railer-iot.workers.dev; worker-src 'self'; frame-src blob:; child-src blob:; media-src 'none'; object-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Character AI Export Viewer: open your data ZIP | Chatbound</title>
@@ -612,6 +612,7 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
 .cb-guide p, .cb-guide li { color: var(--ink-2); }
 .cb-cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 22px 0; padding: 18px 20px; background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--cloth); border-radius: 0 var(--radius) var(--radius) 0; }
 .cb-cta p { margin: 0; flex: 1 1 260px; }
+.cb-cta .cb-proline { flex: 1 1 100%; margin: 2px 0 0; padding-top: 12px; border-top: 1px solid var(--line); font-size: 15px; color: var(--muted); }
 @media (prefers-reduced-motion: reduce) { .cb * { transition: none !important; } }
 </style>
 <script src="/assets/license.js" defer></script>
@@ -910,7 +911,7 @@ body.cb .cb-btn-gilt:hover { background: #f5cd6a; color: var(--gilt-ink); }
       <li>Watch the counter at the top. It counts every network request the page makes after you open a file (the anonymous visit count included) and stays at 0 while you read.</li>
       <li>Open your browser’s developer tools, Network tab, and open your export. No request appears while it opens, and none when you read, search or save.</li>
     </ol>
-    <p>The page also carries a security policy that allows two connections and nothing else: Gumroad’s licence check, used only when you paste a Pro key, and Cloudflare Web Analytics, which counts visits to the page without cookies. In the Network tab you will see that visit count when the page loads. Your file, your email address and your chats are never sent to either, or anywhere else. The <a href="/character-ai-export-viewer/privacy/">privacy page</a> lists exactly what the page sends and stores.</p>
+    <p>The page also carries a security policy that allows three connections and nothing else: Gumroad’s licence check, used only when you paste a Pro key; Cloudflare Web Analytics, which counts visits to the page without cookies; and our own Pro click counter, which adds one to a daily total when you press a Pro button (the page and the kind of site that sent you, with no cookie and no IP address kept). In the Network tab you will see the visit count when the page loads and the click count when you press a Pro button. Your file, your email address and your chats are never sent to any of them, or anywhere else. The <a href="/character-ai-export-viewer/privacy/">privacy page</a> lists exactly what the page sends and stores.</p>
   </div>
 </section>
 
