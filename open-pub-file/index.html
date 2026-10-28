@@ -1,0 +1,841 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src https://cloudflareinsights.com; worker-src 'self'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open a .pub file without Publisher: text and pictures</title>
+<meta name="description" content="Publisher is leaving Microsoft 365. Open a .pub file here to get its text and pictures back, page by page, in your browser. Nothing is uploaded.">
+<link rel="canonical" href="https://peakappsstudio.com/open-pub-file/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Open a .pub file without Publisher">
+<meta property="og:description" content="Get the text and pictures out of a Microsoft Publisher file, page by page, and save them as a Word file. It runs in your browser and uploads nothing.">
+<meta property="og:url" content="https://peakappsstudio.com/open-pub-file/">
+<meta property="og:image" content="https://peakappsstudio.com/open-pub-file/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A white newsletter page lifted off a grey desk, its text boxes and picture frame floating above it as separate cards.">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#cf2b1e">
+<link rel="icon" href="/open-pub-file/img/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/open-pub-file/fonts/unframe-display.woff2" as="font" type="font/woff2" crossorigin>
+<style data-from="/assets/tools.css">
+/* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
+
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e1;
+  --card: #fbfaf7;
+  --ink: #141518;
+  --ink-2: #33363d;
+  --muted: #676b74;
+  --line: rgba(20, 21, 24, 0.12);
+  --line-2: rgba(20, 21, 24, 0.22);
+  --accent: #1f5c4d;          /* each tool overrides this on <body style="--accent:..."> */
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  --warn: #9a4a12;
+  --ok: #2c6a3f;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+    --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+  --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; }
+img { display: block; height: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 10px; z-index: 100; background: var(--ink); color: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 10px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-head { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand-sub { font-family: var(--sans); font-size: 14.5px; letter-spacing: 0; color: var(--muted); font-weight: 500; padding-left: 10px; border-left: 1px solid var(--line-2); }
+.head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
+.head-nav a:hover { background: var(--paper-2); color: var(--ink); }
+.head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
+@media (max-width: 640px) { .brand-sub { display: none; } }
+@media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
+
+/* ---------- Type ---------- */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+h1 { font-size: clamp(32px, 4.6vw, 54px); }
+h1 em, h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 19px; letter-spacing: -0.01em; }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; margin: 16px 0 0; }
+.mono { font-family: var(--mono); }
+.muted { color: var(--muted); }
+small, .small { font-size: 13.5px; }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 22px 0 0; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-2); }
+.crumbs a { text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.tool-hero { padding: 28px 0 24px; display: grid; gap: 8px; }
+.tool-hero .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.tool-hero .facts li { display: inline-flex; align-items: center; gap: 8px; }
+.tool-hero .facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Tool shell ---------- */
+.tool { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.tool-panel { padding: 22px; border-right: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.tool-stage { position: relative; min-height: 460px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper); display: grid; place-items: center; padding: 22px; }
+.tool-stage canvas, .tool-stage svg, .tool-stage img { max-height: 70vh; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px -12px rgba(0,0,0,.18); background: #fff; }
+.stage-bar { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.tool-foot { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 14px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--paper); }
+.tool-foot .spacer { flex: 1; }
+@media (max-width: 860px) {
+  .tool { grid-template-columns: 1fr; }
+  .tool-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tool-stage { min-height: 320px; }
+}
+
+/* ---------- Form controls ---------- */
+.group { display: grid; gap: 10px; }
+.group-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > label { font-size: 13px; color: var(--ink-2); }
+.input, .select { width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 8px; padding: 9px 11px; transition: border-color .15s, box-shadow .15s; }
+.input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input-unit { position: relative; }
+.input-unit .input { padding-right: 38px; font-family: var(--mono); font-size: 14.5px; }
+.input-unit i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 3px; flex: none; }
+.seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line-2); border-radius: 9px; padding: 3px; gap: 3px; background: var(--paper); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.warn { font-size: 13.5px; color: var(--warn); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.btn { --b: var(--line-2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 500; line-height: 1; padding: 11px 16px; border-radius: 9px; border: 1px solid var(--b); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; transition: transform .15s var(--ease), background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklab, var(--accent) 86%, #000); color: var(--accent-ink); border-color: transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-ink:hover { color: var(--paper); background: var(--ink-2); }
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.pro-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: var(--ink); color: var(--paper); }
+
+/* ---------- Drop zone ---------- */
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 18px 14px; background: var(--paper); cursor: pointer; transition: border-color .15s, background .15s; font-size: 14.5px; }
+.drop:hover, .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Content ---------- */
+.section { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prose { max-width: 70ch; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose h2 { margin: 1.6em 0 .5em; }
+.prose h3 { margin: 1.4em 0 .4em; }
+.prose code, .prose kbd { font-family: var(--mono); font-size: .9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+.two-col > * { min-width: 0; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: 3px; }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 13px; background: var(--paper); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 15px; }
+.source { font-size: 13px; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--line-2); margin-top: 18px; }
+.faq details { border-bottom: 1px solid var(--line-2); }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 13px; font-family: var(--mono); font-size: 18px; color: var(--muted); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 18px; color: var(--ink-2); max-width: 70ch; }
+
+/* ---------- Pro ---------- */
+.pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--card); }
+.pro-left { padding: clamp(22px, 3vw, 36px); }
+.pro-right { padding: clamp(22px, 3vw, 36px); background: var(--ink); color: var(--paper); display: grid; align-content: center; gap: 14px; }
+.pro-right .price { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pro-right .price small { font-size: 15px; font-weight: 400; color: color-mix(in oklab, var(--paper) 70%, transparent); letter-spacing: 0; }
+.pro-right .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.pro-right .btn-primary:hover { background: #fff; color: var(--ink); }
+.pro-right .fine { font-size: 13px; color: color-mix(in oklab, var(--paper) 65%, transparent); margin: 0; }
+.pro-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.pro-list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.pro-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border: 1.5px solid var(--accent); border-radius: 2px; transform: rotate(45deg); }
+@media (max-width: 760px) { .pro { grid-template-columns: 1fr; } }
+
+/* ---------- A real file, shown ---------- */
+.shot { margin: 22px 0 0; }
+.shot img { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; }
+.shot figcaption { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+.shot figcaption strong { font-weight: 600; color: var(--ink-2); }
+.shot-sm { max-width: 920px; }
+
+/* ---------- Where free stops and Pro starts ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; margin: 26px 0 0; background: var(--card); }
+.split > div { padding: 18px 20px 20px; }
+.split > div + div { border-left: 1px solid var(--line-2); background: var(--accent-soft); }
+.split h3 { font-size: 15.5px; margin: 0; }
+.split > div > p { margin: 5px 0 0; font-size: 13.5px; color: var(--muted); }
+.split ul { list-style: none; margin: 13px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
+.split li { position: relative; padding-left: 18px; }
+.split li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; border-radius: 1px; background: var(--line-2); }
+.split > div + div li::before { background: var(--accent); }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } .split > div + div { border-left: 0; border-top: 1px solid var(--line-2); } }
+
+/* ---------- A file list, as the archive really holds it ---------- */
+.filelist { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 5px; }
+.filelist li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filelist li span { color: var(--muted); }
+
+/* ---------- License dialog ---------- */
+.license-dialog { border: 1px solid var(--line-2); border-radius: 14px; padding: 0; width: min(440px, calc(100% - 32px)); background: var(--card); color: var(--ink); }
+.license-dialog::backdrop { background: rgba(10, 11, 13, .45); }
+.license-dialog form { padding: 22px; display: grid; gap: 14px; }
+.license-status { font-size: 14px; min-height: 1.4em; margin: 0; }
+.license-status[data-state="ok"] { color: var(--ok); }
+.license-status[data-state="err"] { color: var(--warn); }
+
+/* ---------- Related / cards ---------- */
+.related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line-2); margin-top: 22px; }
+.related a { display: grid; gap: 4px; padding: 18px 18px 18px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.related a strong { font-weight: 600; }
+.related a span { font-size: 14px; color: var(--muted); }
+.related a:hover strong { color: var(--accent); }
+
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
+/* ---------- Footer ---------- */
+.site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
+.site-foot h2 { font-size: 15px; font-family: var(--sans); letter-spacing: 0; font-weight: 600; color: var(--ink); margin: 0 0 10px; }
+.site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+@media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- "New from Peak Apps": the cross-promotion card the build puts above the footer (src/crosspromo.json) ---------- */
+.peak-new { margin-top: clamp(56px, 8vw, 104px); }
+.peak-new + .site-foot { margin-top: 28px; }
+.peak-new-card { display: grid; gap: 4px; max-width: 640px; padding: 16px 20px 18px; border: 1px solid var(--line-2); border-left: 4px solid var(--tool, var(--accent)); border-radius: var(--radius); background: var(--card); color: var(--ink); text-decoration: none; transition: border-color .2s var(--ease); }
+.peak-new-card:hover { border-color: var(--tool, var(--accent)); }
+.peak-new-card:focus-visible { outline: 2px solid var(--tool, var(--accent)); outline-offset: 3px; }
+.peak-new-kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.peak-new-card strong { font-size: 17px; font-weight: 600; line-height: 1.3; }
+.peak-new-line { font-size: 14px; line-height: 1.5; color: var(--ink-2); max-width: 62ch; }
+
+/* ---------- Home project tools: the shared block on Without Planning and Dropped Kerb Check ---------- */
+.home-block { margin: clamp(36px, 5vw, 60px) 0 0; border-top: 1px solid var(--line-2); padding-top: 16px; }
+.home-title { margin: 0 0 10px; font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink); }
+.home-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px 24px; }
+.home-list a { display: grid; gap: 3px; padding: 2px 0 2px 14px; border-left: 4px solid var(--tool, var(--accent)); text-decoration: none; color: var(--ink); }
+.home-list a strong { font-weight: 700; font-size: 16px; }
+.home-list a span { color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+.home-list a:hover strong { color: var(--tool, var(--accent)); }
+.home-list a[aria-current="page"] span { color: var(--ink-2); }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .3s var(--ease); z-index: 90; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media print { .site-head, .site-foot, .tool-panel, .tool-foot, .no-print { display: none !important; } body { background: #fff; } }
+
+/* The hidden attribute must win over component display rules. */
+[hidden] { display: none !important; }
+</style>
+<style data-from="/open-pub-file/tool.css">
+/* Unframe: a Publisher file, taken out of its frames. Print red for the band the tool stands beside; a cool grey
+   pasteboard under the sheet you drop the file on; the blue Publisher draws guides and frames in, for every frame on the
+   page map; white paper, black ink. Headings in Alfa Slab One (a heavy Clarendon-style slab, the type of flyers and church
+   newsletters, subset as "Unframe Display"); everything people read is the system font at 18px. The tool is a sheet laid
+   on the pasteboard with crop marks at its corners, and the drop target is a text frame with its handles. After the file
+   is open the page shows each of its pages as a small sheet with its frames drawn where they were. */
+@font-face { font-family: "Unframe Display"; src: url("/open-pub-file/fonts/unframe-display.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+/* Georgia Bold sized to Alfa Slab One, so the headings do not jump when the web font arrives */
+@font-face { font-family: "Unframe Display Fallback"; src: local("Georgia Bold"), local("Georgia-Bold"), local("Georgia"); font-weight: 400; size-adjust: 102.9%; ascent-override: 100.7%; descent-override: 32.4%; line-gap-override: 0%; }
+
+body.unf {
+  --red: #cf2b1e; --red-2: #b32217; --red-deep: #8f1b12; --red-soft: #fbe4e1;
+  --blue: #2f8fd0; --blue-2: #1f78b5; --blue-soft: #e8f3fb; --blue-guide: #a8d4f0;
+  --board: #d5dae0; --board-2: #c6cdd6; --board-line: #b5bdc8;
+  --ink: #1a1c22; --ink-2: #343842; --muted: #555c66;
+  --paper: #ffffff; --paper-2: #f1f3f6; --card: #ffffff;
+  --line: #d9dee5; --line-2: #b9c0c8;
+  --accent: #cf2b1e; --accent-ink: #ffffff; --link: #b32217;
+  --ok: #1d6b3a; --warn: #8a4a00;
+  --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --head: "Unframe Display", "Unframe Display Fallback", Georgia, serif;
+  --code: ui-monospace, "Cascadia Mono", Consolas, "SF Mono", monospace;
+  font-family: var(--sans); font-size: 18px; line-height: 1.6; background: var(--paper); color: var(--ink);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.unf {
+    --ink: #eceff4; --ink-2: #d2d8e0; --muted: #a9b2be; --paper: #14171c; --paper-2: #1b1f26; --card: #1b1f26;
+    --line: #2b313a; --line-2: #3d4551; --board: #20252c; --board-2: #2a3038; --board-line: #3a424d;
+    --blue-soft: #1a2c3b; --red-soft: #3b1d1a; --link: #ff9a8e; --accent: #ff9a8e; --accent-ink: #220b08; --ok: #8fd3a5; --warn: #f0b16b;
+  }
+}
+:root[data-theme="dark"] body.unf {
+  --ink: #eceff4; --ink-2: #d2d8e0; --muted: #a9b2be; --paper: #14171c; --paper-2: #1b1f26; --card: #1b1f26;
+  --line: #2b313a; --line-2: #3d4551; --board: #20252c; --board-2: #2a3038; --board-line: #3a424d;
+  --blue-soft: #1a2c3b; --red-soft: #3b1d1a; --link: #ff9a8e; --accent: #ff9a8e; --accent-ink: #220b08; --ok: #8fd3a5; --warn: #f0b16b;
+}
+.unf a { color: var(--link); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.unf a:hover { color: var(--ink); }
+.unf h1, .unf h2, .unf h3 { font-family: var(--head); font-weight: 400; color: var(--ink); letter-spacing: 0; }
+.unf h1 { font-size: clamp(32px, 3.7vw, 52px); line-height: 1.07; margin: 16px 0 0; text-wrap: balance; max-width: 17ch; }
+.unf h2 { font-size: clamp(26px, 2.7vw, 34px); line-height: 1.14; text-wrap: balance; }
+.unf h3 { font-size: 22px; line-height: 1.2; }
+.unf .lede { font-size: clamp(19px, 1.6vw, 21px); line-height: 1.55; color: var(--ink-2); max-width: 52ch; margin: 18px 0 0; }
+.unf .crumbs { font-size: 15px; margin-top: 18px; color: var(--muted); }
+.unf .crumbs a { color: var(--ink-2); }
+.unf code { font-family: var(--code); font-size: 0.86em; background: var(--paper-2); border: 1px solid var(--line); border-radius: 3px; padding: 1px 6px; overflow-wrap: anywhere; }
+.unf .btn { font-family: var(--sans); font-size: 17px; font-weight: 600; line-height: 1.2; padding: 13px 20px; border-radius: 4px; white-space: normal; text-align: center; max-width: 100%; min-height: 50px; }
+.unf .btn-primary { background: var(--red); border-color: var(--red); color: #fff; }
+.unf .btn-primary:hover { background: var(--red-2); border-color: var(--red-2); color: #fff; }
+.unf .btn[disabled] { opacity: .55; }
+.unf .unf-quiet { background: var(--card); border: 1.5px solid var(--ink); color: var(--ink); }
+.unf .unf-quiet:hover { background: var(--paper-2); color: var(--ink); }
+.unf .unf-link { appearance: none; background: none; border: 0; padding: 0; font: inherit; color: var(--link); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.unf .unf-link:hover { color: var(--ink); }
+.unf .btn:focus-visible, .unf button:focus-visible, .unf a:focus-visible, .unf input:focus-visible, .unf summary:focus-visible, .unf [tabindex]:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.unf [hidden] { display: none !important; }
+.unf [tabindex="-1"]:focus, .unf [tabindex="-1"]:focus-visible { outline: none; }
+
+/* ---------- header and footer ---------- */
+.unf-head { background: var(--paper); border-bottom: 1px solid var(--line); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.unf-head .brand { gap: 10px; color: var(--ink); }
+.unf-head .brand svg { width: 30px; height: 30px; }
+.unf-head .brand span { font-family: var(--head); font-size: 24px; font-weight: 400; }
+.unf-head .head-nav a { font-size: 16px; color: var(--ink-2); padding: 8px 10px; border-radius: 3px; }
+.unf-head .head-nav [aria-current="page"] { font-size: 16px; color: var(--ink); padding: 8px 10px; font-weight: 700; background: none; box-shadow: inset 0 -3px 0 var(--red); }
+.unf-narrow { display: none; }
+@media (max-width: 1120px) { .unf-wide { display: none; } .unf-narrow { display: inline-block; } }
+@media (max-width: 480px) { .unf-head .head-nav [aria-current="page"] { display: none; } .unf-head .head-nav a { padding: 8px 6px; font-size: 15px; } .unf-head .brand span { font-size: 22px; } .unf-head .brand svg { width: 26px; height: 26px; } }
+.unf .site-foot.unf-foot { background: #1a1c22; color: #d3d8e0; border-top: 0; font-size: 16px; padding: 44px 0 52px; }
+.unf .unf-foot .cols { grid-template-columns: 1.6fr 1.2fr 0.9fr; }
+@media (max-width: 860px) { .unf .unf-foot .cols { grid-template-columns: 1fr; } }
+.unf .unf-foot h2 { font-family: var(--sans); font-size: 17px; font-weight: 700; color: #fff; letter-spacing: 0; margin: 0 0 10px; }
+.unf .unf-foot a { color: #eef1f5; }
+.unf .unf-foot a:hover { color: #fff; text-decoration: underline; }
+.unf .unf-foot ul { gap: 8px; }
+.unf .unf-foot :focus-visible { outline-color: #fff; }
+.unf-foot-brand { font-family: var(--head); font-size: 25px; color: #fff; margin: 0 0 8px; }
+.unf-foot-text { margin: 0 0 12px; max-width: 48ch; }
+
+/* ---------- the split: print red on the left, the pasteboard on the right ---------- */
+.unf-split { display: grid; grid-template-columns: minmax(var(--gutter), 1fr) minmax(0, calc((var(--max) - 2 * var(--gutter)) * 0.5)) minmax(0, calc((var(--max) - 2 * var(--gutter)) * 0.5)) minmax(var(--gutter), 1fr); background: var(--board); }
+.unf-left { grid-column: 1 / 3; display: grid; grid-template-columns: subgrid; background: var(--red); color: #fff; }
+.unf-left > .unf-left-in { grid-column: 2; padding: 6px clamp(0px, 2.6vw, 44px) 64px 0; min-width: 0; }
+.unf-right { grid-column: 3 / 5; display: grid; grid-template-columns: subgrid; }
+.unf-right > .unf-right-in { grid-column: 1; padding: 44px 0 56px clamp(0px, 2.6vw, 44px); min-width: 0; }
+@media (max-width: 980px) {
+  .unf-split { display: block; }
+  .unf-left > .unf-left-in { padding: 6px 0 48px; }
+  .unf-left { display: block; padding-inline: var(--gutter); }
+  .unf-right { display: block; padding-inline: var(--gutter); }
+  .unf-right > .unf-right-in { padding: 34px 0 44px; }
+}
+.unf-left h1, .unf-left .lede, .unf-left p, .unf-left li { color: #fff; }
+.unf-left .lede { color: #ffffff; }
+.unf-left .crumbs, .unf-left .crumbs a { color: #ffffff; }
+.unf-left a { color: #fff; }
+.unf-left a:hover { color: #fff; text-decoration-thickness: 2px; }
+.unf-left :focus-visible { outline-color: #fff !important; }
+.unf-facts { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 14px; max-width: 54ch; }
+.unf-facts li { display: grid; grid-template-columns: 26px 1fr; gap: 12px; align-items: start; font-size: 18px; }
+.unf-facts svg { width: 22px; height: 22px; margin-top: 3px; color: #fff; }
+.unf-indep { margin: 26px 0 0; font-size: 16px; color: #ffffff !important; }
+
+/* ---------- the sheet on the pasteboard, with crop marks ---------- */
+.unf-marks { position: relative; padding: 30px; }
+.unf-marks::before { content: ""; position: absolute; inset: 0; pointer-events: none; --m: #4b5360;
+  background:
+    linear-gradient(var(--m), var(--m)) left 30px top 6px / 1px 17px no-repeat, linear-gradient(var(--m), var(--m)) left 6px top 30px / 17px 1px no-repeat,
+    linear-gradient(var(--m), var(--m)) right 30px top 6px / 1px 17px no-repeat, linear-gradient(var(--m), var(--m)) right 6px top 30px / 17px 1px no-repeat,
+    linear-gradient(var(--m), var(--m)) left 30px bottom 6px / 1px 17px no-repeat, linear-gradient(var(--m), var(--m)) left 6px bottom 30px / 17px 1px no-repeat,
+    linear-gradient(var(--m), var(--m)) right 30px bottom 6px / 1px 17px no-repeat, linear-gradient(var(--m), var(--m)) right 6px bottom 30px / 17px 1px no-repeat; }
+@media (max-width: 520px) { .unf-marks { padding: 20px 14px; } .unf-marks::before { display: none; } }
+@media (max-width: 980px) { .unf-facts { display: none; } .unf-left > .unf-left-in { padding-bottom: 36px; } }
+.unf-sheet { position: relative; background: #fff; color: #1a1c22; padding: 26px clamp(16px, 2.4vw, 28px) 24px; box-shadow: 0 1px 0 rgba(20, 24, 32, .1), 0 22px 34px -22px rgba(20, 24, 32, .55); }
+.unf-sheet h2, .unf-sheet p, .unf-sheet li { color: #1a1c22; }
+.unf-sheet a, .unf-sheet .unf-link { color: #b32217; }
+.unf-sheet .unf-quiet { background: #fff; border-color: #1a1c22; color: #1a1c22; }
+.unf-sheet :focus-visible { outline-color: #1a1c22; }
+.unf-stage { min-width: 0; }
+.unf-stage-title { font-size: 27px; line-height: 1.15; margin: 0; }
+.unf-stage p { margin: 12px 0 0; }
+.unf-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+/* the drop target is a text frame: dashed blue, with a handle on each corner and the middle of each side */
+.unf-drop { position: relative; border: 1.5px dashed var(--blue); padding: 22px clamp(16px, 2.2vw, 24px) 22px; margin: 6px; transition: background .15s; --h: #fff; --hb: #2f8fd0;
+  background:
+    radial-gradient(circle closest-side, var(--hb) 0 98%, transparent 100%) left -5px top -5px / 10px 10px no-repeat, radial-gradient(circle closest-side, var(--hb) 0 98%, transparent 100%) right -5px top -5px / 10px 10px no-repeat,
+    radial-gradient(circle closest-side, var(--hb) 0 98%, transparent 100%) left -5px bottom -5px / 10px 10px no-repeat, radial-gradient(circle closest-side, var(--hb) 0 98%, transparent 100%) right -5px bottom -5px / 10px 10px no-repeat,
+    radial-gradient(circle closest-side, var(--hb) 0 98%, transparent 100%) center -5px / 10px 10px no-repeat, radial-gradient(circle closest-side, var(--hb) 0 98%, transparent 100%) center bottom -5px / 10px 10px no-repeat; }
+.unf-drop.is-over { background-color: var(--blue-soft); border-style: solid; }
+.unf-small { font-size: 16px; color: var(--muted); }
+.unf-sheet .unf-small { color: #555c66; }
+.unf-bar { height: 8px; background: #e6eaef; overflow: hidden; margin-top: 18px; }
+.unf-bar i { display: block; height: 100%; width: 35%; background: var(--red); animation: unf-slide 1.2s ease-in-out infinite; }
+@keyframes unf-slide { 0% { transform: translateX(-100%); } 100% { transform: translateX(290%); } }
+@media (prefers-reduced-motion: reduce) { .unf-bar i { animation: none; width: 100%; opacity: .5; } }
+.unf-done-title { font-family: var(--head); font-size: 28px; line-height: 1.15; margin: 0; }
+.unf-error-title { font-family: var(--head); font-size: 25px; line-height: 1.15; margin: 0; color: var(--red-2) !important; }
+.unf-private { display: grid; grid-template-columns: 22px 1fr; gap: 10px; margin: 20px 2px 0; font-size: 16px; line-height: 1.5; color: var(--ink-2); }
+.unf-private svg { width: 20px; height: 20px; margin-top: 2px; color: var(--ink); }
+.unf-files { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 16px; }
+.unf-files th, .unf-files td { text-align: left; padding: 8px 8px; border-bottom: 1px solid #d9dee5; vertical-align: top; }
+.unf-files th { font-weight: 700; }
+.unf-files td:first-child { overflow-wrap: anywhere; word-break: normal; min-width: 9em; }
+.unf-files caption { text-align: left; font-weight: 700; padding-bottom: 6px; display: block; }
+.unf-filebox { max-height: 380px; overflow: auto; margin-top: 8px; }
+.unf-st-ok { color: #1d6b3a; font-weight: 600; }
+.unf-st-bad { color: #8a4a00; font-weight: 600; }
+
+/* ---------- the picture band ---------- */
+.unf-figure { margin: 0; background: #dfe3e8; }
+.unf-figure img { width: 100%; height: auto; display: block; aspect-ratio: 3 / 1; }
+@media (max-width: 700px) { .unf-figure img { aspect-ratio: 4 / 3; } }
+.unf-figure figcaption { font-size: 15px; color: #3d4551; padding: 10px var(--gutter) 12px; max-width: var(--max); margin: 0 auto; }
+
+/* ---------- the result: page map, reading view, pictures ---------- */
+.unf-results { background: var(--board); padding: 40px 0 64px; scroll-margin-top: 70px; }
+.unf-results h2, .unf-results h3, .unf-results p, .unf-results li { color: var(--ink); }
+.unf-results-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; }
+.unf-results-head h2 { margin: 0; }
+.unf-tag { font-size: 15px; font-weight: 600; background: #fff; color: #1a1c22; border: 1px solid var(--board-line); padding: 2px 10px; }
+.unf-info { display: grid; grid-template-columns: auto 1fr; gap: 18px 24px; margin-top: 18px; align-items: start; }
+.unf-info.no-thumb { grid-template-columns: 1fr; }
+.unf-thumb-box { background: #fff; padding: 6px; border: 1px solid var(--board-line); box-shadow: 0 10px 18px -14px rgba(20, 24, 32, .5); }
+.unf-thumb-box img { display: block; width: 104px; height: auto; image-rendering: auto; }
+.unf-thumb-box figcaption { font-size: 13px; line-height: 1.3; color: #555c66; margin-top: 4px; max-width: 104px; }
+.unf-facts-grid { display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 0; padding: 0; list-style: none; }
+.unf-facts-grid li { min-width: 0; }
+.unf-facts-grid b { display: block; font-family: var(--head); font-weight: 400; font-size: 30px; line-height: 1.1; }
+.unf-facts-grid span { font-size: 15px; color: var(--muted); }
+.unf-meta { margin: 10px 0 0; font-size: 16px; color: var(--ink-2); overflow-wrap: anywhere; }
+.unf-note { margin: 14px 0 0; font-size: 16px; color: var(--ink-2); max-width: 70ch; }
+.unf-save { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; align-items: center; }
+.unf-save .btn { min-height: 46px; padding: 11px 16px; font-size: 16px; }
+.unf-status { margin: 10px 0 0; font-size: 16px; min-height: 1.6em; color: var(--ink-2); }
+.unf-mapbox { margin-top: 28px; }
+.unf-mapbox h3 { margin: 0 0 4px; }
+.unf-mapnote { font-size: 16px; color: var(--muted); margin: 0 0 12px; max-width: 70ch; }
+.unf-map { display: flex; gap: 18px; overflow-x: auto; padding: 8px 6px 18px; margin: 0 -6px; scrollbar-width: thin; }
+.unf-pg { appearance: none; flex: none; border: 0; background: none; padding: 0; cursor: pointer; font: inherit; color: var(--ink); text-align: center; }
+.unf-pg-sheet { position: relative; display: block; background: #fff; border: 1px solid var(--board-line); box-shadow: 0 8px 14px -10px rgba(20, 24, 32, .6); }
+.unf-pg-label { display: block; margin-top: 8px; font-size: 15px; font-weight: 600; }
+.unf-pg[aria-pressed="true"] .unf-pg-sheet { outline: 3px solid var(--red); outline-offset: 2px; }
+.unf-pg[aria-pressed="true"] .unf-pg-label { color: var(--link); }
+.unf-pg:hover .unf-pg-sheet { border-color: var(--ink); }
+.unf-fr { position: absolute; display: block; box-sizing: border-box; overflow: hidden; }
+.unf-fr-text { border: 1px dashed #5aa6dc; background: #eef6fc repeating-linear-gradient(to bottom, transparent 0 3px, #9fb7cc 3px 4px); background-origin: content-box; background-clip: content-box; padding: 2px; }
+.unf-fr-table { border: 1px solid #5aa6dc; background: #eef6fc repeating-linear-gradient(to bottom, transparent 0 5px, #8fb3d2 5px 6px), repeating-linear-gradient(to right, transparent 0 9px, #8fb3d2 9px 10px); }
+.unf-fr-picture { border: 1px solid #5aa6dc; background: #eef6fc linear-gradient(to top right, transparent calc(50% - .6px), #2f8fd0 calc(50% - .7px) calc(50% + .7px), transparent calc(50% + .7px)), linear-gradient(to bottom right, transparent calc(50% - .7px), #2f8fd0 calc(50% - .7px) calc(50% + .7px), transparent calc(50% + .6px)); }
+.unf-fr-shape { background: #e3e8ee; opacity: .8; }
+.unf-reading { margin-top: 20px; background: #fff; color: #1a1c22; padding: 26px clamp(16px, 3vw, 34px) 30px; box-shadow: 0 1px 0 rgba(20, 24, 32, .1), 0 22px 34px -24px rgba(20, 24, 32, .55); }
+.unf-reading h3, .unf-reading p, .unf-reading li, .unf-reading td { color: #1a1c22; }
+.unf-reading a { color: #b32217; }
+.unf-reading .unf-small, .unf-reading .unf-small * { color: #555c66; }
+.unf-readpage[hidden] { display: none !important; }
+.unf-readhead { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; }
+.unf-readhead h3 { margin: 0; font-size: 26px; }
+.unf-readhead .btn { min-height: 42px; padding: 9px 14px; font-size: 15.5px; }
+.unf-frame { margin: 20px 0 0; padding: 4px 0 4px 18px; border-left: 4px solid #a8d4f0; min-width: 0; }
+.unf-frame-label { display: block; font-size: 15px; color: #555c66; margin-bottom: 4px; }
+.unf-frame-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.unf-frame p { margin: 0 0 .7em; max-width: 68ch; overflow-wrap: anywhere; white-space: pre-line; }
+.unf-frame p:last-child { margin-bottom: 0; }
+.unf-frame .unf-copy { appearance: none; background: none; border: 0; padding: 0; font: inherit; font-size: 15px; color: #b32217; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; flex: none; }
+.unf-frame .unf-copy:hover { color: #1a1c22; }
+.unf-table { border-collapse: collapse; margin: 6px 0 0; max-width: 100%; display: block; overflow-x: auto; }
+.unf-table td { border: 1px solid #b9c0c8; padding: 6px 10px; vertical-align: top; min-width: 90px; white-space: pre-line; }
+.unf-empty { margin: 18px 0 0; color: #555c66; }
+.unf-links { margin: 8px 0 0; padding-left: 20px; }
+.unf-links li { overflow-wrap: anywhere; margin: 3px 0; }
+.unf-more { margin-top: 28px; padding-top: 4px; border-top: 1px solid #d9dee5; }
+.unf-more h3 { font-size: 22px; margin: 16px 0 0; }
+.unf-pics { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; margin-top: 14px; }
+.unf-pic { background: #fff; border: 1px solid #c9ced6; display: flex; flex-direction: column; min-width: 0; }
+.unf-pic-img { height: 168px; display: grid; place-items: center; background: #f1f3f6 conic-gradient(#e4e8ed 25%, #f1f3f6 0 50%, #e4e8ed 0 75%, #f1f3f6 0) 0 0 / 16px 16px; overflow: hidden; }
+.unf-pic-img img, .unf-pic-img svg { max-width: 100%; max-height: 160px; width: auto; height: auto; display: block; }
+.unf-pic-none { font-size: 14.5px; color: #555c66; padding: 10px; text-align: center; }
+.unf-pic-body { padding: 8px 10px 10px; font-size: 14.5px; color: #555c66; display: grid; gap: 2px; }
+.unf-pic-body b { color: #1a1c22; font-weight: 600; overflow-wrap: anywhere; }
+.unf-pic-actions { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 6px; }
+.unf-pic-actions button { appearance: none; background: none; border: 0; padding: 0; font: inherit; font-size: 14.5px; color: #b32217; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+
+/* ---------- the prose sections under the tool ---------- */
+.unf-section { padding: 56px 0 0; }
+.unf-section-alt { background: var(--paper-2); padding: 52px 0 56px; margin-top: 56px; }
+.unf-prose { max-width: 76ch; }
+.unf-prose p { margin: 14px 0 0; }
+.unf-prose h2 { margin: 0; }
+.unf-prose h3 { margin: 28px 0 0; }
+.unf-prose ul, .unf-prose ol { margin: 14px 0 0; padding-left: 24px; }
+.unf-prose li { margin: 6px 0; }
+.unf-source { font-size: 16px; color: var(--muted); margin-top: 22px !important; }
+.unf-table-wrap { margin-top: 16px; overflow-x: auto; }
+.unf-info-table { width: 100%; border-collapse: collapse; font-size: 17px; }
+.unf-info-table caption { text-align: left; font-weight: 700; padding-bottom: 8px; }
+.unf-info-table th, .unf-info-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.unf-info-table thead th { border-bottom: 2px solid var(--ink); }
+.unf-faq details { border-top: 1px solid var(--line-2); padding: 14px 0; }
+.unf-faq details:last-child { border-bottom: 1px solid var(--line-2); }
+.unf-faq summary { cursor: pointer; font-weight: 700; font-size: 18px; list-style-position: outside; }
+.unf-faq p { margin: 10px 0 0; max-width: 70ch; }
+.unf-related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; margin-top: 18px; border-top: 2px solid var(--ink); }
+.unf-related a { display: block; padding: 16px 18px 16px 0; text-decoration: none; color: var(--ink); font-weight: 700; border-bottom: 1px solid var(--line-2); }
+.unf-related a:hover { color: var(--red-2); }
+.unf-related span { display: block; font-weight: 400; font-size: 16px; color: var(--muted); margin-top: 4px; }
+
+/* ---------- guide pages ---------- */
+.unf-hero-guide { background: var(--red); color: #fff; padding: 6px 0 52px; }
+.unf-hero-guide h1, .unf-hero-guide .lede, .unf-hero-guide p { color: #fff; }
+.unf-hero-guide .lede { color: #ffffff; }
+.unf-hero-guide .crumbs, .unf-hero-guide .crumbs a { color: #ffffff; }
+.unf-hero-guide a { color: #fff; }
+.unf-hero-guide :focus-visible { outline-color: #fff !important; }
+.unf-hero-guide h1 { max-width: 22ch; }
+.unf-meta-line { margin: 18px 0 0; font-size: 16px; color: #ffffff !important; }
+.unf-callout { margin-top: 22px; padding: 16px 20px; background: var(--blue-soft); border-left: 4px solid var(--blue); max-width: 76ch; }
+.unf-callout p { margin: 0; }
+.unf-callout p + p { margin-top: 10px; }
+.unf-step { counter-reset: s; list-style: none; padding: 0 !important; margin-top: 16px; display: grid; gap: 14px; }
+.unf-step li { counter-increment: s; display: grid; grid-template-columns: 38px 1fr; gap: 14px; align-items: start; margin: 0; }
+.unf-step li::before { content: counter(s); font-family: var(--head); font-size: 20px; line-height: 38px; text-align: center; width: 38px; height: 38px; background: var(--red); color: #fff; }
+
+/* ---------- print: the reading view only, every page ---------- */
+@media print {
+  .unf .unf-head, .unf .unf-foot, .unf .site-foot, .unf .unf-split, .unf .unf-figure, .unf .unf-section, .unf .unf-section-alt, .unf .unf-mapbox, .unf .unf-save, .unf .unf-info, .unf .unf-results-head, .unf .unf-status, .unf .unf-note, .unf .unf-readhead .btn, .unf .unf-copy, .unf .unf-pic-actions, .unf .skip, .unf .toast { display: none !important; }
+  body.unf { background: #fff; color: #000; font-size: 12pt; }
+  .unf-results { background: #fff; padding: 0; }
+  .unf-reading { box-shadow: none; padding: 0; margin: 0; }
+  .unf-readpage[hidden] { display: block !important; break-before: page; }
+  .unf-readpage:first-of-type { break-before: auto; }
+  .unf-frame { break-inside: avoid; }
+}
+
+/* ---------- guide articles ---------- */
+.unf-article { padding-top: 44px; padding-bottom: 8px; }
+.unf-article h2 { margin: 44px 0 0; }
+.unf-article > h2:first-child { margin-top: 0; }
+.unf-article h3 { margin: 28px 0 0; }
+.unf-article p { margin: 14px 0 0; }
+.unf-article ul, .unf-article ol:not(.unf-step) { padding-left: 24px; margin: 14px 0 0; }
+.unf-article li { margin: 7px 0; }
+.unf-cta { margin: 44px 0 0; }
+.unf-cta-box { background: #1a1c22; color: #fff; padding: 24px clamp(18px, 3vw, 30px); border-left: 8px solid var(--red); }
+.unf-cta-box h2 { color: #fff; margin: 0; font-size: 27px; }
+.unf-cta-box p { color: #e3e7ed; margin: 10px 0 0; }
+.unf .unf-cta-btn { background: #fff; border-color: #fff; color: #1a1c22; }
+.unf .unf-cta-btn:hover { background: #fdeceb; color: #1a1c22; }
+.unf-cta-box :focus-visible { outline-color: #fff; }
+.unf-info-table { margin: 16px 0 0; background: var(--card); }
+.unf-info-table tbody th[scope="row"] { font-weight: 700; }
+@media (max-width: 700px) {
+  .unf-info-table, .unf-info-table caption, .unf-info-table tbody, .unf-info-table tr, .unf-info-table td, .unf-info-table tbody th { display: block; width: auto; }
+  .unf-info-table caption { display: block; }
+  .unf-info-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .unf-info-table tr { border-top: 2px solid var(--ink); padding: 8px 0; }
+  .unf-info-table th, .unf-info-table td { border-bottom: 0; padding: 4px 2px; }
+  .unf-info-table td::before { content: attr(data-label); display: block; font-size: 14px; font-weight: 700; color: var(--muted); }
+}
+</style>
+<script src="/assets/site.js" defer></script>
+<script type="module" src="/open-pub-file/js/app.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/open-pub-file/#app","name":"Unframe","alternateName":"Open a .pub file without Publisher","url":"https://peakappsstudio.com/open-pub-file/","description":"Open a Microsoft Publisher .pub file in the browser and get its text and pictures back, page by page: read them, copy them, or save a Word file, plain text, Markdown, a web page or a ZIP of the pictures. Free, nothing uploaded.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","inLanguage":"en","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Open a .pub file","item":"https://peakappsstudio.com/open-pub-file/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I open a .pub file without Publisher?","acceptedAnswer":{"@type":"Answer","text":"Choose the file on this page. Unframe reads it in your browser and shows the text and pictures page by page, and saves them as a Word file, plain text, Markdown, a web page or a ZIP of pictures. It does not rebuild Publisher's layout, fonts or colours. For the layout, open the file in LibreOffice Draw or save it as a PDF from Publisher while you still have it."}},{"@type":"Question","name":"Is Microsoft Publisher being retired?","acceptedAnswer":{"@type":"Answer","text":"Yes. Microsoft's support page says Publisher reaches end of life in October 2026. It is no longer included in Microsoft 365 as of October 1, 2026, and Microsoft 365 subscribers can no longer open or edit .pub files in it. The update that removes it from Microsoft 365 apps starts with version 2611, from mid-November 2026 on the Current Channel."}},{"@type":"Question","name":"Is my file uploaded?","acceptedAnswer":{"@type":"Answer","text":"No. The .pub file is read by this page in your browser, on your computer. Nothing in it is sent or stored, and closing the tab discards it."}},{"@type":"Question","name":"Does it keep the layout?","acceptedAnswer":{"@type":"Answer","text":"No. Unframe gives you the words, tables and pictures page by page and draws each text box and picture frame as an outline where it sat on the page, but it does not rebuild fonts, colours, shapes or borders. If the look matters, use LibreOffice Draw, or save a PDF from Publisher before it is removed."}},{"@type":"Question","name":"Which Publisher versions does it read?","acceptedAnswer":{"@type":"Answer","text":"Files saved by Publisher 2002 and later. It was tested on files saved by Publisher 2003, 2007, 2010 and 2013. Publisher 2016, 2019, 2021 and Microsoft 365 are expected to write the same kind of file, but no file from them was available to test. Publisher 98 and 2000 files are not read."}},{"@type":"Question","name":"Is Unframe made by Microsoft?","acceptedAnswer":{"@type":"Answer","text":"No. Unframe is an independent tool by Peak Apps Studio and is not affiliated with Microsoft. Publisher is a trademark of Microsoft, named here only to say which file the tool opens."}}]}]}
+</script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
+</head>
+<body class="unf" style="--accent:#cf2b1e">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head unf-head">
+  <div class="wrap">
+    <a class="brand" href="/open-pub-file/" aria-label="Unframe, open a Publisher .pub file">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect x="5" y="3" width="22" height="26" fill="#ffffff" stroke="#1a1c22" stroke-width="1.8"/><rect x="8.5" y="6.5" width="15" height="7" fill="#e8f3fb" stroke="#2f8fd0" stroke-width="1.3" stroke-dasharray="2.4 1.6"/><rect x="8.5" y="16.5" width="9" height="8.5" fill="none" stroke="#cf2b1e" stroke-width="1.5"/><path d="M8.5 16.5 17.5 25M17.5 16.5 8.5 25" stroke="#cf2b1e" stroke-width="1.3"/></svg>
+      <span>Unframe</span>
+    </a>
+    <nav class="head-nav" aria-label="Unframe">
+      <span aria-current="page">Open a file</span>
+      <a class="unf-wide" href="/open-pub-file/publisher-retirement/">Retirement dates</a>
+      <a class="unf-wide" href="/open-pub-file/pub-to-pdf/">PUB to PDF</a>
+      <a class="unf-wide" href="/open-pub-file/mac-iphone-android-chromebook/">Mac, phone, Chromebook</a>
+      <a class="unf-wide" href="/open-pub-file/what-is-a-pub-file/">What is a .pub file?</a>
+      <a class="unf-narrow" href="#guides">Guides</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="unf-split" aria-labelledby="h1">
+<div class="unf-left">
+<div class="unf-left-in">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li aria-current="page">Open a .pub file</li></ol></nav>
+<h1 id="h1">Open a .pub file without Publisher</h1>
+<p class="lede">Publisher stopped being part of Microsoft 365 on October 1, 2026, and subscribers lose the ability to open .pub files in it as the update arrives. Choose your file here to get its text and pictures back, page by page.</p>
+<ul class="unf-facts">
+<li><svg viewBox="0 0 22 22" aria-hidden="true" focusable="false"><rect x="3.5" y="3" width="15" height="16" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7 8h8M7 11.5h8M7 15h4.5" stroke="currentColor" stroke-width="1.8"/></svg><span>The words, tables and pictures come out page by page, and you can save them as a Word file. Publisher's fonts, colours and exact layout are not rebuilt.</span></li>
+<li><svg viewBox="0 0 22 22" aria-hidden="true" focusable="false"><path d="M4 3.5h14v15H4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-dasharray="3 2"/><path d="M4 3.5 18 18.5M18 3.5 4 18.5" stroke="currentColor" stroke-width="1.5"/></svg><span>Reads files saved by Publisher 2002 and later. Tried on files from Publisher 2003, 2007, 2010 and 2013.</span></li>
+<li><svg viewBox="0 0 22 22" aria-hidden="true" focusable="false"><path d="M6 10V7.5a5 5 0 0 1 10 0V10" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="4" y="10" width="14" height="9.5" fill="currentColor"/></svg><span>Nothing is uploaded. The file is read in this tab, on your own computer.</span></li>
+</ul>
+<p class="unf-indep">Unframe is an independent tool by Peak Apps Studio. Not affiliated with Microsoft. Publisher is a trademark of Microsoft.</p>
+</div>
+</div>
+<div class="unf-right">
+<div class="unf-right-in">
+<div class="unf-marks">
+<div class="unf-sheet" id="panel" data-state="idle">
+<div class="unf-stage" id="stage-idle">
+<div class="unf-drop" id="drop">
+<h2 class="unf-stage-title" id="drop-title" tabindex="-1">Open a Publisher file</h2>
+<p>Drop a .pub file on this frame, or choose it from your computer. Publisher keeps the file as it is; this page only reads it.</p>
+<div class="unf-actions">
+<button type="button" class="btn btn-primary" id="btn-choose">Choose a .pub file</button>
+<button type="button" class="btn unf-quiet" id="btn-sample">Try a sample file</button>
+</div>
+<p class="unf-small">Have a whole folder of them? <button type="button" class="unf-link" id="btn-folder">Choose a folder</button> and Unframe lists every .pub file in it and checks which ones it can read.</p>
+<input type="file" id="file-input" class="sr-only" tabindex="-1" aria-hidden="true" accept=".pub,application/x-mspublisher,application/vnd.ms-publisher">
+<input type="file" id="folder-input" class="sr-only" tabindex="-1" aria-hidden="true" webkitdirectory multiple>
+</div>
+<p class="unf-small">The sample is a small real Publisher file made by the Apache POI developers: two pages, a table and a few links. <a href="/open-pub-file/what-is-a-pub-file/">What is a .pub file?</a></p>
+</div>
+<div class="unf-stage" id="stage-busy" hidden>
+<p class="unf-done-title" id="busy-title" tabindex="-1">Opening your file</p>
+<p class="unf-small" id="busy-sub" aria-live="polite">Reading it in your browser.</p>
+<div class="unf-bar" aria-hidden="true"><i></i></div>
+</div>
+<div class="unf-stage" id="stage-error" hidden>
+<p class="unf-error-title" id="error-title" tabindex="-1" role="alert"></p>
+<p id="error-text"></p>
+<div class="unf-actions"><button type="button" class="btn btn-primary" id="btn-retry">Choose another file</button><button type="button" class="btn unf-quiet" id="btn-error-sample">Try a sample file</button></div>
+</div>
+<div class="unf-stage" id="stage-list" hidden>
+<p class="unf-done-title" id="list-title" tabindex="-1">Publisher files in your selection</p>
+<p id="list-sub" class="unf-small" aria-live="polite"></p>
+<div class="unf-filebox"><table class="unf-files"><caption class="sr-only">Files and what Unframe found in each</caption><thead><tr><th scope="col">File</th><th scope="col">Result</th></tr></thead><tbody id="file-rows"></tbody></table></div>
+<div class="unf-actions"><button type="button" class="btn unf-quiet" id="btn-list-csv">Save this list (CSV)</button><button type="button" class="btn unf-quiet" id="btn-list-back">Choose something else</button></div>
+</div>
+<div class="unf-stage" id="stage-done" hidden>
+<p class="unf-done-title" id="done-title" tabindex="-1"></p>
+<p id="done-sub"></p>
+<div class="unf-actions"><a class="btn btn-primary" href="#result" id="btn-see">See the pages</a><button type="button" class="btn unf-quiet" id="btn-reset">Open another file</button><button type="button" class="btn unf-quiet" id="btn-back-list" hidden>Back to the list</button></div>
+</div>
+</div>
+</div>
+<p class="unf-private"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 9V6.5a5 5 0 0 1 10 0V9" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="3.2" y="9" width="13.6" height="9" fill="currentColor"/></svg><span>Your file never leaves this computer. This page reads it, here, and nothing in it is stored or sent. We count page visits with Cloudflare Web Analytics: no cookies, no personal data, and never your files.</span></p>
+</div>
+</div>
+</section>
+
+<figure class="unf-figure">
+<picture>
+<source type="image/webp" media="(max-width: 700px)" srcset="/open-pub-file/img/page-m-640.webp 640w, /open-pub-file/img/page-m-960.webp 960w" sizes="100vw">
+<source type="image/webp" srcset="/open-pub-file/img/page-1280.webp 1280w, /open-pub-file/img/page-1920.webp 1920w, /open-pub-file/img/page-2560.webp 2560w" sizes="100vw">
+<img src="/open-pub-file/img/page-1280.webp" width="1440" height="480" alt="A newsletter page on a grey desk with crop marks, its text boxes and a picture frame lifted off it and floating above as separate cards." decoding="async" loading="lazy">
+</picture>
+<figcaption>A page taken out of its frames: the text boxes and the picture come off as separate pieces. Rendered for this page; the newsletter is made up.</figcaption>
+</figure>
+
+<section class="unf-results" id="result" hidden aria-labelledby="result-title" tabindex="-1">
+<div class="wrap">
+<div class="unf-results-head">
+<h2 id="result-title" tabindex="-1">Your file, page by page</h2>
+<span class="unf-tag" id="sample-tag" hidden>Sample file, made by the Apache POI developers</span>
+</div>
+<div class="unf-info" id="info">
+<ul class="unf-facts-grid" id="facts-grid"></ul>
+</div>
+<p class="unf-meta" id="meta-line"></p>
+<p class="unf-note" id="result-note"></p>
+<div class="unf-save" role="group" aria-label="Save">
+<button type="button" class="btn btn-primary" id="save-docx">Save as Word file</button>
+<button type="button" class="btn unf-quiet" id="save-txt">Text (.txt)</button>
+<button type="button" class="btn unf-quiet" id="save-md">Markdown</button>
+<button type="button" class="btn unf-quiet" id="save-html">Web page</button>
+<button type="button" class="btn unf-quiet" id="save-pictures">Pictures (ZIP)</button>
+<button type="button" class="btn unf-quiet" id="save-bundle">Everything (ZIP)</button>
+<button type="button" class="btn unf-quiet" id="btn-print">Print or save as PDF</button>
+</div>
+<p class="unf-status" id="save-status" role="status"></p>
+
+<div class="unf-mapbox">
+<h3 id="map-title">The pages</h3>
+<p class="unf-mapnote">Each sheet shows where the text boxes (dashed), tables and pictures (crossed) sat on the page. Pick a page to read its text.</p>
+<div class="unf-map" id="map" role="group" aria-labelledby="map-title"></div>
+</div>
+
+<div class="unf-reading" id="reading" aria-live="polite"></div>
+</div>
+</section>
+
+<section class="unf-section" aria-labelledby="gets-h">
+<div class="wrap unf-prose">
+<h2 id="gets-h">What comes out of a .pub file</h2>
+<p>A .pub file holds the text of every text box, the pictures, and a lot of layout: where each box sits, its fonts, colours, borders and shapes. Unframe reads the first two completely and the position of each box, and leaves the look behind.</p>
+<div class="unf-table-wrap">
+<table class="unf-info-table">
+<caption>A Publisher file, part by part</caption>
+<thead><tr><th scope="col">Part of the file</th><th scope="col">What Unframe does</th></tr></thead>
+<tbody>
+<tr><th scope="row">Text boxes</th><td>Reads all the text, in reading order, page by page. Boxes that are linked so text flows from one to the next are read as one story.</td></tr>
+<tr><th scope="row">Tables</th><td>Shows them as tables when the cells line up. A table that does not line up is shown as plain text.</td></tr>
+<tr><th scope="row">Pictures</th><td>Shows and saves JPG, PNG, GIF and BMP pictures as they are stored. Clip art stored as WMF or EMF is drawn on the page and saved both ways, as the original and as a PNG.</td></tr>
+<tr><th scope="row">Links</th><td>Lists the web and email addresses stored in the file. It does not tie each one to the words it was on.</td></tr>
+<tr><th scope="row">Headers, footers, repeated items</th><td>Lists the text and pictures that sit on the master page, which Publisher repeats on every page.</td></tr>
+<tr><th scope="row">Fonts, colours, borders, shapes, effects</th><td>Not rebuilt. Each box is drawn as an outline on the page map, at its position.</td></tr>
+<tr><th scope="row">Password-protected files, Publisher 98 and 2000 files</th><td>Not read. Unframe tells you which one it met.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Unframe was tested on 15 Publisher files from the public test collections of Apache POI and Apache Tika (a few are copies of one document saved by different versions), saved by Publisher 2003, 2007, 2010 and 2013, plus damaged and look-alike files. We had no file saved by Publisher 2016, 2019, 2021 or Microsoft 365, so a file from those can still surprise us. Clip art stored as WMF was tested on real files; none of the test files held EMF clip art, so that part is untested. Where something cannot be read, the page says so and does not guess.</p>
+<p class="unf-source">Sources: Microsoft Support, <a href="https://support.microsoft.com/en-gb/publisher" rel="nofollow noopener">Microsoft Publisher will no longer be supported after October 2026</a>; Microsoft 365 Message Center post MC1469564 (published September 9, 2026, updated October 21, 2026). Last checked: October 28, 2026.</p>
+</div>
+</section>
+
+<section class="unf-section unf-section-alt" aria-labelledby="layout-h">
+<div class="wrap unf-prose">
+<h2 id="layout-h">If you need the layout too</h2>
+<p>Unframe is for getting the words and pictures back. When the look of the page matters, there are better routes, and which one fits depends on whether you still have Publisher.</p>
+<ul>
+<li>You still have Publisher: save the file as a PDF there (File, Save as, PDF). Microsoft says this is the way to keep a file you only need to view, share or print, and that it provides a script to convert a whole folder.</li>
+<li>You do not have Publisher: LibreOffice Draw and Scribus can import .pub files with their own layout; how close they come depends on the file.</li>
+<li>Online converters upload your file to their servers and return a PDF or Word file. Unframe does not.</li>
+</ul>
+<p>The steps and the details are in <a href="/open-pub-file/pub-to-pdf/">PUB to PDF: every way to do it</a>.</p>
+</div>
+</section>
+
+<section class="unf-section" aria-labelledby="faq-h">
+<div class="wrap">
+<h2 id="faq-h">Questions</h2>
+<div class="unf-faq">
+<details><summary>How do I open a .pub file without Publisher?</summary><p>Choose the file on this page. Unframe reads it in your browser and shows the text and pictures page by page, and saves them as a Word file, plain text, Markdown, a web page or a ZIP of pictures. It does not rebuild Publisher's layout, fonts or colours. For the layout, open the file in LibreOffice Draw or save it as a PDF from Publisher while you still have it. More: <a href="/open-pub-file/pub-to-pdf/">PUB to PDF</a>.</p></details>
+<details><summary>Is Microsoft Publisher being retired?</summary><p>Yes. Microsoft's support page says Publisher reaches end of life in October 2026. It is no longer included in Microsoft 365 as of October 1, 2026, and Microsoft 365 subscribers can no longer open or edit .pub files in it. The update that removes it from Microsoft 365 apps starts with version 2611, from mid-November 2026 on the Current Channel. The dates are in <a href="/open-pub-file/publisher-retirement/">Publisher retirement: dates and what happens to .pub files</a>.</p></details>
+<details><summary>Is my file uploaded?</summary><p>No. The .pub file is read by this page in your browser, on your computer. Nothing in it is sent or stored, and closing the tab discards it.</p></details>
+<details><summary>Does it keep the layout?</summary><p>No. Unframe gives you the words, tables and pictures page by page and draws each text box and picture frame as an outline where it sat on the page, but it does not rebuild fonts, colours, shapes or borders. If the look matters, use LibreOffice Draw, or save a PDF from Publisher before it is removed.</p></details>
+<details><summary>Which Publisher versions does it read?</summary><p>Files saved by Publisher 2002 and later. It was tested on files saved by Publisher 2003, 2007, 2010 and 2013. Publisher 2016, 2019, 2021 and Microsoft 365 are expected to write the same kind of file, but no file from them was available to test. Publisher 98 and 2000 files are not read.</p></details>
+<details><summary>Is Unframe made by Microsoft?</summary><p>No. Unframe is an independent tool by Peak Apps Studio and is not affiliated with Microsoft. Publisher is a trademark of Microsoft, named here only to say which file the tool opens.</p></details>
+</div>
+</div>
+</section>
+
+<section class="unf-section" aria-labelledby="more-h">
+<div class="wrap">
+<h2 id="more-h">More about .pub files</h2>
+<div class="unf-related">
+<a href="/open-pub-file/publisher-retirement/">Publisher retirement dates<span>What Microsoft removed, when, and what happens to your files</span></a>
+<a href="/open-pub-file/pub-to-pdf/">PUB to PDF<span>Publisher's own way, LibreOffice, online converters, and this tool</span></a>
+<a href="/open-pub-file/mac-iphone-android-chromebook/">Mac, iPhone, Android, Chromebook<span>Open a .pub file on a device that never had Publisher</span></a>
+<a href="/open-pub-file/what-is-a-pub-file/">What is a .pub file?<span>Publisher documents, and the other kind of .pub file</span></a>
+</div>
+</div>
+</section>
+</main>
+<aside class="peak-new" aria-label="New from Peak Apps">
+  <div class="wrap">
+    <a class="peak-new-card" href="/photo-date-fixer/" style="--tool:#c4360e">
+      <span class="peak-new-kicker">New from Peak Apps</span>
+      <strong>Photo Date Fixer</strong>
+      <span class="peak-new-line">Put the real date, time and place back into the photos of a Snapchat Memories export. Free, and nothing is uploaded.</span>
+    </a>
+  </div>
+</aside>
+<footer class="site-foot unf-foot" id="guides">
+  <div class="wrap cols">
+    <div>
+      <p class="unf-foot-brand">Unframe</p>
+      <p class="unf-foot-text">Open a Microsoft Publisher .pub file and get its text and pictures back, page by page, without Publisher. The file is read by this page on your own computer and never uploaded.</p>
+      <p class="unf-foot-text">Unframe is an independent tool by <a href="https://peakappsstudio.com/">Peak Apps Studio</a>. Not affiliated with Microsoft. Microsoft and Publisher are trademarks of Microsoft Corporation, named here only to say which file the tool opens.</p>
+    </div>
+    <div>
+      <h2>Guides</h2>
+      <ul>
+        <li><span aria-current="page">Open a .pub file</span></li>
+        <li><a href="/open-pub-file/publisher-retirement/">Publisher retirement: dates and your files</a></li>
+        <li><a href="/open-pub-file/pub-to-pdf/">PUB to PDF: every way to do it</a></li>
+        <li><a href="/open-pub-file/mac-iphone-android-chromebook/">Open a .pub file on a Mac, phone or Chromebook</a></li>
+        <li><a href="/open-pub-file/what-is-a-pub-file/">What is a .pub file?</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/privacy/">Privacy</a></li>
+        <li><a href="/tools/">More tools by Peak Apps</a></li>
+        <li><a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
