@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url><loc>https://peakappsstudio.com/</loc><lastmod>2026-10-21</lastmod></url>
   <url><loc>https://peakappsstudio.com/catio-designer/</loc><lastmod>2026-10-12</lastmod></url>
   <url><loc>https://peakappsstudio.com/catio-designer/balcony-catio/</loc><lastmod>2026-10-12</lastmod></url>
@@ -7,11 +7,29 @@
   <url><loc>https://peakappsstudio.com/catio-designer/catio-mesh/</loc><lastmod>2026-10-12</lastmod></url>
   <url><loc>https://peakappsstudio.com/catio-designer/how-big-should-a-catio-be/</loc><lastmod>2026-10-12</lastmod></url>
   <url><loc>https://peakappsstudio.com/catio-designer/window-catio-plans/</loc><lastmod>2026-10-12</lastmod></url>
-  <url><loc>https://peakappsstudio.com/character-ai-export-viewer/</loc><lastmod>2026-10-27</lastmod></url>
+  <url><loc>https://peakappsstudio.com/character-ai-export-viewer/</loc><lastmod>2026-10-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://peakappsstudio.com/character-ai-export-viewer/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://peakappsstudio.com/pt-br/abrir-exportacao-character-ai/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://peakappsstudio.com/es/visor-exportacion-character-ai/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://peakappsstudio.com/id/buka-ekspor-character-ai/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/character-ai-export-viewer/"/>
+  </url>
   <url><loc>https://peakappsstudio.com/character-ai-export-viewer/cai-tools/</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://peakappsstudio.com/character-ai-export-viewer/character-ai-alternatives/</loc><lastmod>2026-10-28</lastmod></url>
-  <url><loc>https://peakappsstudio.com/character-ai-export-viewer/export-not-working/</loc><lastmod>2026-10-27</lastmod></url>
-  <url><loc>https://peakappsstudio.com/character-ai-export-viewer/export-password/</loc><lastmod>2026-10-27</lastmod></url>
+  <url><loc>https://peakappsstudio.com/character-ai-export-viewer/export-not-working/</loc><lastmod>2026-10-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://peakappsstudio.com/character-ai-export-viewer/export-not-working/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://peakappsstudio.com/pt-br/abrir-exportacao-character-ai/exportacao-nao-chegou/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://peakappsstudio.com/es/visor-exportacion-character-ai/exportacion-no-llega/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://peakappsstudio.com/id/buka-ekspor-character-ai/ekspor-tidak-masuk/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/character-ai-export-viewer/export-not-working/"/>
+  </url>
+  <url><loc>https://peakappsstudio.com/character-ai-export-viewer/export-password/</loc><lastmod>2026-10-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://peakappsstudio.com/character-ai-export-viewer/export-password/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://peakappsstudio.com/pt-br/abrir-exportacao-character-ai/senha-do-zip/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://peakappsstudio.com/es/visor-exportacion-character-ai/contrasena-zip/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://peakappsstudio.com/id/buka-ekspor-character-ai/kata-sandi-zip/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/character-ai-export-viewer/export-password/"/>
+  </url>
   <url><loc>https://peakappsstudio.com/character-ai-export-viewer/is-character-ai-shutting-down/</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://peakappsstudio.com/character-ai-export-viewer/janitor-ai/</loc><lastmod>2026-10-28</lastmod></url>
   <url><loc>https://peakappsstudio.com/character-ai-export-viewer/json-file/</loc><lastmod>2026-10-27</lastmod></url>
@@ -279,4 +297,67 @@
   <url><loc>https://peakappsstudio.com/weebly-archive/move-to-another-host/</loc><lastmod>2026-10-28</lastmod></url>
   <url><loc>https://peakappsstudio.com/testers/</loc><lastmod>2026-10-28</lastmod></url>
   <url><loc>https://peakappsstudio.com/testers/tr/</loc><lastmod>2026-10-28</lastmod></url>
+  <url><loc>https://peakappsstudio.com/es/visor-exportacion-character-ai/</loc><lastmod>2026-10-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://peakappsstudio.com/character-ai-export-viewer/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://peakappsstudio.com/pt-br/abrir-exportacao-character-ai/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://peakappsstudio.com/es/visor-exportacion-character-ai/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://peakappsstudio.com/id/buka-ekspor-character-ai/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/character-ai-export-viewer/"/>
+  </url>
+  <url><loc>https://peakappsstudio.com/es/visor-exportacion-character-ai/contrasena-zip/</loc><lastmod>2026-10-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://peakappsstudio.com/character-ai-export-viewer/export-password/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://peakappsstudio.com/pt-br/abrir-exportacao-character-ai/senha-do-zip/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://peakappsstudio.com/es/visor-exportacion-character-ai/contrasena-zip/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://peakappsstudio.com/id/buka-ekspor-character-ai/kata-sandi-zip/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/character-ai-export-viewer/export-password/"/>
+  </url>
+  <url><loc>https://peakappsstudio.com/es/visor-exportacion-character-ai/exportacion-no-llega/</loc><lastmod>2026-10-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://peakappsstudio.com/character-ai-export-viewer/export-not-working/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://peakappsstudio.com/pt-br/abrir-exportacao-character-ai/exportacao-nao-chegou/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://peakappsstudio.com/es/visor-exportacion-character-ai/exportacion-no-llega/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://peakappsstudio.com/id/buka-ekspor-character-ai/ekspor-tidak-masuk/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/character-ai-export-viewer/export-not-working/"/>
+  </url>
+  <url><loc>https://peakappsstudio.com/id/buka-ekspor-character-ai/</loc><lastmod>2026-10-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://peakappsstudio.com/character-ai-export-viewer/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://peakappsstudio.com/pt-br/abrir-exportacao-character-ai/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://peakappsstudio.com/es/visor-exportacion-character-ai/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://peakappsstudio.com/id/buka-ekspor-character-ai/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/character-ai-export-viewer/"/>
+  </url>
+  <url><loc>https://peakappsstudio.com/id/buka-ekspor-character-ai/ekspor-tidak-masuk/</loc><lastmod>2026-10-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://peakappsstudio.com/character-ai-export-viewer/export-not-working/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://peakappsstudio.com/pt-br/abrir-exportacao-character-ai/exportacao-nao-chegou/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://peakappsstudio.com/es/visor-exportacion-character-ai/exportacion-no-llega/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://peakappsstudio.com/id/buka-ekspor-character-ai/ekspor-tidak-masuk/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/character-ai-export-viewer/export-not-working/"/>
+  </url>
+  <url><loc>https://peakappsstudio.com/id/buka-ekspor-character-ai/kata-sandi-zip/</loc><lastmod>2026-10-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://peakappsstudio.com/character-ai-export-viewer/export-password/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://peakappsstudio.com/pt-br/abrir-exportacao-character-ai/senha-do-zip/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://peakappsstudio.com/es/visor-exportacion-character-ai/contrasena-zip/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://peakappsstudio.com/id/buka-ekspor-character-ai/kata-sandi-zip/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/character-ai-export-viewer/export-password/"/>
+  </url>
+  <url><loc>https://peakappsstudio.com/pt-br/abrir-exportacao-character-ai/</loc><lastmod>2026-10-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://peakappsstudio.com/character-ai-export-viewer/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://peakappsstudio.com/pt-br/abrir-exportacao-character-ai/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://peakappsstudio.com/es/visor-exportacion-character-ai/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://peakappsstudio.com/id/buka-ekspor-character-ai/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/character-ai-export-viewer/"/>
+  </url>
+  <url><loc>https://peakappsstudio.com/pt-br/abrir-exportacao-character-ai/exportacao-nao-chegou/</loc><lastmod>2026-10-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://peakappsstudio.com/character-ai-export-viewer/export-not-working/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://peakappsstudio.com/pt-br/abrir-exportacao-character-ai/exportacao-nao-chegou/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://peakappsstudio.com/es/visor-exportacion-character-ai/exportacion-no-llega/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://peakappsstudio.com/id/buka-ekspor-character-ai/ekspor-tidak-masuk/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/character-ai-export-viewer/export-not-working/"/>
+  </url>
+  <url><loc>https://peakappsstudio.com/pt-br/abrir-exportacao-character-ai/senha-do-zip/</loc><lastmod>2026-10-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://peakappsstudio.com/character-ai-export-viewer/export-password/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://peakappsstudio.com/pt-br/abrir-exportacao-character-ai/senha-do-zip/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://peakappsstudio.com/es/visor-exportacion-character-ai/contrasena-zip/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://peakappsstudio.com/id/buka-ekspor-character-ai/kata-sandi-zip/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/character-ai-export-viewer/export-password/"/>
+  </url>
 </urlset>
