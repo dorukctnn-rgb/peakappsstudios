@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What is an .imscc file, and how do you open one?</title>
+<meta name="description" content="An .imscc file is an IMS Common Cartridge: a ZIP of a whole course from Canvas, Moodle or Schoology. What is inside, what is not, and how to open one.">
+<link rel="canonical" href="https://peakappsstudio.com/open-imscc-file/what-is-an-imscc-file/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="What is an .imscc file, and how do you open one?">
+<meta property="og:description" content="An .imscc file is an IMS Common Cartridge: a ZIP of a whole course from Canvas, Moodle or Schoology. What is inside, what is not, and how to open one.">
+<meta property="og:url" content="https://peakappsstudio.com/open-imscc-file/what-is-an-imscc-file/">
+<meta property="og:image" content="https://peakappsstudio.com/open-imscc-file/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0a7470">
+<link rel="icon" href="/open-imscc-file/img/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/open-imscc-file/fonts/cubby-display.woff2" as="font" type="font/woff2" crossorigin>
+<style data-from="/assets/tools.css">
+/* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
+
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e1;
+  --card: #fbfaf7;
+  --ink: #141518;
+  --ink-2: #33363d;
+  --muted: #676b74;
+  --line: rgba(20, 21, 24, 0.12);
+  --line-2: rgba(20, 21, 24, 0.22);
+  --accent: #1f5c4d;          /* each tool overrides this on <body style="--accent:..."> */
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  --warn: #9a4a12;
+  --ok: #2c6a3f;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+    --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+  --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; }
+img { display: block; height: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 10px; z-index: 100; background: var(--ink); color: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 10px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-head { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand-sub { font-family: var(--sans); font-size: 14.5px; letter-spacing: 0; color: var(--muted); font-weight: 500; padding-left: 10px; border-left: 1px solid var(--line-2); }
+.head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
+.head-nav a:hover { background: var(--paper-2); color: var(--ink); }
+.head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
+@media (max-width: 640px) { .brand-sub { display: none; } }
+@media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
+
+/* ---------- Type ---------- */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+h1 { font-size: clamp(32px, 4.6vw, 54px); }
+h1 em, h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 19px; letter-spacing: -0.01em; }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; margin: 16px 0 0; }
+.mono { font-family: var(--mono); }
+.muted { color: var(--muted); }
+small, .small { font-size: 13.5px; }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 22px 0 0; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-2); }
+.crumbs a { text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.tool-hero { padding: 28px 0 24px; display: grid; gap: 8px; }
+.tool-hero .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.tool-hero .facts li { display: inline-flex; align-items: center; gap: 8px; }
+.tool-hero .facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Tool shell ---------- */
+.tool { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.tool-panel { padding: 22px; border-right: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.tool-stage { position: relative; min-height: 460px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper); display: grid; place-items: center; padding: 22px; }
+.tool-stage canvas, .tool-stage svg, .tool-stage img { max-height: 70vh; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px -12px rgba(0,0,0,.18); background: #fff; }
+.stage-bar { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.tool-foot { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 14px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--paper); }
+.tool-foot .spacer { flex: 1; }
+@media (max-width: 860px) {
+  .tool { grid-template-columns: 1fr; }
+  .tool-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tool-stage { min-height: 320px; }
+}
+
+/* ---------- Form controls ---------- */
+.group { display: grid; gap: 10px; }
+.group-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > label { font-size: 13px; color: var(--ink-2); }
+.input, .select { width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 8px; padding: 9px 11px; transition: border-color .15s, box-shadow .15s; }
+.input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input-unit { position: relative; }
+.input-unit .input { padding-right: 38px; font-family: var(--mono); font-size: 14.5px; }
+.input-unit i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 3px; flex: none; }
+.seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line-2); border-radius: 9px; padding: 3px; gap: 3px; background: var(--paper); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.warn { font-size: 13.5px; color: var(--warn); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.btn { --b: var(--line-2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 500; line-height: 1; padding: 11px 16px; border-radius: 9px; border: 1px solid var(--b); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; transition: transform .15s var(--ease), background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklab, var(--accent) 86%, #000); color: var(--accent-ink); border-color: transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-ink:hover { color: var(--paper); background: var(--ink-2); }
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.pro-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: var(--ink); color: var(--paper); }
+
+/* ---------- Drop zone ---------- */
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 18px 14px; background: var(--paper); cursor: pointer; transition: border-color .15s, background .15s; font-size: 14.5px; }
+.drop:hover, .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Content ---------- */
+.section { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prose { max-width: 70ch; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose h2 { margin: 1.6em 0 .5em; }
+.prose h3 { margin: 1.4em 0 .4em; }
+.prose code, .prose kbd { font-family: var(--mono); font-size: .9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+.two-col > * { min-width: 0; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: 3px; }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 13px; background: var(--paper); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 15px; }
+.source { font-size: 13px; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--line-2); margin-top: 18px; }
+.faq details { border-bottom: 1px solid var(--line-2); }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 13px; font-family: var(--mono); font-size: 18px; color: var(--muted); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 18px; color: var(--ink-2); max-width: 70ch; }
+
+/* ---------- Pro ---------- */
+.pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--card); }
+.pro-left { padding: clamp(22px, 3vw, 36px); }
+.pro-right { padding: clamp(22px, 3vw, 36px); background: var(--ink); color: var(--paper); display: grid; align-content: center; gap: 14px; }
+.pro-right .price { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pro-right .price small { font-size: 15px; font-weight: 400; color: color-mix(in oklab, var(--paper) 70%, transparent); letter-spacing: 0; }
+.pro-right .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.pro-right .btn-primary:hover { background: #fff; color: var(--ink); }
+.pro-right .fine { font-size: 13px; color: color-mix(in oklab, var(--paper) 65%, transparent); margin: 0; }
+.pro-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.pro-list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.pro-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border: 1.5px solid var(--accent); border-radius: 2px; transform: rotate(45deg); }
+@media (max-width: 760px) { .pro { grid-template-columns: 1fr; } }
+
+/* ---------- A real file, shown ---------- */
+.shot { margin: 22px 0 0; }
+.shot img { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; }
+.shot figcaption { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+.shot figcaption strong { font-weight: 600; color: var(--ink-2); }
+.shot-sm { max-width: 920px; }
+
+/* ---------- Where free stops and Pro starts ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; margin: 26px 0 0; background: var(--card); }
+.split > div { padding: 18px 20px 20px; }
+.split > div + div { border-left: 1px solid var(--line-2); background: var(--accent-soft); }
+.split h3 { font-size: 15.5px; margin: 0; }
+.split > div > p { margin: 5px 0 0; font-size: 13.5px; color: var(--muted); }
+.split ul { list-style: none; margin: 13px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
+.split li { position: relative; padding-left: 18px; }
+.split li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; border-radius: 1px; background: var(--line-2); }
+.split > div + div li::before { background: var(--accent); }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } .split > div + div { border-left: 0; border-top: 1px solid var(--line-2); } }
+
+/* ---------- A file list, as the archive really holds it ---------- */
+.filelist { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 5px; }
+.filelist li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filelist li span { color: var(--muted); }
+
+/* ---------- License dialog ---------- */
+.license-dialog { border: 1px solid var(--line-2); border-radius: 14px; padding: 0; width: min(440px, calc(100% - 32px)); background: var(--card); color: var(--ink); }
+.license-dialog::backdrop { background: rgba(10, 11, 13, .45); }
+.license-dialog form { padding: 22px; display: grid; gap: 14px; }
+.license-status { font-size: 14px; min-height: 1.4em; margin: 0; }
+.license-status[data-state="ok"] { color: var(--ok); }
+.license-status[data-state="err"] { color: var(--warn); }
+
+/* ---------- Related / cards ---------- */
+.related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line-2); margin-top: 22px; }
+.related a { display: grid; gap: 4px; padding: 18px 18px 18px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.related a strong { font-weight: 600; }
+.related a span { font-size: 14px; color: var(--muted); }
+.related a:hover strong { color: var(--accent); }
+
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
+/* ---------- Footer ---------- */
+.site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
+.site-foot h2 { font-size: 15px; font-family: var(--sans); letter-spacing: 0; font-weight: 600; color: var(--ink); margin: 0 0 10px; }
+.site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+@media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- "New from Peak Apps": the cross-promotion card the build puts above the footer (src/crosspromo.json) ---------- */
+.peak-new { margin-top: clamp(56px, 8vw, 104px); }
+.peak-new + .site-foot { margin-top: 28px; }
+.peak-new-card { display: grid; gap: 4px; max-width: 640px; padding: 16px 20px 18px; border: 1px solid var(--line-2); border-left: 4px solid var(--tool, var(--accent)); border-radius: var(--radius); background: var(--card); color: var(--ink); text-decoration: none; transition: border-color .2s var(--ease); }
+.peak-new-card:hover { border-color: var(--tool, var(--accent)); }
+.peak-new-card:focus-visible { outline: 2px solid var(--tool, var(--accent)); outline-offset: 3px; }
+.peak-new-kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.peak-new-card strong { font-size: 17px; font-weight: 600; line-height: 1.3; }
+.peak-new-line { font-size: 14px; line-height: 1.5; color: var(--ink-2); max-width: 62ch; }
+
+/* ---------- Home project tools: the shared block on Without Planning and Dropped Kerb Check ---------- */
+.home-block { margin: clamp(36px, 5vw, 60px) 0 0; border-top: 1px solid var(--line-2); padding-top: 16px; }
+.home-title { margin: 0 0 10px; font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink); }
+.home-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px 24px; }
+.home-list a { display: grid; gap: 3px; padding: 2px 0 2px 14px; border-left: 4px solid var(--tool, var(--accent)); text-decoration: none; color: var(--ink); }
+.home-list a strong { font-weight: 700; font-size: 16px; }
+.home-list a span { color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+.home-list a:hover strong { color: var(--tool, var(--accent)); }
+.home-list a[aria-current="page"] span { color: var(--ink-2); }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .3s var(--ease); z-index: 90; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media print { .site-head, .site-foot, .tool-panel, .tool-foot, .no-print { display: none !important; } body { background: #fff; } }
+
+/* The hidden attribute must win over component display rules. */
+[hidden] { display: none !important; }
+</style>
+<style data-from="/open-imscc-file/tool.css">
+/* Cubby: a classroom cubby shelf for the course a teacher saved. Birch plywood for the band the tool sits in (its edge
+   shows the plies), bin teal for every button and link, a sun yellow kept for Pro, and label-tape colours that mark the
+   modules on the shelf. Headings in Recursive pinned to its casual, heavy style (the look of a teacher's marker on a
+   label, subset as "Cubby Display"); everything people read is the system font at 18px. The tool is one open cubby you
+   drop the file into; once the course is open, the shelf lists the modules like labelled cubby rows and the item you
+   pick opens beside it. */
+@font-face { font-family: "Cubby Display"; src: url("/open-imscc-file/fonts/cubby-display.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+/* Arial Bold sized to the heading font, so the headings do not jump when the web font arrives */
+@font-face { font-family: "Cubby Display Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Arial"); font-weight: 400; size-adjust: 97.1%; ascent-override: 97.8%; descent-override: 25.7%; line-gap-override: 0%; }
+
+body.cubby {
+  --ply: #e8cc9e; --ply-2: #dcb882; --ply-edge: #b07a43; --ply-dark: #8a5a2b; --ply-ink: #1d2730;
+  --teal: #0a7470; --teal-2: #075a57; --teal-soft: #ddefed;
+  --sun: #f4b73a; --sun-2: #e0a020; --sun-ink: #1d2730;
+  --ink: #1d2730; --ink-2: #33414b; --muted: #55616a;
+  --paper: #ffffff; --wall: #eef2f3; --card: #ffffff; --line: #d6dde1; --line-2: #b9c4ca;
+  --accent: #0a7470; --accent-ink: #ffffff; --link: #0a7470; --mark: #ffe39a;
+  --ok: #1d6b3a; --warn: #8a4a00; --bad: #a3271b;
+  --t1: #0a7470; --t2: #d9472f; --t3: #e0a020; --t4: #2f72b8; --t5: #3f8a44; --t6: #84489a;
+  --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --head: "Cubby Display", "Cubby Display Fallback", Arial, sans-serif;
+  --code: ui-monospace, "Cascadia Mono", Consolas, "SF Mono", monospace;
+  font-family: var(--sans); font-size: 18px; line-height: 1.6; background: var(--paper); color: var(--ink);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.cubby {
+    --ink: #e9eef1; --ink-2: #cfd8dd; --muted: #a3b0b8; --paper: #121719; --wall: #182024; --card: #1b2327; --line: #2a353b; --line-2: #3b4950;
+    --link: #6fd0c8; --accent: #6fd0c8; --accent-ink: #0b1f1d; --teal-soft: #15302e; --mark: #5b4a12; --ok: #8fd3a5; --warn: #f0b16b; --bad: #ff9a8e;
+  }
+}
+:root[data-theme="dark"] body.cubby {
+  --ink: #e9eef1; --ink-2: #cfd8dd; --muted: #a3b0b8; --paper: #121719; --wall: #182024; --card: #1b2327; --line: #2a353b; --line-2: #3b4950;
+  --link: #6fd0c8; --accent: #6fd0c8; --accent-ink: #0b1f1d; --teal-soft: #15302e; --mark: #5b4a12; --ok: #8fd3a5; --warn: #f0b16b; --bad: #ff9a8e;
+}
+.cubby a { color: var(--link); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.cubby a:hover { color: var(--ink); }
+.cubby h1, .cubby h2, .cubby h3 { font-family: var(--head); font-weight: 400; color: var(--ink); letter-spacing: 0; }
+.cubby h1 { font-size: clamp(34px, 4vw, 54px); line-height: 1.06; margin: 14px 0 0; text-wrap: balance; max-width: 16ch; }
+.cubby h2 { font-size: clamp(26px, 2.6vw, 34px); line-height: 1.15; margin: 0 0 14px; text-wrap: balance; }
+.cubby h3 { font-size: 22px; line-height: 1.2; margin: 0 0 10px; }
+.cubby code { font-family: var(--code); font-size: 0.86em; background: var(--wall); padding: 1px 5px; border-radius: 3px; }
+.cubby :focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
+.cubby .wrap { max-width: 1200px; }
+.cubby .crumbs { font-size: 15px; }
+.cubby .crumbs a { color: var(--ply-ink); }
+.cubby .lede { font-size: 20px; line-height: 1.55; color: var(--ply-ink); max-width: 36em; margin: 16px 0 0; }
+
+/* ---------- header and footer (Cubby's own) ---------- */
+.cb-head { background: var(--paper); border-bottom: 1px solid var(--line); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.cb-head .brand { gap: 10px; color: var(--ink); }
+.cb-head .brand svg { width: 30px; height: 30px; }
+.cb-head .brand span { font-family: var(--head); font-size: 24px; }
+.cb-head .head-nav a { font-size: 16px; color: var(--ink-2); padding: 8px 10px; border-radius: 3px; }
+.cb-head .head-nav [aria-current="page"] { font-size: 16px; color: var(--ink); padding: 8px 10px; font-weight: 700; background: none; box-shadow: inset 0 -3px 0 var(--teal); }
+.cb-narrow { display: none; }
+@media (max-width: 1180px) { .cb-wide { display: none; } .cb-narrow { display: inline-block; } }
+@media (max-width: 480px) { .cb-head .head-nav [aria-current="page"] { display: none; } .cb-head .head-nav a { padding: 8px 6px; font-size: 15px; } .cb-head .brand span { font-size: 22px; } .cb-head .brand svg { width: 26px; height: 26px; } }
+.cubby .site-foot.cb-foot { background: #1f2a30; color: #d5dde1; border-top: 0; font-size: 16px; padding: 44px 0 52px; margin-top: 0; }
+.cubby .cb-foot .cols { grid-template-columns: 1.6fr 1.2fr 0.9fr; }
+@media (max-width: 860px) { .cubby .cb-foot .cols { grid-template-columns: 1fr; } }
+.cubby .cb-foot h2 { font-family: var(--sans); font-size: 17px; font-weight: 700; color: #fff; margin: 0 0 10px; }
+.cubby .cb-foot a { color: #eef3f5; }
+.cubby .cb-foot a:hover { color: #fff; text-decoration: underline; }
+.cubby .cb-foot ul { gap: 8px; }
+.cubby .cb-foot :focus-visible { outline-color: var(--sun); }
+.cb-foot-brand { font-family: var(--head); font-size: 25px; color: #fff; margin: 0 0 8px; }
+.cb-foot-text { margin: 0 0 12px; max-width: 48ch; }
+
+/* ---------- the hero: a plywood band, and the open cubby the file goes into ---------- */
+.cb-hero { position: relative; background: var(--ply); color: var(--ply-ink); padding: 28px 0 46px; }
+.cb-hero-in { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); grid-template-areas: "text box" "more box"; column-gap: clamp(28px, 4vw, 64px); row-gap: 0; align-items: start; }
+.cb-hero-text { grid-area: text; }
+.cb-hero-more { grid-area: more; }
+.cb-box { grid-area: box; }
+.cb-hero h1 { color: var(--ply-ink); }
+/* the cut edge of the plywood: its plies, a thin dark line under every second one */
+.cb-ply { position: absolute; left: 0; right: 0; bottom: 0; height: 14px; background: repeating-linear-gradient(180deg, var(--ply-2) 0 2px, var(--ply) 2px 4px, var(--ply-edge) 4px 5px, var(--ply) 5px 7px); border-bottom: 2px solid var(--ply-dark); }
+.cb-facts { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 12px; max-width: 34em; }
+.cb-facts li { display: grid; grid-template-columns: 26px 1fr; gap: 12px; align-items: start; font-size: 17px; line-height: 1.5; }
+.cb-facts svg { width: 22px; height: 22px; color: var(--teal-2); margin-top: 3px; }
+.cb-indep { font-size: 15px; color: var(--ply-ink); margin: 20px 0 0; max-width: 34em; }
+
+.cb-box { background: var(--ply-2); border: 3px solid var(--ply-dark); border-radius: 6px; padding: 14px; box-shadow: inset 0 0 0 4px var(--ply), 0 2px 0 var(--ply-dark); margin-top: 8px; }
+.cb-box-in { background: #fbf7ef; border-radius: 3px; box-shadow: inset 0 10px 18px -10px rgba(76, 46, 14, 0.55), inset 0 -2px 0 rgba(76, 46, 14, 0.12); padding: clamp(18px, 2.6vw, 30px); min-height: 330px; color: var(--ply-ink); }
+.cb-box-in a { color: var(--teal-2); }
+.cb-stage-title { font-family: var(--head); font-size: 26px; line-height: 1.2; margin: 0 0 8px; color: var(--ply-ink); }
+.cb-drop { border: 2px dashed var(--ply-edge); border-radius: 4px; padding: 20px; transition: background .15s, border-color .15s; }
+.cb-drop.is-over { background: #fff3d6; border-color: var(--teal); border-style: solid; }
+.cb-drop p { margin: 0 0 14px; }
+.cb-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.cb-small { font-size: 15px; line-height: 1.5; margin: 14px 0 0; }
+.cb-error-title { font-family: var(--head); font-size: 24px; color: var(--bad); margin: 0 0 8px; }
+.cb-bar { height: 8px; background: var(--ply); border-radius: 4px; overflow: hidden; margin-top: 16px; }
+.cb-bar i { display: block; height: 100%; width: 40%; background: var(--teal); border-radius: 4px; animation: cb-slide 1.1s ease-in-out infinite alternate; }
+@keyframes cb-slide { from { transform: translateX(-10%); } to { transform: translateX(160%); } }
+@media (prefers-reduced-motion: reduce) { .cb-bar i { animation: none; width: 100%; } .cb-drop { transition: none; } }
+
+/* buttons */
+.cb-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 10px 18px; border-radius: 6px; border: 2px solid var(--line-2); background: var(--card); color: var(--ink); font: 600 17px/1.2 var(--sans); text-decoration: none; cursor: pointer; white-space: normal; text-align: center; }
+.cubby a.cb-btn { color: var(--ink); }
+.cb-btn:hover { border-color: var(--teal); }
+.cb-btn-teal, .cubby a.cb-btn-teal { background: var(--teal); border-color: var(--teal); color: #fff; }
+.cb-btn-teal:hover { background: var(--teal-2); border-color: var(--teal-2); }
+.cb-btn-plain { background: transparent; border-color: currentColor; }
+.cb-box-in .cb-btn-plain { color: var(--ply-ink); border-color: var(--ply-edge); }
+.cb-btn-sun, .cubby a.cb-btn-sun { background: var(--sun); border-color: var(--sun-2); color: var(--sun-ink); }
+.cb-btn-sun:hover { background: var(--sun-2); }
+.cb-btn-sm { min-height: 40px; padding: 7px 13px; font-size: 16px; }
+.cb-btn[aria-pressed="true"] { background: var(--teal); border-color: var(--teal); color: #fff; }
+.cb-pro { display: inline-block; font: 700 13px/1 var(--sans); background: var(--sun); color: var(--sun-ink); padding: 4px 7px; border-radius: 3px; vertical-align: 2px; }
+
+/* ---------- the reader: the shelf of modules beside the item you are reading ---------- */
+.cb-reader { background: var(--wall); padding: 34px 0 56px; border-bottom: 1px solid var(--line); }
+.cb-reader-head { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: end; justify-content: space-between; }
+.cb-reader-head h2 { margin: 0; max-width: 28ch; }
+.cb-course-meta { margin: 6px 0 0; color: var(--muted); font-size: 16px; }
+.cb-reader-tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.cb-search input { min-height: 44px; width: min(320px, 100%); padding: 8px 12px; border: 2px solid var(--line-2); border-radius: 6px; font: 17px var(--sans); background: var(--card); color: var(--ink); }
+.cb-search input:focus { border-color: var(--teal); outline: none; box-shadow: 0 0 0 3px color-mix(in oklab, var(--teal) 30%, transparent); }
+.cb-save { margin: 18px 0 0; padding: 14px 16px; border: 2px solid var(--sun-2); border-radius: 6px; background: color-mix(in oklab, var(--sun) 14%, var(--card)); }
+.cb-save-title { margin: 0 0 10px; font-weight: 700; }
+.cb-save-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.cb-save .cb-small { margin-top: 10px; color: var(--ink-2); }
+.cb-search-note { margin: 14px 0 0; font-size: 16px; color: var(--ink-2); }
+.cb-shelf-wrap { display: grid; grid-template-columns: minmax(250px, 340px) minmax(0, 1fr); gap: 22px; margin-top: 20px; align-items: start; }
+.cb-shelf { background: var(--ply); border: 3px solid var(--ply-dark); border-radius: 6px; padding: 10px; max-height: 78vh; overflow: auto; position: sticky; top: 76px; color: var(--ply-ink); }
+.cb-shelf h3 { font-family: var(--sans); font-size: 15px; font-weight: 700; margin: 12px 4px 6px; color: var(--ply-ink); }
+.cb-shelf h3:first-child { margin-top: 2px; }
+.cb-row { background: #fbf7ef; border-radius: 3px; margin: 0 0 8px; box-shadow: inset 0 6px 10px -8px rgba(76, 46, 14, 0.6); overflow: hidden; }
+.cb-row-label { display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 8px 10px; border: 0; background: transparent; font: 700 16px/1.3 var(--sans); color: var(--ply-ink); cursor: pointer; }
+.cb-row-label::before { content: ""; flex: none; width: 10px; height: 22px; border-radius: 2px; background: var(--tape, var(--t1)); }
+.cb-row-label .cb-count { margin-left: auto; font-weight: 600; font-size: 14px; color: #5d4a33; }
+.cb-row[data-open="false"] .cb-row-items { display: none; }
+.cb-row-items { list-style: none; margin: 0; padding: 0 6px 6px; }
+.cb-row-items li { margin: 0; }
+.cb-it { display: grid; grid-template-columns: 20px 1fr; gap: 8px; align-items: start; width: 100%; text-align: left; padding: 6px 6px; border: 0; border-radius: 3px; background: transparent; font: 15.5px/1.35 var(--sans); color: var(--ply-ink); cursor: pointer; }
+.cb-it svg { width: 18px; height: 18px; margin-top: 1px; color: var(--teal-2); }
+.cb-it:hover { background: #f1e6d1; }
+.cb-it[aria-current="true"] { background: var(--teal); color: #fff; }
+.cb-it[aria-current="true"] svg { color: #fff; }
+.cb-it .cb-off { display: block; font-size: 13px; color: #6d5a42; }
+.cb-it[aria-current="true"] .cb-off { color: #e6f5f3; }
+.cb-sub { font: 700 13.5px/1.3 var(--sans); color: #5d4a33; padding: 8px 6px 2px; }
+.cb-it.is-hit { box-shadow: inset 3px 0 0 var(--sun-2); }
+
+.cb-article { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: clamp(18px, 3vw, 34px); min-height: 360px; overflow-wrap: anywhere; }
+.cb-article:focus { outline: none; }
+.cb-kind { display: inline-block; font: 700 14px/1 var(--sans); color: var(--teal-2); background: var(--teal-soft); padding: 6px 8px; border-radius: 3px; }
+.cb-article h3.cb-item-title { font-size: clamp(26px, 2.6vw, 34px); margin: 12px 0 6px; }
+.cb-details { margin: 0 0 14px; color: var(--muted); font-size: 16px; }
+.cb-item-tools { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.cb-body { max-width: 72ch; }
+.cb-body img { max-width: 100%; height: auto; }
+.cb-body table { border-collapse: collapse; margin: 12px 0; max-width: 100%; }
+.cb-body caption { text-align: left; font-weight: 700; padding: 0 0 6px; }
+.cb-body td, .cb-body th { border: 1px solid var(--line-2); padding: 6px 10px; vertical-align: top; text-align: left; }
+.cb-body pre { white-space: pre-wrap; background: var(--wall); padding: 10px; border-radius: 4px; }
+.cb-body blockquote { margin: 12px 0; padding-left: 14px; border-left: 4px solid var(--line-2); }
+.cb-missing-img, .cb-deadlink { color: var(--muted); }
+.cb-math { font-family: var(--code); }
+.cb-media { padding: 10px 12px; background: var(--wall); border-radius: 4px; }
+.cb-empty { color: var(--muted); }
+.cb-note { font-size: 16px; color: var(--ink-2); background: var(--wall); border-left: 4px solid var(--teal); padding: 10px 14px; margin: 16px 0; border-radius: 0 4px 4px 0; }
+.cb-rubric { margin-top: 22px; }
+.cb-rubric table { display: table; width: 100%; }
+.cb-file-preview { margin: 6px 0 16px; }
+.cb-file-preview img { max-width: 100%; max-height: 520px; border: 1px solid var(--line); border-radius: 4px; }
+.cb-file-preview pre { max-height: 420px; overflow: auto; }
+.cb-files { list-style: none; padding: 0; margin: 0; }
+.cb-files li { padding: 8px 0; border-bottom: 1px solid var(--line); }
+mark { background: var(--mark); color: inherit; padding: 0 1px; }
+
+/* quiz */
+.cb-quiz-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 0 0 16px; }
+.cb-qs { padding-left: 0; list-style: none; margin: 0; counter-reset: none; }
+.cb-q { border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; margin: 0 0 14px; background: var(--card); }
+.cb-q-head { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; margin-bottom: 4px; }
+.cb-q-num { font-family: var(--head); font-size: 20px; color: var(--teal-2); }
+.cb-q-meta { font-size: 14.5px; color: var(--muted); }
+.cb-q-text p:first-child { margin-top: 0; }
+.cb-choices { margin: 8px 0 0; padding-left: 28px; }
+.cb-choices li { padding: 3px 0; }
+.cb-choices li p { margin: 0; }
+.is-correct { font-weight: 700; }
+.cb-choices li.is-correct::marker { color: var(--ok); }
+.cb-tick { display: inline-block; font: 700 13px/1 var(--sans); color: #fff; background: var(--ok); padding: 3px 6px; border-radius: 3px; margin-left: 6px; vertical-align: 1px; }
+.cb-answer { font-weight: 700; color: var(--ok); margin: 8px 0 0; }
+.cb-answer-none { color: var(--muted); font-weight: 600; }
+.cb-feedback { font-size: 16px; background: var(--wall); padding: 8px 12px; border-radius: 4px; margin-top: 8px; }
+.cb-blanks { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; margin: 8px 0 0; }
+.cb-blanks dt { font-weight: 700; }
+.cb-blanks dd { margin: 0; }
+.cb-match { border-collapse: collapse; margin: 8px 0 0; }
+.cb-match td { border: 1px solid var(--line-2); padding: 6px 10px; }
+.cb-q-options { font-size: 16px; color: var(--ink-2); margin: 8px 0 0; }
+.cb-line { color: var(--muted); }
+.cb-essay-lines { height: 72px; background: repeating-linear-gradient(180deg, transparent 0 23px, var(--line-2) 23px 24px); }
+.cb-group { list-style: none; margin: 18px 0; padding: 12px 14px 4px; border: 2px dashed var(--line-2); border-radius: 6px; }
+.cb-group-head { font-weight: 700; margin: 0 0 10px; }
+
+/* ---------- sections below ---------- */
+.cb-sec { padding: clamp(48px, 6vw, 80px) 0 0; }
+.cb-sec p, .cb-sec li { max-width: 62ch; }
+.cb-cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px); }
+.cb-steps { padding-left: 24px; }
+.cb-steps li { margin: 0 0 6px; }
+.cb-sec-shelf .cb-plans { display: grid; grid-template-columns: 1fr 1.25fr; gap: 18px; margin-top: 8px; }
+.cb-plan { border: 2px solid var(--line-2); border-radius: 6px; padding: 20px 22px; background: var(--card); }
+.cb-plan ul { padding-left: 20px; margin: 0 0 16px; }
+.cb-plan li { margin: 0 0 6px; }
+.cb-plan-pro { border-color: var(--sun-2); background: color-mix(in oklab, var(--sun) 12%, var(--card)); }
+.cb-price { font-family: var(--sans); font-size: 17px; font-weight: 700; color: var(--ink-2); margin-left: 8px; }
+.cb-figure { margin: 34px 0 0; }
+.cb-figure img { display: block; width: 100%; height: auto; border-radius: 6px; background: var(--ply); }
+.cb-figure figcaption { font-size: 15px; color: var(--muted); margin-top: 8px; }
+.cb-guides { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.cb-guides a { display: grid; gap: 4px; height: 100%; padding: 16px 18px; border: 2px solid var(--line); border-left: 10px solid var(--tape, var(--t1)); border-radius: 6px; text-decoration: none; color: var(--ink); background: var(--card); }
+.cb-guides li:nth-child(2) a { --tape: var(--t2); }
+.cb-guides li:nth-child(3) a { --tape: var(--t4); }
+.cb-guides li:nth-child(4) a { --tape: var(--t5); }
+.cb-guides a:hover { border-color: var(--teal); }
+.cb-guides strong { font-size: 19px; }
+.cb-guides span { font-size: 16px; color: var(--ink-2); }
+.cb-faq details { border-bottom: 1px solid var(--line); padding: 12px 0; max-width: 72ch; }
+.cb-faq summary { cursor: pointer; font-weight: 700; font-size: 19px; }
+.cb-faq details p { margin: 10px 0 4px; }
+main + .site-foot { margin-top: clamp(56px, 7vw, 96px); }
+
+/* ---------- guide pages ---------- */
+.cb-guide-hero { background: var(--ply); color: var(--ply-ink); padding: 26px 0 40px; position: relative; }
+.cb-guide-hero .wrap { max-width: 860px; }
+.cb-guide-hero h1 { max-width: 22ch; }
+.cb-guide-hero .lede { max-width: 40em; }
+.cb-guide-hero .cb-actions { margin-top: 20px; }
+.cb-guide { padding: clamp(36px, 5vw, 60px) 0 0; }
+.cb-guide .wrap { max-width: 860px; }
+.cb-guide h2 { margin-top: 40px; }
+.cb-guide p, .cb-guide li { max-width: 68ch; }
+.cb-guide table { border-collapse: collapse; width: 100%; margin: 14px 0; font-size: 16.5px; }
+.cb-guide caption { text-align: left; font-weight: 700; padding-bottom: 6px; caption-side: top; }
+.cb-guide th, .cb-guide td { border: 1px solid var(--line-2); padding: 8px 10px; vertical-align: top; text-align: left; }
+.cb-guide th { background: var(--wall); }
+.cb-cta { margin: 34px 0 0; padding: 20px 22px; border: 3px solid var(--ply-dark); border-radius: 6px; background: var(--ply); color: var(--ply-ink); display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center; }
+.cb-cta p { margin: 0; flex: 1 1 320px; }
+.cb-cta .cb-proline { flex: 1 1 100%; margin: 2px 0 0; padding-top: 12px; border-top: 1px solid var(--ply-edge); font-size: 16px; }
+.cb-cta a:not(.cb-btn) { color: var(--ply-ink); }
+.cb-sources { font-size: 15.5px; color: var(--ink-2); }
+.cb-sources li { margin-bottom: 6px; }
+.cb-checked { font-size: 15px; color: var(--muted); }
+.cb-related { list-style: none; padding: 0; display: grid; gap: 8px; }
+
+@media (max-width: 980px) {
+  .cb-hero-in { grid-template-columns: 1fr; grid-template-areas: "text" "box" "more"; row-gap: 22px; }
+  .cb-cols, .cb-sec-shelf .cb-plans { grid-template-columns: 1fr; }
+  .cb-shelf-wrap { grid-template-columns: 1fr; }
+  .cb-shelf { position: static; max-height: 46vh; }
+}
+@media (max-width: 640px) {
+  .cubby .lede { font-size: 18.5px; }
+  .cb-guides { grid-template-columns: 1fr; }
+  .cb-box { padding: 9px; }
+  .cb-box-in { min-height: 0; }
+  .cb-drop { padding: 14px; }
+  .cb-reader-head h2 { max-width: none; }
+  .cb-search input { width: 100%; }
+  .cb-reader-tools, .cb-search { width: 100%; }
+  .cb-blanks { grid-template-columns: 1fr; }
+  .cb-body table { display: block; overflow-x: auto; }
+}
+@media print {
+  .cubby .cb-head, .cubby .cb-foot, .cubby .site-foot, .cubby .cb-hero, .cubby .cb-sec, .cubby .cb-reader-head, .cubby .cb-save, .cubby .cb-shelf, .cubby .cb-item-tools, .cubby .cb-quiz-bar, .cubby .cb-search-note, .cubby .skip, .cubby .toast { display: none !important; }
+  .cubby .cb-reader { background: #fff; padding: 0; border: 0; }
+  .cubby .cb-shelf-wrap { display: block; margin: 0; }
+  .cubby .cb-article { border: 0; padding: 0; }
+  .cubby .cb-q { break-inside: avoid; border: 0; padding: 0 0 10px; }
+  .cubby a { color: inherit; }
+}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"What is an .imscc file?","description":"An .imscc file is an IMS Common Cartridge: a ZIP of a whole course from Canvas, Moodle or Schoology. What is inside, what is not, and how to open one.","url":"https://peakappsstudio.com/open-imscc-file/what-is-an-imscc-file/","inLanguage":"en","dateModified":"2026-10-28","author":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"image":"https://peakappsstudio.com/open-imscc-file/img/og.png"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Open an IMSCC file","item":"https://peakappsstudio.com/open-imscc-file/"},{"@type":"ListItem","position":3,"name":"What is .imscc?","item":"https://peakappsstudio.com/open-imscc-file/what-is-an-imscc-file/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What program opens .imscc files?","acceptedAnswer":{"@type":"Answer","text":"A learning platform that imports Common Cartridges (Canvas, Moodle, Schoology, Brightspace), or Cubby in any browser if you only want to read and print the course."}},{"@type":"Question","name":"Can I just unzip an .imscc file?","acceptedAnswer":{"@type":"Answer","text":"Yes, it is a ZIP. You will see the pages as HTML files and your uploaded files, but not the module order or the quiz answers in a readable form."}},{"@type":"Question","name":"Is an .imscc file safe to open?","acceptedAnswer":{"@type":"Answer","text":"It is a ZIP of text and your files. Cubby opens it without running anything inside it: scripts and embedded frames in pages are removed before they are shown."}}]}]}
+</script>
+<script src="/assets/pro-source.js" data-campaign="open-imscc-file" defer></script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
+</head>
+<body class="cubby" style="--accent:#0a7470">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head cb-head">
+  <div class="wrap">
+    <a class="brand" href="/open-imscc-file/" aria-label="Cubby, open an IMSCC file">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect x="2.5" y="4.5" width="27" height="23" rx="1.5" fill="#e8cc9e" stroke="#8a5a2b" stroke-width="1.8"/><path d="M2.5 16h27M16 4.5v23" stroke="#8a5a2b" stroke-width="1.8"/><rect x="5.5" y="9" width="8" height="5" rx="0.8" fill="#0a7470"/><rect x="18.5" y="20" width="8" height="5" rx="0.8" fill="#f4b73a"/><rect x="5.5" y="21.5" width="5" height="3.5" rx="0.6" fill="#d9472f"/></svg>
+      <span>Cubby</span>
+    </a>
+    <nav class="head-nav" aria-label="Cubby">
+      <a href="/open-imscc-file/">Open a file</a>
+      <a class="cb-wide" href="/open-imscc-file/canvas-free-for-teacher-shutdown/">Free-for-Teacher shutdown</a>
+      <a class="cb-wide" href="/open-imscc-file/print-canvas-quiz-with-answers/">Quiz with answers</a>
+      <a class="cb-wide" href="/open-imscc-file/imscc-to-pdf/">IMSCC to PDF</a>
+      <span class="cb-wide" aria-current="page">What is .imscc?</span>
+      <a class="cb-narrow" href="#guides">Guides</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="cb-guide-hero" aria-labelledby="h1">
+<div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/open-imscc-file/">Open an IMSCC file</a></li><li aria-current="page">What is .imscc?</li></ol></nav>
+<h1 id="h1">What is an .imscc file?</h1>
+<p class="lede">An .imscc file is a whole online course packed into one file, in the IMS Common Cartridge format. Canvas writes one when a teacher exports a course; Moodle, Schoology, Brightspace and others read and write them too.</p>
+<div class="cb-actions"><a class="cb-btn cb-btn-teal" href="/open-imscc-file/">Open your .imscc file</a></div>
+</div>
+<div class="cb-ply" aria-hidden="true"></div>
+</section>
+<div class="cb-guide">
+<div class="wrap">
+<h2>The format</h2>
+<p>IMS Common Cartridge is a standard of 1EdTech (formerly IMS Global) for moving course content between learning platforms. The file is a ZIP. At its top sits <code>imsmanifest.xml</code>, the contents list: it names every resource in the course and, for Canvas exports, the module tree. Canvas exports in version 1.1 or 1.3 of the standard and adds its own files for what the standard has no place for.</p>
+<table>
+<caption>Inside a Canvas course export</caption>
+<thead><tr><th scope="col">In the ZIP</th><th scope="col">What it holds</th></tr></thead>
+<tbody>
+<tr><td><code>imsmanifest.xml</code></td><td>The list of everything, with titles and the module order</td></tr>
+<tr><td><code>course_settings/</code></td><td>Canvas's own files: modules, assignment groups, rubrics, the syllabus, course settings</td></tr>
+<tr><td><code>wiki_content/</code></td><td>One HTML file per page</td></tr>
+<tr><td><code>web_resources/</code></td><td>Your uploaded files, in their folders</td></tr>
+<tr><td>Folders with long random names</td><td>One per assignment or quiz: the description, the settings, the questions</td></tr>
+<tr><td><code>non_cc_assessments/</code></td><td>The full quiz files (QTI) with every question type, and the question banks</td></tr>
+</tbody>
+</table>
+<h2>What an export never holds</h2>
+<p>Student data: no submissions, grades, quiz attempts, discussion replies or enrolments. A course export is the course as you built it, not the class you taught with it.</p>
+<h2>How to open one</h2>
+<table>
+<caption>Ways to open an .imscc file</caption>
+<thead><tr><th scope="col">Where</th><th scope="col">How</th><th scope="col">Good for</th></tr></thead>
+<tbody>
+<tr><td>Cubby (this site)</td><td><a href="/open-imscc-file/">Choose the file</a>; it is read in the browser, nothing uploaded</td><td>Reading the course, quiz answers, printing, saving files</td></tr>
+<tr><td>Canvas, including Canvas Lite</td><td>Settings, Import Course Content, Common Cartridge 1.x Package</td><td>Teaching the course again in Canvas</td></tr>
+<tr><td>Moodle</td><td>Course administration, Restore or Import, IMS Common Cartridge</td><td>Moving to Moodle</td></tr>
+<tr><td>Google Classroom</td><td>Google's open source Classroom converter</td><td>Turning content into Classroom materials</td></tr>
+<tr><td>Any file manager</td><td>Rename the file to .zip and open it</td><td>Getting at single files; the course structure stays in XML</td></tr>
+</tbody>
+</table>
+<h2>.imscc, QTI .zip and other files that look alike</h2>
+<ul>
+<li><strong>QTI .zip</strong>: what Canvas gives when you export only quizzes. It holds the questions and answers, not the pages. Cubby opens it as well.</li>
+<li><strong>.mbz</strong>: a Moodle backup, Moodle's own format, not a Common Cartridge.</li>
+<li><strong>.imscc saved as a web page</strong>: if a download link had expired, some browsers save the sign-in page under the file's name. Such a file is a few kilobytes and opens as HTML; download the export again.</li>
+</ul>
+<div class="cb-cta">
+<p>Have an .imscc file? Open it here to see the whole course, with quiz answers.</p>
+<a class="cb-btn cb-btn-teal" href="/open-imscc-file/">Open your .imscc file</a>
+<p class="cb-proline">Cubby Pro, $8 paid once: the whole course in one file to print as a PDF, every quiz as a Word file with an answer key, and all the course files in one ZIP. <a href="https://dorukctn.gumroad.com/l/cubby-pro">Get Pro on Gumroad</a> or <a href="/open-imscc-file/#pro">see what is free</a>.</p>
+</div>
+<h2>Questions</h2>
+<div class="cb-faq"><details><summary>What program opens .imscc files?</summary><p>A learning platform that imports Common Cartridges (Canvas, Moodle, Schoology, Brightspace), or <a href="/open-imscc-file/">Cubby</a> in any browser if you only want to read and print the course.</p></details>
+<details><summary>Can I just unzip an .imscc file?</summary><p>Yes, it is a ZIP. You will see the pages as HTML files and your uploaded files, but not the module order or the quiz answers in a readable form.</p></details>
+<details><summary>Is an .imscc file safe to open?</summary><p>It is a ZIP of text and your files. Cubby opens it without running anything inside it: scripts and embedded frames in pages are removed before they are shown.</p></details></div>
+<h2>Sources</h2>
+<ul class="cb-sources"><li><a href="https://www.1edtech.org/standards/cc" rel="nofollow noopener">1EdTech: Common Cartridge</a>. The standard</li>
+<li><a href="https://github.com/instructure/canvas-lms/tree/master/lib/cc" rel="nofollow noopener">instructure/canvas-lms: the course exporter (lib/cc)</a>. File and folder names Canvas uses</li>
+<li><a href="https://docs.moodle.org/400/en/IMS_Common_Cartridge_import_and_export" rel="nofollow noopener">Moodle docs: IMS Common Cartridge import and export</a></li>
+<li><a href="https://github.com/googleworkspace/classroomrosetta" rel="nofollow noopener">googleworkspace/classroomrosetta: IMSCC to Google Classroom converter</a></li></ul>
+<p class="cb-checked">Last checked: October 28, 2026.</p>
+<h2>Related</h2>
+<ul class="cb-related">
+<li><a href="/open-imscc-file/">Open an IMSCC file in your browser</a></li>
+<li><a href="/open-imscc-file/canvas-free-for-teacher-shutdown/">Canvas Free-for-Teacher is gone: what happened and what is left</a></li>
+<li><a href="/open-imscc-file/print-canvas-quiz-with-answers/">Print a Canvas quiz with the answers</a></li>
+<li><a href="/open-imscc-file/imscc-to-pdf/">IMSCC to PDF: three ways to print a course export</a></li>
+</ul>
+</div>
+</div>
+</main>
+<footer class="site-foot cb-foot" id="guides">
+  <div class="wrap cols">
+    <div>
+      <p class="cb-foot-brand">Cubby</p>
+      <p class="cb-foot-text">Open a Canvas course export (.imscc) or quiz export and read the course again: modules, pages, assignments and quizzes with their answers. The file is read by this page on your own computer and never uploaded.</p>
+      <p class="cb-foot-text">Cubby is an independent tool by <a href="https://peakappsstudio.com/">Peak Apps Studio</a>. Not affiliated with Instructure. Canvas is a trademark of Instructure, Inc., named here only to say which files the tool opens.</p>
+    </div>
+    <div>
+      <h2>Guides</h2>
+      <ul>
+        <li><a href="/open-imscc-file/">Open an IMSCC file</a></li>
+        <li><a href="/open-imscc-file/canvas-free-for-teacher-shutdown/">Canvas Free-for-Teacher is gone: what happened and what is left</a></li>
+        <li><a href="/open-imscc-file/print-canvas-quiz-with-answers/">Print a Canvas quiz with the answers</a></li>
+        <li><a href="/open-imscc-file/imscc-to-pdf/">IMSCC to PDF: three ways to print a course export</a></li>
+        <li><a href="/open-imscc-file/what-is-an-imscc-file/">What is an .imscc file?</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/privacy/">Privacy</a></li>
+        <li><a href="/tools/">More tools by Peak Apps</a></li>
+        <li><a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
