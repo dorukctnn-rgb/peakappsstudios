@@ -422,7 +422,7 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 
 /* ---------- Apps ---------- */
 .apps { padding: clamp(120px, 20vh, 220px) 0 0; }
-.apps-list { list-style: none; margin: clamp(48px, 8vh, 90px) auto 0; padding: 0 var(--gutter); max-width: var(--max); display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--line); }
+.apps-list { list-style: none; margin: clamp(48px, 8vh, 90px) auto 0; padding: 0 var(--gutter); max-width: var(--max); display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--line); }
 .app { display: grid; grid-template-rows: auto 1fr; gap: 28px; padding: 36px 32px 40px 0; border-right: 1px solid var(--line); }
 .app + .app { padding-left: 32px; }
 .app:last-child { border-right: 0; }
@@ -515,6 +515,10 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 /* ---------- Responsive ---------- */
 @media (max-width: 1100px) {
   .index-list a { grid-template-columns: 44px 1fr 110px 20px; }
+  .apps-list { grid-template-columns: repeat(2, 1fr); }
+  .app:nth-child(2n) { border-right: 0; }
+  .app:nth-child(2n+1) { padding-left: 0; }
+  .app:nth-child(n+3) { border-top: 1px solid var(--line); }
   .i-what { grid-column: 2 / 3; grid-row: 2; }
   .fresh-list { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; scroll-padding: 0 var(--gutter); overscroll-behavior-x: contain; }
   .fresh-list::-webkit-scrollbar { display: none; }
@@ -529,6 +533,7 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
   .sticky { position: static; }
   .apps-list { grid-template-columns: 1fr; }
   .app, .app + .app { padding: 32px 0; border-right: 0; border-bottom: 1px solid var(--line); grid-template-columns: 92px 1fr; grid-template-rows: auto; }
+  .app:nth-child(n+3) { border-top: 0; }
   .rules { grid-template-columns: 1fr; }
   .film-main { aspect-ratio: auto; height: 58vh; }
   .film-main::after { background: linear-gradient(0deg, var(--ink-0) 2%, rgba(6, 7, 9, 0.2) 55%, rgba(6, 7, 9, 0) 70%); }
