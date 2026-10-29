@@ -1,0 +1,780 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; worker-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src https://api.gumroad.com https://cloudflareinsights.com https://peak-funnel.railer-iot.workers.dev; object-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="peak-checkout" content="direct">
+<title>Fitbitデータのエクスポート：睡眠も歩数もCSV・Excelに</title>
+<meta name="description" content="FitbitやGoogle HealthのTakeoutアーカイブを開き、歩数、睡眠、体重、心拍数を好きな期間だけCSVかExcelでダウンロード。ブラウザ内で完結し、アップロードはしません。">
+<link rel="canonical" href="https://peakappsstudio.com/ja/fitbit-data-export/">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/export-fitbit-data/">
+<link rel="alternate" hreflang="de" href="https://peakappsstudio.com/de/fitbit-daten-exportieren/">
+<link rel="alternate" hreflang="nl" href="https://peakappsstudio.com/nl/fitbit-gegevens-exporteren/">
+<link rel="alternate" hreflang="ja" href="https://peakappsstudio.com/ja/fitbit-data-export/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/export-fitbit-data/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Fitbitデータのエクスポート：睡眠も歩数もCSV・Excelに">
+<meta property="og:description" content="Google Healthから受け取れるのは、全期間のFitbitデータが入った数千個のJSONファイルです。Tallybandはそれを1日1行の表にして、選んだ期間だけをブラウザ内で書き出します。">
+<meta property="og:url" content="https://peakappsstudio.com/ja/fitbit-data-export/">
+<meta property="og:image" content="https://peakappsstudio.com/export-fitbit-data/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="フィットネスバンドのストラップが罫線入りの紙テープになって伸び、歩数、睡眠、体重が1日1行で記されている。">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#b4235a">
+<link rel="icon" href="/export-fitbit-data/img/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/export-fitbit-data/fonts/tally-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/export-fitbit-data/fonts/tally-text.woff2" as="font" type="font/woff2" crossorigin>
+<style data-from="/assets/tools.css">
+/* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
+
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e1;
+  --card: #fbfaf7;
+  --ink: #141518;
+  --ink-2: #33363d;
+  --muted: #676b74;
+  --line: rgba(20, 21, 24, 0.12);
+  --line-2: rgba(20, 21, 24, 0.22);
+  --accent: #1f5c4d;          /* each tool overrides this on <body style="--accent:..."> */
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  --warn: #9a4a12;
+  --ok: #2c6a3f;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+    --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+  --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; }
+img { display: block; height: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 10px; z-index: 100; background: var(--ink); color: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 10px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-head { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand-sub { font-family: var(--sans); font-size: 14.5px; letter-spacing: 0; color: var(--muted); font-weight: 500; padding-left: 10px; border-left: 1px solid var(--line-2); }
+.head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
+.head-nav a:hover { background: var(--paper-2); color: var(--ink); }
+.head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
+@media (max-width: 640px) { .brand-sub { display: none; } }
+@media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
+
+/* ---------- Type ---------- */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+h1 { font-size: clamp(32px, 4.6vw, 54px); }
+h1 em, h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 19px; letter-spacing: -0.01em; }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; margin: 16px 0 0; }
+.mono { font-family: var(--mono); }
+.muted { color: var(--muted); }
+small, .small { font-size: 13.5px; }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 22px 0 0; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-2); }
+.crumbs a { text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.tool-hero { padding: 28px 0 24px; display: grid; gap: 8px; }
+.tool-hero .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.tool-hero .facts li { display: inline-flex; align-items: center; gap: 8px; }
+.tool-hero .facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Tool shell ---------- */
+.tool { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.tool-panel { padding: 22px; border-right: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.tool-stage { position: relative; min-height: 460px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper); display: grid; place-items: center; padding: 22px; }
+.tool-stage canvas, .tool-stage svg, .tool-stage img { max-height: 70vh; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px -12px rgba(0,0,0,.18); background: #fff; }
+.stage-bar { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.tool-foot { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 14px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--paper); }
+.tool-foot .spacer { flex: 1; }
+@media (max-width: 860px) {
+  .tool { grid-template-columns: 1fr; }
+  .tool-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tool-stage { min-height: 320px; }
+}
+
+/* ---------- Form controls ---------- */
+.group { display: grid; gap: 10px; }
+.group-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > label { font-size: 13px; color: var(--ink-2); }
+.input, .select { width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 8px; padding: 9px 11px; transition: border-color .15s, box-shadow .15s; }
+.input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input-unit { position: relative; }
+.input-unit .input { padding-right: 38px; font-family: var(--mono); font-size: 14.5px; }
+.input-unit i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 3px; flex: none; }
+.seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line-2); border-radius: 9px; padding: 3px; gap: 3px; background: var(--paper); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.warn { font-size: 13.5px; color: var(--warn); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.btn { --b: var(--line-2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 500; line-height: 1; padding: 11px 16px; border-radius: 9px; border: 1px solid var(--b); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; transition: transform .15s var(--ease), background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklab, var(--accent) 86%, #000); color: var(--accent-ink); border-color: transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-ink:hover { color: var(--paper); background: var(--ink-2); }
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.pro-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: var(--ink); color: var(--paper); }
+
+/* ---------- Drop zone ---------- */
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 18px 14px; background: var(--paper); cursor: pointer; transition: border-color .15s, background .15s; font-size: 14.5px; }
+.drop:hover, .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Content ---------- */
+.section { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prose { max-width: 70ch; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose h2 { margin: 1.6em 0 .5em; }
+.prose h3 { margin: 1.4em 0 .4em; }
+.prose code, .prose kbd { font-family: var(--mono); font-size: .9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+.two-col > * { min-width: 0; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: 3px; }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 13px; background: var(--paper); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 15px; }
+.source { font-size: 13px; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--line-2); margin-top: 18px; }
+.faq details { border-bottom: 1px solid var(--line-2); }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 13px; font-family: var(--mono); font-size: 18px; color: var(--muted); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 18px; color: var(--ink-2); max-width: 70ch; }
+
+/* ---------- Pro ---------- */
+.pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--card); }
+.pro-left { padding: clamp(22px, 3vw, 36px); }
+.pro-right { padding: clamp(22px, 3vw, 36px); background: var(--ink); color: var(--paper); display: grid; align-content: center; gap: 14px; }
+.pro-right .price { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pro-right .price small { font-size: 15px; font-weight: 400; color: color-mix(in oklab, var(--paper) 70%, transparent); letter-spacing: 0; }
+.pro-right .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.pro-right .btn-primary:hover { background: #fff; color: var(--ink); }
+.pro-right .fine { font-size: 13px; color: color-mix(in oklab, var(--paper) 65%, transparent); margin: 0; }
+.pro-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.pro-list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.pro-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border: 1.5px solid var(--accent); border-radius: 2px; transform: rotate(45deg); }
+@media (max-width: 760px) { .pro { grid-template-columns: 1fr; } }
+
+/* ---------- A real file, shown ---------- */
+.shot { margin: 22px 0 0; }
+.shot img { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; }
+.shot figcaption { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+.shot figcaption strong { font-weight: 600; color: var(--ink-2); }
+.shot-sm { max-width: 920px; }
+
+/* ---------- Where free stops and Pro starts ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; margin: 26px 0 0; background: var(--card); }
+.split > div { padding: 18px 20px 20px; }
+.split > div + div { border-left: 1px solid var(--line-2); background: var(--accent-soft); }
+.split h3 { font-size: 15.5px; margin: 0; }
+.split > div > p { margin: 5px 0 0; font-size: 13.5px; color: var(--muted); }
+.split ul { list-style: none; margin: 13px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
+.split li { position: relative; padding-left: 18px; }
+.split li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; border-radius: 1px; background: var(--line-2); }
+.split > div + div li::before { background: var(--accent); }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } .split > div + div { border-left: 0; border-top: 1px solid var(--line-2); } }
+
+/* ---------- A file list, as the archive really holds it ---------- */
+.filelist { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 5px; }
+.filelist li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filelist li span { color: var(--muted); }
+
+/* ---------- License dialog ---------- */
+.license-dialog { border: 1px solid var(--line-2); border-radius: 14px; padding: 0; width: min(440px, calc(100% - 32px)); background: var(--card); color: var(--ink); }
+.license-dialog::backdrop { background: rgba(10, 11, 13, .45); }
+.license-dialog form { padding: 22px; display: grid; gap: 14px; }
+.license-status { font-size: 14px; min-height: 1.4em; margin: 0; }
+.license-status[data-state="ok"] { color: var(--ok); }
+.license-status[data-state="err"] { color: var(--warn); }
+
+/* ---------- Related / cards ---------- */
+.related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line-2); margin-top: 22px; }
+.related a { display: grid; gap: 4px; padding: 18px 18px 18px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.related a strong { font-weight: 600; }
+.related a span { font-size: 14px; color: var(--muted); }
+.related a:hover strong { color: var(--accent); }
+
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
+/* ---------- Footer ---------- */
+.site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
+.site-foot h2 { font-size: 15px; font-family: var(--sans); letter-spacing: 0; font-weight: 600; color: var(--ink); margin: 0 0 10px; }
+.site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+@media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- "New from Peak Apps": the cross-promotion card the build puts above the footer (src/crosspromo.json) ---------- */
+.peak-new { margin-top: clamp(56px, 8vw, 104px); }
+.peak-new + .site-foot { margin-top: 28px; }
+.peak-new-card { display: grid; gap: 4px; max-width: 640px; padding: 16px 20px 18px; border: 1px solid var(--line-2); border-left: 4px solid var(--tool, var(--accent)); border-radius: var(--radius); background: var(--card); color: var(--ink); text-decoration: none; transition: border-color .2s var(--ease); }
+.peak-new-card:hover { border-color: var(--tool, var(--accent)); }
+.peak-new-card:focus-visible { outline: 2px solid var(--tool, var(--accent)); outline-offset: 3px; }
+.peak-new-kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.peak-new-card strong { font-size: 17px; font-weight: 600; line-height: 1.3; }
+.peak-new-line { font-size: 14px; line-height: 1.5; color: var(--ink-2); max-width: 62ch; }
+
+/* ---------- Home project tools: the shared block on Without Planning and Dropped Kerb Check ---------- */
+.home-block { margin: clamp(36px, 5vw, 60px) 0 0; border-top: 1px solid var(--line-2); padding-top: 16px; }
+.home-title { margin: 0 0 10px; font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink); }
+.home-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px 24px; }
+.home-list a { display: grid; gap: 3px; padding: 2px 0 2px 14px; border-left: 4px solid var(--tool, var(--accent)); text-decoration: none; color: var(--ink); }
+.home-list a strong { font-weight: 700; font-size: 16px; }
+.home-list a span { color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+.home-list a:hover strong { color: var(--tool, var(--accent)); }
+.home-list a[aria-current="page"] span { color: var(--ink-2); }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .3s var(--ease); z-index: 90; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media print { .site-head, .site-foot, .tool-panel, .tool-foot, .no-print { display: none !important; } body { background: #fff; } }
+
+/* The hidden attribute must win over component display rules. */
+[hidden] { display: none !important; }
+</style>
+<style data-from="/export-fitbit-data/tool.css">
+/* Tallyband: a fitness band whose strap runs out as a ruled paper tally. Raspberry (the colour of a pulse reading) is the
+   band the tool sits in and every button; plum ink for text; a blush-tinted paper with faint ruled lines for the sheets;
+   a deep sea green kept for "free" and success. Headings in Sono pinned proportional and heavy ("Tally Display"), text in
+   Kumbh Sans ("Tally Text"), and the numbers in tables in Sono pinned monospaced ("Tally Figures") so columns line up. */
+@font-face { font-family: "Tally Display"; src: url("/export-fitbit-data/fonts/tally-display.woff2") format("woff2"); font-weight: 400 800; font-display: swap; }
+@font-face { font-family: "Tally Text"; src: url("/export-fitbit-data/fonts/tally-text.woff2") format("woff2"); font-weight: 400 700; font-display: swap; }
+@font-face { font-family: "Tally Figures"; src: url("/export-fitbit-data/fonts/tally-figures.woff2") format("woff2"); font-weight: 400 600; font-display: swap; }
+
+body.tally {
+  --rasp: #b4235a; --rasp-2: #921a48; --rasp-soft: #f8e3eb; --blush: #ff8fb6;
+  --ink: #1b1424; --ink-2: #3a2f44; --muted: #625770;
+  --paper: #fbf7f9; --card: #ffffff; --sheet: #fffdfd; --rule: #eedde5; --line: #e3d2da; --line-2: #c9b2be;
+  --sea: #13715a; --sea-soft: #dcefe8;
+  --accent: #b4235a; --accent-ink: #ffffff; --link: #a61f52;
+  --head: "Tally Display", ui-sans-serif, system-ui, sans-serif;
+  --sans: "Tally Text", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --fig: "Tally Figures", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --code: ui-monospace, "Cascadia Mono", Consolas, "SF Mono", monospace;
+  font-family: var(--sans); font-size: 18px; line-height: 1.6; background: var(--paper); color: var(--ink);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.tally {
+    --ink: #f3eaf0; --ink-2: #dccdd6; --muted: #b3a2ae; --paper: #150f19; --card: #1f1724; --sheet: #1b1420; --rule: #2c2232; --line: #33283a; --line-2: #4a3c52;
+    --rasp-soft: #3a1626; --link: #ff9cc1; --accent: #e04f86; --sea: #6fd2b0; --sea-soft: #10302a;
+  }
+}
+:root[data-theme="dark"] body.tally {
+  --ink: #f3eaf0; --ink-2: #dccdd6; --muted: #b3a2ae; --paper: #150f19; --card: #1f1724; --sheet: #1b1420; --rule: #2c2232; --line: #33283a; --line-2: #4a3c52;
+  --rasp-soft: #3a1626; --link: #ff9cc1; --accent: #e04f86; --sea: #6fd2b0; --sea-soft: #10302a;
+}
+.tally a { color: var(--link); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.tally a:hover { color: var(--ink); }
+.tally h1, .tally h2, .tally h3 { font-family: var(--head); font-weight: 760; color: var(--ink); letter-spacing: -0.015em; }
+.tally h1 { font-size: clamp(34px, 4.2vw, 56px); line-height: 1.04; margin: 14px 0 0; text-wrap: balance; max-width: 17ch; }
+.tally h2 { font-size: clamp(25px, 2.5vw, 33px); line-height: 1.15; margin: 0 0 14px; text-wrap: balance; }
+.tally h3 { font-size: 21px; line-height: 1.25; margin: 0 0 8px; }
+.tally code { font-family: var(--code); font-size: 0.84em; background: var(--rasp-soft); color: var(--ink); padding: 1px 5px; border-radius: 3px; overflow-wrap: anywhere; }
+.tally :focus-visible { outline: 3px solid var(--blush); outline-offset: 2px; }
+.tally .wrap { max-width: 1200px; }
+.tally .crumbs { font-size: 15px; }
+.tb-num { text-align: right; font-family: var(--fig); font-variant-numeric: tabular-nums; }
+
+/* ---------- header and footer (Tallyband's own) ---------- */
+.tb-head { background: var(--paper); border-bottom: 1px solid var(--line); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.tb-head .brand { gap: 10px; color: var(--ink); text-decoration: none; }
+.tb-head .brand svg { width: 30px; height: 30px; }
+.tb-head .brand span { font-family: var(--head); font-weight: 760; font-size: 23px; letter-spacing: -0.02em; }
+.tb-head .head-nav a { font-size: 16px; color: var(--ink-2); padding: 8px 10px; border-radius: 4px; }
+.tb-head .head-nav [aria-current="page"] { font-size: 16px; color: var(--ink); padding: 8px 10px; font-weight: 700; background: none; box-shadow: inset 0 -3px 0 var(--rasp); }
+.tb-narrow { display: none; }
+@media (max-width: 1080px) { .tb-wide { display: none; } .tb-narrow { display: inline-block; } }
+@media (max-width: 480px) { .tb-head .head-nav [aria-current="page"] { display: none; } .tb-head .brand span { font-size: 21px; } .tb-head .brand svg { width: 26px; height: 26px; } }
+.tally .site-foot.tb-foot { background: #1b1424; color: #e6d8e0; border-top: 0; font-size: 16px; padding: 44px 0 52px; margin-top: 0; }
+.tally .tb-foot .cols { grid-template-columns: 1.6fr 1.2fr 0.9fr; }
+@media (max-width: 860px) { .tally .tb-foot .cols { grid-template-columns: 1fr; } }
+.tally .tb-foot h2 { color: #fff; font-family: var(--head); font-size: 17px; }
+.tally .tb-foot a { color: #ffc2d8; }
+.tb-foot-brand { font-family: var(--head); font-weight: 760; font-size: 22px; color: #fff; margin: 0 0 8px; }
+.tb-foot-text { margin: 0 0 10px; max-width: 46em; }
+
+/* ---------- buttons ---------- */
+.tb-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.tb-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 10px 18px; border-radius: 6px; font: 600 17px/1.2 var(--sans); text-decoration: none; cursor: pointer; border: 2px solid var(--ink); background: var(--card); color: var(--ink); }
+.tb-btn:hover { background: var(--rasp-soft); color: var(--ink); }
+.tally a.tb-btn:hover { color: var(--ink); }
+.tb-btn-main { background: var(--rasp); border-color: var(--rasp); color: #fff; }
+.tb-btn-main:hover, .tally a.tb-btn-main:hover { background: var(--rasp-2); border-color: var(--rasp-2); color: #fff; }
+.tally a.tb-btn-main { color: #fff; }
+.tb-btn-sm { min-height: 38px; padding: 6px 14px; font-size: 15.5px; }
+.tb-btn[disabled] { opacity: 0.45; cursor: not-allowed; }
+.tb-link { background: none; border: 0; padding: 0; font: inherit; color: var(--link); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.tb-small { font-size: 15.5px; color: var(--muted); margin: 10px 0 0; }
+.tb-tag { display: inline-block; font: 700 12.5px/1 var(--sans); padding: 4px 7px 3px; border-radius: 20px; background: var(--ink); color: var(--paper); vertical-align: 2px; margin-left: 4px; }
+
+/* ---------- hero: the raspberry band ---------- */
+.tb-hero { background: var(--rasp); color: #fff; position: relative; overflow: hidden; padding: 6px 0 56px; }
+.tb-hero::after { content: ""; position: absolute; inset: auto 0 0 0; height: 14px; background: repeating-linear-gradient(90deg, rgba(255,255,255,0.22) 0 2px, transparent 2px 22px); }
+.tb-hero-in { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 48px; align-items: start; position: relative; z-index: 1; }
+@media (max-width: 960px) { .tb-hero-in { grid-template-columns: 1fr; gap: 26px; } }
+.tb-hero .crumbs, .tb-hero .crumbs a { color: #ffe3ee; }
+.tb-hero .crumbs li + li::before { color: rgba(255,255,255,0.55); }
+.tb-hero h1 { color: #fff; }
+.tb-hero .lede { color: #fff4f8; font-size: 20px; line-height: 1.55; max-width: 34em; margin-top: 16px; }
+.tb-points { list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 8px; }
+.tb-points li { padding-left: 26px; position: relative; color: #fff; }
+.tb-points li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 14px; height: 8px; border-left: 3px solid #fff; border-bottom: 3px solid #fff; transform: rotate(-45deg); }
+.tb-panel { background: var(--card); color: var(--ink); border-radius: 10px; padding: 26px; margin-top: 36px; box-shadow: 0 14px 0 -6px rgba(27,20,36,0.25); }
+@media (max-width: 960px) { .tb-panel { margin-top: 0; padding: 20px; } }
+.tb-drop { border: 2px dashed var(--line-2); border-radius: 8px; padding: 20px; background: repeating-linear-gradient(180deg, transparent 0 31px, color-mix(in oklab, var(--rule) 55%, transparent) 31px 32px); }
+.tb-drop.is-over { border-color: var(--rasp); background-color: var(--rasp-soft); }
+.tb-stage-title { font-family: var(--head); font-weight: 760; font-size: 24px; line-height: 1.2; margin: 0 0 6px; color: var(--ink); }
+.tb-drop p { margin: 6px 0 0; }
+.tb-bar { height: 10px; background: var(--rasp-soft); border-radius: 6px; overflow: hidden; margin-top: 16px; }
+.tb-bar i { display: block; height: 100%; width: 0; background: var(--rasp); transition: width 0.2s; }
+.tb-error-title { font-family: var(--head); font-weight: 760; font-size: 22px; margin: 0 0 6px; color: var(--rasp-2); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tb-error-title { color: var(--link); } }
+
+/* ---------- results ---------- */
+.tb-results { padding: 40px 0 20px; scroll-margin-top: 70px; }
+.tb-res-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; border-bottom: 3px solid var(--ink); padding-bottom: 14px; }
+.tb-res-head h2 { margin: 0; }
+.tb-res-meta { margin: 4px 0 0; color: var(--ink-2); }
+.tb-sample-note { background: var(--sea-soft); border-left: 4px solid var(--sea); padding: 10px 14px; margin: 16px 0 0; font-size: 16px; }
+.tb-controls { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 20px 32px; margin-top: 22px; }
+@media (max-width: 860px) { .tb-controls { grid-template-columns: 1fr; } }
+.tb-range { border: 0; padding: 0; margin: 0; min-width: 0; }
+.tb-range legend, .tb-opts label { font-weight: 700; font-size: 16px; }
+.tb-range-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+.tb-range-row label { display: grid; gap: 4px; font-size: 15px; font-weight: 600; color: var(--ink-2); }
+.tally input[type="date"], .tally select { font: 500 16.5px/1.2 var(--sans); color: var(--ink); background: var(--card); border: 2px solid var(--line-2); border-radius: 6px; padding: 9px 10px; min-height: 44px; max-width: 100%; }
+.tally input[type="date"]:focus-visible, .tally select:focus-visible { border-color: var(--rasp); }
+.tb-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.tb-chip { font: 600 15px/1 var(--sans); padding: 9px 12px; border-radius: 20px; border: 2px solid var(--line-2); background: var(--card); color: var(--ink); cursor: pointer; min-height: 38px; }
+.tb-chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.tb-opts { display: grid; gap: 12px; align-content: start; }
+.tb-opts label { display: grid; gap: 4px; }
+.tb-opt-note { font-size: 15.5px; color: var(--muted); margin: 14px 0 0; max-width: 70em; }
+.tb-preview { margin-top: 28px; }
+.tb-preview h3 { margin: 0; }
+.tb-sheet-wrap { overflow-x: auto; margin-top: 12px; border: 2px solid var(--ink); border-radius: 6px; background: var(--sheet); }
+.tb-sheet { border-collapse: collapse; width: 100%; font-size: 15.5px; }
+.tb-sheet th, .tb-sheet td { padding: 7px 12px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+.tb-sheet thead th { background: var(--rasp-soft); text-align: left; font-weight: 700; border-bottom: 2px solid var(--ink); }
+.tb-sheet thead th.tb-num { text-align: right; font-family: var(--sans); }
+.tb-sheet tbody th { text-align: left; font-family: var(--fig); font-weight: 520; border-right: 2px solid var(--rasp); }
+.tally .tb-dl-title { margin: 36px 0 0; }
+.tb-dl-wrap { overflow-x: auto; margin-top: 10px; }
+.tb-dl { border-collapse: collapse; width: 100%; font-size: 16px; }
+.tb-dl th, .tb-dl td { text-align: left; padding: 11px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.tb-dl thead th { font-size: 14.5px; color: var(--muted); border-bottom: 2px solid var(--ink); }
+.tb-dl tbody th { white-space: nowrap; font-size: 16.5px; font-weight: 700; color: var(--ink); }
+.tb-dl td:last-child { text-align: right; width: 1%; }
+.tb-dl td:nth-child(2) { color: var(--ink-2); min-width: 16em; }
+@media (max-width: 700px) {
+  .tb-dl, .tb-dl tbody, .tb-dl tr, .tb-dl th, .tb-dl td { display: block; }
+  .tb-dl thead { display: none; }
+  .tb-dl tr { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .tb-dl th, .tb-dl td { border: 0; padding: 0; }
+  .tb-dl tbody th { white-space: normal; grid-column: 1; }
+  .tb-dl td:nth-child(2) { grid-column: 1; min-width: 0; font-size: 15px; }
+  .tb-dl td:nth-child(3) { grid-column: 1; text-align: left; font-size: 14.5px; color: var(--muted); }
+  .tb-dl td:nth-child(3):empty { display: none; }
+  .tb-dl td:last-child { grid-column: 2; grid-row: 1 / span 3; align-self: center; width: auto; }
+}
+.tb-pro { display: flex; justify-content: space-between; align-items: center; gap: 18px; flex-wrap: wrap; margin-top: 26px; padding: 18px 20px; border: 2px solid var(--ink); border-radius: 8px; background: var(--rasp-soft); }
+.tb-pro .tb-actions { margin-top: 0; }
+.tb-pro-title { font-family: var(--head); font-weight: 760; font-size: 21px; margin: 0; }
+.tb-found { margin-top: 22px; font-size: 16px; }
+.tb-found summary { cursor: pointer; font-weight: 700; }
+.tb-found p { margin: 8px 0 0; overflow-wrap: anywhere; }
+
+/* ---------- sections ---------- */
+.tb-sec { padding: 56px 0; border-top: 1px solid var(--line); }
+.tb-sec-band { background: var(--card); }
+.tb-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+@media (max-width: 900px) { .tb-cols { grid-template-columns: 1fr; gap: 32px; } }
+.tb-steps { padding-left: 1.3em; margin: 12px 0; }
+.tb-steps li { margin: 8px 0; padding-left: 4px; }
+.tb-steps li::marker { font-family: var(--head); font-weight: 760; color: var(--rasp); }
+.tb-map, .tb-guide table { border-collapse: collapse; width: 100%; font-size: 16px; }
+.tb-map th, .tb-map td, .tb-guide th, .tb-guide td { text-align: left; padding: 10px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.tb-map thead th, .tb-guide thead th { border-bottom: 2px solid var(--ink); }
+.tally .table-wrap { overflow-x: auto; }
+.tb-plans { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 2px solid var(--ink); border-radius: 8px; overflow: hidden; margin-top: 8px; }
+@media (max-width: 800px) { .tb-plans { grid-template-columns: 1fr; } }
+.tb-plan { padding: 22px 24px; background: var(--paper); }
+.tb-plan-pro { background: var(--rasp-soft); border-left: 2px solid var(--ink); }
+@media (max-width: 800px) { .tb-plan-pro { border-left: 0; border-top: 2px solid var(--ink); } }
+.tb-plan ul { margin: 8px 0 0; padding-left: 1.2em; }
+.tb-plan li { margin: 6px 0; }
+.tb-price { font-family: var(--sans); font-size: 17px; font-weight: 600; color: var(--ink-2); margin-left: 6px; }
+.tb-figure { margin: 32px 0 0; }
+.tb-figure img { width: 100%; height: auto; border-radius: 8px; background: var(--rasp-soft); }
+.tb-figure figcaption { font-size: 15px; color: var(--muted); margin-top: 8px; }
+.tb-guides { list-style: none; padding: 0; margin: 8px 0 0; display: grid; grid-template-columns: 1fr 1fr; border-top: 2px solid var(--ink); }
+@media (max-width: 760px) { .tb-guides { grid-template-columns: 1fr; } }
+.tb-guides a { display: grid; gap: 4px; padding: 16px 16px 16px 0; text-decoration: none; color: var(--ink); border-bottom: 1px solid var(--line); }
+.tb-guides a:hover strong { color: var(--rasp); }
+.tb-guides strong { font-family: var(--head); font-weight: 760; font-size: 20px; }
+.tb-guides span { color: var(--ink-2); font-size: 16px; }
+.tb-faq details { border-bottom: 1px solid var(--line); padding: 12px 0; }
+.tb-faq summary { cursor: pointer; font-weight: 700; }
+.tb-faq details p { margin: 8px 0 0; max-width: 46em; }
+
+/* ---------- guide pages ---------- */
+.tb-guide-hero { background: var(--rasp); color: #fff; padding: 6px 0 40px; position: relative; }
+.tb-guide-hero::after { content: ""; position: absolute; inset: auto 0 0 0; height: 10px; background: repeating-linear-gradient(90deg, rgba(255,255,255,0.22) 0 2px, transparent 2px 22px); }
+.tb-guide-hero .crumbs, .tb-guide-hero .crumbs a { color: #ffe3ee; }
+.tb-guide-hero h1 { color: #fff; max-width: 22ch; }
+.tb-guide-hero .lede { color: #fff4f8; font-size: 19px; max-width: 40em; }
+.tb-guide-hero .tb-btn-main { background: #fff; border-color: #fff; color: var(--ink); }
+.tally .tb-guide-hero a.tb-btn-main, .tally .tb-guide-hero a.tb-btn-main:hover { color: #1b1424; }
+.tb-guide-hero .tb-btn-main:hover { background: #ffe3ee; border-color: #ffe3ee; }
+.tb-guide { padding: 20px 0 60px; }
+.tb-guide .wrap > * { max-width: 820px; }
+.tb-guide h2 { margin: 36px 0 12px; }
+.tb-guide p, .tb-guide li { max-width: 46em; }
+.tb-guide caption { text-align: left; font-weight: 700; padding: 0 0 8px; }
+.tb-code { background: var(--sheet); border: 2px solid var(--ink); border-radius: 6px; padding: 14px 16px; overflow-x: auto; font-size: 15px; line-height: 1.5; }
+.tb-code code { background: none; padding: 0; font-size: 1em; }
+.tb-cta { margin: 36px 0 0; padding: 20px 22px; border: 2px solid var(--ink); border-radius: 8px; background: var(--rasp-soft); }
+.tb-cta p { margin: 0 0 12px; }
+.tb-cta .tb-proline { margin: 14px 0 0; font-size: 16px; color: var(--ink-2); }
+.tb-sources { font-size: 15.5px; padding-left: 1.2em; }
+.tb-sources li { margin: 6px 0; overflow-wrap: anywhere; }
+.tb-checked { color: var(--muted); font-size: 15px; margin-top: 24px; }
+.tb-related { padding-left: 1.2em; }
+@media (prefers-reduced-motion: reduce) { .tb-bar i { transition: none; } }
+@media print { .tb-hero, .tb-panel, .tb-pro, .tb-head, .tb-foot { display: none !important; } }
+</style>
+<script src="/assets/site.js" defer></script>
+<script src="/assets/license.js" defer></script>
+<script type="module" src="/ja/fitbit-data-export/js/app.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/ja/fitbit-data-export/#app","name":"Tallyband","alternateName":"Fitbitデータのエクスポート（CSV・Excel）","url":"https://peakappsstudio.com/ja/fitbit-data-export/","description":"Fitbit・Google Healthのデータアーカイブ（Google TakeoutのZIP、分割されたパーツ、または以前のfitbit.comのアカウントアーカイブ）をブラウザで開き、歩数、距離、消費カロリー、アクティブな時間、安静時心拍数、睡眠、睡眠スコア、体重、エクササイズ、HRV、SpO2など、アーカイブ内のすべてのファイルを選んだ期間のCSVでダウンロードできます。Proでは全データを1つのExcelファイルかCSVファイルのZIPにまとめて保存でき、心拍数のすべての記録、1分ごとの歩数、睡眠ステージも含まれます。","featureList":["Google TakeoutのFitbit・Google Healthアーカイブを、分割されたパーツも含めてアップロードせずに読み込み","1日1行：歩数、距離、消費カロリー、アクティブな時間、安静時心拍数、睡眠、睡眠スコア、HRV、SpO2、体重、体脂肪率","睡眠、体重、エクササイズの記録","好きな期間を指定、CSVの区切りはカンマかセミコロン","タイムゾーンと体重の単位をアーカイブから読み取り、変更も可能","Pro：全データを1つのExcelファイルかCSVファイルのZIPに。心拍数のすべての記録、1分ごとの歩数、睡眠ステージも"],"applicationCategory":"HealthApplication","operatingSystem":"Any (web browser)","inLanguage":"ja","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"無料","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Tallyband Pro","price":"8","priceCurrency":"USD","url":"https://dorukctn.gumroad.com/l/tallyband-pro"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ツール","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Fitbitデータのエクスポート","item":"https://peakappsstudio.com/ja/fitbit-data-export/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"FitbitがGoogle Healthになったいま、FitbitのデータをCSVでエクスポートする方法は？","acceptedAnswer":{"@type":"Answer","text":"Google TakeoutでGoogle Healthを選んでアーカイブを申請し、Googleからメールが届いたらZIPをダウンロードして、このページで選びます。Tallybandがブラウザ内で読み込み、選んだ期間について1日1行のCSVと、睡眠、体重、エクササイズの記録を作ります。"}},{"@type":"Question","name":"健康データはアップロードされますか？","acceptedAnswer":{"@type":"Answer","text":"いいえ。アーカイブはこのページがお使いの端末の中で読み込みます。中身がどこかへ送られることはなく、タブを閉じれば破棄されます。"}},{"@type":"Question","name":"期間を指定してエクスポートできますか？","acceptedAnswer":{"@type":"Answer","text":"はい。Googleからは全期間がまとめて届きますが、Tallybandはダウンロードの前に、すべての表を選んだ期間で切り出します。"}},{"@type":"Question","name":"体重がポンドになっているのはなぜですか？","acceptedAnswer":{"@type":"Answer","text":"アーカイブには体重が単位なしで保存されています。Tallybandは計測ごとに保存されたBMIから単位を判断し、キログラムとポンドの両方を書き出します。BMIがないアーカイブでは、1回分の計測をアプリの表示と比べてから単位を選んでください。"}},{"@type":"Question","name":"Tallyband Proでは何ができますか？","acceptedAnswer":{"@type":"Answer","text":"Proは8ドル（買い切り）です。選んだ期間の全データを一度に保存できます。データの種類ごとにシートを分けた1つのExcelファイル、またはすべてのCSVファイルを入れた1つのZIPに、心拍数のすべての記録、1分ごとの歩数、睡眠ステージの一つひとつも加わります。日ごとの集計と各記録のCSVは無料のままです。"}},{"@type":"Question","name":"TallybandはFitbitやGoogleが作ったものですか？","acceptedAnswer":{"@type":"Answer","text":"いいえ。TallybandはPeak Apps Studioが作った独立したツールで、GoogleおよびFitbitとは提携していません。FitbitとGoogle HealthはGoogle LLCの商標で、このツールが開くファイルを示すためにだけ名前を挙げています。"}}]}]}
+</script>
+<script src="/assets/pro-source.js" data-campaign="export-fitbit-data-ja" defer></script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
+</head>
+<body class="tally" style="--accent:#b4235a">
+<!-- tally:header -->
+<a class="skip" href="#main">本文へスキップ</a>
+<header class="site-head tb-head">
+  <div class="wrap">
+    <a class="brand" href="/ja/fitbit-data-export/" aria-label="Tallyband：Fitbitデータのエクスポート">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect x="9" y="2.5" width="14" height="11" rx="3.5" fill="#1b1424"/><rect x="11.5" y="5" width="9" height="6" rx="1.5" fill="#ff8fb6"/><path d="M11 13.5h10v15.5l-2.5-1.6-2.5 1.6-2.5-1.6-2.5 1.6z" fill="#fff6f9" stroke="#1b1424" stroke-width="1.5" stroke-linejoin="round"/><path d="M13.5 18h5M13.5 21h5M13.5 24h3" stroke="#b4235a" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span>Tallyband</span>
+    </a>
+    <nav class="head-nav" aria-label="Tallyband">
+      <span aria-current="page">エクスポート</span>
+      <a class="tb-wide" href="/ja/fitbit-data-export/fitbit-google-account-iko/">アカウント移行</a>
+      <a class="tb-wide" href="/ja/fitbit-data-export/fitbit-csv-shutsuryoku/">CSV出力</a>
+      <a class="tb-narrow" href="#guides">ガイド</a>
+    </nav>
+  </div>
+</header>
+<!-- /tally:header -->
+<main id="main">
+<section class="tb-hero" aria-labelledby="h1">
+<div class="wrap tb-hero-in">
+<div class="tb-hero-text">
+<nav class="crumbs" aria-label="パンくずリスト"><ol><li><a href="/tools/">ツール</a></li><li aria-current="page">Fitbitデータのエクスポート</li></ol></nav>
+<h1 id="h1">Fitbitデータを、選んだ期間だけCSVやExcelにエクスポート</h1>
+<p class="lede">FitbitアプリがGoogle Healthに変わってから、データを持ち出す方法はGoogle Takeoutのアーカイブだけになりました。届くのは、全期間の記録が入った数千個のJSONファイルです。そのZIPをここで選べば、歩数、睡眠、体重、心拍数、エクササイズを、好きな期間だけ表計算ソフトで開ける形でダウンロードできます。</p>
+<ul class="tb-points">
+<li>1日1行の集計に加えて、睡眠、体重、エクササイズの記録も。</li>
+<li>お使いの端末の中で読み込みます。アップロードはしません。</li>
+</ul>
+</div>
+<div class="tb-panel" id="panel" data-state="idle">
+<div class="tb-stage" id="stage-idle">
+<div class="tb-drop" id="drop">
+<h2 class="tb-stage-title" id="drop-title" tabindex="-1">Takeoutのアーカイブを選ぶ</h2>
+<p>Googleから届くZIPファイルで、名前は<code>takeout-20261029T101500Z-001.zip</code>のような形です。分割されている場合は、すべてのパーツをまとめて選んでください。</p>
+<div class="tb-actions">
+<button type="button" class="tb-btn tb-btn-main" id="btn-choose">ZIPファイルを選ぶ</button>
+<button type="button" class="tb-btn tb-btn-plain" id="btn-sample">架空のアーカイブで試す</button>
+</div>
+<input type="file" id="file-input" class="sr-only" tabindex="-1" aria-hidden="true" multiple accept=".zip,.json,.csv,application/zip">
+<p class="tb-small">解凍済みの場合： <button type="button" class="tb-link" id="btn-folder">Fitbitフォルダを選ぶ</button></p>
+<input type="file" id="folder-input" class="sr-only" tabindex="-1" aria-hidden="true" webkitdirectory multiple>
+</div>
+<p class="tb-small">アーカイブがまだない場合は、<a href="/ja/fitbit-data-export/fitbit-google-account-iko/">Google Takeoutでの受け取り方</a>と、止まって見えるときの対処をご覧ください。</p>
+</div>
+<div class="tb-stage" id="stage-busy" hidden>
+<p class="tb-stage-title" id="busy-title" tabindex="-1">アーカイブを読み込んでいます</p>
+<p class="tb-small" id="busy-sub" aria-live="polite">この端末のブラウザ内で処理しています。</p>
+<div class="tb-bar" aria-hidden="true"><i id="busy-bar"></i></div>
+</div>
+<div class="tb-stage" id="stage-error" hidden>
+<p class="tb-error-title" id="error-title" tabindex="-1" role="alert"></p>
+<p id="error-text"></p>
+<div class="tb-actions"><button type="button" class="tb-btn tb-btn-main" id="btn-retry">別のファイルを選ぶ</button><button type="button" class="tb-btn tb-btn-plain" id="btn-error-sample">架空のアーカイブで試す</button></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="tb-results" id="results" aria-labelledby="res-title" hidden>
+<div class="wrap">
+<div class="tb-res-head">
+<div>
+<h2 id="res-title" tabindex="-1">アーカイブの内容</h2>
+<p class="tb-res-meta" id="res-meta"></p>
+</div>
+<button type="button" class="tb-btn tb-btn-plain tb-btn-sm" id="btn-another">別のアーカイブを開く</button>
+</div>
+<p class="tb-sample-note" id="sample-note" hidden>これはTallybandの出力を見ていただくための架空のアーカイブ（2026年3月から5月まで）です。実在する人のデータは含まれていません。</p>
+
+<div class="tb-controls" role="group" aria-label="エクスポートする内容">
+<fieldset class="tb-range">
+<legend>期間</legend>
+<div class="tb-range-row">
+<label>開始日 <input type="date" id="from"></label>
+<label>終了日 <input type="date" id="to"></label>
+</div>
+<div class="tb-chips" id="chips"></div>
+</fieldset>
+<div class="tb-opts">
+<label>タイムゾーン <select id="tz"></select></label>
+<label>アーカイブ内の体重の単位 <select id="unit"><option value="lb">ポンド</option><option value="kg">キログラム</option></select></label>
+<label>区切り文字 <select id="sep"><option value="," selected>カンマ（1,234.5）</option><option value=";">セミコロン（ヨーロッパ版のExcel）</option></select></label>
+</div>
+</div>
+<p class="tb-opt-note" id="opt-note"></p>
+
+<div class="tb-preview">
+<h3 id="prev-title">日ごとの集計</h3>
+<p class="tb-small" id="prev-sub"></p>
+<div class="tb-sheet-wrap" tabindex="0" role="region" aria-labelledby="prev-title"><table class="tb-sheet" id="preview"></table></div>
+</div>
+
+<h3 class="tb-dl-title">ダウンロード</h3>
+<div class="tb-dl-wrap"><table class="tb-dl" id="downloads">
+<thead><tr><th scope="col">表</th><th scope="col">内容</th><th scope="col" class="tb-num">行数</th><th scope="col"><span class="sr-only">ダウンロード</span></th></tr></thead>
+<tbody></tbody>
+</table></div>
+<p class="tb-small" id="dl-note" aria-live="polite"></p>
+
+<div class="tb-pro" id="pro-box">
+<div>
+<p class="tb-pro-title">この期間の全データをまとめて <span class="tb-tag">Pro</span></p>
+<p class="tb-small" id="pro-note">表ごとにシートを分けた1つのExcelファイル、またはすべての表をCSVファイルにした1つのZIP。8ドル（買い切り）。</p>
+</div>
+<div class="tb-actions">
+<button type="button" class="tb-btn tb-btn-main" data-pro="xlsx">Excelで保存（.xlsx）</button>
+<button type="button" class="tb-btn tb-btn-plain" data-pro="csvzip">CSVをまとめて保存（ZIP）</button>
+</div>
+</div>
+
+<details class="tb-found" id="found"><summary>Tallybandがアーカイブ内で見つけたもの</summary><div id="found-body"></div></details>
+</div>
+</section>
+
+<section class="tb-sec" aria-labelledby="h-get">
+<div class="wrap tb-cols">
+<div>
+<h2 id="h-get">Google Takeoutでアーカイブを受け取る</h2>
+<p>2026年にFitbitアカウントはGoogleアカウントへ移行し、期間やCSVを選べた以前のFitbitのエクスポートページも使えなくなりました。いまは全データのアーカイブをGoogleから受け取ります。</p>
+<ol class="tb-steps">
+<li><a href="https://takeout.google.com/" rel="nofollow noopener">takeout.google.com</a>を開き、Fitbitのデータを移行したGoogleアカウントでログインします。</li>
+<li>サービス一覧のチェックをいったんすべて外し、<strong>Google Health</strong>にだけチェックを入れます（以前のエクスポートでは<strong>Fitbit</strong>という名前です）。</li>
+<li><strong>次のステップ</strong>を押し、ファイル形式は<strong>.zip</strong>のまま、サイズはいちばん大きいものを選んで<strong>エクスポートを作成</strong>を押します。</li>
+<li>Googleからのメールを待ちます。記録が長いと数時間、ときには数日かかります。</li>
+<li>すべてのパーツをダウンロードし、ここでまとめて選びます。</li>
+</ol>
+<p><a href="/ja/fitbit-data-export/fitbit-google-account-iko/">エクスポートが止まって見えるとき、中身が空のとき</a></p>
+</div>
+<div>
+<h2 id="h-inside">アーカイブの中身と、Tallybandが作る表</h2>
+<div class="table-wrap"><table class="tb-map">
+<caption class="sr-only">アーカイブ内のファイルと、そこから作られる表</caption>
+<thead><tr><th scope="col">アーカイブ内</th><th scope="col">スプレッドシートでは</th></tr></thead>
+<tbody>
+<tr><td><code>steps-</code>、<code>distance-</code>、<code>calories-</code>のファイル。1分ごとの値で、時刻はUTC</td><td>お住まいのタイムゾーンでの1日の合計</td></tr>
+<tr><td>睡眠ステージ入りの<code>sleep-</code>ファイルと<code>sleep_score.csv</code></td><td>1晩1行。仮眠には印を付け、スコアも追加</td></tr>
+<tr><td><code>weight-</code>ファイル。単位の記載なし</td><td>計測ごとにkgとlbの両方、BMIと体脂肪率つき</td></tr>
+<tr><td><code>exercise-</code>ファイル</td><td>エクササイズ1回につき1行</td></tr>
+<tr><td><code>resting_heart_rate-</code>、HRV、SpO2のファイル</td><td>日ごとの集計の列</td></tr>
+<tr><td>そのほか（心拍ゾーン、VO2 Max、生理の記録、体温など）</td><td>種類ごとに1つのCSVにまとめ、選んだ期間で切り出し</td></tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section class="tb-sec tb-sec-band" aria-labelledby="h-free">
+<div class="wrap">
+<h2 id="h-free">無料版と、まとめて保存できるPro</h2>
+<div class="tb-plans">
+<div class="tb-plan">
+<h3>無料</h3>
+<ul>
+<li>アーカイブはいくつでも開けます。分割されたパーツにも対応しています。</li>
+<li>期間、タイムゾーン、体重の単位を自由に選べます。</li>
+<li>日ごとの集計と、睡眠、体重、エクササイズの記録をCSVでダウンロードできます。</li>
+<li>アーカイブ内のそのほかの種類のファイルも、種類ごとに1つのCSVでダウンロードできます。</li>
+</ul>
+</div>
+<div class="tb-plan tb-plan-pro" id="pro">
+<h3>Pro <span class="tb-price">8ドル（買い切り）</span></h3>
+<ul>
+<li>選んだ期間の全データを1つのExcelファイルに。表ごとに1シートです。</li>
+<li>または、すべての表をCSVファイルにして1つのZIPに。</li>
+<li>心拍数のすべての記録（一度に31日分まで）。</li>
+<li>1分ごとの歩数、消費カロリー、距離と、睡眠ステージの一つひとつ。</li>
+</ul>
+<div class="tb-actions"><a class="tb-btn tb-btn-main" data-buy-pro href="https://dorukctn.gumroad.com/l/tallyband-pro">8ドル（買い切り）でProを購入</a><button type="button" class="tb-btn tb-btn-plain" data-enter-key>ライセンスキーを入力</button></div>
+</div>
+</div>
+<figure class="tb-figure">
+<picture>
+<source media="(max-width: 700px)" srcset="/export-fitbit-data/img/band-m-640.webp 640w, /export-fitbit-data/img/band-m-960.webp 960w" sizes="100vw">
+<img src="/export-fitbit-data/img/band-1280.webp" srcset="/export-fitbit-data/img/band-1280.webp 1280w, /export-fitbit-data/img/band-1920.webp 1920w" sizes="(max-width: 1240px) 100vw, 1160px" width="1280" height="427" alt="机の上に置かれたフィットネスバンド。ストラップが長い罫線入りの紙テープになって伸び、1日ごとに数字が1行ずつ並んでいる。" loading="lazy" decoding="async">
+</picture>
+<figcaption>考え方を描いた3Dイラスト。手首で積み重ねた年月を、並べ替えられる行にして取り戻します。</figcaption>
+</figure>
+</div>
+</section>
+
+<section class="tb-sec" aria-labelledby="h-guides">
+<div class="wrap">
+<h2 id="h-guides">つまずいている手順のガイド</h2>
+<ul class="tb-guides">
+<li><a href="/ja/fitbit-data-export/fitbit-google-account-iko/"><strong>Googleアカウント移行とデータの取り出し方</strong><span>移行で何が変わったか、Google Takeoutでアーカイブを受け取る手順、止まったときや空のときの対処。</span></a></li>
+<li><a href="/ja/fitbit-data-export/fitbit-csv-shutsuryoku/"><strong>FitbitデータのCSV出力</strong><span>どのファイルに何が入っているか、UTCと日本時間のずれ、睡眠・心拍数・体重の注意点。</span></a></li>
+</ul>
+</div>
+</section>
+
+<section class="tb-sec" aria-labelledby="h-faq">
+<div class="wrap tb-faq">
+<h2 id="h-faq">よくある質問</h2>
+<details><summary>FitbitがGoogle Healthになったいま、FitbitのデータをCSVでエクスポートする方法は？</summary><p>Google TakeoutでGoogle Healthを選んでアーカイブを申請し、Googleからメールが届いたらZIPをダウンロードして、このページで選びます。Tallybandがブラウザ内で読み込み、選んだ期間について1日1行のCSVと、睡眠、体重、エクササイズの記録を作ります。</p></details>
+<details><summary>健康データはアップロードされますか？</summary><p>いいえ。アーカイブはこのページがお使いの端末の中で読み込みます。中身がどこかへ送られることはなく、タブを閉じれば破棄されます。 ページの閲覧数は Cloudflare Web Analytics で数えています。Cookie も個人データも使わず、あなたのファイルには触れません。 Pro ボタンを押すと、自前のカウンターがこのツールの1日の合計に1を加えます。記録するのはページと、どの種類のサイトから来たかだけです。Cookie も個人データも使わず、IP アドレスも保存せず、あなたのファイルには触れません。</p></details>
+<details><summary>期間を指定してエクスポートできますか？</summary><p>はい。Googleからは全期間がまとめて届きますが、Tallybandはダウンロードの前に、すべての表を選んだ期間で切り出します。</p></details>
+<details><summary>体重がポンドになっているのはなぜですか？</summary><p>アーカイブには体重が単位なしで保存されています。Tallybandは計測ごとに保存されたBMIから単位を判断し、キログラムとポンドの両方を書き出します。BMIがないアーカイブでは、1回分の計測をアプリの表示と比べてから単位を選んでください。</p></details>
+<details><summary>Tallyband Proでは何ができますか？</summary><p>Proは8ドル（買い切り）です。選んだ期間の全データを一度に保存できます。データの種類ごとにシートを分けた1つのExcelファイル、またはすべてのCSVファイルを入れた1つのZIPに、心拍数のすべての記録、1分ごとの歩数、睡眠ステージの一つひとつも加わります。日ごとの集計と各記録のCSVは無料のままです。</p></details>
+<details><summary>TallybandはFitbitやGoogleが作ったものですか？</summary><p>いいえ。TallybandはPeak Apps Studioが作った独立したツールで、GoogleおよびFitbitとは提携していません。FitbitとGoogle HealthはGoogle LLCの商標で、このツールが開くファイルを示すためにだけ名前を挙げています。</p></details>
+</div>
+</section>
+</main>
+<!-- tally:footer -->
+<footer class="site-foot tb-foot" id="guides">
+  <div class="wrap cols">
+    <div>
+      <p class="tb-foot-brand">Tallyband</p>
+      <p class="tb-foot-text">Google TakeoutのFitbit・Google Healthアーカイブを開き、歩数、睡眠、体重、心拍数、エクササイズを、選んだ期間だけCSVかExcelでダウンロードできます。アーカイブはこのページがお使いの端末の中で読み込み、アップロードすることはありません。</p>
+      <p class="tb-foot-text">Tallybandは<a href="https://peakappsstudio.com/">Peak Apps Studio</a>が作った独立したツールで、GoogleおよびFitbitとは提携していません。FitbitとGoogle HealthはGoogle LLCの商標で、このツールが開くファイルを示すためにだけ名前を挙げています。表示するのはご自身の数値で、医療上の助言は行いません。</p>
+    </div>
+    <div>
+      <h2>ガイド</h2>
+      <ul>
+        <li><a href="/ja/fitbit-data-export/">FitbitデータをCSV・Excelにエクスポート</a></li>
+        <li><a href="/ja/fitbit-data-export/fitbit-google-account-iko/">FitbitのGoogleアカウント移行後に、データを取り出す方法</a></li>
+        <li><a href="/ja/fitbit-data-export/fitbit-csv-shutsuryoku/">FitbitデータをCSV出力する方法と、ファイルごとの中身</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>言語</h2>
+      <ul>
+        <li><a href="/export-fitbit-data/" hreflang="en" lang="en">English</a></li>
+        <li><a href="/de/fitbit-daten-exportieren/" hreflang="de" lang="de">Deutsch</a></li>
+        <li><a href="/nl/fitbit-gegevens-exporteren/" hreflang="nl" lang="nl">Nederlands</a></li>
+        <li><span aria-current="page" lang="ja">日本語</span></li>
+      </ul>
+    </div>
+    <div>
+      <h2>このサイトについて</h2>
+      <ul>
+        <li><a href="/tools/privacy/">プライバシー</a></li>
+        <li><a href="/tools/">Peak Appsのほかのツール</a></li>
+        <li><a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<!-- /tally:footer -->
+</body>
+</html>
