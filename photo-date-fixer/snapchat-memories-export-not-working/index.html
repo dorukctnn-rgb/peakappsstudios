@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src https://cloudflareinsights.com; worker-src 'self'; media-src 'self' blob:; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Snapchat Memories export not working: fixes by step</title>
+<meta name="description" content="Snapchat Memories export or download not working? Match what you see, from no email to an empty ZIP or a security restriction, to its fix.">
+<link rel="canonical" href="https://peakappsstudio.com/photo-date-fixer/snapchat-memories-export-not-working/">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/photo-date-fixer/snapchat-memories-export-not-working/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/photo-date-fixer/snapchat-memories-export-not-working/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Snapchat Memories export not working: fixes by step">
+<meta property="og:description" content="Snapchat Memories export or download not working? Match what you see, from no email to an empty ZIP or a security restriction, to its fix.">
+<meta property="og:url" content="https://peakappsstudio.com/photo-date-fixer/snapchat-memories-export-not-working/">
+<meta property="og:image" content="https://peakappsstudio.com/photo-date-fixer/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Photo prints fanned out on a dark desk, each with an orange date stamp in the corner">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#23282e">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/photo-date-fixer/fonts/datestamp-display.woff2" as="font" type="font/woff2" crossorigin>
+<style data-from="/assets/tools.css">
+/* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
+
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e1;
+  --card: #fbfaf7;
+  --ink: #141518;
+  --ink-2: #33363d;
+  --muted: #676b74;
+  --line: rgba(20, 21, 24, 0.12);
+  --line-2: rgba(20, 21, 24, 0.22);
+  --accent: #1f5c4d;          /* each tool overrides this on <body style="--accent:..."> */
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  --warn: #9a4a12;
+  --ok: #2c6a3f;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+    --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+  --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; }
+img { display: block; height: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 10px; z-index: 100; background: var(--ink); color: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 10px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-head { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand-sub { font-family: var(--sans); font-size: 14.5px; letter-spacing: 0; color: var(--muted); font-weight: 500; padding-left: 10px; border-left: 1px solid var(--line-2); }
+.head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
+.head-nav a:hover { background: var(--paper-2); color: var(--ink); }
+.head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
+@media (max-width: 640px) { .brand-sub { display: none; } }
+@media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
+
+/* ---------- Type ---------- */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+h1 { font-size: clamp(32px, 4.6vw, 54px); }
+h1 em, h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 19px; letter-spacing: -0.01em; }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; margin: 16px 0 0; }
+.mono { font-family: var(--mono); }
+.muted { color: var(--muted); }
+small, .small { font-size: 13.5px; }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 22px 0 0; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-2); }
+.crumbs a { text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.tool-hero { padding: 28px 0 24px; display: grid; gap: 8px; }
+.tool-hero .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.tool-hero .facts li { display: inline-flex; align-items: center; gap: 8px; }
+.tool-hero .facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Tool shell ---------- */
+.tool { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.tool-panel { padding: 22px; border-right: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.tool-stage { position: relative; min-height: 460px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper); display: grid; place-items: center; padding: 22px; }
+.tool-stage canvas, .tool-stage svg, .tool-stage img { max-height: 70vh; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px -12px rgba(0,0,0,.18); background: #fff; }
+.stage-bar { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.tool-foot { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 14px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--paper); }
+.tool-foot .spacer { flex: 1; }
+@media (max-width: 860px) {
+  .tool { grid-template-columns: 1fr; }
+  .tool-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tool-stage { min-height: 320px; }
+}
+
+/* ---------- Form controls ---------- */
+.group { display: grid; gap: 10px; }
+.group-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > label { font-size: 13px; color: var(--ink-2); }
+.input, .select { width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 8px; padding: 9px 11px; transition: border-color .15s, box-shadow .15s; }
+.input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input-unit { position: relative; }
+.input-unit .input { padding-right: 38px; font-family: var(--mono); font-size: 14.5px; }
+.input-unit i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 3px; flex: none; }
+.seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line-2); border-radius: 9px; padding: 3px; gap: 3px; background: var(--paper); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.warn { font-size: 13.5px; color: var(--warn); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.btn { --b: var(--line-2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 500; line-height: 1; padding: 11px 16px; border-radius: 9px; border: 1px solid var(--b); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; transition: transform .15s var(--ease), background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklab, var(--accent) 86%, #000); color: var(--accent-ink); border-color: transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-ink:hover { color: var(--paper); background: var(--ink-2); }
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.pro-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: var(--ink); color: var(--paper); }
+
+/* ---------- Drop zone ---------- */
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 18px 14px; background: var(--paper); cursor: pointer; transition: border-color .15s, background .15s; font-size: 14.5px; }
+.drop:hover, .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Content ---------- */
+.section { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prose { max-width: 70ch; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose h2 { margin: 1.6em 0 .5em; }
+.prose h3 { margin: 1.4em 0 .4em; }
+.prose code, .prose kbd { font-family: var(--mono); font-size: .9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+.two-col > * { min-width: 0; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: 3px; }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 13px; background: var(--paper); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 15px; }
+.source { font-size: 13px; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--line-2); margin-top: 18px; }
+.faq details { border-bottom: 1px solid var(--line-2); }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 13px; font-family: var(--mono); font-size: 18px; color: var(--muted); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 18px; color: var(--ink-2); max-width: 70ch; }
+
+/* ---------- Pro ---------- */
+.pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--card); }
+.pro-left { padding: clamp(22px, 3vw, 36px); }
+.pro-right { padding: clamp(22px, 3vw, 36px); background: var(--ink); color: var(--paper); display: grid; align-content: center; gap: 14px; }
+.pro-right .price { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pro-right .price small { font-size: 15px; font-weight: 400; color: color-mix(in oklab, var(--paper) 70%, transparent); letter-spacing: 0; }
+.pro-right .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.pro-right .btn-primary:hover { background: #fff; color: var(--ink); }
+.pro-right .fine { font-size: 13px; color: color-mix(in oklab, var(--paper) 65%, transparent); margin: 0; }
+.pro-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.pro-list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.pro-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border: 1.5px solid var(--accent); border-radius: 2px; transform: rotate(45deg); }
+@media (max-width: 760px) { .pro { grid-template-columns: 1fr; } }
+
+/* ---------- A real file, shown ---------- */
+.shot { margin: 22px 0 0; }
+.shot img { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; }
+.shot figcaption { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+.shot figcaption strong { font-weight: 600; color: var(--ink-2); }
+.shot-sm { max-width: 920px; }
+
+/* ---------- Where free stops and Pro starts ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; margin: 26px 0 0; background: var(--card); }
+.split > div { padding: 18px 20px 20px; }
+.split > div + div { border-left: 1px solid var(--line-2); background: var(--accent-soft); }
+.split h3 { font-size: 15.5px; margin: 0; }
+.split > div > p { margin: 5px 0 0; font-size: 13.5px; color: var(--muted); }
+.split ul { list-style: none; margin: 13px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
+.split li { position: relative; padding-left: 18px; }
+.split li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; border-radius: 1px; background: var(--line-2); }
+.split > div + div li::before { background: var(--accent); }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } .split > div + div { border-left: 0; border-top: 1px solid var(--line-2); } }
+
+/* ---------- A file list, as the archive really holds it ---------- */
+.filelist { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 5px; }
+.filelist li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filelist li span { color: var(--muted); }
+
+/* ---------- License dialog ---------- */
+.license-dialog { border: 1px solid var(--line-2); border-radius: 14px; padding: 0; width: min(440px, calc(100% - 32px)); background: var(--card); color: var(--ink); }
+.license-dialog::backdrop { background: rgba(10, 11, 13, .45); }
+.license-dialog form { padding: 22px; display: grid; gap: 14px; }
+.license-status { font-size: 14px; min-height: 1.4em; margin: 0; }
+.license-status[data-state="ok"] { color: var(--ok); }
+.license-status[data-state="err"] { color: var(--warn); }
+
+/* ---------- Related / cards ---------- */
+.related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line-2); margin-top: 22px; }
+.related a { display: grid; gap: 4px; padding: 18px 18px 18px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.related a strong { font-weight: 600; }
+.related a span { font-size: 14px; color: var(--muted); }
+.related a:hover strong { color: var(--accent); }
+
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
+/* ---------- Footer ---------- */
+.site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
+.site-foot h2 { font-size: 15px; font-family: var(--sans); letter-spacing: 0; font-weight: 600; color: var(--ink); margin: 0 0 10px; }
+.site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+@media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- "New from Peak Apps": the cross-promotion card the build puts above the footer (src/crosspromo.json) ---------- */
+.peak-new { margin-top: clamp(56px, 8vw, 104px); }
+.peak-new + .site-foot { margin-top: 28px; }
+.peak-new-card { display: grid; gap: 4px; max-width: 640px; padding: 16px 20px 18px; border: 1px solid var(--line-2); border-left: 4px solid var(--tool, var(--accent)); border-radius: var(--radius); background: var(--card); color: var(--ink); text-decoration: none; transition: border-color .2s var(--ease); }
+.peak-new-card:hover { border-color: var(--tool, var(--accent)); }
+.peak-new-card:focus-visible { outline: 2px solid var(--tool, var(--accent)); outline-offset: 3px; }
+.peak-new-kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.peak-new-card strong { font-size: 17px; font-weight: 600; line-height: 1.3; }
+.peak-new-line { font-size: 14px; line-height: 1.5; color: var(--ink-2); max-width: 62ch; }
+
+/* ---------- Home project tools: the shared block on Without Planning and Dropped Kerb Check ---------- */
+.home-block { margin: clamp(36px, 5vw, 60px) 0 0; border-top: 1px solid var(--line-2); padding-top: 16px; }
+.home-title { margin: 0 0 10px; font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink); }
+.home-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px 24px; }
+.home-list a { display: grid; gap: 3px; padding: 2px 0 2px 14px; border-left: 4px solid var(--tool, var(--accent)); text-decoration: none; color: var(--ink); }
+.home-list a strong { font-weight: 700; font-size: 16px; }
+.home-list a span { color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+.home-list a:hover strong { color: var(--tool, var(--accent)); }
+.home-list a[aria-current="page"] span { color: var(--ink-2); }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .3s var(--ease); z-index: 90; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media print { .site-head, .site-foot, .tool-panel, .tool-foot, .no-print { display: none !important; } body { background: #fff; } }
+
+/* The hidden attribute must win over component display rules. */
+[hidden] { display: none !important; }
+</style>
+<style data-from="/photo-date-fixer/tool.css">
+/* Photo Date Fixer inside the Peak Apps Tools system: the date stamp of an old film camera. The tool panel is a graphite
+   camera back with seven-segment readouts, accents are date-stamp orange, headings are Datestamp Display (a Mona Sans
+   subset) and the panel's figures are Datestamp Text (a Hubot Sans subset), both under the SIL OFL 1.1 (fonts/). */
+@font-face { font-family: "Datestamp Display"; src: url("/photo-date-fixer/fonts/datestamp-display.woff2") format("woff2"); font-weight: 700 860; font-stretch: 125%; font-display: swap; }
+@font-face { font-family: "Datestamp Text"; src: url("/photo-date-fixer/fonts/datestamp-text.woff2") format("woff2"); font-weight: 400 700; font-display: swap; }
+@font-face { font-family: "Datestamp Fallback"; src: local("Arial"), local("Helvetica Neue"), local("Helvetica"); size-adjust: 104%; ascent-override: 92%; descent-override: 24%; }
+
+.pdf {
+  --display: "Datestamp Display", "Datestamp Fallback", system-ui, sans-serif;
+  --text: "Datestamp Text", "Datestamp Fallback", system-ui, sans-serif;
+  --graphite: #23282e; --graphite-2: #2c3239; --graphite-3: #3a4149;
+  --on-graphite: #e8ebee; --on-graphite-2: #b9c0c7;
+  --imprint: #ff4a1c; --imprint-off: rgba(255, 74, 28, 0.13);
+  --pdf-ok: #1e7b4f; --pdf-warn: #9a5b00; --pdf-bad: #b3261e;
+  --shadow-print: 0 1px 0 rgba(24, 28, 33, 0.06), 0 10px 24px -14px rgba(24, 28, 33, 0.35);
+  --accent-ink: #ffffff;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .pdf {
+    --accent: #ff4a1c !important; --accent-ink: #181c21;
+    --graphite: #262b31; --graphite-2: #2f363d; --graphite-3: #434b54;
+    --pdf-ok: #4fbf8a; --pdf-warn: #e0a347; --pdf-bad: #f07a6f;
+    --shadow-print: 0 1px 0 rgba(0, 0, 0, 0.4), 0 12px 28px -16px rgba(0, 0, 0, 0.8);
+  }
+}
+:root[data-theme="dark"] .pdf {
+  --accent: #ff4a1c !important; --accent-ink: #181c21;
+  --graphite: #262b31; --graphite-2: #2f363d; --graphite-3: #434b54;
+  --pdf-ok: #4fbf8a; --pdf-warn: #e0a347; --pdf-bad: #f07a6f;
+  --shadow-print: 0 1px 0 rgba(0, 0, 0, 0.4), 0 12px 28px -16px rgba(0, 0, 0, 0.8);
+}
+
+/* ---------- type: headings in the tool's own face, links underlined in date-stamp orange ---------- */
+.pdf main h1, .pdf main h2, .pdf main h3 { font-family: var(--display); font-stretch: 125%; letter-spacing: -0.02em; overflow-wrap: break-word; }
+.pdf main h1 { font-weight: 820; font-size: clamp(1.75rem, 3.4vw + 0.6rem, 3.6rem); line-height: 1.05; max-width: 22ch; text-wrap: balance; }
+.pdf main a { text-decoration-color: var(--imprint); text-decoration-thickness: 2px; }
+.pdf main a:hover { color: inherit; text-decoration-thickness: 3px; }
+.pdf main .pdf-panel a:hover { color: var(--on-graphite); }
+.pdf-visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- hero: the panel beside the lede ---------- */
+.pdf-hero { padding: clamp(14px, 2vw, 24px) 0 clamp(32px, 6vw, 72px); }
+.pdf-hero-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); grid-template-areas: "panel lede" "panel facts"; grid-template-rows: auto 1fr; column-gap: clamp(20px, 3.2vw, 48px); row-gap: 18px; margin-top: clamp(20px, 3vw, 36px); align-items: start; }
+.pdf-hero-grid > .lede { grid-area: lede; margin: 0; max-width: 46ch; }
+.pdf-hero-grid > .pdf-panel { grid-area: panel; }
+.pdf-hero-grid > .pdf-facts { grid-area: facts; }
+.pdf-facts { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-2); }
+.pdf-facts li { padding: 12px 0 12px 28px; border-bottom: 1px solid var(--line-2); position: relative; font-weight: 560; }
+.pdf-facts li::before { content: ""; position: absolute; left: 2px; top: 21px; width: 12px; height: 7px; border-radius: 1px; background: var(--imprint); }
+
+/* ---------- the tool: a camera back ---------- */
+.pdf-panel { background: var(--graphite); color: var(--on-graphite); border-radius: 18px; padding: clamp(14px, 2vw, 22px); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 24px 48px -30px rgba(18, 21, 25, 0.75); position: relative; min-width: 0; font-family: var(--text); }
+.pdf-panel :focus-visible { outline: 3px solid var(--imprint); outline-offset: 3px; }
+.pdf-readouts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; padding: 12px; background: #1a1e23; border-radius: 12px; box-shadow: inset 0 0 0 1px #343b43; }
+.pdf-readout { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.pdf-readout.alert { box-shadow: inset 0 0 0 2px #f07a6f; border-radius: 8px; }
+.pdf-seg { display: flex; gap: 3px; height: 34px; align-items: stretch; justify-content: flex-start; }
+.pdf-seg svg { height: 100%; width: auto; flex: none; display: block; max-width: none; }
+.pdf-seg .s { fill: var(--imprint-off); }
+.pdf-seg .s.on { fill: var(--imprint); }
+.pdf-seg .unit { align-self: flex-end; font-size: 0.78rem; font-weight: 600; color: var(--imprint); margin-left: 4px; line-height: 1; padding-bottom: 1px; }
+.pdf-ro-label { font-size: 0.8rem; line-height: 1.25; color: var(--on-graphite-2); }
+.pdf-status { margin: 10px 2px 0; font-size: 0.86rem; color: var(--on-graphite-2); display: flex; align-items: center; gap: 8px; min-height: 24px; }
+.pdf-lamp { width: 8px; height: 8px; border-radius: 50%; background: #59616b; flex: none; }
+.pdf-lamp.on { background: var(--imprint); box-shadow: 0 0 0 3px rgba(255, 74, 28, 0.18); }
+.pdf-stage { margin-top: 14px; }
+.pdf-stage[hidden] { display: none; }
+.pdf-finder { position: relative; border-radius: 12px; background: var(--graphite-2); padding: clamp(18px, 3vw, 30px) clamp(16px, 2.6vw, 28px); transition: background-color 160ms ease; }
+.pdf-finder::before, .pdf-finder::after, .pdf-finder > .c1, .pdf-finder > .c2 { content: ""; position: absolute; width: 18px; height: 18px; border-color: #6b747e; border-style: solid; pointer-events: none; }
+.pdf-finder::before { top: 10px; left: 10px; border-width: 2px 0 0 2px; }
+.pdf-finder::after { top: 10px; right: 10px; border-width: 2px 2px 0 0; }
+.pdf-finder > .c1 { bottom: 10px; left: 10px; border-width: 0 0 2px 2px; }
+.pdf-finder > .c2 { bottom: 10px; right: 10px; border-width: 0 2px 2px 0; }
+.pdf-finder.drag { background: #353c44; }
+.pdf-finder.drag::before, .pdf-finder.drag::after, .pdf-finder.drag > .c1, .pdf-finder.drag > .c2 { border-color: var(--imprint); }
+.pdf main .pdf-finder h2 { font-size: clamp(1.15rem, 1vw + 0.9rem, 1.5rem); font-weight: 760; line-height: 1.15; color: var(--on-graphite); max-width: 24ch; }
+.pdf-finder p { margin: 10px 0 0; color: var(--on-graphite-2); font-size: 0.95rem; max-width: 52ch; overflow-wrap: anywhere; }
+.pdf-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.pdf-btn { appearance: none; border: 0; cursor: pointer; font: inherit; font-weight: 650; font-size: 1rem; min-height: 46px; padding: 10px 20px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; line-height: 1.2; text-align: center; white-space: normal; }
+.pdf-btn-primary { background: var(--imprint); color: #181c21; }
+.pdf-btn-primary:hover { background: #ff6a43; }
+.pdf-btn-quiet { background: transparent; color: var(--on-graphite); box-shadow: inset 0 0 0 1.5px #59626c; }
+.pdf-btn-quiet:hover { box-shadow: inset 0 0 0 1.5px var(--on-graphite-2); }
+.pdf-btn[disabled] { opacity: 0.55; cursor: not-allowed; }
+.pdf-panel a { color: var(--on-graphite); }
+.pdf-small-link { display: inline-block; margin-top: 14px; font-size: 0.92rem; min-height: 24px; }
+.pdf-note { font-size: 0.86rem; color: var(--on-graphite-2); margin: 12px 0 0; }
+.pdf-err { margin: 14px 0 0; padding: 12px 14px; border-radius: 10px; background: #3b2320; color: #ffd9d2; font-size: 0.95rem; overflow-wrap: anywhere; }
+.pdf-err[hidden] { display: none; }
+.pdf-counter-help { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--graphite-3); }
+.pdf [data-stage-title]:focus { outline: none; }
+.pdf [data-stage-title]:focus-visible { outline: 3px solid var(--imprint); outline-offset: 3px; }
+.pdf-meter { display: grid; grid-template-columns: repeat(24, minmax(0, 1fr)); gap: 3px; margin-top: 14px; }
+.pdf-meter i { display: block; height: 14px; border-radius: 2px; background: var(--imprint-off); }
+.pdf-meter i.on { background: var(--imprint); }
+.pdf main .pdf-stage-title { font-family: var(--display); font-stretch: 125%; font-weight: 740; font-size: 1.12rem; line-height: 1.2; margin: 0; color: var(--on-graphite); }
+.pdf-stage-sub { margin: 6px 0 0; color: var(--on-graphite-2); font-size: 0.95rem; }
+
+/* review */
+.pdf-counts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 14px 0 0; padding: 0; list-style: none; }
+.pdf-counts li { background: var(--graphite-2); border-radius: 10px; padding: 10px 12px; font-size: 0.86rem; color: var(--on-graphite-2); min-width: 0; }
+.pdf-counts b { display: block; font-family: var(--display); font-stretch: 125%; font-size: 1.35rem; color: var(--on-graphite); font-variant-numeric: tabular-nums; line-height: 1.15; }
+.pdf-scroll { overflow-x: auto; max-width: 100%; }
+.pdf-file { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.pdf-file span { min-width: 0; overflow-wrap: anywhere; }
+.pdf-preview { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 0.86rem; font-variant-numeric: tabular-nums; }
+.pdf-preview caption { text-align: left; color: var(--on-graphite-2); padding-bottom: 8px; font-size: 0.86rem; caption-side: top; }
+.pdf-preview th { text-align: left; font-weight: 600; color: var(--on-graphite-2); padding: 6px 8px; border-bottom: 1px solid var(--graphite-3); background: transparent; }
+.pdf-preview td { padding: 8px; border-bottom: 1px solid var(--graphite-3); vertical-align: top; overflow-wrap: anywhere; color: var(--on-graphite); }
+.pdf-preview .pdf-thumb { width: 44px; height: 44px; object-fit: cover; border-radius: 3px; border: 2px solid #f5f6f7; }
+.pdf-tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 0.78rem; font-weight: 650; white-space: nowrap; }
+.pdf-tag.exact { background: #1d3d2f; color: #a7e3c3; }
+.pdf-tag.ambiguous { background: #43361d; color: #f1d29a; }
+.pdf-tag.zipTime, .pdf-tag.nameDate, .pdf-tag.unknown { background: #3d2a2a; color: #f2c1bb; }
+.pdf-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 16px; }
+.pdf-field label, .pdf-field legend { display: block; font-size: 0.86rem; color: var(--on-graphite-2); margin-bottom: 6px; }
+.pdf-field select { width: 100%; min-height: 44px; border-radius: 10px; border: 1px solid #4a525b; background: var(--graphite-2); color: var(--on-graphite); font: inherit; padding: 8px 10px; }
+fieldset.pdf-field { border: 0; margin: 0; padding: 0; min-width: 0; }
+.pdf-layers { margin-top: 12px; }
+.pdf-layers .pdf-note { margin-top: 0; }
+.pdf-panel label.pdf-radio { display: flex; align-items: flex-start; gap: 10px; min-height: 44px; padding: 8px 0; margin: 0; color: var(--on-graphite); font-size: 0.95rem; }
+.pdf-radio input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--imprint); flex: none; }
+/* done */
+.pdf-parts { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 8px; }
+.pdf-parts li { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; background: var(--graphite-2); border-radius: 10px; padding: 8px 8px 8px 14px; font-size: 0.92rem; overflow-wrap: anywhere; }
+.pdf-parts .pdf-btn { min-height: 44px; padding: 8px 16px; }
+
+/* ---------- sections ---------- */
+.pdf-band { padding: clamp(40px, 6vw, 88px) 0; border-top: 1px solid var(--line-2); }
+.pdf main .pdf-band h2 { font-weight: 780; font-size: clamp(1.45rem, 1.7vw + 1rem, 2.35rem); line-height: 1.08; max-width: 26ch; margin-bottom: 18px; text-wrap: balance; }
+.pdf .prose { max-width: 68ch; }
+.pdf .prose p, .pdf .prose ul, .pdf .prose ol { margin: 0 0 14px; }
+.pdf .prose ul, .pdf .prose ol { padding-left: 1.3em; }
+.pdf .prose li { margin-bottom: 8px; overflow-wrap: anywhere; }
+.pdf .prose code { overflow-wrap: anywhere; display: inline-block; max-width: 100%; vertical-align: baseline; }
+.pdf .prose p.source, .pdf .prose small { font-size: 0.88rem; color: var(--muted); overflow-wrap: anywhere; }
+.pdf-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(20px, 4vw, 56px); align-items: start; }
+.pdf-print { margin: 0; background: var(--card); padding: 10px; border-radius: 2px; box-shadow: var(--shadow-print); transform: rotate(-1.2deg); }
+.pdf-print img { width: 100%; height: auto; border-radius: 1px; background: var(--graphite); aspect-ratio: 8 / 5; }
+.pdf-print figcaption { font-size: 0.85rem; color: var(--muted); padding: 8px 2px 2px; }
+.pdf .prose table, .pdf table.ba { width: 100%; border-collapse: collapse; background: var(--card); box-shadow: var(--shadow-print); font-family: var(--text); font-variant-numeric: tabular-nums; margin: 8px 0 18px; font-size: 0.95rem; }
+.pdf .prose caption { text-align: left; font-size: 0.88rem; color: var(--muted); padding: 0 0 8px; caption-side: top; }
+.pdf .prose th, .pdf .prose td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line-2); vertical-align: top; overflow-wrap: anywhere; }
+.pdf table.ba thead th { font-weight: 650; font-size: 0.85rem; color: var(--muted); }
+.pdf table.ba td:last-child { font-weight: 650; }
+.pdf-faq-list { max-width: 72ch; }
+.pdf-guides { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-2); max-width: 72ch; }
+.pdf-guides li { border-bottom: 1px solid var(--line-2); }
+.pdf-guides a { display: grid; gap: 2px; padding: 14px 0; text-decoration: none; }
+.pdf-guides a strong { font-weight: 600; }
+.pdf-guides a span { font-size: 0.92rem; color: var(--muted); }
+.pdf-guides a:hover strong { text-decoration: underline; text-decoration-color: var(--imprint); text-decoration-thickness: 2px; }
+.pdf-legal { margin: 22px 0 0; font-size: 0.9rem; color: var(--muted); max-width: 72ch; }
+
+/* ---------- guide and legal pages ---------- */
+.pdf-article { padding-bottom: clamp(24px, 5vw, 64px); }
+.pdf-article-head { padding: clamp(12px, 2vw, 24px) 0 clamp(24px, 4vw, 44px); }
+.pdf main .pdf-article-head h1 { font-size: clamp(1.7rem, 2.6vw + 0.8rem, 3rem); max-width: 24ch; }
+.pdf-article-head .lede { margin-top: 18px; max-width: 60ch; }
+.pdf-updated { font-size: 0.9rem; color: var(--muted); margin: 10px 0 0; }
+.pdf-article-body { max-width: 70ch; }
+.pdf main .pdf-section h2 { font-weight: 780; font-size: clamp(1.3rem, 1.1vw + 1rem, 1.85rem); line-height: 1.12; margin: clamp(32px, 4vw, 48px) 0 14px; max-width: 30ch; text-wrap: balance; }
+.pdf-section:first-child h2 { margin-top: 0; }
+.pdf-sources { font-size: 0.9rem; color: var(--muted); }
+.pdf-sources li { overflow-wrap: anywhere; }
+.pdf-cta { margin: clamp(32px, 4vw, 48px) 0; padding: clamp(18px, 3vw, 28px); background: var(--graphite); color: var(--on-graphite); border-radius: 18px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+.pdf-cta p { margin: 0; max-width: 46ch; font-weight: 560; }
+.pdf main .pdf-cta a.pdf-btn { color: #181c21; text-decoration: none; }
+
+@media (max-width: 960px) {
+  .pdf-hero-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "lede" "panel" "facts"; grid-template-rows: auto; }
+  .pdf-split { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 560px) {
+  .pdf-readouts { gap: 6px; padding: 10px; }
+  .pdf-seg { height: 22px; gap: 2px; }
+  .pdf-preview thead { display: none; }
+  .pdf-preview caption { display: block; width: 100%; }
+  .pdf-preview, .pdf-preview tbody, .pdf-preview tr, .pdf-preview td { display: block; width: 100%; }
+  .pdf-preview tr { border-bottom: 1px solid var(--graphite-3); padding: 8px 0; }
+  .pdf-preview td { border: 0; padding: 3px 0; }
+  .pdf-preview td[data-label]::before { content: attr(data-label); display: block; font-size: 0.76rem; color: var(--on-graphite-2); }
+  .pdf-actions .pdf-btn { width: 100%; }
+}
+@media (max-width: 360px) {
+  .pdf-seg { height: 16px; }
+  .pdf-ro-label { font-size: 0.74rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pdf-finder { transition: none; }
+  .pdf-print { transform: none; }
+}
+
+/* ---------- top line: breadcrumbs and the language switch ---------- */
+.pdf-topline { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 16px; }
+.pdf-langs { display: flex; flex-wrap: wrap; gap: 4px; margin: 22px 0 0; font-size: 13.5px; }
+.pdf main .pdf-langs a { text-decoration: none; padding: 4px 9px; border-radius: 6px; color: var(--muted); min-height: 28px; display: inline-flex; align-items: center; }
+.pdf main .pdf-langs a:hover { color: var(--ink); background: var(--paper-2); }
+.pdf main .pdf-langs a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+
+/* ---------- layout-check friendly details ---------- */
+/* The skip link stays inside the page, one transparent pixel, until it has focus: a link parked at left -9999px reads as page overflow
+   to layout checks, and a clipped or off-screen link cannot be tapped by a layout tour. The top-left corner stays square: a tap on the
+   one-pixel link lands in that corner once the link has grown, and a rounded corner would let the tap fall through to the header. */
+.pdf .skip { left: 10px; top: 10px; width: 1px; height: 1px; padding: 0; overflow: hidden; opacity: 0; white-space: nowrap; border-radius: 0 0 8px 0; }
+.pdf .skip:focus { width: auto; height: auto; padding: 8px 12px; overflow: visible; opacity: 1; }
+/* The current page is text, not a link to itself (header, language switch, footer): same look as the current-page link of the shared header. */
+.pdf .head-nav span[aria-current="page"] { font-size: 14.5px; padding: 7px 10px; border-radius: 8px; color: var(--ink); background: var(--paper-2); white-space: nowrap; }
+@media (max-width: 480px) { .pdf .head-nav span[aria-current="page"] { display: none; } }
+/* On the guide, privacy and terms pages the link to the tool is a link, not the current page: below 360 px brand, tool link and "All tools" no longer fit in one row (320 px: 20 px too wide), so the tool link steps aside there; the breadcrumbs and the footer still lead to the tool. */
+@media (max-width: 359px) { .pdf .head-nav a.pdf-tool-link { display: none; } }
+.pdf .site-foot span[aria-current="page"] { color: var(--ink); font-weight: 600; }
+.pdf main .pdf-langs span[aria-current="page"] { padding: 4px 9px; border-radius: 6px; color: var(--ink); background: var(--paper-2); min-height: 28px; display: inline-flex; align-items: center; }
+/* Inline code and the links of a source line stay in one box: a snippet or citation that wraps across two lines would otherwise report one rectangle that covers its neighbours. */
+.pdf .prose small a, .pdf .prose p.source a { display: inline-block; }
+/* A closed question keeps no answer box at all, so a hidden answer can never sit under the next question. */
+.pdf .faq details:not([open]) .answer { display: none; }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Snapchat Memories export not working: what to do at each step","description":"Snapchat Memories export or download not working? Match what you see, from no email to an empty ZIP or a security restriction, to its fix.","inLanguage":"en","datePublished":"2026-10-29","dateModified":"2026-10-29","author":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"mainEntityOfPage":"https://peakappsstudio.com/photo-date-fixer/snapchat-memories-export-not-working/","image":"https://peakappsstudio.com/photo-date-fixer/img/og.png"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Photo Date Fixer","item":"https://peakappsstudio.com/photo-date-fixer/"},{"@type":"ListItem","position":3,"name":"Export not working","item":"https://peakappsstudio.com/photo-date-fixer/snapchat-memories-export-not-working/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How long does a Snapchat Memories export take?","acceptedAnswer":{"@type":"Answer","text":"Snap's help page, checked 29 October 2026, says: “We strive to deliver data within 7 days, but large downloads can take longer.” You get an email when it is ready, and the export also appears under See exports on the My Data page."}},{"@type":"Question","name":"How long does the Snapchat data download link work?","acceptedAnswer":{"@type":"Answer","text":"Snap does not publish how long. Download every ZIP part on the day the email arrives. If a link no longer works, request a new export on My Data."}},{"@type":"Question","name":"Can I download my Snapchat Memories on a computer?","acceptedAnswer":{"@type":"Answer","text":"Yes. Log in on accounts.snapchat.com and click My Data. Snap's help page suggests a computer rather than a mobile device if you have problems downloading, or a different browser."}},{"@type":"Question","name":"Why does my Snapchat export have several ZIP files?","acceptedAnswer":{"@type":"Answer","text":"Large exports come in numbered parts, such as mydata~1739000000000.zip and mydata~1739000000000-2.zip. The first part holds the memories list and the others hold more photos and videos, so download all of them and keep them together."}},{"@type":"Question","name":"What does the security restriction on Snapchat My Data mean?","acceptedAnswer":{"@type":"Answer","text":"Snap's help pages, checked 29 October 2026, do not explain it or say how long it lasts. Searches for it often include 72 hours. Wait before you try again, and contact Snapchat Support if it does not clear."}}]}]}
+</script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
+</head>
+<body class="pdf" style="--accent:#c4360e">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/tools/" aria-label="Peak Apps Tools, all tools">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Peak Apps</span><span class="brand-sub">Tools</span>
+    </a>
+    <nav class="head-nav" aria-label="Tools">
+      <a class="pdf-tool-link" href="/photo-date-fixer/">Photo dates</a>
+      <a href="/tools/">All tools</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/photo-date-fixer/">Photo Date Fixer</a></li><li aria-current="page">Export not working</li></ol></nav></div>
+<article class="wrap pdf-article">
+<header class="pdf-article-head">
+<h1>Snapchat Memories export not working: what to do at each step</h1>
+<p class="lede">A Snapchat Memories export that is not working has stalled at one of five steps: Snapchat is still preparing it, the download was started on a phone, the browser stopped the button that downloads all your Memories, the ZIP file came without the photos, or My Data showed a security restriction. Find what you see in the table below, then follow its fix. The fixes follow Snap's own help page on downloading your data, checked on 29 October 2026.</p>
+<p class="pdf-updated">Last checked 29 October 2026</p>
+</header>
+<div class="pdf-article-body">
+<section class="pdf-section" id="symptoms" aria-labelledby="symptoms-h"><h2 id="symptoms-h">What you see, and what to do</h2><div class="prose"><table><caption>Snapchat Memories export problems and their fixes</caption><thead><tr><th scope="col">What you see</th><th scope="col">What to do</th></tr></thead><tbody><tr><th scope="row">No email, days after the request</th><td>Wait, and check “See exports” on My Data. Snap strives to deliver within 7 days, and large downloads can take longer.</td></tr><tr><th scope="row">The download fails or will not open on a phone</th><td>Download on a computer, or try a different browser, as Snap's page suggests.</td></tr><tr><th scope="row">The button that downloads all Memories stops after a few files</th><td>Allow automatic downloads for that page, or request the export with Memories included, so the photos arrive inside the ZIP files.</td></tr><tr><th scope="row">The ZIP holds only folders called json and html</th><td>Memories were not part of the request, or they are in the other parts. Download every part, or request again with “Export your Memories” on.</td></tr><tr><th scope="row">My Data shows a security restriction</th><td>Snap does not explain this message. Wait before you try again, and contact Snapchat Support if it stays.</td></tr><tr><th scope="row">The photos arrive, but with the wrong date</th><td>The export is fine. The real dates sit in a separate list, and <a href="/photo-date-fixer/">Photo Date Fixer</a> writes them back into each file.</td></tr></tbody></table></div></section>
+<section class="pdf-section" id="waiting" aria-labelledby="waiting-h"><h2 id="waiting-h">No email yet: the export is still being prepared</h2><div class="prose"><p>Snap's help page says: “We strive to deliver data within 7 days, but large downloads can take longer.” A Memories export that covers several years is a large download. Snap sends an email with a link once your data is ready, and the same export appears under “See exports” on the My Data page, so you can check there instead of waiting for the email.</p><ul><li>Log in to your account on accounts.snapchat.com and click “My Data”. In the app, tap the gear icon at the top of your Profile, then select “My Data”.</li><li>If you typed the wrong email address, the request is not lost. Snap says you can still access it when you log in and go to My Data.</li><li>Snap's page also says data download requests cannot be canceled. Check the email address before you send another one.</li></ul></div></section>
+<section class="pdf-section" id="phone" aria-labelledby="phone-h"><h2 id="phone-h">The download fails on a phone</h2><div class="prose"><p>Your export arrives as one or more ZIP files, and a Memories export that covers several years can run to gigabytes. Snap's page says that if you run into problems, try using a computer rather than a mobile device, or a different browser. On a computer the ZIP files land in your Downloads folder, where you can check that every part arrived before you do anything else with them.</p><p>If you have to use an iPhone, save the ZIP files to On My iPhone in the Files app rather than to iCloud Drive, so the whole file is on the phone when a tool opens it. Photo Date Fixer reads ZIP files in Safari, and a ZIP that is still in iCloud Drive may not open.</p></div></section>
+<section class="pdf-section" id="download-all" aria-labelledby="download-all-h"><h2 id="download-all-h">The button that downloads all Memories stops</h2><div class="prose"><p>Some exports include a page called index.html. Snap's help page says that after you extract the ZIP file, you open index.html in your browser, click “Memories” in the navigation bar on the left and download your Memories one at a time or all at once. All at once means the page starts many downloads in a row, and browsers treat that as a permission: Chrome lists automatic downloads among the permissions you allow or block for each site. If you blocked it, or the prompt went away, the rest of the files are not downloaded.</p><ol><li>Click the icon to the left of the address, open the site settings and allow automatic downloads.</li><li>Reload index.html and start the download again.</li><li>If it still stops, try a different browser, which Snap's page also suggests.</li></ol><p>If the button gives you error pages instead of photos, the links in your export may have stopped working. Snap does not say how long they last, so request a new export. With “Export your Memories” switched on, the photos and videos come inside the ZIP files themselves, in a folder called memories, and nothing has to be fetched one by one.</p></div></section>
+<section class="pdf-section" id="empty" aria-labelledby="empty-h"><h2 id="empty-h">The ZIP has no photos or videos in it</h2><div class="prose"><p>Open the first ZIP file. A Memories export has a folder called memories with the photos and videos, and the memories list in a json or html folder. If you see only json and html, either Memories were not part of the request or the photos are in the other parts.</p><ul><li>Check the file names. A large export comes in numbered parts, such as <code>mydata~1739000000000.zip</code> and <code>mydata~1739000000000-2.zip</code>. The first part holds the list, and the later parts hold more photos and videos, so download every one of them.</li><li>If no part has a memories folder, request again on My Data. Snap's page describes the Memories-only request: under “Select data to include”, toggle “Export your Memories” to on and click “Request Only Memories”.</li></ul><p>Photo Date Fixer checks this for you. If the ZIP files you add list memories but hold no photos or videos, it says so and asks for a new export with Memories switched on. If the list is missing, it asks for the first part, the one without -2 in its name.</p></div></section>
+<section class="pdf-section" id="security" aria-labelledby="security-h"><h2 id="security-h">My Data shows a security restriction</h2><div class="prose"><p>Some people see a message about a security restriction when they request or download their data. Snap's help pages, checked on 29 October 2026, do not describe this message or say how long it lasts. Google's search suggestions for it include “72 hours”, so a wait of about three days is what people search for, but that figure does not come from Snap.</p><ul><li>Wait before you try again, rather than sending request after request.</li><li>If the restriction does not clear, contact Snapchat Support.</li><li>If you did not ask for a data download yourself, Snap's page says to change your password, turn on Login Verification and store your Recovery Code somewhere safe.</li></ul></div></section>
+<section class="pdf-section" id="next" aria-labelledby="next-h"><h2 id="next-h">Once every ZIP file is on your computer</h2><div class="prose"><p>Keep the ZIP files as they are. The photos in them carry no capture date inside the file, so a gallery can put years of memories on one day, and captions, stickers and drawings come as separate overlay files. <a href="/photo-date-fixer/">Photo Date Fixer</a> reads the ZIP files in your browser, writes each memory's real date, local time and place into the file, and can put the captions back onto the photos. It uploads nothing. The guide <a href="/photo-date-fixer/why-memories-show-the-wrong-date/">Why your Snapchat Memories show the wrong date</a> explains the dates, and <a href="/photo-date-fixer/snapchat-memories-overlay/">Snapchat Memories overlay files</a> explains the captions.</p><p>If you are downloading because of Snap's storage changes: Snap's help page says that starting in January 2027, Memories that are more than one year old and are not part of your oldest 5GB of Memories will be archived and remain stored on Snapchat. It also says no Memories will be archived before January 2027, and that downloading your Memories is one of your options for keeping access to them outside the app.</p></div></section>
+<section class="pdf-section pdf-sources" aria-labelledby="sources-h"><h2 id="sources-h">Sources</h2><ul><li><a href="https://help.snapchat.com/hc/en-us/articles/7012305371156-How-do-I-download-my-data-from-Snapchat" rel="noopener noreferrer external">Snapchat Support: How do I download my data from Snapchat?</a>, last checked 29 October 2026</li><li><a href="https://help.snapchat.com/hc/en-us/articles/41291271694228-How-do-I-manage-my-Memories-storage" rel="noopener noreferrer external">Snapchat Support: How do I manage my Memories storage?</a>, last checked 29 October 2026</li><li><a href="https://support.google.com/chrome/answer/114662" rel="noopener noreferrer external">Google Chrome Help: Change site settings permissions</a>, last checked 29 October 2026</li></ul></section>
+<div class="pdf-cta"><p>When every part is on your computer, add them all to the fixer to write the real dates back.</p><a class="pdf-btn pdf-btn-primary" href="/photo-date-fixer/">Open the date fixer</a></div>
+</div>
+</article>
+<section class="pdf-band" id="faq" aria-labelledby="faq-h">
+<div class="wrap">
+<h2 id="faq-h">Questions people ask</h2>
+<div class="faq pdf-faq-list">
+<details><summary>How long does a Snapchat Memories export take?</summary><div class="answer"><p>Snap's help page, checked 29 October 2026, says: “We strive to deliver data within 7 days, but large downloads can take longer.” You get an email when it is ready, and the export also appears under See exports on the My Data page.</p></div></details>
+<details><summary>How long does the Snapchat data download link work?</summary><div class="answer"><p>Snap does not publish how long. Download every ZIP part on the day the email arrives. If a link no longer works, request a new export on My Data.</p></div></details>
+<details><summary>Can I download my Snapchat Memories on a computer?</summary><div class="answer"><p>Yes. Log in on accounts.snapchat.com and click My Data. Snap's help page suggests a computer rather than a mobile device if you have problems downloading, or a different browser.</p></div></details>
+<details><summary>Why does my Snapchat export have several ZIP files?</summary><div class="answer"><p>Large exports come in numbered parts, such as mydata~1739000000000.zip and mydata~1739000000000-2.zip. The first part holds the memories list and the others hold more photos and videos, so download all of them and keep them together.</p></div></details>
+<details><summary>What does the security restriction on Snapchat My Data mean?</summary><div class="answer"><p>Snap's help pages, checked 29 October 2026, do not explain it or say how long it lasts. Searches for it often include 72 hours. Wait before you try again, and contact Snapchat Support if it does not clear.</p></div></details>
+</div>
+</div>
+</section>
+<section class="pdf-band" aria-labelledby="more-h">
+<div class="wrap">
+<h2 id="more-h">More guides</h2>
+<ul class="pdf-guides"><li><a href="/photo-date-fixer/"><strong>Open the date fixer</strong><span>Add your export ZIPs and get fixed copies, made in your browser.</span></a></li><li><a href="/photo-date-fixer/why-memories-show-the-wrong-date/"><strong>Why your Snapchat Memories show the wrong date</strong><span>Where the real time of each memory sits, and how it gets back into the photo.</span></a></li><li><a href="/photo-date-fixer/export-memories-with-metadata/"><strong>How to export Snapchat Memories with dates and locations</strong><span>Request the right export, keep every ZIP part and the memories list.</span></a></li><li><a href="/photo-date-fixer/snapchat-memories-overlay/"><strong>Snapchat Memories overlay files: where the captions went</strong><span>Why captions and stickers come as a separate file, and how to put them back.</span></a></li><li><a href="/photo-date-fixer/snapchat-memories-to-google-photos/"><strong>How to move Snapchat Memories to Google Photos with the right dates</strong><span>Export, fix the dates, then upload, so every memory sorts by the day it was taken.</span></a></li><li><a href="/photo-date-fixer/how-we-check-nothing-is-uploaded/"><strong>How we check that nothing is uploaded</strong><span>The page’s security policy, line by line, and how to confirm it yourself.</span></a></li><li><a href="/photo-date-fixer/privacy/"><strong>Privacy policy</strong><span>Nothing leaves your device; what the browser keeps and what the host sees.</span></a></li><li><a href="/photo-date-fixer/terms/"><strong>Terms of use</strong><span>The terms for using the tool, and the fonts and open-source parts in it.</span></a></li></ul>
+<p class="pdf-legal">Not affiliated with Snap Inc. Snapchat is a trademark of Snap Inc.</p>
+</div>
+</section>
+</main>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div>
+      <p style="margin:0 0 8px;color:var(--ink);font-weight:600">Peak Apps Tools</p>
+      <p style="margin:0;max-width:44ch">Small, careful tools that each do one job well. Your files are processed in your browser and never uploaded.</p>
+      <p style="margin:12px 0 0">Made by <a href="https://peakappsstudio.com/">Peak Apps Studio</a>.<br>Write to <a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></p>
+    </div>
+    <div>
+      <h2>Photo Date Fixer</h2>
+      <ul>
+        <li><a href="/photo-date-fixer/">Fix a Snapchat export</a></li>
+        <li><a href="/photo-date-fixer/why-memories-show-the-wrong-date/">Why the date is wrong</a></li>
+        <li><a href="/photo-date-fixer/export-memories-with-metadata/">Export with dates and places</a></li>
+        <li><span aria-current="page">Export not working</span></li>
+        <li><a href="/photo-date-fixer/snapchat-memories-overlay/">Captions and overlay files</a></li>
+        <li><a href="/photo-date-fixer/snapchat-memories-to-google-photos/">Move to Google Photos</a></li>
+        <li><a href="/photo-date-fixer/how-we-check-nothing-is-uploaded/">Check that nothing is uploaded</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Other languages</h2>
+      <ul>
+        <li><a href="/fr/corriger-date-photos/" hreflang="fr" lang="fr">Corriger la date des photos (français)</a></li>
+        <li><a href="/nl/fotodatum-wijzigen/" hreflang="nl" lang="nl">Fotodatum wijzigen (Nederlands)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/">All tools</a></li>
+        <li><a href="/photo-date-fixer/privacy/">Privacy</a></li>
+        <li><a href="/photo-date-fixer/terms/">Terms</a></li>
+        <li><a href="https://peakappsstudio.com/">Studio</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

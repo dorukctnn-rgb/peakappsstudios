@@ -12,6 +12,7 @@ import { writeJpegMeta, JpegError } from './engine/exif.js';
 import { patchMp4, planMp4Patch, Mp4Error } from './engine/mp4.js';
 import { isValidZone } from './engine/tz.js';
 import { wallText } from './engine/bytes.js';
+import { canDrawLayers, coverRect, JPEG_QUALITY } from './engine/compose.js';
 
 const OPFS_DIR = 'photo-date-fixer';
 const MAX_VIDEO_IN_MEMORY = 256 * 1024 * 1024;
@@ -260,17 +261,55 @@ async function* rangeChunks(blob, a, b, size = 4 << 20) {
   for (let o = a; o < b; o += size) yield new Uint8Array(await blob.slice(o, Math.min(b, o + size)).arrayBuffer());
 }
 
-async function writeItem(zw, it, zipFile, notes) {
+// Draws a photo's caption and sticker layers over it and returns a new JPEG: the photo is encoded again, so its pixels change.
+// Only when the person switched the option on. Decoding goes by the file's content, not its name: many -overlay.png files are WebP.
+// Nothing here opens a connection: the bytes go from the ZIP to a canvas in this worker and back.
+async function drawOverlays(photoBytes, layers) {
+  if (typeof OffscreenCanvas !== 'function' || typeof createImageBitmap !== 'function') throw new Error('this browser cannot draw images here');
+  const photo = await createImageBitmap(new Blob([photoBytes]));
+  try {
+    const canvas = new OffscreenCanvas(photo.width, photo.height);
+    const g = canvas.getContext('2d');
+    g.drawImage(photo, 0, 0);
+    for (const bytes of layers) {
+      const layer = await createImageBitmap(new Blob([bytes]));
+      const r = coverRect(photo.width, photo.height, layer.width, layer.height);
+      g.drawImage(layer, r.x, r.y, r.w, r.h);
+      layer.close();
+    }
+    const out = await canvas.convertToBlob({ type: 'image/jpeg', quality: JPEG_QUALITY });
+    return new Uint8Array(await out.arrayBuffer());
+  } finally {
+    photo.close();
+  }
+}
+
+const addNote = (notes, name, text) => notes.set(name, notes.has(name) ? `${notes.get(name)}; ${text}` : text);
+
+async function writeItem(zw, it, zipFile, notes, { drawLayers = false, drawn = null } = {}) {
   const m = it.media;
   const times = { wallMs: it.wallMs ?? m.entry.wallMs ?? Date.now(), utcMs: it.utcMs ?? m.entry.extUtcMs ?? m.entry.wallMs ?? Date.now() };
   const isJpeg = /\.(jpe?g)$/i.test(m.ext);
+  let layersDrawn = false;
   if (m.type === 'Image') {
     let bytes = await readEntry(zipFile, m.entry);
+    if (drawLayers && canDrawLayers(it)) {
+      try {
+        const layers = [];
+        for (const o of it.overlays) layers.push(await readEntry(S.zips[o.media.zip].file, o.media.entry));
+        bytes = await drawOverlays(bytes, layers);
+        layersDrawn = true;
+        drawn?.add(it.name);
+        addNote(notes, it.name, 'caption and sticker layer drawn onto the photo (saved as a new JPEG)');
+      } catch (e) {
+        addNote(notes, it.name, `layer kept as a separate file: ${String(e?.message ?? e).slice(0, 80)}`);
+      }
+    }
     if (isJpeg && it.wallMs != null) {
       try {
         bytes = writeJpegMeta(bytes, { wallMs: it.wallMs, offset: it.offset, utcMs: it.utcMs, loc: it.loc });
       } catch (e) {
-        notes.set(it.name, `Exif not written: ${e instanceof JpegError ? e.message : 'unreadable JPEG'}`);
+        addNote(notes, it.name, `Exif not written: ${e instanceof JpegError ? e.message : 'unreadable JPEG'}`);
       }
     } else if (!isJpeg) notes.set(it.name, `no Exif for ${m.ext || 'this'} files; name and file time set`);
     await zw.addFile(it.name, bytes, times);
@@ -309,13 +348,14 @@ async function writeItem(zw, it, zipFile, notes) {
     } else if (canPatch) notes.set(it.name, 'video too large to patch inside a compressed ZIP entry; name and file time set');
     if (!done) await zw.addStream(it.name, entryChunks(zipFile, m.entry), times);
   }
+  if (layersDrawn) return;
   for (const o of it.overlays) {
     const bytes = await readEntry(S.zips[o.media.zip].file, o.media.entry);
     await zw.addFile(o.name, bytes, times);
   }
 }
 
-async function run({ fallbackTz, partMB = 300, dest = 'opfs', dirHandle = null }) {
+async function run({ fallbackTz, partMB = 300, dest = 'opfs', dirHandle = null, drawLayers = false }) {
   if (!S) throw new Error('nothing scanned');
   cancelRun = false;
   if (fallbackTz && fallbackTz !== S.fallbackTz) replan({ fallbackTz, quiet: true });
@@ -328,6 +368,7 @@ async function run({ fallbackTz, partMB = 300, dest = 'opfs', dirHandle = null }
   const parts = [];
   const partOf = new Map();
   const notes = new Map();
+  const drawn = new Set();
   let partNo = 0;
   let zw = null;
   let sink = null;
@@ -358,7 +399,7 @@ async function run({ fallbackTz, partMB = 300, dest = 'opfs', dirHandle = null }
         await endPart(null);
         await startPart();
       }
-      await writeItem(zw, it, S.zips[it.media.zip].file, notes);
+      await writeItem(zw, it, S.zips[it.media.zip].file, notes, { drawLayers: Boolean(drawLayers), drawn });
       partOf.set(it.name, partNo);
       used = zw.offset;
       const now = Date.now();
@@ -367,7 +408,7 @@ async function run({ fallbackTz, partMB = 300, dest = 'opfs', dirHandle = null }
         post({ type: 'progress', done: i + 1, total, part: partNo, written: parts.reduce((s, p) => s + p.size, 0) + zw.offset });
       }
     }
-    const csv = csvRows(items, S.match.noMedia, { zipNames: S.zips.map((z) => z.name), partOf, notes });
+    const csv = csvRows(items, S.match.noMedia, { zipNames: S.zips.map((z) => z.name), partOf, notes, drawn });
     const csvBytes = new TextEncoder().encode(csv);
     const now = Date.now();
     await endPart({ name: 'photo-date-fixer-report.csv', bytes: csvBytes, times: { wallMs: now, utcMs: now } });
