@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fitbit gegevens downloaden via Google Takeout (2026)</title>
+<meta name="description" content="Fitbit gegevens downloaden doe je nu via Google Takeout. De stappen, hoe lang het duurt en wat een lege of vastgelopen export betekent.">
+<link rel="canonical" href="https://peakappsstudio.com/nl/fitbit-gegevens-exporteren/fitbit-gegevens-downloaden/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Fitbit gegevens downloaden via Google Takeout (2026)">
+<meta property="og:description" content="Fitbit gegevens downloaden doe je nu via Google Takeout. De stappen, hoe lang het duurt en wat een lege of vastgelopen export betekent.">
+<meta property="og:url" content="https://peakappsstudio.com/nl/fitbit-gegevens-exporteren/fitbit-gegevens-downloaden/">
+<meta property="og:image" content="https://peakappsstudio.com/export-fitbit-data/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="nl_NL">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#b4235a">
+<link rel="icon" href="/export-fitbit-data/img/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/export-fitbit-data/fonts/tally-display.woff2" as="font" type="font/woff2" crossorigin>
+<style data-from="/assets/tools.css">
+/* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
+
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e1;
+  --card: #fbfaf7;
+  --ink: #141518;
+  --ink-2: #33363d;
+  --muted: #676b74;
+  --line: rgba(20, 21, 24, 0.12);
+  --line-2: rgba(20, 21, 24, 0.22);
+  --accent: #1f5c4d;          /* each tool overrides this on <body style="--accent:..."> */
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  --warn: #9a4a12;
+  --ok: #2c6a3f;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+    --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+  --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; }
+img { display: block; height: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 10px; z-index: 100; background: var(--ink); color: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 10px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-head { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand-sub { font-family: var(--sans); font-size: 14.5px; letter-spacing: 0; color: var(--muted); font-weight: 500; padding-left: 10px; border-left: 1px solid var(--line-2); }
+.head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
+.head-nav a:hover { background: var(--paper-2); color: var(--ink); }
+.head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
+@media (max-width: 640px) { .brand-sub { display: none; } }
+@media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
+
+/* ---------- Type ---------- */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+h1 { font-size: clamp(32px, 4.6vw, 54px); }
+h1 em, h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 19px; letter-spacing: -0.01em; }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; margin: 16px 0 0; }
+.mono { font-family: var(--mono); }
+.muted { color: var(--muted); }
+small, .small { font-size: 13.5px; }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 22px 0 0; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-2); }
+.crumbs a { text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.tool-hero { padding: 28px 0 24px; display: grid; gap: 8px; }
+.tool-hero .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.tool-hero .facts li { display: inline-flex; align-items: center; gap: 8px; }
+.tool-hero .facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Tool shell ---------- */
+.tool { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.tool-panel { padding: 22px; border-right: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.tool-stage { position: relative; min-height: 460px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper); display: grid; place-items: center; padding: 22px; }
+.tool-stage canvas, .tool-stage svg, .tool-stage img { max-height: 70vh; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px -12px rgba(0,0,0,.18); background: #fff; }
+.stage-bar { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.tool-foot { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 14px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--paper); }
+.tool-foot .spacer { flex: 1; }
+@media (max-width: 860px) {
+  .tool { grid-template-columns: 1fr; }
+  .tool-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tool-stage { min-height: 320px; }
+}
+
+/* ---------- Form controls ---------- */
+.group { display: grid; gap: 10px; }
+.group-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > label { font-size: 13px; color: var(--ink-2); }
+.input, .select { width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 8px; padding: 9px 11px; transition: border-color .15s, box-shadow .15s; }
+.input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input-unit { position: relative; }
+.input-unit .input { padding-right: 38px; font-family: var(--mono); font-size: 14.5px; }
+.input-unit i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 3px; flex: none; }
+.seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line-2); border-radius: 9px; padding: 3px; gap: 3px; background: var(--paper); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.warn { font-size: 13.5px; color: var(--warn); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.btn { --b: var(--line-2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 500; line-height: 1; padding: 11px 16px; border-radius: 9px; border: 1px solid var(--b); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; transition: transform .15s var(--ease), background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklab, var(--accent) 86%, #000); color: var(--accent-ink); border-color: transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-ink:hover { color: var(--paper); background: var(--ink-2); }
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.pro-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: var(--ink); color: var(--paper); }
+
+/* ---------- Drop zone ---------- */
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 18px 14px; background: var(--paper); cursor: pointer; transition: border-color .15s, background .15s; font-size: 14.5px; }
+.drop:hover, .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Content ---------- */
+.section { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prose { max-width: 70ch; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose h2 { margin: 1.6em 0 .5em; }
+.prose h3 { margin: 1.4em 0 .4em; }
+.prose code, .prose kbd { font-family: var(--mono); font-size: .9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+.two-col > * { min-width: 0; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: 3px; }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 13px; background: var(--paper); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 15px; }
+.source { font-size: 13px; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--line-2); margin-top: 18px; }
+.faq details { border-bottom: 1px solid var(--line-2); }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 13px; font-family: var(--mono); font-size: 18px; color: var(--muted); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 18px; color: var(--ink-2); max-width: 70ch; }
+
+/* ---------- Pro ---------- */
+.pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--card); }
+.pro-left { padding: clamp(22px, 3vw, 36px); }
+.pro-right { padding: clamp(22px, 3vw, 36px); background: var(--ink); color: var(--paper); display: grid; align-content: center; gap: 14px; }
+.pro-right .price { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pro-right .price small { font-size: 15px; font-weight: 400; color: color-mix(in oklab, var(--paper) 70%, transparent); letter-spacing: 0; }
+.pro-right .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.pro-right .btn-primary:hover { background: #fff; color: var(--ink); }
+.pro-right .fine { font-size: 13px; color: color-mix(in oklab, var(--paper) 65%, transparent); margin: 0; }
+.pro-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.pro-list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.pro-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border: 1.5px solid var(--accent); border-radius: 2px; transform: rotate(45deg); }
+@media (max-width: 760px) { .pro { grid-template-columns: 1fr; } }
+
+/* ---------- A real file, shown ---------- */
+.shot { margin: 22px 0 0; }
+.shot img { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; }
+.shot figcaption { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+.shot figcaption strong { font-weight: 600; color: var(--ink-2); }
+.shot-sm { max-width: 920px; }
+
+/* ---------- Where free stops and Pro starts ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; margin: 26px 0 0; background: var(--card); }
+.split > div { padding: 18px 20px 20px; }
+.split > div + div { border-left: 1px solid var(--line-2); background: var(--accent-soft); }
+.split h3 { font-size: 15.5px; margin: 0; }
+.split > div > p { margin: 5px 0 0; font-size: 13.5px; color: var(--muted); }
+.split ul { list-style: none; margin: 13px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
+.split li { position: relative; padding-left: 18px; }
+.split li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; border-radius: 1px; background: var(--line-2); }
+.split > div + div li::before { background: var(--accent); }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } .split > div + div { border-left: 0; border-top: 1px solid var(--line-2); } }
+
+/* ---------- A file list, as the archive really holds it ---------- */
+.filelist { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 5px; }
+.filelist li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filelist li span { color: var(--muted); }
+
+/* ---------- License dialog ---------- */
+.license-dialog { border: 1px solid var(--line-2); border-radius: 14px; padding: 0; width: min(440px, calc(100% - 32px)); background: var(--card); color: var(--ink); }
+.license-dialog::backdrop { background: rgba(10, 11, 13, .45); }
+.license-dialog form { padding: 22px; display: grid; gap: 14px; }
+.license-status { font-size: 14px; min-height: 1.4em; margin: 0; }
+.license-status[data-state="ok"] { color: var(--ok); }
+.license-status[data-state="err"] { color: var(--warn); }
+
+/* ---------- Related / cards ---------- */
+.related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line-2); margin-top: 22px; }
+.related a { display: grid; gap: 4px; padding: 18px 18px 18px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.related a strong { font-weight: 600; }
+.related a span { font-size: 14px; color: var(--muted); }
+.related a:hover strong { color: var(--accent); }
+
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
+/* ---------- Footer ---------- */
+.site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
+.site-foot h2 { font-size: 15px; font-family: var(--sans); letter-spacing: 0; font-weight: 600; color: var(--ink); margin: 0 0 10px; }
+.site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+@media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- "New from Peak Apps": the cross-promotion card the build puts above the footer (src/crosspromo.json) ---------- */
+.peak-new { margin-top: clamp(56px, 8vw, 104px); }
+.peak-new + .site-foot { margin-top: 28px; }
+.peak-new-card { display: grid; gap: 4px; max-width: 640px; padding: 16px 20px 18px; border: 1px solid var(--line-2); border-left: 4px solid var(--tool, var(--accent)); border-radius: var(--radius); background: var(--card); color: var(--ink); text-decoration: none; transition: border-color .2s var(--ease); }
+.peak-new-card:hover { border-color: var(--tool, var(--accent)); }
+.peak-new-card:focus-visible { outline: 2px solid var(--tool, var(--accent)); outline-offset: 3px; }
+.peak-new-kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.peak-new-card strong { font-size: 17px; font-weight: 600; line-height: 1.3; }
+.peak-new-line { font-size: 14px; line-height: 1.5; color: var(--ink-2); max-width: 62ch; }
+
+/* ---------- Home project tools: the shared block on Without Planning and Dropped Kerb Check ---------- */
+.home-block { margin: clamp(36px, 5vw, 60px) 0 0; border-top: 1px solid var(--line-2); padding-top: 16px; }
+.home-title { margin: 0 0 10px; font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink); }
+.home-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px 24px; }
+.home-list a { display: grid; gap: 3px; padding: 2px 0 2px 14px; border-left: 4px solid var(--tool, var(--accent)); text-decoration: none; color: var(--ink); }
+.home-list a strong { font-weight: 700; font-size: 16px; }
+.home-list a span { color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+.home-list a:hover strong { color: var(--tool, var(--accent)); }
+.home-list a[aria-current="page"] span { color: var(--ink-2); }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .3s var(--ease); z-index: 90; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media print { .site-head, .site-foot, .tool-panel, .tool-foot, .no-print { display: none !important; } body { background: #fff; } }
+
+/* The hidden attribute must win over component display rules. */
+[hidden] { display: none !important; }
+</style>
+<style data-from="/export-fitbit-data/tool.css">
+/* Tallyband: a fitness band whose strap runs out as a ruled paper tally. Raspberry (the colour of a pulse reading) is the
+   band the tool sits in and every button; plum ink for text; a blush-tinted paper with faint ruled lines for the sheets;
+   a deep sea green kept for "free" and success. Headings in Sono pinned proportional and heavy ("Tally Display"), text in
+   Kumbh Sans ("Tally Text"), and the numbers in tables in Sono pinned monospaced ("Tally Figures") so columns line up. */
+@font-face { font-family: "Tally Display"; src: url("/export-fitbit-data/fonts/tally-display.woff2") format("woff2"); font-weight: 400 800; font-display: swap; }
+@font-face { font-family: "Tally Text"; src: url("/export-fitbit-data/fonts/tally-text.woff2") format("woff2"); font-weight: 400 700; font-display: swap; }
+@font-face { font-family: "Tally Figures"; src: url("/export-fitbit-data/fonts/tally-figures.woff2") format("woff2"); font-weight: 400 600; font-display: swap; }
+
+body.tally {
+  --rasp: #b4235a; --rasp-2: #921a48; --rasp-soft: #f8e3eb; --blush: #ff8fb6;
+  --ink: #1b1424; --ink-2: #3a2f44; --muted: #625770;
+  --paper: #fbf7f9; --card: #ffffff; --sheet: #fffdfd; --rule: #eedde5; --line: #e3d2da; --line-2: #c9b2be;
+  --sea: #13715a; --sea-soft: #dcefe8;
+  --accent: #b4235a; --accent-ink: #ffffff; --link: #a61f52;
+  --head: "Tally Display", ui-sans-serif, system-ui, sans-serif;
+  --sans: "Tally Text", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --fig: "Tally Figures", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --code: ui-monospace, "Cascadia Mono", Consolas, "SF Mono", monospace;
+  font-family: var(--sans); font-size: 18px; line-height: 1.6; background: var(--paper); color: var(--ink);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.tally {
+    --ink: #f3eaf0; --ink-2: #dccdd6; --muted: #b3a2ae; --paper: #150f19; --card: #1f1724; --sheet: #1b1420; --rule: #2c2232; --line: #33283a; --line-2: #4a3c52;
+    --rasp-soft: #3a1626; --link: #ff9cc1; --accent: #e04f86; --sea: #6fd2b0; --sea-soft: #10302a;
+  }
+}
+:root[data-theme="dark"] body.tally {
+  --ink: #f3eaf0; --ink-2: #dccdd6; --muted: #b3a2ae; --paper: #150f19; --card: #1f1724; --sheet: #1b1420; --rule: #2c2232; --line: #33283a; --line-2: #4a3c52;
+  --rasp-soft: #3a1626; --link: #ff9cc1; --accent: #e04f86; --sea: #6fd2b0; --sea-soft: #10302a;
+}
+.tally a { color: var(--link); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.tally a:hover { color: var(--ink); }
+.tally h1, .tally h2, .tally h3 { font-family: var(--head); font-weight: 760; color: var(--ink); letter-spacing: -0.015em; }
+.tally h1 { font-size: clamp(34px, 4.2vw, 56px); line-height: 1.04; margin: 14px 0 0; text-wrap: balance; max-width: 17ch; }
+.tally h2 { font-size: clamp(25px, 2.5vw, 33px); line-height: 1.15; margin: 0 0 14px; text-wrap: balance; }
+.tally h3 { font-size: 21px; line-height: 1.25; margin: 0 0 8px; }
+.tally code { font-family: var(--code); font-size: 0.84em; background: var(--rasp-soft); color: var(--ink); padding: 1px 5px; border-radius: 3px; overflow-wrap: anywhere; }
+.tally :focus-visible { outline: 3px solid var(--blush); outline-offset: 2px; }
+.tally .wrap { max-width: 1200px; }
+.tally .crumbs { font-size: 15px; }
+.tb-num { text-align: right; font-family: var(--fig); font-variant-numeric: tabular-nums; }
+
+/* ---------- header and footer (Tallyband's own) ---------- */
+.tb-head { background: var(--paper); border-bottom: 1px solid var(--line); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.tb-head .brand { gap: 10px; color: var(--ink); text-decoration: none; }
+.tb-head .brand svg { width: 30px; height: 30px; }
+.tb-head .brand span { font-family: var(--head); font-weight: 760; font-size: 23px; letter-spacing: -0.02em; }
+.tb-head .head-nav a { font-size: 16px; color: var(--ink-2); padding: 8px 10px; border-radius: 4px; }
+.tb-head .head-nav [aria-current="page"] { font-size: 16px; color: var(--ink); padding: 8px 10px; font-weight: 700; background: none; box-shadow: inset 0 -3px 0 var(--rasp); }
+.tb-narrow { display: none; }
+@media (max-width: 1080px) { .tb-wide { display: none; } .tb-narrow { display: inline-block; } }
+@media (max-width: 480px) { .tb-head .head-nav [aria-current="page"] { display: none; } .tb-head .brand span { font-size: 21px; } .tb-head .brand svg { width: 26px; height: 26px; } }
+.tally .site-foot.tb-foot { background: #1b1424; color: #e6d8e0; border-top: 0; font-size: 16px; padding: 44px 0 52px; margin-top: 0; }
+.tally .tb-foot .cols { grid-template-columns: 1.6fr 1.2fr 0.9fr; }
+@media (max-width: 860px) { .tally .tb-foot .cols { grid-template-columns: 1fr; } }
+.tally .tb-foot h2 { color: #fff; font-family: var(--head); font-size: 17px; }
+.tally .tb-foot a { color: #ffc2d8; }
+.tb-foot-brand { font-family: var(--head); font-weight: 760; font-size: 22px; color: #fff; margin: 0 0 8px; }
+.tb-foot-text { margin: 0 0 10px; max-width: 46em; }
+
+/* ---------- buttons ---------- */
+.tb-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.tb-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 10px 18px; border-radius: 6px; font: 600 17px/1.2 var(--sans); text-decoration: none; cursor: pointer; border: 2px solid var(--ink); background: var(--card); color: var(--ink); }
+.tb-btn:hover { background: var(--rasp-soft); color: var(--ink); }
+.tally a.tb-btn:hover { color: var(--ink); }
+.tb-btn-main { background: var(--rasp); border-color: var(--rasp); color: #fff; }
+.tb-btn-main:hover, .tally a.tb-btn-main:hover { background: var(--rasp-2); border-color: var(--rasp-2); color: #fff; }
+.tally a.tb-btn-main { color: #fff; }
+.tb-btn-sm { min-height: 38px; padding: 6px 14px; font-size: 15.5px; }
+.tb-btn[disabled] { opacity: 0.45; cursor: not-allowed; }
+.tb-link { background: none; border: 0; padding: 0; font: inherit; color: var(--link); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.tb-small { font-size: 15.5px; color: var(--muted); margin: 10px 0 0; }
+.tb-tag { display: inline-block; font: 700 12.5px/1 var(--sans); padding: 4px 7px 3px; border-radius: 20px; background: var(--ink); color: var(--paper); vertical-align: 2px; margin-left: 4px; }
+
+/* ---------- hero: the raspberry band ---------- */
+.tb-hero { background: var(--rasp); color: #fff; position: relative; overflow: hidden; padding: 6px 0 56px; }
+.tb-hero::after { content: ""; position: absolute; inset: auto 0 0 0; height: 14px; background: repeating-linear-gradient(90deg, rgba(255,255,255,0.22) 0 2px, transparent 2px 22px); }
+.tb-hero-in { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 48px; align-items: start; position: relative; z-index: 1; }
+@media (max-width: 960px) { .tb-hero-in { grid-template-columns: 1fr; gap: 26px; } }
+.tb-hero .crumbs, .tb-hero .crumbs a { color: #ffe3ee; }
+.tb-hero .crumbs li + li::before { color: rgba(255,255,255,0.55); }
+.tb-hero h1 { color: #fff; }
+.tb-hero .lede { color: #fff4f8; font-size: 20px; line-height: 1.55; max-width: 34em; margin-top: 16px; }
+.tb-points { list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 8px; }
+.tb-points li { padding-left: 26px; position: relative; color: #fff; }
+.tb-points li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 14px; height: 8px; border-left: 3px solid #fff; border-bottom: 3px solid #fff; transform: rotate(-45deg); }
+.tb-panel { background: var(--card); color: var(--ink); border-radius: 10px; padding: 26px; margin-top: 36px; box-shadow: 0 14px 0 -6px rgba(27,20,36,0.25); }
+@media (max-width: 960px) { .tb-panel { margin-top: 0; padding: 20px; } }
+.tb-drop { border: 2px dashed var(--line-2); border-radius: 8px; padding: 20px; background: repeating-linear-gradient(180deg, transparent 0 31px, color-mix(in oklab, var(--rule) 55%, transparent) 31px 32px); }
+.tb-drop.is-over { border-color: var(--rasp); background-color: var(--rasp-soft); }
+.tb-stage-title { font-family: var(--head); font-weight: 760; font-size: 24px; line-height: 1.2; margin: 0 0 6px; color: var(--ink); }
+.tb-drop p { margin: 6px 0 0; }
+.tb-bar { height: 10px; background: var(--rasp-soft); border-radius: 6px; overflow: hidden; margin-top: 16px; }
+.tb-bar i { display: block; height: 100%; width: 0; background: var(--rasp); transition: width 0.2s; }
+.tb-error-title { font-family: var(--head); font-weight: 760; font-size: 22px; margin: 0 0 6px; color: var(--rasp-2); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tb-error-title { color: var(--link); } }
+
+/* ---------- results ---------- */
+.tb-results { padding: 40px 0 20px; scroll-margin-top: 70px; }
+.tb-res-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; border-bottom: 3px solid var(--ink); padding-bottom: 14px; }
+.tb-res-head h2 { margin: 0; }
+.tb-res-meta { margin: 4px 0 0; color: var(--ink-2); }
+.tb-sample-note { background: var(--sea-soft); border-left: 4px solid var(--sea); padding: 10px 14px; margin: 16px 0 0; font-size: 16px; }
+.tb-controls { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 20px 32px; margin-top: 22px; }
+@media (max-width: 860px) { .tb-controls { grid-template-columns: 1fr; } }
+.tb-range { border: 0; padding: 0; margin: 0; min-width: 0; }
+.tb-range legend, .tb-opts label { font-weight: 700; font-size: 16px; }
+.tb-range-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+.tb-range-row label { display: grid; gap: 4px; font-size: 15px; font-weight: 600; color: var(--ink-2); }
+.tally input[type="date"], .tally select { font: 500 16.5px/1.2 var(--sans); color: var(--ink); background: var(--card); border: 2px solid var(--line-2); border-radius: 6px; padding: 9px 10px; min-height: 44px; max-width: 100%; }
+.tally input[type="date"]:focus-visible, .tally select:focus-visible { border-color: var(--rasp); }
+.tb-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.tb-chip { font: 600 15px/1 var(--sans); padding: 9px 12px; border-radius: 20px; border: 2px solid var(--line-2); background: var(--card); color: var(--ink); cursor: pointer; min-height: 38px; }
+.tb-chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.tb-opts { display: grid; gap: 12px; align-content: start; }
+.tb-opts label { display: grid; gap: 4px; }
+.tb-opt-note { font-size: 15.5px; color: var(--muted); margin: 14px 0 0; max-width: 70em; }
+.tb-preview { margin-top: 28px; }
+.tb-preview h3 { margin: 0; }
+.tb-sheet-wrap { overflow-x: auto; margin-top: 12px; border: 2px solid var(--ink); border-radius: 6px; background: var(--sheet); }
+.tb-sheet { border-collapse: collapse; width: 100%; font-size: 15.5px; }
+.tb-sheet th, .tb-sheet td { padding: 7px 12px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+.tb-sheet thead th { background: var(--rasp-soft); text-align: left; font-weight: 700; border-bottom: 2px solid var(--ink); }
+.tb-sheet thead th.tb-num { text-align: right; font-family: var(--sans); }
+.tb-sheet tbody th { text-align: left; font-family: var(--fig); font-weight: 520; border-right: 2px solid var(--rasp); }
+.tally .tb-dl-title { margin: 36px 0 0; }
+.tb-dl-wrap { overflow-x: auto; margin-top: 10px; }
+.tb-dl { border-collapse: collapse; width: 100%; font-size: 16px; }
+.tb-dl th, .tb-dl td { text-align: left; padding: 11px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.tb-dl thead th { font-size: 14.5px; color: var(--muted); border-bottom: 2px solid var(--ink); }
+.tb-dl tbody th { white-space: nowrap; font-size: 16.5px; font-weight: 700; color: var(--ink); }
+.tb-dl td:last-child { text-align: right; width: 1%; }
+.tb-dl td:nth-child(2) { color: var(--ink-2); min-width: 16em; }
+@media (max-width: 700px) {
+  .tb-dl, .tb-dl tbody, .tb-dl tr, .tb-dl th, .tb-dl td { display: block; }
+  .tb-dl thead { display: none; }
+  .tb-dl tr { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .tb-dl th, .tb-dl td { border: 0; padding: 0; }
+  .tb-dl tbody th { white-space: normal; grid-column: 1; }
+  .tb-dl td:nth-child(2) { grid-column: 1; min-width: 0; font-size: 15px; }
+  .tb-dl td:nth-child(3) { grid-column: 1; text-align: left; font-size: 14.5px; color: var(--muted); }
+  .tb-dl td:nth-child(3):empty { display: none; }
+  .tb-dl td:last-child { grid-column: 2; grid-row: 1 / span 3; align-self: center; width: auto; }
+}
+.tb-pro { display: flex; justify-content: space-between; align-items: center; gap: 18px; flex-wrap: wrap; margin-top: 26px; padding: 18px 20px; border: 2px solid var(--ink); border-radius: 8px; background: var(--rasp-soft); }
+.tb-pro .tb-actions { margin-top: 0; }
+.tb-pro-title { font-family: var(--head); font-weight: 760; font-size: 21px; margin: 0; }
+.tb-found { margin-top: 22px; font-size: 16px; }
+.tb-found summary { cursor: pointer; font-weight: 700; }
+.tb-found p { margin: 8px 0 0; overflow-wrap: anywhere; }
+
+/* ---------- sections ---------- */
+.tb-sec { padding: 56px 0; border-top: 1px solid var(--line); }
+.tb-sec-band { background: var(--card); }
+.tb-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+@media (max-width: 900px) { .tb-cols { grid-template-columns: 1fr; gap: 32px; } }
+.tb-steps { padding-left: 1.3em; margin: 12px 0; }
+.tb-steps li { margin: 8px 0; padding-left: 4px; }
+.tb-steps li::marker { font-family: var(--head); font-weight: 760; color: var(--rasp); }
+.tb-map, .tb-guide table { border-collapse: collapse; width: 100%; font-size: 16px; }
+.tb-map th, .tb-map td, .tb-guide th, .tb-guide td { text-align: left; padding: 10px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.tb-map thead th, .tb-guide thead th { border-bottom: 2px solid var(--ink); }
+.tally .table-wrap { overflow-x: auto; }
+.tb-plans { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 2px solid var(--ink); border-radius: 8px; overflow: hidden; margin-top: 8px; }
+@media (max-width: 800px) { .tb-plans { grid-template-columns: 1fr; } }
+.tb-plan { padding: 22px 24px; background: var(--paper); }
+.tb-plan-pro { background: var(--rasp-soft); border-left: 2px solid var(--ink); }
+@media (max-width: 800px) { .tb-plan-pro { border-left: 0; border-top: 2px solid var(--ink); } }
+.tb-plan ul { margin: 8px 0 0; padding-left: 1.2em; }
+.tb-plan li { margin: 6px 0; }
+.tb-price { font-family: var(--sans); font-size: 17px; font-weight: 600; color: var(--ink-2); margin-left: 6px; }
+.tb-figure { margin: 32px 0 0; }
+.tb-figure img { width: 100%; height: auto; border-radius: 8px; background: var(--rasp-soft); }
+.tb-figure figcaption { font-size: 15px; color: var(--muted); margin-top: 8px; }
+.tb-guides { list-style: none; padding: 0; margin: 8px 0 0; display: grid; grid-template-columns: 1fr 1fr; border-top: 2px solid var(--ink); }
+@media (max-width: 760px) { .tb-guides { grid-template-columns: 1fr; } }
+.tb-guides a { display: grid; gap: 4px; padding: 16px 16px 16px 0; text-decoration: none; color: var(--ink); border-bottom: 1px solid var(--line); }
+.tb-guides a:hover strong { color: var(--rasp); }
+.tb-guides strong { font-family: var(--head); font-weight: 760; font-size: 20px; }
+.tb-guides span { color: var(--ink-2); font-size: 16px; }
+.tb-faq details { border-bottom: 1px solid var(--line); padding: 12px 0; }
+.tb-faq summary { cursor: pointer; font-weight: 700; }
+.tb-faq details p { margin: 8px 0 0; max-width: 46em; }
+
+/* ---------- guide pages ---------- */
+.tb-guide-hero { background: var(--rasp); color: #fff; padding: 6px 0 40px; position: relative; }
+.tb-guide-hero::after { content: ""; position: absolute; inset: auto 0 0 0; height: 10px; background: repeating-linear-gradient(90deg, rgba(255,255,255,0.22) 0 2px, transparent 2px 22px); }
+.tb-guide-hero .crumbs, .tb-guide-hero .crumbs a { color: #ffe3ee; }
+.tb-guide-hero h1 { color: #fff; max-width: 22ch; }
+.tb-guide-hero .lede { color: #fff4f8; font-size: 19px; max-width: 40em; }
+.tb-guide-hero .tb-btn-main { background: #fff; border-color: #fff; color: var(--ink); }
+.tally .tb-guide-hero a.tb-btn-main, .tally .tb-guide-hero a.tb-btn-main:hover { color: #1b1424; }
+.tb-guide-hero .tb-btn-main:hover { background: #ffe3ee; border-color: #ffe3ee; }
+.tb-guide { padding: 20px 0 60px; }
+.tb-guide .wrap > * { max-width: 820px; }
+.tb-guide h2 { margin: 36px 0 12px; }
+.tb-guide p, .tb-guide li { max-width: 46em; }
+.tb-guide caption { text-align: left; font-weight: 700; padding: 0 0 8px; }
+.tb-code { background: var(--sheet); border: 2px solid var(--ink); border-radius: 6px; padding: 14px 16px; overflow-x: auto; font-size: 15px; line-height: 1.5; }
+.tb-code code { background: none; padding: 0; font-size: 1em; }
+.tb-cta { margin: 36px 0 0; padding: 20px 22px; border: 2px solid var(--ink); border-radius: 8px; background: var(--rasp-soft); }
+.tb-cta p { margin: 0 0 12px; }
+.tb-cta .tb-proline { margin: 14px 0 0; font-size: 16px; color: var(--ink-2); }
+.tb-sources { font-size: 15.5px; padding-left: 1.2em; }
+.tb-sources li { margin: 6px 0; overflow-wrap: anywhere; }
+.tb-checked { color: var(--muted); font-size: 15px; margin-top: 24px; }
+.tb-related { padding-left: 1.2em; }
+@media (prefers-reduced-motion: reduce) { .tb-bar i { transition: none; } }
+@media print { .tb-hero, .tb-panel, .tb-pro, .tb-head, .tb-foot { display: none !important; } }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Fitbit gegevens downloaden nu Fitbit Google Health is","description":"Fitbit gegevens downloaden doe je nu via Google Takeout. De stappen, hoe lang het duurt en wat een lege of vastgelopen export betekent.","url":"https://peakappsstudio.com/nl/fitbit-gegevens-exporteren/fitbit-gegevens-downloaden/","inLanguage":"nl","datePublished":"2026-10-29","dateModified":"2026-10-29","author":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"image":"https://peakappsstudio.com/export-fitbit-data/img/og.png"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Fitbit gegevens exporteren","item":"https://peakappsstudio.com/nl/fitbit-gegevens-exporteren/"},{"@type":"ListItem","position":3,"name":"Gegevens downloaden","item":"https://peakappsstudio.com/nl/fitbit-gegevens-exporteren/fitbit-gegevens-downloaden/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Hoe lang duurt het downloaden van Fitbit gegevens via Google Takeout?","acceptedAnswer":{"@type":"Answer","text":"Google schrijft dat het bij veel gegevens tot een paar dagen kan duren. Een paar jaar geschiedenis kost meestal uren in plaats van minuten, omdat het archief voor elke dag aan hartslagmetingen een bestand bevat."}},{"@type":"Question","name":"Waarom staan er geen Fitbit-gegevens in mijn Takeout-archief?","acceptedAnswer":{"@type":"Answer","text":"Een bekende oorzaak is een export vanuit een ander Google-account. Exporteer vanuit het account waar de Google Health-app is ingelogd, met alleen Google Health (of Fitbit) aangevinkt."}},{"@type":"Question","name":"Kan ik de exportpagina op fitbit.com nog gebruiken?","acceptedAnswer":{"@type":"Answer","text":"Alleen als je account nooit naar Google is verhuisd. Volgens BGR zouden accounts die op 15 juli 2026 nog niet waren verhuisd worden verwijderd, en volgens de helppagina van Google zijn er voor verwijderde accounts geen gegevens beschikbaar. Voor iedereen anders is Google Takeout de weg."}},{"@type":"Question","name":"Kan ik maar één maand exporteren?","acceptedAnswer":{"@type":"Answer","text":"Niet bij Google: Takeout geeft altijd de hele geschiedenis. Tallyband snijdt die na het downloaden bij op elke periode."}},{"@type":"Question","name":"Wat gebeurt er op 2 november 2026 met de Fitbit Web API?","acceptedAnswer":{"@type":"Answer","text":"Google zet de oude Fitbit Web API en de bijbehorende inlogpunten op die dag uit. Apps die niet zijn overgestapt op de Google Health API en Google OAuth 2.0 krijgen daarna geen gegevens meer. Een Takeout-archief heeft die API niet nodig."}}]}]}
+</script>
+<script src="/assets/pro-source.js" data-campaign="export-fitbit-data-nl" defer></script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
+</head>
+<body class="tally" style="--accent:#b4235a">
+<a class="skip" href="#main">Naar de inhoud</a>
+<header class="site-head tb-head">
+  <div class="wrap">
+    <a class="brand" href="/nl/fitbit-gegevens-exporteren/" aria-label="Tallyband, Fitbit gegevens exporteren">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect x="9" y="2.5" width="14" height="11" rx="3.5" fill="#1b1424"/><rect x="11.5" y="5" width="9" height="6" rx="1.5" fill="#ff8fb6"/><path d="M11 13.5h10v15.5l-2.5-1.6-2.5 1.6-2.5-1.6-2.5 1.6z" fill="#fff6f9" stroke="#1b1424" stroke-width="1.5" stroke-linejoin="round"/><path d="M13.5 18h5M13.5 21h5M13.5 24h3" stroke="#b4235a" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span>Tallyband</span>
+    </a>
+    <nav class="head-nav" aria-label="Tallyband">
+      <a href="/nl/fitbit-gegevens-exporteren/">Export</a>
+      <span class="tb-wide" aria-current="page">Gegevens downloaden</span>
+      <a class="tb-wide" href="/nl/fitbit-gegevens-exporteren/fitbit-account-overzetten-google/">Account overzetten</a>
+      <a class="tb-narrow" href="#guides">Gidsen</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="tb-guide-hero" aria-labelledby="h1">
+<div class="wrap">
+<nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/tools/">Tools</a></li><li><a href="/nl/fitbit-gegevens-exporteren/">Fitbit gegevens exporteren</a></li><li aria-current="page">Gegevens downloaden</li></ol></nav>
+<h1 id="h1">Fitbit gegevens downloaden nu Fitbit Google Health is</h1>
+<p class="lede">Fitbit gegevens downloaden werkt sinds de overstap naar Google-accounts anders: de oude exportpagina op fitbit.com is voor verhuisde accounts niet meer de weg, en je hele geschiedenis komt als één archief uit Google Takeout. Hieronder staan de stappen in volgorde, hoe lang het duurt en wat je doet als de export blijft hangen of leeg is.</p>
+<div class="tb-actions"><a class="tb-btn tb-btn-main" href="/nl/fitbit-gegevens-exporteren/">Open je Takeout-archief</a></div>
+</div>
+</section>
+<div class="tb-guide">
+<div class="wrap">
+<h2>Het korte antwoord</h2>
+<p>Ga naar <a href="https://takeout.google.com/" rel="nofollow noopener">Google Takeout</a> en log in met het Google-account waar je Fitbit naartoe is verhuisd. Deselecteer alles en vink alleen <strong>Google Health</strong> aan (archieven van voor de overstap heten <strong>Fitbit</strong>). Zodra het archief klaar is, mailt Google een downloadlink. Op de helppagina van Google staat dat het bij veel gegevens tot een paar dagen kan duren, dus een aanvraag die na een dag nog loopt, is normaal. Is het archief binnen, <a href="/nl/fitbit-gegevens-exporteren/">open het dan in Tallyband</a> en kies de periode en de gegevens die je als spreadsheet wilt.</p>
+<h2>De stappen, in volgorde</h2>
+<ol class="tb-steps">
+<li>Open <a href="https://takeout.google.com/" rel="nofollow noopener">takeout.google.com</a> en log in met het juiste Google-account. Gebruik je er meer dan één, kijk dan in de Google Health-app welk account daar is ingelogd.</li>
+<li>Kies <strong>Alles deselecteren</strong>. Scroll naar <strong>Google Health</strong> (of <strong>Fitbit</strong>) en vink alleen dat vakje aan.</li>
+<li>Kies onderaan <strong>Volgende stap</strong>. Laat de levering op een downloadlink per e-mail staan, kies <strong>.zip</strong> als bestandstype en de grootste bestandsgrootte, dan krijg je zo min mogelijk losse delen.</li>
+<li>Kies <strong>Export maken</strong>. Google bouwt nu je archief. Dat kan uren duren, soms een paar dagen.</li>
+<li>Download elk deel via de link in de e-mail van Google. Elke link is ongeveer een week geldig.</li>
+<li>Kies alle delen tegelijk in <a href="/nl/fitbit-gegevens-exporteren/">Tallyband</a>, stel de periode in en download je CSV of Excel.</li>
+</ol>
+<p>Staat Google op Engels, dan heten de knoppen Deselect all, Next step en Create export.</p>
+<h2>Hoe lang duurt het?</h2>
+<p>Google schrijft dat het maken van een archief bij veel gegevens tot een paar dagen kan duren. Een paar jaar geschiedenis kost meestal uren in plaats van minuten, omdat Takeout voor elke maand aan gegevens per minuut en voor elke dag aan hartslagmetingen een apart bestand maakt. Een tweede aanvraag starten maakt de eerste niet sneller, dus wacht op de e-mail van Google.</p>
+<h2>Wat je ziet en wat het betekent</h2>
+<div class="table-wrap"><table>
+<caption>Veelvoorkomende tekenen van een vastgelopen Fitbit-export</caption>
+<thead><tr><th scope="col">Wat je ziet</th><th scope="col">Waarom</th><th scope="col">Wat je doet</th></tr></thead>
+<tbody>
+<tr><td>De exportpagina op fitbit.com blijft draaien, of een aanvraag staat dagenlang op een percentage</td><td>Die pagina hoort bij het oude Fitbit-accountsysteem. Verhuisde accounts krijgen hun gegevens via Google.</td><td>Vraag het archief in plaats daarvan aan bij Google Takeout.</td></tr>
+<tr><td>Takeout is al uren bezig</td><td>Takeout maakt een bestand voor elke maand aan gegevens per minuut en voor elke dag aan hartslag. Bij jaren geschiedenis zijn dat duizenden bestanden.</td><td>Wacht op de e-mail. Een tweede export starten maakt de eerste niet sneller.</td></tr>
+<tr><td>De indexpagina van het archief meldt 0 bestanden voor Fitbit of Google Health</td><td>Een bekende oorzaak: de export komt van een ander Google-account dan het account waar je Fitbit-gegevens naartoe zijn verhuisd.</td><td>Kijk bij welk account de Google Health-app is ingelogd en exporteer vanuit dat account.</td></tr>
+<tr><td>Er komen meerdere ZIP-bestanden</td><td>Takeout splitst archieven op de bestandsgrootte die je koos (standaard 2 GB).</td><td>Download elk deel en kies ze allemaal tegelijk in Tallyband.</td></tr>
+<tr><td>Een ZIP gaat niet open, of Tallyband meldt dat hij is afgebroken</td><td>De download is halverwege gestopt.</td><td>Download dat deel opnieuw via de link in de e-mail van Google, voordat de link verloopt.</td></tr>
+<tr><td>Een app of website die je Fitbit-gegevens exporteerde, werkt niet meer</td><td>Google zet de oude Fitbit Web API op 2 november 2026 uit. Apps die niet zijn overgestapt op de nieuwe Google Health API verliezen dan hun toegang.</td><td>Gebruik het Takeout-archief. Dat hangt van geen enkele app af.</td></tr>
+</tbody>
+</table></div>
+<h2>De data achter de overstap</h2>
+<div class="table-wrap"><table>
+<caption>Van Fitbit naar Google Health, 2026</caption>
+<thead><tr><th scope="col">Datum</th><th scope="col">Wat er gebeurt</th></tr></thead>
+<tbody>
+<tr><td>19 mei</td><td>De Fitbit-app wordt voor verhuisde accounts vervangen door de Google Health-app.</td></tr>
+<tr><td>15 juli</td><td>Accounts die dan nog niet naar een Google-account zijn verhuisd, worden verwijderd. Oude app-versies krijgen geen ondersteuning meer.</td></tr>
+<tr><td>30 september</td><td>Google stopt de ondersteuning van de Fitbit Web API. De API blijft nog een paar weken werken.</td></tr>
+<tr><td>Begin oktober</td><td>Wie nog een oude kopie van de Fitbit-app gebruikt, krijgt een updatescherm dat veel mensen niet kunnen overslaan.</td></tr>
+<tr><td>2 november</td><td>De Fitbit Web API en de bijbehorende inlogpunten gaan uit.</td></tr>
+</tbody>
+</table></div>
+<p>De datum van 15 juli komt uit een artikel van BGR van 8 mei 2026. Op de helppagina van Google staat dat er voor verwijderde accounts geen gegevens beschikbaar zijn. Wie nog niet is verhuisd, kan dus beter nu een archief aanvragen dan wachten.</p>
+<h2>Wat het archief je geeft en wat niet</h2>
+<p>Op de oude fitbit.com-pagina koos je een maand en kreeg je één CSV-bestand. Takeout geeft alles vanaf de dag dat je de tracker instelde: stappen, calorieën en afstand per minuut, hartslag om de paar seconden, elke nacht slaap met fases, wegingen, trainingen en CSV-mappen voor slaapscore, HRV, SpO2 en meer. Er is geen datumfilter en er is geen spreadsheet. Die leemte vult <a href="/nl/fitbit-gegevens-exporteren/">Tallyband</a>: de tool leest het archief in je browser en snijdt elke tabel bij op jouw datums.</p>
+<p>Voor het GPS-spoor van één training kent Google Health ook een export per training in de app (een TCX-bestand), zoals de helppagina beschrijft. Overweeg je nog de overstap naar een Google-account? Lees dan eerst <a href="/nl/fitbit-gegevens-exporteren/fitbit-account-overzetten-google/">wat het overzetten van je account voor je geschiedenis betekent</a>.</p>
+<h2>Openen in Excel</h2>
+<p>Tallyband zet op deze pagina het scheidingsteken standaard op puntkomma. Excel in Nederland verwacht dat: dubbelklik op de CSV en elke waarde staat in een eigen kolom, met een komma als decimaalteken. Liever alles in één bestand? Dan maakt Pro (8 dollar, eenmalig) één Excel-bestand met een tabblad per tabel.</p>
+<div class="tb-cta">
+<p>Heb je de ZIP? Open hem hier en download alleen de periode die je nodig hebt, als CSV of Excel. Er wordt niets geüpload.</p>
+<a class="tb-btn tb-btn-main" href="/nl/fitbit-gegevens-exporteren/">Open je Takeout-archief</a>
+<p class="tb-proline">Tallyband Pro, 8 dollar, eenmalig: alles voor jouw datums in één Excel-bestand of één ZIP met CSV-bestanden, plus elke hartslagmeting en stappen per minuut. <a href="https://dorukctn.gumroad.com/l/tallyband-pro">Koop Pro op Gumroad</a> of <a href="/nl/fitbit-gegevens-exporteren/#pro">bekijk wat gratis is</a>.</p>
+</div>
+<h2>Vragen</h2>
+<div class="tb-faq"><details><summary>Hoe lang duurt het downloaden van Fitbit gegevens via Google Takeout?</summary><p>Google schrijft dat het bij veel gegevens tot een paar dagen kan duren. Een paar jaar geschiedenis kost meestal uren in plaats van minuten, omdat het archief voor elke dag aan hartslagmetingen een bestand bevat.</p></details>
+<details><summary>Waarom staan er geen Fitbit-gegevens in mijn Takeout-archief?</summary><p>Een bekende oorzaak is een export vanuit een ander Google-account. Exporteer vanuit het account waar de Google Health-app is ingelogd, met alleen Google Health (of Fitbit) aangevinkt.</p></details>
+<details><summary>Kan ik de exportpagina op fitbit.com nog gebruiken?</summary><p>Alleen als je account nooit naar Google is verhuisd. Volgens BGR zouden accounts die op 15 juli 2026 nog niet waren verhuisd worden verwijderd, en volgens de helppagina van Google zijn er voor verwijderde accounts geen gegevens beschikbaar. Voor iedereen anders is Google Takeout de weg.</p></details>
+<details><summary>Kan ik maar één maand exporteren?</summary><p>Niet bij Google: Takeout geeft altijd de hele geschiedenis. <a href="/nl/fitbit-gegevens-exporteren/">Tallyband</a> snijdt die na het downloaden bij op elke periode.</p></details>
+<details><summary>Wat gebeurt er op 2 november 2026 met de Fitbit Web API?</summary><p>Google zet de oude Fitbit Web API en de bijbehorende inlogpunten op die dag uit. Apps die niet zijn overgestapt op de Google Health API en Google OAuth 2.0 krijgen daarna geen gegevens meer. Een Takeout-archief heeft die API niet nodig.</p></details></div>
+<h2>Bronnen</h2>
+<ul class="tb-sources"><li><a href="https://support.google.com/googlehealth/answer/14236615" rel="nofollow noopener">Google Health Help: Export your Google Health data (Engels)</a>. Hoe je het archief aanvraagt, de export per training als TCX-bestand en “tot een paar dagen” voor grote archieven</li>
+<li><a href="https://bgr.com/2168254/google-changing-fitbit-app-rebrand/" rel="nofollow noopener">BGR, 8 mei 2026: de Fitbit-app wordt vervangen door de Google Health-app (Engels)</a>. Overstap op 19 mei 2026; accounts die op 15 juli 2026 nog niet zijn verhuisd, worden verwijderd</li>
+<li><a href="https://developers.google.com/health/about" rel="nofollow noopener">Google for Developers: About the Google Health API (Engels)</a>. Ondersteuning voor de Fitbit Web API eindigde op 30 september 2026; de API en de bijbehorende inlogpunten gaan op 2 november 2026 uit</li>
+<li><a href="https://idevice.com/google-forces-the-last-fitbit-app-holdouts-onto-google-health.md" rel="nofollow noopener">iDevice, 12 oktober 2026: Google dwingt de laatste achterblijvers van de Fitbit-app naar Google Health (Engels)</a>. Over het updatescherm voor oude app-versies en wat niet wordt meegenomen naar Google Health</li></ul>
+<p class="tb-checked">Laatst gecontroleerd: 29 oktober 2026.</p>
+<h2>Verwant</h2>
+<ul class="tb-related">
+<li><a href="/nl/fitbit-gegevens-exporteren/">Fitbit gegevens exporteren naar CSV of Excel in je browser</a></li>
+<li><a href="/nl/fitbit-gegevens-exporteren/fitbit-account-overzetten-google/">Fitbit account overzetten naar Google: wat je moet weten over je gegevens</a></li>
+</ul>
+</div>
+</div>
+</main>
+<footer class="site-foot tb-foot" id="guides">
+  <div class="wrap cols">
+    <div>
+      <p class="tb-foot-brand">Tallyband</p>
+      <p class="tb-foot-text">Open je Fitbit- of Google Health-archief uit Google Takeout en download je stappen, slaap, gewicht, hartslag en trainingen als CSV of Excel, voor de datums die je kiest. Deze pagina leest het archief op je eigen apparaat en uploadt het nooit.</p>
+      <p class="tb-foot-text">Tallyband is een onafhankelijke tool van <a href="https://peakappsstudio.com/">Peak Apps Studio</a>. Niet gelieerd aan Google of Fitbit. Fitbit en Google Health zijn handelsmerken van Google LLC en worden hier alleen genoemd om aan te geven welke bestanden de tool opent. De tool toont je eigen cijfers en geeft geen medisch advies.</p>
+    </div>
+    <div>
+      <h2>Handleidingen</h2>
+      <ul>
+        <li><a href="/nl/fitbit-gegevens-exporteren/">Fitbit gegevens exporteren naar CSV of Excel</a></li>
+        <li><a href="/nl/fitbit-gegevens-exporteren/fitbit-gegevens-downloaden/">Fitbit gegevens downloaden nu Fitbit Google Health is</a></li>
+        <li><a href="/nl/fitbit-gegevens-exporteren/fitbit-account-overzetten-google/">Fitbit account overzetten naar Google: wat je moet weten over je gegevens</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Talen</h2>
+      <ul>
+        <li><a href="/export-fitbit-data/" hreflang="en" lang="en">English</a></li>
+        <li><a href="/de/fitbit-daten-exportieren/" hreflang="de" lang="de">Deutsch</a></li>
+        <li><span aria-current="page" lang="nl">Nederlands</span></li>
+        <li><a href="/ja/fitbit-data-export/" hreflang="ja" lang="ja">日本語</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Over</h2>
+      <ul>
+        <li><a href="/tools/privacy/">Privacy</a></li>
+        <li><a href="/tools/">Meer tools van Peak Apps</a></li>
+        <li><a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

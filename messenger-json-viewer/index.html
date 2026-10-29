@@ -5,9 +5,18 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src https://api.gumroad.com https://cloudflareinsights.com https://peak-funnel.railer-iot.workers.dev; media-src blob:; object-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="peak-checkout" content="direct">
 <title>Messenger JSON viewer: read your chat download, no upload</title>
 <meta name="description" content="Open the JSON files of your Facebook Messenger or Instagram download and read every chat with photos, emoji and reactions. Nothing is uploaded.">
 <link rel="canonical" href="https://peakappsstudio.com/messenger-json-viewer/">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/messenger-json-viewer/">
+<link rel="alternate" hreflang="fr" href="https://peakappsstudio.com/fr/ouvrir-json-messenger/">
+<link rel="alternate" hreflang="es" href="https://peakappsstudio.com/es/abrir-json-messenger/">
+<link rel="alternate" hreflang="pt-BR" href="https://peakappsstudio.com/pt-br/abrir-json-messenger/">
+<link rel="alternate" hreflang="de" href="https://peakappsstudio.com/de/messenger-json-oeffnen/">
+<link rel="alternate" hreflang="ja" href="https://peakappsstudio.com/ja/messenger-json/">
+<link rel="alternate" hreflang="it" href="https://peakappsstudio.com/it/aprire-json-messenger/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/messenger-json-viewer/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Peak Apps Tools">
 <meta property="og:title" content="Messenger JSON viewer: read your chat download, no upload">
@@ -737,7 +746,7 @@ body.readback {
 <div>
 <h2 id="h-what">What the files are, and why they look broken</h2>
 <p>Each chat is a folder with <code>message_1.json</code>, and <code>message_2.json</code> and more when it is long. The newest messages are in <code>message_1</code>, newest first. Photos, videos and voice messages sit beside them in <code>photos</code>, <code>videos</code> and <code>audio</code> folders.</p>
-<p>Meta writes every character outside plain English as UTF-8 bytes, one code per byte: <code>CafÃ©</code> for Café. A text editor shows that as <code>CafÃ©</code>. Readback joins the bytes back into letters and emoji, puts the parts of a chat together and shows them oldest first.</p>
+<p>Meta writes every character outside plain English as UTF-8 bytes, one code per byte: <code>Caf\u00c3\u00a9</code> for Café. A text editor shows that as <code>CafÃ©</code>. Readback joins the bytes back into letters and emoji, puts the parts of a chat together and shows them oldest first.</p>
 <p><a href="/messenger-json-viewer/open-json-file-from-messenger/">The folders of a Messenger download, one by one</a></p>
 </div>
 </div>
