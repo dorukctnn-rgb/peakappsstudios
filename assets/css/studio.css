@@ -444,8 +444,8 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 .link-quiet:hover { color: var(--silver-hi); }
 
 /* ---------- Index ---------- */
-.index { padding: clamp(120px, 20vh, 220px) 0 0; }
-.index-list { list-style: none; margin: 48px auto 0; padding: 0 var(--gutter); max-width: var(--max); counter-reset: idx; }
+.index { padding: clamp(120px, 20vh, 220px) 0 0; counter-reset: idx; }
+.index-list { list-style: none; margin: 48px auto 0; padding: 0 var(--gutter); max-width: var(--max); }
 .index-list li { counter-increment: idx; border-top: 1px solid var(--line); }
 .index-list li:last-child { border-bottom: 1px solid var(--line); }
 .index-list a {
@@ -467,6 +467,30 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 .i-kind { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); }
 .i-go { color: var(--dim); transition: color 0.3s, transform 0.5s var(--ease-out); }
 .index-list a:hover .i-go { color: var(--silver-hi); transform: translate(3px, -3px); }
+.popular { padding-top: clamp(24px, 6vh, 80px); }
+.section-note--below { margin-top: 24px; max-width: 54ch; }
+.index-group { max-width: var(--max); margin: clamp(56px, 9vh, 96px) auto 0; padding: 0 var(--gutter); font-family: var(--mono); font-size: 12px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); }
+.index-group + .index-list { margin-top: 20px; }
+
+/* ---------- New this week ---------- */
+.fresh { padding: clamp(96px, 16vh, 180px) 0 0; }
+.fresh-list { list-style: none; margin: clamp(40px, 7vh, 72px) auto 0; padding: 0 var(--gutter); max-width: var(--max); display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--line); }
+.fresh-list li { border-right: 1px solid var(--line); }
+.fresh-list li:last-child { border-right: 0; }
+.fresh-card { display: flex; flex-direction: column; gap: 12px; height: 100%; padding: 30px 24px 34px; text-decoration: none; color: inherit; transition: background 0.4s var(--ease-out); }
+.fresh-list li:first-child .fresh-card { padding-left: 0; }
+.fresh-list li:last-child .fresh-card { padding-right: 0; }
+.fresh-card:hover { background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 70%); }
+.fresh-tag { margin: 0; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); }
+.fresh-name { margin: 0; font-size: clamp(26px, 2.2vw, 32px); font-weight: 480; letter-spacing: -0.03em; line-height: 1.05; color: var(--silver-hi); }
+.fresh-desc { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.5; }
+.fresh-foot { margin-top: auto; padding-top: 12px; display: grid; gap: 10px; justify-items: start; }
+.fresh-go { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; color: var(--silver-hi); padding-bottom: 4px; background: linear-gradient(var(--silver-hi), var(--silver-hi)) 0 100% / 100% 1px no-repeat; transition: background-size 0.5s var(--ease-out), gap 0.4s var(--ease-out); }
+.fresh-card:hover .fresh-go { background-size: 0 1px; background-position: 100% 100%; gap: 12px; }
+.fresh-price { font-size: 13px; color: var(--dim); }
+.fresh-more { max-width: var(--max); margin: 28px auto 0; padding: 0 var(--gutter); color: var(--muted); font-size: 15px; }
+.fresh-more a { color: var(--silver-hi); text-decoration: none; background: linear-gradient(var(--line-2), var(--line-2)) 0 100% / 100% 1px no-repeat; transition: background-size 0.4s var(--ease-out); }
+.fresh-more a:hover { background-image: linear-gradient(var(--silver-hi), var(--silver-hi)); }
 
 /* ---------- Principles ---------- */
 .principles { padding: clamp(120px, 20vh, 220px) 0 0; }
@@ -492,6 +516,12 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 @media (max-width: 1100px) {
   .index-list a { grid-template-columns: 44px 1fr 110px 20px; }
   .i-what { grid-column: 2 / 3; grid-row: 2; }
+  .fresh-list { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; scroll-padding: 0 var(--gutter); overscroll-behavior-x: contain; }
+  .fresh-list::-webkit-scrollbar { display: none; }
+  .fresh-list li { flex: 0 0 min(300px, 72vw); scroll-snap-align: start; }
+  .fresh-list li:last-child { border-right: 1px solid var(--line); }
+  .fresh-list li:first-child .fresh-card { padding-left: 0; }
+  .fresh-list li:last-child .fresh-card { padding-right: 24px; }
 }
 @media (max-width: 960px) {
   .chapter--split, .chapter--flip { grid-template-columns: 1fr; }
