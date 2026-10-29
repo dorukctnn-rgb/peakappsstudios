@@ -5,12 +5,12 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src https://cloudflareinsights.com; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>How to download your Strava data: the bulk export | Yearlap</title>
+<title>How to export all your Strava data: the bulk download | Yearlap</title>
 <meta name="description" content="Request your Strava account archive step by step, what activities.csv and the activities folder hold, why the export follows your account language, and #error# rows.">
 <link rel="canonical" href="https://peakappsstudio.com/strava-year-in-review/export-strava-data/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Peak Apps Tools">
-<meta property="og:title" content="How to download your Strava data: the bulk export">
+<meta property="og:title" content="How to export all your Strava data: the bulk download">
 <meta property="og:description" content="The steps to request your Strava archive, what is in the ZIP, and what to do when the export is in another language.">
 <meta property="og:url" content="https://peakappsstudio.com/strava-year-in-review/export-strava-data/">
 <meta property="og:image" content="https://peakappsstudio.com/strava-year-in-review/img/og.png">
@@ -604,7 +604,7 @@ html[lang="fr"] .yl h1 { max-width: 19ch; }
 .yl-kpis dd small { display: block; font-family: var(--sans); font-style: normal; font-weight: 600; font-size: 13.5px; line-height: 1.35; letter-spacing: 0; color: var(--ink-2); margin-top: 4px; }
 </style>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[{"@type":"HowTo","name":"How to download your Strava data (bulk export)","totalTime":"PT5M","step":[{"@type":"HowToStep","position":1,"text":"Log in on strava.com in a browser. The app has no button for the bulk export."},{"@type":"HowToStep","position":2,"text":"Open Settings from the menu under your name, then the My Account tab."},{"@type":"HowToStep","position":3,"text":"Under Download your account, choose Get Started, then Request download."},{"@type":"HowToStep","position":4,"text":"Wait for Strava's email with the download link. Strava says it may take a few hours."},{"@type":"HowToStep","position":5,"text":"Download the ZIP. Keep it as it is: it holds activities.csv and a folder of route files."}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Yearlap: Strava year in review","item":"https://peakappsstudio.com/strava-year-in-review/"},{"@type":"ListItem","position":3,"name":"How to download your Strava data","item":"https://peakappsstudio.com/strava-year-in-review/export-strava-data/"}]}]}
+{"@context":"https://schema.org","@graph":[{"@type":"HowTo","name":"How to download your Strava data (bulk export)","totalTime":"PT5M","step":[{"@type":"HowToStep","position":1,"text":"Log in on strava.com in a browser. The app has no button for the bulk export."},{"@type":"HowToStep","position":2,"text":"Open Settings from the menu under your name, then the My Account tab."},{"@type":"HowToStep","position":3,"text":"Under Download your account, choose Get Started, then Request download."},{"@type":"HowToStep","position":4,"text":"Wait for Strava's email with the download link. Strava says it may take a few hours."},{"@type":"HowToStep","position":5,"text":"Download the ZIP. Keep it as it is: it holds activities.csv and a folder of route files."}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Yearlap: Strava year in review","item":"https://peakappsstudio.com/strava-year-in-review/"},{"@type":"ListItem","position":3,"name":"How to download your Strava data","item":"https://peakappsstudio.com/strava-year-in-review/export-strava-data/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I export all my data from Strava?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every Strava account, free or paid, can download all of its activities in one ZIP called a bulk export or account archive. You ask for it on strava.com under Settings, My Account, Download your account, because Strava’s help page says exporting is only available on the website, not in the app."}},{"@type":"Question","name":"How long does the Strava export take?","acceptedAnswer":{"@type":"Answer","text":"Strava says the email with the download link “may take a few hours”. It goes to the address on your Strava profile, so check that address and its spam or promotions folder, and ask again from the website if a day has passed."}}]}]}
 </script>
 <script src="/assets/pro-source.js" data-campaign="strava-year-in-review" defer></script>
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
@@ -636,7 +636,7 @@ html[lang="fr"] .yl h1 { max-width: 19ch; }
 <section class="yl-hero yl-guide-hero">
 <div class="wrap">
 <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/strava-year-in-review/">Yearlap</a></li><li aria-current="page">Download your Strava data</li></ol></nav>
-<h1>How to download your Strava data</h1>
+<h1>How to export and download all your Strava data</h1>
 <p class="lede">Every Strava account, free or paid, can download all of its activities in one ZIP, called a bulk export or account archive. Here is how to ask for it, what is inside, and the two surprises in the file: it is written in your account’s language, and some rows say “#error#”.</p>
 </div>
 </section>
@@ -670,9 +670,16 @@ html[lang="fr"] .yl h1 { max-width: 19ch; }
 <li>Ask again from the website if a day has passed. The request isn’t available in the app.</li>
 </ul>
 
+<h2>Questions about exporting Strava data</h2>
+<h3>Can I export all my data from Strava?</h3>
+<p>Yes. Every Strava account, free or paid, can download all of its activities in one ZIP called a bulk export or account archive. You ask for it on strava.com under Settings, My Account, Download your account, because Strava’s help page says exporting is only available on the website, not in the app.</p>
+<h3>How long does the Strava export take?</h3>
+<p>Strava says the email with the download link “may take a few hours”. It goes to the address on your Strava profile, so check that address and its spam or promotions folder, and ask again from the website if a day has passed.</p>
+
 <h2>Then open it</h2>
 <p><a class="btn btn-primary" href="/strava-year-in-review/">Open your export in Yearlap</a></p>
 <p>Your year in review appears in the browser tab: distance, hours, climbing, sports, months, the hours you train, your longest day and streak, and story cards. Nothing is uploaded. We count page visits with Cloudflare Web Analytics: no cookies, no personal data, and never your files.</p>
+<p>Do you also have a Fitbit, now Google Health? Its history only leaves as a Google Takeout archive of JSON files; <a href="/export-fitbit-data/">Tallyband turns that archive into CSV or Excel for the dates you choose</a>.</p>
 </article>
 </main>
 <aside class="peak-new" aria-label="New from Peak Apps">
