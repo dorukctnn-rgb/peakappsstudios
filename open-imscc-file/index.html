@@ -5,6 +5,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; font-src 'self'; connect-src https://api.gumroad.com https://cloudflareinsights.com https://peak-funnel.railer-iot.workers.dev; media-src blob:; object-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="peak-checkout" content="direct">
 <title>Open an IMSCC file: read your Canvas course export</title>
 <meta name="description" content="Open a Canvas course export (.imscc) in your browser: every module, page, assignment and quiz with its answers. Nothing is uploaded.">
 <link rel="canonical" href="https://peakappsstudio.com/open-imscc-file/">
@@ -347,6 +348,8 @@ body.cubby {
 }
 .cubby a { color: var(--link); text-underline-offset: 3px; text-decoration-thickness: 1px; }
 .cubby a:hover { color: var(--ink); }
+/* the Pro window's Buy button (license.js) is a link: without this, .cubby a paints its label in the button's own teal */
+.cubby .license-dialog .btn-primary, .cubby .license-dialog .btn-primary:hover { color: var(--accent-ink); }
 .cubby h1, .cubby h2, .cubby h3 { font-family: var(--head); font-weight: 400; color: var(--ink); letter-spacing: 0; }
 .cubby h1 { font-size: clamp(34px, 4vw, 54px); line-height: 1.06; margin: 14px 0 0; text-wrap: balance; max-width: 16ch; }
 .cubby h2 { font-size: clamp(26px, 2.6vw, 34px); line-height: 1.15; margin: 0 0 14px; text-wrap: balance; }

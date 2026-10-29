@@ -116,6 +116,8 @@
 .pdf-field label, .pdf-field legend { display: block; font-size: 0.86rem; color: var(--on-graphite-2); margin-bottom: 6px; }
 .pdf-field select { width: 100%; min-height: 44px; border-radius: 10px; border: 1px solid #4a525b; background: var(--graphite-2); color: var(--on-graphite); font: inherit; padding: 8px 10px; }
 fieldset.pdf-field { border: 0; margin: 0; padding: 0; min-width: 0; }
+.pdf-layers { margin-top: 12px; }
+.pdf-layers .pdf-note { margin-top: 0; }
 .pdf-panel label.pdf-radio { display: flex; align-items: flex-start; gap: 10px; min-height: 44px; padding: 8px 0; margin: 0; color: var(--on-graphite); font-size: 0.95rem; }
 .pdf-radio input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--imprint); flex: none; }
 /* done */

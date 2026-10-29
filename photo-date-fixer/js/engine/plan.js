@@ -3,6 +3,7 @@
 import { pad2, wallText } from './bytes.js';
 import { localAt, offsetText, zoneAt } from './tz.js';
 import { normId } from './match.js';
+import { canDrawLayers } from './compose.js';
 
 export const STATUS_ORDER = ['exact', 'ambiguous', 'zipTime', 'nameDate', 'unknown'];
 
@@ -77,13 +78,14 @@ export function planWrites(match, { fallbackTz, pairs }) {
 }
 
 export function summarize(items, noMedia) {
-  const s = { photos: 0, videos: 0, overlays: 0, exact: 0, ambiguous: 0, zipTime: 0, nameDate: 0, unknown: 0, noMedia: noMedia.length, withPlace: 0, bytes: 0 };
+  const s = { photos: 0, videos: 0, overlays: 0, layeredPhotos: 0, exact: 0, ambiguous: 0, zipTime: 0, nameDate: 0, unknown: 0, noMedia: noMedia.length, withPlace: 0, bytes: 0 };
   for (const it of items) {
     if (it.media.type === 'Video') s.videos++;
     else s.photos++;
     s[it.status]++;
     if (it.loc) s.withPlace++;
     s.overlays += it.overlays.length;
+    if (canDrawLayers(it)) s.layeredPhotos++;
     s.bytes += it.media.entry.usize;
     for (const o of it.overlays) s.bytes += o.media.entry.usize;
   }
@@ -98,7 +100,8 @@ const utcText = (ms) => (ms == null ? '' : `${wallText(ms)} UTC`);
 
 export const CSV_HEADER = ['status', 'output_file', 'part', 'source_zip', 'source_file', 'media_type', 'snapchat_time_utc', 'local_time_written', 'utc_offset', 'time_zone', 'latitude', 'longitude', 'overlay_files', 'note'];
 
-export function csvRows(items, noMedia, { zipNames, partOf, notes }) {
+// drawn: names of the photos whose layers were drawn onto them (their -overlay files were not written, so none is listed)
+export function csvRows(items, noMedia, { zipNames, partOf, notes, drawn }) {
   const rows = [CSV_HEADER];
   for (const it of items) {
     rows.push([
@@ -114,7 +117,7 @@ export function csvRows(items, noMedia, { zipNames, partOf, notes }) {
       it.tz ?? '',
       it.loc ? it.loc.lat.toFixed(6) : '',
       it.loc ? it.loc.lon.toFixed(6) : '',
-      it.overlays.map((o) => o.name).join(' '),
+      drawn?.has(it.name) ? '' : it.overlays.map((o) => o.name).join(' '),
       notes?.get(it.name) ?? '',
     ]);
   }

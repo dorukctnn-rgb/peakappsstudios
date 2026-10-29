@@ -287,6 +287,12 @@ function fillReview(m) {
     }
   }
   $('storage-needed').textContent = t('review.storageNeeded', { size: size(Math.round(s.bytes * 1.02)) });
+  // caption and sticker layers: offered only when some photos have one and this browser can draw in the worker; off by default
+  const layered = s.layeredPhotos ?? 0;
+  const canDraw = typeof OffscreenCanvas === 'function' && typeof OffscreenCanvas.prototype.convertToBlob === 'function' && typeof createImageBitmap === 'function';
+  $('layers-field').hidden = !(layered > 0 && canDraw);
+  $('layers-check').checked = false;
+  $('layers-note').textContent = t('review.layersNote', { n: fmtInt(layered), count: layered });
   const folderOk = typeof window.showDirectoryPicker === 'function';
   $('dest-field').hidden = !folderOk;
   const folderRadio = document.querySelector('input[name="dest"][value="folder"]');
@@ -331,7 +337,8 @@ $('btn-start')?.addEventListener('click', async () => {
   meter($('work-meter'), 0);
   showParts(0);
   focusStage('work');
-  getWorker().postMessage({ type: 'run', fallbackTz: $('tz-select').value, partMB: Number($('part-select').value), dest, dirHandle });
+  const drawLayers = !$('layers-field').hidden && $('layers-check').checked;
+  getWorker().postMessage({ type: 'run', fallbackTz: $('tz-select').value, partMB: Number($('part-select').value), dest, dirHandle, drawLayers });
 });
 $('btn-stop')?.addEventListener('click', () => getWorker().postMessage({ type: 'cancel' }));
 

@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src https://cloudflareinsights.com; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gemini Gemの廃止は11月17日から｜スキルとの違いと保存方法</title>
+<meta name="description" content="Googleは個人アカウントのGemを2026年11月17日にスキルへ移行して読み取り専用にし、12月17日にGeminiアプリから削除します。移行されないファイルとツール、スキルとの違い、保存方法をまとめました。">
+<link rel="canonical" href="https://peakappsstudio.com/ja/custom-gpt-export/gemini-gem-haishi/">
+<link rel="alternate" hreflang="ja" href="https://peakappsstudio.com/ja/custom-gpt-export/gemini-gem-haishi/">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/custom-gpt-export/gemini-gems-going-away/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/custom-gpt-export/gemini-gems-going-away/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Gemini Gemは11月17日に読み取り専用、12月17日に削除されます">
+<meta property="og:description" content="Googleは個人アカウントのGemを2026年11月17日にスキルへ移行して読み取り専用にし、12月17日にGeminiアプリから削除します。移行されないファイルとツール、スキルとの違い、保存方法をまとめました。">
+<meta property="og:url" content="https://peakappsstudio.com/ja/custom-gpt-export/gemini-gem-haishi/">
+<meta property="og:image" content="https://peakappsstudio.com/custom-gpt-export/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#9aa8ff">
+<link rel="icon" href="/custom-gpt-export/img/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/custom-gpt-export/fonts/skillcase-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/custom-gpt-export/fonts/skillcase-text.woff2" as="font" type="font/woff2" crossorigin>
+<style data-from="/assets/tools.css">
+/* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
+
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e1;
+  --card: #fbfaf7;
+  --ink: #141518;
+  --ink-2: #33363d;
+  --muted: #676b74;
+  --line: rgba(20, 21, 24, 0.12);
+  --line-2: rgba(20, 21, 24, 0.22);
+  --accent: #1f5c4d;          /* each tool overrides this on <body style="--accent:..."> */
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  --warn: #9a4a12;
+  --ok: #2c6a3f;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+    --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+  --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; }
+img { display: block; height: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 10px; z-index: 100; background: var(--ink); color: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 10px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-head { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand-sub { font-family: var(--sans); font-size: 14.5px; letter-spacing: 0; color: var(--muted); font-weight: 500; padding-left: 10px; border-left: 1px solid var(--line-2); }
+.head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
+.head-nav a:hover { background: var(--paper-2); color: var(--ink); }
+.head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
+@media (max-width: 640px) { .brand-sub { display: none; } }
+@media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
+
+/* ---------- Type ---------- */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+h1 { font-size: clamp(32px, 4.6vw, 54px); }
+h1 em, h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 19px; letter-spacing: -0.01em; }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; margin: 16px 0 0; }
+.mono { font-family: var(--mono); }
+.muted { color: var(--muted); }
+small, .small { font-size: 13.5px; }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 22px 0 0; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-2); }
+.crumbs a { text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.tool-hero { padding: 28px 0 24px; display: grid; gap: 8px; }
+.tool-hero .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.tool-hero .facts li { display: inline-flex; align-items: center; gap: 8px; }
+.tool-hero .facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Tool shell ---------- */
+.tool { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.tool-panel { padding: 22px; border-right: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.tool-stage { position: relative; min-height: 460px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper); display: grid; place-items: center; padding: 22px; }
+.tool-stage canvas, .tool-stage svg, .tool-stage img { max-height: 70vh; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px -12px rgba(0,0,0,.18); background: #fff; }
+.stage-bar { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.tool-foot { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 14px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--paper); }
+.tool-foot .spacer { flex: 1; }
+@media (max-width: 860px) {
+  .tool { grid-template-columns: 1fr; }
+  .tool-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tool-stage { min-height: 320px; }
+}
+
+/* ---------- Form controls ---------- */
+.group { display: grid; gap: 10px; }
+.group-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > label { font-size: 13px; color: var(--ink-2); }
+.input, .select { width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 8px; padding: 9px 11px; transition: border-color .15s, box-shadow .15s; }
+.input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input-unit { position: relative; }
+.input-unit .input { padding-right: 38px; font-family: var(--mono); font-size: 14.5px; }
+.input-unit i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 3px; flex: none; }
+.seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line-2); border-radius: 9px; padding: 3px; gap: 3px; background: var(--paper); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.warn { font-size: 13.5px; color: var(--warn); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.btn { --b: var(--line-2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 500; line-height: 1; padding: 11px 16px; border-radius: 9px; border: 1px solid var(--b); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; transition: transform .15s var(--ease), background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklab, var(--accent) 86%, #000); color: var(--accent-ink); border-color: transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-ink:hover { color: var(--paper); background: var(--ink-2); }
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.pro-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: var(--ink); color: var(--paper); }
+
+/* ---------- Drop zone ---------- */
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 18px 14px; background: var(--paper); cursor: pointer; transition: border-color .15s, background .15s; font-size: 14.5px; }
+.drop:hover, .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Content ---------- */
+.section { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prose { max-width: 70ch; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose h2 { margin: 1.6em 0 .5em; }
+.prose h3 { margin: 1.4em 0 .4em; }
+.prose code, .prose kbd { font-family: var(--mono); font-size: .9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+.two-col > * { min-width: 0; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: 3px; }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 13px; background: var(--paper); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 15px; }
+.source { font-size: 13px; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--line-2); margin-top: 18px; }
+.faq details { border-bottom: 1px solid var(--line-2); }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 13px; font-family: var(--mono); font-size: 18px; color: var(--muted); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 18px; color: var(--ink-2); max-width: 70ch; }
+
+/* ---------- Pro ---------- */
+.pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--card); }
+.pro-left { padding: clamp(22px, 3vw, 36px); }
+.pro-right { padding: clamp(22px, 3vw, 36px); background: var(--ink); color: var(--paper); display: grid; align-content: center; gap: 14px; }
+.pro-right .price { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pro-right .price small { font-size: 15px; font-weight: 400; color: color-mix(in oklab, var(--paper) 70%, transparent); letter-spacing: 0; }
+.pro-right .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.pro-right .btn-primary:hover { background: #fff; color: var(--ink); }
+.pro-right .fine { font-size: 13px; color: color-mix(in oklab, var(--paper) 65%, transparent); margin: 0; }
+.pro-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.pro-list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.pro-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border: 1.5px solid var(--accent); border-radius: 2px; transform: rotate(45deg); }
+@media (max-width: 760px) { .pro { grid-template-columns: 1fr; } }
+
+/* ---------- A real file, shown ---------- */
+.shot { margin: 22px 0 0; }
+.shot img { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; }
+.shot figcaption { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+.shot figcaption strong { font-weight: 600; color: var(--ink-2); }
+.shot-sm { max-width: 920px; }
+
+/* ---------- Where free stops and Pro starts ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; margin: 26px 0 0; background: var(--card); }
+.split > div { padding: 18px 20px 20px; }
+.split > div + div { border-left: 1px solid var(--line-2); background: var(--accent-soft); }
+.split h3 { font-size: 15.5px; margin: 0; }
+.split > div > p { margin: 5px 0 0; font-size: 13.5px; color: var(--muted); }
+.split ul { list-style: none; margin: 13px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
+.split li { position: relative; padding-left: 18px; }
+.split li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; border-radius: 1px; background: var(--line-2); }
+.split > div + div li::before { background: var(--accent); }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } .split > div + div { border-left: 0; border-top: 1px solid var(--line-2); } }
+
+/* ---------- A file list, as the archive really holds it ---------- */
+.filelist { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 5px; }
+.filelist li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filelist li span { color: var(--muted); }
+
+/* ---------- License dialog ---------- */
+.license-dialog { border: 1px solid var(--line-2); border-radius: 14px; padding: 0; width: min(440px, calc(100% - 32px)); background: var(--card); color: var(--ink); }
+.license-dialog::backdrop { background: rgba(10, 11, 13, .45); }
+.license-dialog form { padding: 22px; display: grid; gap: 14px; }
+.license-status { font-size: 14px; min-height: 1.4em; margin: 0; }
+.license-status[data-state="ok"] { color: var(--ok); }
+.license-status[data-state="err"] { color: var(--warn); }
+
+/* ---------- Related / cards ---------- */
+.related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line-2); margin-top: 22px; }
+.related a { display: grid; gap: 4px; padding: 18px 18px 18px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.related a strong { font-weight: 600; }
+.related a span { font-size: 14px; color: var(--muted); }
+.related a:hover strong { color: var(--accent); }
+
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
+/* ---------- Footer ---------- */
+.site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
+.site-foot h2 { font-size: 15px; font-family: var(--sans); letter-spacing: 0; font-weight: 600; color: var(--ink); margin: 0 0 10px; }
+.site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+@media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- "New from Peak Apps": the cross-promotion card the build puts above the footer (src/crosspromo.json) ---------- */
+.peak-new { margin-top: clamp(56px, 8vw, 104px); }
+.peak-new + .site-foot { margin-top: 28px; }
+.peak-new-card { display: grid; gap: 4px; max-width: 640px; padding: 16px 20px 18px; border: 1px solid var(--line-2); border-left: 4px solid var(--tool, var(--accent)); border-radius: var(--radius); background: var(--card); color: var(--ink); text-decoration: none; transition: border-color .2s var(--ease); }
+.peak-new-card:hover { border-color: var(--tool, var(--accent)); }
+.peak-new-card:focus-visible { outline: 2px solid var(--tool, var(--accent)); outline-offset: 3px; }
+.peak-new-kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.peak-new-card strong { font-size: 17px; font-weight: 600; line-height: 1.3; }
+.peak-new-line { font-size: 14px; line-height: 1.5; color: var(--ink-2); max-width: 62ch; }
+
+/* ---------- Home project tools: the shared block on Without Planning and Dropped Kerb Check ---------- */
+.home-block { margin: clamp(36px, 5vw, 60px) 0 0; border-top: 1px solid var(--line-2); padding-top: 16px; }
+.home-title { margin: 0 0 10px; font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink); }
+.home-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px 24px; }
+.home-list a { display: grid; gap: 3px; padding: 2px 0 2px 14px; border-left: 4px solid var(--tool, var(--accent)); text-decoration: none; color: var(--ink); }
+.home-list a strong { font-weight: 700; font-size: 16px; }
+.home-list a span { color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+.home-list a:hover strong { color: var(--tool, var(--accent)); }
+.home-list a[aria-current="page"] span { color: var(--ink-2); }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .3s var(--ease); z-index: 90; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media print { .site-head, .site-foot, .tool-panel, .tool-foot, .no-print { display: none !important; } body { background: #fff; } }
+
+/* The hidden attribute must win over component display rules. */
+[hidden] { display: none !important; }
+</style>
+<style data-from="/custom-gpt-export/tool.css">
+/* Skillcase: a custom GPT, packed for the move. The look is a hard-shell case: a periwinkle shell (the hero band and the
+   3D render), graphite foam inside (the "Your case" panel, where each part sits in its own cut-out) and one tomato-red
+   luggage tag (the deadline, the tag card and the main download). Headings in Krona One, wide and blunt like a case
+   stencil, renamed "Skillcase Display" as its licence asks; text in Overpass, a face drawn from highway signs, and its
+   mono only where people paste code-like text (instructions, schemas, SKILL.md, GPT ids). Cool aluminium greys, no cream. */
+@font-face { font-family: "Skillcase Display"; src: url("/custom-gpt-export/fonts/skillcase-display.woff2") format("woff2"); font-weight: 400 800; font-display: swap; }
+@font-face { font-family: "Skillcase Text"; src: url("/custom-gpt-export/fonts/skillcase-text.woff2") format("woff2"); font-weight: 400 700; font-display: swap; }
+@font-face { font-family: "Skillcase Mono"; src: url("/custom-gpt-export/fonts/skillcase-mono.woff2") format("woff2"); font-weight: 400 600; font-display: swap; }
+/* system faces sized to the web faces, so nothing jumps when the fonts arrive */
+@font-face { font-family: "Skillcase Display Fallback"; src: local("Arial Black"), local("ArialMT-Black"), local("Arial Bold"), local("Arial"); size-adjust: 117.9%; ascent-override: 84.1%; descent-override: 22%; line-gap-override: 0%; }
+@font-face { font-family: "Skillcase Text Fallback"; src: local("Arial"), local("ArialMT"), local("Helvetica"); size-adjust: 99.2%; ascent-override: 89%; descent-override: 38.6%; line-gap-override: 0%; }
+
+body.sc {
+  --shell: #9aa8ff; --shell-2: #8494f6; --shell-soft: #e6e9ff;
+  --tag: #ff5a3c; --tag-2: #e8472a;
+  --foam: #22243a; --foam-2: #2d3049; --foam-line: #3d4161; --foam-ink: #eef0ff; --foam-muted: #b9bdd8;
+  --ink: #12142e; --ink-2: #2c2f4a; --muted: #565a70;
+  --paper: #ffffff; --paper-2: #f4f5f9; --card: #ffffff; --floor: #eceef3;
+  --line: #dfe2ea; --line-2: #c4c8d6;
+  --link: #2b3bb8; --accent: #12142e; --accent-ink: #ffffff;
+  --ok: #1d7a45; --warn: #9a4a12; --bad: #b42318;
+  --sans: "Skillcase Text", "Skillcase Text Fallback", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --head: "Skillcase Display", "Skillcase Display Fallback", "Arial Black", Arial, sans-serif;
+  --mono: "Skillcase Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-family: var(--sans); font-size: 17.5px; line-height: 1.6; background: var(--paper); color: var(--ink);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.sc {
+    --ink: #eceefe; --ink-2: #d3d6ec; --muted: #a9adc4; --paper: #121320; --paper-2: #1a1c2c; --card: #1b1d2e; --floor: #0e0f1a;
+    --line: #2b2e44; --line-2: #3c4060; --link: #aab4ff; --shell-soft: #252a52; --accent: #eceefe; --accent-ink: #12142e;
+    --ok: #7fd3a0; --warn: #f0a46a; --bad: #ff8f7c;
+  }
+}
+:root[data-theme="dark"] body.sc {
+  --ink: #eceefe; --ink-2: #d3d6ec; --muted: #a9adc4; --paper: #121320; --paper-2: #1a1c2c; --card: #1b1d2e; --floor: #0e0f1a;
+  --line: #2b2e44; --line-2: #3c4060; --link: #aab4ff; --shell-soft: #252a52; --accent: #eceefe; --accent-ink: #12142e;
+  --ok: #7fd3a0; --warn: #f0a46a; --bad: #ff8f7c;
+}
+.sc a { color: var(--link); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.sc a:hover { color: var(--ink); }
+.sc h1, .sc h2, .sc h3 { font-family: var(--head); font-weight: 400; color: var(--ink); letter-spacing: -0.02em; }
+.sc h1 { font-size: clamp(32px, 4.3vw, 54px); line-height: 1.15; margin: 18px 0 0; text-wrap: balance; max-width: 17ch; }
+.sc h2 { font-size: clamp(23px, 2.4vw, 31px); line-height: 1.18; text-wrap: balance; }
+.sc h3 { font-size: 20px; line-height: 1.25; }
+.sc .lede { font-size: clamp(18px, 1.5vw, 20px); line-height: 1.6; color: var(--ink-2); max-width: 58ch; margin: 20px 0 0; }
+.sc .crumbs { font-size: 15px; margin-top: 18px; color: var(--muted); }
+.sc .crumbs a { color: var(--ink-2); }
+.sc .btn { font-family: var(--sans); font-size: 16.5px; font-weight: 700; line-height: 1.2; padding: 13px 18px; border-radius: 10px; white-space: normal; text-align: center; max-width: 100%; min-height: 48px; }
+.sc .btn-primary { background: var(--ink); border-color: var(--ink); color: #fff; }
+.sc .btn-primary:hover { background: #2a2d55; border-color: #2a2d55; color: #fff; }
+.sc .sc-quiet { background: var(--card); border: 1.5px solid var(--line-2); color: var(--ink); }
+.sc .sc-quiet:hover { border-color: var(--ink); color: var(--ink); }
+.sc .btn:focus-visible, .sc button:focus-visible, .sc a:focus-visible, .sc input:focus-visible, .sc select:focus-visible, .sc textarea:focus-visible, .sc summary:focus-visible, .sc [tabindex]:focus-visible { outline: 3px solid var(--tag); outline-offset: 2px; }
+.sc .input, .sc .select { font-family: var(--sans); font-size: 17px; padding: 11px 13px; border: 1.5px solid var(--line-2); border-radius: 9px; background: var(--card); color: var(--ink); width: 100%; min-width: 0; }
+.sc textarea.input { resize: vertical; line-height: 1.5; }
+.sc .input:focus, .sc .select:focus { border-color: var(--shell-2); box-shadow: 0 0 0 3px var(--shell-soft); }
+.sc .sc-mono, .sc pre { font-family: var(--mono); }
+.sc textarea.sc-mono { font-size: 15px; }
+.sc [hidden] { display: none !important; }
+.sc-small { font-size: 15.5px; color: var(--muted); }
+
+/* ---------- header and footer ---------- */
+.sc-head { background: var(--paper); border-bottom: 1px solid var(--line); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.sc-head .brand { gap: 10px; color: var(--ink); }
+.sc-head .brand svg { width: 30px; height: 26px; }
+.sc-head .brand span { font-family: var(--head); font-size: 19px; letter-spacing: -0.02em; }
+.sc-head .head-nav a { font-size: 15.5px; color: var(--ink-2); padding: 8px 10px; }
+.sc-head .head-nav [aria-current="page"] { font-size: 15.5px; color: var(--ink); padding: 8px 10px; font-weight: 700; }
+.sc-narrow { display: none; }
+@media (max-width: 1120px) { .sc-wide { display: none; } .sc-narrow { display: inline-block; } }
+@media (max-width: 480px) { .sc-head .head-nav [aria-current="page"] { display: none; } .sc-head .head-nav a { padding: 8px 8px; } }
+.sc .site-foot.sc-foot { background: var(--foam); color: var(--foam-muted); border-top: 0; font-size: 15.5px; padding: 44px 0 52px; }
+.sc .sc-foot .cols { grid-template-columns: 1.6fr 1.3fr 0.9fr; }
+@media (max-width: 860px) { .sc .sc-foot .cols { grid-template-columns: 1fr; } }
+.sc .sc-foot h2 { font-family: var(--sans); font-size: 16.5px; font-weight: 700; color: #fff; letter-spacing: 0; margin: 0 0 10px; }
+.sc .sc-foot a { color: #dfe3ff; }
+.sc .sc-foot a:hover { color: #fff; text-decoration: underline; }
+.sc .sc-foot ul { gap: 8px; }
+.sc-foot-brand { font-family: var(--head); font-size: 21px; color: #fff; margin: 0 0 8px; }
+.sc-foot-text { margin: 0 0 12px; max-width: 50ch; }
+
+/* ---------- the shell: the hero band ---------- */
+.sc-band { position: relative; background: var(--shell); color: var(--ink); isolation: isolate; overflow-x: clip; }
+/* the ribs moulded into a hard case's shell */
+.sc-band::before { content: ""; position: absolute; inset: 0; z-index: -1; background: repeating-linear-gradient(180deg, transparent 0 46px, rgba(18, 20, 46, 0.055) 46px 48px, transparent 48px 52px); pointer-events: none; }
+.sc-band, .sc-band h1, .sc-band h2, .sc-band .lede, .sc-band p, .sc-band li { color: #12142e; }
+.sc-band .crumbs, .sc-band .crumbs a { color: #2c2f4a; }
+.sc-band a { color: #12142e; }
+.sc-hero { padding: 6px 0 64px; }
+.sc-hero-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(28px, 4vw, 64px); align-items: start; margin-top: 4px; }
+@media (max-width: 980px) { .sc-hero-grid { grid-template-columns: minmax(0, 1fr); } }
+.sc-hero-grid > div { min-width: 0; }
+.sc-deadline { display: inline-block; margin: 24px 0 0; padding: 7px 14px 7px 12px; background: var(--tag); color: #12142e; border-radius: 6px 6px 6px 0; font-weight: 800; font-size: 17px; box-shadow: 3px 3px 0 #12142e; }
+.sc-band .sc-small { color: #2c2f4a; margin: 14px 0 0; font-size: 16px; }
+.sc-indep { margin: 18px 0 0; font-size: 15.5px; }
+
+/* the luggage tag: a white card with clipped top corners, a punched hole and a tomato reinforcement ring */
+.sc-tag { position: relative; background: #fff; color: #12142e; padding: 54px clamp(20px, 3vw, 32px) 28px; clip-path: polygon(34px 0, calc(100% - 34px) 0, 100% 34px, 100% 100%, 0 100%, 0 34px); border-radius: 0 0 12px 12px; box-shadow: 0 30px 50px -30px rgba(18, 20, 46, 0.6); border-bottom: 10px solid var(--tag); }
+.sc-tag-hole { position: absolute; top: 16px; left: 50%; width: 24px; height: 24px; margin-left: -12px; border-radius: 50%; background: var(--shell); box-shadow: 0 0 0 5px var(--tag); }
+.sc-tag h2 { font-size: 22px; margin: 0; color: #12142e; }
+.sc-tag-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 0; border-top: 1.5px dashed #c4c8d6; }
+.sc-tag-list li { display: grid; gap: 2px; padding: 11px 0; border-bottom: 1.5px dashed #c4c8d6; color: #12142e; }
+.sc-tag-list strong { font-weight: 700; font-size: 16.5px; }
+.sc-tag-list span { font-size: 15px; color: #565a70; }
+.sc-tag .sc-quiet { background: #fff; color: #12142e; border-color: #c4c8d6; }
+.sc-tag .btn-primary { background: #12142e; border-color: #12142e; color: #fff; }
+.sc-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+.sc-private { display: grid; grid-template-columns: 20px 1fr; gap: 10px; margin: 16px 0 0; line-height: 1.5; }
+.sc-private svg { width: 18px; height: 18px; margin-top: 3px; }
+.sc-tag .sc-private { color: #565a70; }
+
+/* ---------- the 3D render ---------- */
+.sc-figure { margin: 0; background: #e3e6ee; }
+.sc-figure img { width: 100%; height: auto; display: block; }
+.sc-figure figcaption { font-size: 15px; color: #565a70; padding: 4px var(--gutter) 12px; max-width: var(--max); margin: 0 auto; }
+
+/* ---------- the tool: forms on the left, the case on the right ---------- */
+.sc-tool { background: var(--floor); padding: clamp(36px, 5vw, 60px) 0; }
+.sc-tool-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 380px); gap: clamp(20px, 3vw, 36px); align-items: start; }
+@media (max-width: 980px) { .sc-tool-grid { grid-template-columns: minmax(0, 1fr); } }
+.sc-forms { display: grid; gap: 22px; min-width: 0; }
+.sc-card { background: var(--card); border: 1px solid var(--line-2); border-radius: 14px; padding: clamp(18px, 3vw, 30px); min-width: 0; scroll-margin-top: 80px; }
+.sc-card h2 { margin: 0; }
+.sc-hint { margin: 10px 0 0; color: var(--ink-2); font-size: 16px; }
+.sc-field { margin: 20px 0 0; display: grid; gap: 7px; min-width: 0; border: 0; padding: 0; }
+.sc-field > label, .sc-label, .sc-field legend { font-weight: 700; font-size: 16.5px; color: var(--ink); margin: 0; padding: 0; }
+.sc-opt { font-weight: 400; color: var(--muted); font-size: 15px; margin-left: 6px; }
+.sc-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0; font-size: 14.5px; color: var(--muted); }
+.sc-warn { margin: 4px 0 0; font-size: 15px; color: var(--warn); border-left: 3px solid var(--tag); padding: 2px 0 2px 10px; }
+.sc-caps { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 8px 18px; }
+.sc-caps legend { margin-bottom: 6px; }
+.sc-caps > .sc-meta { grid-column: 1 / -1; }
+.sc-caps label { display: flex; gap: 10px; align-items: center; font-size: 16px; min-height: 40px; }
+.sc-caps input, .sc-pick input { width: 20px; height: 20px; accent-color: #12142e; flex: none; }
+.sc-drop { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; border: 2px dashed var(--line-2); border-radius: 12px; padding: 16px; transition: border-color .15s, background .15s; }
+.sc-drop.is-over { border-color: var(--shell-2); background: var(--shell-soft); }
+.sc-files { list-style: none; padding: 0; margin: 4px 0 0; display: grid; gap: 8px; }
+.sc-files li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; border: 1px solid var(--line); border-radius: 10px; padding: 8px 8px 8px 12px; background: var(--paper-2); }
+.sc-file-name { font-family: var(--mono); font-size: 14.5px; overflow-wrap: anywhere; }
+.sc-file-meta { grid-column: 1; font-size: 14px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; }
+.sc-files .sc-remove { grid-row: 1 / span 2; grid-column: 2; }
+.sc .sc-remove { min-height: 40px; padding: 8px 12px; font-size: 15px; }
+.sc-chip { display: inline-block; font-size: 13.5px; font-weight: 700; line-height: 1.3; border-radius: 999px; padding: 3px 10px; white-space: nowrap; }
+.sc-chip-warn { background: #fff1ec; color: #8a2f12; border: 1px solid #ffc9b8; white-space: normal; }
+.sc-chip-note { background: #e6e9ff; color: #12142e; border: 1px solid #b9c1ff; white-space: normal; }
+.sc-action { border: 1px solid var(--line-2); border-radius: 12px; padding: 12px 14px 14px; margin: 4px 0 12px; display: grid; gap: 8px; background: var(--paper-2); min-width: 0; }
+.sc-action-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.sc-two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 10px; }
+.sc-two label { display: grid; gap: 5px; font-size: 15px; font-weight: 600; min-width: 0; }
+@media (max-width: 560px) { .sc-two { grid-template-columns: minmax(0, 1fr); } }
+.sc-act-sum.is-bad, .sc-status.is-bad { color: var(--bad); }
+.sc-add { justify-self: start; }
+.sc-sample-tag { display: inline-block; font-size: 14px; font-weight: 700; background: var(--shell-soft); color: var(--ink); border-radius: 6px; padding: 2px 9px; margin-left: 4px; }
+.sc-status { min-height: 1.4em; margin: 10px 0 0; font-size: 15.5px; color: var(--ok); }
+
+/* the GPTs found in an export */
+.sc-gpts { display: grid; gap: 12px; margin-top: 12px; }
+.sc-gpt { border: 1px solid var(--line-2); border-radius: 12px; padding: 12px 14px; display: grid; gap: 6px; min-width: 0; background: var(--card); }
+.sc-gpt:has(input[name="gpt-pick"]:checked) { border-color: var(--ink); box-shadow: inset 5px 0 0 var(--shell); }
+.sc-gpt p { margin: 0; }
+.sc-gpt-top { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+.sc-pick { display: flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 600; min-height: 40px; }
+.sc-none { margin-bottom: 2px; }
+.sc-gpt-id { font-size: 15px; display: flex; flex-wrap: wrap; gap: 4px 14px; overflow-wrap: anywhere; }
+.sc-gpt-id .sc-mono { font-size: 14.5px; }
+.sc-titles { overflow-wrap: anywhere; }
+.sc-gpt-label { display: grid; gap: 5px; font-size: 15px; font-weight: 600; max-width: 420px; }
+.sc-projects { margin-top: 14px; }
+.sc-projects summary { cursor: pointer; font-weight: 600; color: var(--link); min-height: 44px; display: flex; align-items: center; }
+
+/* ---------- the case: graphite foam with a cut-out for each part ---------- */
+.sc-case { position: sticky; top: 76px; min-width: 0; }
+@media (max-width: 980px) { .sc-case { position: static; } }
+.sc-case-in { background: var(--foam); color: var(--foam-ink); border-radius: 16px; padding: 22px 20px 20px; border: 6px solid var(--shell); box-shadow: 0 26px 48px -30px rgba(18, 20, 46, 0.7); }
+.sc-case h2 { color: #fff; margin: 0; font-size: 24px; }
+.sc-manifest { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 7px; }
+.sc-manifest li { display: flex; justify-content: space-between; align-items: center; gap: 10px; background: #1a1c2e; border: 1px solid var(--foam-line); border-radius: 9px; padding: 8px 10px; box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.35); font-size: 15px; }
+.sc-m-label { color: var(--foam-ink); font-weight: 600; min-width: 0; overflow-wrap: anywhere; }
+.sc-m-detail { color: var(--foam-muted); font-weight: 400; }
+.sc-manifest .sc-chip { background: transparent; color: var(--foam-muted); border: 1px solid var(--foam-line); }
+.sc-manifest .is-in .sc-chip { background: var(--shell); color: #12142e; border-color: var(--shell); }
+.sc-manifest .is-rebuild .sc-chip { background: transparent; color: #ffb8a8; border-color: var(--tag); white-space: normal; text-align: right; }
+.sc-dl { display: grid; gap: 9px; margin-top: 18px; }
+.sc-dl .sc-small { color: var(--foam-muted); margin: -2px 0 6px; font-size: 14.5px; }
+.sc-case .btn-primary { background: var(--tag); border-color: var(--tag); color: #12142e; }
+.sc-case .btn-primary:hover { background: #ff7458; border-color: #ff7458; color: #12142e; }
+.sc-case .sc-quiet { background: transparent; color: #fff; border-color: var(--foam-line); }
+.sc-case .sc-quiet:hover { border-color: #fff; color: #fff; }
+.sc-case .sc-status { color: #9fe0b8; }
+.sc-case .sc-status.is-bad { color: #ffb8a8; }
+.sc-case a { color: #dfe3ff; }
+.sc-preview { margin-top: 12px; border-top: 1px solid var(--foam-line); padding-top: 8px; }
+.sc-preview summary { cursor: pointer; font-weight: 700; color: #dfe3ff; min-height: 44px; display: flex; align-items: center; }
+.sc-preview pre { margin: 6px 0 0; font-size: 12.5px; line-height: 1.5; background: #111226; color: #e7e9ff; border-radius: 8px; padding: 12px; max-height: 340px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
+.sc-case .sc-private { color: var(--foam-muted); font-size: 14.5px; }
+
+/* ---------- sections and guides ---------- */
+.sc-section { padding: clamp(48px, 6vw, 80px) 0 clamp(8px, 2vw, 16px); }
+.sc-section.sc-alt { background: var(--paper-2); padding-bottom: clamp(48px, 6vw, 72px); margin-top: clamp(40px, 5vw, 64px); }
+.sc-prose { max-width: 74ch; }
+.sc-prose p, .sc-prose li { color: var(--ink-2); }
+.sc-prose h2 { margin: 1.5em 0 .45em; }
+.sc-prose h3 { margin: 1.4em 0 .4em; }
+.sc-prose > h2:first-child { margin-top: 0; }
+.sc-prose table, .sc-article table { width: 100%; border-collapse: collapse; font-size: 16px; }
+.sc-prose caption, .sc-article caption { text-align: left; font-size: 15px; color: var(--muted); padding: 10px 14px; caption-side: top; }
+.sc-prose th, .sc-prose td, .sc-article th, .sc-article td { text-align: left; vertical-align: top; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+.sc-prose th, .sc-article th { font-weight: 700; color: var(--ink); background: var(--paper-2); }
+.sc-prose td:first-child, .sc-article td:first-child { font-weight: 700; color: var(--ink); }
+@media (max-width: 640px) {
+  .sc-prose table, .sc-prose tbody, .sc-prose tr, .sc-prose td, .sc-prose th, .sc-article table, .sc-article tbody, .sc-article tr, .sc-article td, .sc-article th { display: block; width: 100%; }
+  .sc-prose thead, .sc-article thead { display: none; }
+  .sc-prose caption, .sc-article caption { display: block; width: auto; }
+  .sc-prose td, .sc-article td { border-bottom: 0; padding: 3px 0; }
+  .sc-prose tr, .sc-article tr { border-bottom: 1px solid var(--line); padding: 10px 14px; }
+  .sc-prose td[data-label]::before, .sc-article td[data-label]::before { content: attr(data-label); display: block; font-size: 14px; font-weight: 700; color: var(--muted); margin-top: 6px; }
+}
+.sc-steps { counter-reset: s; list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 14px; }
+.sc-steps li { counter-increment: s; display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: start; }
+.sc-steps li::before { content: counter(s); display: grid; place-items: center; width: 34px; height: 34px; border-radius: 8px; background: var(--shell); color: #12142e; font-family: var(--head); font-size: 16px; }
+.sc-source { font-size: 15px; color: var(--muted); border-top: 1px solid var(--line); margin-top: 26px; padding-top: 14px; }
+.sc-callout { border-left: 6px solid var(--tag); background: var(--card); border-radius: 0 10px 10px 0; padding: 12px 16px; margin: 22px 0; }
+.sc-callout p { margin: 0; color: var(--ink); }
+.sc-faq { margin-top: 18px; border-top: 1px solid var(--line-2); max-width: 76ch; }
+.sc-faq details { border-bottom: 1px solid var(--line-2); }
+.sc-faq summary { cursor: pointer; font-weight: 700; font-size: 18px; padding: 15px 0; min-height: 44px; }
+.sc-faq details p { margin: 0 0 18px; color: var(--ink-2); }
+.sc-related { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 0 28px; margin-top: 18px; }
+.sc-related a { display: block; padding: 14px 0 14px 16px; border-left: 4px solid var(--shell); margin: 6px 0; text-decoration: none; color: var(--ink); font-weight: 700; font-size: 17.5px; }
+.sc-related a span { display: block; font-weight: 400; font-size: 15.5px; color: var(--muted); margin-top: 2px; }
+.sc-related a:hover { border-left-color: var(--tag); color: var(--link); }
+.sc-guide-hero { padding: 6px 0 52px; }
+.sc-checked { margin: 18px 0 0; font-size: 15.5px; }
+.sc-article { padding-top: clamp(36px, 5vw, 56px); }
+.sc-article .table-wrap { margin: 18px 0; }
+.sc-cta { margin: 34px 0; background: var(--shell); border-radius: 16px; padding: clamp(20px, 3vw, 30px); color: #12142e; }
+.sc-cta h2 { margin: 0; color: #12142e; font-size: 24px; }
+.sc-cta p { color: #12142e; margin: 10px 0 0; }
+.sc-cta .btn-primary { background: #12142e; border-color: #12142e; color: #fff; }
+.sc-cta .sc-quiet { background: #fff; color: #12142e; border-color: #12142e; }
+.sc-article pre { font-size: 14px; line-height: 1.5; background: var(--paper-2); border: 1px solid var(--line); border-radius: 10px; padding: 14px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
+.sc-article code { font-family: var(--mono); font-size: 0.92em; }
+@media (prefers-reduced-motion: no-preference) { .sc-tag { animation: sc-swing 900ms cubic-bezier(.2, .7, .2, 1) 1; transform-origin: 50% 0; } }
+@keyframes sc-swing { 0% { transform: rotate(-3deg); } 55% { transform: rotate(1.2deg); } 100% { transform: rotate(0); } }
+@media print { .sc-band::before { display: none; } }
+
+/* ---------- what is packed: a custom GPT or a Gemini Gem (two tags to pick from) ---------- */
+.sc-mode { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; border: 0; padding: 0; margin: 0; min-width: 0; }
+.sc-mode legend { font-family: var(--head); font-size: 21px; letter-spacing: -0.02em; color: var(--ink); margin: 0 0 12px; padding: 0; }
+.sc-mode label { display: flex; gap: 12px; align-items: flex-start; background: var(--card); border: 1.5px solid var(--line-2); border-radius: 12px; padding: 14px 14px 16px; cursor: pointer; min-width: 0; min-height: 48px; }
+.sc-mode label > span { display: grid; gap: 3px; min-width: 0; }
+.sc-mode strong { font-size: 17.5px; color: var(--ink); }
+.sc-mode label > span > span { font-size: 15px; color: var(--muted); }
+.sc-mode input { width: 20px; height: 20px; margin: 3px 0 0; accent-color: #12142e; flex: none; }
+.sc-mode label:has(input:checked) { border-color: var(--ink); box-shadow: inset 0 -6px 0 var(--tag); }
+.sc-mode label:has(input:focus-visible) { outline: 3px solid var(--tag); outline-offset: 2px; }
+@media (max-width: 520px) { .sc-mode { grid-template-columns: minmax(0, 1fr); } }
+body.sc[data-mode="gem"] .sc-only-gpt, body.sc:not([data-mode="gem"]) .sc-only-gem { display: none !important; }
+.sc-sample-row { margin: 12px 0 0; }
+.sc-band .sc-gem-line { margin-top: 10px; }
+</style>
+<style>
+body.sc:lang(ja){--ja:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic",Meiryo,"Noto Sans CJK JP","Noto Sans JP",sans-serif;--sans:"Skillcase Text",var(--ja);--head:"Skillcase Display",var(--ja);line-height:1.85;word-break:normal;overflow-wrap:anywhere;line-break:strict}
+.sc:lang(ja) h1,.sc:lang(ja) h2,.sc:lang(ja) h3{font-family:var(--ja);font-weight:700;letter-spacing:0;line-height:1.4}
+.sc:lang(ja) h1,.sc:lang(ja) h2,.sc:lang(ja) h3,.sc:lang(ja) summary,.sc:lang(ja) td,.sc:lang(ja) caption,.sc:lang(ja) .sc-related a,.sc:lang(ja) .btn{word-break:auto-phrase}
+.sc:lang(ja) .lede{line-height:1.8}
+.sc:lang(ja) .nw{white-space:nowrap}
+@media (min-width:641px){.sc:lang(ja) .sc-article td:first-child{min-width:8em}}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/custom-gpt-export/#app","name":"Skillcase","alternateName":"Custom GPT export","url":"https://peakappsstudio.com/custom-gpt-export/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"Article","@id":"https://peakappsstudio.com/ja/custom-gpt-export/gemini-gem-haishi/#article","headline":"Gemini Gemは11月17日に読み取り専用、12月17日に削除されます","description":"Googleは個人アカウントのGemを2026年11月17日にスキルへ移行して読み取り専用にし、12月17日にGeminiアプリから削除します。移行されないファイルとツール、スキルとの違い、保存方法をまとめました。","url":"https://peakappsstudio.com/ja/custom-gpt-export/gemini-gem-haishi/","inLanguage":"ja","dateModified":"2026-10-28","datePublished":"2026-10-28","author":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"about":{"@id":"https://peakappsstudio.com/custom-gpt-export/#app"},"citation":["https://support.google.com/gemini/answer/18560919?hl=ja","https://support.google.com/gemini/answer/17094296?hl=ja","https://support.google.com/gemini/answer/15146780?hl=ja","https://support.google.com/gemini/answer/16920332?hl=ja","https://knowledge.workspace.google.com/admin/generative-ai/gemini-app/about-the-transition-to-skills","https://blog.google/products-and-platforms/products/gemini/automate-tasks-with-skills/","https://agentskills.io/specification"]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Skillcase","item":"https://peakappsstudio.com/custom-gpt-export/"},{"@type":"ListItem","position":3,"name":"Gemの廃止","item":"https://peakappsstudio.com/ja/custom-gpt-export/gemini-gem-haishi/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Gemはいつ使えなくなりますか？","acceptedAnswer":{"@type":"Answer","text":"18歳以上の個人アカウントでは、2026年11月17日に読み取り専用になり、使用や編集ができなくなります。12月17日にはGeminiアプリから削除されます。"}},{"@type":"Question","name":"Gemは自動でスキルになりますか？","acceptedAnswer":{"@type":"Answer","text":"はい。Googleは、サポートされているファイルとともにGemを自動でスキルに移行するとしています。音声、動画、.doc、.xls、.ppt、アーカイブ、GitHubファイルは含まれません。"}},{"@type":"Question","name":"仕事用や学校用のアカウントはどうなりますか？","acceptedAnswer":{"@type":"Answer","text":"11月17日にGemはGeminiアプリの設定に移り、引き続き使えます。Business、Enterprise、Non-Profitは早くとも2027年3月1日、教育機関向けは早くとも2027年6月1日に使えなくなり、残ったGemは下書きのスキルになります。"}},{"@type":"Question","name":"スキルは有料ですか？","acceptedAnswer":{"@type":"Answer","text":"Googleは、スキルはGoogle AIのサブスクリプションがなくても使えるとしています。18歳以上で、「アクティビティの保存」がオンになっている必要があります。"}}]}]}
+</script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
+</head>
+<body class="sc" style="--accent:#12142e">
+<a class="skip" href="#main">本文へ移動</a>
+<header class="site-head sc-head">
+  <div class="wrap">
+    <a class="brand" href="/custom-gpt-export/" hreflang="en" aria-label="Skillcase（英語のツール）">
+      <svg viewBox="0 0 30 26" aria-hidden="true" focusable="false"><path d="M7 3h16l5 5v15a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8z" fill="#9aa8ff" stroke="#12142e" stroke-width="1.5" stroke-linejoin="round"/><circle cx="15" cy="7.6" r="2.3" fill="#fff" stroke="#ff5a3c" stroke-width="1.8"/><path d="M7.5 14.5h15M7.5 18.5h10" stroke="#12142e" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <span>Skillcase</span>
+    </a>
+    <nav class="head-nav" aria-label="Skillcase">
+      <a href="/ja/custom-gpt-export/gpts-haishi/">GPTsの廃止</a>
+      <span aria-current="page">Gemの廃止</span>
+      <a class="sc-wide" href="/custom-gpt-export/" hreflang="en">ツール（英語）</a>
+      <a class="sc-narrow" href="#guides">ガイド</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="sc-band sc-guide-hero" aria-labelledby="h1">
+<div class="wrap">
+<nav class="crumbs" aria-label="パンくずリスト"><ol><li><a href="/tools/" lang="en">Tools</a></li><li><a href="/custom-gpt-export/" lang="en" hreflang="en">Skillcase</a></li><li aria-current="page">Gemの廃止</li></ol></nav>
+<h1 id="h1">Gemini Gemは<span class="nw">11月17日</span>に読み取り専用、<span class="nw">12月17日</span>に削除されます</h1>
+<p class="lede">Googleのヘルプによると、18歳以上の個人のGoogleアカウントでは、2026年11月17日にGemがスキルに移行して読み取り専用になり、12月17日にGeminiアプリから削除されます。読み取り専用のGemにはアクセスできますが、使用、編集、新規作成はできません。ほとんどはGoogleが自動でスキルに移しますが、移行されないファイルとツールがあります。日程、スキルとの違い、期限までに保存しておくものを、Googleの公式ページから整理しました。</p>
+<p class="sc-checked">最終確認：2026年10月28日（各社の公式ページで確認）。Googleとは提携していません。</p>
+</div>
+</section>
+<article class="wrap sc-prose sc-article">
+<h2>Googleが示している日程</h2>
+<div class="table-wrap"><table>
+<caption>Gemの提供終了の日程（アカウントの種類別、Googleのヘルプより）</caption>
+<thead><tr><th scope="col">アカウント</th><th scope="col">内容</th><th scope="col">時期</th></tr></thead>
+<tbody>
+<tr><td>個人（18歳以上）</td><td data-label="内容">Gemがスキルに移行し、読み取り専用になる。アクセスはできるが、使用、編集、新規作成はできない</td><td data-label="時期">2026年11月17日</td></tr>
+<tr><td>個人（18歳以上）</td><td data-label="内容">GemがGeminiアプリから削除され、アクセスできなくなる</td><td data-label="時期">2026年12月17日</td></tr>
+<tr><td>個人（18歳未満）</td><td data-label="内容">後日スキルに移行。詳細は今後発表</td><td data-label="時期">未定</td></tr>
+<tr><td>Workspace（Business、Enterprise、Non-Profit）</td><td data-label="内容">Gemの作成、編集、使用ができなくなり、残ったGemは下書きのスキルになる</td><td data-label="時期">早くとも2027年3月1日</td></tr>
+<tr><td>Workspace（教育機関向け）</td><td data-label="内容">同じ変更。Google Classroomなどからも削除される</td><td data-label="時期">早くとも2027年6月1日</td></tr>
+</tbody></table></div>
+<p>仕事用と学校用のアカウントでは、11月17日にGemがGeminiアプリの設定に移り、その後も作成、編集、使用を続けられます（<a href="https://knowledge.workspace.google.com/admin/generative-ai/gemini-app/about-the-transition-to-skills" rel="nofollow noopener" hreflang="en">About the transition from Gems to skills（英語、管理者向け）</a>）。ミニアプリを作る試験運用版のOpalと、Google LabsのGemも11月に提供終了となり、Google LabsのGemはスキルに移行されません（<a href="https://blog.google/products-and-platforms/products/gemini/automate-tasks-with-skills/" rel="nofollow noopener" hreflang="en">Let skills in Gemini tackle your most repetitive tasks（英語）</a>）。</p>
+
+<h2>スキルに移行されないもの</h2>
+<div class="table-wrap"><table>
+<caption>Googleの自動移行で、スキルに含まれないもの</caption>
+<thead><tr><th scope="col">Gemの中身</th><th scope="col">Googleの説明</th></tr></thead>
+<tbody>
+<tr><td>音声ファイル、動画ファイル</td><td data-label="Googleの説明">移行されない</td></tr>
+<tr><td>以前のOffice形式（.doc、.xls、.ppt）</td><td data-label="Googleの説明">移行されない</td></tr>
+<tr><td>アーカイブと圧縮ファイル（.zip、.tar、.7z、.rar、.gz、.tgz）</td><td data-label="Googleの説明">移行されない</td></tr>
+<tr><td>GitHubファイル</td><td data-label="Googleの説明">移行されない</td></tr>
+<tr><td>合計100 MBを超える分</td><td data-label="Googleの説明">上限を下回るまで、サイズの大きいファイルから削除される</td></tr>
+<tr><td>動画の作成、音楽の作成、Canvas、Deep Research、ガイド付き学習</td><td data-label="Googleの説明">Gemで使えたデフォルトツールのほとんどは、現時点でスキルに対応していない</td></tr>
+</tbody></table></div>
+<p>個人アカウントでは、Gemのファイルを2026年12月17日までダウンロードできます。Gemと新しいスキルを並べて開き、移行されなかったファイルを探してダウンロードします（<a href="https://support.google.com/gemini/answer/18560919?hl=ja" rel="nofollow noopener" hreflang="ja">Gem からスキルへの移行について</a>）。</p>
+
+<h2>Gemとスキルの違い</h2>
+<div class="table-wrap"><table>
+<caption>GemとスキルをGoogleのヘルプで比べたもの</caption>
+<thead><tr><th scope="col">項目</th><th scope="col">Gem</th><th scope="col">スキル</th></tr></thead>
+<tbody>
+<tr><td>使い方</td><td data-label="Gem">Gemを開いて、そのGemとチャットする</td><td data-label="スキル">どのチャットでも「/」（近日「@」に変更予定）とスキル名で呼び出す。関連する場面ではGeminiが自動で使う</td></tr>
+<tr><td>組み合わせ</td><td data-label="Gem">1つのGemで1つの設定</td><td data-label="スキル">1つのチャットで複数のスキルを重ねて使える</td></tr>
+<tr><td>チャットの一覧</td><td data-label="Gem">Gemごとに最近のチャットのページがある</td><td data-label="スキル">専用ページはなく、ほかのチャットと同じくサイドパネルに並ぶ</td></tr>
+<tr><td>利用条件</td><td data-label="Gem">13歳以上（国によって異なる）</td><td data-label="スキル">18歳以上でログインし、「アクティビティの保存」がオン</td></tr>
+<tr><td>持ち運び</td><td data-label="Gem">Geminiの中だけ</td><td data-label="スキル">SKILL.mdという公開された形式で、ClaudeやChatGPTのスキルと同じ</td></tr>
+</tbody></table></div>
+<p>スキルはGoogle AIのサブスクリプションがなくても使えます。作れる数に上限はありませんが、同時に有効にできるのは100個まで、ファイルは合計100 MBまでです（<a href="https://support.google.com/gemini/answer/18560919?hl=ja" rel="nofollow noopener" hreflang="ja">Gem からスキルへの移行について</a>、<a href="https://support.google.com/gemini/answer/17094296?hl=ja" rel="nofollow noopener" hreflang="ja">Gemini アプリ向けのスキルを作成して管理する</a>）。Gemの年齢条件は <a href="https://support.google.com/gemini/answer/15146780?hl=ja" rel="nofollow noopener" hreflang="ja">Gemini アプリで Gem を使用する</a> にあります。</p>
+
+<h2><span class="nw">12月17日</span>までに保存しておくもの</h2>
+<ol class="sc-steps">
+<li><span><strong>設定をコピーする。</strong>gemini.google.com でGemの横の編集アイコンをクリックし、名前、説明、指示をコピーします。11月17日以降も、Gemには読み取り専用でアクセスできます。</span></li>
+<li><span><strong>知識ファイルをダウンロードする。</strong>「知識」にある各ファイルをクリックして開き、上部のダウンロードアイコンをクリックします。ファイルは1つずつダウンロードします。</span></li>
+<li><span><strong>Googleのデータエクスポートでも控えを取る。</strong>takeout.google.com で「Gemini」にチェックを入れるとGemのデータが、「マイ アクティビティ」の「Gemini アプリ」でチャットが含まれます。メールのリンクは7日間有効です（<a href="https://support.google.com/gemini/answer/16920332?hl=ja" rel="nofollow noopener" hreflang="ja">Gemini アプリデータをダウンロードする</a>）。</span></li>
+<li><span><strong>Skillcaseでひとつにまとめる。</strong>下の手順で、すべてのファイルを含むバックアップと、Gemini、Claude、ChatGPT用のスキルを作れます。</span></li>
+</ol>
+
+<h2>Skillcaseでの保存手順（画面は英語です）</h2>
+<ol class="sc-steps">
+<li><span><a href="/custom-gpt-export/?from=gem#tool" lang="en" hreflang="en">Skillcase</a> を開くと「A Gemini Gem」が選ばれた状態になります。Name（名前）、Description（説明）、Instructions（指示）にコピーした内容を貼り付けます。</span></li>
+<li><span>「Add files」で知識ファイルを追加します。Googleの移行で漏れるファイル（音声、動画、.doc、.xls、.ppt、アーカイブ）には印が付き、バックアップにはすべてのファイルが残ります。</span></li>
+<li><span>「Download the backup」でバックアップを保存します。「Skill for Gemini」ではWord（.docx）をテキストに変換したGemini用スキルを、「Skill for Claude and ChatGPT」ではClaudeとChatGPT用のスキルを作れます。</span></li>
+</ol>
+<p>すべてブラウザの中で処理され、何もアップロードされません。スキルの名前は半角の英小文字、数字、ハイフンだけのため、Gemの名前が日本語だけの場合、スキルのフォルダ名は「my-gem」になります。</p>
+
+<h2>スキルの場所と使い方</h2>
+<ol class="sc-steps">
+<li><span>gemini.google.com のサイドバーで「カスタマイズ」、「スキル」の順にクリックします。「カスタマイズ」が表示されない場合は、先に「その他」アイコンをクリックします。</span></li>
+<li><span>チャットで「/」を入力してスキルを選びます。</span></li>
+<li><span>有効にしたスキルは、関連する場面でGeminiが自動的に使います。</span></li>
+</ol>
+
+<div class="sc-cta">
+<h2><span class="nw">12月17日</span>までにGemを保存する</h2>
+<p>Gemの名前、説明、指示を貼り付けて知識ファイルを追加すると、すべてのファイルを含むバックアップと、Gemini、Claude、ChatGPT用のスキルをダウンロードできます。無料で、ブラウザの中だけで動き、何もアップロードされません。画面は英語です。</p>
+<div class="sc-actions"><a class="btn btn-primary" href="/custom-gpt-export/?from=gem#tool" hreflang="en">SkillcaseでGemを保存する</a></div>
+</div>
+
+<h2 id="faq-h">よくある質問</h2>
+<div class="sc-faq">
+<details><summary>Gemはいつ使えなくなりますか？</summary><p>18歳以上の個人アカウントでは、2026年11月17日に読み取り専用になり、使用や編集ができなくなります。12月17日にはGeminiアプリから削除されます。</p></details>
+<details><summary>Gemは自動でスキルになりますか？</summary><p>はい。Googleは、サポートされているファイルとともにGemを自動でスキルに移行するとしています。音声、動画、.doc、.xls、.ppt、アーカイブ、GitHubファイルは含まれません。</p></details>
+<details><summary>仕事用や学校用のアカウントはどうなりますか？</summary><p>11月17日にGemはGeminiアプリの設定に移り、引き続き使えます。Business、Enterprise、Non-Profitは早くとも2027年3月1日、教育機関向けは早くとも2027年6月1日に使えなくなり、残ったGemは下書きのスキルになります。</p></details>
+<details><summary>スキルは有料ですか？</summary><p>Googleは、スキルはGoogle AIのサブスクリプションがなくても使えるとしています。18歳以上で、「アクティビティの保存」がオンになっている必要があります。</p></details>
+</div>
+
+<p class="sc-source">出典：<a href="https://support.google.com/gemini/answer/18560919?hl=ja" rel="nofollow noopener" hreflang="ja">Google: Gem からスキルへの移行について</a>、<a href="https://support.google.com/gemini/answer/17094296?hl=ja" rel="nofollow noopener" hreflang="ja">Google: Gemini アプリ向けのスキルを作成して管理する</a>、<a href="https://support.google.com/gemini/answer/15146780?hl=ja" rel="nofollow noopener" hreflang="ja">Google: Gemini アプリで Gem を使用する</a>、<a href="https://support.google.com/gemini/answer/16920332?hl=ja" rel="nofollow noopener" hreflang="ja">Google: Gemini アプリデータをダウンロードする</a>、<a href="https://knowledge.workspace.google.com/admin/generative-ai/gemini-app/about-the-transition-to-skills" rel="nofollow noopener" hreflang="en">Google Workspace: About the transition from Gems to skills（英語、管理者向け）</a>、<a href="https://blog.google/products-and-platforms/products/gemini/automate-tasks-with-skills/" rel="nofollow noopener" hreflang="en">Google: Let skills in Gemini tackle your most repetitive tasks（英語）</a>、<a href="https://agentskills.io/specification" rel="nofollow noopener" hreflang="en">Agent Skills: Specification（英語）</a>。最終確認：2026年10月28日。Skillcaseは Peak Apps Studio による独立したツールで、OpenAI、Anthropic、Google とは提携していません。</p>
+</article>
+
+<section class="sc-section sc-alt" aria-labelledby="more-h">
+<div class="wrap">
+<h2 id="more-h">関連ページ</h2>
+<div class="sc-related">
+<a href="/ja/custom-gpt-export/gpts-haishi/">カスタムGPT（GPTs）の廃止<span>12月11日に止まるもの、残るもの、保存の手順</span></a>
+<a href="/custom-gpt-export/?from=gem#tool" lang="en" hreflang="en">Skillcase<span lang="ja">Gemのバックアップとスキルを作るツール（英語）</span></a>
+<a href="/custom-gpt-export/gemini-gems-going-away/" lang="en" hreflang="en">Are Gemini Gems going away?<span lang="ja">同じ内容の英語版</span></a>
+</div>
+</div>
+</section>
+</main>
+<footer class="site-foot sc-foot" id="guides">
+  <div class="wrap cols">
+    <div>
+      <p class="sc-foot-brand">Skillcase</p>
+      <p class="sc-foot-text">提供終了の前に、カスタムGPTやGemini Gemの指示、知識ファイル、アクションのスキーマ、会話をまとめて保存し、Claude、Gemini、ChatGPT用のスキルにするツールです。処理はすべてお使いの端末の中で行われ、何もアップロードされません。</p>
+      <p class="sc-foot-text">Skillcaseは <a href="https://peakappsstudio.com/" lang="en">Peak Apps Studio</a> による独立したツールで、OpenAI、Anthropic、Google、Ollama とは提携していません。ChatGPT、GPTs、Claude、Gemini、Gem は各社の商標で、ここではツールが読み書きするファイルの説明のためにのみ名前を挙げています。</p>
+    </div>
+    <div>
+      <h2>ガイド</h2>
+      <ul>
+        <li><a href="/ja/custom-gpt-export/gpts-haishi/">カスタムGPT（GPTs）の廃止</a></li>
+        <li><span aria-current="page">Gemini Gemの廃止</span></li>
+        <li><a href="/custom-gpt-export/" hreflang="en">Skillcase（英語のツール）</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>このサイトについて</h2>
+      <ul>
+        <li><a href="/tools/privacy/" hreflang="en">プライバシー（英語）</a></li>
+        <li><a href="/tools/" hreflang="en">Peak Apps のほかのツール（英語）</a></li>
+        <li><a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

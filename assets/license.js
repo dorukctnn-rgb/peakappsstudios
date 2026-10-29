@@ -13,11 +13,29 @@
  * and a success message stays on screen for 2 s before the dialog closes, so tests can wait on either in any language.
  * Verification calls Gumroad's public endpoint (CORS allowed, no secret needed).
  * The verified key is cached locally and re-checked in the background every 7 days.
+ *
+ * Checkout link. By default the Buy buttons ([data-buy-pro] and the Pro window's) open the Gumroad product page in a new tab.
+ * A page with <meta name="peak-checkout" content="direct"> (or a tool passing setup({ checkout: 'direct' | 'product' }), which
+ * wins) sends them straight to Gumroad's checkout instead: the same link with ?wanted=true, still in a new tab, so the tool and
+ * the file open in it stay where they are while the visitor pays. Gumroad answers /l/<permalink>?wanted=true with a redirect
+ * to its checkout with the product in the cart and every other query parameter kept, so the utm_source, utm_medium and
+ * utm_campaign that pro-source.js adds on the click reach the checkout too (checked against the real Gumroad, 29 Oct 2026).
+ * Nothing else loads: no Gumroad script, no change to the page's policy. Tests: assets/_tests/direct-checkout.test.mjs.
  */
 (function () {
   const API = 'https://api.gumroad.com/v2/licenses/verify';
   const WEEK = 7 * 864e5;
   let cfg = null;
+  // the Gumroad product link with ?wanted=true (straight to checkout); anything else is returned as it is
+  function toCheckout(url) {
+    try {
+      const u = new URL(url);
+      if (u.protocol !== 'https:' || !/(^|\.)gumroad\.com$/.test(u.hostname) || !u.pathname.startsWith('/l/')) return url;
+      u.searchParams.set('wanted', 'true');
+      return u.toString();
+    } catch (e) { return url; }
+  }
+  const buyLink = () => (cfg.checkout === 'direct' ? toCheckout(cfg.buyUrl) : cfg.buyUrl);
   const listeners = [];
   const WORDS = {
     title: 'Get Pro', buy: 'Buy Pro on Gumroad', keyLabel: 'Already bought it? Paste your license key', verify: 'Activate', close: 'Close',
@@ -105,22 +123,27 @@
 
   function open(reason) {
     const d = dialog();
-    d.querySelector('[data-l-buy]').href = cfg.buyUrl;
+    d.querySelector('[data-l-buy]').href = buyLink();
     d.querySelector('[data-l-reason]').textContent = reason || cfg.pitch || '';
     const st = d.querySelector('[data-l-status]');
     st.textContent = current() ? w('active') : ''; st.dataset.lStatus = current() ? 'active' : '';
-    if (typeof d.showModal === 'function') d.showModal(); else window.open(cfg.buyUrl, '_blank', 'noopener');
+    if (typeof d.showModal === 'function') d.showModal(); else window.open(buyLink(), '_blank', 'noopener');
   }
 
   window.PeakLicense = {
     setup(options) {
-      cfg = Object.assign({ tool: 'tool', productId: '', permalink: '', buyUrl: '#', pitch: '', strings: null, localMessages: false }, options);
-      document.querySelectorAll('[data-buy-pro]').forEach(a => { a.href = cfg.buyUrl; a.target = '_blank'; a.rel = 'noopener'; });
+      cfg = Object.assign({ tool: 'tool', productId: '', permalink: '', buyUrl: '#', pitch: '', strings: null, localMessages: false, checkout: '' }, options);
+      if (cfg.checkout !== 'direct' && cfg.checkout !== 'product') {
+        const m = document.querySelector('meta[name="peak-checkout"]');
+        cfg.checkout = m && m.getAttribute('content') === 'direct' ? 'direct' : 'product';
+      }
+      document.querySelectorAll('[data-buy-pro]').forEach(a => { a.href = buyLink(); a.target = '_blank'; a.rel = 'noopener'; });
       document.querySelectorAll('[data-enter-key]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); open(); }));
       recheck();
       emit();
     },
     isPro: current,
+    checkoutMode() { return (cfg && cfg.checkout) || 'product'; },
     verify,
     open,
     onChange(fn) { listeners.push(fn); if (cfg) fn(current()); },
