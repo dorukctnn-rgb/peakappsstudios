@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Üç Koltuk: Antalya'da berber (tasarım örneği)</title>
+<meta name="description" content="Üç Koltuk, Muratpaşa'da üç koltuklu kurgusal bir berber: canlı koltuk tahtası ve WhatsApp'tan sıra tutma ile Peak Apps Studio tasarım örneği.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#CF2A26">
+<link rel="alternate" hreflang="en" href="../">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23CF2A26'/%3E%3Crect x='12' y='4' width='8' height='24' rx='4' fill='%23F3F5F2' stroke='%23141619' stroke-width='2'/%3E%3Cpath d='M12 9l8-4M12 15l8-4M12 21l8-4M12 27l8-4' stroke='%23CF2A26' stroke-width='2.4'/%3E%3C/svg%3E">
+<link rel="preload" href="../assets/fonts/LeagueGothic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/SUSE.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/barber.css">
+<script type="importmap">{"imports":{"three":"/web/demo/_lib/three-0.180.0/three.module.min.js"}}</script>
+</head>
+<body>
+<a class="skip" href="#main">İçeriğe geç</a>
+
+<header class="bar" id="bar">
+  <a class="mark" href="#top" aria-label="Üç Koltuk, sayfanın başına dön">
+    <span class="mark__pole" aria-hidden="true"></span>
+    <span class="mark__name">Üç Koltuk</span>
+    <span class="mark__sub">Berber, Muratpaşa</span>
+  </a>
+  <button class="mini" id="mini" type="button" aria-controls="sheet" aria-expanded="false" aria-label="Koltuk tahtasını aç">
+    <noscript>Koltuk tahtası</noscript>
+  </button>
+  <button class="bar__cta" id="cta" type="button" aria-controls="sheet" aria-expanded="false">Sıranı tut</button>
+</header>
+
+<section class="sheet" id="sheet" aria-label="Koltuk tahtası" data-sc-verify-state="">
+  <div class="sheet__head">
+    <h2 class="sheet__title" id="sheet-title">Perşembe akşamı</h2>
+    <span class="sheet__clock" id="sheet-clock" aria-hidden="true"></span>
+    <button class="sheet__close" id="sheet-close" type="button">Kapat</button>
+  </div>
+  <div class="grid" id="grid" role="group" aria-labelledby="sheet-title"></div>
+  <p class="sheet__foot" id="sheet-foot" aria-live="polite"></p>
+</section>
+
+<a class="badge" href="/tr/web-sitesi/">Peak Apps Studio tasarım örneği. Kurgusal berber.</a>
+
+<main id="main">
+
+  <section class="cut hero g-white" id="top" data-sc-act="flow" aria-labelledby="h-hero">
+    <div class="hero__light" aria-hidden="true"></div>
+    <div class="hero__copy">
+      <h1 class="d" id="h-hero" data-sc-cue="0 0.93 0 0.1" data-sc-kinetic="lines">Ensen uzamış.</h1>
+      <p class="lede hero__sub" data-sc-cue="0 0.93 0 0.1">Muratpaşa'da üç koltuk, üç usta. Gel otur ya da sıranı WhatsApp'tan tut.</p>
+    </div>
+    <div class="hero__scene" id="hero-scene" aria-hidden="true">
+      <picture>
+        <source media="(max-width: 860px)" srcset="../assets/img/hero-pole-phone.webp">
+        <img src="../assets/img/hero-pole.webp" alt="" width="1600" height="1000" fetchpriority="high">
+      </picture>
+    </div>
+  </section>
+
+  <section class="cut deal g-red" data-sc-act="flow" aria-labelledby="h-deal">
+    <div class="deal__type" data-sc-reveal="up" data-sc-reveal-at="0.04 0.26">
+      <h2 class="d d-xl" id="h-deal">Gel otur.</h2>
+      <p class="d d-xl">Ya da sıranı tut.</p>
+    </div>
+    <p class="body" data-sc-cue="0.1 0.95 0.12 0.06">Gün boyu randevusuz gel. Akşamları sıra tutan önce oturur, kalanımız çayla bekler.</p>
+  </section>
+
+  <section class="cut g-black" data-sc-act="flow" data-svc="fade" aria-labelledby="h-fade">
+    <div class="svc-cut">
+      <figure class="obj fade-obj">
+        <img src="../assets/img/clipper-1100.webp" srcset="../assets/img/clipper-560.webp 560w, ../assets/img/clipper-1100.webp 1100w" sizes="(max-width: 860px) 92vw, 55vw" width="1100" height="1000" alt="Çelik bıçaklı, kırmızı düğmeli siyah bir saç kesme makinesi, sert ışıkta." loading="lazy" decoding="async">
+      </figure>
+      <div class="svc-copy" data-sc-cue="0.06 0.95 0.14 0.07">
+        <h2 class="d d-lg" id="h-fade" lang="en">Skin fade</h2>
+        <div class="pr"><p class="price">650 TL</p><p class="meta">45 dakika</p></div>
+        <p class="body">Yanlar sıfır, üste doğru üç numaraya karışır. Ense usturayla temizlenir.</p>
+        <ol class="guards" aria-label="Kullanılan makine tarakları, kısadan uzuna"><li>0</li><li>0,5</li><li>1</li><li>2</li><li>3</li></ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="cut g-mint" data-sc-act="flow" data-svc="makas" aria-labelledby="h-makas">
+    <div class="svc-cut svc-cut--flip">
+      <figure class="obj" data-sc-reveal="left" data-sc-reveal-at="0.04 0.28">
+        <img src="../assets/img/scissors-1100.webp" srcset="../assets/img/scissors-560.webp 560w, ../assets/img/scissors-1100.webp 1100w" sizes="(max-width: 860px) 92vw, 50vw" width="1100" height="1000" alt="Siyah bir tarağın üstünde duran berber makası, keskin gölgesiyle." loading="lazy" decoding="async">
+      </figure>
+      <div class="svc-copy" data-sc-cue="0.06 0.95 0.14 0.07">
+        <h2 class="d d-lg" id="h-makas">Saç kesimi</h2>
+        <div class="pr"><p class="price">550 TL</p><p class="meta">30 dakika</p></div>
+        <p class="body">Yıkama, makas, kenarlarda biraz makine. Ölçerek, acele etmeden. Saçını nasıl taradığını söyle, ona göre keselim.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cut g-white" data-sc-act="flow" data-svc="sakal" aria-labelledby="h-sakal">
+    <div class="beard">
+      <div class="svc-copy" data-sc-cue="0.06 0.95 0.14 0.07">
+        <h2 class="d d-lg" id="h-sakal">Sakal</h2>
+        <div class="pr"><p class="price">300 TL</p><p class="meta">20 dakika</p></div>
+        <p class="body">Makineyle şekil, usturayla kontur. Yanakta tek, temiz bir çizgi; çene altında bir tane daha.</p>
+        <p class="combo">Saç ve sakal birlikte: 800 TL.</p>
+      </div>
+      <div class="beard__art" id="beard-art">
+        <svg viewBox="0 0 760 520" role="img" aria-label="Sakalın yanak çizgisini çizen bir ustura">
+          <defs>
+            <pattern id="stubble" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(18)">
+              <circle cx="3" cy="4" r="1.6" fill="#141619"/><circle cx="10" cy="10" r="1.3" fill="#141619"/><circle cx="9" cy="2" r="1" fill="#141619"/>
+            </pattern>
+            <clipPath id="below"><path d="M40 70 C 150 210, 280 290, 430 318 S 660 360, 730 470 L 760 520 L 0 520 L 0 70 Z"/></clipPath>
+          </defs>
+          <rect x="0" y="0" width="760" height="520" fill="url(#stubble)" clip-path="url(#below)" opacity="0.55"/>
+          <path id="beard-path" class="beard__line" pathLength="1" d="M40 70 C 150 210, 280 290, 430 318 S 660 360, 730 470" fill="none" stroke="#A91F1B" stroke-width="6" stroke-linecap="round"/>
+          <image id="beard-razor" href="../assets/img/razor-560.webp" width="300" height="273" x="0" y="0" preserveAspectRatio="xMidYMid meet"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="cut g-ox" data-sc-act="flow" data-svc="ustura" aria-labelledby="h-ustura" data-live>
+    <div class="svc-cut shave svc-cut--flip">
+      <figure class="obj">
+        <img src="../assets/img/kolonya-1000.webp" srcset="../assets/img/kolonya-520.webp 520w, ../assets/img/kolonya-1000.webp 1000w" sizes="(max-width: 860px) 84vw, 46vw" width="1000" height="1000" alt="Rulo yapılmış sıcak havlunun yanında bir şişe limon kolonyası." loading="lazy" decoding="async">
+        <div class="steam" aria-hidden="true"><span></span><span></span><span></span></div>
+      </figure>
+      <div class="svc-copy" data-sc-cue="0.06 0.95 0.14 0.07">
+        <h2 class="d d-lg" id="h-ustura">Ustura tıraşı</h2>
+        <div class="pr"><p class="price">400 TL</p><p class="meta">30 dakika</p></div>
+        <p class="body">Sıcak havlu, köpük, ustura, sonunda limon kolonyası. Gözlerin yaşarır, geçer.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cut kids g-white" data-sc-act="flow" data-svc="cocuk" aria-labelledby="h-cocuk">
+    <div class="svc-cut">
+      <figure class="obj" data-sc-reveal="iris" data-sc-reveal-at="0.04 0.3">
+        <img src="../assets/img/plank-1100.webp" srcset="../assets/img/plank-560.webp 560w, ../assets/img/plank-1100.webp 1100w" sizes="(max-width: 860px) 92vw, 55vw" width="1100" height="900" alt="Berber koltuğunun deri kollarına konmuş tahta, üstünde çizgili bir lolipop." loading="lazy" decoding="async">
+      </figure>
+      <div class="svc-copy" data-sc-cue="0.06 0.95 0.14 0.07">
+        <h2 class="d d-lg" id="h-cocuk">Çocuk tıraşı</h2>
+        <div class="pr"><p class="price">400 TL</p><p class="meta">25 dakika, 12 yaş altı</p></div>
+        <p class="body">Eren koltuğun kollarına tahtayı koyar, boy yetişir. Uslu durana lolipop. Durmayana da çoğu zaman.</p>
+      </div>
+    </div>
+    <div class="kids__band" aria-hidden="true"></div>
+  </section>
+
+  <section class="cut wax g-red" data-sc-act="flow" data-svc="agda" aria-labelledby="h-agda">
+    <h2 class="d d-xl" id="h-agda" data-sc-cue="0.05 0.95 0.2 0.06" data-sc-kinetic="words">Kaş, burun, kulak.</h2>
+    <p class="lede" data-sc-cue="0.1 0.95 0.14 0.06">Ağda, 150 TL, 10 dakika. Acıtır mı? Biraz.</p>
+  </section>
+
+  <section class="cut quiet g-black" id="s-quiet" data-sc-act="flow" aria-label="Akşamlar">
+    <p data-sc-cue="0.12 0.97 0.16 0.05">Akşam <span class="quiet__clock">18:00</span>'den sonra koltuklar çabuk dolar.</p>
+  </section>
+
+  <section class="cut hours g-white" id="s-hours" data-sc-act="flow" aria-labelledby="h-hours">
+    <div class="hours__grid" data-sc-cue="0.06 0.96 0.14 0.06">
+      <h2 class="d d-xl" id="h-hours">Açığız</h2>
+      <dl class="letterboard">
+        <dt>Pazartesi-Cumartesi</dt><dd>09:00–21:00</dd>
+        <dt>Son kesim</dt><dd>20:30</dd>
+        <dt class="off">Pazar</dt><dd class="off">Kapalı</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="cut walkin g-mint" id="s-walkin" data-sc-act="flow" aria-labelledby="h-walkin">
+    <div class="walkin__grid" data-sc-reveal="down" data-sc-reveal-at="0.04 0.24">
+      <div>
+        <h2 class="d d-lg" id="h-walkin">Randevusuz da gel.</h2>
+        <p class="body" style="color:var(--ink)">Koltuk boşsa hemen oturursun. Doluysa çay söyleriz, sıranı beklersin. Sıra tutmak, çayı atlamak demek, o kadar.</p>
+      </div>
+      <svg class="tea" viewBox="0 0 120 170" aria-hidden="true">
+        <ellipse cx="60" cy="156" rx="56" ry="10" fill="#CF2A26" stroke="#141619" stroke-width="3"/>
+        <path d="M28 20 C 26 60, 44 72, 44 90 C 44 110, 30 120, 34 146 L 86 146 C 90 120, 76 110, 76 90 C 76 72, 94 60, 92 20 Z" fill="#F3F5F2" fill-opacity="0.55" stroke="#141619" stroke-width="3"/>
+        <path d="M30 40 C 31 62, 45 72, 45 90 C 45 110, 31 120, 35 145 L 85 145 C 89 120, 75 110, 75 90 C 75 72, 89 62, 90 40 Z" fill="#9B3A12"/>
+        <path d="M40 46 C 42 60, 50 70, 50 88" stroke="#F3F5F2" stroke-opacity="0.5" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </section>
+
+  <section class="cut shop g-ox" data-sc-act="flow" aria-labelledby="h-shop">
+    <div class="shop__grid">
+      <div class="svc-copy" data-sc-cue="0.06 0.95 0.14 0.07">
+        <h2 class="d d-lg" id="h-shop">Dükkân</h2>
+        <p class="body">Ara sokakta dar bir dükkân. Uzun bir aynaya bakan üç koltuk, kapının yanında bank, çay hep demde. Dışarıdaki direk sabah dokuzdan akşam dokuza döner.</p>
+      </div>
+      <svg class="plan" viewBox="0 0 800 500" role="img" aria-label="Dükkânın yukarıdan planı: uzun bir aynaya bakan üç koltuk, lavabo ve kapının yanında çaylı bank." data-sc-in>
+        <rect x="20" y="20" width="760" height="440" fill="none" stroke="currentColor" stroke-width="6"/>
+        <line x1="60" y1="44" x2="620" y2="44" stroke="#A6DCC9" stroke-width="8" stroke-linecap="round"/>
+        <text x="64" y="80">Uzun ayna</text>
+        <g fill="none" stroke="currentColor" stroke-width="4">
+          <rect x="90" y="120" width="110" height="96" rx="18"/><rect x="100" y="216" width="90" height="34" rx="8"/>
+          <rect x="270" y="120" width="110" height="96" rx="18"/><rect x="280" y="216" width="90" height="34" rx="8"/>
+          <rect x="450" y="120" width="110" height="96" rx="18"/><rect x="460" y="216" width="90" height="34" rx="8"/>
+        </g>
+        <text class="lbl-d" x="114" y="176">Cemal</text><text class="lbl-d" x="296" y="176">Barış</text><text class="lbl-d" x="478" y="176">Eren</text>
+        <text class="lbl-s" x="94" y="282">Koltuk 1</text><text class="lbl-s" x="274" y="282">Koltuk 2</text><text class="lbl-s" x="454" y="282">Koltuk 3</text>
+        <circle cx="700" cy="110" r="38" fill="none" stroke="currentColor" stroke-width="4"/><text x="664" y="180">Lavabo</text>
+        <rect x="200" y="392" width="460" height="46" fill="none" stroke="currentColor" stroke-width="4"/>
+        <text x="210" y="380">Bank, çay hep demde</text>
+        <g fill="#CF2A26" stroke="currentColor" stroke-width="2"><circle cx="420" cy="415" r="9"/><circle cx="450" cy="415" r="9"/><circle cx="600" cy="415" r="9"/></g>
+        <line x1="20" y1="300" x2="20" y2="430" stroke="#4E1820" stroke-width="10"/>
+        <path d="M20 300 A 130 130 0 0 1 150 430" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 6"/>
+        <text x="36" y="452">Kapı</text>
+        <g transform="translate(-6 286)"><rect x="0" y="0" width="12" height="40" rx="6" fill="#F3F5F2" stroke="#141619" stroke-width="2"/><path d="M0 8l12-6M0 18l12-6M0 28l12-6M0 38l12-6" stroke="#CF2A26" stroke-width="2.6"/></g>
+      </svg>
+    </div>
+  </section>
+
+  <section class="cut map g-mint" data-sc-act="flow" aria-labelledby="h-map">
+    <div class="map__grid">
+      <svg class="mapart" viewBox="0 0 800 560" role="img" aria-label="Muratpaşa'nın çizim haritası: dükkân sahil yolundan iki sokak içeride, berber direğiyle işaretli.">
+        <rect width="800" height="560" fill="#F3F5F2"/>
+        <path d="M0 430 C 120 400, 210 450, 330 420 S 560 380, 660 410 S 760 440, 800 420 L 800 560 L 0 560 Z" fill="#9CCBD8"/>
+        <text class="sea-l" x="250" y="520">Akdeniz</text>
+        <path d="M0 405 C 120 375, 210 425, 330 395 S 560 355, 660 385 S 760 415, 800 395" fill="none" stroke="#141619" stroke-width="10" stroke-linecap="round"/>
+        <text x="560" y="355">Sahil yolu</text>
+        <g stroke="#C4CAC6" stroke-width="16" stroke-linecap="square">
+          <line x1="80" y1="40" x2="110" y2="380"/><line x1="250" y1="40" x2="270" y2="390"/><line x1="430" y1="40" x2="440" y2="370"/><line x1="610" y1="40" x2="620" y2="380"/>
+          <line x1="40" y1="120" x2="760" y2="100"/><line x1="40" y1="240" x2="760" y2="220"/>
+        </g>
+        <rect x="290" y="120" width="120" height="80" fill="#B9DDB0"/>
+        <text x="300" y="166">Park</text>
+        <path class="route" pathLength="1" d="M520 372 L 520 300 L 440 300 L 440 236" fill="none" stroke="#A91F1B" stroke-width="6" stroke-dasharray="1" stroke-linecap="round"/>
+        <g transform="translate(428 168)"><rect x="0" y="0" width="24" height="64" rx="12" fill="#F3F5F2" stroke="#141619" stroke-width="3"/><path d="M0 12l24-10M0 26l24-10M0 40l24-10M0 54l24-10" stroke="#CF2A26" stroke-width="5"/></g>
+        <text x="462" y="196">Üç Koltuk</text>
+        <text x="60" y="80">Muratpaşa</text>
+      </svg>
+      <div class="svc-copy" data-sc-cue="0.06 0.95 0.14 0.07">
+        <h2 class="d d-lg" id="h-map">Muratpaşa, Antalya</h2>
+        <p class="body" style="color:var(--ink)">Sahil yolundan iki sokak içeride. Direği görünce geldin.</p>
+        <p class="small">Çizim, ölçekli değil. Gerçek sitede adres ve yol tarifi olur.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cut close g-red" id="slot" data-sc-act="flow" aria-labelledby="slot-when">
+    <div data-sc-cue="0.08">
+      <p class="close__kick" id="slot-kick">Senin sıran</p>
+      <h2 class="d close__slot" id="slot-when">Perşembe 18:30</h2>
+      <p class="close__who" id="slot-who">Koltuk 2, Barış</p>
+      <div class="close__row">
+        <p class="bubble"><span class="bubble__to">Üç Koltuk'a, WhatsApp'tan</span><span id="slot-msg">Merhaba, Perşembe 18:30 için skin fade. Barış'ın koltuğu (2) uygunsa gelirim.</span></p>
+        <div class="close__actions">
+          <button class="linkbtn" id="slot-change" type="button">Değiştir</button>
+          <button class="btn btn--white" id="slot-send" type="button">WhatsApp'tan gönder</button>
+        </div>
+      </div>
+      <p class="close__note" id="slot-note">Bunu senin için ayırdık. Başka saat istersen değiştir.</p>
+    </div>
+    <footer class="foot">
+      <span>Üç Koltuk kurgusal bir berber. İsimler, fiyatlar ve tahta örnektir.</span>
+      <a href="/tr/web-sitesi/">Peak Apps Studio tasarım örneği. Kurgusal berber.</a>
+      <a href="../" hreflang="en" lang="en">English</a>
+    </footer>
+  </section>
+
+</main>
+
+<dialog id="picker" aria-labelledby="picker-title">
+  <form method="dialog" class="dlg" id="picker-form">
+    <h2 id="picker-title">Koltuk 2, 18:30</h2>
+    <p id="picker-sub">En fazla iki tane seç. Göndermeden önce değiştirebilirsin.</p>
+    <ul class="svc-list" id="picker-list"></ul>
+    <div class="dlg__row">
+      <button class="btn" id="picker-ok" type="button" disabled>Bu sırayı tut</button>
+      <button class="btn btn--ghost" value="cancel" type="submit">Vazgeç</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="send" aria-labelledby="send-title">
+  <form method="dialog" class="dlg">
+    <h2 id="send-title">Gerçek sitede burada WhatsApp açılır</h2>
+    <p>Düğme dükkânla bir sohbet açar, bu mesaj hazır yazılı gelir:</p>
+    <p class="dlg__msg" id="send-msg"></p>
+    <p>Bu sayfa Peak Apps Studio'nun tasarım örneği. Mesaj gönderilmedi, kimseyle iletişime geçilmedi.</p>
+    <div class="dlg__row">
+      <button class="btn" type="submit" value="close">Kapat</button>
+      <a class="btn btn--ghost" href="/tr/web-sitesi/">İşletmene böyle bir site</a>
+    </div>
+  </form>
+</dialog>
+
+<script type="application/json" id="board-data">
+{
+  "lang": "tr",
+  "days": [
+    "Pazar",
+    "Pazartesi",
+    "Salı",
+    "Çarşamba",
+    "Perşembe",
+    "Cuma",
+    "Cumartesi"
+  ],
+  "evening": "{day} akşamı",
+  "chairs": [
+    {
+      "n": 1,
+      "name": "Cemal",
+      "poss": "Cemal'in"
+    },
+    {
+      "n": 2,
+      "name": "Barış",
+      "poss": "Barış'ın"
+    },
+    {
+      "n": 3,
+      "name": "Eren",
+      "poss": "Eren'in",
+      "note": "çocuklar"
+    }
+  ],
+  "chairWord": "Koltuk",
+  "services": {
+    "fade": {
+      "short": "Fade",
+      "name": "Skin fade",
+      "msg": "skin fade",
+      "price": 650,
+      "dur": "45 dakika",
+      "lang": "en"
+    },
+    "makas": {
+      "short": "Makas",
+      "name": "Saç kesimi",
+      "msg": "saç kesimi",
+      "price": 550,
+      "dur": "30 dakika"
+    },
+    "sakal": {
+      "short": "Sakal",
+      "name": "Sakal",
+      "msg": "sakal",
+      "price": 300,
+      "dur": "20 dakika"
+    },
+    "ustura": {
+      "short": "Ustura",
+      "name": "Ustura tıraşı",
+      "msg": "ustura tıraşı",
+      "price": 400,
+      "dur": "30 dakika"
+    },
+    "cocuk": {
+      "short": "Çocuk",
+      "name": "Çocuk tıraşı",
+      "msg": "çocuk tıraşı",
+      "price": 400,
+      "dur": "25 dakika"
+    },
+    "agda": {
+      "short": "Ağda",
+      "name": "Kaş, burun, kulak",
+      "msg": "kaş, burun, kulak ağdası",
+      "price": 150,
+      "dur": "10 dakika"
+    }
+  },
+  "taken": "Dolu",
+  "free": "Boş",
+  "you": "Sen",
+  "currency": "TL",
+  "cellFree": "{chair} {n}, {barber}, {time}: boş. Hizmet seç.",
+  "cellTaken": "{chair} {n}, {time}: dolu.",
+  "cellYou": "{chair} {n}, {time}: senin, {svc}. Değiştir.",
+  "pickerTitle": "{chair} {n}, {barber}, {time}",
+  "pickerSub": "En fazla iki tane seç. Göndermeden önce değiştirebilirsin.",
+  "hintFree": "Boş bir kutuya dokun, sıranı tut.",
+  "hintOffer": "{time}'da tek koltuk kaldı. Dokun, senin olsun.",
+  "hintYou": "Senin sıran: {day} {time}, {chair} {n}, {barber}. {svc}.",
+  "toMessage": "Mesajına git",
+  "slotKickYou": "Senin sıran",
+  "slotKickOffer": "Senin için ayırdık",
+  "noteYou": "Tahtada senin adına duruyor. Göndermeden önce istediğin zaman değiştir.",
+  "noteOffer": "Bunu senin için skin fade ile ayırdık. Saati ya da hizmeti değiştirebilirsin.",
+  "who": "{chair} {n}, {barber}. {svc}.",
+  "msg": "Merhaba, {day} {time} için {svc}. {poss} koltuğu ({n}) uygunsa gelirim.",
+  "join": " + ",
+  "joinMsg": " + ",
+  "close": "Kapat"
+}
+</script>
+<script src="../assets/sc/scrollcraft.js"></script>
+<script src="../assets/js/page.js"></script>
+<script>ScrollCraft.mount(document.body);</script>
+<script type="module" src="../assets/js/hero.js"></script>
+</body>
+</html>
