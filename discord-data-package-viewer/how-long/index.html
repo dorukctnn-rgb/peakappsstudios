@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How long does a Discord data package take? Up to 30 days</title>
+<meta name="description" content="Discord says up to 30 days. How to request it on desktop and mobile, what to tick to get the age signals, where the link arrives, and what is in package.zip.">
+<link rel="canonical" href="https://peakappsstudio.com/discord-data-package-viewer/how-long/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="How long does a Discord data package take? Up to 30 days">
+<meta property="og:description" content="Discord says up to 30 days. How to request it on desktop and mobile, what to tick to get the age signals, where the link arrives, and what is in package.zip.">
+<meta property="og:url" content="https://peakappsstudio.com/discord-data-package-viewer/how-long/">
+<meta property="og:image" content="https://peakappsstudio.com/discord-data-package-viewer/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#c2410c">
+<link rel="icon" href="/discord-data-package-viewer/img/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/discord-data-package-viewer/fonts/agelens-display.woff2" as="font" type="font/woff2" crossorigin>
+<style data-from="/assets/tools.css">
+/* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
+
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e1;
+  --card: #fbfaf7;
+  --ink: #141518;
+  --ink-2: #33363d;
+  --muted: #676b74;
+  --line: rgba(20, 21, 24, 0.12);
+  --line-2: rgba(20, 21, 24, 0.22);
+  --accent: #1f5c4d;          /* each tool overrides this on <body style="--accent:..."> */
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  --warn: #9a4a12;
+  --ok: #2c6a3f;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+    --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+  --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; }
+img { display: block; height: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 10px; z-index: 100; background: var(--ink); color: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 10px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-head { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand-sub { font-family: var(--sans); font-size: 14.5px; letter-spacing: 0; color: var(--muted); font-weight: 500; padding-left: 10px; border-left: 1px solid var(--line-2); }
+.head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
+.head-nav a:hover { background: var(--paper-2); color: var(--ink); }
+.head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
+@media (max-width: 640px) { .brand-sub { display: none; } }
+@media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
+
+/* ---------- Type ---------- */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+h1 { font-size: clamp(32px, 4.6vw, 54px); }
+h1 em, h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 19px; letter-spacing: -0.01em; }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; margin: 16px 0 0; }
+.mono { font-family: var(--mono); }
+.muted { color: var(--muted); }
+small, .small { font-size: 13.5px; }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 22px 0 0; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-2); }
+.crumbs a { text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.tool-hero { padding: 28px 0 24px; display: grid; gap: 8px; }
+.tool-hero .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.tool-hero .facts li { display: inline-flex; align-items: center; gap: 8px; }
+.tool-hero .facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Tool shell ---------- */
+.tool { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.tool-panel { padding: 22px; border-right: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.tool-stage { position: relative; min-height: 460px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper); display: grid; place-items: center; padding: 22px; }
+.tool-stage canvas, .tool-stage svg, .tool-stage img { max-height: 70vh; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px -12px rgba(0,0,0,.18); background: #fff; }
+.stage-bar { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.tool-foot { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 14px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--paper); }
+.tool-foot .spacer { flex: 1; }
+@media (max-width: 860px) {
+  .tool { grid-template-columns: 1fr; }
+  .tool-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tool-stage { min-height: 320px; }
+}
+
+/* ---------- Form controls ---------- */
+.group { display: grid; gap: 10px; }
+.group-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > label { font-size: 13px; color: var(--ink-2); }
+.input, .select { width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 8px; padding: 9px 11px; transition: border-color .15s, box-shadow .15s; }
+.input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input-unit { position: relative; }
+.input-unit .input { padding-right: 38px; font-family: var(--mono); font-size: 14.5px; }
+.input-unit i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 3px; flex: none; }
+.seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line-2); border-radius: 9px; padding: 3px; gap: 3px; background: var(--paper); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.warn { font-size: 13.5px; color: var(--warn); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.btn { --b: var(--line-2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 500; line-height: 1; padding: 11px 16px; border-radius: 9px; border: 1px solid var(--b); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; transition: transform .15s var(--ease), background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklab, var(--accent) 86%, #000); color: var(--accent-ink); border-color: transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-ink:hover { color: var(--paper); background: var(--ink-2); }
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.pro-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: var(--ink); color: var(--paper); }
+
+/* ---------- Drop zone ---------- */
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 18px 14px; background: var(--paper); cursor: pointer; transition: border-color .15s, background .15s; font-size: 14.5px; }
+.drop:hover, .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Content ---------- */
+.section { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prose { max-width: 70ch; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose h2 { margin: 1.6em 0 .5em; }
+.prose h3 { margin: 1.4em 0 .4em; }
+.prose code, .prose kbd { font-family: var(--mono); font-size: .9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+.two-col > * { min-width: 0; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: 3px; }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 13px; background: var(--paper); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 15px; }
+.source { font-size: 13px; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--line-2); margin-top: 18px; }
+.faq details { border-bottom: 1px solid var(--line-2); }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 13px; font-family: var(--mono); font-size: 18px; color: var(--muted); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 18px; color: var(--ink-2); max-width: 70ch; }
+
+/* ---------- Pro ---------- */
+.pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--card); }
+.pro-left { padding: clamp(22px, 3vw, 36px); }
+.pro-right { padding: clamp(22px, 3vw, 36px); background: var(--ink); color: var(--paper); display: grid; align-content: center; gap: 14px; }
+.pro-right .price { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pro-right .price small { font-size: 15px; font-weight: 400; color: color-mix(in oklab, var(--paper) 70%, transparent); letter-spacing: 0; }
+.pro-right .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.pro-right .btn-primary:hover { background: #fff; color: var(--ink); }
+.pro-right .fine { font-size: 13px; color: color-mix(in oklab, var(--paper) 65%, transparent); margin: 0; }
+.pro-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.pro-list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.pro-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border: 1.5px solid var(--accent); border-radius: 2px; transform: rotate(45deg); }
+@media (max-width: 760px) { .pro { grid-template-columns: 1fr; } }
+
+/* ---------- A real file, shown ---------- */
+.shot { margin: 22px 0 0; }
+.shot img { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; }
+.shot figcaption { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+.shot figcaption strong { font-weight: 600; color: var(--ink-2); }
+.shot-sm { max-width: 920px; }
+
+/* ---------- Where free stops and Pro starts ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; margin: 26px 0 0; background: var(--card); }
+.split > div { padding: 18px 20px 20px; }
+.split > div + div { border-left: 1px solid var(--line-2); background: var(--accent-soft); }
+.split h3 { font-size: 15.5px; margin: 0; }
+.split > div > p { margin: 5px 0 0; font-size: 13.5px; color: var(--muted); }
+.split ul { list-style: none; margin: 13px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
+.split li { position: relative; padding-left: 18px; }
+.split li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; border-radius: 1px; background: var(--line-2); }
+.split > div + div li::before { background: var(--accent); }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } .split > div + div { border-left: 0; border-top: 1px solid var(--line-2); } }
+
+/* ---------- A file list, as the archive really holds it ---------- */
+.filelist { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 5px; }
+.filelist li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filelist li span { color: var(--muted); }
+
+/* ---------- License dialog ---------- */
+.license-dialog { border: 1px solid var(--line-2); border-radius: 14px; padding: 0; width: min(440px, calc(100% - 32px)); background: var(--card); color: var(--ink); }
+.license-dialog::backdrop { background: rgba(10, 11, 13, .45); }
+.license-dialog form { padding: 22px; display: grid; gap: 14px; }
+.license-status { font-size: 14px; min-height: 1.4em; margin: 0; }
+.license-status[data-state="ok"] { color: var(--ok); }
+.license-status[data-state="err"] { color: var(--warn); }
+
+/* ---------- Related / cards ---------- */
+.related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line-2); margin-top: 22px; }
+.related a { display: grid; gap: 4px; padding: 18px 18px 18px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.related a strong { font-weight: 600; }
+.related a span { font-size: 14px; color: var(--muted); }
+.related a:hover strong { color: var(--accent); }
+
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
+/* ---------- Footer ---------- */
+.site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
+.site-foot h2 { font-size: 15px; font-family: var(--sans); letter-spacing: 0; font-weight: 600; color: var(--ink); margin: 0 0 10px; }
+.site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+@media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- "New from Peak Apps": the cross-promotion card the build puts above the footer (src/crosspromo.json) ---------- */
+.peak-new { margin-top: clamp(56px, 8vw, 104px); }
+.peak-new + .site-foot { margin-top: 28px; }
+.peak-new-card { display: grid; gap: 4px; max-width: 640px; padding: 16px 20px 18px; border: 1px solid var(--line-2); border-left: 4px solid var(--tool, var(--accent)); border-radius: var(--radius); background: var(--card); color: var(--ink); text-decoration: none; transition: border-color .2s var(--ease); }
+.peak-new-card:hover { border-color: var(--tool, var(--accent)); }
+.peak-new-card:focus-visible { outline: 2px solid var(--tool, var(--accent)); outline-offset: 3px; }
+.peak-new-kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.peak-new-card strong { font-size: 17px; font-weight: 600; line-height: 1.3; }
+.peak-new-line { font-size: 14px; line-height: 1.5; color: var(--ink-2); max-width: 62ch; }
+
+/* ---------- Home project tools: the shared block on Without Planning and Dropped Kerb Check ---------- */
+.home-block { margin: clamp(36px, 5vw, 60px) 0 0; border-top: 1px solid var(--line-2); padding-top: 16px; }
+.home-title { margin: 0 0 10px; font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink); }
+.home-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px 24px; }
+.home-list a { display: grid; gap: 3px; padding: 2px 0 2px 14px; border-left: 4px solid var(--tool, var(--accent)); text-decoration: none; color: var(--ink); }
+.home-list a strong { font-weight: 700; font-size: 16px; }
+.home-list a span { color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+.home-list a:hover strong { color: var(--tool, var(--accent)); }
+.home-list a[aria-current="page"] span { color: var(--ink-2); }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .3s var(--ease); z-index: 90; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media print { .site-head, .site-foot, .tool-panel, .tool-foot, .no-print { display: none !important; } body { background: #fff; } }
+
+/* The hidden attribute must win over component display rules. */
+[hidden] { display: none !important; }
+</style>
+<style data-from="/discord-data-package-viewer/tool.css">
+/* Agelens: a Discord data package read again, age signals first. The idea is an event badge on a lanyard: a pale lilac
+   hall, white cards, the drop card and the age result hung on an orange lanyard with a dark clip, and a yellow highlighter
+   stripe under what matters. Orange is every button and link; yellow is kept for focus, the tab you are on and Pro. Headings
+   in Dela Gothic One (subset as "Agelens Display"); everything people read is the system font at 18px. Not Discord's
+   blurple, and no Discord logo. */
+@font-face { font-family: "Agelens Display"; src: url("/discord-data-package-viewer/fonts/agelens-display.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+/* Arial Black sized to the heading font, so the headings do not jump when the web font arrives */
+@font-face { font-family: "Agelens Display Fallback"; src: local("Arial Black"), local("Arial-Black"), local("Arial Bold"); font-weight: 400; size-adjust: 113.9%; ascent-override: 101.9%; descent-override: 25.3%; line-gap-override: 0%; }
+
+body.agelens {
+  --orange: #c2410c; --orange-2: #9a330a; --orange-soft: #fbe7dc; --lanyard: #c2410c;
+  --sun: #ffd23f; --sun-2: #e3b310; --sun-ink: #231c00;
+  --ink: #1d1b2e; --ink-2: #3b3752; --muted: #5d5873;
+  --paper: #ffffff; --wall: #f6f3fb; --hall: #ece6f6; --card: #ffffff; --line: #dcd7ea; --line-2: #bdb5d3;
+  --accent: #c2410c; --link: #9a330a; --mark: #ffe58a;
+  --adult: #11694f; --adult-soft: #dcefe7; --teen: #7b2d8e; --teen-soft: #f1e3f5; --unk: #5d5873; --unk-soft: #ecebf1; --bad: #a3271b;
+  --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --head: "Agelens Display", "Agelens Display Fallback", "Arial Black", sans-serif;
+  --code: ui-monospace, "Cascadia Mono", Consolas, "SF Mono", monospace;
+  font-family: var(--sans); font-size: 18px; line-height: 1.6; background: var(--paper); color: var(--ink);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.agelens {
+    --ink: #ece9f6; --ink-2: #d2cde6; --muted: #aaa4c2; --paper: #13111c; --wall: #191623; --hall: #1d1a29; --card: #1e1b2c; --line: #302c44; --line-2: #48426a;
+    --link: #ffb38a; --accent: #ff9a62; --orange-soft: #3a2218; --mark: #5c4a0f;
+    --adult: #7fd8b5; --adult-soft: #16302a; --teen: #e0a6ee; --teen-soft: #2f1d36; --unk: #c2bdd6; --unk-soft: #26233a; --bad: #ff9a8e;
+  }
+}
+:root[data-theme="dark"] body.agelens {
+  --ink: #ece9f6; --ink-2: #d2cde6; --muted: #aaa4c2; --paper: #13111c; --wall: #191623; --hall: #1d1a29; --card: #1e1b2c; --line: #302c44; --line-2: #48426a;
+  --link: #ffb38a; --accent: #ff9a62; --orange-soft: #3a2218; --mark: #5c4a0f;
+  --adult: #7fd8b5; --adult-soft: #16302a; --teen: #e0a6ee; --teen-soft: #2f1d36; --unk: #c2bdd6; --unk-soft: #26233a; --bad: #ff9a8e;
+}
+.agelens a { color: var(--link); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.agelens a:hover { color: var(--ink); }
+.agelens h1, .agelens h2, .agelens h3 { font-family: var(--head); font-weight: 400; color: var(--ink); letter-spacing: 0; }
+.agelens h1 { font-size: clamp(29px, 3.4vw, 44px); line-height: 1.14; margin: 14px 0 0; text-wrap: balance; max-width: 19ch; }
+.agelens h2 { font-size: clamp(22px, 2.1vw, 28px); line-height: 1.22; margin: 0 0 14px; text-wrap: balance; }
+.agelens h3 { font-size: 19px; line-height: 1.3; margin: 22px 0 10px; }
+.agelens code { font-family: var(--code); font-size: 0.84em; background: var(--wall); padding: 1px 5px; border-radius: 3px; overflow-wrap: anywhere; }
+.agelens :focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
+.agelens [tabindex="-1"]:focus { outline: none; }
+.agelens .wrap { max-width: 1200px; }
+.agelens .crumbs { font-size: 15px; }
+.agelens .crumbs a { color: var(--ink-2); }
+.agelens .lede { font-size: 20px; line-height: 1.55; color: var(--ink-2); max-width: 34em; margin: 16px 0 0; }
+.agelens .lede code { background: var(--paper); }
+
+/* ---------- header and footer (Agelens' own) ---------- */
+.ag-head { background: var(--paper); border-bottom: 1px solid var(--line); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.ag-head .brand { gap: 10px; color: var(--ink); }
+.ag-head .brand svg { width: 32px; height: 32px; }
+.ag-head .brand span { font-family: var(--head); font-size: 20px; }
+.ag-head .head-nav a { font-size: 16px; color: var(--ink-2); padding: 8px 10px; border-radius: 3px; }
+.ag-head .head-nav [aria-current="page"] { font-size: 16px; color: var(--ink); padding: 8px 10px; font-weight: 700; background: none; box-shadow: inset 0 -4px 0 var(--sun); }
+.ag-narrow-only { display: none; }
+@media (max-width: 980px) { .ag-head .ag-wide { display: none; } .ag-head .ag-narrow-only { display: inline-block; } }
+@media (max-width: 480px) { .ag-head .ag-narrow-only { display: none; } .ag-head .brand span { font-size: 18px; } }
+.ag-foot { background: var(--hall); border-top: 4px solid var(--orange); }
+.ag-foot-brand { font-family: var(--head); font-size: 20px; margin: 0 0 8px; }
+.ag-foot-text { font-size: 16px; color: var(--ink-2); max-width: 46ch; }
+.ag-foot h2 { font-family: var(--sans); font-size: 15px; font-weight: 700; letter-spacing: 0; margin: 0 0 8px; }
+.ag-foot ul { list-style: none; padding: 0; margin: 0; }
+.ag-foot li { margin: 0 0 6px; font-size: 16px; }
+
+/* ---------- buttons ---------- */
+.ag-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 10px 18px; border-radius: 8px; border: 2px solid var(--orange); background: var(--orange); color: #ffffff; font: 700 17px/1.2 var(--sans); text-decoration: none; cursor: pointer; text-align: center; white-space: normal; }
+.agelens a.ag-btn { color: #ffffff; }
+.ag-btn:hover { background: var(--orange-2); border-color: var(--orange-2); color: #ffffff; }
+.ag-btn-plain, .agelens a.ag-btn-plain { background: var(--paper); color: var(--orange-2); }
+.ag-btn-plain:hover { background: var(--orange-soft); color: var(--orange-2); }
+.ag-btn-sun, .agelens a.ag-btn-sun { background: var(--sun); border-color: var(--sun-2); color: var(--sun-ink); }
+.ag-btn-sun:hover { background: var(--sun-2); border-color: var(--sun-2); color: var(--sun-ink); }
+.ag-btn-sm { min-height: 40px; padding: 7px 13px; font-size: 16px; }
+.ag-link { background: none; border: 0; padding: 0; font: inherit; color: var(--link); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.ag-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 0; }
+.ag-tight { margin: 0; align-items: center; }
+.ag-small { font-size: 16px; color: var(--muted); margin: 12px 0 0; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .ag-btn-plain { background: transparent; color: var(--link); border-color: var(--link); } }
+
+/* ---------- hero: the hall, and the drop card hung on its lanyard ---------- */
+.ag-hero { background: var(--hall); padding: 6px 0 40px; border-bottom: 1px solid var(--line); }
+.ag-hero-in { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 20px 44px; align-items: start; }
+.ag-note { margin: 18px 0 0; padding: 12px 14px; background: var(--paper); border-left: 5px solid var(--orange); border-radius: 4px; font-size: 16px; color: var(--ink-2); max-width: 36em; }
+.ag-panel { position: relative; margin-top: 64px; background: var(--card); border: 2px solid var(--ink); border-radius: 14px; box-shadow: 0 18px 30px -22px rgba(29, 27, 46, 0.55); padding: 26px 22px 20px; grid-row: span 2; }
+.ag-panel::before { content: ""; position: absolute; left: 50%; top: -58px; width: 120px; height: 54px; transform: translateX(-50%); background: linear-gradient(64deg, transparent 44%, var(--lanyard) 44%, var(--lanyard) 56%, transparent 56%) left / 50% 100% no-repeat, linear-gradient(-64deg, transparent 44%, var(--lanyard) 44%, var(--lanyard) 56%, transparent 56%) right / 50% 100% no-repeat; }
+.ag-panel::after { content: ""; position: absolute; left: 50%; top: -12px; width: 46px; height: 20px; transform: translateX(-50%); background: var(--ink); border-radius: 6px; box-shadow: inset 0 0 0 5px var(--line-2); }
+.ag-stage-title { font-family: var(--head); font-size: 22px; line-height: 1.25; margin: 0 0 6px; }
+.ag-drop { border: 2px dashed var(--line-2); border-radius: 8px; padding: 18px; background: var(--paper); transition: border-color .15s, background .15s; }
+.ag-drop.is-over { border-color: var(--orange); background: var(--orange-soft); }
+.ag-drop p { margin: 6px 0 0; }
+.ag-bar { height: 8px; background: var(--wall); border-radius: 4px; overflow: hidden; margin: 16px 0 4px; }
+.ag-bar i { display: block; height: 100%; width: 40%; background: var(--orange); border-radius: 4px; animation: ag-slide 1.1s ease-in-out infinite alternate; }
+@keyframes ag-slide { from { transform: translateX(-60%); } to { transform: translateX(200%); } }
+@media (prefers-reduced-motion: reduce) { .ag-bar i { animation: none; width: 100%; opacity: .5; } }
+.ag-error-title { font-family: var(--head); font-size: 21px; line-height: 1.25; color: var(--bad); margin: 0 0 8px; }
+.ag-facts { list-style: none; padding: 0; margin: 4px 0 0; }
+.ag-facts li { position: relative; margin: 0 0 12px; padding-left: 26px; font-size: 17px; color: var(--ink-2); }
+.ag-facts li::before { content: ""; position: absolute; left: 2px; top: 9px; width: 13px; height: 9px; border-radius: 2px; background: var(--orange); box-shadow: 0 0 0 2px var(--hall), 0 0 0 3px var(--ink); }
+.ag-indep { font-size: 14.5px; color: var(--muted); margin: 6px 0 0; }
+
+/* ---------- the reader ---------- */
+.ag-reader { background: var(--wall); padding: 30px 0 46px; border-bottom: 1px solid var(--line); }
+.ag-reader-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 14px 24px; }
+.ag-reader-head h2 { margin: 0; }
+.ag-reader-meta { margin: 6px 0 0; color: var(--muted); font-size: 16px; overflow-wrap: anywhere; }
+.ag-reader-tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.ag-search input { min-height: 44px; width: min(320px, 78vw); padding: 8px 12px; font: 17px/1.3 var(--sans); color: var(--ink); background: var(--paper); border: 2px solid var(--line-2); border-radius: 8px; }
+.ag-search input:focus { border-color: var(--orange); outline: none; box-shadow: 0 0 0 3px var(--sun); }
+.ag-save { margin: 18px 0 0; padding: 14px 16px; background: var(--card); border: 1px solid var(--line); border-left: 6px solid var(--sun); border-radius: 6px; }
+.ag-save-title { margin: 0 0 8px; font-weight: 700; }
+.ag-save-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.ag-pro { display: inline-block; background: var(--sun); color: var(--sun-ink); font-size: 13px; font-weight: 800; padding: 1px 8px; border-radius: 3px; vertical-align: 2px; margin-left: 6px; }
+.is-pro .ag-save { border-left-color: var(--orange); }
+.ag-tabs { display: flex; flex-wrap: wrap; gap: 4px 6px; margin: 22px 0 0; border-bottom: 2px solid var(--line-2); padding-left: 2px; }
+.ag-tab { position: relative; top: 2px; min-height: 42px; padding: 8px 14px; border: 2px solid var(--line-2); border-bottom: 0; border-radius: 8px 8px 0 0; background: var(--paper); color: var(--ink-2); font: 600 16px/1.2 var(--sans); cursor: pointer; }
+.ag-tab[aria-selected="true"] { background: var(--sun); border-color: var(--sun-2); color: var(--sun-ink); font-weight: 800; }
+.ag-tab .n { font-weight: 500; color: var(--muted); margin-left: 4px; }
+.ag-tab[aria-selected="true"] .n { color: var(--sun-ink); }
+.ag-search-note { margin: 12px 0 0; font-size: 16px; color: var(--ink-2); }
+.ag-view { background: var(--card); border: 1px solid var(--line); border-top: 0; border-radius: 0 0 8px 8px; padding: 18px; min-height: 160px; }
+.ag-view > h3:first-child { margin-top: 0; }
+
+/* the age badge: the result hung where you can read it */
+.ag-age-top { display: flex; flex-wrap: wrap; gap: 18px 26px; align-items: flex-start; }
+.ag-age-actions { flex: 1 1 240px; }
+.ag-age-actions .ag-small { margin-top: 8px; }
+.ag-badge { position: relative; flex: 0 1 330px; min-width: 0; padding: 18px 20px 16px; border: 2px solid var(--ink); border-radius: 12px; background: var(--paper); box-shadow: inset 0 8px 0 var(--unk); }
+.ag-badge.is-adult { box-shadow: inset 0 8px 0 var(--adult); background: var(--adult-soft); }
+.ag-badge.is-teen { box-shadow: inset 0 8px 0 var(--teen); background: var(--teen-soft); }
+.ag-badge.is-unknown { background: var(--unk-soft); }
+.ag-badge-k { margin: 6px 0 0; font-size: 15px; font-weight: 700; color: var(--ink-2); }
+.ag-badge-v { margin: 2px 0 0; font-family: var(--head); font-size: 36px; line-height: 1.15; color: var(--ink); background: linear-gradient(transparent 72%, var(--sun) 72%, var(--sun) 88%, transparent 88%); display: inline; }
+.ag-badge-from { margin: 10px 0 0; font-size: 16px; color: var(--ink-2); }
+.ag-callout { margin: 16px 0 0; padding: 12px 14px; background: var(--teen-soft); border-left: 5px solid var(--teen); border-radius: 4px; font-size: 16.5px; }
+.ag-k { margin: 0 0 6px; font-weight: 700; font-size: 16px; }
+.ag-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px 24px; margin: 10px 0; }
+.ag-bars { display: grid; gap: 6px; margin: 4px 0 12px; max-width: 520px; }
+.ag-pbar { display: grid; grid-template-columns: minmax(84px, 9em) minmax(0, 1fr) 4.2em; gap: 10px; align-items: center; font-size: 16px; }
+.ag-pbar .track { height: 12px; background: var(--wall); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.ag-pbar .track i { display: block; height: 100%; background: var(--line-2); }
+.ag-pbar.is-top .track i { background: var(--orange); }
+.ag-pbar.is-top .l { font-weight: 700; }
+.ag-pbar .v { text-align: right; font-variant-numeric: tabular-nums; }
+.ag-raw { padding-left: 1.1em; font-size: 16px; }
+.ag-raw li { overflow-wrap: anywhere; margin: 0 0 4px; }
+
+/* messages */
+.ag-filter { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 8px; }
+.ag-chip { min-height: 36px; padding: 5px 12px; border: 1px solid var(--line-2); border-radius: 18px; background: var(--paper); color: var(--ink-2); font: 15px/1.2 var(--sans); cursor: pointer; }
+.ag-chip[aria-pressed="true"] { background: var(--orange); border-color: var(--orange); color: #ffffff; font-weight: 700; }
+.ag-mine { margin: 0 0 12px; }
+.ag-convs { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 16px; }
+.ag-conv-list { list-style: none; padding: 0; margin: 0; max-height: 640px; overflow-y: auto; }
+.ag-conv-list button { display: block; width: 100%; text-align: left; padding: 9px 11px; margin: 0 0 6px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); color: var(--ink); font: 16px/1.35 var(--sans); cursor: pointer; overflow-wrap: anywhere; }
+.ag-conv-list button[aria-current="true"] { border-color: var(--orange); box-shadow: inset 4px 0 0 var(--orange); font-weight: 700; }
+.ag-conv-list small { display: block; color: var(--muted); font-weight: 400; font-size: 14px; }
+.ag-conv-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 14px; align-items: flex-start; margin: 0 0 10px; }
+.ag-conv-head h3 { margin: 0; }
+.ag-conv-head .ag-small { margin: 2px 0 0; }
+.ag-order { font-size: 15px; color: var(--ink-2); display: inline-flex; align-items: center; gap: 6px; }
+.ag-order select { min-height: 40px; font: 15px var(--sans); padding: 4px 8px; border: 2px solid var(--line-2); border-radius: 6px; background: var(--paper); color: var(--ink); }
+.ag-msg { position: relative; margin: 0 0 8px; padding: 8px 12px 8px 16px; background: var(--paper); border: 1px solid var(--line); border-left: 4px solid var(--orange); border-radius: 6px; overflow-wrap: anywhere; }
+.ag-msg .when { font-size: 14px; color: var(--muted); }
+.ag-msg .txt { white-space: pre-wrap; margin: 2px 0 0; }
+.ag-msg .att { font-size: 15px; margin: 4px 0 0; }
+.ag-more { margin: 10px 0 0; }
+.ag-empty { color: var(--muted); margin: 6px 0; }
+mark { background: var(--mark); color: inherit; padding: 0 1px; border-radius: 2px; }
+.ag-dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 4px 18px; margin: 0 0 16px; }
+.ag-dl dt { font-weight: 700; }
+.ag-dl dd { margin: 0; overflow-wrap: anywhere; }
+
+/* ---------- sections ---------- */
+.ag-sec { padding: 46px 0; }
+.ag-sec-wall { background: var(--wall); }
+.ag-sec .ag-cols { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px 48px; }
+.ag-split { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); gap: 32px 48px; align-items: center; }
+.ag-steps { padding-left: 1.3em; }
+.ag-steps li { margin: 0 0 6px; }
+.ag-table, .ag-guide table { width: 100%; border-collapse: collapse; font-size: 16.5px; margin: 10px 0 14px; background: var(--paper); }
+.ag-table caption, .ag-guide caption { text-align: left; font-weight: 700; padding: 0 0 6px; color: var(--ink-2); }
+.ag-table th, .ag-table td, .ag-guide th, .ag-guide td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+.ag-table th, .ag-guide th { background: var(--orange-soft); }
+.ag-table td.num { text-align: right; font-family: var(--sans); font-variant-numeric: tabular-nums; }
+.ag-figure { margin: 0; }
+.ag-figure svg { display: block; width: 100%; max-width: 420px; height: auto; margin: 0 auto; }
+.ag-figure figcaption { font-size: 15px; color: var(--muted); margin: 8px auto 0; max-width: 420px; }
+.ag-plans { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; margin: 10px 0 0; }
+.ag-plan { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 20px 22px; }
+.ag-plan h3 { margin-top: 0; }
+.ag-plan ul { padding-left: 1.1em; margin: 0; }
+.ag-plan li { margin: 0 0 8px; }
+.ag-plan-pro { border: 2px solid var(--ink); box-shadow: inset 0 8px 0 var(--sun); }
+.ag-price { font-family: var(--sans); font-size: 16px; font-weight: 700; color: var(--ink-2); margin-left: 6px; }
+.ag-guides { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 18px; }
+.ag-guides a { display: block; height: 100%; padding: 14px 16px 14px 18px; background: var(--card); border: 1px solid var(--line); border-top: 5px solid var(--orange); border-radius: 8px; text-decoration: none; color: var(--ink); box-sizing: border-box; }
+.ag-guides a:hover { border-color: var(--orange); }
+.ag-guides strong { display: block; color: var(--link); font-size: 18px; }
+.ag-guides span { display: block; font-size: 16px; color: var(--ink-2); margin: 4px 0 0; }
+.ag-faq details { border-top: 1px solid var(--line); padding: 12px 0; max-width: 860px; }
+.ag-faq summary { cursor: pointer; font-weight: 700; font-size: 18px; }
+.ag-faq details p { margin: 8px 0 0; }
+
+/* ---------- guide pages ---------- */
+.ag-guide-hero { background: var(--hall); padding: 6px 0 30px; border-bottom: 1px solid var(--line); }
+.ag-guide-hero .wrap > * { max-width: 860px; }
+.ag-guide-hero h1 { max-width: 24ch; }
+.ag-guide { padding: 30px 0 50px; }
+.ag-guide .wrap > * { max-width: 860px; }
+.ag-guide h2 { margin: 34px 0 10px; padding-bottom: 4px; background: linear-gradient(var(--sun), var(--sun)) left bottom / 56px 5px no-repeat; }
+.ag-guide ol, .ag-guide ul { padding-left: 1.3em; }
+.ag-guide li { margin: 0 0 6px; }
+.ag-cta { margin: 30px 0 0; padding: 18px 20px; background: var(--wall); border: 1px solid var(--line); border-left: 6px solid var(--orange); border-radius: 6px; }
+.ag-cta p { margin: 0 0 10px; }
+.ag-proline { font-size: 16px; color: var(--ink-2); margin: 12px 0 0 !important; }
+.ag-related { list-style: none; padding: 0 !important; }
+.ag-related li { margin: 0 0 6px; }
+.ag-sources li { font-size: 16px; overflow-wrap: anywhere; }
+.ag-checked { font-size: 15px; color: var(--muted); margin: 18px 0 0; }
+
+/* ---------- phones ---------- */
+@media (max-width: 860px) {
+  .ag-hero-in, .ag-sec .ag-cols, .ag-plans, .ag-guides, .ag-split { grid-template-columns: minmax(0, 1fr); }
+  .ag-panel { grid-row: auto; margin-top: 66px; order: 2; }
+  /* on a phone the drop card comes right after the lede; the note follows it */
+  .ag-hero-in { row-gap: 0; }
+  .ag-hero-text { display: contents; }
+  .ag-hero-text > * { order: 1; }
+  .ag-hero-text > .ag-note { order: 3; margin-top: 18px; }
+  .ag-facts { order: 4; margin-top: 18px; }
+  .ag-indep { order: 5; }
+  .ag-convs { grid-template-columns: minmax(0, 1fr); }
+  .ag-conv-list { max-height: 260px; }
+  .ag-figure { order: -1; }
+}
+@media (max-width: 560px) {
+  body.agelens { font-size: 17px; }
+  .agelens .lede { font-size: 18px; }
+  .ag-panel { padding: 22px 14px 16px; }
+  .ag-drop { padding: 14px 12px; }
+  .ag-actions .ag-btn { width: 100%; }
+  .ag-tight .ag-btn { width: auto; }
+  .ag-view { padding: 12px 10px; }
+  .ag-tab { padding: 7px 10px; font-size: 15px; }
+  .ag-badge { flex-basis: 100%; }
+  .ag-badge-v { font-size: 30px; }
+  .ag-table, .ag-table caption:not(.sr-only), .ag-table tbody, .ag-table tr, .ag-guide table, .ag-guide caption, .ag-guide tbody, .ag-guide tr { display: block; width: 100%; box-sizing: border-box; }
+  .ag-table thead, .ag-guide thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .ag-table tr, .ag-guide tr { margin: 0 0 8px; border: 1px solid var(--line); border-radius: 4px; }
+  .ag-table td, .ag-guide td { display: block; border: 0; border-bottom: 1px solid var(--line); width: auto; }
+  .ag-table td.num { text-align: left; }
+  .ag-table td:last-child, .ag-guide td:last-child { border-bottom: 0; }
+  .ag-table td:first-child, .ag-guide td:first-child { font-weight: 700; background: var(--orange-soft); }
+  .ag-search input { width: 100%; }
+  .ag-reader-tools { width: 100%; }
+  .ag-reader-tools .ag-search { flex: 1 1 100%; }
+  .ag-pbar { grid-template-columns: minmax(70px, 7.5em) minmax(0, 1fr) 3.8em; font-size: 15px; }
+}
+
+/* ---------- printing one conversation ---------- */
+.ag-print-area { display: none; }
+@media print {
+  body.agelens.is-printing > *:not(.ag-print-area) { display: none !important; }
+  body.agelens.is-printing .ag-print-area { display: block; }
+  .ag-print-area .ag-msg { break-inside: avoid; border-color: #bbb; }
+}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"How long does a Discord data package take?","description":"Discord says up to 30 days. How to request it on desktop and mobile, what to tick to get the age signals, where the link arrives, and what is in package.zip.","url":"https://peakappsstudio.com/discord-data-package-viewer/how-long/","inLanguage":"en","dateModified":"2026-10-30","author":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"image":"https://peakappsstudio.com/discord-data-package-viewer/img/og.png"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Discord data package viewer","item":"https://peakappsstudio.com/discord-data-package-viewer/"},{"@type":"ListItem","position":3,"name":"How long it takes","item":"https://peakappsstudio.com/discord-data-package-viewer/how-long/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How long does a Discord data package take?","acceptedAnswer":{"@type":"Answer","text":"Discord says up to 30 days. The download link arrives by email and stays active for 30 days."}},{"@type":"Question","name":"Can I request my Discord data again before the first one arrives?","acceptedAnswer":{"@type":"Answer","text":"No. Discord says you must wait for the current request to finish before submitting a new one."}},{"@type":"Question","name":"What happens if I delete my account before the package comes?","acceptedAnswer":{"@type":"Answer","text":"The request is cancelled. Disabling the account cancels it too."}},{"@type":"Question","name":"How far back does the Discord data package go?","acceptedAnswer":{"@type":"Answer","text":"It covers the account's whole history for what Discord still stores: every message you sent and did not delete, back to the first one. Servers you left long ago may be missing."}}]}]}
+</script>
+<script src="/assets/pro-source.js" data-campaign="discord-data-package-viewer" defer></script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
+</head>
+<body class="agelens" style="--accent:#c2410c">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head ag-head">
+  <div class="wrap">
+    <a class="brand" href="/discord-data-package-viewer/" aria-label="Agelens, Discord data package viewer">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M11 1.5l4 7M21 1.5l-4 7" stroke="#1d1b2e" stroke-width="2.4" fill="none"/><rect x="5.5" y="7.5" width="21" height="23" rx="3" fill="#c2410c" stroke="#1d1b2e" stroke-width="1.6"/><rect x="13" y="9.5" width="6" height="2" rx="1" fill="#1d1b2e"/><rect x="8.5" y="13.5" width="15" height="14" rx="1.6" fill="#fff6ee"/><path d="M11 18h10" stroke="#1d1b2e" stroke-width="2.2"/><path d="M11 22.5h7" stroke="#ffd23f" stroke-width="2.6"/></svg>
+      <span>Agelens</span>
+    </a>
+    <nav class="head-nav" aria-label="Agelens">
+      <a href="/discord-data-package-viewer/">Open a package</a>
+      <a class="ag-wide" href="/discord-data-package-viewer/predicted-age/">Predicted age</a>
+      <a class="ag-wide" href="/discord-data-package-viewer/age-group-wrong/">Wrong age group</a>
+      <span class="ag-wide" aria-current="page">How long it takes</span>
+      <a class="ag-narrow-only" href="#guides">Guides</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="ag-guide-hero" aria-labelledby="h1">
+<div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/discord-data-package-viewer/">Discord data package viewer</a></li><li aria-current="page">How long it takes</li></ol></nav>
+<h1 id="h1">How long does a Discord data package take?</h1>
+<p class="lede">Discord's help article says "The data request process can take up to 30 days to complete." The link then comes by email and works for 30 days. Here is how to ask for it, what to tick so the package holds what you want, and what to do while you wait.</p>
+<div class="ag-actions"><a class="ag-btn" href="/discord-data-package-viewer/">Open your package in Agelens</a></div>
+</div>
+</section>
+<div class="ag-guide">
+<div class="wrap">
+<h2>The short answer</h2>
+<p>Up to 30 days, to the email address your account has at the moment you ask. Packages often come sooner (one open source viewer tells its users a day or two), but plan for the full month, and do not disable or delete the account meanwhile: that cancels the request.</p>
+<h2>How to request it</h2>
+<table>
+<caption>Requesting your Discord data package</caption>
+<thead><tr><th scope="col">Where</th><th scope="col">Steps</th></tr></thead>
+<tbody>
+<tr><td>Desktop app or browser</td><td>Cogwheel (User Settings) &gt; Data &amp; Privacy &gt; Request your data &gt; Request Data. Tick what you want, then Request My Data.</td></tr>
+<tr><td>Phone</td><td>Your avatar &gt; cogwheel &gt; Data &amp; Privacy &gt; Request all of my data. On a phone you cannot pick parts; Discord sends everything.</td></tr>
+</tbody>
+</table>
+<p>Your account needs a verified email address. Locked out of it? Discord's help article points to privacy@discord.com.</p>
+<h2>What to tick</h2>
+<table>
+<caption>The parts of the package, and what each one is for</caption>
+<thead><tr><th scope="col">Tick</th><th scope="col">What you get</th></tr></thead>
+<tbody>
+<tr><td>Account</td><td>user.json: your profile, friends and, since September 2026, the age signals (age group, age checks, predicted age). Tick this if the age group is why you are asking.</td></tr>
+<tr><td>Messages</td><td>Every message you sent, by channel. Messages you deleted are not in it, and neither are other people's.</td></tr>
+<tr><td>Servers</td><td>The servers you are in now and ones you left recently.</td></tr>
+<tr><td>Activity</td><td>Event files, often gigabytes; in older packages these held the predicted age and gender guesses.</td></tr>
+</tbody>
+</table>
+<h2>While you wait</h2>
+<ul>
+<li>You can only have one request open; a second has to wait until the first is done.</li>
+<li>The link goes to the email the account had when you asked. Changing the email later does not move it.</li>
+<li>Your current age group is in the app already, at User Settings &gt; Account Status. <a href="/discord-data-package-viewer/age-group-wrong/">If it is wrong</a></li>
+</ul>
+<h2>When the email arrives</h2>
+<p>Download <code>package.zip</code> within 30 days. A package can run to several gigabytes, most of it Activity files, so let the download finish before you open it. Packages made since late 2025 can have their folder names in your Discord language; that is normal.</p>
+<p>Then choose the ZIP in <a href="/discord-data-package-viewer/">Agelens</a>. It reads the package in your browser, shows the age signals first, and lets you read and search every message you sent. Discord's help article says its support team cannot help with going through the package.</p>
+<div class="ag-cta">
+<p>Package arrived? Open it here, ZIP or unzipped folder, any size. Nothing is uploaded.</p>
+<a class="ag-btn" href="/discord-data-package-viewer/">Open your package in Agelens</a>
+<p class="ag-proline">Agelens Pro, $8 paid once: every conversation in one ZIP, as pages that open offline, text files and one spreadsheet, with your age report. <a href="https://dorukctn.gumroad.com/l/agelens-pro">Get Pro on Gumroad</a> or <a href="/discord-data-package-viewer/#pro">see what is free</a>.</p>
+</div>
+<h2>Questions</h2>
+<div class="ag-faq"><details><summary>How long does a Discord data package take?</summary><p>Discord says up to 30 days. The download link arrives by email and stays active for 30 days.</p></details>
+<details><summary>Can I request my Discord data again before the first one arrives?</summary><p>No. Discord says you must wait for the current request to finish before submitting a new one.</p></details>
+<details><summary>What happens if I delete my account before the package comes?</summary><p>The request is cancelled. Disabling the account cancels it too.</p></details>
+<details><summary>How far back does the Discord data package go?</summary><p>It covers the account's whole history for what Discord still stores: every message you sent and did not delete, back to the first one. Servers you left long ago may be missing.</p></details></div>
+<h2>Sources</h2>
+<ul class="ag-sources"><li><a href="https://support.discord.com/hc/en-us/articles/360004027692-Requesting-a-Copy-of-your-Data" rel="nofollow noopener">Discord Help: Requesting a Copy of your Data</a>. "The data request process can take up to 30 days to complete", one request at a time, the email, cancelling</li>
+<li><a href="https://support.discord.com/hc/en-us/articles/360004957991-Your-Discord-Data-Package" rel="nofollow noopener">Discord Help: Your Discord Data Package</a>. The folders, and the age signals in Account (date_of_birth, age_assurance, estimated_age_group, inferred_age_group, predicted_age), added in September 2026</li>
+<li><a href="https://github.com/davidbmaier/discord-recap/commits/main" rel="nofollow noopener">davidbmaier/discord-recap on GitHub: commit &quot;Rename translated top-level folders&quot; (October 16, 2025)</a>. An open source package viewer adding support for folder names in the account's language</li></ul>
+<p class="ag-checked">Last checked: October 30, 2026.</p>
+<h2>Related</h2>
+<ul class="ag-related">
+<li><a href="/discord-data-package-viewer/">Discord data package viewer: open package.zip in the browser</a></li>
+<li><a href="/discord-data-package-viewer/predicted-age/">How to see the age Discord predicted for you</a></li>
+<li><a href="/discord-data-package-viewer/age-group-wrong/">Discord put you in the wrong age group: how to check it and fix it</a></li>
+</ul>
+</div>
+</div>
+</main>
+<footer class="site-foot ag-foot" id="guides">
+  <div class="wrap cols">
+    <div>
+      <p class="ag-foot-brand">Agelens</p>
+      <p class="ag-foot-text">Open the package.zip from Discord's data request and see the age signals in it, explained, and every message you sent. The files are read by this page on your own computer and never uploaded.</p>
+      <p class="ag-foot-text">Agelens is an independent tool by <a href="https://peakappsstudio.com/">Peak Apps Studio</a>. Not affiliated with Discord Inc. Discord is a trademark of Discord Inc., named here only to say which files the tool opens.</p>
+    </div>
+    <div>
+      <h2>Guides</h2>
+      <ul>
+        <li><a href="/discord-data-package-viewer/">Discord data package viewer</a></li>
+        <li><a href="/discord-data-package-viewer/predicted-age/">How to see the age Discord predicted for you</a></li>
+        <li><a href="/discord-data-package-viewer/age-group-wrong/">Discord put you in the wrong age group: how to check it and fix it</a></li>
+        <li><a href="/discord-data-package-viewer/how-long/">How long does a Discord data package take?</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/privacy/">Privacy</a></li>
+        <li><a href="/tools/">More tools by Peak Apps</a></li>
+        <li><a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
