@@ -110,18 +110,16 @@ p { margin: 0; }
 .desk__bar i { width: 9px; height: 9px; border-radius: 50%; background: #3a424b; }
 .desk__bar span { margin-left: 10px; font-size: 12px; color: #aab3bc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .desk img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
-.strip { grid-column: 1 / -1; position: relative; margin: 4px calc(var(--gutter) * -1) 0; padding: 0 var(--gutter); overflow: hidden; }
+.strip { grid-column: 1 / -1; position: relative; margin: 4px calc(var(--gutter) * -1) 0; padding: 0 var(--gutter) 6px; overflow-x: auto; scrollbar-width: thin; }
 .strip__label { display: flex; justify-content: space-between; font-size: 14px; color: var(--muted); margin-bottom: 10px; }
 .strip__track { width: max-content; }
 .strip__track img { height: clamp(250px, 26vw, 340px); width: auto; max-width: none; }
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
+    .strip { overflow: hidden; }
     .strip__track { animation: strip-slide linear both; animation-timeline: view(); animation-range: entry 0% exit 100%; }
     @keyframes strip-slide { from { transform: translateX(0); } to { transform: translateX(min(0px, calc(-100% + min(100vw, var(--max)) - 2 * var(--gutter)))); } }
   }
-}
-@supports not (animation-timeline: view()) {
-  .strip { overflow-x: auto; scrollbar-width: thin; -webkit-overflow-scrolling: touch; }
 }
 .proof { margin-top: clamp(40px, 6vw, 72px); max-width: 46em; color: var(--muted); font-size: 16px; }
 .prices { background: var(--white); }
@@ -270,7 +268,7 @@ p { margin: 0; }
         <div>
           <p class="demo__meta">Berber, Muratpaşa, Antalya</p>
           <h3 id="d1">Üç Koltuk</h3>
-          <p class="demo__body">Akşam ilerledikçe üç koltuğun tahtası doluyor. Boş bir saate dokunduğunuzda berbere gidecek WhatsApp mesajı kendiliğinden yazılıyor; saat, koltuk ve hizmet içinde.</p>
+          <p class="demo__body">Akşam ilerledikçe üç koltuğun tahtası doluyor. Boş bir saate dokunduğunuzda berbere gidecek WhatsApp mesajı saatiyle ve koltuğuyla kendiliğinden yazılıyor.</p>
           <p class="demo__fix">Bütün ustaların elinde makine varken telefonu çalan dükkânlar için.</p>
           <div class="demo__links">
             <a class="btn btn--ink" href="/web/demo/barber/tr/">Berber örneğini açın</a>
