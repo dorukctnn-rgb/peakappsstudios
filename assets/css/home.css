@@ -136,6 +136,92 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .bar-nav a { white-space: nowrap; display: inline-block; padding: 8px 0; }
 }
 
+/* ---------- TRAILER WRECK: graphite frames and amber from the game's own store art ---------- */
+.tw {
+  --tw-ground: #14191c;
+  --tw-amber: #ff9c2b;
+  --tw-cream: #f3ece0;
+  --btn-bg: #ff9c2b; --btn-ink: #14181b;
+  --focus: #ffd27a;
+  position: relative;
+  background: radial-gradient(110% 80% at 0% 0%, #25303a 0, rgba(37,48,58,0) 62%), var(--tw-ground);
+  color: var(--tw-cream);
+  padding: clamp(32px, 5vw, 64px) var(--gutter) clamp(44px, 6vw, 76px);
+  display: grid; gap: 24px;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "head" "media" "body" "shots";
+  overflow: clip;
+}
+.tw::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--tw-amber); }
+.tw-mark { margin: 0; }
+.tw-mark img { width: clamp(150px, 15vw, 210px); height: auto; }
+.tw-title {
+  font-family: var(--display);
+  font-size: clamp(1.7rem, 1.15rem + 1.9vw, 2.75rem); line-height: 1.06; letter-spacing: -0.012em;
+  margin-top: 16px; max-width: 17ch; color: var(--tw-cream);
+}
+.tw-head { grid-area: head; }
+.tw-media { grid-area: media; }
+.tw-body { grid-area: body; }
+.tw-screen {
+  position: relative; aspect-ratio: 16 / 9; background: #080c0e;
+  border-top: 3px solid var(--tw-amber);
+  box-shadow: 0 0 0 1px #2e393f, 10px 12px 0 #06090b;
+}
+.tw-screen picture, .tw-poster, .tw-video { position: absolute; inset: 0; width: 100%; height: 100%; }
+.tw-poster, .tw-video { object-fit: cover; }
+.tw-video { opacity: 0; transition: opacity 420ms var(--ease); }
+.tw.is-playing .tw-video { opacity: 1; }
+.tw-toggle {
+  position: absolute; right: 12px; bottom: 12px; z-index: 2;
+  width: 44px; height: 44px; border-radius: 50%; border: 0; padding: 0; cursor: pointer;
+  display: grid; place-items: center;
+  background: rgba(10,13,15,.72); color: var(--tw-cream);
+  box-shadow: inset 0 0 0 1px rgba(243,236,224,.28);
+  transition: background-color 160ms var(--ease);
+}
+.tw-toggle[hidden] { display: none; }
+.tw-toggle:hover { background: rgba(10,13,15,.9); }
+.tw-toggle svg { width: 18px; height: 18px; fill: currentColor; }
+.tw-toggle .tw-i-play { display: none; }
+.tw-toggle[data-state="paused"] .tw-i-play { display: block; }
+.tw-toggle[data-state="paused"] .tw-i-pause { display: none; }
+.tw-caption { margin-top: 18px; color: #9ea8ad; font-size: 0.9rem; }
+.tw-lede { font-size: 1.1rem; line-height: 1.6; max-width: 46ch; color: #d6dadc; }
+.tw .actions { margin-top: 24px; }
+.tw .btn--light { box-shadow: 6px 7px 0 #06090b; }
+.tw .btn--light:hover { background: #ffad4d; }
+.tw-note { margin-top: 18px; max-width: 46ch; color: #aab3b7; font-size: 0.94rem; line-height: 1.55; }
+.tw-shots { grid-area: shots; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 12px; }
+.tw-shots img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #0b1013; border-top: 2px solid var(--tw-amber); }
+.tw-shots p { margin-top: 12px; color: #c3cacd; font-size: 0.95rem; line-height: 1.5; }
+@media (prefers-reduced-motion: reduce) {
+  .tw-video, .tw-toggle { display: none; }
+}
+@media (min-width: 960px) {
+  .tw {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "head media" "body media" "shots shots";
+    column-gap: 56px; row-gap: 26px;
+    padding-left: max(var(--gutter), calc((100vw - var(--max)) / 2));
+    padding-right: max(var(--gutter), calc((100vw - var(--max)) / 2));
+  }
+  .tw-head { align-self: end; }
+  .tw-body { align-self: start; }
+  .tw-media { align-self: center; }
+  .tw-shots { margin-top: 28px; }
+}
+@media (max-width: 759px) {
+  .tw { gap: 20px; }
+  .tw::before { width: 4px; }
+  .tw-screen { box-shadow: 0 0 0 1px #2e393f, 6px 8px 0 #06090b; }
+  .tw-toggle { width: 40px; height: 40px; right: 8px; bottom: 8px; }
+  .tw-shots { grid-template-columns: minmax(0, 1fr); gap: 0; margin-top: 4px; }
+  .tw-shots li { display: grid; grid-template-columns: 136px minmax(0, 1fr); gap: 14px; align-items: start; padding: 14px 0; border-top: 1px solid rgba(243,236,224,.14); }
+  .tw-shots p { margin-top: 0; font-size: 0.92rem; }
+}
+
 /* ---------- Most used: the card drawer ---------- */
 .cat { position: relative; }
 .cat-pin {

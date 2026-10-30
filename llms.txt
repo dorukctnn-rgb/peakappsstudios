@@ -78,6 +78,7 @@ Each tool page explains what the tool does, how to use it and its limits; the gu
 
 ## Apps
 
+- [TRAILER WRECK: Derby Racing](https://play.google.com/store/apps/details?id=com.peakapps.trailerwreck): A demolition derby game for Android. Ten cars fight to stay on one moving trailer in three-minute matches, online with friends or offline against AI. Free, no ads, and optional purchases never sell speed or power. The trailer is at the top of https://peakappsstudio.com/.
 - [OkulTakip](https://peakappsstudio.com/apps/okultakip/): Çocuk takip uygulaması OkulTakip: çocuğun okula vardığında, okuldan çıktığında ve eve geldiğinde sen sormadan bildirim gelir. Hesap yok, QR ile eşleşme, deprem modu. iPhone için ücretsiz.
 
 ## Optional

@@ -22,6 +22,90 @@
     rows.forEach(function (r) { r.classList.add('is-in'); });
   }
 
+  /* ---------- TRAILER WRECK trailer ----------
+     The poster is an ordinary image and stays the only thing shown with reduced
+     motion. The video file is fetched after the page has loaded, once the visitor
+     scrolls, points, touches or types (or after a few seconds), and only while the
+     block is on screen. With Save-Data it waits for a tap on Play. */
+  var tw = document.querySelector('[data-trailer]');
+  var vid = tw && tw.querySelector('video');
+  var twToggle = tw && tw.querySelector('[data-trailer-toggle]');
+  if (vid && twToggle && typeof vid.play === 'function') {
+    var saveData = !!(navigator.connection && navigator.connection.saveData);
+    var twLoaded = false, twWanted = !saveData, twVisible = false, twArmed = false;
+    vid.muted = true;
+
+    var twLabel = function (playing) {
+      twToggle.setAttribute('data-state', playing ? 'playing' : 'paused');
+      twToggle.setAttribute('aria-label', playing ? 'Pause the trailer' : 'Play the trailer');
+    };
+    var twLoad = function () {
+      if (twLoaded) return;
+      twLoaded = true;
+      var base = window.matchMedia('(max-width: 759px)').matches ? vid.getAttribute('data-small') : vid.getAttribute('data-large');
+      [['webm', 'video/webm; codecs="vp9"'], ['mp4', 'video/mp4']].forEach(function (s) {
+        var src = document.createElement('source');
+        src.src = base + '.' + s[0];
+        src.type = s[1];
+        vid.appendChild(src);
+      });
+      vid.preload = 'auto';
+      vid.load();
+    };
+    var twPlay = function () {
+      if (!twArmed || !twWanted || !twVisible || reduce.matches) return;
+      twLoad();
+      var p = vid.play();
+      if (p && p.catch) p.catch(function () { twLabel(false); twToggle.hidden = false; });
+    };
+
+    // Some hardware VP9 decoders fail mid-stream; drop the WebM once and carry on with the MP4.
+    var twFellBack = false;
+    vid.addEventListener('error', function () {
+      var webm = vid.querySelector('source[src$=".webm"]');
+      if (twFellBack || !webm) return;
+      twFellBack = true;
+      webm.parentNode.removeChild(webm);
+      vid.load();
+      twPlay();
+    });
+    vid.addEventListener('playing', function () { tw.classList.add('is-playing'); twToggle.hidden = false; twLabel(true); });
+    vid.addEventListener('pause', function () { twLabel(false); });
+    twToggle.addEventListener('click', function () {
+      if (vid.paused) { twWanted = true; twArmed = true; twPlay(); }
+      else { twWanted = false; vid.pause(); }
+    });
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        twVisible = entries[0].isIntersecting;
+        if (twVisible) twPlay(); else if (!vid.paused) vid.pause();
+      }, { threshold: 0.25 }).observe(vid.parentNode);
+    } else {
+      twVisible = true;
+    }
+
+    var twArm = function () {
+      if (twArmed) return;
+      twArmed = true;
+      ['scroll', 'pointermove', 'pointerdown', 'keydown', 'touchstart'].forEach(function (t) { window.removeEventListener(t, twArm); });
+      twPlay();
+    };
+    var twAfterLoad = function () {
+      if (saveData) { twLabel(false); twToggle.hidden = false; return; }
+      ['scroll', 'pointermove', 'pointerdown', 'keydown', 'touchstart'].forEach(function (t) { window.addEventListener(t, twArm, { passive: true }); });
+      setTimeout(twArm, 4500);
+    };
+    if (document.readyState === 'complete') twAfterLoad(); else window.addEventListener('load', twAfterLoad);
+
+    if (reduce.addEventListener) {
+      reduce.addEventListener('change', function () {
+        if (reduce.matches) { vid.pause(); tw.classList.remove('is-playing'); }
+        else twPlay();
+      });
+    }
+  }
+
   if (!is3d) return;
 
   /* ---------- The drawer ---------- */
