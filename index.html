@@ -3,27 +3,35 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Peak Apps Studio: independent software studio</title>
-<meta name="description" content="Peak Apps is an independent studio that designs, builds and runs its own software: BodyArcade, ColoringPageMaker, GetQuotationMaker, Chatbound, MileageLogMaker and iOS apps including Leano.">
+<title>Peak Apps Studio: web tools, apps and golf software</title>
+<meta name="description" content="Peak Apps makes small web tools and apps: BodyArcade, GetQuotationMaker, Chatbound for Character.AI exports, GolfReserve Pro for golf courses, and more.">
 <link rel="canonical" href="https://peakappsstudio.com/">
-<meta name="theme-color" content="#07080a">
-<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#e8ebf0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1218" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Peak Apps Studio">
 <meta property="og:url" content="https://peakappsstudio.com/">
-<meta property="og:title" content="Peak Apps Studio: independent software studio">
-<meta property="og:description" content="We design, build and run our own products: web tools for freelancers and small businesses, iOS apps, and a browser game you play with your body.">
-<meta property="og:image" content="https://peakappsstudio.com/assets/og.jpg">
+<meta property="og:title" content="Peak Apps Studio: web tools, apps and golf software">
+<meta property="og:description" content="Small web tools that each do one job, readers for the data exports apps leave you with, GolfReserve Pro for golf courses, BodyArcade and our apps.">
+<meta property="og:image" content="https://peakappsstudio.com/assets/home/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://peakappsstudio.com/assets/og.jpg">
+<meta name="twitter:image" content="https://peakappsstudio.com/assets/home/og.jpg">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" type="image/webp" imagesrcset="assets/work/ba-sunset-640.webp 640w, assets/work/ba-sunset-sm.webp 800w, assets/work/ba-sunset-1200.webp 1200w, assets/work/ba-sunset.webp 1600w" imagesizes="(max-width: 760px) 84vw, (max-width: 1857px) 42vw, 780px" fetchpriority="high">
-<link rel="stylesheet" href="assets/css/studio.css">
-<script>document.documentElement.classList.add('js')</script>
+<link rel="preload" href="assets/fonts/hedvig-letters-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" type="image/webp" imagesrcset="assets/home/c-bodyarcade-600.webp 600w, assets/home/c-bodyarcade-900.webp 900w" imagesizes="(max-width: 959px) 88vw, 540px" fetchpriority="high">
+<link rel="stylesheet" href="assets/css/home.css">
+<script>
+(function () {
+  var d = document.documentElement;
+  d.classList.add('js');
+  try {
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.CSS && CSS.supports('transform-style', 'preserve-3d')) d.classList.add('d3');
+  } catch (e) {}
+})();
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -33,20 +41,29 @@
       "@id": "https://peakappsstudio.com/#org",
       "name": "Peak Apps Studio",
       "url": "https://peakappsstudio.com/",
-      "email": "peakappsstudios@gmail.com",
+      "email": "info@peakappsstudio.com",
       "logo": "https://peakappsstudio.com/assets/favicon.svg"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://peakappsstudio.com/#website",
+      "name": "Peak Apps Studio",
+      "url": "https://peakappsstudio.com/",
+      "publisher": {"@id": "https://peakappsstudio.com/#org"}
     },
     {
       "@type": "ItemList",
       "name": "Products by Peak Apps Studio",
       "itemListElement": [
         {"@type": "ListItem", "position": 1, "item": {"@type": "SoftwareApplication", "name": "BodyArcade", "url": "https://bodyarcade.com/", "applicationCategory": "GameApplication", "operatingSystem": "Web browser"}},
-        {"@type": "ListItem", "position": 2, "item": {"@type": "SoftwareApplication", "name": "ColoringPageMaker", "url": "https://www.coloringpagemaker.app/", "applicationCategory": "DesignApplication", "operatingSystem": "Web browser"}},
-        {"@type": "ListItem", "position": 3, "item": {"@type": "SoftwareApplication", "name": "GetQuotationMaker", "url": "https://www.getquotationmaker.com/", "applicationCategory": "BusinessApplication", "operatingSystem": "Web browser"}},
-        {"@type": "ListItem", "position": 4, "item": {"@type": "SoftwareApplication", "name": "Chatbound", "url": "https://peakappsstudio.com/character-ai-export-viewer/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Web browser"}},
+        {"@type": "ListItem", "position": 2, "item": {"@type": "SoftwareApplication", "name": "GetQuotationMaker", "url": "https://www.getquotationmaker.com/", "applicationCategory": "BusinessApplication", "operatingSystem": "Web browser"}},
+        {"@type": "ListItem", "position": 3, "item": {"@type": "SoftwareApplication", "name": "Chatbound", "url": "https://peakappsstudio.com/character-ai-export-viewer/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Web browser"}},
+        {"@type": "ListItem", "position": 4, "item": {"@type": "SoftwareApplication", "name": "ColoringPageMaker", "url": "https://www.coloringpagemaker.app/", "applicationCategory": "DesignApplication", "operatingSystem": "Web browser"}},
         {"@type": "ListItem", "position": 5, "item": {"@type": "SoftwareApplication", "name": "MileageLogMaker", "url": "https://www.mileagelogmaker.com/", "applicationCategory": "FinanceApplication", "operatingSystem": "Web browser"}},
-        {"@type": "ListItem", "position": 6, "item": {"@type": "SoftwareApplication", "name": "GetInvoiceMaker", "url": "https://getinvoicemaker.com/", "applicationCategory": "BusinessApplication", "operatingSystem": "Web browser"}},
-        {"@type": "ListItem", "position": 7, "item": {"@type": "SoftwareApplication", "name": "ClientGuard", "url": "https://www.clientguard.app/", "applicationCategory": "BusinessApplication", "operatingSystem": "Web browser"}}
+        {"@type": "ListItem", "position": 6, "item": {"@type": "SoftwareApplication", "name": "Chicken coop designer", "url": "https://peakappsstudio.com/coop-designer/", "applicationCategory": "DesignApplication", "operatingSystem": "Web browser"}},
+        {"@type": "ListItem", "position": 7, "item": {"@type": "SoftwareApplication", "name": "Notelift", "url": "https://peakappsstudio.com/colornote-viewer/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Web browser"}},
+        {"@type": "ListItem", "position": 8, "item": {"@type": "SoftwareApplication", "name": "Sim rig designer", "url": "https://peakappsstudio.com/sim-rig-designer/", "applicationCategory": "DesignApplication", "operatingSystem": "Web browser"}},
+        {"@type": "ListItem", "position": 9, "item": {"@type": "SoftwareApplication", "name": "GolfReserve Pro", "url": "https://golfreserve.peakappsstudio.com/", "applicationCategory": "BusinessApplication", "operatingSystem": "Web browser"}}
       ]
     }
   ]
@@ -54,343 +71,377 @@
 </script>
 </head>
 <body>
-<a class="skip" href="#popular">Skip to work</a>
+<a class="skip" href="#most-used">Skip to the tools</a>
 
-<header class="nav" data-nav>
+<header class="bar">
   <a class="brand" href="./" aria-label="Peak Apps Studio, home">
-    <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12.2 11.4 L14 8 L15.8 11.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" opacity=".55"/></svg>
-    <span class="brand-word">Peak Apps</span><span class="brand-sub">Studio</span>
+    <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+    <span class="brand-word">Peak Apps</span>
   </a>
-  <nav aria-label="Primary">
-    <ul class="nav-links">
-      <li><a href="#popular">Work</a></li>
-      <li><a href="#new">New</a></li>
+  <nav class="bar-nav" aria-label="Sections">
+    <ul>
+      <li><a href="#most-used">Most used</a></li>
+      <li><a href="#closing">Closing soon</a></li>
+      <li><a href="#golf">Golf</a></li>
+      <li><a href="#bodyarcade">BodyArcade</a></li>
       <li><a href="#apps">Apps</a></li>
-      <li><a href="/tools/">Tools</a></li>
-      <li><a href="#index">Index</a></li>
-      <li><a href="#studio">Studio</a></li>
+      <li><a href="#websites">Websites</a></li>
+      <li><a href="#everything">Everything</a></li>
     </ul>
   </nav>
-  <a class="nav-cta" href="mailto:peakappsstudios@gmail.com">Contact</a>
+  <a class="bar-mail" href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a>
 </header>
 
 <main>
-  <!-- HERO: real product screens arranged in depth. Optional video layer loads only if media/hero files exist. -->
-  <section class="hero" data-hero aria-labelledby="hero-title">
-    <div class="hero-light" aria-hidden="true"></div>
-    <div class="hero-video" data-video="media/hero/hero" data-poster="media/hero/poster.webp" data-video-enabled="false" aria-hidden="true"></div>
-
-    <div class="stage-wrap" aria-hidden="true">
-      <div class="stage" data-stage>
-        <figure class="win win--main" data-depth="0" style="--d:0">
-          <div class="win-bar"><i></i><i></i><i></i><span>bodyarcade.com</span></div>
-          <img src="assets/work/ba-sunset.webp" srcset="assets/work/ba-sunset-640.webp 640w, assets/work/ba-sunset-sm.webp 800w, assets/work/ba-sunset-1200.webp 1200w, assets/work/ba-sunset.webp 1600w" sizes="(max-width: 760px) 84vw, (max-width: 1857px) 42vw, 780px" width="1600" height="680" alt="" fetchpriority="high" decoding="async">
-        </figure>
-        <figure class="win win--invoice" data-depth="1" style="--d:1">
-          <div class="win-bar"><i></i><i></i><i></i><span>getinvoicemaker.com</span></div>
-          <img src="assets/work/invoice-tool.webp" srcset="assets/work/invoice-tool-480.webp 480w, assets/work/invoice-tool-800.webp 800w, assets/work/invoice-tool-1200.webp 1200w, assets/work/invoice-tool.webp 1600w" sizes="(max-width: 760px) 62vw, (max-width: 1757px) 33vw, 580px" width="1600" height="1000" alt="" decoding="async">
-        </figure>
-        <figure class="win win--mileage" data-depth="2" style="--d:2">
-          <div class="win-bar"><i></i><i></i><i></i><span>mileagelogmaker.com</span></div>
-          <img src="assets/work/mileage-rate.webp" srcset="assets/work/mileage-rate-480.webp 480w, assets/work/mileage-rate-800.webp 800w, assets/work/mileage-rate-1200.webp 1200w, assets/work/mileage-rate.webp 1600w" sizes="(max-width: 1733px) 30vw, 520px" width="1600" height="1000" alt="" loading="lazy" decoding="async">
-        </figure>
-        <figure class="win win--report" data-depth="1" style="--d:3">
-          <div class="win-bar"><i></i><i></i><i></i><span>getquotationmaker.com</span></div>
-          <img src="assets/work/quote-tool.webp" width="1600" height="1000" alt="" loading="lazy" decoding="async">
-        </figure>
-        <figure class="phone" data-depth="-1" style="--d:4">
-          <img src="assets/work/invoice-mobile.webp" srcset="assets/work/invoice-mobile-200.webp 200w, assets/work/invoice-mobile-400.webp 400w, assets/work/invoice-mobile.webp 780w" sizes="(max-width: 760px) 21vw, (max-width: 1810px) 10.5vw, 190px" width="780" height="1688" alt="" decoding="async">
-        </figure>
+  <!-- MOST USED: the card drawer. Order = Search Console clicks (29 Sep to 27 Oct 2026, all language editions) plus 10 per paid sale (Gumroad, 29 Sep to 29 Oct). -->
+  <section id="most-used" class="cat" aria-labelledby="hero-title" data-cat>
+    <div class="cat-pin">
+      <div class="cat-copy">
+        <h1 id="hero-title" class="hero-title">Small web tools and apps, each made for one job.</h1>
+        <p class="hero-sub">These eight got the most visits and sales over the last four weeks. Flip through them, or pick one by name.</p>
+        <ol class="cat-index" aria-label="Most used tools" data-cat-index>
+          <li><button type="button" data-go="0" aria-current="true">BodyArcade</button></li>
+          <li><button type="button" data-go="1">GetQuotationMaker</button></li>
+          <li><button type="button" data-go="2">Chatbound</button></li>
+          <li><button type="button" data-go="3">ColoringPageMaker</button></li>
+          <li><button type="button" data-go="4">MileageLogMaker</button></li>
+          <li><button type="button" data-go="5">Coop designer</button></li>
+          <li><button type="button" data-go="6">Notelift</button></li>
+          <li><button type="button" data-go="7">Sim rig designer</button></li>
+        </ol>
       </div>
-      <div class="stage-floor"></div>
-    </div>
 
-    <div class="hero-copy">
-      <p class="eyebrow"><span class="dot"></span>Independent software studio</p>
-      <h1 id="hero-title" class="hero-title">
-        <span class="line"><span>Useful software,</span></span>
-        <span class="line"><span><em>finished</em> properly.</span></span>
-      </h1>
-      <p class="hero-sub">We design, build and run our own products: a browser game you play with your whole body, tools for freelancers and small businesses, readers for the data exports apps leave you with, and iOS apps.</p>
-      <div class="hero-actions">
-        <a class="btn btn--light" href="#popular">See the work</a>
-        <a class="btn btn--ghost" href="mailto:peakappsstudios@gmail.com">peakappsstudios@gmail.com</a>
+      <div class="cat-stage">
+        <div class="drawer" data-drawer>
+          <div class="drawer-wall drawer-wall--l" aria-hidden="true"></div>
+          <div class="drawer-wall drawer-wall--r" aria-hidden="true"></div>
+          <div class="drawer-front">
+            <h2 class="drawer-label">Most used, last four weeks</h2>
+            <span class="drawer-pull" aria-hidden="true"></span>
+          </div>
+          <ol class="cards" data-cards>
+            <li class="card" style="--i:0;--tab:#d92d4a;--tab-ink:#ffffff">
+              <a class="card-link" href="https://bodyarcade.com/">
+                <span class="card-tab" aria-hidden="true">BodyArcade</span>
+                <img class="card-img" src="assets/home/c-bodyarcade-600.webp" srcset="assets/home/c-bodyarcade-600.webp 600w, assets/home/c-bodyarcade-900.webp 900w" sizes="(max-width: 959px) 88vw, 540px" width="600" height="210" alt="" fetchpriority="high" decoding="async">
+                <span class="card-body">
+                  <h3 class="card-name">BodyArcade</h3>
+                  <span class="card-what">11 short fitness games you play with your body through the camera. 8 are free, and nothing is uploaded.</span>
+                  <span class="card-foot"><span class="card-kind">Browser game</span><span class="card-go">Play BodyArcade</span></span>
+                </span>
+              </a>
+            </li>
+            <li class="card" style="--i:1;--tab:#0f4c81;--tab-ink:#ffffff">
+              <a class="card-link" href="https://www.getquotationmaker.com/">
+                <span class="card-tab" aria-hidden="true">GetQuotationMaker</span>
+                <img class="card-img" src="assets/home/c-quote-600.webp" srcset="assets/home/c-quote-600.webp 600w, assets/home/c-quote-900.webp 900w" sizes="(max-width: 959px) 88vw, 540px" width="600" height="210" alt="" decoding="async">
+                <span class="card-body">
+                  <h3 class="card-name">GetQuotationMaker</h3>
+                  <span class="card-what">A quote with line items, tax, a discount and a validity date, as a PDF. No signup.</span>
+                  <span class="card-foot"><span class="card-kind">Free, Pro $9</span><span class="card-go">Make a quote</span></span>
+                </span>
+              </a>
+            </li>
+            <li class="card" style="--i:2;--tab:#7b1830;--tab-ink:#f2c14e">
+              <a class="card-link" href="/character-ai-export-viewer/">
+                <span class="card-tab" aria-hidden="true">Chatbound</span>
+                <img class="card-img" src="assets/home/c-chatbound-600.webp" srcset="assets/home/c-chatbound-600.webp 600w, assets/home/c-chatbound-900.webp 900w" sizes="(max-width: 959px) 88vw, 540px" width="600" height="210" alt="" decoding="async">
+                <span class="card-body">
+                  <h3 class="card-name">Chatbound</h3>
+                  <span class="card-what">Open the Character.AI data export ZIP with its password, then read, search and save every chat.</span>
+                  <span class="card-foot"><span class="card-kind">Pro $8 once</span><span class="card-go">Open Chatbound</span></span>
+                </span>
+              </a>
+            </li>
+            <li class="card" style="--i:3;--tab:#f0a81f;--tab-ink:#26211b">
+              <a class="card-link" href="https://www.coloringpagemaker.app/">
+                <span class="card-tab" aria-hidden="true">ColoringPageMaker</span>
+                <img class="card-img" src="assets/home/c-coloring-600.webp" srcset="assets/home/c-coloring-600.webp 600w, assets/home/c-coloring-900.webp 900w" sizes="(max-width: 959px) 88vw, 540px" width="600" height="210" alt="" decoding="async">
+                <span class="card-body">
+                  <h3 class="card-name">ColoringPageMaker</h3>
+                  <span class="card-what">Describe a scene and get a printable black-and-white coloring page in under a minute.</span>
+                  <span class="card-foot"><span class="card-kind">2 free a day, Pro $9 once</span><span class="card-go">Make a page</span></span>
+                </span>
+              </a>
+            </li>
+            <li class="card" style="--i:4;--tab:#635bff;--tab-ink:#ffffff">
+              <a class="card-link" href="https://www.mileagelogmaker.com/">
+                <span class="card-tab" aria-hidden="true">MileageLogMaker</span>
+                <img class="card-img" src="assets/home/c-mileage-600.webp" srcset="assets/home/c-mileage-600.webp 600w, assets/home/c-mileage-900.webp 900w" sizes="(max-width: 959px) 88vw, 540px" width="600" height="210" alt="" decoding="async">
+                <span class="card-body">
+                  <h3 class="card-name">MileageLogMaker</h3>
+                  <span class="card-what">An IRS mileage log PDF with each trip priced at the 2026 rate for its date: 72.5¢, then 76¢ from July 1.</span>
+                  <span class="card-foot"><span class="card-kind">Free, $9 once without watermark</span><span class="card-go">Log my miles</span></span>
+                </span>
+              </a>
+            </li>
+            <li class="card" style="--i:5;--tab:#ffb000;--tab-ink:#2e1a12">
+              <a class="card-link" href="/coop-designer/">
+                <span class="card-tab" aria-hidden="true">Coop designer</span>
+                <img class="card-img" src="assets/home/c-coop-600.webp" srcset="assets/home/c-coop-600.webp 600w, assets/home/c-coop-900.webp 900w" sizes="(max-width: 959px) 88vw, 540px" width="600" height="210" alt="" decoding="async">
+                <span class="card-body">
+                  <h3 class="card-name">Chicken coop designer</h3>
+                  <span class="card-what">A hen house, walk-in coop, A-frame or tractor sized for your flock in 3D, with checks and a material list.</span>
+                  <span class="card-foot"><span class="card-kind">Free 3D plans</span><span class="card-go">Design a coop</span></span>
+                </span>
+              </a>
+            </li>
+            <li class="card" style="--i:6;--tab:#3a2346;--tab-ink:#8fe3b8">
+              <a class="card-link" href="/colornote-viewer/">
+                <span class="card-tab" aria-hidden="true">Notelift</span>
+                <img class="card-img" src="assets/home/c-notelift-600.webp" srcset="assets/home/c-notelift-600.webp 600w, assets/home/c-notelift-900.webp 900w" sizes="(max-width: 959px) 88vw, 540px" width="600" height="210" alt="" decoding="async">
+                <span class="card-body">
+                  <h3 class="card-name">Notelift</h3>
+                  <span class="card-what">Read your ColorNote notes on a computer: open the backup file with its password and search every note.</span>
+                  <span class="card-foot"><span class="card-kind">Free, nothing uploaded</span><span class="card-go">Open Notelift</span></span>
+                </span>
+              </a>
+            </li>
+            <li class="card" style="--i:7;--tab:#6a2ee8;--tab-ink:#ffffff">
+              <a class="card-link" href="/sim-rig-designer/">
+                <span class="card-tab" aria-hidden="true">Sim rig designer</span>
+                <img class="card-img" src="assets/home/c-simrig-600.webp" srcset="assets/home/c-simrig-600.webp 600w, assets/home/c-simrig-900.webp 900w" sizes="(max-width: 959px) 88vw, 540px" width="600" height="210" alt="" decoding="async">
+                <span class="card-body">
+                  <h3 class="card-name">Sim rig designer</h3>
+                  <span class="card-what">A sim racing rig in 3D for your height, seat and gear, in wood or aluminium profile, with a cut list.</span>
+                  <span class="card-foot"><span class="card-kind">Free 3D plans</span><span class="card-go">Design a rig</span></span>
+                </span>
+              </a>
+            </li>
+          </ol>
+        </div>
+        <div class="drawer-shadow" aria-hidden="true"></div>
       </div>
     </div>
-    <div class="hero-foot" aria-hidden="true"><span>Scroll</span><span class="hero-foot-line"></span></div>
   </section>
 
-  <!-- MANIFESTO -->
-  <section class="manifesto" aria-label="About the studio">
-    <p class="manifesto-text" data-words>We don't take client work. Every product on this page is ours: designed, built and operated in-house, and live right now. Each one does a single job, keeps accounts optional where it can, and stays maintained after launch.</p>
-  </section>
-
-  <!-- MOST USED: ordered by 28-day Google clicks plus 10 per paid sale -->
-  <section id="popular" class="index popular" aria-labelledby="popular-title">
-    <header class="section-head">
-      <p class="kicker">Most used</p>
-      <h2 id="popular-title" class="section-title">What people <em>open</em> most.</h2>
-      <p class="section-note section-note--below">Ordered by visits and paid downloads over the last four weeks.</p>
-    </header>
-    <ol class="index-list">
-      <li><a href="https://bodyarcade.com/"><span class="i-name">BodyArcade</span><span class="i-what">Browser fitness game with pose tracking</span><span class="i-kind">Game</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="https://www.coloringpagemaker.app/"><span class="i-name">ColoringPageMaker</span><span class="i-what">Printable coloring pages from a sentence</span><span class="i-kind">Web</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="https://www.getquotationmaker.com/"><span class="i-name">GetQuotationMaker</span><span class="i-what">Quotes with validity dates and discounts</span><span class="i-kind">Web</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/character-ai-export-viewer/"><span class="i-name">Chatbound</span><span class="i-what">Read your Character.AI chats from the password-protected export ZIP</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="https://www.mileagelogmaker.com/"><span class="i-name">MileageLogMaker</span><span class="i-what">IRS mileage logs priced by trip date</span><span class="i-kind">Web</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/coop-designer/"><span class="i-name">Coop designer</span><span class="i-what">A chicken coop and run for your flock and yard in 3D, with the space and nest box checks</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/colornote-viewer/"><span class="i-name">Notelift</span><span class="i-what">Read a ColorNote backup on a PC, with its password, and search every note</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/sim-rig-designer/"><span class="i-name">Sim rig designer</span><span class="i-what">A sim racing cockpit built around your height, in 3D, in wood or aluminium profile</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
+  <!-- CLOSING SOON: dates from each tool's own page -->
+  <section id="closing" class="closing" aria-labelledby="closing-title">
+    <div class="closing-head">
+      <h2 id="closing-title" class="section-title">Save your copy before these close.</h2>
+      <p class="section-note">Each tool opens the file the service gives you, in your browser, and uploads nothing. They are independent and not affiliated with Reddit, OpenAI, Weebly or Yahoo.</p>
+    </div>
+    <ol class="slip" aria-label="Closing dates">
+      <li class="slip-row" data-stamp>
+        <span class="stamp"><time datetime="2026-11-13">13 Nov 2026</time></span>
+        <span class="slip-what">Reddit ends RSS feeds</span>
+        <a class="slip-tool" href="/reddit-data-export-viewer/">
+          <img src="assets/home/t-threadkeep-480.webp" srcset="assets/home/t-threadkeep-480.webp 480w, assets/home/t-threadkeep-960.webp 960w" sizes="(max-width: 759px) 40vw, 180px" width="480" height="160" alt="" loading="lazy" decoding="async">
+          <span><strong>Threadkeep</strong> reads the ZIP from Reddit&rsquo;s data request: every saved post past 1,000, your comments and chats.</span>
+        </a>
+      </li>
+      <li class="slip-row" data-stamp>
+        <span class="stamp"><time datetime="2026-12-11">11 Dec 2026</time></span>
+        <span class="slip-what">OpenAI retires custom GPTs</span>
+        <a class="slip-tool" href="/custom-gpt-export/">
+          <img src="assets/home/t-skillcase-480.webp" srcset="assets/home/t-skillcase-480.webp 480w, assets/home/t-skillcase-960.webp 960w" sizes="(max-width: 759px) 40vw, 180px" width="480" height="160" alt="" loading="lazy" decoding="async">
+          <span><strong>Skillcase</strong> saves a custom GPT&rsquo;s instructions, files and action schemas as a backup and a skill for Claude and Gemini.</span>
+        </a>
+      </li>
+      <li class="slip-row" data-stamp>
+        <span class="stamp"><time datetime="2026-12-26">26 Dec 2026</time></span>
+        <span class="slip-what">Weebly logins end</span>
+        <a class="slip-tool" href="/weebly-archive/">
+          <img src="assets/home/t-rehoused-480.webp" srcset="assets/home/t-rehoused-480.webp 480w, assets/home/t-rehoused-960.webp 960w" sizes="(max-width: 759px) 40vw, 180px" width="480" height="160" alt="" loading="lazy" decoding="async">
+          <span><strong>Rehoused</strong> turns your Weebly site archive ZIP into a clean website you can host anywhere.</span>
+        </a>
+      </li>
+      <li class="slip-row" data-stamp>
+        <span class="stamp"><time datetime="2027-01-15">15 Jan 2027</time></span>
+        <span class="slip-what">Yahoo Notepad closes</span>
+        <a class="slip-tool" href="/yahoo-notepad/">
+          <img src="assets/home/t-lastleaf-480.webp" srcset="assets/home/t-lastleaf-480.webp 480w, assets/home/t-lastleaf-960.webp 960w" sizes="(max-width: 759px) 40vw, 180px" width="480" height="160" alt="" loading="lazy" decoding="async">
+          <span><strong>Lastleaf</strong> opens the Notepad file Yahoo emails you, so you can read, search, print and save every note.</span>
+        </a>
+      </li>
     </ol>
-  </section>
 
-  <!-- NEW THIS WEEK: live 27 to 29 October 2026 -->
-  <section id="new" class="fresh" aria-labelledby="new-title">
-    <header class="section-head">
-      <p class="kicker">New this week</p>
-      <h2 id="new-title" class="section-title">Your data, <em>readable</em> again.</h2>
-      <p class="section-note section-note--below">Five new tools, live October 27 to 29. Each opens a file in your browser and uploads nothing.</p>
-    </header>
-    <ul class="fresh-list">
-      <li><a class="fresh-card" href="/reddit-data-export-viewer/">
-        <p class="fresh-tag">Reddit data request</p>
-        <h3 class="fresh-name">Threadkeep</h3>
-        <p class="fresh-desc">Every saved post and comment in your Reddit data request, past the 1,000 the app shows. Reddit ends RSS on November 13.</p>
-        <div class="fresh-foot"><span class="fresh-go">Open Threadkeep <svg viewBox="0 0 12 12" width="11" height="11" aria-hidden="true"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span><span class="fresh-price">Free, Pro $8 once</span></div>
-      </a></li>
-      <li><a class="fresh-card" href="/export-fitbit-data/">
-        <p class="fresh-tag">Fitbit and Google Health</p>
-        <h3 class="fresh-name">Tallyband</h3>
-        <p class="fresh-desc">Steps, sleep, weight, heart rate and workouts from your Google Takeout archive, as CSV or Excel for the dates you pick.</p>
-        <div class="fresh-foot"><span class="fresh-go">Open Tallyband <svg viewBox="0 0 12 12" width="11" height="11" aria-hidden="true"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span><span class="fresh-price">Free, Pro $8 once</span></div>
-      </a></li>
-      <li><a class="fresh-card" href="/messenger-json-viewer/">
-        <p class="fresh-tag">Messenger and Instagram</p>
-        <h3 class="fresh-name">Readback</h3>
-        <p class="fresh-desc">The message_1.json files from your download, read as chats again, oldest first, with photos and reactions.</p>
-        <div class="fresh-foot"><span class="fresh-go">Open Readback <svg viewBox="0 0 12 12" width="11" height="11" aria-hidden="true"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span><span class="fresh-price">Free, Pro $8 once</span></div>
-      </a></li>
-      <li><a class="fresh-card" href="/open-imscc-file/">
-        <p class="fresh-tag">Canvas course export</p>
-        <h3 class="fresh-name">Cubby</h3>
-        <p class="fresh-desc">Open a saved course export (.imscc) and read every module, page, assignment and quiz with its answers.</p>
-        <div class="fresh-foot"><span class="fresh-go">Open Cubby <svg viewBox="0 0 12 12" width="11" height="11" aria-hidden="true"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span><span class="fresh-price">Free, Pro $8 once</span></div>
-      </a></li>
-      <li><a class="fresh-card" href="/custom-gpt-export/">
-        <p class="fresh-tag">Custom GPT backup</p>
-        <h3 class="fresh-name">Skillcase</h3>
-        <p class="fresh-desc">Keep your custom GPT before OpenAI retires them on December 11: a backup, plus a skill for Claude, Gemini and ChatGPT.</p>
-        <div class="fresh-foot"><span class="fresh-go">Open Skillcase <svg viewBox="0 0 12 12" width="11" height="11" aria-hidden="true"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span><span class="fresh-price">Free</span></div>
-      </a></li>
+    <h3 class="also-title">Also new this month</h3>
+    <ul class="also">
+      <li><a href="/export-fitbit-data/"><img src="assets/home/t-tallyband-480.webp" width="480" height="160" alt="" loading="lazy" decoding="async"><span class="also-name">Tallyband</span><span class="also-what">Fitbit and Google Health steps, sleep, weight and heart rate as CSV or Excel, for any dates.</span></a></li>
+      <li><a href="/messenger-json-viewer/"><img src="assets/home/t-readback-480.webp" width="480" height="160" alt="" loading="lazy" decoding="async"><span class="also-name">Readback</span><span class="also-what">Your Messenger or Instagram download, read as chats again with photos and reactions.</span></a></li>
+      <li><a href="/open-imscc-file/"><img src="assets/home/t-cubby-480.webp" width="480" height="160" alt="" loading="lazy" decoding="async"><span class="also-name">Cubby</span><span class="also-what">A Canvas course export (.imscc): every module, page, assignment and quiz with its answers.</span></a></li>
+      <li><a href="/edge-collections/"><img src="assets/home/t-stashback-480.webp" width="480" height="160" alt="" loading="lazy" decoding="async"><span class="also-name">Stashback</span><span class="also-what">Edge Collections back out of the file Edge left on your PC, saved as bookmarks.</span></a></li>
+      <li><a href="/open-pub-file/"><img src="assets/home/t-unframe-480.webp" width="480" height="160" alt="" loading="lazy" decoding="async"><span class="also-name">Unframe</span><span class="also-what">The text and pictures of a Publisher .pub file, page by page, without Publisher.</span></a></li>
     </ul>
-    <p class="fresh-more">Also new: <a href="/yahoo-notepad/">Lastleaf</a> for Yahoo Notepad, which closes January 15, <a href="/edge-collections/">Stashback</a> for Edge Collections, <a href="/weebly-archive/">Rehoused</a> for Weebly archives and <a href="/open-pub-file/">Unframe</a> for Publisher files. <a href="/tools/#g-exports">See every data tool</a>. These are independent tools, not affiliated with Reddit, Google, Meta, Instructure, OpenAI, Yahoo, Microsoft or Weebly.</p>
   </section>
 
-  <!-- SELECTED WORK -->
-  <section id="work" class="work" aria-labelledby="work-title">
-    <header class="section-head">
-      <p class="kicker">Selected work</p>
-      <h2 id="work-title" class="section-title">Two products, <em>two</em> very different problems.</h2>
-    </header>
-
-    <!-- 01 BodyArcade: full-bleed cinematic chapter -->
-    <article class="chapter chapter--film" aria-labelledby="w1">
-      <div class="film">
-        <div class="film-main reveal-img" data-video="media/work/bodyarcade-gameplay" data-video-enabled="false">
-          <img src="assets/work/ba-volcano.webp" srcset="assets/work/ba-volcano-sm.webp 800w, assets/work/ba-volcano.webp 1600w" sizes="100vw" width="1600" height="680" alt="BodyArcade gameplay in the Volcano world: the runner heads down a dark road toward a lean-left wall, with lava cracks glowing in the black rock on both sides." loading="lazy" decoding="async">
-        </div>
-        <div class="film-copy">
-          <p class="chapter-num">01 / Browser game</p>
-          <h3 id="w1" class="chapter-title">BodyArcade</h3>
-          <p class="chapter-lede">A running game you steer with your body. Your webcam tracks squats, jumps and arm raises in the browser, and the road responds.</p>
-          <dl class="facts">
-            <div><dt>Platform</dt><dd>Any modern browser with a camera</dd></div>
-            <div><dt>Built with</dt><dd>Three.js, MediaPipe Pose, Supabase Realtime</dd></div>
-            <div><dt>Worlds</dt><dd>10, from Alps to Volcano</dd></div>
-          </dl>
-          <a class="link-arrow" href="https://bodyarcade.com/">Play BodyArcade <svg viewBox="0 0 12 12" width="11" height="11" aria-hidden="true"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></a>
-        </div>
+  <!-- GOLFRESERVE PRO: screens captured from the live demo on 30 Oct 2026 -->
+  <section id="golf" class="golf" aria-labelledby="golf-title" data-depth-scene>
+    <div class="golf-copy">
+      <p class="product-mark">GolfReserve Pro</p>
+      <h2 id="golf-title" class="section-title">Tour operators ask. The golf course confirms.</h2>
+      <p class="lede">For golf courses that take tee-time requests from many tour operators. The requests arrive in one panel and land on the tee sheet, instead of in phone calls, WhatsApp chats and e-mail threads.</p>
+      <dl class="facts">
+        <div><dt>Price</dt><dd>&euro;249 per club per month after the first 30 days, for up to 36 holes. No setup fee and no commission.</dd></div>
+        <div><dt>Tour operators</dt><dd>Free accounts. They send requests from a phone or a computer and print the voucher.</dd></div>
+        <div><dt>Demo</dt><dd>No sign-up. The sample course and its data stay in your browser.</dd></div>
+      </dl>
+      <div class="actions">
+        <a class="btn btn--light" href="https://golfreserve.peakappsstudio.com/demo/?lang=en">Try the demo</a>
+        <a class="btn btn--line-light" href="https://golfreserve.peakappsstudio.com/">See GolfReserve Pro</a>
       </div>
-      <div class="strip" aria-label="More BodyArcade worlds">
-        <figure class="strip-item reveal-img"><img src="assets/work/ba-city-sm.webp" srcset="assets/work/ba-city-560.webp 560w, assets/work/ba-city-sm.webp 800w" sizes="(max-width: 760px) 72vw, 26vw" width="800" height="340" alt="City world: the runner approaches a striped barrier on a night road lined with lit office towers." loading="lazy" decoding="async"><figcaption>City</figcaption></figure>
-        <figure class="strip-item reveal-img"><img src="assets/work/ba-storm-sm.webp" srcset="assets/work/ba-storm-560.webp 560w, assets/work/ba-storm-sm.webp 800w" sizes="(max-width: 760px) 72vw, 26vw" width="800" height="340" alt="Storm world: rain falls on a dark road through pine trees as the runner nears a wall." loading="lazy" decoding="async"><figcaption>Storm</figcaption></figure>
-        <figure class="strip-item reveal-img"><img src="assets/work/ba-desert-sm.webp" srcset="assets/work/ba-desert-560.webp 560w, assets/work/ba-desert-sm.webp 800w" sizes="(max-width: 760px) 72vw, 26vw" width="800" height="340" alt="Desert world: the runner jumps toward a hurdle on a road between cacti and sand under a blue sky." loading="lazy" decoding="async"><figcaption>Desert</figcaption></figure>
-        <figure class="strip-item reveal-img"><img src="assets/work/ba-sunset-sm.webp" srcset="assets/work/ba-sunset-560.webp 560w, assets/work/ba-sunset-sm.webp 800w" sizes="(max-width: 760px) 72vw, 26vw" width="800" height="340" alt="Sunset world: the runner clears a low bar on a palm-lined road with the sun setting ahead." loading="lazy" decoding="async"><figcaption>Sunset</figcaption></figure>
-      </div>
-    </article>
-
-    <!-- 02 MileageLogMaker: media left, copy right -->
-    <article class="chapter chapter--split chapter--flip" aria-labelledby="w2">
-      <div class="chapter-copy sticky">
-        <p class="chapter-num">02 / Tax records</p>
-        <h3 id="w2" class="chapter-title">MileageLogMaker</h3>
-        <p class="chapter-lede">An IRS mileage log that knew the rate changed in July. Each trip is priced at the rate for its date (72.5¢ before July 1, 2026, 76¢ after), and the PDF shows the split.</p>
-        <dl class="facts">
-          <div><dt>For</dt><dd>Self-employed drivers, gig workers, realtors</dd></div>
-          <div><dt>Records</dt><dd>Date, destination, purpose and miles, as the IRS asks</dd></div>
-          <div><dt>Pricing</dt><dd>Free with a watermark; $9 once to remove it</dd></div>
-        </dl>
-        <a class="link-arrow" href="https://www.mileagelogmaker.com/">Open MileageLogMaker <svg viewBox="0 0 12 12" width="11" height="11" aria-hidden="true"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></a>
-      </div>
-      <div class="chapter-media">
-        <figure class="frame frame--browser reveal-img">
-          <div class="win-bar"><i></i><i></i><i></i><span>mileagelogmaker.com</span></div>
-          <img src="assets/work/mileage-tool.webp" srcset="assets/work/mileage-tool-480.webp 480w, assets/work/mileage-tool-800.webp 800w, assets/work/mileage-tool-1200.webp 1200w, assets/work/mileage-tool.webp 1600w" sizes="(max-width: 960px) 92vw, (max-width: 1440px) 50vw, 724px" width="1600" height="1000" alt="MileageLogMaker: trip entry form, trip list and tax deduction summary." loading="lazy" decoding="async">
-        </figure>
-        <figure class="frame frame--browser frame--offset reveal-img">
-          <div class="win-bar"><i></i><i></i><i></i><span>2026 IRS mileage rate</span></div>
-          <img src="assets/work/mileage-rate.webp" srcset="assets/work/mileage-rate-480.webp 480w, assets/work/mileage-rate-800.webp 800w, assets/work/mileage-rate-1200.webp 1200w, assets/work/mileage-rate.webp 1600w" sizes="(max-width: 760px) 83vw, (max-width: 960px) 72vw, (max-width: 1440px) 39vw, 565px" width="1600" height="1000" alt="The 2026 IRS mileage rate page explaining the July 1 change from 72.5 to 76 cents." loading="lazy" decoding="async">
-        </figure>
-      </div>
-    </article>
+    </div>
+    <div class="golf-scene" aria-hidden="true">
+      <img class="golf-hole plane" data-plane="-1" src="assets/home/golf-hole-720.webp" srcset="assets/home/golf-hole-720.webp 720w, assets/home/golf-hole-1200.webp 1200w" sizes="(max-width: 959px) 92vw, 50vw" width="720" height="405" alt="" loading="lazy" decoding="async">
+      <figure class="browser plane" data-plane="0">
+        <span class="browser-bar"><i></i><i></i><i></i><span>golfreserve.peakappsstudio.com/demo</span></span>
+        <img src="assets/home/golf-sheet-800.webp" srcset="assets/home/golf-sheet-800.webp 800w, assets/home/golf-sheet-1440.webp 1440w" sizes="(max-width: 959px) 88vw, 46vw" width="800" height="500" alt="" loading="lazy" decoding="async">
+      </figure>
+      <figure class="phone plane" data-plane="1">
+        <img src="assets/home/golf-phone-300.webp" srcset="assets/home/golf-phone-300.webp 300w, assets/home/golf-phone-520.webp 520w" sizes="(max-width: 959px) 30vw, 200px" width="300" height="649" alt="" loading="lazy" decoding="async">
+      </figure>
+    </div>
+    <p class="scene-caption">The course tee sheet and the tour operator&rsquo;s phone view, from the live demo.</p>
   </section>
 
-  <!-- APPS -->
+  <!-- BODYARCADE: game tiles from bodyarcade.com -->
+  <section id="bodyarcade" class="ba" aria-labelledby="ba-title" data-ring-scene>
+    <div class="ba-copy">
+      <p class="product-mark">BodyArcade</p>
+      <h2 id="ba-title" class="section-title">Squat, jump, punch. The game moves when you do.</h2>
+      <p class="lede">11 short games for legs, arms, core and balance, in the browser of a phone, tablet or computer. Your camera reads your moves on your device and nothing is uploaded. 8 of the 11 games are free, with no account and no ads.</p>
+      <div class="actions">
+        <a class="btn btn--ink" href="https://bodyarcade.com/">Play BodyArcade</a>
+      </div>
+    </div>
+    <div class="ring-stage">
+      <ul class="ring" data-ring aria-label="BodyArcade games">
+        <li style="--k:0"><img src="assets/home/ba-squat-flap-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Squat Flap</span></li>
+        <li style="--k:1"><img src="assets/home/ba-knee-sprint-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Knee Sprint</span></li>
+        <li style="--k:2"><img src="assets/home/ba-star-catch-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Star Catch</span></li>
+        <li style="--k:3"><img src="assets/home/ba-pad-work-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Pad Work</span></li>
+        <li style="--k:4"><img src="assets/home/ba-reaction-tag-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Reaction Tag</span></li>
+        <li style="--k:5"><img src="assets/home/ba-firework-jacks-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Firework Jacks</span></li>
+        <li style="--k:6"><img src="assets/home/ba-twist-turbine-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Twist Turbine</span></li>
+        <li style="--k:7"><img src="assets/home/ba-summit-climb-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Summit Climb</span></li>
+        <li style="--k:8"><img src="assets/home/ba-limbo-bend-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Limbo Bend</span></li>
+        <li style="--k:9"><img src="assets/home/ba-pose-wall-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Pose Wall</span></li>
+        <li style="--k:10"><img src="assets/home/ba-road-run-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Road Run</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- APPS: store links checked for HTTP 200 on 30 Oct 2026 -->
   <section id="apps" class="apps" aria-labelledby="apps-title">
-    <header class="section-head">
-      <p class="kicker">On the App Store and Google Play</p>
-      <h2 id="apps-title" class="section-title">Small apps, <em>built for one moment.</em></h2>
-    </header>
+    <h2 id="apps-title" class="section-title">Apps on the App Store and Google Play.</h2>
     <ul class="apps-list">
-      <li class="app" data-app="okultakip">
-        <div class="app-glyph" aria-hidden="true"><span>O</span></div>
+      <li class="app">
+        <img class="app-icon" src="assets/home/i-okultakip-128.webp" width="128" height="128" alt="" loading="lazy" decoding="async">
         <div class="app-body">
           <h3 class="app-name">OkulTakip</h3>
-          <p class="app-desc">Tells parents in Turkey when their child reaches school, leaves it and gets home, with an earthquake check-in and no accounts.</p>
-          <p class="app-meta">iOS · Family</p>
-          <div class="app-links"><a class="link-arrow" href="/apps/okultakip/">About OkulTakip <svg viewBox="0 0 12 12" width="11" height="11" aria-hidden="true"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></a><a class="link-quiet" href="https://apps.apple.com/tr/app/id6758399281">App Store</a></div>
+          <p class="app-desc">Tells parents in Turkey when their child reaches school, leaves it and gets home.</p>
+          <p class="app-links"><a href="https://apps.apple.com/tr/app/id6758399281">App Store</a><a href="/apps/okultakip/">About OkulTakip</a></p>
         </div>
       </li>
       <li class="app">
-        <div class="app-glyph" aria-hidden="true"><span>L</span></div>
+        <img class="app-icon" src="assets/home/i-leano-128.webp" width="128" height="128" alt="" loading="lazy" decoding="async">
         <div class="app-body">
           <h3 class="app-name">Leano</h3>
-          <p class="app-desc">A body measurement tracker with an interactive body map and progress photos that stay on your device.</p>
-          <p class="app-meta">iOS · Health &amp; fitness</p>
-          <div class="app-links"><a class="link-arrow" href="https://dorukctnn-rgb.github.io/leano/">About Leano <svg viewBox="0 0 12 12" width="11" height="11" aria-hidden="true"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></a><a class="link-quiet" href="https://apps.apple.com/app/id6761293700">App Store</a></div>
+          <p class="app-desc">Measure up to 14 places with a tape and Leano reshapes a 3D body twin to your numbers.</p>
+          <p class="app-links"><a href="https://apps.apple.com/app/id6761293700">App Store</a><a href="https://leano.peakappsstudio.com/">About Leano</a></p>
         </div>
       </li>
       <li class="app">
-        <div class="app-glyph" aria-hidden="true"><span>K</span></div>
+        <img class="app-icon" src="assets/home/i-kopilot-128.webp" width="128" height="128" alt="" loading="lazy" decoding="async">
         <div class="app-body">
           <h3 class="app-name">Kopilot</h3>
-          <p class="app-desc">Live radar and traffic control alerts for drivers in Turkey, with voice navigation and routing.</p>
-          <p class="app-meta">Android · Navigation</p>
-          <div class="app-links"><a class="link-arrow" href="https://play.google.com/store/apps/details?id=com.peakapps.kopilot">Google Play <svg viewBox="0 0 12 12" width="11" height="11" aria-hidden="true"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></a></div>
+          <p class="app-desc">Radar and traffic control alerts for drivers in Turkey, with voice navigation.</p>
+          <p class="app-links"><a href="https://apps.apple.com/tr/app/id6779541340">App Store</a><a href="https://play.google.com/store/apps/details?id=com.peakapps.kopilot">Google Play</a></p>
         </div>
       </li>
       <li class="app">
-        <div class="app-glyph" aria-hidden="true"><span>H</span></div>
+        <img class="app-icon" src="assets/home/i-hearmony-128.webp" width="128" height="128" alt="" loading="lazy" decoding="async">
         <div class="app-body">
           <h3 class="app-name">Hearmony</h3>
-          <p class="app-desc">Ear training and sight reading: relative pitch, solfege and chord practice in short daily rounds.</p>
-          <p class="app-meta">Android · Music</p>
-          <div class="app-links"><a class="link-arrow" href="https://play.google.com/store/apps/details?id=com.peakapps.hearmony">Google Play <svg viewBox="0 0 12 12" width="11" height="11" aria-hidden="true"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></a></div>
+          <p class="app-desc">Intervals, chords, scales and notes on the staff, practised on a ladder that lights up as you listen.</p>
+          <p class="app-links"><a href="https://play.google.com/store/apps/details?id=com.peakapps.hearmony">Google Play</a><a href="https://hearmony.peakappsstudio.com/">About Hearmony</a></p>
         </div>
       </li>
     </ul>
   </section>
 
-  <!-- INDEX: everything not shown above, most used first; the quietest products last -->
-  <section id="index" class="index" aria-labelledby="index-title">
-    <header class="section-head section-head--row">
-      <h2 id="index-title" class="section-title">Index</h2>
-      <p class="section-note">The rest of what we run, most used first. Other companies&rsquo; names only say which files a tool opens; none of them is affiliated with us.</p>
-    </header>
-    <h3 class="index-group">Free tools and data readers</h3>
-    <ol class="index-list">
-      <li><a href="/dropped-kerb/"><span class="i-name">Dropped kerb check</span><span class="i-what">A driveway checked in 3D against your council’s dropped kerb rules and fees</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/tumbler-template/"><span class="i-name">Tumbler templates</span><span class="i-what">Flat templates for tapered cups, and a design warp</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/catio-designer/"><span class="i-name">Catio designer</span><span class="i-what">A catio for your window, wall or balcony in 3D, with the lumber and mesh to buy</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/fuelio-viewer/"><span class="i-name">Fillbook</span><span class="i-what">Fuelio fuel logs on a PC: consumption, cost per km and every entry</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/without-planning/"><span class="i-name">Without planning</span><span class="i-what">A house extension, garden room or heat pump checked in 3D against England’s and Ireland’s planning rules</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/quilt-label-maker/"><span class="i-name">Quilt labels</span><span class="i-what">Print-ready fabric labels with quilt-block borders</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/sewing-pattern-printer/"><span class="i-name">Print only your size</span><span class="i-what">Layered PDF sewing patterns, one size at a time</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/spotify-minutes-listened/"><span class="i-name">Earhours</span><span class="i-what">Your Spotify minutes listened this year, from the data file Spotify sends you</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/kdp-coloring-book/"><span class="i-name">KDP coloring books</span><span class="i-what">Interior PDFs with KDP bleed, margins and blank backs</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/name-cut-files/"><span class="i-name">Name cut files</span><span class="i-what">Welded name SVGs for Cricut and Silhouette, from a list or Etsy orders</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/etsy-tax-summary/"><span class="i-name">Etsy tax summary</span><span class="i-what">Year totals and Schedule C lines from Etsy statement CSVs</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/cone-template/"><span class="i-name">Cone templates</span><span class="i-what">Truncated cones and lampshades at true size</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/oura-export-viewer/"><span class="i-name">Nightjar</span><span class="i-what">Oura sleep, HRV and heart rate from your own export, without a membership</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/strava-year-in-review/"><span class="i-name">Yearlap</span><span class="i-what">Your Strava or Garmin year in review from your export, free</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/daylio-viewer/"><span class="i-name">Dayfold</span><span class="i-what">Daylio backups on a PC: entries, mood charts and the Year in Pixels</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/photo-date-fixer/"><span class="i-name">Photo date fixer</span><span class="i-what">The real dates and locations back in a Snapchat Memories export, in your browser</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/samsung-health-viewer/"><span class="i-name">Wristory</span><span class="i-what">Samsung Health data on a PC, from the app’s own download</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-    </ol>
-    <h3 class="index-group">On the App Store and Google Play</h3>
-    <ol class="index-list">
-      <li><a href="/apps/okultakip/"><span class="i-name">OkulTakip</span><span class="i-what">Tells parents in Turkey when a child reaches school and gets home</span><span class="i-kind">iOS</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="https://dorukctnn-rgb.github.io/leano/"><span class="i-name">Leano</span><span class="i-what">Body measurement tracker</span><span class="i-kind">iOS</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="https://play.google.com/store/apps/details?id=com.peakapps.kopilot"><span class="i-name">Kopilot</span><span class="i-what">Radar and traffic control alerts for drivers in Turkey</span><span class="i-kind">Android</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="https://play.google.com/store/apps/details?id=com.peakapps.hearmony"><span class="i-name">Hearmony</span><span class="i-what">Ear training and sight reading practice</span><span class="i-kind">Android</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-    </ol>
-    <h3 class="index-group">Also running</h3>
-    <ol class="index-list">
-      <li><a href="https://getinvoicemaker.com/"><span class="i-name">GetInvoiceMaker</span><span class="i-what">Invoices with VAT, GST/HST and BTW built in</span><span class="i-kind">Web</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="https://www.clientguard.app/"><span class="i-name">ClientGuard</span><span class="i-what">Customer concentration risk audit</span><span class="i-kind">Web</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/pay-gap-report/"><span class="i-name">Pay gap report</span><span class="i-what">Statutory gender pay gap figures for the UK, Ireland and the EU, from a payroll export</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="https://www.getbriefbase.com/"><span class="i-name">Briefbase</span><span class="i-what">Briefs and approvals for UGC agencies</span><span class="i-kind">Web · Beta</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/equality-action-plan/"><span class="i-name">Equality action plan</span><span class="i-what">Gender pay gap and menopause action plans from GOV.UK’s 18 actions, with the rules checked as you write</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/pay-transparency/"><span class="i-name">Pay transparency kit</span><span class="i-what">Pay information requests for workers, Article 7 answers for employers, all 27 EU countries</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="https://www.saidbyai.com/"><span class="i-name">Said by AI</span><span class="i-what">Does ChatGPT recommend your brand?</span><span class="i-kind">Web</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/menopause-adjustments/"><span class="i-name">Menopause adjustments at work</span><span class="i-what">Changes the Acas and GOV.UK guidance list, chosen by symptom, and a letter to your manager</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="/job-evaluation/"><span class="i-name">Job evaluation</span><span class="i-what">Point factor job evaluation on the EU factor plan, with categories of work of equal value</span><span class="i-kind">Tool</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-      <li><a href="https://www.reviewreply.store/"><span class="i-name">ReviewReply</span><span class="i-what">Drafts replies to Google reviews</span><span class="i-kind">Web</span><span class="i-go" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 9 9 3M4.5 3H9v4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></span></a></li>
-    </ol>
+  <!-- WEBSITES: the service page at /web/ is built in a separate PR -->
+  <section id="websites" class="web" aria-labelledby="web-title">
+    <div class="web-copy">
+      <p class="product-mark">Websites</p>
+      <h2 id="web-title" class="section-title">We also build websites like this one.</h2>
+      <p class="lede">Scroll-driven pages with real 3D for small businesses, designed for phones first and quick to load. The card drawer at the top of this page is the kind of thing we make.</p>
+      <div class="actions">
+        <a class="btn btn--light" href="/web/">See websites and prices</a>
+        <a class="btn btn--line-light" href="/tr/web-sitesi/" hreflang="tr" lang="tr">Türkçe sayfa</a>
+      </div>
+    </div>
+    <figure class="web-phone" aria-hidden="true">
+      <img src="assets/home/web-phone-300.webp" srcset="assets/home/web-phone-300.webp 300w, assets/home/web-phone-520.webp 520w" sizes="(max-width: 959px) 46vw, 240px" width="300" height="649" alt="" loading="lazy" decoding="async">
+    </figure>
   </section>
 
-  <!-- STUDIO / PRINCIPLES -->
-  <section id="studio" class="principles" aria-labelledby="studio-title">
-    <header class="section-head">
-      <p class="kicker">How we work</p>
-      <h2 id="studio-title" class="section-title">A few rules we <em>actually</em> keep.</h2>
-    </header>
-    <ol class="rules">
-      <li class="rule">
-        <span class="rule-n">I</span>
-        <h3>One job per product.</h3>
-        <p>An invoice tool makes invoices. A mileage log logs miles. If a feature doesn't serve that job, it doesn't ship.</p>
-      </li>
-      <li class="rule">
-        <span class="rule-n">II</span>
-        <h3>Accounts are optional.</h3>
-        <p>Most of our tools work the moment the page loads. You sign up only when there's something worth keeping.</p>
-      </li>
-      <li class="rule">
-        <span class="rule-n">III</span>
-        <h3>Numbers you can check.</h3>
-        <p>Tax rates and rules name their source, such as the CRA or the IRS, so you can verify them before you rely on them.</p>
-      </li>
-      <li class="rule">
-        <span class="rule-n">IV</span>
-        <h3>Launch is the start.</h3>
-        <p>When the IRS raised the mileage rate in July 2026, MileageLogMaker changed with it. Products stay maintained after launch.</p>
-      </li>
-    </ol>
+  <!-- EVERYTHING ELSE: most visited first; the products with the fewest visits at the very end -->
+  <section id="everything" class="everything" aria-labelledby="all-title">
+    <div class="all-head">
+      <h2 id="all-title" class="section-title">Everything else we run.</h2>
+      <p class="section-note">Most visited first. Other companies&rsquo; names only say which files a tool opens; none of them is affiliated with us.</p>
+    </div>
+    <h3 class="all-group">Tools and file readers</h3>
+    <ul class="all-list">
+      <li><a href="/dropped-kerb/"><span class="a-name">Dropped kerb check</span><span class="a-what">A driveway checked in 3D against your council&rsquo;s dropped kerb rules and fees</span></a></li>
+      <li><a href="/tumbler-template/"><span class="a-name">Tumbler templates</span><span class="a-what">Flat templates for tapered cups, and a design warp</span></a></li>
+      <li><a href="/catio-designer/"><span class="a-name">Catio designer</span><span class="a-what">A catio for your window, wall or balcony in 3D, with the lumber and mesh to buy</span></a></li>
+      <li><a href="/fuelio-viewer/"><span class="a-name">Fillbook</span><span class="a-what">Fuelio fuel logs on a PC: consumption, cost per km and every entry</span></a></li>
+      <li><a href="/without-planning/"><span class="a-name">Without planning</span><span class="a-what">An extension, garden room or heat pump checked in 3D against England&rsquo;s and Ireland&rsquo;s planning rules</span></a></li>
+      <li><a href="/quilt-label-maker/"><span class="a-name">Quilt labels</span><span class="a-what">Print-ready fabric labels with quilt-block borders</span></a></li>
+      <li><a href="/sewing-pattern-printer/"><span class="a-name">Print only your size</span><span class="a-what">Layered PDF sewing patterns, one size at a time</span></a></li>
+      <li><a href="/spotify-minutes-listened/"><span class="a-name">Earhours</span><span class="a-what">Your Spotify minutes listened this year, from the data file Spotify sends you</span></a></li>
+      <li><a href="/kdp-coloring-book/"><span class="a-name">KDP coloring books</span><span class="a-what">Interior PDFs with KDP bleed, margins and blank backs</span></a></li>
+      <li><a href="/name-cut-files/"><span class="a-name">Name cut files</span><span class="a-what">Welded name SVGs for Cricut and Silhouette, from a list or Etsy orders</span></a></li>
+      <li><a href="/etsy-tax-summary/"><span class="a-name">Etsy tax summary</span><span class="a-what">Year totals and Schedule C lines from Etsy statement CSVs</span></a></li>
+      <li><a href="/cone-template/"><span class="a-name">Cone templates</span><span class="a-what">Truncated cones and lampshades at true size</span></a></li>
+      <li><a href="/oura-export-viewer/"><span class="a-name">Nightjar</span><span class="a-what">Oura sleep, HRV and heart rate from your own export, without a membership</span></a></li>
+      <li><a href="/strava-year-in-review/"><span class="a-name">Yearlap</span><span class="a-what">Your Strava or Garmin year in review from your export</span></a></li>
+      <li><a href="/daylio-viewer/"><span class="a-name">Dayfold</span><span class="a-what">Daylio backups on a PC: entries, mood charts and the Year in Pixels</span></a></li>
+      <li><a href="/photo-date-fixer/"><span class="a-name">Photo date fixer</span><span class="a-what">The real dates and locations back in a Snapchat Memories export</span></a></li>
+      <li><a href="/samsung-health-viewer/"><span class="a-name">Wristory</span><span class="a-what">Samsung Health data on a PC, from the app&rsquo;s own download</span></a></li>
+      <li><a href="/play-12-testers/"><span class="a-name">Day14</span><span class="a-what">How to get 12 testers for Google Play, with a free 14-day tracker</span></a></li>
+    </ul>
+    <h3 class="all-group">Quieter for now</h3>
+    <ul class="all-list all-list--quiet">
+      <li><a href="https://getinvoicemaker.com/"><span class="a-name">GetInvoiceMaker</span><span class="a-what">Invoices with VAT, GST/HST and BTW lines, as a free PDF</span></a></li>
+      <li><a href="https://www.clientguard.app/"><span class="a-name">ClientGuard</span><span class="a-what">How exposed an agency is to losing its biggest client</span></a></li>
+      <li><a href="/pay-gap-report/"><span class="a-name">Pay gap report</span><span class="a-what">Statutory gender pay gap figures for the UK, Ireland and the EU, from a payroll export</span></a></li>
+      <li><a href="/equality-action-plan/"><span class="a-name">Equality action plan</span><span class="a-what">Gender pay gap and menopause action plans from GOV.UK&rsquo;s 18 actions</span></a></li>
+      <li><a href="/pay-transparency/"><span class="a-name">Pay transparency kit</span><span class="a-what">Pay information requests and Article 7 answers, for all 27 EU countries</span></a></li>
+      <li><a href="/menopause-adjustments/"><span class="a-name">Menopause adjustments at work</span><span class="a-what">Changes the Acas and GOV.UK guidance list, and a letter to your manager</span></a></li>
+      <li><a href="/job-evaluation/"><span class="a-name">Job evaluation</span><span class="a-what">Point factor job evaluation on the EU factor plan</span></a></li>
+      <li><a href="https://www.getbriefbase.com/"><span class="a-name">Briefbase</span><span class="a-what">A workspace for small UGC agencies, in early access</span></a></li>
+      <li><a href="https://www.saidbyai.com/"><span class="a-name">Said by AI</span><span class="a-what">Whether AI answers name your brand in your category</span></a></li>
+      <li><a href="https://www.reviewreply.store/"><span class="a-name">ReviewReply</span><span class="a-what">A polite, specific reply to a Google review</span></a></li>
+    </ul>
+    <p class="all-more"><a href="/tools/">See every tool with its guides</a></p>
   </section>
 
   <!-- CONTACT -->
   <section class="contact" aria-labelledby="contact-title">
-    <p class="kicker">Contact</p>
-    <h2 id="contact-title" class="contact-title"><a href="mailto:peakappsstudios@gmail.com">peakappsstudios<wbr>@gmail.com</a></h2>
-    <p class="contact-note">Product support, partnerships and press. One inbox, read by the people who build the products.</p>
+    <div class="contact-card">
+      <h2 id="contact-title" class="contact-title">Write to us</h2>
+      <p class="contact-mail"><a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></p>
+      <p class="contact-note">Support, refunds, partnerships and press. One inbox, read by the people who build the products.</p>
+    </div>
   </section>
 </main>
 
-<footer class="footer">
-  <div class="footer-row">
-    <span>© 2026 Peak Apps Studio</span>
-    <ul class="footer-links">
-      <li><a href="/tools/">Tools</a></li>
-      <li><a href="/testers/">Test our apps</a></li>
-      <li><a href="privacy.html">Travio privacy</a></li>
-      <li><a href="terms.html">Travio terms</a></li>
-      <li><a href="https://dorukctnn-rgb.github.io/leano/support.html">Leano support</a></li>
-      <li><a href="https://dorukctnn-rgb.github.io/obbbtaxsaver/support.html">OBBB Saver support</a></li>
-    </ul>
-  </div>
+<footer class="foot">
+  <p>&copy; 2026 Peak Apps Studio</p>
+  <ul>
+    <li><a href="/tools/">All tools</a></li>
+    <li><a href="/testers/">Test our apps</a></li>
+    <li><a href="/kopilot/privacy.html">Kopilot privacy</a></li>
+    <li><a href="https://dorukctnn-rgb.github.io/leano/support.html">Leano support</a></li>
+    <li><a href="privacy.html">Travio privacy</a></li>
+    <li><a href="terms.html">Travio terms</a></li>
+  </ul>
 </footer>
 
-<script src="assets/js/studio.js" defer></script>
+<script src="assets/js/home.js" defer></script>
 </body>
 </html>
