@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src https://cloudflareinsights.com; manifest-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weebly domain transfer: EPP code, lock and the 60-day rule</title>
+<meta name="description" content="Transfer a Weebly domain: switch off the Registrar Lock, get the EPP code, start at Squarespace or Wix, the 60-day rule, and how long to allow.">
+<link rel="canonical" href="https://peakappsstudio.com/weebly-archive/domain-transfer/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="How to transfer a Weebly domain to another registrar">
+<meta property="og:description" content="Transfer a Weebly domain: switch off the Registrar Lock, get the EPP code, start at Squarespace or Wix, the 60-day rule, and how long to allow.">
+<meta property="og:url" content="https://peakappsstudio.com/weebly-archive/domain-transfer/">
+<meta property="og:image" content="https://peakappsstudio.com/weebly-archive/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#a8231c">
+<link rel="icon" href="/weebly-archive/img/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/weebly-archive/fonts/rehoused-display.woff2" as="font" type="font/woff2" crossorigin>
+<style data-from="/assets/tools.css">
+/* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
+
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e1;
+  --card: #fbfaf7;
+  --ink: #141518;
+  --ink-2: #33363d;
+  --muted: #676b74;
+  --line: rgba(20, 21, 24, 0.12);
+  --line-2: rgba(20, 21, 24, 0.22);
+  --accent: #1f5c4d;          /* each tool overrides this on <body style="--accent:..."> */
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  --warn: #9a4a12;
+  --ok: #2c6a3f;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+    --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+  --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; }
+img { display: block; height: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 10px; z-index: 100; background: var(--ink); color: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 10px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-head { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand-sub { font-family: var(--sans); font-size: 14.5px; letter-spacing: 0; color: var(--muted); font-weight: 500; padding-left: 10px; border-left: 1px solid var(--line-2); }
+.head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
+.head-nav a:hover { background: var(--paper-2); color: var(--ink); }
+.head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
+@media (max-width: 640px) { .brand-sub { display: none; } }
+@media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
+
+/* ---------- Type ---------- */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+h1 { font-size: clamp(32px, 4.6vw, 54px); }
+h1 em, h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 19px; letter-spacing: -0.01em; }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; margin: 16px 0 0; }
+.mono { font-family: var(--mono); }
+.muted { color: var(--muted); }
+small, .small { font-size: 13.5px; }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 22px 0 0; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-2); }
+.crumbs a { text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.tool-hero { padding: 28px 0 24px; display: grid; gap: 8px; }
+.tool-hero .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.tool-hero .facts li { display: inline-flex; align-items: center; gap: 8px; }
+.tool-hero .facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Tool shell ---------- */
+.tool { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.tool-panel { padding: 22px; border-right: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.tool-stage { position: relative; min-height: 460px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper); display: grid; place-items: center; padding: 22px; }
+.tool-stage canvas, .tool-stage svg, .tool-stage img { max-height: 70vh; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px -12px rgba(0,0,0,.18); background: #fff; }
+.stage-bar { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.tool-foot { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 14px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--paper); }
+.tool-foot .spacer { flex: 1; }
+@media (max-width: 860px) {
+  .tool { grid-template-columns: 1fr; }
+  .tool-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tool-stage { min-height: 320px; }
+}
+
+/* ---------- Form controls ---------- */
+.group { display: grid; gap: 10px; }
+.group-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > label { font-size: 13px; color: var(--ink-2); }
+.input, .select { width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 8px; padding: 9px 11px; transition: border-color .15s, box-shadow .15s; }
+.input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input-unit { position: relative; }
+.input-unit .input { padding-right: 38px; font-family: var(--mono); font-size: 14.5px; }
+.input-unit i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 3px; flex: none; }
+.seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line-2); border-radius: 9px; padding: 3px; gap: 3px; background: var(--paper); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.warn { font-size: 13.5px; color: var(--warn); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.btn { --b: var(--line-2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 500; line-height: 1; padding: 11px 16px; border-radius: 9px; border: 1px solid var(--b); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; transition: transform .15s var(--ease), background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklab, var(--accent) 86%, #000); color: var(--accent-ink); border-color: transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-ink:hover { color: var(--paper); background: var(--ink-2); }
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.pro-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: var(--ink); color: var(--paper); }
+
+/* ---------- Drop zone ---------- */
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 18px 14px; background: var(--paper); cursor: pointer; transition: border-color .15s, background .15s; font-size: 14.5px; }
+.drop:hover, .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Content ---------- */
+.section { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prose { max-width: 70ch; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose h2 { margin: 1.6em 0 .5em; }
+.prose h3 { margin: 1.4em 0 .4em; }
+.prose code, .prose kbd { font-family: var(--mono); font-size: .9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+.two-col > * { min-width: 0; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: 3px; }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 13px; background: var(--paper); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 15px; }
+.source { font-size: 13px; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--line-2); margin-top: 18px; }
+.faq details { border-bottom: 1px solid var(--line-2); }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 13px; font-family: var(--mono); font-size: 18px; color: var(--muted); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 18px; color: var(--ink-2); max-width: 70ch; }
+
+/* ---------- Pro ---------- */
+.pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--card); }
+.pro-left { padding: clamp(22px, 3vw, 36px); }
+.pro-right { padding: clamp(22px, 3vw, 36px); background: var(--ink); color: var(--paper); display: grid; align-content: center; gap: 14px; }
+.pro-right .price { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pro-right .price small { font-size: 15px; font-weight: 400; color: color-mix(in oklab, var(--paper) 70%, transparent); letter-spacing: 0; }
+.pro-right .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.pro-right .btn-primary:hover { background: #fff; color: var(--ink); }
+.pro-right .fine { font-size: 13px; color: color-mix(in oklab, var(--paper) 65%, transparent); margin: 0; }
+.pro-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.pro-list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.pro-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border: 1.5px solid var(--accent); border-radius: 2px; transform: rotate(45deg); }
+@media (max-width: 760px) { .pro { grid-template-columns: 1fr; } }
+
+/* ---------- A real file, shown ---------- */
+.shot { margin: 22px 0 0; }
+.shot img { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; }
+.shot figcaption { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+.shot figcaption strong { font-weight: 600; color: var(--ink-2); }
+.shot-sm { max-width: 920px; }
+
+/* ---------- Where free stops and Pro starts ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; margin: 26px 0 0; background: var(--card); }
+.split > div { padding: 18px 20px 20px; }
+.split > div + div { border-left: 1px solid var(--line-2); background: var(--accent-soft); }
+.split h3 { font-size: 15.5px; margin: 0; }
+.split > div > p { margin: 5px 0 0; font-size: 13.5px; color: var(--muted); }
+.split ul { list-style: none; margin: 13px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
+.split li { position: relative; padding-left: 18px; }
+.split li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; border-radius: 1px; background: var(--line-2); }
+.split > div + div li::before { background: var(--accent); }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } .split > div + div { border-left: 0; border-top: 1px solid var(--line-2); } }
+
+/* ---------- A file list, as the archive really holds it ---------- */
+.filelist { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 5px; }
+.filelist li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filelist li span { color: var(--muted); }
+
+/* ---------- License dialog ---------- */
+.license-dialog { border: 1px solid var(--line-2); border-radius: 14px; padding: 0; width: min(440px, calc(100% - 32px)); background: var(--card); color: var(--ink); }
+.license-dialog::backdrop { background: rgba(10, 11, 13, .45); }
+.license-dialog form { padding: 22px; display: grid; gap: 14px; }
+.license-status { font-size: 14px; min-height: 1.4em; margin: 0; }
+.license-status[data-state="ok"] { color: var(--ok); }
+.license-status[data-state="err"] { color: var(--warn); }
+
+/* ---------- Related / cards ---------- */
+.related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line-2); margin-top: 22px; }
+.related a { display: grid; gap: 4px; padding: 18px 18px 18px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.related a strong { font-weight: 600; }
+.related a span { font-size: 14px; color: var(--muted); }
+.related a:hover strong { color: var(--accent); }
+
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
+/* ---------- Footer ---------- */
+.site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
+.site-foot h2 { font-size: 15px; font-family: var(--sans); letter-spacing: 0; font-weight: 600; color: var(--ink); margin: 0 0 10px; }
+.site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+@media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- "New from Peak Apps": the cross-promotion card the build puts above the footer (src/crosspromo.json) ---------- */
+.peak-new { margin-top: clamp(56px, 8vw, 104px); }
+.peak-new + .site-foot { margin-top: 28px; }
+.peak-new-card { display: grid; gap: 4px; max-width: 640px; padding: 16px 20px 18px; border: 1px solid var(--line-2); border-left: 4px solid var(--tool, var(--accent)); border-radius: var(--radius); background: var(--card); color: var(--ink); text-decoration: none; transition: border-color .2s var(--ease); }
+.peak-new-card:hover { border-color: var(--tool, var(--accent)); }
+.peak-new-card:focus-visible { outline: 2px solid var(--tool, var(--accent)); outline-offset: 3px; }
+.peak-new-kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.peak-new-card strong { font-size: 17px; font-weight: 600; line-height: 1.3; }
+.peak-new-line { font-size: 14px; line-height: 1.5; color: var(--ink-2); max-width: 62ch; }
+
+/* ---------- Home project tools: the shared block on Without Planning and Dropped Kerb Check ---------- */
+.home-block { margin: clamp(36px, 5vw, 60px) 0 0; border-top: 1px solid var(--line-2); padding-top: 16px; }
+.home-title { margin: 0 0 10px; font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink); }
+.home-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px 24px; }
+.home-list a { display: grid; gap: 3px; padding: 2px 0 2px 14px; border-left: 4px solid var(--tool, var(--accent)); text-decoration: none; color: var(--ink); }
+.home-list a strong { font-weight: 700; font-size: 16px; }
+.home-list a span { color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+.home-list a:hover strong { color: var(--tool, var(--accent)); }
+.home-list a[aria-current="page"] span { color: var(--ink-2); }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .3s var(--ease); z-index: 90; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media print { .site-head, .site-foot, .tool-panel, .tool-foot, .no-print { display: none !important; } body { background: #fff; } }
+
+/* The hidden attribute must win over component display rules. */
+[hidden] { display: none !important; }
+</style>
+<style data-from="/weebly-archive/tool.css">
+/* Rehoused: a Weebly site, moved into a house of its own. Blueprint blue for the band the tool stands on; brick red for
+   the front door and every button; kraft brown for moving-box labels only (the sample tag and the moving report).
+   Headings in Calistoga (a warm, sturdy display serif, subset as "Rehoused Display"); everything people read is the system
+   font at 18px. The tool panel is the house: a pitched roof over it and a red door at its foot that opens when your site
+   is in. Below it, the site is drawn as a floor plan, one room per page. */
+@font-face { font-family: "Rehoused Display"; src: url("/weebly-archive/fonts/rehoused-display.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+/* Georgia Bold sized to Calistoga, so the headings do not jump when the web font arrives */
+@font-face { font-family: "Rehoused Display Fallback"; src: local("Georgia Bold"), local("Georgia-Bold"), local("Georgia"); font-weight: 400; size-adjust: 86.8%; ascent-override: 115.2%; descent-override: 34.6%; line-gap-override: 0%; }
+
+body.rh {
+  --blueprint: #1f4e79; --blueprint-2: #173d60; --blueprint-soft: #dbe7f2; --blueprint-deep: #122f4b;
+  --door: #a8231c; --door-2: #8a1b15; --door-soft: #fbe4e1;
+  --kraft: #c8955a; --kraft-soft: #f3e3cc; --kraft-ink: #5c3b12;
+  --roof: #2b3a4a; --sun: #f6c76b;
+  --ink: #17202b; --ink-2: #2f3a47; --muted: #56616e;
+  --paper: #ffffff; --paper-2: #eef2f6; --card: #ffffff; --wall: #eef2f6;
+  --line: #dde3ea; --line-2: #c3ccd6;
+  --accent: #a8231c; --accent-ink: #ffffff; --link: #a8231c;
+  --ok: #1d6b3a; --warn: #8a4a00;
+  --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --head: "Rehoused Display", "Rehoused Display Fallback", Georgia, serif;
+  --code: ui-monospace, "Cascadia Mono", Consolas, "SF Mono", monospace;
+  font-family: var(--sans); font-size: 18px; line-height: 1.6; background: var(--paper); color: var(--ink);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.rh {
+    --ink: #eef2f7; --ink-2: #d3dbe5; --muted: #a7b2bf; --paper: #121820; --paper-2: #18202a; --card: #1b2430; --wall: #151c25;
+    --line: #2a3442; --line-2: #3b4757; --blueprint-soft: #1d2f43; --door-soft: #3a1c1a; --kraft-soft: #3a2c1b; --kraft-ink: #f0cfa4;
+    --link: #ff9c8f; --accent: #ff9c8f; --accent-ink: #1b0b09; --ok: #8fd3a5; --warn: #f0b16b;
+  }
+}
+:root[data-theme="dark"] body.rh {
+  --ink: #eef2f7; --ink-2: #d3dbe5; --muted: #a7b2bf; --paper: #121820; --paper-2: #18202a; --card: #1b2430; --wall: #151c25;
+  --line: #2a3442; --line-2: #3b4757; --blueprint-soft: #1d2f43; --door-soft: #3a1c1a; --kraft-soft: #3a2c1b; --kraft-ink: #f0cfa4;
+  --link: #ff9c8f; --accent: #ff9c8f; --accent-ink: #1b0b09; --ok: #8fd3a5; --warn: #f0b16b;
+}
+.rh a { color: var(--link); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.rh a:hover { color: var(--ink); }
+.rh h1, .rh h2, .rh h3 { font-family: var(--head); font-weight: 400; color: var(--ink); letter-spacing: 0; }
+.rh h1 { font-size: clamp(34px, 4.3vw, 54px); line-height: 1.08; margin: 18px 0 0; text-wrap: balance; max-width: 19ch; }
+.rh h2 { font-size: clamp(27px, 2.8vw, 36px); line-height: 1.15; text-wrap: balance; }
+.rh h3 { font-size: 23px; line-height: 1.2; }
+.rh .lede { font-size: clamp(19px, 1.6vw, 21px); line-height: 1.55; color: var(--ink-2); max-width: 56ch; margin: 18px 0 0; }
+.rh .crumbs { font-size: 15px; margin-top: 18px; color: var(--muted); }
+.rh .crumbs a { color: var(--ink-2); }
+.rh code { font-family: var(--code); font-size: 0.86em; background: var(--paper-2); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; overflow-wrap: anywhere; }
+.rh .btn { font-family: var(--sans); font-size: 17px; font-weight: 600; line-height: 1.2; padding: 14px 20px; border-radius: 8px; white-space: normal; text-align: center; max-width: 100%; min-height: 50px; }
+.rh .btn-primary { background: var(--door); border-color: var(--door); color: #fff; }
+.rh .btn-primary:hover { background: var(--door-2); border-color: var(--door-2); color: #fff; }
+.rh .btn[disabled] { opacity: .55; }
+.rh .rh-quiet { background: var(--card); border: 1.5px solid var(--line-2); color: var(--ink); }
+.rh .rh-quiet:hover { border-color: var(--ink); color: var(--ink); }
+.rh .rh-link { appearance: none; background: none; border: 0; padding: 0; font: inherit; color: var(--link); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.rh .rh-link:hover { color: var(--ink); }
+.rh .btn:focus-visible, .rh button:focus-visible, .rh a:focus-visible, .rh input:focus-visible, .rh summary:focus-visible, .rh [tabindex]:focus-visible { outline: 3px solid var(--door); outline-offset: 2px; }
+.rh .input { font-family: var(--sans); font-size: 18px; padding: 12px 14px; border: 1.5px solid var(--line-2); border-radius: 8px; background: var(--card); color: var(--ink); width: 100%; }
+.rh .input:focus { border-color: var(--blueprint); box-shadow: 0 0 0 3px var(--blueprint-soft); }
+.rh [hidden] { display: none !important; }
+
+/* ---------- header and footer ---------- */
+.rh-head { background: var(--paper); border-bottom: 1px solid var(--line); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.rh-head .brand { gap: 10px; color: var(--ink); }
+.rh-head .brand svg { width: 30px; height: 30px; }
+.rh-head .brand span { font-family: var(--head); font-size: 24px; font-weight: 400; }
+.rh-head .head-nav a { font-size: 16px; color: var(--ink-2); padding: 8px 10px; }
+.rh-head .head-nav [aria-current="page"] { font-size: 16px; color: var(--ink); padding: 8px 10px; font-weight: 600; }
+.rh-narrow { display: none; }
+@media (max-width: 1080px) { .rh-wide { display: none; } .rh-narrow { display: inline-block; } }
+@media (max-width: 480px) { .rh-head .head-nav [aria-current="page"] { display: none; } .rh-head .head-nav a { padding: 8px 6px; font-size: 15px; } .rh-head .brand span { font-size: 22px; } .rh-head .brand svg { width: 26px; height: 26px; } }
+.rh .site-foot.rh-foot { background: var(--blueprint-deep); color: #d5e1ee; border-top: 0; font-size: 16px; padding: 44px 0 52px; }
+.rh .rh-foot .cols { grid-template-columns: 1.6fr 1.2fr 0.9fr; }
+@media (max-width: 860px) { .rh .rh-foot .cols { grid-template-columns: 1fr; } }
+.rh .rh-foot h2 { font-family: var(--sans); font-size: 17px; font-weight: 700; color: #fff; letter-spacing: 0; margin: 0 0 10px; }
+.rh .rh-foot a { color: #e8f0f8; }
+.rh .rh-foot a:hover { color: #fff; text-decoration: underline; }
+.rh .rh-foot ul { gap: 8px; }
+.rh-foot-brand { font-family: var(--head); font-size: 25px; color: #fff; margin: 0 0 8px; }
+.rh-foot-text { margin: 0 0 12px; max-width: 48ch; }
+
+/* ---------- the blueprint band ---------- */
+.rh-band { background: var(--blueprint); color: #fff; }
+.rh-band h1, .rh-band .lede, .rh-band p, .rh-band li { color: #fff; }
+.rh-band .lede { color: #e6eef7; }
+.rh-band .crumbs, .rh-band .crumbs a { color: #c9d8e6; }
+.rh-band a { color: #fff; }
+.rh-band a:hover { color: var(--sun); }
+.rh-band :focus-visible { outline-color: var(--sun) !important; }
+.rh-hero { padding: 6px 0 64px; }
+.rh-hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(28px, 4vw, 64px); align-items: start; margin-top: 4px; }
+@media (max-width: 980px) { .rh-hero-grid { grid-template-columns: minmax(0, 1fr); } }
+.rh-hero-grid > div, .rh-sheet, .rh-stage { min-width: 0; }
+.rh-facts { list-style: none; padding: 0; margin: 26px 0 0; display: grid; gap: 12px; max-width: 54ch; }
+.rh-facts li { display: grid; grid-template-columns: 26px 1fr; gap: 12px; align-items: start; font-size: 18px; }
+.rh-facts svg { width: 22px; height: 22px; margin-top: 3px; color: var(--sun); }
+.rh-indep { margin: 22px 0 0; font-size: 16px; color: #c9d8e6 !important; }
+
+/* ---------- the house: the tool panel under a pitched roof, a red door at its foot ---------- */
+.rh-sheet { position: relative; margin-top: 64px; background: var(--card); color: var(--ink); border-radius: 4px 4px 10px 10px; padding: 26px clamp(18px, 3vw, 30px) 100px; box-shadow: 0 26px 48px -26px rgba(4, 14, 26, 0.7); }
+.rh-sheet::before { content: ""; position: absolute; left: -14px; right: -14px; top: -58px; height: 60px; background: var(--roof); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.rh-sheet::after { content: ""; position: absolute; right: 20%; top: -62px; width: 26px; height: 40px; background: var(--roof); border-top: 6px solid #1f2a36; z-index: -1; }
+.rh-sheet h2, .rh-sheet p, .rh-sheet li { color: var(--ink); }
+.rh-door { position: absolute; left: 50%; bottom: 0; width: 58px; height: 78px; margin: 0 0 0 -29px; perspective: 400px; }
+.rh-door::before { content: ""; position: absolute; inset: 0; background: #2a1310; border-radius: 6px 6px 0 0; }
+.rh-door span { position: absolute; inset: 0; background: var(--door); border-radius: 6px 6px 0 0; transform-origin: left center; transition: transform .7s cubic-bezier(.2, .7, .2, 1); box-shadow: inset 0 0 0 4px rgba(0, 0, 0, .12); }
+.rh-door span::after { content: ""; position: absolute; right: 9px; top: 42px; width: 7px; height: 7px; border-radius: 50%; background: var(--sun); }
+.rh-sheet[data-state="done"] .rh-door span { transform: rotateY(-62deg); }
+.rh-sheet[data-state="done"] .rh-door::before { background: #f6d58f; }
+@media (prefers-reduced-motion: reduce) { .rh-door span { transition: none; } }
+.rh-stage-title { font-size: 27px; line-height: 1.15; margin: 0; }
+.rh-stage p { margin: 12px 0 0; }
+.rh-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+.rh-drop { border: 2px dashed var(--line-2); border-radius: 10px; padding: 20px; transition: border-color .15s, background .15s; }
+.rh-drop.is-over { border-color: var(--door); background: var(--door-soft); }
+.rh-mini { margin: 14px 0 0; padding-left: 22px; display: grid; gap: 10px; font-size: 17px; }
+.rh-mini li::marker { font-weight: 700; color: var(--door); }
+.rh-small { font-size: 16px; color: var(--muted); }
+.rh-sheet .rh-small { color: var(--muted); }
+.rh-folder-line { margin: 14px 0 0 !important; }
+.rh-bar { height: 8px; border-radius: 6px; background: var(--paper-2); overflow: hidden; margin-top: 18px; }
+.rh-bar i { display: block; height: 100%; width: 35%; background: var(--blueprint); border-radius: 6px; animation: rh-slide 1.2s ease-in-out infinite; }
+@keyframes rh-slide { 0% { transform: translateX(-100%); } 100% { transform: translateX(290%); } }
+@media (prefers-reduced-motion: reduce) { .rh-bar i { animation: none; width: 100%; opacity: .5; } }
+.rh-done-title { font-family: var(--head); font-size: 29px; line-height: 1.14; margin: 0; }
+.rh-error-title { font-family: var(--head); font-size: 26px; line-height: 1.15; margin: 0; color: var(--door) !important; }
+.rh-names { margin: 14px 0 0; padding: 0; list-style: none; font-size: 16px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px; }
+.rh-names li { overflow-wrap: anywhere; background: var(--paper-2); border-radius: 6px; padding: 2px 10px; color: var(--ink-2) !important; }
+.rh-picks { display: grid; gap: 10px; margin-top: 16px; }
+.rh-pick { display: flex; justify-content: space-between; gap: 12px; text-align: left; }
+.rh-pick span { font-weight: 400; color: var(--muted); }
+.rh-private { display: grid; grid-template-columns: 22px 1fr; gap: 10px; margin: 18px 4px 0; font-size: 16px; line-height: 1.5; }
+.rh-private svg { width: 20px; height: 20px; margin-top: 2px; color: var(--sun); }
+.rh-band .rh-sheet a { color: var(--link); }
+.rh-band .rh-sheet a:hover { color: var(--ink); }
+.rh-band .rh-sheet :focus-visible { outline-color: var(--door) !important; }
+
+/* ---------- the 3D band ---------- */
+.rh-figure { margin: 0; background: #dde6ee; }
+.rh-figure img { width: 100%; height: auto; display: block; aspect-ratio: 3 / 1; }
+@media (max-width: 700px) { .rh-figure img { aspect-ratio: 4 / 3; } }
+.rh-figure figcaption { font-size: 15px; color: #3f4b58; padding: 10px var(--gutter) 12px; max-width: var(--max); margin: 0 auto; }
+
+/* ---------- the site, room by room ---------- */
+.rh-results { background: var(--wall); padding: clamp(36px, 5vw, 56px) 0 clamp(40px, 6vw, 64px); scroll-margin-top: 70px; }
+.rh-results-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 18px; }
+.rh-results-head h2 { margin: 0; }
+.rh-sample-tag { display: inline-block; font-size: 15px; font-weight: 600; background: var(--kraft-soft); color: var(--kraft-ink); border: 1.5px solid var(--kraft); border-radius: 4px; padding: 3px 10px; }
+.rh-plan-note { margin: 10px 0 0; color: var(--muted); max-width: 80ch; }
+.rh-plan { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); margin-top: 18px; border: 5px solid var(--roof); background: var(--card); }
+.rh-room { appearance: none; position: relative; display: grid; align-content: start; gap: 2px; text-align: left; font: inherit; color: var(--ink); background: var(--card); border: 0; outline-offset: -4px; box-shadow: inset -2px -2px 0 var(--roof); padding: 14px 16px 16px; min-height: 104px; cursor: pointer; }
+.rh-room b { font-size: 17px; line-height: 1.3; overflow-wrap: anywhere; }
+.rh-room span { font-size: 15px; color: var(--muted); overflow-wrap: anywhere; }
+.rh-room .rh-room-file { font-family: var(--code); font-size: 13px; }
+.rh-room:hover { background: var(--blueprint-soft); }
+.rh-room[aria-pressed="true"] { background: var(--kraft-soft); }
+.rh-room[aria-pressed="true"]::after { content: ""; position: absolute; left: 16px; bottom: -2px; width: 34px; height: 2px; background: var(--kraft-soft); }
+.rh-room.is-blog b, .rh-room.is-store b, .rh-room.is-empty b { color: var(--warn); }
+.rh-room.is-missing { cursor: default; background: repeating-linear-gradient(135deg, var(--paper-2) 0 8px, var(--card) 8px 16px); }
+.rh-room.is-missing b { color: var(--muted); }
+.rh-work { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 22px; margin-top: 24px; align-items: start; }
+@media (max-width: 1100px) { .rh-work { grid-template-columns: minmax(0, 1fr); } }
+.rh-viewer { min-width: 0; }
+.rh-viewer-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; margin-bottom: 10px; }
+.rh-viewer-name { margin: 0; font-weight: 700; overflow-wrap: anywhere; }
+.rh-seg { display: inline-flex; border: 1.5px solid var(--line-2); border-radius: 8px; overflow: hidden; background: var(--card); }
+.rh-seg-btn { appearance: none; font: inherit; font-size: 16px; padding: 9px 16px; border: 0; background: transparent; color: var(--ink); cursor: pointer; min-height: 44px; }
+.rh-seg-btn + .rh-seg-btn { border-left: 1.5px solid var(--line-2); }
+.rh-seg-btn[aria-pressed="true"] { background: var(--blueprint); color: #fff; font-weight: 600; }
+.rh-frame-wrap { background: #fff; border: 1.5px solid var(--line-2); border-radius: 10px; overflow: hidden; }
+.rh-frame-wrap iframe { display: block; width: 100%; height: 640px; border: 0; background: #fff; }
+.rh-frame-wrap.is-phone { width: min(100%, 412px); margin: 0 auto; border: 11px solid #1e2732; border-radius: 30px; }
+.rh-frame-wrap.is-phone iframe { height: 720px; }
+@media (max-width: 640px) { .rh-frame-wrap iframe { height: 560px; } .rh-frame-wrap.is-phone iframe { height: 600px; } }
+.rh-side { display: grid; gap: 16px; min-width: 0; }
+.rh-card { background: var(--card); border: 1.5px solid var(--line-2); border-radius: 10px; padding: 18px 18px 20px; min-width: 0; }
+.rh-card h3 { margin: 0 0 12px; font-size: 22px; }
+.rh-field { display: grid; gap: 6px; margin: 0 0 14px; }
+.rh-field label, .rh-field legend { font-weight: 600; font-size: 16px; }
+.rh-field label span { font-weight: 400; color: var(--muted); }
+.rh-field input[type="color"] { width: 64px; height: 44px; padding: 2px; border: 1.5px solid var(--line-2); border-radius: 8px; background: var(--card); cursor: pointer; }
+.rh-radios { border: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.rh-radios legend { width: 100%; margin-bottom: 4px; }
+.rh-radios label { font-weight: 400; display: inline-flex; gap: 8px; align-items: center; min-height: 32px; }
+.rh-hint { margin: 2px 0 0; font-size: 15px; color: var(--muted); }
+.rh-saves { display: grid; gap: 10px; margin-top: 6px; }
+.rh-saves .btn { width: 100%; }
+.rh-status { min-height: 1.4em; margin: 10px 0 0; font-size: 16px; color: var(--ok); }
+.rh-issues, .rh-fixed { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; font-size: 16px; }
+.rh-issues li { display: grid; gap: 2px; padding: 10px 12px; background: var(--kraft-soft); border-left: 5px solid var(--kraft); border-radius: 0 8px 8px 0; }
+.rh-issues b { color: var(--ink); }
+.rh-issues span { color: var(--ink-2); overflow-wrap: anywhere; }
+.rh-fixed li { padding-left: 18px; position: relative; color: var(--ink-2); }
+.rh-fixed li::before { content: ""; position: absolute; left: 0; top: .62em; width: 8px; height: 8px; border-radius: 2px; background: var(--blueprint); }
+
+/* ---------- reading sections ---------- */
+.rh-section { padding: clamp(44px, 6vw, 72px) 0; }
+.rh-section-alt { background: var(--paper-2); }
+.rh-prose { max-width: 820px; }
+.rh-prose p, .rh-prose li { max-width: 72ch; }
+.rh-steps { list-style: none; counter-reset: step; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
+.rh-steps li { counter-increment: step; display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 12px; align-items: start; }
+.rh-steps li::before { content: counter(step); display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--blueprint); color: #fff; font-weight: 700; font-size: 16px; margin-top: 1px; }
+.rh-callout { margin: 24px 0 0; padding: 16px 18px; border-left: 5px solid var(--door); background: var(--card); border-radius: 0 10px 10px 0; }
+.rh-callout p { margin: 0; }
+.rh-source { margin: 22px 0 0; font-size: 15px; color: var(--muted); line-height: 1.55; }
+.rh-checked { margin: 14px 0 0; font-size: 16px; }
+.rh-table { width: 100%; border-collapse: collapse; margin: 16px 0 0; font-size: 17px; background: var(--card); border: 1px solid var(--line-2); border-radius: 10px; overflow: hidden; }
+.rh-table caption { text-align: left; font-weight: 600; padding: 0 0 8px; color: var(--ink-2); }
+.rh-table th, .rh-table td { text-align: left; vertical-align: top; padding: 11px 14px; border-top: 1px solid var(--line); }
+.rh-table thead th { background: var(--blueprint-soft); border-top: 0; font-size: 16px; }
+@media (max-width: 640px) {
+  .rh-table, .rh-table caption, .rh-table tbody, .rh-table tr, .rh-table td { display: block; width: auto; }
+  .rh-table caption { display: block; }
+  .rh-table thead { display: none; }
+  .rh-table tr { border-top: 1px solid var(--line-2); padding: 8px 0; }
+  .rh-table td { border-top: 0; padding: 4px 14px; }
+  .rh-table td::before { content: attr(data-label); display: block; font-size: 14px; font-weight: 700; color: var(--muted); }
+}
+.rh-countries { columns: 3 200px; column-gap: 28px; margin: 16px 0 0; padding-left: 22px; font-size: 17px; }
+.rh-countries li { break-inside: avoid; }
+.rh-faq { display: grid; gap: 10px; margin-top: 18px; max-width: 860px; }
+.rh-faq details { background: var(--card); border: 1.5px solid var(--line-2); border-radius: 10px; padding: 0 18px; }
+.rh-faq summary { cursor: pointer; font-weight: 700; padding: 14px 0; min-height: 48px; }
+.rh-faq details p { margin: 0 0 16px; }
+.rh-related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 18px; }
+.rh-related a { display: grid; gap: 6px; padding: 18px; background: var(--card); border: 1.5px solid var(--line-2); border-bottom: 6px solid var(--door); border-radius: 10px; font-weight: 700; color: var(--ink); text-decoration: none; }
+.rh-related a span { font-weight: 400; font-size: 16px; color: var(--muted); }
+.rh-related a:hover { border-color: var(--blueprint); border-bottom-color: var(--door); }
+
+/* guide pages */
+.rh-guide-hero { padding: 6px 0 46px; }
+.rh-article { padding-top: clamp(30px, 5vw, 50px); padding-bottom: clamp(30px, 5vw, 50px); }
+.rh-article h2 { margin-top: 38px; }
+.rh-article ul, .rh-article ol:not(.rh-steps) { padding-left: 24px; }
+.rh-cta { margin: 34px 0 0; }
+.rh-cta-box { background: var(--blueprint); color: #fff; border-radius: 12px; padding: 24px clamp(18px, 3vw, 30px); }
+.rh-cta-box h2 { color: #fff; margin: 0; font-size: 27px; }
+.rh-cta-box p { color: #e6eef7; margin: 10px 0 0; }
+.rh-cta-box .btn-primary { background: #fff; border-color: #fff; color: var(--door); }
+.rh-cta-box .btn-primary:hover { background: var(--door-soft); border-color: var(--door-soft); color: var(--door-2); }
+.rh-cta-box .rh-quiet { background: transparent; color: #fff; border-color: rgba(255, 255, 255, 0.6); }
+.rh-cta-box .rh-quiet:hover { border-color: #fff; color: #fff; }
+.rh-cta-box :focus-visible { outline-color: var(--sun) !important; }
+
+/* on a phone the house comes right after the headline and the lede, before the three facts */
+@media (max-width: 980px) {
+  .rh-hero-grid { display: flex; flex-direction: column; gap: 14px; }
+  .rh-hero-grid > div:first-child { display: contents; }
+  .rh-hero-grid > div:last-child { order: 2; margin-top: 4px; }
+  .rh-hero .rh-facts { order: 3; }
+  .rh-hero .rh-indep { order: 4; }
+}
+@media (max-width: 480px) {
+  .rh-sheet { margin-top: 50px; padding-bottom: 84px; }
+  .rh-sheet::before { top: -44px; height: 46px; left: -8px; right: -8px; }
+  .rh-sheet::after { top: -48px; height: 32px; width: 20px; }
+  .rh-door { width: 46px; height: 62px; margin-left: -23px; }
+  .rh-door span::after { top: 32px; right: 7px; }
+}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/weebly-archive/#app","name":"Rehoused","url":"https://peakappsstudio.com/weebly-archive/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"}]},{"@type":"Article","@id":"https://peakappsstudio.com/weebly-archive/domain-transfer/#article","headline":"How to transfer a Weebly domain to another registrar","description":"Transfer a Weebly domain: switch off the Registrar Lock, get the EPP code, start at Squarespace or Wix, the 60-day rule, and how long to allow.","url":"https://peakappsstudio.com/weebly-archive/domain-transfer/","inLanguage":"en","dateModified":"2026-10-30","datePublished":"2026-10-30","author":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"about":{"@id":"https://peakappsstudio.com/weebly-archive/#app"},"citation":["https://www.weebly.com/app/help/us/en/topics/changes-to-weebly-global-operations","https://support.squarespace.com/hc/en-us/articles/206542037-Transfer-a-domain-to-a-Squarespace-site","https://support.wix.com/en/article/transferring-a-domain-purchased-elsewhere-to-wix"]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Weebly archive","item":"https://peakappsstudio.com/weebly-archive/"},{"@type":"ListItem","position":3,"name":"Domain transfer","item":"https://peakappsstudio.com/weebly-archive/domain-transfer/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I transfer my domain from Weebly?","acceptedAnswer":{"@type":"Answer","text":"In the Weebly dashboard go to Websites, Domains, Manage, Manage Domain. Switch off the Registrar Lock to get the EPP authorization code, then give the code to your new registrar, which finishes the transfer."}},{"@type":"Question","name":"Why can I not transfer my Weebly domain?","acceptedAnswer":{"@type":"Answer","text":"The usual causes are a lock that is still on, a code that was rejected, or the 60-day rule. Weebly says a domain cannot be transferred within 60 days of its registration, and a change to its registrant email, phone number or name starts a new 60-day lock."}},{"@type":"Question","name":"How long does a Weebly domain transfer take?","acceptedAnswer":{"@type":"Answer","text":"Wix says its transfers take up to 7 days. Squarespace says to contact your provider if the transfer is still pending after 15 days. Allow extra time for the code and for a retry."}},{"@type":"Question","name":"Do I have to transfer the domain before Weebly closes?","acceptedAnswer":{"@type":"Answer","text":"Weebly's notice tells owners in the 67 countries to move their domains before December 26, 2026. It also suggests keeping the domain at Weebly and pointing it at another host, which works only while you can log in."}},{"@type":"Question","name":"Will my email keep working during a domain transfer?","acceptedAnswer":{"@type":"Answer","text":"Squarespace says to leave the MX records in place, and says they transfer along with the domain. Wix does not say, so ask Wix support if email matters. For Google Workspace, Weebly's notice says to contact Weebly."}}]}]}
+</script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
+</head>
+<body class="rh" style="--accent:#a8231c">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head rh-head">
+  <div class="wrap">
+    <a class="brand" href="/weebly-archive/" aria-label="Rehoused, turn your Weebly archive into a website">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M3 15 16 4l13 11" fill="none" stroke="#2b3a4a" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/><path d="M6 14.2V27h20V14.2L16 6z" fill="#f4f7fa" stroke="#1f4e79" stroke-width="1.6" stroke-linejoin="round"/><rect x="13" y="17.5" width="6" height="9.5" rx="1" fill="#a8231c"/></svg>
+      <span>Rehoused</span>
+    </a>
+    <nav class="head-nav" aria-label="Rehoused">
+      <a href="/weebly-archive/">Open your archive</a>
+      <a class="rh-wide" href="/weebly-archive/closing-67-countries/">The deadline</a>
+      <a class="rh-wide" href="/weebly-archive/download-your-site/">Get the archive</a>
+      <a class="rh-wide" href="/weebly-archive/move-to-another-host/">Move it</a>
+      <a class="rh-wide" href="/weebly-archive/blog-and-store/">Blog and store</a>
+      <a class="rh-wide" href="/weebly-archive/cant-log-in/">Can’t log in</a>
+      <a class="rh-wide" href="/weebly-archive/archive-email-not-arriving/">Archive email</a>
+      <a class="rh-narrow" href="#guides">Guides</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="rh-band rh-guide-hero" aria-labelledby="h1">
+<div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/weebly-archive/">Weebly archive</a></li><li aria-current="page">Domain transfer</li></ol></nav>
+<h1 id="h1">How to transfer a Weebly domain to another registrar</h1>
+<p class="lede">To move a domain away from Weebly, switch off the Registrar Lock in your dashboard. That gives you the EPP authorization code. Give the code to your new registrar. Our advice is to allow about two weeks. Wix says a transfer can take up to 7 days, and Squarespace says to contact your provider if it is still pending after 15 days. Weebly says a domain cannot move within 60 days of its registration or of a change to its registrant email, phone number or name.</p>
+<p class="rh-indep">Last checked: October 30, 2026, against Weebly's own help pages. Not affiliated with Weebly or Square.</p>
+</div>
+</section>
+<article class="wrap rh-prose rh-article">
+<h2>Step 1 at Weebly: switch off the lock and copy the code</h2>
+<p>Weebly's notice gives these steps (<a href="https://www.weebly.com/app/help/us/en/topics/changes-to-weebly-global-operations" rel="nofollow noopener">Upcoming Changes to Weebly’s Global Operations</a>):</p>
+<ol class="rh-steps">
+<li><span>In your Weebly dashboard go to <strong>Websites</strong>, then <strong>Domains</strong>, click <strong>Manage</strong> and then <strong>Manage Domain</strong> on the domain you are moving.</span></li>
+<li><span>Switch off the <strong>Registrar Lock</strong>. That gives you the EPP authorization code. Copy the whole code.</span></li>
+<li><span>Do not change any contact details on the domain. Weebly's notice says a change to the registrant email, phone number, first name or last name starts a 60-day registrar lock, and asks you to wait until after the transfer.</span></li>
+</ol>
+<p>Switching off the lock also switches off Whois privacy, so set it up again at the new registrar. If you stop the transfer, our advice is to switch the Registrar Lock back on. A country-code domain such as .co.uk or .de works differently. If you bought one through Weebly, the notice says to ask Weebly's support team.</p>
+<p>These steps are for a domain registered through Weebly. If you bought it somewhere else, ask that company to switch off the lock and give you the code.</p>
+
+<h2>Step 2 at the new registrar: give it the domain and the code</h2>
+<p>The receiving side differs by company. Two of them document it, and both ask for the domain and the code.</p>
+<table class="rh-table">
+<caption>Moving a domain in, from each company's own help page</caption>
+<thead><tr><th scope="col">New registrar</th><th scope="col">What you do</th><th scope="col">What it says about timing and your site</th></tr></thead>
+<tbody>
+<tr><th scope="row">Squarespace</th><td>In the Domains panel choose "Use a domain I own", enter the domain, click Transfer Domain, paste the code into the Authorization Code field, then Save and Continue (<a href="https://support.squarespace.com/hc/en-us/articles/206542037-Transfer-a-domain-to-a-Squarespace-site" rel="nofollow noopener">Transfer a domain to a Squarespace site</a>).</td><td>The domain must be active, on a supported TLD, and with its current provider for at least 60 days. If the transfer is still pending after 15 days, contact your provider. DNS changes take effect after the transfer completes, and the page says your MX records transfer along with the domain, so leave them in place. The transfer itself is free, but Squarespace charges a registration fee that extends the domain by one year, and the price depends on the TLD.</td></tr>
+<tr><th scope="row">Wix</th><td>Switch the domain's lock off at your current registrar and get the authorization code, also called the EPP code, from them (<a href="https://support.wix.com/en/article/transferring-a-domain-purchased-elsewhere-to-wix" rel="nofollow noopener">Transferring a Domain Purchased Elsewhere to Wix</a>).</td><td>"The transfer process can take up to 7 days to complete", and a status of pending or in progress is normal. Wix does not say what happens to your site or email meanwhile, so ask Wix support if email matters.</td></tr>
+</tbody>
+</table>
+<p>Other registrars, GoDaddy among them, use their own buttons. We have not documented them, so follow their help page for moving a domain in. Squarespace adds that some current providers take a day or two to produce the code, so ask for it early.</p>
+
+<h2>How long to allow</h2>
+<p>Put the pieces together: a day or two for the code, up to 7 days at Wix, and a retry if something is rejected. Weebly's notice says owners in the 67 countries keep their login until December 26, 2026 to move their domains. Our advice is to start as soon as you can. The first week of December is the latest we would leave it, so a retry still fits before that date.</p>
+<p>If you registered the domain, or changed its registrant email, phone number or name, less than 60 days ago, the transfer cannot start yet. Weebly says this is an ICANN rule, not its own policy. Count the 60 days first, and use the next section meanwhile.</p>
+<p>These dates are for the 67 countries in Weebly's notice, and the United States is not one of them. The notice covers only those 67 countries and names no deadline for any other. The steps above still work for any transfer.</p>
+
+<h2>When the transfer does not start</h2>
+<table class="rh-table">
+<caption>Common stops, and what to do</caption>
+<thead><tr><th scope="col">What happens</th><th scope="col">What it usually means</th><th scope="col">What to do</th></tr></thead>
+<tbody>
+<tr><td data-label="What happens">The new registrar says the domain is locked</td><td data-label="What it usually means">The Registrar Lock is still on. Squarespace says a domain cannot transfer while locked.</td><td data-label="What to do">Switch the lock off at Weebly under Manage Domain, then try again.</td></tr>
+<tr><td data-label="What happens">The code is rejected</td><td data-label="What it usually means">A typo, or a part of the code missing.</td><td data-label="What to do">Copy the full code again from Weebly and paste it. Do not type it.</td></tr>
+<tr><td data-label="What happens">The transfer stays pending</td><td data-label="What it usually means">It can take days.</td><td data-label="What to do">Wix says up to 7 days. Squarespace says to contact your provider after 15 days.</td></tr>
+<tr><td data-label="What happens">It will not start at all</td><td data-label="What it usually means">The domain is under 60 days old, or its registrant email, phone number or name changed less than 60 days ago.</td><td data-label="What to do">Wait out the 60 days. Wix says you can still connect the domain to a site meanwhile.</td></tr>
+<tr><td data-label="What happens">Email on the domain stops</td><td data-label="What it usually means">Often the email (MX) records did not move with it.</td><td data-label="What to do">Keep the MX records, as Squarespace says. If you use Google Workspace, the notice says to contact Weebly for help moving it to Google.</td></tr>
+</tbody>
+</table>
+
+<h2>If you are not ready to move the domain yet</h2>
+<p>You do not have to transfer to leave Weebly. The notice suggests "keeping your domain name with Weebly and setting it up to work with another host", which means pointing its DNS records at the new host. That only works while you can still log in to Weebly. <a href="/weebly-archive/move-to-another-host/">Move a Weebly site to another host</a> shows the free hosts and the records they ask for.</p>
+<p>The site and the domain move separately. To get the pages, pictures and files out, <a href="/weebly-archive/download-your-site/">download your Weebly site</a> and open the archive in <a href="/weebly-archive/">Rehoused</a>. If you cannot get into the account at all, see <a href="/weebly-archive/cant-log-in/">Can't log in to Weebly</a>.</p>
+
+<div class="rh-cta">
+<div class="rh-cta-box">
+<h2>Open your Weebly archive</h2>
+<p>Choose the archive ZIP Weebly emailed you: the same pages come back as a clean website with the pictures the archive holds in place, and a report lists what the archive could not bring. Free, and nothing is uploaded.</p>
+<div class="rh-actions"><a class="btn btn-primary" href="/weebly-archive/">Open the Weebly archive</a><a class="btn rh-quiet" href="/weebly-archive/download-your-site/">How to get the ZIP</a></div>
+</div>
+</div>
+
+<h2 id="faq-h">Questions</h2>
+<div class="rh-faq">
+<details><summary>How do I transfer my domain from Weebly?</summary><p>In the Weebly dashboard go to Websites, Domains, Manage, Manage Domain. Switch off the Registrar Lock to get the EPP authorization code, then give the code to your new registrar, which finishes the transfer.</p></details>
+<details><summary>Why can I not transfer my Weebly domain?</summary><p>The usual causes are a lock that is still on, a code that was rejected, or the 60-day rule. Weebly says a domain cannot be transferred within 60 days of its registration, and a change to its registrant email, phone number or name starts a new 60-day lock.</p></details>
+<details><summary>How long does a Weebly domain transfer take?</summary><p>Wix says its transfers take up to 7 days. Squarespace says to contact your provider if the transfer is still pending after 15 days. Allow extra time for the code and for a retry.</p></details>
+<details><summary>Do I have to transfer the domain before Weebly closes?</summary><p>Weebly's notice tells owners in the 67 countries to move their domains before December 26, 2026. It also suggests keeping the domain at Weebly and pointing it at another host, which works only while you can log in.</p></details>
+<details><summary>Will my email keep working during a domain transfer?</summary><p>Squarespace says to leave the MX records in place, and says they transfer along with the domain. Wix does not say, so ask Wix support if email matters. For Google Workspace, Weebly's notice says to contact Weebly.</p></details>
+</div>
+
+<p class="rh-source">Sources: <a href="https://www.weebly.com/app/help/us/en/topics/changes-to-weebly-global-operations" rel="nofollow noopener">Weebly Support: Upcoming Changes to Weebly’s Global Operations</a>; <a href="https://support.squarespace.com/hc/en-us/articles/206542037-Transfer-a-domain-to-a-Squarespace-site" rel="nofollow noopener">Squarespace Help: Transfer a domain to a Squarespace site</a>; <a href="https://support.wix.com/en/article/transferring-a-domain-purchased-elsewhere-to-wix" rel="nofollow noopener">Wix Help: Transferring a Domain Purchased Elsewhere to Wix</a>. Last checked: October 30, 2026. Rehoused is an independent tool by Peak Apps Studio and is not affiliated with Weebly or Square.</p>
+</article>
+
+<section class="rh-section rh-section-alt" aria-labelledby="more-h">
+<div class="wrap">
+<h2 id="more-h">More about leaving Weebly</h2>
+<div class="rh-related">
+<a href="/weebly-archive/">Open your Weebly archive<span>Turn the archive ZIP into a clean website</span></a>
+<a href="/weebly-archive/closing-67-countries/">Weebly closing in 67 countries<span>The dates, the country list, and what to save first</span></a>
+<a href="/weebly-archive/download-your-site/">Download your Weebly website<span>The archive ZIP and Download My Data, step by step</span></a>
+<a href="/weebly-archive/move-to-another-host/">Move a Weebly site to another host<span>Free static hosts, WordPress, Squarespace, and your domain</span></a>
+<a href="/weebly-archive/blog-and-store/">The blog and the store<span>What the archive leaves out, and how to keep it</span></a>
+<a href="/weebly-archive/cant-log-in/">Can’t log in to Weebly<span>Square or Weebly sign-in, reset links, a blank Sites page</span></a>
+<a href="/weebly-archive/archive-email-not-arriving/">The archive email never arrived<span>Spam, sender addresses, another browser, and what to tell support</span></a>
+</div>
+</div>
+</section>
+</main>
+<aside class="peak-new" aria-label="New from Peak Apps">
+  <div class="wrap">
+    <a class="peak-new-card" href="/photo-date-fixer/" style="--tool:#c4360e">
+      <span class="peak-new-kicker">New from Peak Apps</span>
+      <strong>Photo Date Fixer</strong>
+      <span class="peak-new-line">Put the real date, time and place back into the photos of a Snapchat Memories export. Free, and nothing is uploaded.</span>
+    </a>
+  </div>
+</aside>
+<footer class="site-foot rh-foot" id="guides">
+  <div class="wrap cols">
+    <div>
+      <p class="rh-foot-brand">Rehoused</p>
+      <p class="rh-foot-text">Open the archive ZIP of a Weebly site and get the same pages back as a clean website that any host can serve. The archive is read by this page on your own computer and never uploaded.</p>
+      <p class="rh-foot-text">Rehoused is an independent tool by <a href="https://peakappsstudio.com/">Peak Apps Studio</a>. Not affiliated with Weebly or Square. Weebly is a trademark of its owner, named here only to say which file the tool opens.</p>
+    </div>
+    <div>
+      <h2>Guides</h2>
+      <ul>
+        <li><a href="/weebly-archive/">Open your Weebly archive</a></li>
+        <li><a href="/weebly-archive/closing-67-countries/">Weebly closing in 67 countries</a></li>
+        <li><a href="/weebly-archive/download-your-site/">Download your Weebly website</a></li>
+        <li><a href="/weebly-archive/move-to-another-host/">Move a Weebly site to another host</a></li>
+        <li><a href="/weebly-archive/blog-and-store/">The blog and the store</a></li>
+        <li><a href="/weebly-archive/cant-log-in/">Can’t log in to Weebly</a></li>
+        <li><span aria-current="page">Weebly domain transfer</span></li>
+        <li><a href="/weebly-archive/archive-email-not-arriving/">The archive email never arrived</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/privacy/">Privacy</a></li>
+        <li><a href="/tools/">More tools by Peak Apps</a></li>
+        <li><a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
