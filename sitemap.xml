@@ -501,4 +501,14 @@
   </url>
   <url><loc>https://peakappsstudio.com/tr/messenger-json-acma/instagram-mesajlarini-indirme/</loc><lastmod>2026-10-30</lastmod></url>
   <url><loc>https://peakappsstudio.com/tr/messenger-json-acma/messenger-sohbet-yedekleme/</loc><lastmod>2026-10-30</lastmod></url>
+  <url><loc>https://peakappsstudio.com/web/</loc><lastmod>2026-10-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://peakappsstudio.com/web/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://peakappsstudio.com/tr/web-sitesi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/web/"/>
+  </url>
+  <url><loc>https://peakappsstudio.com/tr/web-sitesi/</loc><lastmod>2026-10-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://peakappsstudio.com/web/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://peakappsstudio.com/tr/web-sitesi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/web/"/>
+  </url>
 </urlset>

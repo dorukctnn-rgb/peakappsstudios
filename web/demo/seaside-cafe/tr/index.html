@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="tr" class="rail-settle sc-ready">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kuşluk: Antalya'da deniz kıyısında kafe (tasarım örneği)</title>
+<meta name="description" content="Kurgusal bir Antalya kafesi için Peak Apps Studio tasarım örneği. Güneşi sürükleyin: deniz, ışık, sayfa ve menü sabahtan gün batımına geçer.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#dde6e9">
+<meta property="og:title" content="Kuşluk: Antalya'da deniz kıyısında kafe (tasarım örneği)">
+<meta property="og:description" content="Peak Apps Studio tasarım örneği. Kurgusal kafe.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:url" content="https://peakappsstudio.com/web/demo/seaside-cafe/tr/">
+<meta property="og:image" content="https://peakappsstudio.com/web/demo/seaside-cafe/share/card-1600x1000.webp">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="1000">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/web/demo/seaside-cafe/">
+<link rel="alternate" hreflang="tr" href="https://peakappsstudio.com/web/demo/seaside-cafe/tr/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/web/demo/seaside-cafe/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230E2431'/><path d='M10 9h12l-1.6 6.2a4 4 0 0 0 0 1.6L22 23H10l1.6-6.2a4 4 0 0 0 0-1.6Z' fill='%23C2620E'/></svg>">
+<link rel="preload" as="image" href="../assets/img/poster-phone.webp" media="(max-width: 759px)" fetchpriority="high">
+<link rel="preload" as="image" href="../assets/img/poster-tablet.webp" media="(min-width: 760px) and (max-aspect-ratio: 4/5)" fetchpriority="high">
+<link rel="preload" as="image" href="../assets/img/poster-desktop.webp" media="(min-width: 760px) and (min-aspect-ratio: 801/1000)" fetchpriority="high">
+<link rel="preload" href="../assets/fonts/hedvig-letters-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/suse-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/scrollcraft.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+<script type="importmap">
+{ "imports": {
+  "three": "/web/demo/_lib/three-0.180.0/three.module.min.js",
+  "three/addons/": "/web/demo/seaside-cafe/assets/addons/"
+} }
+</script>
+<script type="application/json" id="i18n">
+{
+  "locale": "tr",
+  "timeSep": ".",
+  "now": "Mutfakta",
+  "service": { "sabah": "kahvaltı", "ogle": "öğle yemeği", "aksam": "akşam yemeği" },
+  "parts": [[540, "sabah"], [690, "kuşluk"], [900, "öğle"], [1050, "ikindi"], [1170, "akşamüstü"], [9999, "akşam"]],
+  "nowLabel": "şimdi",
+  "follow": "Kaydırmaya bağla",
+  "days": { "bugun": "bugün", "yarin": "yarın", "cumartesi": "cumartesi", "pazar": "pazar" },
+  "tables": { "falez": "falez kenarında", "tente": "tente altında", "iceride": "içeride" },
+  "msg": "Merhaba Kuşluk, {day} saat {time} için {n} kişilik, {table} bir masa rica ediyorum.",
+  "msgHint": "WhatsApp mesajı"
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#koleksiyon">İçeriğe geç</a>
+
+<header class="bar">
+  <a class="bar__brand" href="#koleksiyon" aria-label="Kuşluk, başa dön">Kuşluk</a>
+  <nav class="index" aria-label="Dizin">
+    <button class="index__toggle" type="button" aria-expanded="false" aria-controls="index-list">
+      <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M1 3h12M1 7h12M1 11h12" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
+      Dizin
+    </button>
+    <ul class="index__list" id="index-list">
+      <li><a href="#ex-cay" data-jump="ex-cay">Çay</a></li>
+      <li><a href="#ex-demlik" data-jump="ex-demlik">Demlik</a></li>
+      <li><a href="#ex-simit" data-jump="ex-simit">Simit</a></li>
+      <li><a href="#ex-kahvalti" data-jump="ex-kahvalti">Kahvaltı</a></li>
+      <li><a href="#ex-limonata" data-jump="ex-limonata">Limonata</a></li>
+      <li><a href="#ex-kahve" data-jump="ex-kahve">Kahve</a></li>
+      <li><a href="#ex-tonik" data-jump="ex-tonik">Tonik</a></li>
+      <li><a href="#ex-raki" data-jump="ex-raki">Rakı</a></li>
+      <li><a href="#menu" data-jump="menu">Menü</a></li>
+      <li><a href="#saatler" data-jump="saatler">Saatler</a></li>
+      <li><a href="#rezervasyon" data-jump="rezervasyon">Rezervasyon</a></li>
+    </ul>
+  </nav>
+  <div class="bar__end">
+    <a class="lang" href="../" hreflang="en" lang="en"><abbr title="English">EN</abbr></a>
+    <a class="badge" href="/tr/web-sitesi/">Peak Apps Studio tasarım örneği. Kurgusal kafe.</a>
+  </div>
+</header>
+<div class="badge-strip"><a class="badge" href="/tr/web-sitesi/">Peak Apps Studio tasarım örneği. Kurgusal kafe.</a></div>
+
+<main>
+  <!-- 1. The collection: one terrace walked sideways, morning to night. -->
+  <section id="koleksiyon" class="collection" data-sc-act="pan" data-sc-span="8.5" aria-label="Koleksiyon: bir günün masası">
+    <div class="sc-stage stage" data-sc-stage>
+      <div class="window" aria-hidden="true">
+        <picture><source media="(max-width: 759px)" srcset="../assets/img/poster-phone.webp" width="780" height="946"><source media="(max-aspect-ratio: 4/5)" srcset="../assets/img/poster-tablet.webp" width="1230" height="956"><img class="poster" src="../assets/img/poster-desktop.webp" alt="" width="1600" height="620" fetchpriority="high" decoding="async"></picture>
+        <canvas id="gl"></canvas>
+      </div>
+      <div class="fg fg--bloom" aria-hidden="true"><canvas id="bloom"></canvas></div>
+      <div class="fg fg--awning" aria-hidden="true" data-fg="wall-ogle">
+        <svg viewBox="0 0 1200 80" preserveAspectRatio="none">
+          <defs>
+            <pattern id="stripes" width="80" height="80" patternUnits="userSpaceOnUse"><rect width="40" height="80" fill="#F4F2EC"/><rect x="40" width="40" height="80" fill="#1E6F8E"/></pattern>
+            <linearGradient id="awnShade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0.18"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>
+          </defs>
+          <path d="M0 0H1200V44 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0Z" fill="url(#stripes)"/>
+          <rect width="1200" height="20" fill="url(#awnShade)"/>
+        </svg>
+      </div>
+      <div class="fg fg--lights" aria-hidden="true" data-fg="wall-aksam"><svg id="lights" viewBox="0 0 2000 220" preserveAspectRatio="none"></svg></div>
+      <div class="plinth" aria-hidden="true"></div>
+
+      <div class="rail" id="rail">
+        <article class="ex ex--entrance" id="ex-cay" data-obj="cay" data-hour="07.30" aria-labelledby="n-cay">
+          <div class="entrance">
+            <h1>Kuşluk</h1>
+            <p>Falezin üstünde kahvaltı, öğle yemeği ve gün batımı. Antalya, her gün 07.00–23.30.</p>
+          </div>
+          <div class="ex__slot"></div>
+          <div class="ex__label">
+            <h2 class="ex__name" id="n-cay">Çay</h2>
+            <p class="ex__line">Rize, demlikte. Bardak ince belli.</p>
+            <p class="ex__line">Tabağında iki kesme şeker.</p>
+            <p class="ex__foot"><span class="ex__price">₺40</span><span class="ex__when">bütün gün</span></p>
+          </div>
+        </article>
+
+        <article class="ex" id="ex-demlik" data-obj="demlik" data-hour="08.30" aria-labelledby="n-demlik">
+          <div class="ex__slot"></div>
+          <div class="ex__label">
+            <h2 class="ex__name" id="n-demlik">Demlik</h2>
+            <p class="ex__line">Çift katlı, paslanmaz çelik.</p>
+            <p class="ex__line">Kahvaltıda masada kalır, boşaldıkça dolar.</p>
+            <p class="ex__foot"><span class="ex__price">Kahvaltıya dahil</span><span class="ex__when">07.00–11.30</span></p>
+          </div>
+        </article>
+
+        <article class="ex" id="ex-simit" data-obj="simit" data-hour="09.15" aria-labelledby="n-simit">
+          <div class="ex__slot"></div>
+          <div class="ex__label">
+            <h2 class="ex__name" id="n-simit">Simit</h2>
+            <p class="ex__line">Mahalle fırınından, 06.30'da gelir.</p>
+            <p class="ex__line">Pekmeze batırılır, susama bulanır.</p>
+            <p class="ex__foot"><span class="ex__price">₺30</span><span class="ex__when">11.30'a kadar</span></p>
+          </div>
+        </article>
+
+        <article class="ex" id="ex-kahvalti" data-obj="kahvalti" data-hour="10.20" aria-labelledby="n-kahvalti">
+          <div class="ex__slot"></div>
+          <div class="ex__label">
+            <h2 class="ex__name" id="n-kahvalti">Serpme kahvaltı</h2>
+            <p class="ex__line">Bal, kaymak, zeytin, turunç reçeli ve on tabak daha.</p>
+            <p class="ex__line">Reçel bahçedeki turunçtan, kasımda kaynar.</p>
+            <p class="ex__foot"><span class="ex__price">₺1.450</span><span class="ex__when">iki kişilik, 11.30'a kadar</span></p>
+          </div>
+        </article>
+
+        <article class="ex wall wall--ogle" id="wall-ogle" data-hour="12.10" aria-labelledby="n-ogle">
+          <div class="ex__label">
+            <span class="wall__hour" aria-hidden="true">11.30</span>
+            <h2 class="wall__name" id="n-ogle">Öğle, 11.30–17.00</h2>
+            <p class="ex__line">Tente iner. Deniz günün en parlak saatinde.</p>
+          </div>
+        </article>
+
+        <article class="ex" id="ex-limonata" data-obj="limonata" data-hour="13.30" aria-labelledby="n-limonata">
+          <div class="ex__slot"></div>
+          <div class="ex__label">
+            <h2 class="ex__name" id="n-limonata">Limonata</h2>
+            <p class="ex__line">Turunç ve limon, yarı yarıya.</p>
+            <p class="ex__line">Sürahi bir litre, buz ayrı gelir.</p>
+            <p class="ex__foot"><span class="ex__price">₺180</span><span class="ex__when">11.30'dan sonra</span></p>
+          </div>
+        </article>
+
+        <article class="ex" id="ex-kahve" data-obj="kahve" data-hour="15.40" aria-labelledby="n-kahve">
+          <div class="ex__slot"></div>
+          <div class="ex__label">
+            <h2 class="ex__name" id="n-kahve">Türk kahvesi</h2>
+            <p class="ex__line">Bakır cezvede, közde pişer.</p>
+            <p class="ex__line">Yanında su ve bir lokum.</p>
+            <p class="ex__foot"><span class="ex__price">₺110</span><span class="ex__when">bütün gün</span></p>
+          </div>
+        </article>
+
+        <article class="ex wall" id="wall-aksam" data-hour="17.40" aria-labelledby="n-aksam">
+          <div class="ex__label">
+            <span class="wall__hour" aria-hidden="true">17.00</span>
+            <h2 class="wall__name" id="n-aksam">Akşam, 17.00–23.30</h2>
+            <p class="ex__line">Güneş Beydağları'nın arkasına iner. Ampuller 19.15'te yanar.</p>
+          </div>
+        </article>
+
+        <article class="ex" id="ex-tonik" data-obj="tonik" data-hour="18.50" aria-labelledby="n-tonik">
+          <div class="ex__slot"></div>
+          <div class="ex__label">
+            <h2 class="ex__name" id="n-tonik">Turunç tonik</h2>
+            <p class="ex__line">Bahçedeki turunç, tonik, buz.</p>
+            <p class="ex__line">Alkolsüz. Bardak buzluktan gelir.</p>
+            <p class="ex__foot"><span class="ex__price">₺170</span><span class="ex__when">17.00'den sonra</span></p>
+          </div>
+        </article>
+
+        <article class="ex" id="ex-raki" data-obj="raki" data-hour="19.45" aria-labelledby="n-raki">
+          <div class="ex__slot"></div>
+          <div class="ex__label">
+            <h2 class="ex__name" id="n-raki">Rakı</h2>
+            <p class="ex__line">Uzun kadeh, yanında su.</p>
+            <p class="ex__line">Beyaz peynir ve kavunla. Buz isteğe göre.</p>
+            <p class="ex__foot"><span class="ex__price">₺260</span><span class="ex__when">5 cl, 17.00'den sonra</span></p>
+          </div>
+        </article>
+
+        <article class="ex wall end" id="end" data-hour="20.30" aria-labelledby="n-end">
+          <div class="ex__label">
+            <span class="wall__hour" aria-hidden="true">23.30</span>
+            <h2 class="wall__name" id="n-end">Kapanış</h2>
+            <p class="ex__line">Mutfak 22.30'da kapanır. Son çay ikramdır.</p>
+            <p class="end__links"><a class="textlink" href="#menu" data-jump="menu">Bütün menü</a><a class="textlink" href="#rezervasyon" data-jump="rezervasyon">Masa ayır</a></p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. The menu, by the hour. The period buttons move the sun. -->
+  <section id="menu" class="flowsec menu" data-sc-act="flow" aria-labelledby="menu-h">
+    <div class="sc-wrap">
+      <div class="sec-head">
+        <h2 id="menu-h">Menü, saatine göre</h2>
+        <p>Fiyatlar Türk lirası, servis dahil. Listeyi güneş seçer: saati değiştirin, menü de değişir. Çay bütün gün ₺40.</p>
+      </div>
+      <div class="periods" role="group" aria-label="Menü saati">
+        <button class="period" type="button" data-period="sabah" data-preset="08.00" aria-pressed="false">Kahvaltı <span>07.00–11.30</span></button>
+        <button class="period" type="button" data-period="ogle" data-preset="13.00" aria-pressed="false">Öğle <span>11.30–17.00</span></button>
+        <button class="period" type="button" data-period="aksam" data-preset="19.40" aria-pressed="false">Akşam <span>17.00–23.30</span></button>
+      </div>
+      <div class="menu__cols" aria-live="polite">
+        <section class="menu__col" data-period="sabah" aria-labelledby="mk">
+          <h3 id="mk" data-now-label="şimdi">Kahvaltı</h3>
+          <p class="menu__hours">07.00–11.30, hafta sonu 13.00'e kadar</p>
+          <ul>
+            <li><span class="m-name">Serpme kahvaltı</span><span class="m-price">₺1.450</span><span class="m-fact">İki kişilik, on dört tabak, sınırsız çay.</span></li>
+            <li><span class="m-name">Menemen</span><span class="m-price">₺320</span><span class="m-fact">Köy yumurtası, Kumluca domatesi, sivri biber.</span></li>
+            <li><span class="m-name">Sucuklu yumurta</span><span class="m-price">₺360</span><span class="m-fact">Bakır sahanda, iki yumurta.</span></li>
+            <li><span class="m-name">Simit tabağı</span><span class="m-price">₺240</span><span class="m-fact">Simit, beyaz peynir, domates, zeytin.</span></li>
+            <li><span class="m-name">Kaymaklı bal</span><span class="m-price">₺280</span><span class="m-fact">Çam balı, manda kaymağı, sıcak pide.</span></li>
+            <li><span class="m-name">Portakal suyu</span><span class="m-price">₺140</span><span class="m-fact">Finike portakalı, sıkma.</span></li>
+          </ul>
+        </section>
+        <section class="menu__col" data-period="ogle" aria-labelledby="mo">
+          <h3 id="mo" data-now-label="şimdi">Öğle</h3>
+          <p class="menu__hours">11.30–17.00</p>
+          <ul>
+            <li><span class="m-name">Antalya piyazı</span><span class="m-price">₺290</span><span class="m-fact">Tahinli, yumurtalı, sumaklı soğanla.</span></li>
+            <li><span class="m-name">Şiş köfte</span><span class="m-price">₺520</span><span class="m-fact">Közde biber ve domatesle.</span></li>
+            <li><span class="m-name">Hibeş ve pide</span><span class="m-price">₺230</span><span class="m-fact">Tahin, limon, pul biber.</span></li>
+            <li><span class="m-name">Levrek ızgara</span><span class="m-price">₺780</span><span class="m-fact">Günün balığı, roka ve limon.</span></li>
+            <li><span class="m-name">Limonata</span><span class="m-price">₺180</span><span class="m-fact">Turunç ve limon, bir litre sürahi.</span></li>
+            <li><span class="m-name">Türk kahvesi</span><span class="m-price">₺110</span><span class="m-fact">Közde pişer, yanında lokum.</span></li>
+          </ul>
+        </section>
+        <section class="menu__col" data-period="aksam" aria-labelledby="ma">
+          <h3 id="ma" data-now-label="şimdi">Akşam</h3>
+          <p class="menu__hours">17.00–23.30, mutfak 22.30'a kadar</p>
+          <ul>
+            <li><span class="m-name">Gün batımı meze tabağı</span><span class="m-price">₺980</span><span class="m-fact">Altı meze, iki kişilik.</span></li>
+            <li><span class="m-name">Kalamar tava</span><span class="m-price">₺540</span><span class="m-fact">Taratorla.</span></li>
+            <li><span class="m-name">Çıtır kabak</span><span class="m-price">₺310</span><span class="m-fact">Sarımsaklı yoğurtla.</span></li>
+            <li><span class="m-name">Rakı</span><span class="m-price">₺260</span><span class="m-fact">5 cl, buz ve suyla.</span></li>
+            <li><span class="m-name">Turunç tonik</span><span class="m-price">₺170</span><span class="m-fact">Alkolsüz, bahçedeki turunçtan.</span></li>
+            <li><span class="m-name">Kabak tatlısı</span><span class="m-price">₺220</span><span class="m-fact">Tahin ve cevizle.</span></li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Hours and the place. The map wipes in: the place resolves. -->
+  <section id="saatler" class="flowsec visit" data-sc-act="flow" aria-labelledby="visit-h">
+    <div class="sc-wrap visit__grid">
+      <div>
+        <h2 id="visit-h">Saatler ve yer</h2>
+        <table class="hours">
+          <tr><th scope="row">Kahvaltı</th><td>07.00–11.30</td></tr>
+          <tr><th scope="row">Öğle</th><td>11.30–17.00</td></tr>
+          <tr><th scope="row">Akşam</th><td>17.00–23.30</td></tr>
+          <tr><th scope="row">Mutfak</th><td>22.30'a kadar</td></tr>
+        </table>
+        <p>Her gün açık. Cumartesi ve pazar kahvaltı 13.00'e kadar sürer.</p>
+        <p>Falezin üstünde, eski limanın doğusunda bir taraça. Sahil yolundan 32 taş basamakla çıkılır.</p>
+        <p class="soft">Gerçek sitede menü dört dilde: Türkçe, English, <span lang="ru">Русский</span>, Deutsch. Bu örnekte Türkçe ve İngilizce var.</p>
+      </div>
+      <figure class="map" data-sc-reveal="left" data-sc-reveal-at="0.12 0.46">
+        <svg viewBox="0 0 640 420" role="img" aria-labelledby="map-t">
+          <title id="map-t">Antalya Körfezi'nin çizimi: batıda Beydağları ve Konyaaltı, ortada eski liman, doğuda falezler ve üstünde Kuşluk.</title>
+          <rect class="sea" width="640" height="420"/>
+          <path class="land" d="M0 0H640V146C612 150 586 158 560 156C530 154 505 147 478 150C452 153 430 160 404 160C384 160 372 166 360 172C350 176 340 176 332 168C324 160 314 158 302 162C284 168 262 178 240 192C214 210 188 234 160 262C134 290 108 330 84 372C74 390 66 406 60 420H0Z"/>
+          <path class="cliff" d="M362 170C376 164 392 160 408 160C432 160 452 152 478 150C504 147 530 154 560 156C586 158 612 150 640 146"/>
+          <path class="road" d="M150 250C200 200 250 166 300 148C330 138 356 146 380 144C430 138 470 132 520 136C560 139 600 132 640 128"/>
+          <path class="ridge" d="M12 300l14-22 12 16 16-30 14 24 12-14 14 20M6 350l16-26 12 14 16-28 18 30 10-12 12 18M18 398l14-20 14 12 14-24 16 26"/>
+          <text class="t-soft" x="12" y="262">Beydağları</text>
+          <text x="190" y="246" transform="rotate(-42 190 246)">Konyaaltı</text>
+          <text x="286" y="132">Eski liman</text>
+          <text class="t-soft" x="560" y="182">Falezler</text>
+          <text class="t-sea" x="330" y="330">Antalya Körfezi</text>
+          <circle class="pin" cx="478" cy="150" r="9"/>
+          <text class="pin-label" x="452" y="118">Kuşluk</text>
+          <text class="t-soft" x="452" y="98">kurgusal konum</text>
+          <path d="M604 24v26M604 24l-6 10M604 24l6 10" stroke="currentColor" fill="none" stroke-width="1.4" class="ridge"/>
+          <text x="599" y="66">K</text>
+        </svg>
+        <figcaption>Antalya Körfezi. Kuşluk kurgusal bir kafe; yeri temsilidir.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 4. The close: a reservation plate set like a label. -->
+  <section id="rezervasyon" class="close" data-sc-act="pin" data-sc-span="1.3" aria-labelledby="res-h">
+    <div class="sc-stage" data-sc-stage>
+      <div class="close__inner">
+        <form class="plate" id="plate" data-sc-cue="0 1 0 0" data-sc-rise="0" novalidate>
+          <h2 id="res-h">Rezervasyon</h2>
+          <p class="plate__line">Saati ve kişi sayısını seçin. Mesajı WhatsApp'tan siz gönderirsiniz, masanızı biz ayırırız.</p>
+          <div class="plate__fields">
+            <label class="field field--day">Gün
+              <select name="day">
+                <option value="bugun">Bugün</option>
+                <option value="yarin">Yarın</option>
+                <option value="cumartesi">Cumartesi</option>
+                <option value="pazar">Pazar</option>
+              </select>
+            </label>
+            <label class="field">Saat
+              <select name="time" id="res-time"></select>
+            </label>
+            <div class="field"><span id="kisi-l">Kişi</span>
+              <div class="stepper" role="group" aria-labelledby="kisi-l">
+                <button type="button" data-step="-1" aria-label="Bir kişi azalt">−</button>
+                <output id="res-n" aria-live="polite">2</output>
+                <button type="button" data-step="1" aria-label="Bir kişi ekle">+</button>
+              </div>
+            </div>
+            <fieldset class="tables">
+              <legend>Masa</legend>
+              <label><input type="radio" name="table" value="falez" checked><span>Falez kenarı</span></label>
+              <label><input type="radio" name="table" value="tente"><span>Tente altı</span></label>
+              <label><input type="radio" name="table" value="iceride"><span>İçeride</span></label>
+            </fieldset>
+          </div>
+          <p class="plate__preview" id="res-preview"><small>WhatsApp mesajı</small><span></span></p>
+          <button class="plate__go" type="submit">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.5a7.5 7.5 0 0 0-6.4 11.4L2.5 17.5l3.7-1.1A7.5 7.5 0 1 0 10 2.5Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            WhatsApp'tan yaz
+          </button>
+          <p class="plate__foot"><span class="ex__price">Ücretsiz</span><span class="ex__when">masa 15 dakika tutulur</span></p>
+        </form>
+        <figure class="plan" aria-labelledby="plan-c">
+          <svg viewBox="0 0 420 310" role="img" aria-labelledby="plan-t">
+            <title id="plan-t">Taraça planı: üstte iç salon, ortada tente altı, altta falez kenarı ve deniz.</title>
+            <defs>
+              <pattern id="awn" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(90)"><rect width="8" height="16" class="plan__stripe"/></pattern>
+              <pattern id="waves" width="28" height="10" patternUnits="userSpaceOnUse"><path d="M0 6q7-5 14 0t14 0" class="plan__wave"/></pattern>
+            </defs>
+            <g class="plan__zone" data-table="iceride"><rect x="24" y="16" width="372" height="78" rx="4"/><text x="38" y="38">İçeride</text>
+              <circle cx="150" cy="58" r="9"/><circle cx="210" cy="58" r="9"/><circle cx="270" cy="58" r="9"/><circle cx="330" cy="58" r="9"/></g>
+            <g class="plan__zone" data-table="tente"><rect x="24" y="100" width="372" height="78" rx="4"/><rect class="plan__awn" x="24" y="100" width="372" height="10" fill="url(#awn)"/><text x="38" y="132">Tente altı</text>
+              <circle cx="80" cy="154" r="9"/><circle cx="140" cy="154" r="9"/><circle cx="200" cy="154" r="9"/><circle cx="260" cy="154" r="9"/><circle cx="320" cy="154" r="9"/><circle cx="370" cy="154" r="9"/></g>
+            <g class="plan__zone" data-table="falez"><rect x="24" y="184" width="372" height="62" rx="4"/><text x="38" y="206">Falez kenarı</text>
+              <circle cx="80" cy="228" r="9"/><circle cx="140" cy="228" r="9"/><circle cx="200" cy="228" r="9"/><circle cx="260" cy="228" r="9"/><circle cx="320" cy="228" r="9"/><circle cx="370" cy="228" r="9"/></g>
+            <path class="plan__rail" d="M24 254H396"/>
+            <rect x="0" y="262" width="420" height="48" fill="url(#waves)" class="plan__sea"/>
+            <text class="plan__soft" x="380" y="292" text-anchor="end">Deniz, 44 m aşağıda</text>
+          </svg>
+          <figcaption id="plan-c">Taraça planı. Seçtiğiniz bölüm işaretli; plana dokunarak da seçebilirsiniz.</figcaption>
+        </figure>
+      </div>
+      <footer class="foot">
+        <strong>Kuşluk</strong>
+        <span>Falez üstü, Antalya (kurgusal adres)</span>
+        <span>Her gün 07.00–23.30</span>
+        <span>Menü: Türkçe, English, <span lang="ru">Русский</span>, Deutsch</span>
+        <a class="badge" href="/tr/web-sitesi/">Peak Apps Studio tasarım örneği. Kurgusal kafe.</a>
+      </footer>
+    </div>
+  </section>
+</main>
+
+<div class="sun" id="sun" role="group" aria-label="Günün saati">
+  <div class="sun__read">
+    <span class="sun__time" id="sun-time">07.30</span>
+    <span class="sun__now" id="sun-now">Mutfakta: kahvaltı</span>
+  </div>
+  <div class="sun__track" id="sun-track">
+    <svg viewBox="0 0 300 46" preserveAspectRatio="none" aria-hidden="true">
+      <line class="sun__horizon" x1="0" x2="300" y1="34" y2="34"/>
+      <path class="sun__path" id="sun-path" d=""/>
+      <path class="sun__done" id="sun-done" d=""/>
+    </svg>
+    <div class="sun__disc" id="sun-disc" role="slider" tabindex="0" aria-label="Güneş: günün saati" aria-valuemin="420" aria-valuemax="1230" aria-valuenow="450" aria-valuetext="07.30, sabah"></div>
+  </div>
+  <div class="sun__side">
+    <button class="sun__stop" type="button" data-preset="08.00" aria-pressed="false">Sabah</button>
+    <button class="sun__stop" type="button" data-preset="13.00" aria-pressed="false">Öğle</button>
+    <button class="sun__stop" type="button" data-preset="19.40" aria-pressed="false">Akşam</button>
+  </div>
+  <button class="sun__follow" id="sun-follow" type="button" hidden>Kaydırmaya bağla</button>
+</div>
+
+<dialog class="wa" id="wa" aria-labelledby="wa-h">
+  <h2 id="wa-h">Gerçek sitede burada WhatsApp açılır</h2>
+  <p>Kuşluk'un hattına şu mesaj hazır gelir, siz yalnızca gönderirsiniz:</p>
+  <p class="wa__msg" id="wa-msg"></p>
+  <p class="wa__fine">Bu sayfa Peak Apps Studio'nun tasarım örneği. Kuşluk kurgusal bir kafe: numara yok, mesaj hiçbir yere gitmez.</p>
+  <div class="wa__actions">
+    <button class="wa__close" type="button" id="wa-close">Kapat</button>
+    <a class="textlink" href="/tr/web-sitesi/">Mekânınız için böyle bir site</a>
+  </div>
+</dialog>
+
+<script src="../assets/js/scrollcraft.js" defer></script>
+<script type="module" src="../assets/js/page.js"></script>
+</body>
+</html>

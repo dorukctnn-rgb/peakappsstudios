@@ -1,0 +1,417 @@
+/* Üç Koltuk: the chair board in the chrome, its peak, the slot picker and the close.
+   Strings come from #board-data so the English and Turkish pages share this logic. */
+(function () {
+  'use strict';
+  var D = JSON.parse(document.getElementById('board-data').textContent);
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function (id) { return document.getElementById(id); };
+  var fmt = function (s, o) { return s.replace(/\{(\w+)\}/g, function (_, k) { return o[k] != null ? o[k] : ''; }); };
+  var clamp01 = function (x) { return x < 0 ? 0 : x > 1 ? 1 : x; };
+
+  // ---- the evening on the board -------------------------------------------------------
+  var TIMES = ['17:00', '17:30', '18:00', '18:30', '19:00', '19:30'];
+  var CH = D.chairs;
+  var SV = D.services;
+  var SVC_ORDER = ['fade', 'makas', 'sakal', 'ustura', 'cocuk', 'agda'];
+
+  // Which evening: today before half past four (and not Sunday, the shop is shut), else the next open day.
+  var now = new Date();
+  var dayIdx = now.getDay();
+  if (dayIdx === 0 || now.getHours() * 60 + now.getMinutes() >= 16 * 60 + 30) dayIdx = (dayIdx + 1) % 7;
+  if (dayIdx === 0) dayIdx = 1;
+  var DAY = D.days[dayIdx];
+
+  // cells[c][t] = { st: 'free'|'taken'|'svc'|'you', svc: [ids], src: 'init'|'page'|'rush' }
+  var cells = CH.map(function () { return TIMES.map(function () { return { st: 'free', svc: [] }; }); });
+  [[0, 1], [1, 0], [2, 4], [1, 5]].forEach(function (p) { cells[p[0]][p[1]] = { st: 'taken', svc: [], src: 'init' }; });
+  // the page's own services land here as their cut passes
+  var PAGE_FILL = { fade: [0, 0], makas: [1, 1], sakal: [0, 2], ustura: [2, 1], cocuk: [2, 0], agda: [1, 2] };
+  var OFFER = [1, 3];                       // chair 2, 18:30: the one kept for the visitor
+  var RUSH_LABELS = ['makas', 'fade', 'sakal', 'fade', 'makas', 'cocuk', 'sakal', 'fade'];
+  var user = null;                          // { c, t, svc: [] }
+  var lastSeen = 'fade';
+  var rushDone = 0;                         // cells filled by the evening rush so far (monotonic)
+  var rushTarget = 0;
+
+  // ---- DOM ------------------------------------------------------------------------------
+  var mini = $('mini'), cta = $('cta'), sheet = $('sheet'), grid = $('grid'), foot = $('sheet-foot'), clock = $('sheet-clock');
+  $('sheet-title').textContent = fmt(D.evening, { day: DAY });
+  var miniCells = [], bigCells = [];
+  var span = function (cls, txt) { var s = document.createElement('span'); s.className = cls; if (txt != null) s.textContent = txt; return s; };
+  // the compact board is a picture of the evening: the button's name is its hidden label
+  var miniSpan = function (cls, txt) { var s = span(cls, txt); s.setAttribute('aria-hidden', 'true'); mini.appendChild(s); return s; };
+  miniSpan('mini__h mini__h--day', DAY);
+  TIMES.forEach(function (t) { miniSpan('mini__h', t); });
+  CH.forEach(function (ch, c) {
+    miniSpan('mini__n', ch.name);
+    miniCells[c] = TIMES.map(function (_, t) { return miniSpan('mini__c' + (t === 0 && c > 0 ? ' gap' : '')); });
+  });
+  grid.appendChild(span('grid__t', ''));
+  TIMES.forEach(function (t) { grid.appendChild(span('grid__t', t)); });
+  CH.forEach(function (ch, c) {
+    var n = document.createElement('div');
+    n.className = 'grid__n';
+    n.textContent = ch.name;
+    var sm = document.createElement('small');
+    sm.textContent = D.chairWord + ' ' + ch.n + (ch.note ? ', ' + ch.note : '');
+    n.appendChild(sm);
+    grid.appendChild(n);
+    bigCells[c] = TIMES.map(function (time, t) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'cell';
+      // the button's name is its own text: hidden context, the visible time and label, a hidden hint
+      b.appendChild(span('vh', fmt(D.cellPre, { chair: D.chairWord, n: ch.n, barber: ch.name })));
+      b.appendChild(span('cell__t', time));
+      b.appendChild(document.createTextNode(' '));
+      b.appendChild(span('cell__l', ''));
+      b.appendChild(span('vh cell__h', ''));
+      b.addEventListener('click', function () { openPicker(c, t, b); });
+      grid.appendChild(b);
+      return b;
+    });
+  });
+
+  var shortOf = function (ids) { return ids.map(function (id) { return SV[id].short; }).join('+'); };
+  var namesOf = function (ids) { return ids.map(function (id) { return SV[id].name; }).join(D.join); };
+  var msgOf = function (ids) { return ids.map(function (id) { return SV[id].msg; }).join(D.joinMsg); };
+
+  var lastSig = [];
+  function paintCell(c, t) {
+    var cell = cells[c][t];
+    var offer = !user && c === OFFER[0] && t === OFFER[1] && rushComplete();
+    var sig = cell.st + '|' + cell.svc.join(',') + '|' + (offer ? 1 : 0);
+    var key = c * 6 + t;
+    if (lastSig[key] === sig) return;
+    var fresh = lastSig[key] !== undefined && cell.st !== 'free' && (lastSig[key].split('|')[0] !== cell.st || lastSig[key].split('|')[1] !== cell.svc.join(','));
+    lastSig[key] = sig;
+    var m = miniCells[c][t], b = bigCells[c][t], l = b.querySelector('.cell__l'), h = b.querySelector('.cell__h');
+    var label = cell.st === 'taken' ? D.taken : cell.st === 'svc' ? shortOf(cell.svc) : cell.st === 'you' ? D.you : D.free;
+    m.className = 'mini__c is-' + cell.st + (offer ? ' is-offer' : '') + (t === 0 && c > 0 ? ' gap' : '') + (fresh && !reduce ? ' is-new' : '');
+    m.textContent = cell.st === 'free' ? '' : cell.st === 'svc' ? SV[cell.svc[0]].short : label;
+    b.className = 'cell is-' + cell.st + (offer ? ' is-offer' : '') + (fresh && !reduce ? ' is-new' : '');
+    l.textContent = cell.st === 'you' ? D.you + ' ' + shortOf(cell.svc) : label;
+    var free = cell.st === 'free', mine = cell.st === 'you';
+    b.disabled = !(free || mine);
+    h.textContent = fmt(free ? D.cellFree : mine ? D.cellYou : cell.st === 'svc' ? D.cellBooked : D.cellTaken, { svc: namesOf(cell.svc) });
+  }
+  function paintAll() { for (var c = 0; c < 3; c++) for (var t = 0; t < 6; t++) paintCell(c, t); }
+
+  // ---- fills ---------------------------------------------------------------------------
+  function nextFree(c, t) {
+    // the page's service goes to its planned cell, or the next free one in that chair
+    for (var k = 0; k < 6; k++) { var tt = (t + k) % 6; if (cells[c][tt].st === 'free' && !(c === OFFER[0] && tt === OFFER[1] && !user)) return tt; }
+    return -1;
+  }
+  var pageFilled = {};
+  function fillFromPage(id) {
+    if (pageFilled[id]) return;
+    pageFilled[id] = true;
+    var p = PAGE_FILL[id], tt = nextFree(p[0], p[1]);
+    if (tt < 0) return;
+    cells[p[0]][tt] = { st: 'svc', svc: [id], src: 'page' };
+    paintAll();
+  }
+  function rushEligible() {
+    var out = [];
+    for (var t = 0; t < 6; t++) for (var c = 0; c < 3; c++) {
+      if (cells[c][t].st !== 'free') continue;
+      if (!user && c === OFFER[0] && t === OFFER[1]) continue;
+      out.push([c, t]);
+    }
+    return out;
+  }
+  function rushComplete() { return rushTarget > 0 && rushEligible().length === 0; }
+  function runRush() {
+    var changed = false;
+    while (rushDone < rushTarget) {
+      var el = rushEligible();
+      if (!el.length) break;
+      var p = el[0];
+      cells[p[0]][p[1]] = { st: 'svc', svc: [RUSH_LABELS[rushDone % RUSH_LABELS.length]], src: 'rush' };
+      rushDone++;
+      changed = true;
+    }
+    if (changed) paintAll();
+  }
+
+  // ---- the slot the close will use --------------------------------------------------------
+  function slot() {
+    if (user) return { c: user.c, t: user.t, svc: user.svc, mine: true };
+    return { c: OFFER[0], t: OFFER[1], svc: [lastSeen], mine: false };
+  }
+  function message(s) {
+    var ch = CH[s.c];
+    return fmt(D.msg, { day: DAY, time: TIMES[s.t], svc: msgOf(s.svc), poss: ch.poss, n: ch.n });
+  }
+  function paintClose() {
+    var s = slot(), ch = CH[s.c];
+    $('slot-kick').textContent = s.mine ? D.slotKickYou : D.slotKickOffer;
+    $('slot-when').textContent = DAY + ' ' + TIMES[s.t];
+    // service names keep their own language (a loanword like "skin fade" must not take Turkish capitals)
+    var who = $('slot-who'), parts = fmt(D.who, { chair: D.chairWord, n: ch.n, barber: ch.name, svc: '\u0000' }).split('\u0000');
+    who.textContent = parts[0];
+    s.svc.forEach(function (id, i) {
+      if (i) who.appendChild(document.createTextNode(D.join));
+      var sp = document.createElement('span');
+      if (SV[id].lang) sp.lang = SV[id].lang;
+      sp.textContent = SV[id].name;
+      who.appendChild(sp);
+    });
+    who.appendChild(document.createTextNode(parts[1] || ''));
+    $('slot-msg').textContent = message(s);
+    $('slot-note').textContent = s.mine ? D.noteYou : D.noteOffer;
+  }
+  function paintFoot() {
+    foot.textContent = '';
+    var s = slot();
+    if (user) {
+      foot.appendChild(document.createTextNode(fmt(D.hintYou, { day: DAY, time: TIMES[s.t], chair: D.chairWord, n: CH[s.c].n, barber: CH[s.c].name, svc: namesOf(s.svc) }) + ' '));
+      var a = document.createElement('a');
+      a.href = '#slot'; a.textContent = D.toMessage;
+      a.addEventListener('click', function () { setMode('closed', true); });
+      foot.appendChild(a);
+    } else if (rushComplete()) {
+      foot.textContent = fmt(D.hintOffer, { time: TIMES[OFFER[1]] });
+    } else {
+      foot.textContent = D.hintFree;
+    }
+  }
+
+  // ---- picker -------------------------------------------------------------------------
+  var picker = $('picker'), plist = $('picker-list'), pok = $('picker-ok');
+  var pickFor = null, pickSel = [], pickOpener = null;
+  SVC_ORDER.forEach(function (id) {
+    var li = document.createElement('li');
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'svc'; b.dataset.id = id;
+    b.setAttribute('aria-pressed', 'false');
+    b.appendChild(span('svc__n', SV[id].name));
+    b.appendChild(span('svc__p', SV[id].price + ' ' + D.currency));
+    b.appendChild(span('svc__m', SV[id].dur));
+    b.addEventListener('click', function () {
+      var i = pickSel.indexOf(id);
+      if (i > -1) pickSel.splice(i, 1);
+      else if (pickSel.length < 2) pickSel.push(id);
+      paintPicker();
+    });
+    li.appendChild(b); plist.appendChild(li);
+  });
+  function paintPicker() {
+    plist.querySelectorAll('.svc').forEach(function (b) {
+      var on = pickSel.indexOf(b.dataset.id) > -1;
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.setAttribute('aria-disabled', !on && pickSel.length >= 2 ? 'true' : 'false');
+    });
+    pok.disabled = pickSel.length === 0;
+  }
+  function openPicker(c, t, opener) {
+    var cell = cells[c][t];
+    if (cell.st !== 'free' && cell.st !== 'you') return;
+    pickFor = [c, t]; pickOpener = opener;
+    pickSel = cell.st === 'you' ? cell.svc.slice() : [];
+    $('picker-title').textContent = fmt(D.pickerTitle, { chair: D.chairWord, n: CH[c].n, barber: CH[c].name, time: TIMES[t] });
+    $('picker-sub').textContent = D.pickerSub;
+    paintPicker();
+    picker.showModal();
+    var first = plist.querySelector('.svc');
+    if (first) first.focus();
+  }
+  pok.addEventListener('click', function () {
+    if (!pickFor || !pickSel.length) return;
+    if (user && (user.c !== pickFor[0] || user.t !== pickFor[1])) cells[user.c][user.t] = { st: 'free', svc: [] };
+    user = { c: pickFor[0], t: pickFor[1], svc: pickSel.slice() };
+    cells[user.c][user.t] = { st: 'you', svc: user.svc.slice(), src: 'you' };
+    picker.close('ok');
+    paintAll(); paintFoot(); paintClose();
+  });
+  picker.addEventListener('close', function () {
+    if (pickOpener && document.contains(pickOpener)) pickOpener.focus();
+    pickOpener = null;
+  });
+
+  // ---- sheet modes --------------------------------------------------------------------
+  // closed: folded. peak: unfurled by the page itself while the evening fills.
+  // open: unfurled because the visitor asked; stays until they close it.
+  var mode = 'closed', uCur = 0, uTarget = 0, dismissedPeak = false, opener = null;
+  function setMode(m, quiet) {
+    if (m === mode) return;
+    var was = mode;
+    mode = m;
+    wake();
+    var exp = m === 'open' ? 'true' : 'false';
+    mini.setAttribute('aria-expanded', exp); cta.setAttribute('aria-expanded', exp);
+    if (m === 'open') {
+      var target = user ? bigCells[user.c][user.t] : null;
+      if (!target) for (var t = 0; t < 6 && !target; t++) for (var c = 0; c < 3 && !target; c++) if (!bigCells[c][t].disabled) target = bigCells[c][t];
+      sheet.classList.add('is-shown');
+      uCur = Math.max(uCur, 0.001);
+      if (target) setTimeout(function () { target.focus({ preventScroll: true }); }, 30);
+    } else if (was === 'open' && !quiet && opener) {
+      opener.focus({ preventScroll: true });
+    }
+  }
+  function toggle(e) { opener = e.currentTarget; setMode(mode === 'open' ? 'closed' : 'open'); if (mode === 'closed') dismissedPeak = inPeak; }
+  mini.addEventListener('click', toggle);
+  cta.addEventListener('click', toggle);
+  $('sheet-close').addEventListener('click', function () {
+    if (mode === 'peak') dismissedPeak = true;
+    var o = opener; setMode('closed', true); if (o) o.focus({ preventScroll: true }); else cta.focus({ preventScroll: true });
+  });
+  addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && (mode === 'open' || mode === 'peak') && !picker.open && !$('send').open) {
+      if (mode === 'peak') dismissedPeak = true;
+      var o = opener; setMode('closed', true); (o || cta).focus({ preventScroll: true });
+    }
+  });
+
+  // ---- close cut buttons --------------------------------------------------------------
+  $('slot-send').addEventListener('click', function () {
+    $('send-msg').textContent = message(slot());
+    $('send').showModal();
+  });
+  $('slot-change').addEventListener('click', function (e) { opener = e.currentTarget; setMode('open'); });
+
+  // ---- scroll geometry -----------------------------------------------------------------
+  var vh = innerHeight, s0 = 0, s1 = 1, inPeak = false;
+  var svcSecs = [].slice.call(document.querySelectorAll('[data-svc]'));
+  var quiet = $('s-quiet'), walkin = $('s-walkin');
+  var poleMark = document.querySelector('.mark__pole');
+  var beardSec = document.querySelector('[data-svc="sakal"]'), beardPath = $('beard-path'), beardRazor = $('beard-razor'), beardLen = 0;
+  var top = function (el) { return el.getBoundingClientRect().top + scrollY; };
+  function layout() {
+    vh = innerHeight;
+    s0 = top(quiet) + quiet.offsetHeight * 0.5 - vh * 0.5;
+    s1 = top(walkin) + walkin.offsetHeight - vh * 0.75;   // fold while the walk-in line is still in view under the board
+    if (beardPath) beardLen = beardPath.getTotalLength();
+  }
+
+  // ---- frame loop: velocity, peak, page fills, beard razor --------------------------------
+  // The loop runs while something moves (a scroll, its velocity dying out, the board easing)
+  // and sleeps when the page is still; scroll, resize and the board's buttons wake it.
+  var lastY = scrollY, lastT = performance.now(), vel = 0, lastBeard = -1, running = false, calm = 0;
+  window.UK = { vel: 0 };
+  var PH = { unfurl: 0.1, rushEnd: 0.6, hold: 1.0, fold: 1.1 };
+
+  // The bar's pole turns on the compositor: one stripe period (300px) every 13.7 s at rest,
+  // sped up with the scroll. Under reduced motion it stands still.
+  var poleAnim = null, poleRate = 1, stripes = poleMark && poleMark.firstElementChild;
+  if (!reduce && stripes && stripes.animate) {
+    poleAnim = stripes.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-300px)' }], { duration: 13700, iterations: Infinity });
+  }
+  function setPoleRate(r) {
+    if (!poleAnim || Math.abs(r - poleRate) < poleRate * 0.04) return;
+    poleRate = r;
+    if (poleAnim.updatePlaybackRate) poleAnim.updatePlaybackRate(r); else poleAnim.playbackRate = r;
+  }
+  function wake() {
+    if (running || document.hidden) return;
+    running = true; calm = 0;
+    lastT = performance.now() - 16;
+    requestAnimationFrame(frame);
+  }
+
+  function frame(now) {
+    var y = scrollY, dt = Math.min(64, now - lastT || 16);
+    var v = (y - lastY) / dt; lastY = y; lastT = now;
+    vel = vel * 0.86 + v * 0.14;
+    window.UK.vel = vel;
+    setPoleRate(1 + Math.min(Math.abs(vel) * 9, 9) / 0.35);
+
+    // service cuts fill the board when they own the middle of the screen
+    for (var i = 0; i < svcSecs.length; i++) {
+      var r = svcSecs[i].getBoundingClientRect();
+      if (r.top < vh * 0.45) fillFromPage(svcSecs[i].dataset.svc);
+    }
+
+    // the peak: the evening fills while the cuts underneath keep moving
+    var P = (y - s0) / Math.max(s1 - s0, 1);
+    var wasIn = inPeak;
+    inPeak = P > 0 && P < PH.fold;
+    if (!inPeak) dismissedPeak = false;
+    if (P > PH.unfurl) {
+      rushTarget = Math.max(rushTarget, Math.max(1, Math.round(clamp01((P - PH.unfurl) / (PH.rushEnd - PH.unfurl)) * 9)));
+      runRush();
+    }
+    if (inPeak && !dismissedPeak && mode === 'closed') setMode('peak');
+    if (!inPeak && mode === 'peak') setMode('closed', true);
+    if (wasIn !== inPeak || rushTarget) paintAll();
+
+    if (mode === 'open') uTarget = 1;
+    else if (mode === 'peak') uTarget = P < PH.unfurl ? clamp01(P / PH.unfurl) : P < PH.hold ? 1 : clamp01(1 - (P - PH.hold) / (PH.fold - PH.hold));
+    else uTarget = 0;
+    uCur = reduce ? uTarget : uCur + (uTarget - uCur) * (mode === 'peak' ? 0.5 : 0.28);
+    if (Math.abs(uTarget - uCur) < 0.002) uCur = uTarget;
+    if (uCur > 0.001) {
+      sheet.classList.add('is-shown');
+      sheet.style.clipPath = 'inset(0 0 ' + ((1 - uCur) * 100).toFixed(2) + '% 0)';
+    } else if (sheet.classList.contains('is-shown')) {
+      sheet.classList.remove('is-shown');
+      sheet.style.clipPath = '';
+    }
+
+    var ci = rushTarget ? Math.min(5, Math.floor(clamp01((P - PH.unfurl) / (PH.rushEnd - PH.unfurl)) * 6)) : 0;
+    var clk = TIMES[Math.max(0, ci)];
+    if (clock.textContent !== clk) clock.textContent = clk;
+    if (foot.dataset.k !== (user ? 'u' : rushComplete() ? 'o' : 'f') + (user ? user.c + user.t + user.svc.join() : '')) {
+      foot.dataset.k = (user ? 'u' : rushComplete() ? 'o' : 'f') + (user ? user.c + user.t + user.svc.join() : '');
+      paintFoot(); paintClose();
+    }
+
+    // Publish what the chrome actually paints, only while the peak is running.
+    if (inPeak && mode !== 'open') {
+      sheet.setAttribute('data-sc-verify-state', uCur.toFixed(2) + '|' + rushDone + '|' + clk + '|' + (rushComplete() ? 1 : 0));
+      if (P >= PH.rushEnd && P <= PH.hold && uCur === 1) sheet.setAttribute('data-sc-verify-hold', 'true');
+      else sheet.removeAttribute('data-sc-verify-hold');
+    } else {
+      sheet.removeAttribute('data-sc-verify-state');
+      sheet.removeAttribute('data-sc-verify-hold');
+    }
+
+    // beard: the razor rides the line it draws
+    if (beardSec && beardLen) {
+      var br = beardSec.getBoundingClientRect();
+      if (br.bottom > 0 && br.top < vh) {
+        var bp = (vh - br.top) / (br.height + vh);
+        var bt = reduce ? 1 : clamp01((bp - 0.08) / 0.34);
+        if (Math.abs(bt - lastBeard) > 0.0005) {
+          lastBeard = bt;
+          var pt = beardPath.getPointAtLength(bt * beardLen);
+          beardRazor.setAttribute('x', (pt.x - 205).toFixed(1));
+          beardRazor.setAttribute('y', (pt.y - 168).toFixed(1));
+        }
+      }
+    }
+    // sleep once nothing has moved for half a second
+    calm = v === 0 && Math.abs(vel) < 0.002 && uCur === uTarget ? calm + 1 : 0;
+    if (document.hidden || calm > 30) {
+      running = false; vel = 0; window.UK.vel = 0; setPoleRate(1);
+      return;
+    }
+    requestAnimationFrame(frame);
+  }
+  document.addEventListener('visibilitychange', wake);
+  addEventListener('scroll', wake, { passive: true });
+
+  // steam and other ambient loops run only while their cut is on screen
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { e.target.classList.toggle('is-live', e.isIntersecting); });
+    });
+    document.querySelectorAll('[data-live]').forEach(function (el) { io.observe(el); });
+  }
+
+  var relayout = function () { layout(); wake(); };
+  addEventListener('resize', relayout);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
+  addEventListener('load', relayout);
+  layout();
+  paintAll(); paintFoot(); paintClose();
+  wake();
+
+  // test hook for the verification scripts (read-only snapshot of the board)
+  window.UK.state = function () {
+    return { day: DAY, user: user, rushDone: rushDone, mode: mode, slot: slot(), message: message(slot()),
+      cells: cells.map(function (r) { return r.map(function (c) { return c.st + (c.svc.length ? ':' + c.svc.join('+') : ''); }); }) };
+  };
+})();

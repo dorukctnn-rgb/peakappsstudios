@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tutam: Antalya'da saç ekimi (tasarım örneği)</title>
+<meta name="description" content="Peak Apps Studio'nun tasarım örneği: Antalya'da kurgusal bir saç ekimi kliniği. Tek bir baş, işlem gününden on ikinci aya kadar.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#10221F">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/web/demo/hair-clinic/">
+<link rel="alternate" hreflang="tr" href="https://peakappsstudio.com/web/demo/hair-clinic/tr/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/web/demo/hair-clinic/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2310221F'/%3E%3Cpath d='M9 22c2-7 5-11 7-11s5 4 7 11' fill='none' stroke='%23E8873A' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preload" href="../assets/fonts/hahmlet-tutam.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/hedvig-sans-tutam.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="../assets/posters/p0-d.webp" media="(min-width: 761px) and (min-aspect-ratio: 4/5)" fetchpriority="high">
+<link rel="preload" as="image" href="../assets/posters/p0-m.webp" media="(max-width: 760px), (max-aspect-ratio: 4/5)" fetchpriority="high">
+<link rel="stylesheet" href="../assets/vendor/scrollcraft.css">
+<link rel="stylesheet" href="../assets/tutam.css">
+<script type="importmap">{ "imports": { "three": "/web/demo/_lib/three-0.180.0/three.module.min.js" } }</script>
+<noscript><style>[data-sc-stage]{position:relative;height:100vh;height:100svh}[data-sc-cue]{opacity:1!important}.scene__posters img[data-stop="before"]{opacity:1}</style></noscript>
+</head>
+<body>
+
+<div class="scene" aria-hidden="true">
+  <div class="scene__glow"></div>
+  <div class="scene__posters">
+    <picture>
+      <source media="(max-width: 760px), (max-aspect-ratio: 4/5)" srcset="../assets/posters/p0-m.webp">
+      <img data-stop="before" class="is-on" src="../assets/posters/p0-d.webp" alt="" fetchpriority="high">
+    </picture>
+    <img data-stop="thin" data-src-d="../assets/posters/p1-d.webp" data-src-m="../assets/posters/p1-m.webp" alt="" decoding="async">
+    <img data-stop="day0" data-src-d="../assets/posters/p2-d.webp" data-src-m="../assets/posters/p2-m.webp" alt="" decoding="async">
+    <img data-stop="m1" data-src-d="../assets/posters/p3-d.webp" data-src-m="../assets/posters/p3-m.webp" alt="" decoding="async">
+    <img data-stop="m3" data-src-d="../assets/posters/p4-d.webp" data-src-m="../assets/posters/p4-m.webp" alt="" decoding="async">
+    <img data-stop="m6" data-src-d="../assets/posters/p5-d.webp" data-src-m="../assets/posters/p5-m.webp" alt="" decoding="async">
+    <img data-stop="m9" data-src-d="../assets/posters/p6-d.webp" data-src-m="../assets/posters/p6-m.webp" alt="" decoding="async">
+    <img data-stop="m12" data-src-d="../assets/posters/p7-d.webp" data-src-m="../assets/posters/p7-m.webp" alt="" decoding="async">
+    <img data-stop="close" data-src-d="../assets/posters/p8-d.webp" data-src-m="../assets/posters/p8-m.webp" alt="" decoding="async">
+  </div>
+  <canvas class="scene__gl" data-sc-verify-state="boot"></canvas>
+  <div class="scene__labels">
+    <span class="tag" data-anchor="hairline">Yeni saç çizgisi</span>
+    <span class="tag" data-anchor="crown">Tepe</span>
+    <span class="tag" data-anchor="donor">Verici bölge</span>
+  </div>
+</div>
+<div class="sc-grain" aria-hidden="true"></div>
+
+<header class="bar">
+  <a class="mark" href="#before">
+    <span class="mark__name">Tutam</span>
+    <span class="mark__place">Saç kliniği, Antalya<span class="visually-hidden">, sayfanın başına dön</span></span>
+  </a>
+  <a class="lang" href="../" hreflang="en" lang="en">English</a>
+</header>
+
+<nav class="rail" aria-label="İşlemden bu yana geçen aylar">
+  <p class="rail__cap" aria-hidden="true">İşlemden bu<br>yana geçen ay</p>
+  <span class="rail__track" aria-hidden="true"><span class="rail__fill"></span><span class="rail__dot"></span></span>
+  <ol>
+    <li data-t="-1"><a class="rail__before" href="#before" data-go="before">Önce</a></li>
+    <li data-t="0"><a href="#day-0" data-go="day0" aria-label="0. gün, işlem günü"><span class="unit" aria-hidden="true">gün</span>0</a></li>
+    <li data-t="1"><a href="#m-1" data-go="m1" aria-label="1. ay"><span class="unit" aria-hidden="true">ay</span>1</a></li>
+    <li data-t="3"><a href="#m-3" data-go="m3" aria-label="3. ay"><span class="unit" aria-hidden="true">ay</span>3</a></li>
+    <li data-t="6"><a href="#m-6" data-go="m6" aria-label="6. ay"><span class="unit" aria-hidden="true">ay</span>6</a></li>
+    <li data-t="9"><a href="#m-9" data-go="m9" aria-label="9. ay"><span class="unit" aria-hidden="true">ay</span>9</a></li>
+    <li data-t="12"><a href="#m-12" data-go="m12" aria-label="12. ay"><span class="unit" aria-hidden="true">ay</span>12</a></li>
+  </ol>
+</nav>
+
+<main>
+  <section id="before" data-sc-act="pin" data-sc-span="1.5">
+    <div data-sc-stage class="st">
+      <div class="scrim scrim--left" aria-hidden="true" data-sc-cue="0 0.97 0 0.1" data-sc-rise="0"></div>
+      <div class="copy copy--hero" data-sc-cue="0 0.96 0 0.08">
+        <div class="greet">
+          <h1 class="h1">Saç ekimi bir yıl sürer. İşte o yıl.</h1>
+          <p>Tutam, Antalya'da bir saç ekimi kliniği. Tek bir başı ilk görüşmeden on ikinci aya kadar izleyin.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="thinning" data-sc-act="pin" data-sc-span="1.9">
+    <div data-sc-stage class="st">
+      <div class="scrim scrim--right" aria-hidden="true" data-sc-cue="0.02 0.97 0.12 0.1" data-sc-rise="0"></div>
+      <div class="copy copy--trail" data-sc-cue="0.06 0.95 0.2 0.1">
+        <h2 class="h2">Dökülme çoğu zaman tepeden ya da şakaklardan başlar.</h2>
+        <p>Üstteki saç yıllar içinde yavaş yavaş seyrelir. Ense ve yanlar ise genellikle gürlüğünü korur; saç ekimi bu farktan yararlanır.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="day-0" data-sc-act="pin" data-sc-span="2.5">
+    <div data-sc-stage class="st">
+      <div class="scrim scrim--left" aria-hidden="true" data-sc-cue="0.02 0.97 0.1 0.1" data-sc-rise="0"></div>
+      <div class="copy copy--mid" data-sc-cue="0.05 0.95 0.14 0.1">
+        <h2 class="h2">İşlem günü. Kendi saçınız, kök kök taşınır.</h2>
+        <p>FUE yönteminde doktor, ense bölgesinden birer ile dörder telden oluşan küçük kökleri tek tek alır ve yüzünüze göre çizilen saç çizgisi boyunca seyrelen bölgeye yerleştirir. İşlem lokal anesteziyle yapılır ve günün büyük kısmını alır.</p>
+        <p class="when">Bir gün önce gelir, otelde kalırsınız; kliniğe gidiş ve dönüşünüzü biz ayarlarız.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="months" data-sc-act="pin" data-sc-span="5.6">
+    <span class="anchor" id="m-1" style="top: calc(0.04 * 460vh)"></span>
+    <span class="anchor" id="m-3" style="top: calc(0.21 * 460vh)"></span>
+    <span class="anchor" id="m-6" style="top: calc(0.40 * 460vh)"></span>
+    <span class="anchor" id="m-9" style="top: calc(0.60 * 460vh)"></span>
+    <span class="anchor" id="m-12" style="top: calc(0.79 * 460vh)"></span>
+    <div data-sc-stage class="st">
+      <div class="scrim scrim--left" aria-hidden="true" data-sc-cue="0 1 0 0.03" data-sc-rise="0"></div>
+      <div class="copy copy--month" data-sc-cue="0 0.13 0 0.3">
+        <h3 class="h3">1. ay</h3>
+        <p>Ekilen saçlar dökülür. Hiçbir şey olmamış gibi görünür; bu beklenen bir durumdur, kökler derinin altında kalır ve dinlenir.</p>
+      </div>
+      <div class="copy copy--month" data-sc-cue="0.12 0.31 0.2 0.2">
+        <h3 class="h3">3. ay</h3>
+        <p>İnce yeni saçlar çıkmaya başlar; ilk başta seyrek ve düzensizdir.</p>
+      </div>
+      <div class="copy copy--month" data-sc-cue="0.3 0.5 0.2 0.2">
+        <h3 class="h3">6. ay</h3>
+        <p>Çoğu kişi farkı bu dönemde açıkça görür. Saçlar kalınlaşmıştır ama henüz son yoğunluğuna ulaşmamıştır.</p>
+      </div>
+      <div class="copy copy--month" data-sc-cue="0.49 0.69 0.2 0.2">
+        <h3 class="h3">9. ay</h3>
+        <p>Saç çizgisi dolar, teller kalınlaşmayı sürdürür.</p>
+      </div>
+      <div class="copy copy--month" data-sc-cue="0.68 1 0.15 0.06">
+        <h3 class="h3">12. ay</h3>
+        <p>Sonuç genellikle bu dönemde değerlendirilir; bazı kişilerde gelişme 18. aya kadar sürer. Sonuçlar kişiden kişiye değişir.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="consult" data-sc-act="pin" data-sc-span="1.6">
+    <div data-sc-stage class="st">
+      <div class="plate" data-sc-cue="0.32" data-sc-rise="0.6">
+        <h2 class="h2">İlk adım birkaç fotoğraf.</h2>
+        <p>Saçınızın fotoğraflarını gönderin. Hiçbir şey ayırtmadan önce bir doktor, saç ekiminin size uygun olup olmadığını ve yaklaşık kaç greft gerekeceğini söyler.</p>
+        <p class="plate__lead">Antalya'ya gelirseniz pakete dâhil olanlar</p>
+        <ul>
+          <li>Kliniğimizde işlem günü</li>
+          <li>Anlaşmalı otelde iki gece</li>
+          <li>Havalimanı ve klinik transferleri</li>
+          <li>1, 3, 6 ve 12. aylarda görüntülü kontrol</li>
+        </ul>
+        <button class="cta" type="button" data-demo-cta>Ön görüşme ayarlayın</button>
+      </div>
+      <footer class="foot" data-sc-cue="0.32">
+        <p>Bu sayfa genel bilgi verir, tıbbi tavsiye değildir: saç ekiminin size uygun olup olmadığına doktor karar verir.</p>
+        <p><a href="/tr/web-sitesi/">Peak Apps Studio tasarım örneği. Kurgusal klinik.</a></p>
+      </footer>
+    </div>
+  </section>
+</main>
+
+<a class="badge" href="/tr/web-sitesi/">Peak Apps Studio tasarım örneği. Kurgusal klinik.</a>
+
+<dialog class="demo-dialog" aria-labelledby="dlg-title">
+  <div class="demo-dialog__body">
+    <h2 id="dlg-title">Bu bir tasarım örneği</h2>
+    <p>Gerçek bir klinik sitesinde bu düğme, WhatsApp'ı hazır bir mesajla açar: <q>Merhaba, saç ekimi için ön görüşme istiyorum. Fotoğraflarımı buradan gönderiyorum.</q> Ya da doğrudan kliniğin ekibine giden kısa bir form gösterir.</p>
+    <p>Tutam kurgusal bir klinik olduğu için hiçbir şey gönderilmez, kimseyle iletişime geçilmez.</p>
+    <div class="demo-dialog__actions">
+      <button class="cta" type="button" data-close>Kapat</button>
+      <a href="/tr/web-sitesi/">Web sitesi hizmetini inceleyin</a>
+    </div>
+  </div>
+</dialog>
+
+<script src="../assets/vendor/scrollcraft.js" defer></script>
+<script type="module" src="../assets/page.js"></script>
+</body>
+</html>

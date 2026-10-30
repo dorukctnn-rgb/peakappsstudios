@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en" class="rail-settle sc-ready">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kuşluk: seaside café in Antalya (design demo)</title>
+<meta name="description" content="A Peak Apps Studio design demo for a fictional café in Antalya. Drag the sun: the sea, the light, the page and the menu go from morning to sunset.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#dde6e9">
+<meta property="og:title" content="Kuşluk: seaside café in Antalya (design demo)">
+<meta property="og:description" content="Design demo by Peak Apps Studio. Fictional café.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://peakappsstudio.com/web/demo/seaside-cafe/">
+<meta property="og:image" content="https://peakappsstudio.com/web/demo/seaside-cafe/share/card-1600x1000.webp">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="1000">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/web/demo/seaside-cafe/">
+<link rel="alternate" hreflang="tr" href="https://peakappsstudio.com/web/demo/seaside-cafe/tr/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/web/demo/seaside-cafe/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230E2431'/><path d='M10 9h12l-1.6 6.2a4 4 0 0 0 0 1.6L22 23H10l1.6-6.2a4 4 0 0 0 0-1.6Z' fill='%23C2620E'/></svg>">
+<link rel="preload" as="image" href="assets/img/poster-phone.webp" media="(max-width: 759px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/poster-tablet.webp" media="(min-width: 760px) and (max-aspect-ratio: 4/5)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/poster-desktop.webp" media="(min-width: 760px) and (min-aspect-ratio: 801/1000)" fetchpriority="high">
+<link rel="preload" href="assets/fonts/hedvig-letters-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/suse-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/scrollcraft.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script type="importmap">
+{ "imports": {
+  "three": "/web/demo/_lib/three-0.180.0/three.module.min.js",
+  "three/addons/": "/web/demo/seaside-cafe/assets/addons/"
+} }
+</script>
+<script type="application/json" id="i18n">
+{
+  "locale": "en",
+  "timeSep": ":",
+  "now": "Kitchen",
+  "service": { "sabah": "breakfast", "ogle": "lunch", "aksam": "dinner" },
+  "parts": [[540, "early morning"], [690, "late morning"], [900, "midday"], [1050, "afternoon"], [1170, "golden hour"], [9999, "evening"]],
+  "nowLabel": "now",
+  "follow": "Follow the scroll",
+  "days": { "bugun": "today", "yarin": "tomorrow", "cumartesi": "on Saturday", "pazar": "on Sunday" },
+  "tables": { "falez": "by the cliff edge", "tente": "under the awning", "iceride": "inside" },
+  "msg": "Hello Kuşluk, could we have a table for {n} {day} at {time}, {table}?",
+  "msgHint": "WhatsApp message"
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#koleksiyon">Skip to content</a>
+
+<header class="bar">
+  <a class="bar__brand" href="#koleksiyon" aria-label="Kuşluk, back to the start">Kuşluk</a>
+  <nav class="index" aria-label="Index">
+    <button class="index__toggle" type="button" aria-expanded="false" aria-controls="index-list">
+      <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M1 3h12M1 7h12M1 11h12" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
+      Index
+    </button>
+    <ul class="index__list" id="index-list">
+      <li><a href="#ex-cay" data-jump="ex-cay">Tea</a></li>
+      <li><a href="#ex-demlik" data-jump="ex-demlik">Teapot</a></li>
+      <li><a href="#ex-simit" data-jump="ex-simit">Simit</a></li>
+      <li><a href="#ex-kahvalti" data-jump="ex-kahvalti">Breakfast</a></li>
+      <li><a href="#ex-limonata" data-jump="ex-limonata">Lemonade</a></li>
+      <li><a href="#ex-kahve" data-jump="ex-kahve">Coffee</a></li>
+      <li><a href="#ex-tonik" data-jump="ex-tonik">Tonik</a></li>
+      <li><a href="#ex-raki" data-jump="ex-raki">Rakı</a></li>
+      <li><a href="#menu" data-jump="menu">Menu</a></li>
+      <li><a href="#saatler" data-jump="saatler">Hours</a></li>
+      <li><a href="#rezervasyon" data-jump="rezervasyon">Book a table</a></li>
+    </ul>
+  </nav>
+  <div class="bar__end">
+    <a class="lang" href="tr/" hreflang="tr" lang="tr"><abbr title="Türkçe">TR</abbr></a>
+    <a class="badge" href="/web/">Design demo by Peak Apps Studio. Fictional café.</a>
+  </div>
+</header>
+<div class="badge-strip"><a class="badge" href="/web/">Design demo by Peak Apps Studio. Fictional café.</a></div>
+
+<main>
+  <!-- 1. The collection: one terrace walked sideways, morning to night. -->
+  <section id="koleksiyon" class="collection" data-sc-act="pan" data-sc-span="8.5" aria-label="The collection: one table through a day">
+    <div class="sc-stage stage" data-sc-stage>
+      <div class="window" aria-hidden="true">
+        <picture><source media="(max-width: 759px)" srcset="assets/img/poster-phone.webp" width="780" height="946"><source media="(max-aspect-ratio: 4/5)" srcset="assets/img/poster-tablet.webp" width="1230" height="956"><img class="poster" src="assets/img/poster-desktop.webp" alt="" width="1600" height="620" fetchpriority="high" decoding="async"></picture>
+        <canvas id="gl"></canvas>
+      </div>
+      <div class="fg fg--bloom" aria-hidden="true"><canvas id="bloom"></canvas></div>
+      <div class="fg fg--awning" aria-hidden="true" data-fg="wall-ogle">
+        <svg viewBox="0 0 1200 80" preserveAspectRatio="none">
+          <defs>
+            <pattern id="stripes" width="80" height="80" patternUnits="userSpaceOnUse"><rect width="40" height="80" fill="#F4F2EC"/><rect x="40" width="40" height="80" fill="#1E6F8E"/></pattern>
+            <linearGradient id="awnShade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0.18"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>
+          </defs>
+          <path d="M0 0H1200V44 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0 q-20 26 -40 0Z" fill="url(#stripes)"/>
+          <rect width="1200" height="20" fill="url(#awnShade)"/>
+        </svg>
+      </div>
+      <div class="fg fg--lights" aria-hidden="true" data-fg="wall-aksam"><svg id="lights" viewBox="0 0 2000 220" preserveAspectRatio="none"></svg></div>
+      <div class="plinth" aria-hidden="true"></div>
+
+      <div class="rail" id="rail">
+        <article class="ex ex--entrance" id="ex-cay" data-obj="cay" data-hour="07.30" aria-labelledby="n-cay">
+          <div class="entrance">
+            <h1>Kuşluk</h1>
+            <p>Breakfast, lunch and sunset on the cliffs. Antalya, daily 07:00–23:30.</p>
+          </div>
+          <div class="ex__slot"></div>
+          <div class="ex__label">
+            <h2 class="ex__name" id="n-cay">Tea</h2>
+            <p class="ex__line">Rize leaf, brewed in a double pot. Tulip glass.</p>
+            <p class="ex__line">Two sugar cubes on the saucer.</p>
+            <p class="ex__foot"><span class="ex__price">₺40</span><span class="ex__when">all day</span></p>
+          </div>
+        </article>
+
+        <article class="ex" id="ex-demlik" data-obj="demlik" data-hour="08.30" aria-labelledby="n-demlik">
+          <div class="ex__slot"></div>
+          <div class="ex__label">
+            <h2 class="ex__name" id="n-demlik">Demlik</h2>
+            <p class="ex__line">Double teapot, stainless steel.</p>
+            <p class="ex__line">Stays on the table at breakfast, refilled as it empties.</p>
+            <p class="ex__foot"><span class="ex__price">With breakfast</span><span class="ex__when">07:00–11:30</span></p>
+          </div>
+        </article>
+
+        <article class="ex" id="ex-simit" data-obj="simit" data-hour="09.15" aria-labelledby="n-simit">
+          <div class="ex__slot"></div>
+          <div class="ex__label">
+            <h2 class="ex__name" id="n-simit">Simit</h2>
+            <p class="ex__line">From the neighbourhood bakery at 06:30.</p>
+            <p class="ex__line">Dipped in grape molasses, rolled in sesame.</p>
+            <p class="ex__foot"><span class="ex__price">₺30</span><span class="ex__when">until 11:30</span></p>
+          </div>
+        </article>
+
+        <article class="ex" id="ex-kahvalti" data-obj="kahvalti" data-hour="10.20" aria-labelledby="n-kahvalti">
+          <div class="ex__slot"></div>
+          <div class="ex__label">
+            <h2 class="ex__name" id="n-kahvalti">Serpme breakfast</h2>
+            <p class="ex__line">Honey, kaymak, olives, bitter-orange jam and ten more plates.</p>
+            <p class="ex__line">The jam is from the garden tree, boiled in November.</p>
+            <p class="ex__foot"><span class="ex__price">₺1,450</span><span class="ex__when">for two, until 11:30</span></p>
+          </div>
+        </article>
+
+        <article class="ex wall wall--ogle" id="wall-ogle" data-hour="12.10" aria-labelledby="n-ogle">
+          <div class="ex__label">
+            <span class="wall__hour" aria-hidden="true">11:30</span>
+            <h2 class="wall__name" id="n-ogle">Midday, 11:30–17:00</h2>
+            <p class="ex__line">The awning comes down. The sea at its brightest.</p>
+          </div>
+        </article>
+
+        <article class="ex" id="ex-limonata" data-obj="limonata" data-hour="13.30" aria-labelledby="n-limonata">
+          <div class="ex__slot"></div>
+          <div class="ex__label">
+            <h2 class="ex__name" id="n-limonata">Lemonade</h2>
+            <p class="ex__line">Bitter orange and lemon, half and half.</p>
+            <p class="ex__line">A one-litre carafe, ice on the side.</p>
+            <p class="ex__foot"><span class="ex__price">₺180</span><span class="ex__when">from 11:30</span></p>
+          </div>
+        </article>
+
+        <article class="ex" id="ex-kahve" data-obj="kahve" data-hour="15.40" aria-labelledby="n-kahve">
+          <div class="ex__slot"></div>
+          <div class="ex__label">
+            <h2 class="ex__name" id="n-kahve">Turkish coffee</h2>
+            <p class="ex__line">Brewed in a copper cezve over embers.</p>
+            <p class="ex__line">Served with water and a lokum.</p>
+            <p class="ex__foot"><span class="ex__price">₺110</span><span class="ex__when">all day</span></p>
+          </div>
+        </article>
+
+        <article class="ex wall" id="wall-aksam" data-hour="17.40" aria-labelledby="n-aksam">
+          <div class="ex__label">
+            <span class="wall__hour" aria-hidden="true">17:00</span>
+            <h2 class="wall__name" id="n-aksam">Evening, 17:00–23:30</h2>
+            <p class="ex__line">The sun drops behind the Beydağları range. The string lights come on at 19:15.</p>
+          </div>
+        </article>
+
+        <article class="ex" id="ex-tonik" data-obj="tonik" data-hour="18.50" aria-labelledby="n-tonik">
+          <div class="ex__slot"></div>
+          <div class="ex__label">
+            <h2 class="ex__name" id="n-tonik">Bitter-orange tonic</h2>
+            <p class="ex__line">Bitter orange from the garden, tonic, ice.</p>
+            <p class="ex__line">Alcohol-free. The glass comes from the freezer.</p>
+            <p class="ex__foot"><span class="ex__price">₺170</span><span class="ex__when">from 17:00</span></p>
+          </div>
+        </article>
+
+        <article class="ex" id="ex-raki" data-obj="raki" data-hour="19.45" aria-labelledby="n-raki">
+          <div class="ex__slot"></div>
+          <div class="ex__label">
+            <h2 class="ex__name" id="n-raki">Rakı</h2>
+            <p class="ex__line">A tall glass, water alongside.</p>
+            <p class="ex__line">With white cheese and melon. Ice if you like.</p>
+            <p class="ex__foot"><span class="ex__price">₺260</span><span class="ex__when">5 cl, from 17:00</span></p>
+          </div>
+        </article>
+
+        <article class="ex wall end" id="end" data-hour="20.30" aria-labelledby="n-end">
+          <div class="ex__label">
+            <span class="wall__hour" aria-hidden="true">23:30</span>
+            <h2 class="wall__name" id="n-end">Closing</h2>
+            <p class="ex__line">The kitchen closes at 22:30. The last tea is on the house.</p>
+            <p class="end__links"><a class="textlink" href="#menu" data-jump="menu">Full menu</a><a class="textlink" href="#rezervasyon" data-jump="rezervasyon">Book a table</a></p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. The menu, by the hour. The period buttons move the sun. -->
+  <section id="menu" class="flowsec menu" data-sc-act="flow" aria-labelledby="menu-h">
+    <div class="sc-wrap">
+      <div class="sec-head">
+        <h2 id="menu-h">The menu, by the hour</h2>
+        <p>Prices in Turkish lira, service included. The sun picks the list: change the hour and the menu changes with it. Tea is ₺40 all day.</p>
+      </div>
+      <div class="periods" role="group" aria-label="Menu by hour">
+        <button class="period" type="button" data-period="sabah" data-preset="08.00" aria-pressed="false">Breakfast <span>07:00–11:30</span></button>
+        <button class="period" type="button" data-period="ogle" data-preset="13.00" aria-pressed="false">Lunch <span>11:30–17:00</span></button>
+        <button class="period" type="button" data-period="aksam" data-preset="19.40" aria-pressed="false">Evening <span>17:00–23:30</span></button>
+      </div>
+      <div class="menu__cols" aria-live="polite">
+        <section class="menu__col" data-period="sabah" aria-labelledby="mk">
+          <h3 id="mk" data-now-label="now">Breakfast</h3>
+          <p class="menu__hours">07:00–11:30, weekends until 13:00</p>
+          <ul>
+            <li><span class="m-name">Serpme breakfast</span><span class="m-price">₺1,450</span><span class="m-fact">For two, fourteen plates, tea without limit.</span></li>
+            <li><span class="m-name">Menemen</span><span class="m-price">₺320</span><span class="m-fact">Village eggs, Kumluca tomatoes, green peppers.</span></li>
+            <li><span class="m-name">Eggs with sucuk</span><span class="m-price">₺360</span><span class="m-fact">Two eggs in a copper pan.</span></li>
+            <li><span class="m-name">Simit plate</span><span class="m-price">₺240</span><span class="m-fact">Simit, white cheese, tomato, olives.</span></li>
+            <li><span class="m-name">Honey and kaymak</span><span class="m-price">₺280</span><span class="m-fact">Pine honey, buffalo cream, warm pide.</span></li>
+            <li><span class="m-name">Orange juice</span><span class="m-price">₺140</span><span class="m-fact">Finike oranges, pressed to order.</span></li>
+          </ul>
+        </section>
+        <section class="menu__col" data-period="ogle" aria-labelledby="mo">
+          <h3 id="mo" data-now-label="now">Lunch</h3>
+          <p class="menu__hours">11:30–17:00</p>
+          <ul>
+            <li><span class="m-name">Antalya piyaz</span><span class="m-price">₺290</span><span class="m-fact">White beans in tahini, egg, sumac onions.</span></li>
+            <li><span class="m-name">Şiş köfte</span><span class="m-price">₺520</span><span class="m-fact">With charred peppers and tomatoes.</span></li>
+            <li><span class="m-name">Hibeş and pide</span><span class="m-price">₺230</span><span class="m-fact">Tahini, lemon, chilli flakes.</span></li>
+            <li><span class="m-name">Grilled sea bass</span><span class="m-price">₺780</span><span class="m-fact">The day's catch, rocket and lemon.</span></li>
+            <li><span class="m-name">Lemonade</span><span class="m-price">₺180</span><span class="m-fact">Bitter orange and lemon, a one-litre carafe.</span></li>
+            <li><span class="m-name">Turkish coffee</span><span class="m-price">₺110</span><span class="m-fact">Brewed over embers, with a lokum.</span></li>
+          </ul>
+        </section>
+        <section class="menu__col" data-period="aksam" aria-labelledby="ma">
+          <h3 id="ma" data-now-label="now">Evening</h3>
+          <p class="menu__hours">17:00–23:30, kitchen until 22:30</p>
+          <ul>
+            <li><span class="m-name">Sunset meze board</span><span class="m-price">₺980</span><span class="m-fact">Six meze, for two.</span></li>
+            <li><span class="m-name">Fried calamari</span><span class="m-price">₺540</span><span class="m-fact">With tarator.</span></li>
+            <li><span class="m-name">Crisp courgette</span><span class="m-price">₺310</span><span class="m-fact">With garlic yoghurt.</span></li>
+            <li><span class="m-name">Rakı</span><span class="m-price">₺260</span><span class="m-fact">5 cl, with ice and water.</span></li>
+            <li><span class="m-name">Bitter-orange tonic</span><span class="m-price">₺170</span><span class="m-fact">Alcohol-free, from the garden tree.</span></li>
+            <li><span class="m-name">Candied pumpkin</span><span class="m-price">₺220</span><span class="m-fact">With tahini and walnuts.</span></li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Hours and the place. The map wipes in: the place resolves. -->
+  <section id="saatler" class="flowsec visit" data-sc-act="flow" aria-labelledby="visit-h">
+    <div class="sc-wrap visit__grid">
+      <div>
+        <h2 id="visit-h">Hours and place</h2>
+        <table class="hours">
+          <tr><th scope="row">Breakfast</th><td>07:00–11:30</td></tr>
+          <tr><th scope="row">Lunch</th><td>11:30–17:00</td></tr>
+          <tr><th scope="row">Evening</th><td>17:00–23:30</td></tr>
+          <tr><th scope="row">Kitchen</th><td>until 22:30</td></tr>
+        </table>
+        <p>Open every day. Breakfast runs until 13:00 on Saturdays and Sundays.</p>
+        <p>A terrace on the cliffs east of the old harbour, 32 stone steps up from the coast road.</p>
+        <p class="soft">The real site carries the menu in four languages: <span lang="tr">Türkçe</span>, English, <span lang="ru">Русский</span>, <span lang="de">Deutsch</span>. This demo has Turkish and English.</p>
+      </div>
+      <figure class="map" data-sc-reveal="left" data-sc-reveal-at="0.12 0.46">
+        <svg viewBox="0 0 640 420" role="img" aria-labelledby="map-t">
+          <title id="map-t">A drawing of the Gulf of Antalya: Beydağları and Konyaaltı to the west, the old harbour in the middle, the cliffs to the east with Kuşluk on top.</title>
+          <rect class="sea" width="640" height="420"/>
+          <path class="land" d="M0 0H640V146C612 150 586 158 560 156C530 154 505 147 478 150C452 153 430 160 404 160C384 160 372 166 360 172C350 176 340 176 332 168C324 160 314 158 302 162C284 168 262 178 240 192C214 210 188 234 160 262C134 290 108 330 84 372C74 390 66 406 60 420H0Z"/>
+          <path class="cliff" d="M362 170C376 164 392 160 408 160C432 160 452 152 478 150C504 147 530 154 560 156C586 158 612 150 640 146"/>
+          <path class="road" d="M150 250C200 200 250 166 300 148C330 138 356 146 380 144C430 138 470 132 520 136C560 139 600 132 640 128"/>
+          <path class="ridge" d="M12 300l14-22 12 16 16-30 14 24 12-14 14 20M6 350l16-26 12 14 16-28 18 30 10-12 12 18M18 398l14-20 14 12 14-24 16 26"/>
+          <text class="t-soft" x="12" y="262">Beydağları</text>
+          <text x="190" y="246" transform="rotate(-42 190 246)">Konyaaltı</text>
+          <text x="286" y="132">Old harbour</text>
+          <text class="t-soft" x="566" y="182">Cliffs</text>
+          <text class="t-sea" x="330" y="330">Gulf of Antalya</text>
+          <circle class="pin" cx="478" cy="150" r="9"/>
+          <text class="pin-label" x="452" y="118">Kuşluk</text>
+          <text class="t-soft" x="452" y="98">fictional location</text>
+          <path d="M604 24v26M604 24l-6 10M604 24l6 10" stroke="currentColor" fill="none" stroke-width="1.4" class="ridge"/>
+          <text x="599" y="66">N</text>
+        </svg>
+        <figcaption>Gulf of Antalya. Kuşluk is a fictional café; the location is illustrative.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 4. The close: a reservation plate set like a label. -->
+  <section id="rezervasyon" class="close" data-sc-act="pin" data-sc-span="1.3" aria-labelledby="res-h">
+    <div class="sc-stage" data-sc-stage>
+      <div class="close__inner">
+        <form class="plate" id="plate" data-sc-cue="0 1 0 0" data-sc-rise="0" novalidate>
+          <h2 id="res-h">Book a table</h2>
+          <p class="plate__line">Pick the hour and the party size. You send the message on WhatsApp, we hold the table.</p>
+          <div class="plate__fields">
+            <label class="field field--day">Day
+              <select name="day">
+                <option value="bugun">Today</option>
+                <option value="yarin">Tomorrow</option>
+                <option value="cumartesi">Saturday</option>
+                <option value="pazar">Sunday</option>
+              </select>
+            </label>
+            <label class="field">Time
+              <select name="time" id="res-time"></select>
+            </label>
+            <div class="field"><span id="kisi-l">Guests</span>
+              <div class="stepper" role="group" aria-labelledby="kisi-l">
+                <button type="button" data-step="-1" aria-label="One guest fewer">−</button>
+                <output id="res-n" aria-live="polite">2</output>
+                <button type="button" data-step="1" aria-label="One guest more">+</button>
+              </div>
+            </div>
+            <fieldset class="tables">
+              <legend>Table</legend>
+              <label><input type="radio" name="table" value="falez" checked><span>Cliff edge</span></label>
+              <label><input type="radio" name="table" value="tente"><span>Under the awning</span></label>
+              <label><input type="radio" name="table" value="iceride"><span>Inside</span></label>
+            </fieldset>
+          </div>
+          <p class="plate__preview" id="res-preview"><small>WhatsApp message</small><span></span></p>
+          <button class="plate__go" type="submit">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.5a7.5 7.5 0 0 0-6.4 11.4L2.5 17.5l3.7-1.1A7.5 7.5 0 1 0 10 2.5Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            Message on WhatsApp
+          </button>
+          <p class="plate__foot"><span class="ex__price">Free</span><span class="ex__when">tables are held for 15 minutes</span></p>
+        </form>
+        <figure class="plan" aria-labelledby="plan-c">
+          <svg viewBox="0 0 420 310" role="img" aria-labelledby="plan-t">
+            <title id="plan-t">Terrace plan: the indoor room at the top, the awning in the middle, the cliff edge and the sea at the bottom.</title>
+            <defs>
+              <pattern id="awn" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(90)"><rect width="8" height="16" class="plan__stripe"/></pattern>
+              <pattern id="waves" width="28" height="10" patternUnits="userSpaceOnUse"><path d="M0 6q7-5 14 0t14 0" class="plan__wave"/></pattern>
+            </defs>
+            <g class="plan__zone" data-table="iceride"><rect x="24" y="16" width="372" height="78" rx="4"/><text x="38" y="38">Inside</text>
+              <circle cx="150" cy="58" r="9"/><circle cx="210" cy="58" r="9"/><circle cx="270" cy="58" r="9"/><circle cx="330" cy="58" r="9"/></g>
+            <g class="plan__zone" data-table="tente"><rect x="24" y="100" width="372" height="78" rx="4"/><rect class="plan__awn" x="24" y="100" width="372" height="10" fill="url(#awn)"/><text x="38" y="132">Under the awning</text>
+              <circle cx="80" cy="154" r="9"/><circle cx="140" cy="154" r="9"/><circle cx="200" cy="154" r="9"/><circle cx="260" cy="154" r="9"/><circle cx="320" cy="154" r="9"/><circle cx="370" cy="154" r="9"/></g>
+            <g class="plan__zone" data-table="falez"><rect x="24" y="184" width="372" height="62" rx="4"/><text x="38" y="206">Cliff edge</text>
+              <circle cx="80" cy="228" r="9"/><circle cx="140" cy="228" r="9"/><circle cx="200" cy="228" r="9"/><circle cx="260" cy="228" r="9"/><circle cx="320" cy="228" r="9"/><circle cx="370" cy="228" r="9"/></g>
+            <path class="plan__rail" d="M24 254H396"/>
+            <rect x="0" y="262" width="420" height="48" fill="url(#waves)" class="plan__sea"/>
+            <text class="plan__soft" x="380" y="292" text-anchor="end">The sea, 44 m below</text>
+          </svg>
+          <figcaption id="plan-c">Terrace plan. Your choice is marked; you can also pick it on the plan.</figcaption>
+        </figure>
+      </div>
+      <footer class="foot">
+        <strong>Kuşluk</strong>
+        <span>On the cliffs, Antalya (fictional address)</span>
+        <span>Daily 07:00–23:30</span>
+        <span>Menu: <span lang="tr">Türkçe</span>, English, <span lang="ru">Русский</span>, <span lang="de">Deutsch</span></span>
+        <a class="badge" href="/web/">Design demo by Peak Apps Studio. Fictional café.</a>
+      </footer>
+    </div>
+  </section>
+</main>
+
+<div class="sun" id="sun" role="group" aria-label="Time of day">
+  <div class="sun__read">
+    <span class="sun__time" id="sun-time">07:30</span>
+    <span class="sun__now" id="sun-now">Kitchen: breakfast</span>
+  </div>
+  <div class="sun__track" id="sun-track">
+    <svg viewBox="0 0 300 46" preserveAspectRatio="none" aria-hidden="true">
+      <line class="sun__horizon" x1="0" x2="300" y1="34" y2="34"/>
+      <path class="sun__path" id="sun-path" d=""/>
+      <path class="sun__done" id="sun-done" d=""/>
+    </svg>
+    <div class="sun__disc" id="sun-disc" role="slider" tabindex="0" aria-label="The sun: time of day" aria-valuemin="420" aria-valuemax="1230" aria-valuenow="450" aria-valuetext="07:30, early morning"></div>
+  </div>
+  <div class="sun__side">
+    <button class="sun__stop" type="button" data-preset="08.00" aria-pressed="false">Morning</button>
+    <button class="sun__stop" type="button" data-preset="13.00" aria-pressed="false">Midday</button>
+    <button class="sun__stop" type="button" data-preset="19.40" aria-pressed="false">Evening</button>
+  </div>
+  <button class="sun__follow" id="sun-follow" type="button" hidden>Follow the scroll</button>
+</div>
+
+<dialog class="wa" id="wa" aria-labelledby="wa-h">
+  <h2 id="wa-h">On the real site, WhatsApp opens here</h2>
+  <p>The message arrives ready in a chat with Kuşluk; you only press send:</p>
+  <p class="wa__msg" id="wa-msg"></p>
+  <p class="wa__fine">This page is a design demo by Peak Apps Studio. Kuşluk is a fictional café: there is no number and nothing is sent.</p>
+  <div class="wa__actions">
+    <button class="wa__close" type="button" id="wa-close">Close</button>
+    <a class="textlink" href="/web/">A site like this for your place</a>
+  </div>
+</dialog>
+
+<script src="assets/js/scrollcraft.js" defer></script>
+<script type="module" src="assets/js/page.js"></script>
+</body>
+</html>

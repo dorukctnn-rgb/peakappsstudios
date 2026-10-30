@@ -71,6 +71,11 @@ Each tool page explains what the tool does, how to use it and its limits; the gu
 - [컬러노트 메모를 PC 브라우저에서 읽기 (Korean)](https://peakappsstudio.com/ko/colornote-pc/): 컬러노트(ColorNote) 백업 파일을 PC 브라우저에서 비밀번호로 열고, 모든 메모를 읽고 검색하고 저장하세요. 무료이며 파일은 업로드되지 않습니다.
 - [Abra suas notas do ColorNote no PC (Brazilian Portuguese)](https://peakappsstudio.com/pt-br/abrir-colornote-no-pc/): Leia suas notas do ColorNote no computador: abra o arquivo .backup do celular com a senha, pesquise todas as notas e salve. Grátis, sem enviar nada.
 
+## Websites for small businesses
+
+- [Website design service](https://peakappsstudio.com/web/): One-page websites for small businesses with scroll animation and 3D. We draft the homepage before payment. Starter $390, Cinematic $1,490, first year of hosting included. Three live demos: a barber, a hair transplant clinic and a seaside café.
+- [Web sitesi yaptırma (Turkish)](https://peakappsstudio.com/tr/web-sitesi/): İşletmeler için tek sayfalık, kaydırdıkça hareket eden web siteleri. Hızlı Site 9.900 TL, Sinematik Site 29.900 TL, ilk yıl barındırma dâhil.
+
 ## Apps
 
 - [OkulTakip](https://peakappsstudio.com/apps/okultakip/): Çocuk takip uygulaması OkulTakip: çocuğun okula vardığında, okuldan çıktığında ve eve geldiğinde sen sormadan bildirim gelir. Hesap yok, QR ile eşleşme, deprem modu. iPhone için ücretsiz.
