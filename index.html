@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Peak Apps Studio: web tools, apps and golf software</title>
-<meta name="description" content="Peak Apps makes small web tools and apps: BodyArcade, GetQuotationMaker, Chatbound for Character.AI exports, GolfReserve Pro for golf courses, and more.">
+<meta name="description" content="Peak Apps makes small web tools, apps and games: TRAILER WRECK on Google Play, BodyArcade, GetQuotationMaker, Chatbound for Character.AI exports, GolfReserve Pro for golf courses, and more.">
 <link rel="canonical" href="https://peakappsstudio.com/">
 <meta name="theme-color" content="#e8ebf0" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0f1218" media="(prefers-color-scheme: dark)">
@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Peak Apps Studio">
 <meta property="og:url" content="https://peakappsstudio.com/">
 <meta property="og:title" content="Peak Apps Studio: web tools, apps and golf software">
-<meta property="og:description" content="Small web tools that each do one job, readers for the data exports apps leave you with, GolfReserve Pro for golf courses, BodyArcade and our apps.">
+<meta property="og:description" content="Small web tools that each do one job, readers for the data exports apps leave you with, GolfReserve Pro for golf courses, BodyArcade, our apps and TRAILER WRECK, our demolition derby game for Android.">
 <meta property="og:image" content="https://peakappsstudio.com/assets/home/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -21,7 +21,7 @@
 <meta name="twitter:image" content="https://peakappsstudio.com/assets/home/og.jpg">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/hedvig-letters-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" type="image/webp" imagesrcset="assets/home/c-bodyarcade-600.webp 600w, assets/home/c-bodyarcade-900.webp 900w" imagesizes="(max-width: 959px) 88vw, 540px" fetchpriority="high">
+<link rel="preload" as="image" type="image/avif" imagesrcset="assets/home/tw-poster-640.avif 640w, assets/home/tw-poster-960.avif 960w, assets/home/tw-poster-1280.avif 1280w" imagesizes="(max-width: 959px) 92vw, min(56vw, 700px)" fetchpriority="high">
 <link rel="stylesheet" href="assets/css/home.css">
 <script>
 (function () {
@@ -63,8 +63,37 @@
         {"@type": "ListItem", "position": 6, "item": {"@type": "SoftwareApplication", "name": "Chicken coop designer", "url": "https://peakappsstudio.com/coop-designer/", "applicationCategory": "DesignApplication", "operatingSystem": "Web browser"}},
         {"@type": "ListItem", "position": 7, "item": {"@type": "SoftwareApplication", "name": "Notelift", "url": "https://peakappsstudio.com/colornote-viewer/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Web browser"}},
         {"@type": "ListItem", "position": 8, "item": {"@type": "SoftwareApplication", "name": "Sim rig designer", "url": "https://peakappsstudio.com/sim-rig-designer/", "applicationCategory": "DesignApplication", "operatingSystem": "Web browser"}},
-        {"@type": "ListItem", "position": 9, "item": {"@type": "SoftwareApplication", "name": "GolfReserve Pro", "url": "https://golfreserve.peakappsstudio.com/", "applicationCategory": "BusinessApplication", "operatingSystem": "Web browser"}}
+        {"@type": "ListItem", "position": 9, "item": {"@type": "SoftwareApplication", "name": "GolfReserve Pro", "url": "https://golfreserve.peakappsstudio.com/", "applicationCategory": "BusinessApplication", "operatingSystem": "Web browser"}},
+        {"@type": "ListItem", "position": 10, "item": {"@id": "https://peakappsstudio.com/#trailer-wreck-game"}}
       ]
+    },
+    {
+      "@type": "VideoGame",
+      "@id": "https://peakappsstudio.com/#trailer-wreck-game",
+      "name": "TRAILER WRECK: Derby Racing",
+      "alternateName": "TRAILER WRECK",
+      "description": "Multiplayer demolition derby for Android: ten cars fight to stay on one moving trailer in three-minute matches, online with friends or offline against AI.",
+      "url": "https://peakappsstudio.com/#trailer-wreck",
+      "installUrl": "https://play.google.com/store/apps/details?id=com.peakapps.trailerwreck",
+      "sameAs": "https://play.google.com/store/apps/details?id=com.peakapps.trailerwreck",
+      "image": "https://peakappsstudio.com/assets/home/tw-poster-1280.webp",
+      "applicationCategory": "GameApplication",
+      "operatingSystem": "Android",
+      "gamePlatform": "Android",
+      "genre": ["Racing", "Demolition derby"],
+      "playMode": ["MultiPlayer", "SinglePlayer"],
+      "contentRating": "Teen",
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+      "publisher": {"@id": "https://peakappsstudio.com/#org"},
+      "trailer": {
+        "@type": "VideoObject",
+        "name": "TRAILER WRECK trailer",
+        "description": "18 seconds cut from the game's own footage: the moving trailer, ramp crashes, crash damage and night races.",
+        "thumbnailUrl": "https://peakappsstudio.com/assets/home/tw-poster-1280.webp",
+        "contentUrl": "https://peakappsstudio.com/assets/home/tw-trailer-1280.mp4",
+        "uploadDate": "2026-10-30",
+        "duration": "PT18S"
+      }
     }
   ]
 }
@@ -80,6 +109,7 @@
   </a>
   <nav class="bar-nav" aria-label="Sections">
     <ul>
+      <li><a href="#trailer-wreck">Trailer Wreck</a></li>
       <li><a href="#most-used">Most used</a></li>
       <li><a href="#closing">Closing soon</a></li>
       <li><a href="#golf">Golf</a></li>
@@ -93,6 +123,53 @@
 </header>
 
 <main>
+  <!-- TRAILER WRECK: our Android game, on Google Play since 30 Oct 2026 (listing checked: free, in-app purchases, Teen).
+       The trailer, poster and screens come from the game's own capture frames; facts are from the Play listing. -->
+  <section id="trailer-wreck" class="tw" aria-labelledby="tw-title" data-trailer>
+    <div class="tw-head">
+      <p class="tw-mark"><img src="assets/home/tw-wordmark-468.webp" srcset="assets/home/tw-wordmark-240.webp 240w, assets/home/tw-wordmark-468.webp 468w" sizes="(max-width: 1000px) 150px, 210px" width="234" height="150" alt="TRAILER WRECK" decoding="async"></p>
+      <h2 id="tw-title" class="tw-title">Ten cars fight for one moving trailer.</h2>
+    </div>
+
+    <div class="tw-media">
+      <div class="tw-screen">
+        <picture>
+          <source type="image/avif" srcset="assets/home/tw-poster-640.avif 640w, assets/home/tw-poster-960.avif 960w, assets/home/tw-poster-1280.avif 1280w" sizes="(max-width: 959px) 92vw, min(56vw, 700px)">
+          <img class="tw-poster" src="assets/home/tw-poster-960.webp" srcset="assets/home/tw-poster-640.webp 640w, assets/home/tw-poster-960.webp 960w, assets/home/tw-poster-1280.webp 1280w" sizes="(max-width: 959px) 92vw, min(56vw, 700px)" width="1280" height="720" alt="A red derby car crashes at the trailer&rsquo;s ramp while two cars flip beside it, in front of a full grandstand" fetchpriority="high" decoding="async">
+        </picture>
+        <video class="tw-video" muted loop playsinline preload="none" disablepictureinpicture disableremoteplayback aria-hidden="true" tabindex="-1" width="1280" height="720" data-small="assets/home/tw-trailer-960" data-large="assets/home/tw-trailer-1280"></video>
+        <button class="tw-toggle" type="button" aria-label="Pause the trailer" data-trailer-toggle hidden>
+          <svg class="tw-i-pause" viewBox="0 0 20 20" aria-hidden="true"><rect x="5" y="4" width="3.4" height="12" rx="1"/><rect x="11.6" y="4" width="3.4" height="12" rx="1"/></svg>
+          <svg class="tw-i-play" viewBox="0 0 20 20" aria-hidden="true"><path d="M6.5 4.2v11.6c0 .6.7 1 1.2.6l8.4-5.8c.4-.3.4-.9 0-1.2L7.7 3.6c-.5-.4-1.2 0-1.2.6z"/></svg>
+        </button>
+      </div>
+      <p class="tw-caption">An 18-second trailer cut from the game&rsquo;s own footage, without sound.</p>
+    </div>
+
+    <div class="tw-body">
+      <p class="tw-lede">A demolition derby for Android. A tow rig drags a flatbed trailer around the speedway: climb its rear ramp, stay on the deck to score and knock everyone else off before the three minutes run out.</p>
+      <div class="actions">
+        <a class="btn btn--light" href="https://play.google.com/store/apps/details?id=com.peakapps.trailerwreck">Get it on Google Play</a>
+      </div>
+      <p class="tw-note">Free and without ads. Optional purchases never sell speed or power. Android only, and online play needs an internet connection.</p>
+    </div>
+
+    <ul class="tw-shots" aria-label="Screens from the game">
+      <li>
+        <img src="assets/home/tw-shot-hud-480.webp" srcset="assets/home/tw-shot-hud-272.webp 272w, assets/home/tw-shot-hud-480.webp 480w, assets/home/tw-shot-hud-960.webp 960w" sizes="(max-width: 759px) 136px, (max-width: 1240px) 30vw, 380px" width="480" height="270" alt="A match on a phone: position 1 of 10, a 2:36 timer and the trailer ahead, with a flipped yellow car next to the ramp" loading="lazy" decoding="async">
+        <p>Quick matches online, a room with your friends, or races against AI drivers with no connection.</p>
+      </li>
+      <li>
+        <img src="assets/home/tw-shot-hood-480.webp" srcset="assets/home/tw-shot-hood-272.webp 272w, assets/home/tw-shot-hood-480.webp 480w, assets/home/tw-shot-hood-960.webp 960w" sizes="(max-width: 759px) 136px, (max-width: 1240px) 30vw, 380px" width="480" height="270" alt="A red derby car with its hood torn open after a hit, at sunset" loading="lazy" decoding="async">
+        <p>Panels crumple where you get hit, bumpers fly off and hoods pop open. Each round starts on a fresh car.</p>
+      </li>
+      <li>
+        <img src="assets/home/tw-shot-night-480.webp" srcset="assets/home/tw-shot-night-272.webp 272w, assets/home/tw-shot-night-480.webp 480w, assets/home/tw-shot-night-960.webp 960w" sizes="(max-width: 759px) 136px, (max-width: 1240px) 30vw, 380px" width="480" height="270" alt="A dented red car number 27 at night under the stadium floodlights" loading="lazy" decoding="async">
+        <p>Race at sunset or under the floodlights. 14 cars and 20 paint jobs change the look, never the speed.</p>
+      </li>
+    </ul>
+  </section>
+
   <!-- MOST USED: the card drawer. Order = Search Console clicks (29 Sep to 27 Oct 2026, all language editions) plus 10 per paid sale (Gumroad, 29 Sep to 29 Oct). -->
   <section id="most-used" class="cat" aria-labelledby="hero-title" data-cat>
     <div class="cat-pin">
@@ -123,7 +200,7 @@
             <li class="card" style="--i:0;--tab:#d92d4a;--tab-ink:#ffffff">
               <a class="card-link" href="https://bodyarcade.com/">
                 <span class="card-tab" aria-hidden="true">BodyArcade</span>
-                <img class="card-img" src="assets/home/c-bodyarcade-600.webp" srcset="assets/home/c-bodyarcade-600.webp 600w, assets/home/c-bodyarcade-900.webp 900w" sizes="(max-width: 959px) 88vw, 540px" width="600" height="210" alt="" fetchpriority="high" decoding="async">
+                <img class="card-img" src="assets/home/c-bodyarcade-600.webp" srcset="assets/home/c-bodyarcade-600.webp 600w, assets/home/c-bodyarcade-900.webp 900w" sizes="(max-width: 959px) 88vw, 540px" width="600" height="210" alt="" decoding="async">
                 <span class="card-body">
                   <h3 class="card-name">BodyArcade</h3>
                   <span class="card-what">11 short fitness games you play with your body through the camera. 8 are free, and nothing is uploaded.</span>
@@ -326,6 +403,14 @@
   <section id="apps" class="apps" aria-labelledby="apps-title">
     <h2 id="apps-title" class="section-title">Apps on the App Store and Google Play.</h2>
     <ul class="apps-list">
+      <li class="app">
+        <img class="app-icon" src="assets/home/i-trailerwreck-128.webp" width="128" height="128" alt="" loading="lazy" decoding="async">
+        <div class="app-body">
+          <h3 class="app-name">TRAILER WRECK</h3>
+          <p class="app-desc">A demolition derby game for Android: ten cars fight to stay on one moving trailer, online or offline.</p>
+          <p class="app-links"><a href="https://play.google.com/store/apps/details?id=com.peakapps.trailerwreck">Google Play</a><a href="#trailer-wreck">Watch the trailer</a></p>
+        </div>
+      </li>
       <li class="app">
         <img class="app-icon" src="assets/home/i-okultakip-128.webp" width="128" height="128" alt="" loading="lazy" decoding="async">
         <div class="app-body">
