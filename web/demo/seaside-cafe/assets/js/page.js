@@ -8,36 +8,50 @@ const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const lowPower = matchMedia('(pointer: coarse)').matches || innerWidth < 760;
 const params = new URLSearchParams(location.search);
 const CAPTURE = params.get('capture');
+const ONLY = CAPTURE ? params.get('only') : null; // capture one object alone (the stills)
+const FORCE_GL = params.get('gl') === '1';
 const SEP = I.timeSep || '.';
 const PERF = params.has('perf') ? [] : null;
 
+// Two layouts for the collection. The walk: a pinned stage, the 3D table and a
+// rail that moves sideways with the scroll. The stills: the same objects as
+// photographs in a plain grid that scrolls like any page. Reduced motion gets
+// the stills from the start; a browser without WebGL is switched to them.
+let still = reduce && !CAPTURE;
+
 // ------------------------------------------------------------ mount engine
 const act = document.getElementById('koleksiyon');
-if (reduce) act.setAttribute('data-sc-span', '1.25'); // the rail scrolls natively instead
+if (still) { act.setAttribute('data-sc-act', 'flow'); root.classList.add('stills'); }
 // The close holds as a pinned plate where it fits; on short or narrow screens
 // the plate and footer are taller than one viewport, so it becomes a flow section.
 const closeAct = document.getElementById('rezervasyon');
 if (innerWidth < 760 || innerHeight < 760) { closeAct.setAttribute('data-sc-act', 'flow'); closeAct.classList.add('close--flow'); }
+// every class that changes layout goes on before the engine measures, so boot lays out once
+if (!still) root.classList.add('rail-settle');
+if (CAPTURE) root.classList.add('capture');
 const engine = window.ScrollCraft ? window.ScrollCraft.mount(document.body) : null;
 
 const stage = act.querySelector('.sc-stage');
 const rail = document.getElementById('rail');
 const items = Array.from(rail.children);
 const win = stage.querySelector('.window');
+const poster = win.querySelector('.poster');
 const canvas = document.getElementById('gl');
 const fgBloom = stage.querySelector('.fg--bloom');
 const fgAwning = stage.querySelector('.fg--awning');
 const fgLights = stage.querySelector('.fg--lights');
-if (!reduce) root.classList.add('rail-settle');
-if (CAPTURE) root.classList.add('capture');
+const bar = document.querySelector('.bar');
+const badgeStrip = document.querySelector('.badge-strip');
 
 // --------------------------------------------------------------- geometry
 const G = { top: 0, h: 1, vw: 1, vh: 1, over: 0, items: [], anchors: [] };
+const docTop = (el) => el.getBoundingClientRect().top + scrollY;
 function measure() {
   G.vw = stage.clientWidth || innerWidth;
   G.vh = innerHeight;
-  G.top = act.getBoundingClientRect().top + scrollY;
+  G.top = docTop(act);
   G.h = act.offsetHeight;
+  if (still) { measureStill(); return; }
   G.over = Math.max(rail.scrollWidth - G.vw, 0);
   G.items = items.map((el) => {
     const slot = el.querySelector('.ex__slot');
@@ -63,14 +77,36 @@ function measure() {
   G.lightsBase = fgBase('ex-tonik', fgLights.offsetWidth, 1.3) + G.vw * 0.35;
   lastX = -1;
 }
+// The stills scroll vertically: the sun follows the row in the middle of the
+// screen. One anchor per grid row, at the scroll that centres that row.
+function measureStill() {
+  G.over = 0;
+  G.items = items.map((el) => ({
+    el, id: el.id, obj: el.dataset.obj || null,
+    t: tAt(parseHour(el.dataset.hour || '07.30')), y: docTop(el), h: el.offsetHeight,
+  }));
+  const rows = [];
+  for (const it of G.items) {
+    const r = rows.find((q) => Math.abs(q.y - it.y) < 4);
+    if (r) { r.ts.push(it.t); r.h = Math.max(r.h, it.h); } else rows.push({ y: it.y, h: it.h, ts: [it.t] });
+  }
+  let prev = -Infinity;
+  G.anchors = rows.map((r, i) => {
+    let x = i ? Math.max(0, r.y + r.h / 2 - G.vh / 2) : 0;
+    if (x <= prev) x = prev + 1;
+    prev = x;
+    return { x, t: r.ts.reduce((a, b) => a + b, 0) / r.ts.length };
+  });
+  lastX = -1;
+}
 
 function railX() {
-  if (reduce) return stage.scrollLeft;
+  if (still) return scrollY;
   const p = clamp((scrollY - G.top) / Math.max(G.h - G.vh, 1), 0, 1);
   return p * G.over;
 }
 function autoT(x) {
-  if (!reduce && scrollY > G.top + G.h - G.vh + 2) return G.anchors[G.anchors.length - 1].t;
+  if (!still && scrollY > G.top + G.h - G.vh + 2) return G.anchors[G.anchors.length - 1].t;
   const A = G.anchors;
   if (x <= A[0].x) return A[0].t;
   for (let i = 1; i < A.length; i++) {
@@ -81,38 +117,60 @@ function autoT(x) {
 
 // ------------------------------------------------------------ the rail
 const slots = {};
-let lastX = -1, activeId = '';
+let lastX = -1, activeId = '', idxLock = null;
 const indexLinks = Array.from(document.querySelectorAll('.index__list a'));
+function setActive(best) {
+  if (best === activeId) return;
+  activeId = best;
+  indexLinks.forEach((a) => a.setAttribute('aria-current', a.dataset.jump === best ? 'true' : 'false'));
+}
+function laterSection() {
+  for (const id of ['rezervasyon', 'saatler', 'menu']) { const r = document.getElementById(id).getBoundingClientRect(); if (r.top < G.vh * 0.5) return id; }
+  return null;
+}
+// index: the object nearest the middle of the screen, or the section below the walk
+function updateIndex(x) {
+  let best = null, bd = Infinity;
+  // after a jump from the index, the chosen object stays marked (in the stills
+  // grid three objects share a row, so "nearest the middle" cannot tell them apart)
+  if (idxLock && (performance.now() < idxLock.until || Math.abs(scrollY - idxLock.y) < 140)) { setActive(idxLock.id); return; }
+  idxLock = null;
+  if (still) {
+    best = laterSection();
+    if (!best) for (const it of G.items) {
+      if (!it.obj) continue;
+      const r = it.el.getBoundingClientRect(); const d = Math.abs(r.top + r.height / 2 - G.vh / 2);
+      if (d < bd) { bd = d; best = it.id; }
+    }
+  } else if (scrollY < G.top + G.h - G.vh * 0.5) {
+    for (const it of G.items) { const d = Math.abs(it.center - x - G.vw / 2); if (d < bd && it.obj) { bd = d; best = it.id; } }
+  } else best = laterSection();
+  setActive(best);
+}
 function applyRail(x) {
-  if (!reduce) rail.style.transform = `translate3d(${(-x).toFixed(2)}px,0,0)`;
+  if (still) return;
+  rail.style.transform = `translate3d(${(-x).toFixed(2)}px,0,0)`;
+  // Until the live scene takes over, the poster travels with the rail so the
+  // glass and the teapot in it stay over their own labels.
+  if (!posterGone) {
+    poster.style.transform = x > 0.5 ? `translate3d(${(-x).toFixed(1)}px,0,0)` : '';
+    win.classList.toggle('window--slide', x > 0.5);
+  }
   const vw = G.vw;
   for (const it of G.items) {
     if (it.obj) {
       const sx = it.cx - x;
-      slots[it.obj] = sx > -0.45 * vw && sx < 1.45 * vw ? sx : null;
+      slots[it.obj] = sx > -0.45 * vw && sx < 1.45 * vw && (!ONLY || it.obj === ONLY) ? sx : null;
     }
-    if (!reduce && it.label && it !== G.items[0]) {
+    if (it.label && it !== G.items[0]) {
       const enter = (vw * 1.02 - (it.left - x)) / (vw * 0.42);
       const s = Math.round((0.55 + 0.45 * smooth(0, 1, enter)) * 100) / 100;
       if (s !== it.settle) { it.settle = s; it.label.style.setProperty('--settle', s); }
     }
   }
-  if (!reduce) {
-    fgBloom.style.transform = `translate3d(${(-x * 1.3).toFixed(1)}px,0,0)`;
-    fgAwning.style.transform = `translate3d(${(G.awnBase - x * 1.3).toFixed(1)}px,0,0)`;
-    fgLights.style.transform = `translate3d(${(G.lightsBase - x * 1.3).toFixed(1)}px,0,0)`;
-  }
-  // index: the object nearest the middle of the screen
-  let best = null, bd = Infinity;
-  const inPan = scrollY < G.top + G.h - G.vh * 0.5;
-  if (inPan) for (const it of G.items) { const d = Math.abs(it.center - x - vw / 2); if (d < bd && it.obj) { bd = d; best = it.id; } }
-  else {
-    for (const id of ['rezervasyon', 'saatler', 'menu']) { const r = document.getElementById(id).getBoundingClientRect(); if (r.top < G.vh * 0.5) { best = id; break; } }
-  }
-  if (best !== activeId) {
-    activeId = best;
-    indexLinks.forEach((a) => a.setAttribute('aria-current', a.dataset.jump === best ? 'true' : 'false'));
-  }
+  fgBloom.style.transform = `translate3d(${(-x * 1.3).toFixed(1)}px,0,0)`;
+  fgAwning.style.transform = `translate3d(${(G.awnBase - x * 1.3).toFixed(1)}px,0,0)`;
+  fgLights.style.transform = `translate3d(${(G.lightsBase - x * 1.3).toFixed(1)}px,0,0)`;
 }
 
 // ------------------------------------------------------------ the sun
@@ -301,24 +359,35 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && indexNav
 document.addEventListener('click', (e) => { if (indexNav.hasAttribute('data-open') && !indexNav.contains(e.target)) setIndex(false); });
 
 function railYFor(x) { return G.top + (G.over ? x / G.over : 0) * (G.h - G.vh); }
+function chromeH() { return bar.offsetHeight + (badgeStrip && badgeStrip.offsetHeight ? badgeStrip.offsetHeight : 0); }
 function jumpTo(id, instant) {
   const it = G.items.find((i) => i.id === id);
   const behavior = instant || reduce ? 'instant' : 'smooth';
   let heading;
-  if (it) {
+  if (it && !still) {
     const x = clamp(it.center - G.vw / 2, 0, G.over);
-    if (reduce) { stage.scrollTo({ left: x, behavior: 'instant' }); window.scrollTo({ top: G.top, behavior: 'instant' }); }
-    else window.scrollTo({ top: railYFor(x) + 1, behavior });
+    window.scrollTo({ top: railYFor(x) + 1, behavior });
+    heading = it.el.querySelector('h1, h2');
+  } else if (it) {
+    // the first object is the top of the page; the others sit below the bar
+    const y = it === G.items[0] ? 0 : Math.max(0, docTop(it.el) - chromeH() - 16);
+    window.scrollTo({ top: y, behavior });
+    idxLock = { id, y, until: performance.now() + 1500 };
+    setActive(id);
     heading = it.el.querySelector('h1, h2');
   } else {
     const el = document.getElementById(id);
     if (!el) return;
-    const y = el.getBoundingClientRect().top + scrollY - (id === 'rezervasyon' ? 0 : 40);
-    window.scrollTo({ top: y + (id === 'rezervasyon' ? Math.round(innerHeight * 0.3) : 0), behavior });
+    idxLock = null; idx.x = NaN;
+    const pinned = id === 'rezervasyon' && closeAct.getAttribute('data-sc-act') === 'pin';
+    const y = docTop(el) - (pinned ? 0 : 40);
+    window.scrollTo({ top: y + (pinned ? Math.round(innerHeight * 0.3) : 0), behavior });
     heading = el.querySelector('h2');
   }
-  if (heading) { heading.setAttribute('tabindex', '-1'); heading.focus({ preventScroll: true }); }
+  // focus follows the jump; the rail's focus handler must not turn the glide into a cut
+  if (heading) { heading.setAttribute('tabindex', '-1'); jumping = true; heading.focus({ preventScroll: true }); jumping = false; }
 }
+let jumping = false;
 document.addEventListener('click', (e) => {
   const a = e.target.closest('[data-jump]');
   if (!a) return;
@@ -328,6 +397,7 @@ document.addEventListener('click', (e) => {
 });
 // Keyboard focus that lands inside the rail brings its object to the middle.
 rail.addEventListener('focusin', (e) => {
+  if (still || jumping) return;
   const item = e.target.closest('.ex');
   if (!item) return;
   const it = G.items.find((i) => i.el === item);
@@ -337,14 +407,19 @@ rail.addEventListener('focusin', (e) => {
 });
 
 // ------------------------------------------------------------ foreground art
-function drawBloom(cv) {
+// Drawn once, at 0.6 of its CSS size (the branch is out of focus anyway; the
+// blur is a CSS filter the compositor applies), off screen and in short slices
+// so the boot never holds the main thread, then shown in one go.
+async function drawBloom(cv) {
   const box = cv.getBoundingClientRect();
   const dpr = Math.min(devicePixelRatio || 1, 1.5);
   const w = Math.max(1, Math.round(box.width * dpr)), h = Math.max(1, Math.round(box.height * dpr));
-  cv.width = w; cv.height = h;
-  const g = cv.getContext('2d');
-  const off = document.createElement('canvas'); off.width = w; off.height = h;
+  const k = 0.6 / dpr; // backing store per unit of the drawing space below
+  const off = document.createElement('canvas');
+  off.width = Math.max(1, Math.round(w * k)); off.height = Math.max(1, Math.round(h * k));
   const o = off.getContext('2d');
+  o.scale(off.width / w, off.height / h);
+  const pause = () => new Promise((res) => setTimeout(res, 0));
   let s = 17; const r = () => ((s = (s * 16807) % 2147483647) / 2147483647);
   const S0 = Math.min(w, h * 1.4);
   // branch
@@ -375,15 +450,19 @@ function drawBloom(cv) {
     const y = (branch[k][1] + (branch[k + 1][1] - branch[k][1]) * u) * h + (r() - 0.2) * S0 * 0.16;
     clusters.push([x, y]);
   }
-  for (let i = 0; i < 44; i++) { const [x, y] = clusters[i % clusters.length]; leaf(x + (r() - 0.5) * 40, y + (r() - 0.5) * 30, r() * Math.PI * 2, S0 * (0.07 + r() * 0.05)); }
-  clusters.forEach(([x, y]) => {
+  for (let i = 0; i < 44; i++) {
+    const [x, y] = clusters[i % clusters.length]; leaf(x + (r() - 0.5) * 40, y + (r() - 0.5) * 30, r() * Math.PI * 2, S0 * (0.07 + r() * 0.05));
+    if (i % 11 === 10) await pause();
+  }
+  for (let c = 0; c < clusters.length; c++) {
+    const [x, y] = clusters[c];
     const L = S0 * (0.04 + r() * 0.03), base = r() * Math.PI * 2, hue = 318 + r() * 12;
     for (let j = 0; j < 3; j++) bract(x, y, base + j * 2.1 + (r() - 0.5) * 0.4, L, hue);
     o.fillStyle = '#f4ecd0'; o.beginPath(); o.arc(x, y, L * 0.09, 0, Math.PI * 2); o.fill();
-  });
-  g.filter = `blur(${(3.2 * dpr).toFixed(1)}px)`;
-  g.drawImage(off, 0, 0);
-  g.filter = 'none';
+    if (c % 6 === 5) await pause();
+  }
+  cv.width = off.width; cv.height = off.height;
+  cv.getContext('2d').drawImage(off, 0, 0);
 }
 function buildLights(svg) {
   const NS = 'http://www.w3.org/2000/svg';
@@ -411,39 +490,123 @@ function buildLights(svg) {
   }
   svg.append(glows, el('path', { class: 'lights__wire', d }), bulbs);
 }
-buildLights(document.getElementById('lights'));
+
+// ------------------------------------------------------------ the stills
+// Each object as a photograph of its own hour, rendered from the same scene.
+// Loaded only when the stills are shown.
+function enterStill() {
+  if (still) return;
+  still = true;
+  root.classList.add('stills');
+  root.classList.remove('rail-settle', 'gl-on');
+  rail.style.transform = '';
+  poster.style.transform = '';
+  win.classList.remove('window--slide');
+  fgBloom.style.transform = '';
+  for (const it of items) { const l = it.querySelector('.ex__label'); if (l) l.style.removeProperty('--settle'); }
+  addStills();
+  relayout();
+  if (engine && engine.layout) engine.layout();
+}
+function addStills() {
+  for (const el of items) {
+    const slot = el.querySelector('.ex__slot');
+    if (!slot || !el.dataset.obj || el.classList.contains('ex--entrance') || slot.firstChild) continue;
+    const img = document.createElement('img');
+    img.className = 'ex__still';
+    img.alt = '';
+    img.width = 720; img.height = 900;
+    img.decoding = 'async';
+    img.loading = 'lazy';
+    img.src = new URL(`../img/still-${el.dataset.obj}.webp`, import.meta.url).href;
+    slot.appendChild(img);
+  }
+}
 
 // ------------------------------------------------------------ WebGL
-let scene = null, noGL = false, stageVisible = true, dprScale = 1;
-function webglOK() { try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) { return false; } }
+// The poster is the first frame. The scene (three.js, the sea, the sky) is
+// loaded on the visitor's first move (scroll, wheel, touch, pointer, key) or,
+// if none comes, a few seconds after the page has loaded and gone quiet.
+let scene = null, stageVisible = true, dprScale = 1, soft = false, glState = 0, glLive = false, posterGone = false;
+// Renderer check: no WebGL, or a software rasteriser (no GPU, a blocked driver,
+// some VMs and remote desktops), gets the stills. With ?gl=1 a software
+// rasteriser keeps the 3D at fewer pixels, without moving water or MSAA.
+function probeGL() {
+  try {
+    const c = document.createElement('canvas');
+    const g = c.getContext('webgl2') || c.getContext('webgl');
+    if (!g) return null;
+    let name = String(g.getParameter(g.RENDERER) || '');
+    if (/webkit|mozilla/i.test(name)) { const ext = g.getExtension('WEBGL_debug_renderer_info'); if (ext) name = String(g.getParameter(ext.UNMASKED_RENDERER_WEBGL) || name); }
+    const lose = g.getExtension('WEBGL_lose_context'); if (lose) lose.loseContext();
+    return { soft: /swiftshader|llvmpipe|softpipe|software|basic render/i.test(name), name };
+  } catch (e) { return null; }
+}
 function glFail(why) {
-  noGL = true; root.classList.add('no-gl'); root.classList.remove('gl-on');
+  scene = null; glState = -1; glLive = false;
+  root.classList.add('no-gl'); root.classList.remove('gl-on');
   if (why) console.warn('[kusluk] 3D off:', why);
+  if (!CAPTURE) enterStill();
 }
 function horizonFrac() { return G.vw < 760 ? 0.5 : 0.52; }
-function resizeGL() {
-  if (!scene) return;
+function dprCap() {
+  if (CAPTURE) return 2;
+  if (soft) return G.vw < 760 ? 0.8 : 0.6;
+  return lowPower ? 1.25 : 1.5;
+}
+function resizeGL(sc = scene) {
+  if (!sc || still) return;
   const w = win.clientWidth, h = win.clientHeight;
-  const cap = CAPTURE ? 2 : lowPower ? 1.25 : 1.5;
-  scene.setSize(w, h, Math.min(devicePixelRatio || 1, cap) * dprScale, horizonFrac());
+  sc.setSize(w, h, Math.min(devicePixelRatio || 1, dprCap()) * dprScale, horizonFrac());
 }
 async function initGL() {
-  if (!webglOK()) return glFail('no WebGL');
+  const probe = probeGL();
+  if (!probe) return glFail('no WebGL');
+  // Without a GPU the sea and the sky cost seconds a frame: show the stills.
+  // ?gl=1 keeps the 3D anyway, at the cheaper settings below (for testing).
+  if (probe.soft && !FORCE_GL && !CAPTURE) { glState = -1; enterStill(); return; }
+  soft = probe.soft && !CAPTURE;
   try {
+    const T0 = performance.now(), lap = (k) => { if (PERF) console.log('[kusluk]', k, Math.round(performance.now() - T0)); };
     const { createScene } = await import('./scene.js');
-    scene = createScene(canvas, { lowPower, capture: !!CAPTURE, waterNormals: new URL('../img/waternormals-512.jpg', import.meta.url).href });
-    canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); scene = null; glFail('context lost'); });
-    resizeGL();
-    scene.setSun(S.t);
-    scene.place(lastX < 0 ? 0 : lastX, slots);
-    scene.flushEnv();
-    scene.render(0, false);
-    requestAnimationFrame(() => root.classList.add('gl-on'));
-    scene.precompile();
-  } catch (err) { scene = null; glFail(err && err.message); }
+    lap('import');
+    if (still) return;
+    const sc = createScene(canvas, { lowPower: lowPower || soft, soft, capture: !!CAPTURE, waterNormals: new URL('../img/waternormals-512.jpg', import.meta.url).href });
+    lap('create');
+    canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); glFail('context lost'); });
+    resizeGL(sc);
+    sc.setSun(S.t);
+    sc.place(lastX < 0 ? 0 : lastX, slots);
+    sc.flushEnv();
+    lap('env');
+    // Compile the materials before the first frame, off the main thread where
+    // the driver allows it, so the frame that replaces the poster does not stall.
+    await sc.precompile();
+    lap('compiled ' + sc.renderer.info.programs.length);
+    if (still || glState < 0) return;
+    scene = sc; glState = 2; // the frame loop draws the first frame and lifts the poster
+  } catch (err) { glFail(err && err.message); }
 }
+function startGL() {
+  if (glState || still) return;
+  glState = 1;
+  for (const t of KICKS) removeEventListener(t, startGL, true);
+  initGL();
+}
+const KICKS = ['scroll', 'wheel', 'touchstart', 'pointerdown', 'keydown'];
+function armGL() {
+  if (still || params.get('gl') === '0') return; // ?gl=0: the walk on the poster alone (testing)
+  if (CAPTURE) { startGL(); return; }
+  for (const t of KICKS) addEventListener(t, startGL, { capture: true, passive: true });
+  const idle = () => { if ('requestIdleCallback' in window) requestIdleCallback(startGL, { timeout: 2000 }); else startGL(); };
+  const later = () => setTimeout(idle, 4500);
+  if (document.readyState === 'complete') later(); else addEventListener('load', later, { once: true });
+}
+// Draw only while the window itself is on screen. Drawing into a canvas that has
+// scrolled away (the stage's lower half can still show) stalled the page for a
+// second at the end of the walk.
 if ('IntersectionObserver' in window) {
-  new IntersectionObserver((es) => { for (const e of es) stageVisible = e.isIntersecting; }, { rootMargin: '40px' }).observe(stage);
+  new IntersectionObserver((es) => { for (const e of es) stageVisible = e.isIntersecting; }).observe(win);
 }
 
 // ------------------------------------------------------------ the frame
@@ -453,6 +616,8 @@ function frame(now) {
   const dt = Math.min((now - last) / 1000, 0.1); last = now;
   const x = railX();
   if (x !== lastX) { lastX = x; applyRail(x); }
+  const sy = scrollY;
+  if (x !== idx.x || sy !== idx.y) { idx.x = x; idx.y = sy; updateIndex(x); }
   tickSun(now);
   const ta = performance.now();
   applySun(S.t);
@@ -462,8 +627,14 @@ function frame(now) {
     scene.place(x, slots);
     scene.setSun(S.t, dragging);
     const tc = performance.now();
-    const drew = scene.render(dt, !reduce && !CAPTURE);
+    const drew = scene.render(dt, !CAPTURE && !soft);
     const td = performance.now();
+    if (drew && !glLive) {
+      // the canvas fades in over the poster; the poster keeps tracking the rail until it is covered
+      glLive = true; root.classList.add('gl-on');
+      if (PERF) console.log('[kusluk] first frame', Math.round(td - tc), scene.renderer.info.programs.map((p) => p.name + ':' + p.cacheKey.length).join(' | '));
+      setTimeout(() => { posterGone = true; }, 520);
+    }
     if (PERF) PERF.push([+(tb - ta).toFixed(2), +(tc - t0).toFixed(2), +(td - tc).toFixed(2)]);
     // Fill-rate guard: if drawing itself stays slow, render fewer pixels.
     if (drew && !CAPTURE && frames++ > 60) {
@@ -477,7 +648,8 @@ function frame(now) {
   }
 }
 
-function relayout() { measure(); measureTrack(); resizeGL(); applyRail(railX()); applySun(S.t, true); }
+const idx = { x: NaN, y: NaN };
+function relayout() { measure(); measureTrack(); resizeGL(); applyRail(railX()); idx.x = NaN; applySun(S.t, true); }
 let rw = innerWidth;
 addEventListener('resize', () => {
   if (lowPower && innerWidth === rw) return; // URL bar show/hide on phones
@@ -486,22 +658,30 @@ addEventListener('resize', () => {
 });
 
 // boot
+if (still) addStills();
 measure();
 measureTrack();
 S.t = G.anchors[0].t;
 applyRail(railX());
 applySun(S.t, true);
-updatePreview();
-if (!CAPTURE) drawBloom(document.getElementById('bloom'));
+// Below-the-fold and decorative work waits for the first frame, so the boot
+// task stays short and reads no layout after the page tokens are written.
+requestAnimationFrame(() => setTimeout(() => {
+  updatePreview();
+  buildLights(document.getElementById('lights'));
+  if (!CAPTURE) drawBloom(document.getElementById('bloom'));
+}, 0));
 if (CAPTURE && params.has('t')) { S.mode = 'manual'; S.t = clamp(Number(params.get('t')), 0, 1); }
 document.fonts && document.fonts.ready.then(() => { requestAnimationFrame(relayout); });
 requestAnimationFrame(frame);
-initGL();
+armGL();
 
 // test hooks for the verification scripts (read-only state + a sun setter)
 window.__kusluk = {
   get t() { return S.t; }, get mode() { return S.mode; }, get railX() { return lastX; }, get over() { return G.over; },
   setSun(t) { setManual(t, false); }, auto() { follow.click(); }, get gl() { return !!scene; }, get dpr() { return dprScale; },
+  get live() { return glLive; }, get soft() { return soft; }, get still() { return still; },
+  jump: (id) => jumpTo(id, true), startGL: () => startGL(), toStills: () => enterStill(),
   perf: () => PERF,
   geometry: () => ({ top: G.top, h: G.h, vh: G.vh, over: G.over, anchors: G.anchors.map((a) => [Math.round(a.x), +a.t.toFixed(3)]) }),
 };

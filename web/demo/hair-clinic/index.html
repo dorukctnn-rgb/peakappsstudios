@@ -7,13 +7,14 @@
 <meta name="description" content="A design demo by Peak Apps Studio for a fictional hair clinic in Antalya: one head, followed from the day of the procedure to month twelve.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#10221F">
-<link rel="alternate" hreflang="en" href="/web/demo/hair-clinic/">
-<link rel="alternate" hreflang="tr" href="/web/demo/hair-clinic/tr/">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/web/demo/hair-clinic/">
+<link rel="alternate" hreflang="tr" href="https://peakappsstudio.com/web/demo/hair-clinic/tr/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/web/demo/hair-clinic/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2310221F'/%3E%3Cpath d='M9 22c2-7 5-11 7-11s5 4 7 11' fill='none' stroke='%23E8873A' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preload" href="assets/fonts/hahmlet-tutam.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hedvig-sans-tutam.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" href="assets/posters/p0-d.webp" media="(min-width: 761px) and (min-aspect-ratio: 4/5)">
-<link rel="preload" as="image" href="assets/posters/p0-m.webp" media="(max-width: 760px), (max-aspect-ratio: 4/5)">
+<link rel="preload" as="image" href="assets/posters/p0-d.webp" media="(min-width: 761px) and (min-aspect-ratio: 4/5)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/posters/p0-m.webp" media="(max-width: 760px), (max-aspect-ratio: 4/5)" fetchpriority="high">
 <link rel="stylesheet" href="assets/vendor/scrollcraft.css">
 <link rel="stylesheet" href="assets/tutam.css">
 <script type="importmap">{ "imports": { "three": "/web/demo/_lib/three-0.180.0/three.module.min.js" } }</script>
@@ -47,9 +48,9 @@
 <div class="sc-grain" aria-hidden="true"></div>
 
 <header class="bar">
-  <a class="mark" href="#before" aria-label="Tutam hair clinic, back to the top">
+  <a class="mark" href="#before">
     <span class="mark__name">Tutam</span>
-    <span class="mark__place">Hair clinic, Antalya</span>
+    <span class="mark__place">Hair clinic, Antalya<span class="visually-hidden">, back to the top</span></span>
   </a>
   <a class="lang" href="tr/" hreflang="tr" lang="tr">Türkçe</a>
 </header>
@@ -71,7 +72,7 @@
 <main>
   <section id="before" data-sc-act="pin" data-sc-span="1.5">
     <div data-sc-stage class="st">
-      <div class="scrim scrim--left" aria-hidden="true"></div>
+      <div class="scrim scrim--left" aria-hidden="true" data-sc-cue="0 0.97 0 0.1" data-sc-rise="0"></div>
       <div class="copy copy--hero" data-sc-cue="0 0.96 0 0.08">
         <div class="greet">
           <h1 class="h1">A hair transplant takes a year. This is that year.</h1>
@@ -83,7 +84,7 @@
 
   <section id="thinning" data-sc-act="pin" data-sc-span="1.9">
     <div data-sc-stage class="st">
-      <div class="scrim scrim--right" aria-hidden="true"></div>
+      <div class="scrim scrim--right" aria-hidden="true" data-sc-cue="0.02 0.97 0.12 0.1" data-sc-rise="0"></div>
       <div class="copy copy--trail" data-sc-cue="0.06 0.95 0.2 0.1">
         <h2 class="h2">It usually starts at the crown or the temples.</h2>
         <p>Hair on top thins slowly, over years. The back and sides tend to keep their density, and a transplant works with that difference.</p>
@@ -93,7 +94,7 @@
 
   <section id="day-0" data-sc-act="pin" data-sc-span="2.5">
     <div data-sc-stage class="st">
-      <div class="scrim scrim--left" aria-hidden="true"></div>
+      <div class="scrim scrim--left" aria-hidden="true" data-sc-cue="0.02 0.97 0.1 0.1" data-sc-rise="0"></div>
       <div class="copy copy--mid" data-sc-cue="0.05 0.95 0.14 0.1">
         <h2 class="h2">Day 0. Your own hair, moved one follicle at a time.</h2>
         <p>With FUE, the doctor takes small groups of one to four hairs from the back of the head and places them where the hair has thinned, along a hairline drawn for your face. It is done under local anaesthesia and takes most of a day.</p>
@@ -109,7 +110,7 @@
     <span class="anchor" id="m-9" style="top: calc(0.60 * 460vh)"></span>
     <span class="anchor" id="m-12" style="top: calc(0.79 * 460vh)"></span>
     <div data-sc-stage class="st">
-      <div class="scrim scrim--left" aria-hidden="true"></div>
+      <div class="scrim scrim--left" aria-hidden="true" data-sc-cue="0 1 0 0.03" data-sc-rise="0"></div>
       <div class="copy copy--month" data-sc-cue="0 0.13 0 0.3">
         <h3 class="h3">Month 1</h3>
         <p>The new hairs fall out. It looks as if nothing happened, and that is expected: the follicles stay under the skin and rest.</p>

@@ -7,7 +7,9 @@
 <meta name="description" content="Üç Koltuk is a fictional three-chair barber in Muratpaşa, Antalya: a design demo by Peak Apps Studio with a live chair board and WhatsApp booking.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#CF2A26">
-<link rel="alternate" hreflang="tr" href="tr/">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/web/demo/barber/">
+<link rel="alternate" hreflang="tr" href="https://peakappsstudio.com/web/demo/barber/tr/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/web/demo/barber/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23CF2A26'/%3E%3Crect x='12' y='4' width='8' height='24' rx='4' fill='%23F3F5F2' stroke='%23141619' stroke-width='2'/%3E%3Cpath d='M12 9l8-4M12 15l8-4M12 21l8-4M12 27l8-4' stroke='%23CF2A26' stroke-width='2.4'/%3E%3C/svg%3E">
 <link rel="preload" href="assets/fonts/LeagueGothic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/SUSE.woff2" as="font" type="font/woff2" crossorigin>
@@ -18,13 +20,13 @@
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="bar" id="bar">
-  <a class="mark" href="#top" aria-label="Üç Koltuk, back to the top">
-    <span class="mark__pole" aria-hidden="true"></span>
+  <a class="mark" href="#top">
+    <span class="mark__pole" aria-hidden="true"><span class="mark__stripes"></span></span>
     <span class="mark__name">Üç Koltuk</span>
-    <span class="mark__sub">Barber, Muratpaşa</span>
+    <span class="mark__sub">Barber, Muratpaşa<span class="vh">, back to the top</span></span>
   </a>
-  <button class="mini" id="mini" type="button" aria-controls="sheet" aria-expanded="false" aria-label="Open the chair board">
-    <noscript>Chair board</noscript>
+  <button class="mini" id="mini" type="button" aria-controls="sheet" aria-expanded="false">
+    <span class="vh" id="mini-label">Open the chair board</span>
   </button>
   <button class="bar__cta" id="cta" type="button" aria-controls="sheet" aria-expanded="false">Hold a chair</button>
 </header>
@@ -39,7 +41,7 @@
   <p class="sheet__foot" id="sheet-foot" aria-live="polite"></p>
 </section>
 
-<a class="badge" href="/web/">Design demo by Peak Apps Studio. Fictional barber.</a>
+<aside aria-label="About this demo"><a class="badge" href="/web/">Design demo by Peak Apps Studio. Fictional barber.</a></aside>
 
 <main id="main">
 
@@ -51,8 +53,8 @@
     </div>
     <div class="hero__scene" id="hero-scene" aria-hidden="true">
       <picture>
-        <source media="(max-width: 860px)" srcset="assets/img/hero-pole-phone.webp">
-        <img src="assets/img/hero-pole.webp" alt="" width="1600" height="1000" fetchpriority="high">
+        <source media="(max-width: 860px)" srcset="assets/img/hero-pole-phone.webp" width="487" height="593">
+        <img src="assets/img/hero-pole.webp" srcset="assets/img/hero-pole.webp 1600w, assets/img/hero-pole-2800.webp 2800w" sizes="160vh" alt="" width="1600" height="1000" fetchpriority="high">
       </picture>
     </div>
   </section>
@@ -215,7 +217,7 @@
         <path d="M0 430 C 120 400, 210 450, 330 420 S 560 380, 660 410 S 760 440, 800 420 L 800 560 L 0 560 Z" fill="#9CCBD8"/>
         <text class="sea-l" x="250" y="520">Mediterranean</text>
         <path d="M0 405 C 120 375, 210 425, 330 395 S 560 355, 660 385 S 760 415, 800 395" fill="none" stroke="#141619" stroke-width="10" stroke-linecap="round"/>
-        <text x="560" y="355">Coast road</text>
+        <text x="642" y="362">Coast road</text>
         <g stroke="#C4CAC6" stroke-width="16" stroke-linecap="square">
           <line x1="80" y1="40" x2="110" y2="380"/><line x1="250" y1="40" x2="270" y2="390"/><line x1="430" y1="40" x2="440" y2="370"/><line x1="610" y1="40" x2="620" y2="380"/>
           <line x1="40" y1="120" x2="760" y2="100"/><line x1="40" y1="240" x2="760" y2="220"/>
@@ -225,7 +227,7 @@
         <path class="route" pathLength="1" d="M520 372 L 520 300 L 440 300 L 440 236" fill="none" stroke="#A91F1B" stroke-width="6" stroke-dasharray="1" stroke-linecap="round"/>
         <g transform="translate(428 168)"><rect x="0" y="0" width="24" height="64" rx="12" fill="#F3F5F2" stroke="#141619" stroke-width="3"/><path d="M0 12l24-10M0 26l24-10M0 40l24-10M0 54l24-10" stroke="#CF2A26" stroke-width="5"/></g>
         <text x="462" y="196">Üç Koltuk</text>
-        <text x="60" y="80">Muratpaşa</text>
+        <text x="124" y="80">Muratpaşa</text>
       </svg>
       <div class="svc-copy" data-sc-cue="0.06 0.95 0.14 0.07">
         <h2 class="d d-lg" id="h-map">Muratpaşa, Antalya</h2>
@@ -306,9 +308,11 @@
   "free": "Free",
   "you": "You",
   "currency": "TL",
-  "cellFree": "{chair} {n}, {barber}, {time}: free. Pick a service.",
-  "cellTaken": "{chair} {n}, {time}: taken.",
-  "cellYou": "{chair} {n}, {time}: yours, {svc}. Change it.",
+  "cellPre": "{chair} {n}, {barber}, ",
+  "cellFree": ". Pick a service.",
+  "cellTaken": ".",
+  "cellBooked": ", taken.",
+  "cellYou": ": {svc}. Change it.",
   "pickerTitle": "{chair} {n}, {barber}, {time}",
   "pickerSub": "Pick up to two. You can still change it before you send.",
   "hintFree": "Tap a free slot to hold it.",

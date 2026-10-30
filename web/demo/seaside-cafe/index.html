@@ -1,22 +1,29 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="rail-settle sc-ready">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Kuşluk: seaside café in Antalya (design demo)</title>
 <meta name="description" content="A Peak Apps Studio design demo for a fictional café in Antalya. Drag the sun: the sea, the light, the page and the menu go from morning to sunset.">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#E2EAEB">
+<meta name="theme-color" content="#dde6e9">
 <meta property="og:title" content="Kuşluk: seaside café in Antalya (design demo)">
 <meta property="og:description" content="Design demo by Peak Apps Studio. Fictional café.">
-<meta property="og:image" content="share/card-1600x1000.webp">
-<link rel="alternate" hreflang="en" href="./">
-<link rel="alternate" hreflang="tr" href="tr/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://peakappsstudio.com/web/demo/seaside-cafe/">
+<meta property="og:image" content="https://peakappsstudio.com/web/demo/seaside-cafe/share/card-1600x1000.webp">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="1000">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/web/demo/seaside-cafe/">
+<link rel="alternate" hreflang="tr" href="https://peakappsstudio.com/web/demo/seaside-cafe/tr/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/web/demo/seaside-cafe/">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230E2431'/><path d='M10 9h12l-1.6 6.2a4 4 0 0 0 0 1.6L22 23H10l1.6-6.2a4 4 0 0 0 0-1.6Z' fill='%23C2620E'/></svg>">
+<link rel="preload" as="image" href="assets/img/poster-phone.webp" media="(max-width: 759px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/poster-tablet.webp" media="(min-width: 760px) and (max-aspect-ratio: 4/5)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/poster-desktop.webp" media="(min-width: 760px) and (min-aspect-ratio: 801/1000)" fetchpriority="high">
 <link rel="preload" href="assets/fonts/hedvig-letters-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/suse-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="modulepreload" href="/web/demo/_lib/three-0.180.0/three.core.min.js">
-<link rel="modulepreload" href="/web/demo/_lib/three-0.180.0/three.module.min.js">
 <link rel="stylesheet" href="assets/css/scrollcraft.css">
 <link rel="stylesheet" href="assets/css/site.css">
 <script type="importmap">
@@ -77,7 +84,7 @@
   <section id="koleksiyon" class="collection" data-sc-act="pan" data-sc-span="8.5" aria-label="The collection: one table through a day">
     <div class="sc-stage stage" data-sc-stage>
       <div class="window" aria-hidden="true">
-        <picture><source media="(max-width: 759px)" srcset="assets/img/poster-phone.webp"><img class="poster" src="assets/img/poster-desktop.webp" alt="" width="1600" height="620"></picture>
+        <picture><source media="(max-width: 759px)" srcset="assets/img/poster-phone.webp" width="780" height="946"><source media="(max-aspect-ratio: 4/5)" srcset="assets/img/poster-tablet.webp" width="1230" height="956"><img class="poster" src="assets/img/poster-desktop.webp" alt="" width="1600" height="620" fetchpriority="high" decoding="async"></picture>
         <canvas id="gl"></canvas>
       </div>
       <div class="fg fg--bloom" aria-hidden="true"><canvas id="bloom"></canvas></div>
@@ -402,7 +409,7 @@
   </div>
 </dialog>
 
-<script src="assets/js/scrollcraft.js"></script>
+<script src="assets/js/scrollcraft.js" defer></script>
 <script type="module" src="assets/js/page.js"></script>
 </body>
 </html>

@@ -179,14 +179,15 @@ function woodTexture() {
 // ------------------------------------------------------------------ the scene
 export function createScene(canvas, opts) {
   const low = !!opts.lowPower;
+  const soft = !!opts.soft; // software rasteriser: same scene, cheaper passes
   const capture = !!opts.capture;
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'high-performance', preserveDrawingBuffer: capture });
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: !soft, alpha: false, powerPreference: 'high-performance', preserveDrawingBuffer: capture });
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = low ? THREE.PCFShadowMap : THREE.PCFSoftShadowMap;
   renderer.shadowMap.autoUpdate = false;
-  if ('transmissionResolutionScale' in renderer) renderer.transmissionResolutionScale = low ? 0.5 : 1;
+  if ('transmissionResolutionScale' in renderer) renderer.transmissionResolutionScale = soft ? 0.35 : low ? 0.5 : 1;
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(30, 1, 0.02, 160000);
@@ -268,7 +269,7 @@ export function createScene(canvas, opts) {
   let needs = true;
   const waterNormals = new THREE.TextureLoader().load(opts.waterNormals, (t) => { t.wrapS = t.wrapT = THREE.RepeatWrapping; needs = true; });
   waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping;
-  const rt = low ? 192 : 512;
+  const rt = soft ? 128 : low ? 192 : 512;
   const water = new Water(new THREE.PlaneGeometry(160000, 160000), {
     textureWidth: rt, textureHeight: rt, waterNormals,
     sunDirection: new THREE.Vector3(), sunColor: 0xffffff, waterColor: 0x0b5670,
@@ -298,7 +299,8 @@ export function createScene(canvas, opts) {
   // --- lights
   const sun = new THREE.DirectionalLight(0xffffff, 3);
   sun.castShadow = true;
-  sun.shadow.mapSize.set(low ? 1024 : 2048, low ? 1024 : 2048);
+  const smap = soft ? 512 : low ? 1024 : 2048;
+  sun.shadow.mapSize.set(smap, smap);
   sun.shadow.bias = -0.0004;
   sun.shadow.normalBias = 0.003;
   const sc = sun.shadow.camera;
@@ -324,7 +326,8 @@ export function createScene(canvas, opts) {
   let envRT = null, envAt = -1, envTime = 0;
   function refreshEnv(t, force) {
     const now = performance.now();
-    if (!force && (Math.abs(t - envAt) < 0.008 || now - envTime < (low ? 650 : 180))) return;
+    // a software rasteriser refreshes the reflections only when the light has really changed
+    if (!force && (Math.abs(t - envAt) < (soft ? 0.12 : 0.008) || now - envTime < (soft ? 1500 : low ? 650 : 180))) return;
     envAt = t; envTime = now;
     const old = envRT;
     envRT = pmrem.fromScene(envScene, 0.03, 0.1, 1000);
@@ -760,12 +763,35 @@ export function createScene(canvas, opts) {
 
   // Compile every material up front so the first sight of an object along the
   // walk does not stall a frame on shader compilation.
-  function precompile() {
+  // The mirror and the glass passes draw into render targets, which use their
+  // own shader variants (linear output, no tone mapping): compile those too.
+  // With KHR_parallel_shader_compile the driver does this off the main thread.
+  async function precompile() {
     const vis = {};
     for (const id in objects) { vis[id] = objects[id].visible; objects[id].visible = true; }
-    const done = () => { for (const id in objects) objects[id].visible = vis[id]; };
-    if (renderer.compileAsync) return renderer.compileAsync(scene, camera).then(done, done);
-    renderer.compile(scene, camera); done(); return Promise.resolve();
+    try {
+      const parallel = !!renderer.compileAsync && renderer.extensions.has('KHR_parallel_shader_compile');
+      const yieldTask = () => new Promise((r) => setTimeout(r, 0));
+      const compile = (target) => {
+        const prev = renderer.getRenderTarget();
+        renderer.setRenderTarget(target);
+        try { return parallel ? renderer.compileAsync(scene, camera) : (renderer.compile(scene, camera), yieldTask()); } finally { renderer.setRenderTarget(prev); }
+      };
+      await compile(null);
+      const rt = new THREE.WebGLRenderTarget(4, 4, { type: THREE.HalfFloatType });
+      await compile(rt);
+      rt.dispose();
+      // upload the textures now, a few per task, instead of all in the first frame
+      const texs = new Set();
+      scene.traverse((o) => {
+        const ms = o.material ? (Array.isArray(o.material) ? o.material : [o.material]) : [];
+        for (const m of ms) for (const k in m) { const v = m[k]; if (v && v.isTexture && !v.isRenderTargetTexture) texs.add(v); }
+      });
+      let n = 0;
+      for (const t of texs) { if (t.image) renderer.initTexture(t); if (++n % 3 === 0) await yieldTask(); }
+    } finally {
+      for (const id in objects) objects[id].visible = vis[id];
+    }
   }
 
   return {

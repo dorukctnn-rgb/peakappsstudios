@@ -44,7 +44,10 @@ export function sdf(x, y, z) {
   d = smin(d, ell(x, y, z, 0, 0.03, 0.22, 0.665, 0.74, 0.66), 0.12);
   // face: kept soft and simplified, a sculptor's head rather than a portrait.
   // Thirds: hairline to brow, brow to nose base, nose base to chin.
-  if (z > -0.1 && y < 0.3 && y > -1.3 && ax < 0.82) {
+  // The box only skips work where the face terms cannot reach. It reaches back
+  // to z -0.46 (lower face volume plus its blend); a tighter box cut the field
+  // and left a hard crease down the neck under each ear.
+  if (z > -0.48 && y < 0.3 && y > -1.3 && ax < 0.82) {
     d = smin(d, ell(x, y, z, 0, -0.34, 0.30, 0.55, 0.54, 0.54), 0.16);
     d = smin(d, ell(x, y, z, 0, -0.62, 0.22, 0.42, 0.27, 0.48), 0.18);
     d = smin(d, capsule(ax, y, z, 0.33, -0.60, 0.06, 0.11, -0.82, 0.48, 0.08, 0.09), 0.18);

@@ -11,6 +11,9 @@
   font-weight: 400; font-style: normal; font-display: swap;
 }
 
+/* registered so the glow can glide with a change of still */
+@property --gx { syntax: "<percentage>"; inherits: true; initial-value: 70%; }
+@property --gy { syntax: "<percentage>"; inherits: true; initial-value: 48%; }
 :root {
   /* Palette, named for the brief:
      cypress  #10221F  the page ground, a surgical-drape green gone to night
@@ -32,35 +35,85 @@
   --sc-r-sm: 4px; --sc-r-md: 8px;
   --gut: clamp(1.25rem, 4.6vw, 4.5rem);
   --rail-w: clamp(4.5rem, 7vw, 6.5rem);
-  --gx: 64%; --gy: 46%;
+  --gx: 70%; --gy: 48%;  /* the glow sits behind the opening head (page.js moves it from here) */
   color-scheme: dark;
 }
 
 html { background: var(--cypress); }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not(.is-live) { transition: --gx 420ms var(--sc-ease-out), --gy 420ms var(--sc-ease-out); }
+}
 body { background: transparent; font-size: clamp(1rem, 0.96rem + 0.2vw, 1.1rem); line-height: 1.62; letter-spacing: 0; }
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
 /* ------------------------------------------------------------ the scene -- */
-.scene { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+/* --fw/--fh: the frame the stills were drawn in (1600x1000 desktop, 390x844
+   phone), scaled the way the camera scales the head on this screen. The glow
+   and the stills are both laid out in it, so they line up with the live head. */
+.scene { position: fixed; inset: 0; z-index: 0; pointer-events: none; container-type: size; }
+.scene > * { --fw: min(160cqh, 213.333cqw); --fh: calc(var(--fw) * 0.625); --glow-r: var(--fw); }
 .scene__glow {
   position: absolute; inset: 0;
   background:
-    radial-gradient(42vmax 38vmax at var(--gx) var(--gy), #234640 0%, rgba(30, 60, 54, 0.55) 34%, rgba(16, 34, 31, 0) 70%),
+    radial-gradient(calc(var(--glow-r) * 0.42) calc(var(--glow-r) * 0.38) at var(--gx) calc(var(--gy) + 0.04 * (100cqh - var(--fh))),
+      #234640 0%, rgba(30, 60, 54, 0.55) 34%, rgba(16, 34, 31, 0) 70%),
     linear-gradient(180deg, #0f201d 0%, #10221f 55%, #0c1a18 100%);
 }
-.scene__posters { position: absolute; inset: 0; }
+/* The stills. Each is cropped to the head and set exactly where the live head
+   will draw it: the camera fits the head to min(60% of the height, 80% of the
+   width), so a still drawn on a 390x844 phone (or a 1600x1000 desktop) scales
+   by that same rule on any screen and its offset follows the same view shift.
+   The hand-over to the live head is then the same picture on every screen. */
+.scene__posters { position: absolute; inset: 0; transition: opacity 240ms var(--sc-ease-out); }
 .scene__posters img {
-  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  --feather: calc(var(--fw) * 0.0175);
+  position: absolute; max-width: none;
+  left: calc((0.5 + var(--ox)) * (100cqw - var(--fw)) + var(--cx) * var(--fw));
+  top: calc((0.5 + var(--oy)) * (100cqh - var(--fh)) + var(--cy) * var(--fh));
+  width: calc(var(--cw) * var(--fw)); height: calc(var(--ch) * var(--fh));
+  /* the crop's edge melts into the same ground the page paints */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--feather), #000 calc(100% - var(--feather)), transparent), linear-gradient(180deg, transparent, #000 var(--feather), #000 calc(100% - var(--feather)), transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(90deg, transparent, #000 var(--feather), #000 calc(100% - var(--feather)), transparent), linear-gradient(180deg, transparent, #000 var(--feather), #000 calc(100% - var(--feather)), transparent);
+  mask-composite: intersect;
   opacity: 0; transition: opacity 420ms var(--sc-ease-out);
 }
 .scene__posters img.is-on { opacity: 1; }
+@media (max-width: 760px), (max-aspect-ratio: 4/5) {
+  .scene > * { --fw: min(75cqh, 100cqw); --fh: calc(var(--fw) * 2.164103); --glow-r: var(--fh); }
+  .scene__posters img { --feather: calc(var(--fw) * 0.0615); }
+}
+/* desktop stills (1600x1000 at 1x) */
+.scene__posters img[data-stop="before"] { --ox: 0.2; --oy: 0.02; --cx: 0.5044; --cy: 0.218; --cw: 0.3937; --ch: 0.782; }
+.scene__posters img[data-stop="thin"] { --ox: -0.17; --oy: 0.01; --cx: 0.13; --cy: 0.209; --cw: 0.3944; --ch: 0.791; }
+.scene__posters img[data-stop="day0"] { --ox: 0.18; --oy: 0.03; --cx: 0.4969; --cy: 0.237; --cw: 0.3681; --ch: 0.763; }
+.scene__posters img[data-stop="m1"] { --ox: 0.13; --oy: 0.04; --cx: 0.4462; --cy: 0.25; --cw: 0.3706; --ch: 0.75; }
+.scene__posters img[data-stop="m3"] { --ox: 0.13; --oy: 0.04; --cx: 0.4437; --cy: 0.251; --cw: 0.3769; --ch: 0.749; }
+.scene__posters img[data-stop="m6"] { --ox: 0.13; --oy: 0.04; --cx: 0.4381; --cy: 0.236; --cw: 0.3912; --ch: 0.764; }
+.scene__posters img[data-stop="m9"] { --ox: 0.13; --oy: 0.04; --cx: 0.4394; --cy: 0.233; --cw: 0.3862; --ch: 0.767; }
+.scene__posters img[data-stop="m12"] { --ox: 0.19; --oy: 0.03; --cx: 0.4963; --cy: 0.22; --cw: 0.3906; --ch: 0.78; }
+.scene__posters img[data-stop="close"] { --ox: 0.2; --oy: 0.03; --cx: 0.4781; --cy: 0.146; --cw: 0.4462; --ch: 0.854; }
+@media (max-width: 760px), (max-aspect-ratio: 4/5) {
+  /* phone stills (390x844 at 2x) */
+  .scene__posters img[data-stop="before"] { --ox: -0.05; --oy: -0.17; --cx: 0; --cy: 0.1256; --cw: 0.9308; --ch: 0.6031; }
+  .scene__posters img[data-stop="thin"] { --ox: -0.08; --oy: -0.19; --cx: 0; --cy: 0.1137; --cw: 0.8718; --ch: 0.5723; }
+  .scene__posters img[data-stop="day0"] { --ox: -0.07; --oy: -0.19; --cx: 0; --cy: 0.1161; --cw: 0.8769; --ch: 0.5355; }
+  .scene__posters img[data-stop="m1"] { --ox: 0.02; --oy: -0.13; --cx: 0.0872; --cy: 0.1836; --cw: 0.8718; --ch: 0.5273; }
+  .scene__posters img[data-stop="m3"] { --ox: 0.02; --oy: -0.13; --cx: 0.0872; --cy: 0.186; --cw: 0.8769; --ch: 0.5379; }
+  .scene__posters img[data-stop="m6"] { --ox: 0.02; --oy: -0.13; --cx: 0.0821; --cy: 0.1789; --cw: 0.8872; --ch: 0.5545; }
+  .scene__posters img[data-stop="m9"] { --ox: 0.02; --oy: -0.13; --cx: 0.0795; --cy: 0.1754; --cw: 0.8923; --ch: 0.5616; }
+  .scene__posters img[data-stop="m12"] { --ox: -0.02; --oy: -0.14; --cx: 0.0359; --cy: 0.1635; --cw: 0.8949; --ch: 0.5664; }
+  .scene__posters img[data-stop="close"] { --ox: -0.04; --oy: -0.3; --cx: 0.1; --cy: 0.0273; --cw: 0.7231; --ch: 0.4372; }
+}
 .scene__gl {
   position: absolute; inset: 0; width: 100%; height: 100%;
-  opacity: 0; transition: opacity 600ms var(--sc-ease-out);
+  opacity: 0; transition: opacity var(--live-fade, 600ms) var(--sc-ease-out);
   pointer-events: auto; touch-action: pan-y;
 }
 .is-live .scene__gl { opacity: 1; }
-.is-live .scene__posters { opacity: 0; transition: opacity 600ms var(--sc-ease-out); }
+/* On a still's own spot the still holds until the live frame has faded in
+   over it; elsewhere the two cross (page.js sets which). */
+.is-live .scene__posters { opacity: 0; transition: opacity var(--poster-out, 0s) linear var(--poster-wait, 640ms); }
 @media (hover: hover) and (pointer: fine) {
   .is-live .scene__gl { cursor: grab; }
   .is-live .scene__gl.is-dragging { cursor: grabbing; }
@@ -115,6 +168,14 @@ body { background: transparent; font-size: clamp(1rem, 0.96rem + 0.2vw, 1.1rem);
 }
 .rail ol { list-style: none; margin: 0; padding: 0; position: absolute; inset: 0; }
 .rail li { position: absolute; right: 0; transform: translateY(-50%); }
+/* the stops on the calendar line; page.js moves the dot along the same fractions */
+.rail li[data-t="-1"] { top: 0; }
+.rail li[data-t="0"] { top: 14%; }
+.rail li[data-t="1"] { top: 26%; }
+.rail li[data-t="3"] { top: 42%; }
+.rail li[data-t="6"] { top: 62%; }
+.rail li[data-t="9"] { top: 81%; }
+.rail li[data-t="12"] { top: 100%; }
 .rail a {
   display: flex; align-items: center; justify-content: flex-end; gap: 0.55rem;
   min-height: 30px; padding: 0 1.05rem 0 0.6rem; text-decoration: none;
@@ -146,7 +207,9 @@ body { background: transparent; font-size: clamp(1rem, 0.96rem + 0.2vw, 1.1rem);
 main { position: relative; z-index: 2; pointer-events: none; }
 .st { pointer-events: none; }
 .anchor { position: absolute; left: 0; width: 1px; height: 1px; pointer-events: none; }
-.scrim { position: absolute; pointer-events: none; z-index: 1; }
+/* Each scrim fades with its own copy (data-sc-cue). Left on, it would ride
+   out with its act and drag a dark band across the fixed head between acts. */
+.scrim { position: absolute; pointer-events: none !important; z-index: 1; }
 .scrim--left { inset: 0 45% 0 0; background: linear-gradient(90deg, rgba(14, 30, 27, 0.72) 0%, rgba(14, 30, 27, 0.38) 55%, rgba(14, 30, 27, 0) 100%); }
 .scrim--right { inset: 0 0 0 48%; background: linear-gradient(270deg, rgba(14, 30, 27, 0.72) 0%, rgba(14, 30, 27, 0.38) 55%, rgba(14, 30, 27, 0) 100%); }
 
@@ -242,12 +305,12 @@ main { position: relative; z-index: 2; pointer-events: none; }
 
 /* ---------------------------------------------------------------- phone -- */
 @media (max-width: 760px), (max-aspect-ratio: 4/5) {
-  :root { --gut: 1.25rem; --rail-w: 3.4rem; }
+  :root { --gut: 1.25rem; --rail-w: 3.4rem; --gx: 45%; --gy: 29%; }
   .bar { padding-top: 0.9rem; }
   .mark__name { font-size: 1.4rem; }
   .rail { top: 17vh; bottom: auto; height: 34vh; right: 0.35rem; }
   .rail__cap { width: 6.2rem; font-size: 0.72rem; }
-  .rail a { padding-right: 0.95rem; font-size: 0.92rem; min-height: 28px; }
+  .rail a { padding-right: 0.95rem; font-size: 0.92rem; min-height: 24px; }
   .rail a .unit { display: none; }
   .scrim--left, .scrim--right { inset: 38% 0 0 0; background: linear-gradient(0deg, rgba(14, 30, 27, 0.96) 0%, rgba(14, 30, 27, 0.86) 42%, rgba(14, 30, 27, 0.4) 72%, rgba(14, 30, 27, 0) 100%); }
   .copy--hero, .copy--trail, .copy--mid, .copy--month {
@@ -285,6 +348,7 @@ main { position: relative; z-index: 2; pointer-events: none; }
   .rail { top: 15vh; height: 31vh; }
 }
 @media (min-width: 761px) and (max-height: 640px) {
+  .rail a { min-height: 24px; }
   .plate ul { display: none; }
   .plate__lead { display: none; }
 }

@@ -276,7 +276,15 @@ export function createScene(canvas, data, opts = {}) {
   });
   renderer.setClearColor(0x000000, 0);
   renderer.outputColorSpace = THREE.LinearSRGBColorSpace; // shaders write display-ready sRGB
-  let dprCap = opts.dprCap || (small ? 1.25 : 1.35);
+  // Phones start at the stills' own resolution (2x) so the hand-over from the
+  // opening still is exact; page.js steps down if the GPU cannot keep up.
+  let dprCap = opts.dprCap || (small ? 2 : 1.35);
+  // Strand width follows the head: it is set against the stills (phone 390x844
+  // at 2x, desktop 1600x1000 at 1x) and scales with the head's size on screen
+  // and the drawing resolution, so the hair keeps its weight on every screen.
+  const STRAND_W = small ? 1.7 : 2.1;
+  const ref = opts.still || (small ? { w: 390, h: 844, dpr: 2 } : { w: 1600, h: 1000, dpr: 1 });
+  const headPx = (w, h) => Math.min(0.6 * h, 0.8 * w);   // the camera fit below, in pixels
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(28, 1, 0.1, 60);
@@ -324,7 +332,7 @@ export function createScene(canvas, data, opts = {}) {
     vertexShader: strandVert, fragmentShader: strandFrag,
     uniforms: {
       ...lights,
-      uPx: { value: 0.001 }, uWidthPx: { value: small ? 1.7 : 2.1 },
+      uPx: { value: 0.001 }, uWidthPx: { value: STRAND_W },
       uHair: { value: sRGBtoLinear('#4a3427') },
       uHairYoung: { value: sRGBtoLinear('#5f4636') },
       uScab: { value: sRGBtoLinear('#7c2a20') },
@@ -367,6 +375,7 @@ export function createScene(canvas, data, opts = {}) {
   function resize(w, h) {
     W = Math.max(1, w); H = Math.max(1, h);
     dpr = Math.min(window.devicePixelRatio || 1, dprCap);
+    strandMat.uniforms.uWidthPx.value = Math.max(1.35, STRAND_W * (dpr / ref.dpr) * (headPx(W, H) / headPx(ref.w, ref.h)));
     renderer.setPixelRatio(dpr);
     renderer.setSize(W, H, false);
     camera.aspect = W / H;
@@ -418,5 +427,15 @@ export function createScene(canvas, data, opts = {}) {
   }
 
   function setDprCap(v) { dprCap = v; resize(W, H); }
-  return { state, resize, render, project, setDprCap, renderer, camera, strandsCount: count, dispose: () => renderer.dispose() };
+  // Compile every program before the first visible frame. Where the driver
+  // offers KHR_parallel_shader_compile this happens off the main thread, so
+  // the reader's first scroll does not stall on shader linking.
+  async function warm() {
+    if (!renderer.extensions.has('KHR_parallel_shader_compile')) return; // the first render compiles instead
+    apply();
+    marker.visible = true;
+    try { await renderer.compileAsync(scene, camera); } catch { /* same: the first render compiles */ }
+    apply();
+  }
+  return { state, resize, render, warm, project, setDprCap, get dpr() { return dpr; }, renderer, camera, strandsCount: count, dispose: () => renderer.dispose() };
 }

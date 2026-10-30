@@ -28,9 +28,9 @@
   --sc-hairline-strong: color-mix(in oklab, var(--sc-ink) 22%, transparent);
 
   /* --- type. Two families max. Display carries voice, text carries prose. - */
-  --sc-font-display: "Instrument Sans", "Geist", system-ui, sans-serif;
-  --sc-font-text:    "Geist", system-ui, sans-serif;
-  --sc-font-mono:    "Geist Mono", ui-monospace, monospace;
+  --sc-font-display: "Hedvig Letters Serif", Georgia, serif;
+  --sc-font-text:    "SUSE", "Segoe UI", system-ui, sans-serif;
+  --sc-font-mono:    ui-monospace, "SF Mono", Consolas, monospace;
 
   /* Fluid ramp. Tracking tightens as size grows because a face set at 6rem
      with 0 tracking reads loose; this is optical correction, not decoration. */

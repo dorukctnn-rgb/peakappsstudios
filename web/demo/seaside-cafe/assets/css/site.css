@@ -15,12 +15,15 @@
 }
 
 :root {
-  --ground: #E2EAEB;
-  --ink: #0E2431;
-  --ink-soft: #3D5560;
-  --accent: #0A6A87;
-  --accent-ink: #F4F7F6;
-  --sun-disc: #F2B04A;
+  /* the sun's 07:30 values, written exactly as sun.js writes them, so the
+     first write at boot changes nothing and restyles nothing */
+  --ground: #dde6e9;
+  --ink: #0e2431;
+  --ink-soft: #3d5560;
+  --accent: #0a6a87;
+  --accent-ink: #f4f7f6;
+  --sun-disc: #f6c973;
+  --lamps: 0.00;
   --hair: color-mix(in srgb, var(--ink) 16%, transparent);
   --hair-strong: color-mix(in srgb, var(--ink) 30%, transparent);
   --lip: color-mix(in srgb, #ffffff 55%, var(--ground));
@@ -36,7 +39,10 @@
   --sc-shadow-color: 205 40% 12%;
 
   --bar-h: 56px;
-  --plinth: 62%;
+  /* The window takes 62% of the stage, less on short screens: the labels under
+     it need about 342px above the sun control (1440x900 keeps exactly 62%). */
+  --plinth: max(42%, min(62%, calc(100% - 342px)));
+  --plinth-still: max(42svh, min(62svh, calc(100svh - 342px)));
   --sun-h: 68px;
   --r: 12px;
 }
@@ -107,7 +113,7 @@ a { color: inherit; }
 }
 .badge-strip { display: none; }
 @media (max-width: 759px) {
-  :root { --bar-h: 50px; --plinth: 56%; --sun-h: 60px; }
+  :root { --bar-h: 50px; --plinth: max(42%, min(56%, calc(100% - 272px))); --plinth-still: max(42svh, min(56svh, calc(100svh - 272px))); --sun-h: 60px; }
   .bar { gap: 10px; }
   .bar__brand { font-size: 1.3rem; }
   .bar__end { gap: 10px; }
@@ -121,17 +127,26 @@ a { color: inherit; }
 }
 
 /* ---------------------------------------------------------- collection -- */
+/* the engine writes this height (data-sc-span 8.5); set here first so the first layout is final */
+@media (scripting: enabled) { .collection { position: relative; height: 850vh; } }
 .collection .sc-stage { background: var(--ground); }
 .window {
   position: absolute; inset: 0 0 auto 0; height: var(--plinth);
   overflow: hidden;
-  background: linear-gradient(#b9cddb, #dfe6e6 60%, #4f7d8c 61%, #2f5f70);
+  /* The 07:30 view without its objects (sky, ridge, sea, stone), sampled from
+     the poster: what shows beside the poster while it travels with the rail. */
+  background: linear-gradient(#88a9bb, #a8aeb4 38%, #8a93a6 44%, #62788f 51%, #557693 58%, #5b7f9c 70%, #8c8f8c 74%, #9a9990 76%, #9b9a91 95%, #889292);
 }
 .window canvas, .window .poster {
   position: absolute; inset: 0; width: 100%; height: 100%; display: block;
 }
-.window .poster { object-fit: cover; object-position: 50% 100%; transition: opacity 420ms var(--sc-ease-out); }
-.gl-on .window .poster { opacity: 0; }
+.window .poster { object-fit: cover; object-position: 50% 100%; }
+/* while it travels, the poster's trailing edge melts into the empty view behind it */
+.window--slide .poster { -webkit-mask-image: linear-gradient(90deg, #000 84%, transparent); mask-image: linear-gradient(90deg, #000 84%, transparent); }
+/* The first live frame fades in over the poster, which drops out once covered. */
+.window canvas { opacity: 0; transition: opacity 480ms var(--sc-ease-out); }
+.gl-on .window canvas { opacity: 1; }
+.gl-on .window .poster { opacity: 0; transition: opacity 0s linear 520ms; }
 .plinth {
   position: absolute; inset: var(--plinth) 0 0 0;
   background: var(--ground);
@@ -146,7 +161,7 @@ a { color: inherit; }
 
 .fg { position: absolute; top: 0; left: 0; pointer-events: none; will-change: transform; z-index: 3; }
 .fg--bloom { width: min(52vw, 640px); height: calc(var(--plinth) * 0.62); }
-.fg--bloom canvas { width: 100%; height: 100%; display: block; }
+.fg--bloom canvas { width: 100%; height: 100%; display: block; filter: blur(3.2px); }
 .fg--awning { width: 120vw; height: clamp(54px, 9vh, 92px); top: calc(var(--bar-h) - 1px); }
 .fg--awning svg, .fg--lights svg { width: 100%; height: 100%; display: block; overflow: visible; }
 .fg--lights { width: 210vw; height: calc(var(--plinth) * 0.42); top: calc(var(--bar-h) - 4px); }
@@ -203,20 +218,21 @@ a { color: inherit; }
 .wall .ex__label { left: 8%; right: 8%; }
 .wall__hour {
   font-family: var(--sc-font-display); font-weight: 400; display: block;
-  font-size: clamp(3rem, 1.8rem + 4vw, 6rem); line-height: 0.9; letter-spacing: -0.03em;
-  font-variant-numeric: lining-nums; margin: 0 0 clamp(8px, 1.4vh, 14px);
+  font-size: clamp(3rem, 1.6rem + 3.6vw, 5.4rem); line-height: 0.9; letter-spacing: -0.03em;
+  font-variant-numeric: lining-nums; margin: 0 0 clamp(6px, 1vh, 10px);
 }
 .wall__name { font-family: var(--sc-font-text); font-weight: 600; font-size: 1.05rem; margin: 0 0 4px; letter-spacing: 0; }
 
 .end { width: 36vw; }
 .end .ex__label { left: 8%; right: 10%; }
-.end__links { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 14px; }
+.end__links { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 8px; }
 .textlink { font-weight: 500; text-decoration: underline; text-decoration-color: var(--hair-strong); text-underline-offset: 4px; padding: 6px 0; }
 .textlink:hover { text-decoration-color: currentColor; }
 
 @media (max-width: 759px) {
+  .window { background: linear-gradient(#89aabc, #a9aeb4 37%, #7d8ba0 44%, #56748c 52%, #5b798d 70%, #8e938f 74%, #9b9a92 76%, #9b9a92 95%, #86908f); }
   .ex { width: 80vw; }
-  .ex__label { left: 6%; right: 6%; top: calc(var(--plinth) + 14px); }
+  .ex__label { left: 7%; right: 9%; top: calc(var(--plinth) + 14px); }
   .ex__name { font-size: 1.6rem; margin-bottom: 6px; }
   .ex__line { font-size: 0.94rem; line-height: 1.4; }
   .ex__foot { margin-top: 8px; padding-top: 7px; font-size: 0.9rem; }
@@ -232,6 +248,16 @@ a { color: inherit; }
   .wall__hour { font-size: 3.4rem; }
   .end { width: 84vw; }
 }
+/* Portrait tablets: the objects are sized by the window's height, so the bays
+   get wider and the window a little lower, or the glasses would crowd. */
+@media (min-width: 760px) and (max-aspect-ratio: 4/5) {
+  :root { --plinth: max(42%, min(54%, calc(100% - 342px))); --plinth-still: max(42svh, min(54svh, calc(100svh - 342px))); }
+  .ex { width: 44vw; }
+  .ex--entrance { width: 92vw; }
+  .wall { width: 50vw; }
+  .wall--ogle { width: 62vw; }
+  .end { width: 56vw; }
+}
 @media (max-width: 759px) and (max-height: 700px) {
   .entrance h1 { font-size: 1.9rem; }
   .entrance p { font-size: 0.86rem; line-height: 1.32; }
@@ -240,16 +266,79 @@ a { color: inherit; }
   .ex__line { font-size: 0.88rem; }
   .wall__hour { font-size: 2.6rem; }
 }
+/* Phones held sideways (wide but very short): compact labels and a slimmer sun
+   control, so the labels clear it. */
+@media (min-width: 760px) and (max-height: 520px) {
+  :root { --sun-h: 52px; }
+  .sun { bottom: 8px; }
+  .sun__time { font-size: 1.3rem; }
+  .ex__label, .entrance { top: calc(var(--plinth) + 10px); }
+  .entrance h1 { font-size: 2rem; }
+  .entrance p { margin-top: 6px; font-size: 0.86rem; line-height: 1.32; }
+  .ex__name { font-size: 1.3rem; margin-bottom: 6px; }
+  .ex__line { font-size: 0.86rem; line-height: 1.3; }
+  :root:not(.stills) .ex__line:nth-of-type(2) { display: none; }
+  .ex__foot { margin-top: 6px; padding-top: 6px; font-size: 0.85rem; }
+  .wall__hour { font-size: 2rem; }
+  .wall__name { font-size: 0.92rem; margin-bottom: 2px; }
+  .end__links { margin-top: 2px; font-size: 0.88rem; }
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .rail-settle .ex__label { opacity: var(--settle, 1); transform: translate3d(0, calc((1 - var(--settle, 1)) * 22px), 0); }
 }
-/* Reduced motion: the stage is a native horizontal scroller (engine floor). */
-@media (prefers-reduced-motion: reduce) {
-  .collection .sc-stage { scroll-snap-type: x proximity; }
-  .rail { transform: none !important; position: relative; }
-  .ex { scroll-snap-align: center; }
-  .fg { display: none; }
+/* ------------------------------------------------------------ the stills --
+   Reduced motion, or a browser without a GPU for WebGL: the walk becomes a page
+   that scrolls like any other. The first screen is the same as the walk's (the
+   07:30 window, the name, the first glass); below it the objects follow as
+   photographs of their own hour and the two changes of service as panels in
+   the same grid. Nothing moves; the sun control still sets the page and the menu. */
+.stills .collection { height: auto !important; }
+.stills .collection .sc-stage { position: relative; height: auto; overflow: visible; }
+.stills .window { height: var(--plinth-still); }
+.stills .plinth { inset: var(--plinth-still) 0 auto 0; height: calc(100svh - var(--plinth-still)); }
+.stills #gl, .stills .fg--awning, .stills .fg--lights { display: none; }
+.stills .fg--bloom { height: calc(var(--plinth-still) * 0.62); }
+.stills .rail {
+  position: relative; inset: auto; height: auto; transform: none;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(40px, 5vw, 72px) clamp(20px, 2.6vw, 40px); align-items: start;
+  padding: 0 var(--sc-gutter) calc(var(--sc-section) * 0.6);
+}
+/* the opening keeps the walk's own layout, one screen tall */
+.stills .ex--entrance { grid-column: 1 / -1; height: 100vh; height: 100svh; margin-bottom: calc(-1 * var(--sun-h)); }
+.stills .ex--entrance .ex__slot { display: none; }
+.stills .rail > .ex:not(.ex--entrance) { width: auto; height: auto; margin: 0; }
+.stills .rail > .ex:not(.ex--entrance) .ex__label { position: static; inset: auto; width: auto; }
+.stills .ex__slot { position: relative; inset: auto; height: auto; aspect-ratio: 4 / 5; margin: 0 0 18px; overflow: hidden; border-radius: 3px; background: #9aa9b0; box-shadow: var(--sc-edge), var(--sc-e1); }
+.stills .ex__still { display: block; position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; translate: none; object-fit: cover; object-position: 50% 100%; }
+.stills .rail > .ex:not(.ex--entrance) :is(.ex__line, .ex__foot) { max-width: 34ch; }
+/* the hours as panels the size of a photograph: the light of that hour, the numeral on the stone */
+.stills .wall__hour {
+  aspect-ratio: 4 / 5; display: flex; align-items: flex-end; margin: 0 0 18px; padding: 0 18px 14px;
+  border-radius: 3px; box-shadow: var(--sc-edge), var(--sc-e1); color: #0E2431;
+  font-size: clamp(3.4rem, 2rem + 3.6vw, 6rem);
+}
+.stills .wall--ogle .wall__hour {
+  background:
+    repeating-linear-gradient(90deg, #F4F2EC 0 22px, #1E6F8E 22px 44px) top / 100% 16px no-repeat,
+    linear-gradient(#9cc8e0, #dbe8ec 52%, #3f86a8 52.6%, #2d7393 72%, #d8cfbf 72.6%, #e4dccd);
+}
+.stills #wall-aksam .wall__hour {
+  background: linear-gradient(#e7b49f, #f4d8c2 50%, #8f6378 50.6%, #6f6888 58%, #6a6d8f 72%, #d4b39d 72.6%, #dfc3ad);
+}
+/* the close runs the full width: the numeral, then the lines and the two links */
+.stills .rail > .end { grid-column: 1 / -1; border-top: 1px solid var(--hair-strong); padding-top: clamp(18px, 3vw, 30px); }
+.stills .end .ex__label { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: clamp(20px, 4vw, 56px); align-items: end; }
+.stills .end .wall__hour { grid-row: 1 / span 3; aspect-ratio: auto; display: block; margin: 0; padding: 0; background: none; box-shadow: none; color: inherit; }
+@media (max-width: 699px) {
+  .stills .rail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 559px) {
+  .stills .rail { grid-template-columns: 1fr; gap: 44px; }
+  .stills .ex__slot, .stills .wall__hour { aspect-ratio: 1 / 1; }
+  .stills .end .ex__label { grid-template-columns: 1fr; }
+  .stills .end .wall__hour { grid-row: auto; margin-bottom: 10px; }
 }
 
 /* -------------------------------------------------------------- sun -- */
@@ -369,8 +458,13 @@ a { color: inherit; }
 /* ----------------------------------------------------------- the close -- */
 .close .sc-stage { display: flex; flex-direction: column; justify-content: center; background: var(--ground); }
 .close__inner { width: 100%; max-width: var(--sc-maxw); margin: 0 auto; padding: calc(var(--bar-h) + 24px) var(--sc-gutter) 0; display: grid; grid-template-columns: minmax(0, 44rem) minmax(0, 1fr); gap: clamp(28px, 4vw, 64px); align-items: center; }
-.close--flow .sc-stage { position: relative; height: auto; overflow: visible; }
-.close--flow .close__inner { padding-top: calc(var(--sc-section) * 0.5); }
+/* Pinned where it fits (page.js uses the same test); the act's height is the
+   one the engine writes, set here first so the first layout is already final. */
+@media (scripting: enabled) and (min-width: 760px) and (min-height: 760px) { .close { position: relative; height: 130vh; } }
+@media (max-width: 759px), (max-height: 759px) {
+  .close .sc-stage { position: relative; height: auto; overflow: visible; }
+  .close .close__inner { padding-top: calc(var(--sc-section) * 0.5); }
+}
 .plan { margin: 0; max-width: 34rem; }
 .plan svg { width: 100%; height: auto; display: block; }
 .plan__zone { cursor: pointer; }

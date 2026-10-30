@@ -50,7 +50,8 @@ a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.2em
 
 /* --------------------------------------------------------- engine device floor -- */
 [data-sc-cue] { opacity: 0; will-change: opacity, transform; }
-.sc-split { display: inline-block; overflow: hidden; vertical-align: top; }
+/* split words keep room below the baseline: cedillas (Ş, Ç) and commas hang under it */
+.sc-split { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.14em; margin-bottom: -0.14em; }
 .sc-split--line { display: block; padding-bottom: 0.14em; margin-bottom: -0.14em; }
 .sc-split__i { display: inline-block; will-change: transform, opacity; }
 .sc-is-split { opacity: 1 !important; }
@@ -98,10 +99,14 @@ a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.2em
 .mark { display: grid; grid-template-columns: auto auto; justify-content: start; column-gap: 12px; align-items: center; text-decoration: none; color: #fff; }
 .mark__pole {
   grid-row: span 2; width: 14px; height: 52px; border-radius: 7px; border: 2px solid var(--black);
-  background-color: #fff;
+  background-color: #fff; position: relative; overflow: hidden; isolation: isolate;
+}
+.mark__pole::after { content: ""; position: absolute; inset: 0; box-shadow: inset -3px 0 0 rgba(0,0,0,0.14); border-radius: inherit; }
+/* two stripe periods tall; page.js slides it up one period on the compositor */
+.mark__stripes {
+  position: absolute; left: 0; right: 0; top: 0; height: 600px; will-change: transform;
   background-image: repeating-linear-gradient(-36deg, var(--red) 0 6px, #fff 6px 12px);
-  background-size: 100% 300px; background-position: 0 var(--pole-y, 0px);
-  box-shadow: inset -3px 0 0 rgba(0,0,0,0.14);
+  background-size: 100% 300px;
 }
 .mark__name { font-family: var(--display); font-size: 2.6rem; line-height: 0.9; text-transform: uppercase; letter-spacing: 0.01em; }
 .mark__sub { font-size: 0.8rem; line-height: 1.2; font-weight: 600; letter-spacing: 0.01em; margin-top: 4px; }
@@ -213,7 +218,7 @@ a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.2em
   .grid__n { font-size: 1.05rem; }
   .grid__n small { display: none; }
   .cell { min-height: 46px; font-size: 0.86rem; padding: 4px 3px 4px; letter-spacing: 0.02em; }
-  .cell__t { display: none; }
+  .cell__t { top: 0; left: 0; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } /* the column head shows the time; the name keeps it */
   .sheet__foot { font-size: 0.86rem; }
 }
 
@@ -270,10 +275,13 @@ dialog::backdrop { background: rgba(20, 22, 25, 0.62); }
 .hero { --h: 1; padding: 0; display: block; background: #E6EAE6; }
 .hero__light { position: absolute; inset: 0; background: var(--white); clip-path: polygon(38% 0, 78% 0, 54% 100%, 6% 100%); }
 .hero__scene { position: absolute; inset: 0; z-index: 2; }
-.hero__scene img, .hero__scene canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.hero__scene canvas { opacity: 0; transition: opacity 260ms var(--ease); }
+/* The poster is a render of the live scene at its reference frame: it fills the box's height and
+   stays pinned at the pole (70% across), the same framing the camera uses, so the first live
+   frame lands on it exactly and the swap is a plain cut. */
+.hero__scene canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; }
+.hero__scene img { position: absolute; top: 0; left: 70%; height: 100%; width: auto; max-width: none; transform: translateX(-70%); }
 .hero__scene.is-live canvas { opacity: 1; }
-.hero__scene.is-live img { opacity: 0; transition: opacity 260ms var(--ease) 120ms; }
+.hero__scene.is-live img { visibility: hidden; }
 .hero__copy { position: absolute; z-index: 1; left: var(--gutter); right: var(--gutter); bottom: clamp(1.6rem, 6vh, 4rem); display: grid; gap: clamp(0.8rem, 2vh, 1.4rem); }
 .hero h1 { font-size: var(--hero-fs, clamp(4rem, 1rem + 12vw, 13rem)); max-width: 11ch; line-height: 0.93; }
 .hero .lede { position: relative; z-index: 3; max-width: 30ch; }
@@ -335,15 +343,20 @@ html[lang="en"] .hero h1 { --hero-fs: min(10.4vw, 21vh); max-width: 16ch; }
 /* 8 wax -------------------------------------------------------------------- */
 .wax { --h: 0.65; align-content: center; }
 .wax .d-xl { max-width: 9ch; }
+html[lang="tr"] .wax .d-xl { line-height: 1.04; } /* the cedilla of KAŞ hangs into the next line at 0.95 */
 .wax .lede { margin-top: 1rem; }
 
-/* 9 quiet ------------------------------------------------------------------ */
-.quiet { --h: 0.7; align-content: end; }
-.quiet p { font-family: var(--display); text-transform: uppercase; font-size: clamp(1.7rem, 1.3rem + 1.4vw, 2.6rem); line-height: 1; margin: 0; letter-spacing: 0.02em; max-width: 22ch; }
+/* 9-11 the evening rush ------------------------------------------------------
+   While these three pass, the board hangs over the top of the screen. Each one carries its
+   content low, and hours and walk-in are only as tall as their content plus a short lead, so
+   the gaps stay well under the open window below the board: something is always readable. */
+.quiet { --h: 0.62; align-content: end; }
+.quiet p { font-family: var(--display); text-transform: uppercase; font-size: clamp(2.6rem, 1rem + 4.4vw, 5.8rem); line-height: 1.02; margin: 0; letter-spacing: 0.01em; max-width: 15ch; text-wrap: balance; }
 .quiet__clock { color: var(--accent); font-variant-numeric: tabular-nums; }
+.hours, .walkin { min-height: 0; padding-top: clamp(6rem, 18vh, 11rem); }
 
 /* 10 hours ---------------------------------------------------------------- */
-.hours { --h: 0.85; align-content: end; }
+.hours { align-content: end; }
 .hours__grid { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(1rem, 4vw, 4rem); align-items: end; }
 .letterboard {
   background-color: var(--felt); color: var(--letter);
@@ -357,12 +370,12 @@ html[lang="en"] .hero h1 { --hero-fs: min(10.4vw, 21vh); max-width: 16ch; }
 .letterboard .off { color: var(--letter-dim); }
 
 /* 11 walk-in --------------------------------------------------------------- */
-.walkin { --h: 0.85; align-content: end; }
+.walkin { align-content: end; }
 .walkin__grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(1rem, 4vw, 4rem); align-items: end; }
 .tea { width: clamp(70px, 9vw, 120px); height: auto; }
 
 /* 12 shop ------------------------------------------------------------------- */
-.shop { --h: 1.05; }
+.shop { --h: 1; }
 .shop__grid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(1rem, 4vw, 4rem); align-items: center; }
 .plan { width: 100%; height: auto; color: #FBF4F2; }
 .plan text { font-family: var(--text); font-size: 15px; font-weight: 600; fill: #FBF4F2; }
@@ -406,6 +419,8 @@ html[lang="en"] .hero h1 { --hero-fs: min(10.4vw, 21vh); max-width: 16ch; }
   .close { padding-bottom: 4.5rem; }
   .tea { width: 64px; }
   .kids { padding-bottom: 96px; }
+  .shop { --h: 0.86; }
+  .map { --h: 0.9; }
   .kids__band { height: 64px; }
   .plan text { font-size: 26px; }
   .plan .lbl-d { font-size: 30px; }

@@ -40,10 +40,12 @@ const ACTS = [
     [0.60, { T: 9, az: 482, el: 33 }],
     [0.79, { T: 12, az: 510, el: 30, ox: 0.19, oy: 0.03, m: { ox: -0.02, oy: -0.14 } }],
     [1, { az: 516, el: 29 }]] },
+  // the close: a three-quarter view, the face turned toward the copy, so the
+  // finished hairline reads in profile instead of a mannequin staring back
   { id: 'consult', kf: [
     [0, { yaw: 30, az: 517, el: 25 }],
-    [0.55, { yaw: 131, el: 22, ty: -0.1, dist: 1.0, ox: 0.2, oy: 0.03, m: { ox: -0.04, oy: -0.3, dist: 1.5 } }],
-    [1, { yaw: 133, el: 21 }]] },
+    [0.55, { yaw: 97, el: 17, ty: -0.1, dist: 1.0, ox: 0.2, oy: 0.03, m: { ox: -0.04, oy: -0.3, dist: 1.5 } }],
+    [1, { yaw: 100, el: 16 }]] },
 ];
 const FIELDS = ['T', 'az', 'el', 'dist', 'yaw', 'ty', 'ox', 'oy', 'draw', 'ink'];
 const EPS = { T: 0.002, az: 0.05, el: 0.05, dist: 0.0005, yaw: 0.05, ty: 0.0005, ox: 0.0005, oy: 0.0005, draw: 0.002, ink: 0.002 };
@@ -89,8 +91,16 @@ const actP = (id) => { const g = geo[id]; return g ? Math.min(1, Math.max(0, (sc
 const rail = document.querySelector('.rail');
 const railFill = rail.querySelector('.rail__fill'), railDot = rail.querySelector('.rail__dot');
 const railItems = [...rail.querySelectorAll('li')];
-const railFrac = (T) => (T < 0 ? 0.13 * (1 + Math.max(-1, T)) : 0.13 + 0.87 * Math.min(12, T) / 12);
-railItems.forEach((li) => { li.style.top = (railFrac(parseFloat(li.dataset.t)) * 100).toFixed(2) + '%'; });
+// Stops sit close to their place on a twelve-month line, eased apart just
+// enough that day 0 and month 1 stay separate tap targets on a short phone rail.
+// The stops themselves are placed in tutam.css (same fractions), so they are
+// in place on the first paint.
+const RAIL_T = [-1, 0, 1, 3, 6, 9, 12], RAIL_F = [0, 0.14, 0.26, 0.42, 0.62, 0.81, 1];
+const railFrac = (T) => {
+  if (T <= RAIL_T[0]) return 0;
+  for (let i = 1; i < RAIL_T.length; i++) if (T <= RAIL_T[i]) return RAIL_F[i - 1] + (RAIL_F[i] - RAIL_F[i - 1]) * (T - RAIL_T[i - 1]) / (RAIL_T[i] - RAIL_T[i - 1]);
+  return 1;
+};
 let lastRail = '';
 function updateRail(T) {
   const f = railFrac(T);
@@ -116,16 +126,40 @@ rail.addEventListener('click', (e) => {
 });
 
 /* ------------------------------------------------------------- posters -- */
+/* The stills are the page until the live head takes over, and the whole film
+   with reduced motion or without WebGL. Only the first is in the HTML; the
+   others load as the reader nears them, and a still is shown only once it
+   has decoded, so a stop never flashes an empty frame. */
 const posters = [...document.querySelectorAll('.scene__posters img')];
-let postersReady = false;
-function loadPosters() {
-  if (postersReady) return;
-  postersReady = true;
-  const phone = isPhone();
-  posters.forEach((img) => { const s = phone ? img.dataset.srcM : img.dataset.srcD; if (s && !img.getAttribute('src')) img.src = s; });
+const posterAt = Object.fromEntries(posters.map((img) => [img.dataset.stop, img]));
+const STOPS = posters.map((img) => img.dataset.stop);
+let live = false;
+function ensurePoster(img) {
+  if (!img || img.getAttribute('src') || !img.dataset.srcD) return;
+  img.src = isPhone() ? img.dataset.srcM : img.dataset.srcD;
+}
+let shownStop = 'before';
+function showPoster(stop) {
+  const img = posterAt[stop];
+  const show = () => { if (lastPoster === stop) { shownStop = stop; posters.forEach((p) => p.classList.toggle('is-on', p === img)); kick(); } };
+  ensurePoster(img);
+  if (img.complete && img.naturalWidth) show();
+  else img.decode().then(show, () => {});
+  if (!live) { const i = STOPS.indexOf(stop); ensurePoster(posterAt[STOPS[i + 1]]); ensurePoster(posterAt[STOPS[i - 1]]); }
+}
+// Where each still was rendered (act, pinned progress). Resting there, the
+// still and the live head are the same picture.
+const STILL_AT = { before: ['before', 0], thin: ['thinning', 0.55], day0: ['day-0', 0.92], m1: ['months', 0.04], m3: ['months', 0.21], m6: ['months', 0.4], m9: ['months', 0.6], m12: ['months', 0.79], close: ['consult', 1] };
+const stillY = (stop) => { const [id, p] = STILL_AT[stop]; const g = geo[id]; return Math.round(g.y0 + p * (g.y1 - g.y0)); };
+function onStill(s) {
+  const img = posterAt[lastPoster];
+  if (!img || !img.classList.contains('is-on') || !img.complete) return false;
+  const t = sample(stillY(lastPoster));
+  return Math.abs(t.az - s.az) < 4 && Math.abs(t.el - s.el) < 3 && Math.abs(t.yaw - s.yaw) < 4 && Math.abs(t.T - s.T) < 0.3
+    && Math.abs(t.ox - s.ox) < 0.02 && Math.abs(t.oy - s.oy) < 0.02 && Math.abs(t.dist - s.dist) < 0.03 && Math.abs(t.draw - s.draw) < 0.1;
 }
 let lastPoster = 'before';
-function updatePosters(s) {
+function stopFor(s) {
   let stop = 'before';
   if (actP('consult') > 0.3 && scrollY > geo.consult.y0 - 1) stop = 'close';
   else if (s.T >= 10.5) stop = 'm12';
@@ -135,9 +169,14 @@ function updatePosters(s) {
   else if (s.T >= 0.5) stop = 'm1';
   else if (scrollY > geo['day-0'].y0 - innerHeight * 0.5) stop = 'day0';
   else if (scrollY > geo.thinning.y0 - innerHeight * 0.5) stop = 'thin';
-  if (stop === lastPoster) return;
+  return stop;
+}
+function updatePosters(s, force) {
+  const stop = stopFor(s);
+  if (stop === lastPoster && !force) return;
   lastPoster = stop;
-  posters.forEach((img) => img.classList.toggle('is-on', img.dataset.stop === stop));
+  if (live) { posters.forEach((img) => img.classList.toggle('is-on', img.dataset.stop === stop && !!img.getAttribute('src'))); return; }
+  showPoster(stop);
 }
 
 /* -------------------------------------------------------- plan labels -- */
@@ -165,13 +204,35 @@ let sc = null;
 let cur = null;
 let raf = 0, lastNow = 0;
 const drag = { on: false, yaw: 0, pitch: 0, vx: 0, lastX: 0, lastY: 0, idle: 0 };
-const frameTimes = [];
-let qualityChecked = false;
 const TAU = reduce ? 0 : 140;
+// Frame pacing: a slow GPU gets fewer pixels first; one that still cannot
+// follow a scroll (software rendering, an old phone) hands the story back to
+// the stills, which tell it better than a head that lags a second behind.
+const frameTimes = [];
+let chained = false, quality = 0;
+const KEEP_LIVE = CAPTURE || params.has('live');  // poster renders and tests
+let slowRun = 0;
+function govern(ms) {
+  slowRun = ms > 250 ? slowRun + 1 : 0;
+  if (slowRun >= 4) { quality = 2; retire(); return; }
+  frameTimes.push(ms);
+  const n = frameTimes.length;
+  const m = frameTimes.slice().sort((a, b) => a - b)[n >> 1];
+  if (n < 12 || (n < 36 && m < 120)) return;
+  // each step down gets a fresh measurement before the next decision
+  frameTimes.length = 0;
+  if (m > 150) { quality = 2; retire(); return; }
+  if (m > 24 && sc.dpr > 1) { sc.setDprCap(sc.dpr > 1.3 ? 1.25 : 1); quality = 1; return; }
+  quality = 2;
+  if (m > 70) retire();
+}
 
 function frame(now) {
   raf = 0;
-  const dt = Math.min(80, now - (lastNow || now));
+  const wasChained = chained;
+  chained = false;
+  const gap = now - (lastNow || now);
+  const dt = Math.min(250, gap);
   lastNow = now;
   const target = sample(scrollY);
   if (!target) return;
@@ -194,24 +255,19 @@ function frame(now) {
     Object.assign(sc.state, cur, { draw: cur.draw, markerFade: cur.ink, dragYaw: drag.yaw, dragPitch: drag.pitch });
     sc.render();
     updateLabels(sc, cur);
-    if (!qualityChecked && dt > 0 && dt < 80) {
-      frameTimes.push(dt);
-      if (frameTimes.length >= 50) {
-        qualityChecked = true;
-        const m = frameTimes.slice().sort((a, b) => a - b)[25];
-        if (m > 24) sc.setDprCap(1);  // a slow GPU gets fewer pixels, not a slower page
-      }
-    }
+    if (wasChained && live && quality < 2 && gap > 0 && !KEEP_LIVE) govern(gap);
   }
   updateRail(cur.T);
   updatePosters(cur);
-  doc.style.setProperty('--gx', ((0.5 + cur.ox) * 100).toFixed(1) + '%');
-  doc.style.setProperty('--gy', ((0.46 + cur.oy) * 100).toFixed(1) + '%');
+  // the glow sits behind the head on screen: the live one, or the still's
+  const g = live ? cur : sample(stillY(shownStop));
+  doc.style.setProperty('--gx', ((0.5 + g.ox) * 100).toFixed(1) + '%');
+  doc.style.setProperty('--gy', ((0.46 + g.oy) * 100).toFixed(1) + '%');
   doc.classList.toggle('at-close', actP('consult') > 0.35 && scrollY >= geo.consult.y0 - 2);
   canvas.dataset.scVerifyState = [cur.T.toFixed(2), cur.az.toFixed(1), cur.el.toFixed(1), cur.yaw.toFixed(1), cur.draw.toFixed(2), cur.ox.toFixed(3)].join('|');
   const hold = actP('consult') > 0.6 && scrollY >= geo.consult.y0;
   if (hold) canvas.setAttribute('data-sc-verify-hold', 'true'); else canvas.removeAttribute('data-sc-verify-hold');
-  if (moving || drag.on) kick();
+  if (moving || drag.on) { kick(); chained = true; }
 }
 function kick() { if (!raf && !document.hidden) raf = requestAnimationFrame(frame); }
 
@@ -271,44 +327,139 @@ function startEngine() {
   kick();
 }
 
+// WebGL 2 on real graphics hardware. A software renderer (no GPU, or a
+// blocklisted one) would stall the page compiling the hair, so it keeps the stills.
 function webglOK() {
-  try { const c = document.createElement('canvas'); return !!c.getContext('webgl2'); } catch { return false; }
+  try {
+    const gl = document.createElement('canvas').getContext('webgl2');
+    if (!gl) return false;
+    let name = String(gl.getParameter(gl.RENDERER));
+    if (/^webkit webgl$/i.test(name)) {
+      const info = gl.getExtension('WEBGL_debug_renderer_info');
+      if (info) name = String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL));
+    }
+    const lose = gl.getExtension('WEBGL_lose_context');
+    if (lose) lose.loseContext();
+    return KEEP_LIVE || !/swiftshader|llvmpipe|softpipe|software|basic render/i.test(name);
+  } catch { return false; }
 }
 
+function postersOnly() {
+  live = false;
+  if (sc) { const old = sc; sc = null; requestAnimationFrame(() => old.dispose()); }
+  doc.classList.remove('is-live');
+  doc.classList.add('posters-only');
+  if (cur) updatePosters(cur, true);
+  kick();
+}
+// leave the live head only once the still for this moment has decoded
+let retiring = false;
+function retire() {
+  if (retiring || !cur) return;
+  retiring = true;
+  const img = posterAt[stopFor(cur)];
+  ensurePoster(img);
+  let done = false;
+  const go = () => { if (!done) { done = true; postersOnly(); } };
+  img.decode().then(go, go);
+  setTimeout(go, 2500);
+}
+
+function timeFrames(n) {
+  return new Promise((resolve) => {
+    const gaps = [];
+    let last = performance.now();
+    const step = (t) => {
+      gaps.push(t - last); last = t;
+      if (sc) sc.render();
+      if (gaps.length < n && sc) requestAnimationFrame(step); else resolve(gaps);
+    };
+    requestAnimationFrame(step);
+  });
+}
+
+let booted = false;
 async function bootScene() {
-  if (reduce || !webglOK() || params.has('posters')) { loadPosters(); doc.classList.add('posters-only'); return; }
+  if (booted) return;
+  booted = true;
+  performance.mark('tutam:boot');
+  if (!webglOK()) { postersOnly(); return; }
   const phone = isPhone() || matchMedia('(pointer: coarse)').matches;
   const opts = { cell: phone ? 0.032 : 0.026, strands: phone ? 13000 : 30000 };
-  let data;
+  // the bust is built in a worker while three.js and the scene module load
+  const built = new Promise((resolve, reject) => {
+    const w = new Worker(new URL('./headgen-worker.js', import.meta.url), { type: 'module' });
+    w.onmessage = (e) => { resolve(e.data); w.terminate(); };
+    w.onerror = (e) => { reject(e); w.terminate(); };
+    w.postMessage(opts);
+  }).catch(async () => (await import('./headgen.js')).generate(opts));
   try {
-    data = await new Promise((resolve, reject) => {
-      const w = new Worker(new URL('./headgen-worker.js', import.meta.url), { type: 'module' });
-      w.onmessage = (e) => { resolve(e.data); w.terminate(); };
-      w.onerror = (e) => { reject(e); w.terminate(); };
-      w.postMessage(opts);
-    });
-  } catch {
-    const { generate } = await import('./headgen.js');
-    data = generate(opts);
-  }
-  try {
-    const { createScene } = await import('./scene.js');
-    sc = createScene(canvas, data, { small: phone, capture: CAPTURE, dprCap: CAPTURE ? 2 : undefined });
-    sc.resize(innerWidth, innerHeight);
+    const [data, { createScene }] = await Promise.all([built, import('./scene.js')]);
+    performance.mark('tutam:loaded');
+    const still = isPhone() ? { w: 390, h: 844, dpr: 2 } : { w: 1600, h: 1000, dpr: 1 };  // how the stills were drawn
+    const next = createScene(canvas, data, { small: phone, still, capture: CAPTURE, dprCap: CAPTURE ? 2 : undefined });
+    next.resize(innerWidth, innerHeight);
+    await next.warm();
+    performance.mark('tutam:compiled');
+    sc = next;
     anchors = data.anchors;
-    canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); sc = null; doc.classList.remove('is-live'); loadPosters(); });
+    canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); postersOnly(); });
     cur = null;
     frame(performance.now());
-    requestAnimationFrame(() => { doc.classList.add('is-live'); window.__tutamReady = true; });
+    // A few frames behind the still decide whether the head can follow a
+    // scroll here at all (software rendering cannot); if not, the stills stay.
+    const gaps = await timeFrames(4);
+    if (!sc) return;
+    if (!KEEP_LIVE && gaps.slice(1).sort((a, b) => a - b)[1] > 120) { postersOnly(); return; }
+    performance.mark('tutam:probed');
+    // reveal only after that frame has reached the screen; the stills stay
+    // opaque underneath until the fade is over, so nothing dims on the way
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      if (!sc) return;
+      // On a still's own spot the live frame is the same picture and the long
+      // dissolve is invisible; between spots the still differs, so cut quicker.
+      const exact = onStill(cur);
+      doc.style.setProperty('--live-fade', exact ? '600ms' : '320ms');
+      doc.style.setProperty('--poster-out', exact ? '0s' : '320ms');
+      doc.style.setProperty('--poster-wait', exact ? '640ms' : '0s');
+      live = true;
+      doc.classList.add('is-live');
+      performance.mark('tutam:live');
+      window.__tutamReady = true;
+    }));
   } catch (err) {
     console.warn('[tutam] live head unavailable, showing stills', err);
-    sc = null; loadPosters(); doc.classList.add('posters-only');
+    postersOnly();
   }
+}
+
+/* The live head is the heaviest thing on the page, so it waits: the first
+   still is already the opening frame, and the head is built on the reader's
+   first scroll, touch or key, or a few seconds after load once the page is
+   idle. Reduced motion keeps the stills for the whole story. */
+const WAKE = ['scroll', 'wheel', 'touchstart', 'pointerdown', 'keydown'];
+let wakeTimer = 0;
+function wake() {
+  WAKE.forEach((t) => removeEventListener(t, wake, true));
+  clearTimeout(wakeTimer);
+  // the reader is moving: have the next stills ready before they are needed
+  const i = STOPS.indexOf(lastPoster);
+  ensurePoster(posterAt[STOPS[i + 1]]); ensurePoster(posterAt[STOPS[i - 1]]);
+  // and build the head between frames, never inside the scroll that woke it
+  const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 1));
+  idle(() => bootScene(), { timeout: 600 });
+}
+function armWake() {
+  WAKE.forEach((t) => addEventListener(t, wake, { capture: true, passive: true }));
+  const later = () => { wakeTimer = setTimeout(wake, 4500); };
+  if (document.readyState === 'complete') later(); else addEventListener('load', later, { once: true });
 }
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startEngine); else startEngine();
-bootScene();
+if (reduce || params.has('posters')) postersOnly();
+else if (CAPTURE) bootScene();
+else armWake();
 
 // capture helpers for the poster and share renders (headless only)
 window.__tutamSettled = () => !raf;
-window.__tutam = { get scene() { return sc; }, get anchors() { return anchors; }, get state() { return cur; } };
+window.__tutam = { get scene() { return sc; }, get anchors() { return anchors; }, get state() { return cur; }, posterStops: () => STOPS.map((stop) => ({ stop, y: stillY(stop) })) };
