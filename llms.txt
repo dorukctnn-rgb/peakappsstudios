@@ -80,6 +80,8 @@ Each tool page explains what the tool does, how to use it and its limits; the gu
 
 - [TRAILER WRECK: Derby Racing](https://play.google.com/store/apps/details?id=com.peakapps.trailerwreck): A demolition derby game for Android. Ten cars fight to stay on one moving trailer in three-minute matches, online with friends or offline against AI. Free, no ads, and optional purchases never sell speed or power. The trailer is at the top of https://peakappsstudio.com/.
 - [OkulTakip](https://peakappsstudio.com/apps/okultakip/): Çocuk takip uygulaması OkulTakip: çocuğun okula vardığında, okuldan çıktığında ve eve geldiğinde sen sormadan bildirim gelir. Hesap yok, QR ile eşleşme, deprem modu. iPhone için ücretsiz.
+- [Benchwise: Cut List Optimizer](https://peakappsstudio.com/apps/benchwise/): A cut list optimizer for woodworkers on iPhone and iPad. It lays out plywood sheets and boards with straight edge-to-edge cuts, counts the saw kerf and makes a buy list; ten plans, shop calculators and a guide to 30 woods. Free, with an optional Pro upgrade. App Store: https://apps.apple.com/us/app/benchwise-cut-list-optimizer/id6819391412
+- [Munchlet: Baby Led Weaning](https://peakappsstudio.com/apps/munchlet/): A starting solids and baby-led weaning guide for Android. When and how to serve 89 foods by age, the choking risk of each, a first-foods log and an allergen planner. General information, not medical advice. No account, no ads. Google Play: https://play.google.com/store/apps/details?id=com.peakapps.munchlet
 
 ## Optional
 

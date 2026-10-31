@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Munchlet: baby-led weaning and starting solids app</title>
+<meta name="description" content="Munchlet shows when and how to serve 89 foods for baby-led weaning and starting solids, with a first-foods log and an allergen planner. On Google Play.">
+<link rel="canonical" href="https://peakappsstudio.com/apps/munchlet/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Peak Apps Studio">
+<meta property="og:title" content="Munchlet: baby-led weaning and starting solids app">
+<meta property="og:description" content="Munchlet shows when and how to serve 89 foods for baby-led weaning and starting solids, with a first-foods log and an allergen planner. On Google Play.">
+<meta property="og:url" content="https://peakappsstudio.com/apps/munchlet/">
+<meta property="og:image" content="https://peakappsstudio.com/apps/munchlet/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/display.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"AppDisplay";src:url(fonts/display.woff2) format("woff2");font-weight:700 800;font-display:swap}
+@font-face{font-family:"AppText";src:url(fonts/text.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"AppText";src:url(fonts/text-bold.woff2) format("woff2");font-weight:600;font-display:swap}
+:root{--band:#3F5C15;--band2:#628A26;--brand:#F29E5C;--link:#4B6E19;--ink:#1E271A;--soft:#3A4533;
+--muted:#566050;--page:#F5F6EC;--alt:#FFFFFF;--line:#DCE2CA;--on:#FBFDF3;--on-soft:#E4ECCF;--on-faint:#CAD6AF;
+--yes:#4B6E19;--foot:#1E271A;--shadow:rgba(40,52,24,.24)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink);font:400 17px/1.6 "AppText",system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:var(--link)}a:focus-visible,summary:focus-visible{outline:3px solid var(--brand);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.top{background:var(--band);color:var(--on)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.top a{color:var(--on-soft);text-decoration:none;font-weight:600;font-size:15px}.top a:hover{color:var(--on)}
+.hero{background:radial-gradient(120% 90% at 78% 70%,var(--band2) 0%,var(--band) 62%);color:var(--on);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:center;padding-top:56px;padding-bottom:0}
+.brandrow{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.brandrow img{width:56px;height:56px;border-radius:13px}
+.brandrow b{font:700 22px/1 "AppDisplay",sans-serif;letter-spacing:-.01em}
+h1,h2{font-family:"AppDisplay",sans-serif;font-weight:700;letter-spacing:-.01em;line-height:1.18;margin:0}
+h1{font-size:clamp(32px,5.2vw,54px);max-width:17ch}
+.hero p.sub{font-size:clamp(17px,1.6vw,20px);color:var(--on-soft);max-width:34em;margin:20px 0 28px}
+.badge{display:inline-block;line-height:0;border-radius:10px}
+.badge img{height:56px;width:auto}
+.note{color:var(--on-faint);font-size:15px;margin:14px 0 0}
+.fan{position:relative;height:620px;perspective:1600px;margin-top:10px}
+.fan img{position:absolute;bottom:-150px;width:300px;height:auto;filter:drop-shadow(0 30px 40px rgba(0,0,0,.45))}
+.fan .c{left:50%;transform:translateX(-50%) translateZ(60px);z-index:3;width:320px}
+.fan .l{left:2%;transform:rotateY(24deg) rotateZ(-6deg) translateY(40px);z-index:2}
+.fan .r{right:2%;transform:rotateY(-24deg) rotateZ(6deg) translateY(40px);z-index:2}
+section{padding:84px 0}
+.split .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.split.rev .shot{order:-1}
+h2{font-size:clamp(28px,3.6vw,40px);max-width:18ch;margin-bottom:18px}
+.lead{font-size:19px;color:var(--ink);max-width:36em}
+ul.facts{padding:0;margin:22px 0 0;list-style:none}
+ul.facts li{padding:12px 0 12px 30px;border-top:1px solid var(--line);position:relative}
+ul.facts li:before{content:"";position:absolute;left:4px;top:21px;width:10px;height:10px;border-radius:50%;background:var(--brand)}
+.prem{color:var(--muted);font-size:15px}
+.shot{display:flex;justify-content:center}
+.shot img{width:min(360px,80vw);height:auto;filter:drop-shadow(0 26px 34px var(--shadow))}
+.alt{background:var(--alt)}
+ol.steps{list-style:none;padding:0;margin:28px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:28px;counter-reset:s}
+ol.steps li{counter-increment:s;border-top:3px solid var(--ink);padding-top:16px;font-size:18px}
+ol.steps li:before{content:counter(s);display:block;font:700 40px/1 "AppDisplay",sans-serif;color:var(--link);margin-bottom:10px}
+.small{color:var(--muted);font-size:15px;max-width:52em;margin-top:26px}
+table{width:100%;border-collapse:collapse;margin-top:26px;font-size:16px;background:#fff}
+th,td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--line)}
+th{font-weight:600}td.y{color:var(--yes);font-weight:600}td.n{color:var(--muted)}
+thead th{background:var(--band);color:var(--on)}thead th:first-child{border-top-left-radius:12px}thead th:last-child{border-top-right-radius:12px}
+details{border-top:1px solid var(--line);padding:18px 0}details:last-child{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;font-weight:600;font-size:18px;list-style:none}summary::-webkit-details-marker{display:none}
+details p{margin:10px 0 0;color:var(--soft);max-width:46em}
+.final{background:var(--band);color:var(--on);text-align:center}
+.final h2{margin:0 auto 26px;max-width:20ch}
+footer{background:var(--foot);color:var(--on-faint);font-size:15px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:18px 28px;padding-top:28px;padding-bottom:28px}
+footer a{color:var(--on-soft)}
+@media (max-width:900px){.hero .wrap,.split .wrap{grid-template-columns:1fr}.fan{height:470px}.fan img{width:220px;bottom:-120px}
+.fan .c{width:240px}.split.rev .shot{order:0}ol.steps{grid-template-columns:1fr}section{padding:64px 0}}
+@media (max-width:420px){.fan{height:400px}.fan img{width:180px;bottom:-110px}.fan .c{width:200px}.badge img{height:52px}}
+@media (prefers-reduced-motion:no-preference){.fan .c{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{transform:translateX(-50%) translateY(60px) translateZ(60px);opacity:0}}}
+</style>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "MobileApplication", "name": "Munchlet: Baby Led Weaning", "alternateName": "Munchlet", "operatingSystem": "Android", "applicationCategory": "LifestyleApplication", "inLanguage": "en", "url": "https://peakappsstudio.com/apps/munchlet/", "installUrl": "https://play.google.com/store/apps/details?id=com.peakapps.munchlet", "sameAs": "https://play.google.com/store/apps/details?id=com.peakapps.munchlet", "image": "https://peakappsstudio.com/apps/munchlet/og.jpg", "description": "Munchlet shows when and how to serve 89 foods for baby-led weaning and starting solids, with a first-foods log and an allergen planner. On Google Play.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "Peak Apps Studio", "url": "https://peakappsstudio.com/"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is Munchlet medical advice?", "acceptedAnswer": {"@type": "Answer", "text": "No. Munchlet gives general information about starting solids and does not replace your pediatrician. Ask them about your own baby."}}, {"@type": "Question", "name": "Does Munchlet need an account?", "acceptedAnswer": {"@type": "Answer", "text": "No. There is no account to create and there are no ads."}}, {"@type": "Question", "name": "What can I use for free?", "acceptedAnswer": {"@type": "Answer", "text": "The common first foods and every food with a higher choking risk, the emergency card, five guides and a log of up to 10 foods for one baby. Pro adds the rest of the 89 foods, unlimited tracking, the allergen planner and all 16 guides."}}, {"@type": "Question", "name": "Which languages does Munchlet speak?", "acceptedAnswer": {"@type": "Answer", "text": "English, Spanish, Portuguese, French, German, Italian and Turkish."}}, {"@type": "Question", "name": "Where do I get it?", "acceptedAnswer": {"@type": "Answer", "text": "Munchlet is on Google Play for Android phones. Search for Munchlet or use the button on this page."}}]}]</script>
+</head>
+<body>
+<header class="top"><div class="wrap"><a href="/">Peak Apps Studio</a><a href="https://play.google.com/store/apps/details?id=com.peakapps.munchlet">Google Play</a></div></header>
+<main>
+<div class="hero"><div class="wrap">
+  <div>
+    <div class="brandrow"><img src="img/icon.png" alt="" width="56" height="56"><b>Munchlet</b></div>
+    <h1>When and how to serve your baby’s first foods</h1>
+    <p class="sub">Munchlet is a guide to starting solids and baby-led weaning for Android. Look up 89 foods, see how to cut each one at every age and how risky it is to choke on, and keep a log of what your baby has tried.</p>
+    <a class="badge" href="https://play.google.com/store/apps/details?id=com.peakapps.munchlet"><img src="/assets/home/badge-google-play.png" alt="Get it on Google Play" width="188" height="56"></a>
+    <p class="note">For Android. Free to start, with an optional Pro upgrade. General information, not medical advice.</p>
+  </div>
+  <div class="fan" aria-hidden="true">
+    <img class="l" src="img/foods.webp" alt="" width="300" height="601" loading="eager">
+    <img class="r" src="img/tried.webp" alt="" width="300" height="601" loading="eager">
+    <img class="c" src="img/food.webp" alt="" width="320" height="601" fetchpriority="high">
+  </div>
+</div></div>
+
+
+<section class="split" id="how-to-serve"><div class="wrap">
+  <div><h2>How to serve each food, stage by stage</h2><p class="lead">Every food page shows how to prepare it at 6 to 8 months, 9 to 11 months and 12 months and older: the size, the shape and how soft it should be.</p>
+  <ul class="facts"><li>The choking risk on every food, from low to high, next to how to prepare it</li><li>Foods that are not recommended for babies, such as honey, whole nuts and popcorn, are marked as such</li><li>Nutrient tags such as iron, omega-3, calcium, fiber and vitamin C</li></ul></div>
+  <div class="shot"><img src="img/food.webp" alt="Munchlet food page for avocado: low choking risk, and how to serve it at 6 to 8 months, 9 to 11 months and 12 months and older" width="360" height="721" loading="lazy"></div>
+</div></section>
+
+
+
+<section class="split rev alt" id="foods"><div class="wrap">
+  <div><h2>89 foods, searchable and filtered by age</h2><p class="lead">Search a food by name, or filter the list to what suits your baby’s age now, iron-rich foods or the common allergens. Each row shows whether a food is ready now and flags the ones with a high choking risk.</p>
+  </div>
+  <div class="shot"><img src="img/foods.webp" alt="Munchlet Foods tab: 89 foods with a search box and filters for ready now, iron-rich and allergens" width="360" height="721" loading="lazy"></div>
+</div></section>
+
+
+
+<section class="split" id="tried"><div class="wrap">
+  <div><h2>A log of every first food</h2><p class="lead">Mark a food as tried, note how it went and write down any reaction. The Tried tab counts the foods by group and shows which common allergens your baby has already had.</p>
+  <ul class="facts"><li>Up to 10 foods on the free plan</li><li>Unlimited foods, with reactions and notes <span class="prem">(Pro)</span></li><li>More than one baby <span class="prem">(Pro)</span></li></ul></div>
+  <div class="shot"><img src="img/tried.webp" alt="Munchlet Tried tab: 17 of 89 foods tried, counts by food group and the allergens introduced so far" width="360" height="721" loading="lazy"></div>
+</div></section>
+
+
+
+<section class="split rev alt" id="allergens"><div class="wrap">
+  <div><h2>The common allergens, one at a time</h2><p class="lead">The allergen planner lists nine common allergens (egg, peanut, milk, sesame, wheat, tree nuts, soy, fish and shellfish), shows which ones your baby has had and suggests a food to offer for each one.</p>
+  <ul class="facts"><li>The allergen planner <span class="prem">(Pro)</span></li></ul></div>
+  <div class="shot"><img src="img/plan.webp" alt="Munchlet allergen planner: egg introduced, peanut and milk not yet, with foods to try for each" width="360" height="721" loading="lazy"></div>
+</div></section>
+
+
+
+<section class="split" id="guides"><div class="wrap">
+  <div><h2>Short guides in plain words</h2><p class="lead">16 short guides, from signs of readiness and gagging or choking to food reactions, iron, portions and food refusal. Five of them are free, and so is the emergency card with the call button for your country.</p>
+  <ul class="facts"><li>Five safety guides and the emergency card on the free plan</li><li>All 16 guides <span class="prem">(Pro)</span></li></ul></div>
+  <div class="shot"><img src="img/learn.webp" alt="Munchlet Learn tab: the emergency card at the top, then short guides on readiness, gagging or choking, food reactions and the first week" width="360" height="721" loading="lazy"></div>
+</div></section>
+
+
+
+<section id="free-and-pro"><div class="wrap"><h2>Free and Pro</h2>
+  <table><thead><tr><th scope="col"></th><th scope="col">Free</th><th scope="col">Pro</th></tr></thead><tbody>
+  <tr><th scope="row">Food guide</th><td class="y">Common first foods and every food with a higher choking risk</td><td class="y">All 89 foods</td></tr><tr><th scope="row">First-foods log</th><td class="y">Up to 10 foods, one baby</td><td class="y">Unlimited, more than one baby</td></tr><tr><th scope="row">Allergen planner</th><td class="n">Not included</td><td class="y">Included</td></tr><tr><th scope="row">Guides</th><td class="y">5 guides and the emergency card</td><td class="y">All 16 guides</td></tr><tr><th scope="row">Account and ads</th><td class="y">No account, no ads</td><td class="y">No account, no ads</td></tr>
+  </tbody></table><p class="small">Pro is a yearly or monthly subscription, or a one-time lifetime purchase. Google Play shows the price in your currency before you buy.</p></div></section>
+
+
+
+<section class="alt" id="faq"><div class="wrap"><h2>Questions</h2>
+  <details><summary>Is Munchlet medical advice?</summary><p>No. Munchlet gives general information about starting solids and does not replace your pediatrician. Ask them about your own baby.</p></details><details><summary>Does Munchlet need an account?</summary><p>No. There is no account to create and there are no ads.</p></details><details><summary>What can I use for free?</summary><p>The common first foods and every food with a higher choking risk, the emergency card, five guides and a log of up to 10 foods for one baby. Pro adds the rest of the 89 foods, unlimited tracking, the allergen planner and all 16 guides.</p></details><details><summary>Which languages does Munchlet speak?</summary><p>English, Spanish, Portuguese, French, German, Italian and Turkish.</p></details><details><summary>Where do I get it?</summary><p>Munchlet is on Google Play for Android phones. Search for Munchlet or use the button on this page.</p></details></div></section>
+
+
+<section class="final"><div class="wrap"><h2>Keep Munchlet next to the highchair</h2><a class="badge" href="https://play.google.com/store/apps/details?id=com.peakapps.munchlet"><img src="/assets/home/badge-google-play.png" alt="Get it on Google Play" width="188" height="56" loading="lazy"></a>
+<p class="note">For Android. Free to start, with an optional Pro upgrade. General information, not medical advice.</p></div></section>
+</main>
+<footer><div class="wrap"><span>Munchlet is an app by Peak Apps Studio.</span><a href="/">Peak Apps Studio</a>
+<a href="https://peak-play-legal.railer-iot.workers.dev/munchlet/privacy/">Privacy policy</a><a href="https://peak-play-legal.railer-iot.workers.dev/munchlet/terms/">Terms of use</a>
+<a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></div></footer>
+</body>
+</html>
