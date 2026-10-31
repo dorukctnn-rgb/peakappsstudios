@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenAI Prism shutdown on January 1, 2027: what to do now</title>
+<meta name="description" content="OpenAI says Prism shuts down on January 1, 2027 and deletes its data. The timeline, what is lost with it, and the choices for where your LaTeX projects go next.">
+<link rel="canonical" href="https://peakappsstudio.com/openai-prism-export/shutdown/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="OpenAI Prism shutdown on January 1, 2027: what to do now">
+<meta property="og:description" content="OpenAI says Prism shuts down on January 1, 2027 and deletes its data. The timeline, what is lost with it, and the choices for where your LaTeX projects go next.">
+<meta property="og:url" content="https://peakappsstudio.com/openai-prism-export/shutdown/">
+<meta property="og:image" content="https://peakappsstudio.com/openai-prism-export/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#15171c">
+<link rel="icon" href="/openai-prism-export/img/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/openai-prism-export/fonts/splitlight-display.woff2" as="font" type="font/woff2" crossorigin>
+<style data-from="/assets/tools.css">
+/* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
+
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e1;
+  --card: #fbfaf7;
+  --ink: #141518;
+  --ink-2: #33363d;
+  --muted: #676b74;
+  --line: rgba(20, 21, 24, 0.12);
+  --line-2: rgba(20, 21, 24, 0.22);
+  --accent: #1f5c4d;          /* each tool overrides this on <body style="--accent:..."> */
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  --warn: #9a4a12;
+  --ok: #2c6a3f;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+    --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+  --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; }
+img { display: block; height: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 10px; z-index: 100; background: var(--ink); color: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 10px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-head { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand-sub { font-family: var(--sans); font-size: 14.5px; letter-spacing: 0; color: var(--muted); font-weight: 500; padding-left: 10px; border-left: 1px solid var(--line-2); }
+.head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
+.head-nav a:hover { background: var(--paper-2); color: var(--ink); }
+.head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
+@media (max-width: 640px) { .brand-sub { display: none; } }
+@media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
+
+/* ---------- Type ---------- */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+h1 { font-size: clamp(32px, 4.6vw, 54px); }
+h1 em, h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 19px; letter-spacing: -0.01em; }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; margin: 16px 0 0; }
+.mono { font-family: var(--mono); }
+.muted { color: var(--muted); }
+small, .small { font-size: 13.5px; }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 22px 0 0; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-2); }
+.crumbs a { text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.tool-hero { padding: 28px 0 24px; display: grid; gap: 8px; }
+.tool-hero .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.tool-hero .facts li { display: inline-flex; align-items: center; gap: 8px; }
+.tool-hero .facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Tool shell ---------- */
+.tool { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.tool-panel { padding: 22px; border-right: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.tool-stage { position: relative; min-height: 460px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper); display: grid; place-items: center; padding: 22px; }
+.tool-stage canvas, .tool-stage svg, .tool-stage img { max-height: 70vh; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px -12px rgba(0,0,0,.18); background: #fff; }
+.stage-bar { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.tool-foot { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 14px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--paper); }
+.tool-foot .spacer { flex: 1; }
+@media (max-width: 860px) {
+  .tool { grid-template-columns: 1fr; }
+  .tool-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tool-stage { min-height: 320px; }
+}
+
+/* ---------- Form controls ---------- */
+.group { display: grid; gap: 10px; }
+.group-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > label { font-size: 13px; color: var(--ink-2); }
+.input, .select { width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 8px; padding: 9px 11px; transition: border-color .15s, box-shadow .15s; }
+.input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input-unit { position: relative; }
+.input-unit .input { padding-right: 38px; font-family: var(--mono); font-size: 14.5px; }
+.input-unit i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 3px; flex: none; }
+.seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line-2); border-radius: 9px; padding: 3px; gap: 3px; background: var(--paper); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.warn { font-size: 13.5px; color: var(--warn); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.btn { --b: var(--line-2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 500; line-height: 1; padding: 11px 16px; border-radius: 9px; border: 1px solid var(--b); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; transition: transform .15s var(--ease), background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklab, var(--accent) 86%, #000); color: var(--accent-ink); border-color: transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-ink:hover { color: var(--paper); background: var(--ink-2); }
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.pro-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: var(--ink); color: var(--paper); }
+
+/* ---------- Drop zone ---------- */
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 18px 14px; background: var(--paper); cursor: pointer; transition: border-color .15s, background .15s; font-size: 14.5px; }
+.drop:hover, .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Content ---------- */
+.section { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prose { max-width: 70ch; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose h2 { margin: 1.6em 0 .5em; }
+.prose h3 { margin: 1.4em 0 .4em; }
+.prose code, .prose kbd { font-family: var(--mono); font-size: .9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+.two-col > * { min-width: 0; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: 3px; }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 13px; background: var(--paper); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 15px; }
+.source { font-size: 13px; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--line-2); margin-top: 18px; }
+.faq details { border-bottom: 1px solid var(--line-2); }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 13px; font-family: var(--mono); font-size: 18px; color: var(--muted); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 18px; color: var(--ink-2); max-width: 70ch; }
+
+/* ---------- Pro ---------- */
+.pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--card); }
+.pro-left { padding: clamp(22px, 3vw, 36px); }
+.pro-right { padding: clamp(22px, 3vw, 36px); background: var(--ink); color: var(--paper); display: grid; align-content: center; gap: 14px; }
+.pro-right .price { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pro-right .price small { font-size: 15px; font-weight: 400; color: color-mix(in oklab, var(--paper) 70%, transparent); letter-spacing: 0; }
+.pro-right .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.pro-right .btn-primary:hover { background: #fff; color: var(--ink); }
+.pro-right .fine { font-size: 13px; color: color-mix(in oklab, var(--paper) 65%, transparent); margin: 0; }
+.pro-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.pro-list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.pro-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border: 1.5px solid var(--accent); border-radius: 2px; transform: rotate(45deg); }
+@media (max-width: 760px) { .pro { grid-template-columns: 1fr; } }
+
+/* ---------- A real file, shown ---------- */
+.shot { margin: 22px 0 0; }
+.shot img { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; }
+.shot figcaption { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+.shot figcaption strong { font-weight: 600; color: var(--ink-2); }
+.shot-sm { max-width: 920px; }
+
+/* ---------- Where free stops and Pro starts ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; margin: 26px 0 0; background: var(--card); }
+.split > div { padding: 18px 20px 20px; }
+.split > div + div { border-left: 1px solid var(--line-2); background: var(--accent-soft); }
+.split h3 { font-size: 15.5px; margin: 0; }
+.split > div > p { margin: 5px 0 0; font-size: 13.5px; color: var(--muted); }
+.split ul { list-style: none; margin: 13px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
+.split li { position: relative; padding-left: 18px; }
+.split li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; border-radius: 1px; background: var(--line-2); }
+.split > div + div li::before { background: var(--accent); }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } .split > div + div { border-left: 0; border-top: 1px solid var(--line-2); } }
+
+/* ---------- A file list, as the archive really holds it ---------- */
+.filelist { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 5px; }
+.filelist li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filelist li span { color: var(--muted); }
+
+/* ---------- License dialog ---------- */
+.license-dialog { border: 1px solid var(--line-2); border-radius: 14px; padding: 0; width: min(440px, calc(100% - 32px)); background: var(--card); color: var(--ink); }
+.license-dialog::backdrop { background: rgba(10, 11, 13, .45); }
+.license-dialog form { padding: 22px; display: grid; gap: 14px; }
+.license-status { font-size: 14px; min-height: 1.4em; margin: 0; }
+.license-status[data-state="ok"] { color: var(--ok); }
+.license-status[data-state="err"] { color: var(--warn); }
+
+/* ---------- Related / cards ---------- */
+.related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line-2); margin-top: 22px; }
+.related a { display: grid; gap: 4px; padding: 18px 18px 18px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.related a strong { font-weight: 600; }
+.related a span { font-size: 14px; color: var(--muted); }
+.related a:hover strong { color: var(--accent); }
+
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
+/* ---------- Footer ---------- */
+.site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
+.site-foot h2 { font-size: 15px; font-family: var(--sans); letter-spacing: 0; font-weight: 600; color: var(--ink); margin: 0 0 10px; }
+.site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+@media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- "New from Peak Apps": the cross-promotion card the build puts above the footer (src/crosspromo.json) ---------- */
+.peak-new { margin-top: clamp(56px, 8vw, 104px); }
+.peak-new + .site-foot { margin-top: 28px; }
+.peak-new-card { display: grid; gap: 4px; max-width: 640px; padding: 16px 20px 18px; border: 1px solid var(--line-2); border-left: 4px solid var(--tool, var(--accent)); border-radius: var(--radius); background: var(--card); color: var(--ink); text-decoration: none; transition: border-color .2s var(--ease); }
+.peak-new-card:hover { border-color: var(--tool, var(--accent)); }
+.peak-new-card:focus-visible { outline: 2px solid var(--tool, var(--accent)); outline-offset: 3px; }
+.peak-new-kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.peak-new-card strong { font-size: 17px; font-weight: 600; line-height: 1.3; }
+.peak-new-line { font-size: 14px; line-height: 1.5; color: var(--ink-2); max-width: 62ch; }
+
+/* ---------- Home project tools: the shared block on Without Planning and Dropped Kerb Check ---------- */
+.home-block { margin: clamp(36px, 5vw, 60px) 0 0; border-top: 1px solid var(--line-2); padding-top: 16px; }
+.home-title { margin: 0 0 10px; font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink); }
+.home-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px 24px; }
+.home-list a { display: grid; gap: 3px; padding: 2px 0 2px 14px; border-left: 4px solid var(--tool, var(--accent)); text-decoration: none; color: var(--ink); }
+.home-list a strong { font-weight: 700; font-size: 16px; }
+.home-list a span { color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+.home-list a:hover strong { color: var(--tool, var(--accent)); }
+.home-list a[aria-current="page"] span { color: var(--ink-2); }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .3s var(--ease); z-index: 90; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media print { .site-head, .site-foot, .tool-panel, .tool-foot, .no-print { display: none !important; } body { background: #fff; } }
+
+/* The hidden attribute must win over component display rules. */
+[hidden] { display: none !important; }
+</style>
+<style data-from="/openai-prism-export/tool.css">
+/* Splitlight: an OpenAI Prism export taken apart, one project at a time. The idea is an optics bench: a graphite band where
+   one white beam (the export ZIP) enters a glass prism and leaves as separate coloured rays, each ending at one project.
+   The rays' colours appear only there and as the thin edge on each project row; the page itself is white paper with
+   graphite ink. Teal-cyan is every button and link; violet is kept for Pro and the focus ring. Headings in STIX Two Text
+   Bold, the scientific-publishing face (subset as "Splitlight Display"); everything people read is the system font at
+   18px; file names in the system monospace. No OpenAI or Overleaf colours or logos. */
+@font-face { font-family: "Splitlight Display"; src: url("/openai-prism-export/fonts/splitlight-display.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+/* Georgia Bold sized to the heading font, so the headings do not jump when the web font arrives */
+@font-face { font-family: "Splitlight Display Fallback"; src: local("Georgia Bold"), local("Georgia-Bold"), local("Georgia"); font-weight: 700; size-adjust: 92%; ascent-override: 82.8%; descent-override: 25.9%; line-gap-override: 0%; }
+
+body.splitlight {
+  --bench: #15171c; --bench-2: #20232b; --bench-ink: #ffffff; --bench-soft: #c9ced8;
+  --teal: #0b7285; --teal-2: #085a69; --teal-soft: #e3f3f6;
+  --violet: #6741d9; --violet-soft: #efe9fd;
+  --r1: #f08c00; --r2: #f5c518; --r3: #2fb35a; --r4: #4c9bf5; --r5: #e8590c; --r6: #9775fa;
+  --ink: #15171c; --ink-2: #353a45; --muted: #555c68;
+  --paper: #ffffff; --desk: #eef1f4; --card: #ffffff; --line: #d7dce3; --line-2: #b7bfcb;
+  --accent: #0b7285; --link: #0a6577; --mark: #fff0a8;
+  --good: #1f7a45; --good-soft: #e2f3e8; --warn: #9a4a00; --warn-soft: #fff1dc; --bad: #b02a2a; --bad-soft: #fde8e8;
+  --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --head: "Splitlight Display", "Splitlight Display Fallback", Georgia, serif;
+  --code: ui-monospace, "Cascadia Mono", Consolas, "SF Mono", monospace;
+  font-family: var(--sans); font-size: 18px; line-height: 1.6; background: var(--paper); color: var(--ink);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body.splitlight {
+    --ink: #e9ecf1; --ink-2: #cdd2db; --muted: #a3aab6; --paper: #101216; --desk: #171a20; --card: #1a1d24; --line: #2c313b; --line-2: #444b58;
+    --link: #6fd0e0; --accent: #4fc3d6; --teal-soft: #0f2d33; --violet-soft: #241a3f; --mark: #5c4a0f;
+    --good: #7fd8a0; --good-soft: #13291c; --warn: #ffb866; --warn-soft: #33240f; --bad: #ff9a9a; --bad-soft: #3a1717;
+  }
+}
+:root[data-theme="dark"] body.splitlight {
+  --ink: #e9ecf1; --ink-2: #cdd2db; --muted: #a3aab6; --paper: #101216; --desk: #171a20; --card: #1a1d24; --line: #2c313b; --line-2: #444b58;
+  --link: #6fd0e0; --accent: #4fc3d6; --teal-soft: #0f2d33; --violet-soft: #241a3f; --mark: #5c4a0f;
+  --good: #7fd8a0; --good-soft: #13291c; --warn: #ffb866; --warn-soft: #33240f; --bad: #ff9a9a; --bad-soft: #3a1717;
+}
+.splitlight a { color: var(--link); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.splitlight a:hover { color: var(--ink); }
+.splitlight h1, .splitlight h2, .splitlight h3 { font-family: var(--head); font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+.splitlight h1 { font-size: clamp(31px, 3.6vw, 48px); line-height: 1.1; margin: 14px 0 0; text-wrap: balance; max-width: 20ch; }
+.splitlight h2 { font-size: clamp(24px, 2.3vw, 31px); line-height: 1.2; margin: 0 0 14px; text-wrap: balance; }
+.splitlight h3 { font-size: 21px; line-height: 1.3; margin: 22px 0 10px; }
+.splitlight code { font-family: var(--code); font-size: 0.84em; background: var(--desk); padding: 1px 5px; border-radius: 3px; overflow-wrap: anywhere; }
+.splitlight :focus-visible { outline: 3px solid var(--violet); outline-offset: 2px; }
+.splitlight [tabindex="-1"]:focus { outline: none; }
+.splitlight .wrap { max-width: 1200px; }
+.splitlight .crumbs { font-size: 15px; }
+.splitlight .lede { font-size: 20px; line-height: 1.55; color: var(--ink-2); max-width: 34em; margin: 16px 0 0; }
+
+/* ---------- header and footer (Splitlight's own) ---------- */
+.sl-head { background: var(--paper); border-bottom: 1px solid var(--line); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.sl-head .brand { gap: 10px; color: var(--ink); }
+.sl-head .brand svg { width: 32px; height: 32px; }
+.sl-head .brand span { font-family: var(--head); font-size: 21px; font-weight: 700; }
+.sl-head .head-nav a { font-size: 16px; color: var(--ink-2); padding: 8px 10px; border-radius: 3px; }
+.sl-head .head-nav [aria-current="page"] { font-size: 16px; color: var(--ink); padding: 8px 10px; font-weight: 700; background: none; box-shadow: inset 0 -3px 0 var(--teal); }
+.sl-narrow-only { display: none; }
+@media (max-width: 1040px) { .sl-head .sl-wide { display: none; } .sl-head .sl-narrow-only { display: inline-block; } }
+@media (max-width: 480px) { .sl-head .sl-narrow-only { display: none; } .sl-head .brand span { font-size: 19px; } }
+.sl-foot { background: var(--bench); color: var(--bench-soft); border-top: 4px solid var(--teal); }
+.sl-foot a { color: #ffffff; }
+.sl-foot a:hover { color: var(--bench-soft); }
+.sl-foot-brand { font-family: var(--head); font-weight: 700; font-size: 21px; margin: 0 0 8px; color: #ffffff; }
+.sl-foot-text { font-size: 16px; color: var(--bench-soft); max-width: 46ch; }
+.sl-foot h2 { font-family: var(--sans); font-size: 15px; font-weight: 700; letter-spacing: 0; margin: 0 0 8px; color: #ffffff; }
+.sl-foot ul { list-style: none; padding: 0; margin: 0; }
+.sl-foot li { margin: 0 0 6px; font-size: 16px; }
+
+/* ---------- buttons ---------- */
+.sl-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 10px 18px; border-radius: 6px; border: 2px solid var(--teal); background: var(--teal); color: #ffffff; font: 700 17px/1.2 var(--sans); text-decoration: none; cursor: pointer; text-align: center; white-space: normal; }
+.splitlight a.sl-btn { color: #ffffff; }
+.sl-btn:hover { background: var(--teal-2); border-color: var(--teal-2); color: #ffffff; }
+.sl-btn-plain, .splitlight a.sl-btn-plain { background: var(--paper); color: var(--teal-2); }
+.sl-btn-plain:hover { background: var(--teal-soft); color: var(--teal-2); }
+.sl-btn-sm { min-height: 40px; padding: 7px 13px; font-size: 16px; }
+.sl-btn[disabled] { opacity: .55; cursor: default; }
+.sl-link { background: none; border: 0; padding: 0; font: inherit; color: var(--link); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.sl-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 0; }
+.sl-small { font-size: 16px; color: var(--muted); margin: 12px 0 0; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .sl-btn-plain { background: transparent; color: var(--link); border-color: var(--link); } }
+:root[data-theme="dark"] .sl-btn-plain { background: transparent; color: var(--link); border-color: var(--link); }
+
+/* ---------- hero: the graphite bench ---------- */
+.sl-hero { background: var(--bench); color: var(--bench-ink); padding: 8px 0 34px; }
+.sl-hero .crumbs a, .sl-hero .crumbs li { color: var(--bench-soft); }
+.sl-hero h1 { color: #ffffff; }
+.sl-hero .lede { color: #dfe3ea; }
+.sl-hero .lede code, .sl-hero .sl-note code { background: var(--bench-2); color: #ffffff; }
+.sl-hero a { color: #8fe3f0; }
+.sl-hero a:hover { color: #ffffff; }
+.sl-hero-in { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); grid-template-areas: "text panel" "note panel"; gap: 0 44px; align-items: start; }
+.sl-hero-text { grid-area: text; }
+.sl-panel { grid-area: panel; }
+.sl-hero-in > .sl-note { grid-area: note; align-self: start; }
+.sl-note { margin: 18px 0 0; padding: 12px 14px; background: var(--bench-2); border-left: 5px solid var(--r1); border-radius: 4px; font-size: 16px; color: #dfe3ea; max-width: 36em; }
+.sl-note strong { color: #ffffff; }
+.sl-panel { margin-top: 34px; background: var(--card); color: var(--ink); border-radius: 10px; box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 24px 40px -26px rgba(0,0,0,.8); padding: 22px 22px 18px; position: relative; }
+.sl-panel::before { content: ""; position: absolute; left: 22px; right: 22px; top: 0; height: 4px; background: linear-gradient(90deg, var(--r1) 0 25%, var(--r2) 25% 50%, var(--r3) 50% 75%, var(--r4) 75% 100%); border-radius: 0 0 3px 3px; }
+.sl-panel a { color: var(--link); }
+.sl-stage-title { font-family: var(--head); font-weight: 700; font-size: 23px; line-height: 1.25; margin: 6px 0 6px; color: var(--ink); }
+.sl-drop { border: 2px dashed var(--line-2); border-radius: 8px; padding: 18px; background: var(--paper); transition: border-color .15s, background .15s; }
+.sl-drop p { margin: 0; color: var(--ink-2); }
+.sl-drop.is-over { border-color: var(--teal); background: var(--teal-soft); }
+.sl-bar { height: 6px; background: var(--desk); border-radius: 3px; overflow: hidden; margin-top: 14px; }
+.sl-bar i { display: block; height: 100%; width: 40%; background: var(--teal); animation: sl-slide 1.1s ease-in-out infinite; }
+@keyframes sl-slide { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
+@media (prefers-reduced-motion: reduce) { .sl-bar i { animation: none; width: 100%; } }
+.sl-error-title { font-family: var(--head); font-weight: 700; font-size: 22px; margin: 6px 0; color: var(--bad); }
+.sl-bench { margin: 30px 0 0; padding: 0; }
+.sl-bench svg { width: 100%; height: auto; display: block; }
+.sl-svg-mono { font: 600 17px var(--code); }
+.sl-svg-label text { font: 600 18px var(--sans); }
+.sl-bench figcaption { font-size: 15px; color: var(--bench-soft); margin-top: 8px; }
+.sl-facts { list-style: none; padding: 0; margin: 22px 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 26px; }
+.sl-facts li { font-size: 16px; color: #dfe3ea; border-top: 2px solid #3a3f4b; padding-top: 10px; }
+.sl-facts li code { background: var(--bench-2); color: #ffffff; }
+.sl-indep { font-size: 14px; color: var(--bench-soft); margin: 18px 0 0; }
+@media (max-width: 900px) {
+  .sl-hero-in { grid-template-columns: 1fr; grid-template-areas: "text" "panel" "note"; }
+  .sl-panel { margin-top: 22px; }
+  .sl-facts { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) { .sl-bench { display: none; } }
+
+/* ---------- the reader ---------- */
+.sl-reader { padding: 34px 0 40px; background: var(--desk); border-bottom: 1px solid var(--line); }
+.sl-reader-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px 20px; }
+.sl-reader-head h2 { margin: 0; }
+.sl-reader-meta { margin: 6px 0 0; color: var(--muted); font-size: 16px; }
+.sl-reader-tools { display: flex; flex-wrap: wrap; gap: 10px; }
+.sl-save { margin: 18px 0 0; padding: 14px 16px; background: var(--card); border: 1px solid var(--line); border-left: 5px solid var(--violet); border-radius: 6px; }
+.sl-save-title { margin: 0 0 8px; font-weight: 700; }
+.sl-save-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.sl-pro { display: inline-block; font: 700 13px/1 var(--sans); color: #ffffff; background: var(--violet); padding: 4px 7px; border-radius: 3px; vertical-align: 2px; margin-left: 4px; }
+.is-pro .sl-pro { background: var(--good); }
+.sl-errbox { margin: 16px 0 0; padding: 12px 16px; background: var(--warn-soft); border: 1px solid var(--warn); border-radius: 6px; }
+.sl-errbox h3 { margin: 0 0 6px; font-size: 19px; }
+.sl-errbox ul { margin: 6px 0; padding-left: 20px; }
+.sl-errbox pre { white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.5 var(--code); max-height: 220px; overflow: auto; margin: 6px 0; }
+.sl-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 22px 0 0; border-bottom: 2px solid var(--line); }
+.sl-tab { font: 700 16px/1.2 var(--sans); color: var(--ink-2); background: none; border: 0; padding: 10px 14px; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
+.sl-tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--teal); }
+.sl-view { padding: 18px 0 0; }
+.sl-cols { display: grid; grid-template-columns: minmax(0, 330px) minmax(0, 1fr); gap: 18px; align-items: start; }
+@media (max-width: 860px) { .sl-cols { grid-template-columns: 1fr; } }
+.sl-plist { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.sl-pbtn { width: 100%; text-align: left; background: var(--card); border: 1px solid var(--line); border-left: 6px solid var(--ray, var(--teal)); border-radius: 6px; padding: 10px 12px; cursor: pointer; font: inherit; color: var(--ink); }
+.sl-pbtn[aria-current="true"] { border-color: var(--ink); border-left-color: var(--ray, var(--teal)); box-shadow: 0 0 0 1px var(--ink); }
+.sl-pbtn b { display: block; font-size: 17px; line-height: 1.3; overflow-wrap: anywhere; }
+.sl-pbtn span { display: block; font-size: 14px; color: var(--muted); margin-top: 2px; }
+.sl-card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 18px 18px 20px; min-width: 0; }
+.sl-card h3 { margin-top: 0; overflow-wrap: anywhere; }
+.sl-card .sl-sub { margin: -4px 0 12px; color: var(--muted); font-size: 16px; overflow-wrap: anywhere; }
+.sl-kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 4px 16px; margin: 12px 0; font-size: 16px; }
+.sl-kv dt { color: var(--muted); }
+.sl-kv dd { margin: 0; overflow-wrap: anywhere; }
+@media (max-width: 480px) { .sl-kv { grid-template-columns: 1fr; } .sl-kv dd { margin-bottom: 6px; } }
+.sl-flags { list-style: none; margin: 12px 0; padding: 0; display: grid; gap: 8px; }
+.sl-flag { padding: 9px 12px; border-radius: 6px; font-size: 16px; overflow-wrap: anywhere; }
+.sl-flag.good { background: var(--good-soft); color: var(--good); }
+.sl-flag.warn { background: var(--warn-soft); color: var(--warn); }
+.sl-flag.bad { background: var(--bad-soft); color: var(--bad); }
+.sl-flag ul { margin: 4px 0 0; padding-left: 18px; color: var(--ink-2); }
+.sl-flag code { background: transparent; padding: 0; }
+.sl-dl { margin: 16px 0 0; padding: 14px; background: var(--desk); border-radius: 6px; }
+.sl-dl h4 { margin: 0 0 6px; font: 700 17px/1.3 var(--sans); }
+.sl-dl ol, .sl-dl ul { margin: 6px 0 0; padding-left: 20px; font-size: 16px; }
+.sl-abstract { font-size: 16px; color: var(--ink-2); margin: 8px 0; }
+.sl-outline { margin: 8px 0 0; padding-left: 20px; font-size: 16px; max-height: 260px; overflow: auto; }
+.sl-outline .lv-subsection { margin-left: 18px; list-style: circle; }
+.sl-outline .lv-part, .sl-outline .lv-chapter { font-weight: 700; }
+.sl-files { width: 100%; border-collapse: collapse; font-size: 15px; margin: 8px 0 0; }
+.sl-files th, .sl-files td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.sl-files td:first-child { font-family: var(--code); font-size: 14px; overflow-wrap: anywhere; word-break: break-word; }
+.sl-files td.n { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.sl-files caption { text-align: left; font-weight: 700; padding: 0 0 6px; }
+.sl-preview { margin: 12px 0 0; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); }
+.sl-preview-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; padding: 8px 10px; border-bottom: 1px solid var(--line); font: 14px var(--code); overflow-wrap: anywhere; }
+.sl-preview pre { margin: 0; padding: 10px 12px; max-height: 420px; overflow: auto; font: 14px/1.5 var(--code); white-space: pre-wrap; overflow-wrap: anywhere; }
+.sl-preview img { display: block; max-width: 100%; height: auto; margin: 10px auto; image-rendering: auto; background: #ffffff; }
+.sl-more { margin-top: 8px; }
+.sl-chat-msgs { display: grid; gap: 10px; margin: 12px 0 0; }
+.sl-msg { padding: 10px 14px; border-radius: 8px; background: var(--desk); }
+.sl-msg.you { background: var(--teal-soft); }
+.sl-msg .who { margin: 0 0 4px; font-weight: 700; font-size: 15px; }
+.sl-msg .who span { font-weight: 400; color: var(--muted); }
+.sl-msg .t { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 16px; }
+.sl-empty { color: var(--muted); }
+.sl-ray { display: inline-block; width: 18px; height: 6px; border-radius: 3px; background: var(--ray); vertical-align: middle; margin-right: 6px; }
+
+/* ---------- sections ---------- */
+.sl-sec { padding: 46px 0; }
+.sl-sec-alt { background: var(--desk); }
+.sl-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 34px 48px; align-items: start; }
+@media (max-width: 900px) { .sl-split { grid-template-columns: 1fr; } }
+.sl-table { width: 100%; border-collapse: collapse; font-size: 16px; background: var(--card); }
+.sl-table caption { text-align: left; color: var(--muted); font-size: 15px; padding: 0 0 6px; }
+.sl-table th, .sl-table td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.sl-table thead th { border-bottom: 2px solid var(--ink); }
+.sl-plan td:not(:first-child), .sl-plan th:not(:first-child) { white-space: nowrap; }
+@media (max-width: 560px) {
+  .sl-table, .sl-table tbody, .sl-table tr, .sl-table td, .sl-table caption { display: block; width: 100%; }
+  .sl-table thead { display: none; }
+  .sl-table tr { border-bottom: 1px solid var(--line); padding: 6px 0; }
+  .sl-table td { border: 0; padding: 4px 8px; }
+  .sl-table td:first-child { font-weight: 700; }
+  .sl-plan td:not(:first-child)::before { content: attr(data-l); color: var(--muted); margin-right: 8px; }
+}
+.sl-list { padding-left: 20px; }
+.sl-list li { margin: 0 0 8px; }
+.sl-faq-wrap { max-width: 900px; }
+.sl-faq details { border-bottom: 1px solid var(--line); padding: 10px 0; }
+.sl-faq summary { cursor: pointer; font-weight: 700; font-size: 18px; }
+.sl-faq details p { margin: 8px 0 4px; color: var(--ink-2); }
+
+/* ---------- guide pages ---------- */
+.sl-ghero { background: var(--bench); color: #ffffff; padding: 8px 0 30px; }
+.sl-ghero .crumbs a, .sl-ghero .crumbs li { color: var(--bench-soft); }
+.sl-ghero h1 { color: #ffffff; max-width: 24ch; }
+.sl-ghero .lede { color: #dfe3ea; }
+.sl-ghero a { color: #8fe3f0; }
+.sl-ghero .sl-rays { height: 5px; margin-top: 22px; max-width: 360px; background: linear-gradient(90deg, var(--r1) 0 25%, var(--r2) 25% 50%, var(--r3) 50% 75%, var(--r4) 75% 100%); border-radius: 3px; }
+.sl-article { max-width: 820px; padding: 34px 0 50px; }
+.sl-article h2 { margin-top: 36px; }
+.sl-article ol, .sl-article ul { padding-left: 22px; }
+.sl-article li { margin: 0 0 8px; }
+.sl-article .sl-table { margin: 10px 0 0; }
+.sl-cta { margin: 34px 0 0; padding: 20px; border-radius: 8px; background: var(--bench); color: #dfe3ea; }
+.sl-cta p { margin: 0 0 12px; }
+.sl-cta a:not(.sl-btn) { color: #8fe3f0; }
+.sl-cta .sl-proline { font-size: 15px; margin: 14px 0 0; color: var(--bench-soft); }
+.sl-sources { font-size: 15px; color: var(--muted); }
+.sl-sources li { margin: 0 0 4px; overflow-wrap: anywhere; }
+.sl-related { padding-left: 20px; }
+.sl-step { counter-increment: step; }
+
+@media print {
+  .site-head, .site-foot, .sl-hero, .sl-sec, .sl-save, .sl-tabs, .sl-reader-tools { display: none !important; }
+}
+.sl-article > h2:first-child { margin-top: 0; }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"OpenAI Prism shuts down on January 1, 2027: what is deleted and where to go","description":"OpenAI says Prism shuts down on January 1, 2027 and deletes its data. The timeline, what is lost with it, and the choices for where your LaTeX projects go next.","url":"https://peakappsstudio.com/openai-prism-export/shutdown/","inLanguage":"en","dateModified":"2026-10-30","author":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"image":"https://peakappsstudio.com/openai-prism-export/img/og.png"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"OpenAI Prism export","item":"https://peakappsstudio.com/openai-prism-export/"},{"@type":"ListItem","position":3,"name":"Shutdown","item":"https://peakappsstudio.com/openai-prism-export/shutdown/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is OpenAI Prism shutting down?","acceptedAnswer":{"@type":"Answer","text":"Yes. OpenAI says Prism shuts down on January 1, 2027, and that all Prism data is deleted after that."}},{"@type":"Question","name":"Will my Prism projects be deleted?","acceptedAnswer":{"@type":"Answer","text":"Yes, after the shutdown, according to OpenAI's migration guide, and deleted data cannot be recovered. Export them with Settings, Data Controls, Export all projects (zip)."}},{"@type":"Question","name":"What is the best alternative to Prism?","acceptedAnswer":{"@type":"Answer","text":"For writing with co-authors in the browser, Overleaf is the closest. For working on your own computer, a TeX installation with an editor, or Codex as OpenAI suggests. The exported ZIP opens in all of them."}},{"@type":"Question","name":"Why is Prism shutting down?","acceptedAnswer":{"@type":"Answer","text":"OpenAI gives no reason in its notice; its migration guide points users to Codex. In April 2026 OpenAI folded OpenAI for Science, the group behind Prism, into other research teams."}}]}]}
+</script>
+<script src="/assets/pro-source.js" data-campaign="openai-prism-export" defer></script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
+</head>
+<body class="splitlight" style="--accent:#0b7285">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head sl-head">
+  <div class="wrap">
+    <a class="brand" href="/openai-prism-export/" aria-label="Splitlight, OpenAI Prism export viewer">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="6" fill="#15171c"/><path d="M2.5 18.5h10" stroke="#ffffff" stroke-width="2.2"/><path d="M15 5.5L24.5 25H5.5z" fill="#2c3039" stroke="#e9edf3" stroke-width="1.6" stroke-linejoin="round"/><path d="M18 15.6l11-5.4" stroke="#f08c00" stroke-width="2"/><path d="M18.6 17.3l10.6-1.8" stroke="#f5c518" stroke-width="2"/><path d="M19.2 19l10 2" stroke="#2fb35a" stroke-width="2"/><path d="M19.8 20.7l9.4 5.5" stroke="#4c9bf5" stroke-width="2"/></svg>
+      <span>Splitlight</span>
+    </a>
+    <nav class="head-nav" aria-label="Splitlight">
+      <a href="/openai-prism-export/">Open an export</a>
+      <a class="sl-wide" href="/openai-prism-export/how-to-export/">How to export</a>
+      <a class="sl-wide" href="/openai-prism-export/to-overleaf/">To Overleaf</a>
+      <span class="sl-wide" aria-current="page">Shutdown</span>
+      <a class="sl-wide" href="/openai-prism-export/codex/">Codex</a>
+      <a class="sl-narrow-only" href="#guides">Guides</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="sl-ghero" aria-labelledby="h1">
+<div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/openai-prism-export/">OpenAI Prism export</a></li><li aria-current="page">Shutdown</li></ol></nav>
+<h1 id="h1">OpenAI Prism shuts down on January 1, 2027: what is deleted and where to go</h1>
+<p class="lede">OpenAI's notice gives <strong>January 1, 2027</strong> as the day Prism shuts down, and its migration guide says all Prism data is deleted after that and cannot be recovered. Here is what that means for a project, and where people are taking theirs.</p>
+<div class="sl-actions"><a class="sl-btn" href="/openai-prism-export/">Open your export in Splitlight</a></div>
+<div class="sl-rays" aria-hidden="true"></div>
+</div>
+</section>
+<div class="wrap">
+<article class="sl-article">
+<h2>The timeline</h2>
+<table class="sl-table">
+<caption>OpenAI Prism, 2025 to 2027</caption>
+<thead><tr><th scope="col">When</th><th scope="col">What happened</th></tr></thead>
+<tbody>
+<tr><td>January 27, 2026</td><td>OpenAI launches Prism, built on Crixet, a web LaTeX editor it bought, as a free workspace for anyone with a personal ChatGPT account.</td></tr>
+<tr><td>April 17, 2026</td><td>OpenAI for Science, the group behind Prism, is folded into other research teams as OpenAI drops side projects.</td></tr>
+<tr><td>October 2026</td><td>The shutdown notice: Prism closes on January 1, 2027. OpenAI publishes a Prism to Codex migration guide.</td></tr>
+<tr><td>January 1, 2027</td><td>Prism shuts down. OpenAI says all Prism data is deleted after the shutdown.</td></tr>
+</tbody>
+</table>
+
+<h2>What is lost, and what you can keep</h2>
+<p>The project files survive if you export them: <a href="/openai-prism-export/how-to-export/">Settings &gt; Data Controls &gt; Export all projects (zip)</a>. Project history, inline comments, collaborator permissions and the live Zotero connection do not come with the export, by OpenAI's own list. The last compiled PDF is not in the export either; download it from Prism's viewer while you can.</p>
+
+<h2>Where to go next</h2>
+<table class="sl-table">
+<caption>The main options for a Prism project</caption>
+<thead><tr><th scope="col">Option</th><th scope="col">Good for</th><th scope="col">Watch for</th></tr></thead>
+<tbody>
+<tr><td>Overleaf</td><td>Writing with co-authors in the browser, as in Prism</td><td>50 MB and 180 files per upload; 10-second compiles on the free plan. <a href="/openai-prism-export/to-overleaf/">How to move a project</a></td></tr>
+<tr><td>Codex</td><td>OpenAI's own suggestion; editing the files with Codex on your computer</td><td>Its built-in compiler takes single .tex files; most multi-file projects need a TeX installation. <a href="/openai-prism-export/codex/">Prism to Codex</a></td></tr>
+<tr><td>A TeX installation and an editor</td><td>Working offline, large theses, no compile limits</td><td>TeX Live or MacTeX is a few gigabytes; co-authors need their own copy or Git.</td></tr>
+</tbody>
+</table>
+<p>Other web LaTeX editors have invited Prism users since the notice. Whatever you pick, start from the exported ZIP and compare the first build with the last PDF from Prism: title, authors, figures, equation numbers, citations and page count.</p>
+
+<h2>This week, in order</h2>
+<ol>
+<li>Export all projects, and each shared project you rely on (ask its owner if you cannot).</li>
+<li>Open the ZIP in <a href="/openai-prism-export/">Splitlight</a> and fix what the check reports: missing files, letter case, export errors.</li>
+<li>Download the last PDF of each project from Prism.</li>
+<li>Move the projects you are still writing; keep the ZIP of the rest as an archive.</li>
+</ol>
+<div class="sl-cta">
+<p>Before January 1: open your Prism export here and see every project, what it needs, and where it can go. Nothing is uploaded.</p>
+<a class="sl-btn" href="/openai-prism-export/">Open your export in Splitlight</a>
+<p class="sl-proline">Splitlight Pro, $8 paid once: the whole export sorted in one ZIP, with every project ready for Overleaf, every document as one .tex, every chat as Markdown and a spreadsheet of the projects. <a href="https://dorukctn.gumroad.com/l/splitlight-pro">Get Pro on Gumroad</a> or <a href="/openai-prism-export/#pro">see what is free</a>.</p>
+</div>
+<h2>Questions</h2>
+<div class="sl-faq"><details><summary>Is OpenAI Prism shutting down?</summary><p>Yes. OpenAI says Prism shuts down on January 1, 2027, and that all Prism data is deleted after that.</p></details>
+<details><summary>Will my Prism projects be deleted?</summary><p>Yes, after the shutdown, according to OpenAI's migration guide, and deleted data cannot be recovered. Export them with Settings, Data Controls, Export all projects (zip).</p></details>
+<details><summary>What is the best alternative to Prism?</summary><p>For writing with co-authors in the browser, Overleaf is the closest. For working on your own computer, a TeX installation with an editor, or Codex as OpenAI suggests. The exported ZIP opens in all of them.</p></details>
+<details><summary>Why is Prism shutting down?</summary><p>OpenAI gives no reason in its notice; its migration guide points users to Codex. In April 2026 OpenAI folded OpenAI for Science, the group behind Prism, into other research teams.</p></details></div>
+<h2>Sources</h2>
+<ul class="sl-sources"><li><a href="https://openai.com/index/introducing-prism/" rel="nofollow noopener">OpenAI: Introducing Prism</a>. The launch post of January 27, 2026, which now carries the shutdown date, January 1, 2027</li>
+<li><a href="https://help.openai.com/en/articles/20001615-prism-to-codex-migration-guide" rel="nofollow noopener">OpenAI Help Center: Prism to Codex migration guide (article 20001615)</a>. The export steps, export-errors.json, what does not move with the files, and the note on Codex's built-in LaTeX compiler. Read through search results and quotes, as the page refuses automated readers</li>
+<li><a href="https://www.reddit.com/r/PrismOpenAI/comments/1xdq70f/prism_is_shutting_down_on_january_1_2027/" rel="nofollow noopener">r/PrismOpenAI: &quot;Prism is shutting down on January 1, 2027&quot; (October 23, 2026)</a>. Users' first reports of the notice</li>
+<li><a href="https://engadget.com/ai/openai-releases-prism-a-claude-code-like-app-for-scientific-research-180000454.html" rel="nofollow noopener">Engadget: OpenAI releases Prism (January 27, 2026)</a>. Prism launches free for personal ChatGPT accounts, built on Crixet, the LaTeX platform OpenAI bought</li>
+<li><a href="https://techcrunch.com/2026/04/17/kevin-weil-and-bill-peebles-exit-openai-as-company-continues-to-shed-side-quests/" rel="nofollow noopener">TechCrunch: Kevin Weil and Bill Peebles exit OpenAI as company continues to shed &quot;side quests&quot; (April 17, 2026)</a>. "OpenAI for Science was the internal research group behind Prism", and its move into other research teams</li>
+<li><a href="https://docs.overleaf.com/getting-started/free-and-premium-plans/plan-limits" rel="nofollow noopener">Overleaf documentation: Plan limits</a>. Compile timeout (10 seconds free, 240 paid), 2,000 files per project, 7 MB of editable material, 2 MB per editable file, 50 MB per upload</li></ul>
+<p class="sl-small">Last checked: October 30, 2026.</p>
+<h2>Related</h2>
+<ul class="sl-related">
+<li><a href="/openai-prism-export/">OpenAI Prism export viewer: open the ZIP in the browser</a></li>
+<li><a href="/openai-prism-export/how-to-export/">How to export your OpenAI Prism projects, and check nothing is missing</a></li>
+<li><a href="/openai-prism-export/to-overleaf/">Moving a Prism project to Overleaf: the upload limits and how to get past them</a></li>
+<li><a href="/openai-prism-export/codex/">Moving from Prism to Codex: why a multi-file project will not build, and the fix</a></li>
+</ul>
+</article>
+</div>
+</main>
+<footer class="site-foot sl-foot" id="guides">
+  <div class="wrap cols">
+    <div>
+      <p class="sl-foot-brand">Splitlight</p>
+      <p class="sl-foot-text">Open the ZIP from OpenAI Prism's Export all projects, check every project in it, and take each one to Overleaf or Codex before Prism shuts down. The files are read by this page on your own computer and never uploaded.</p>
+      <p class="sl-foot-text">Splitlight is an independent tool by <a href="https://peakappsstudio.com/">Peak Apps Studio</a>. Not affiliated with OpenAI or Overleaf. OpenAI, Prism and Codex are trademarks of OpenAI; Overleaf is a trademark of Digital Science. They are named here only to say which files the tool opens and where they go.</p>
+    </div>
+    <div>
+      <h2>Guides</h2>
+      <ul>
+        <li><a href="/openai-prism-export/">OpenAI Prism export viewer</a></li>
+        <li><a href="/openai-prism-export/how-to-export/">How to export your OpenAI Prism projects, and check nothing is missing</a></li>
+        <li><a href="/openai-prism-export/to-overleaf/">Moving a Prism project to Overleaf: the upload limits and how to get past them</a></li>
+        <li><a href="/openai-prism-export/shutdown/">OpenAI Prism shuts down on January 1, 2027: what is deleted and where to go</a></li>
+        <li><a href="/openai-prism-export/codex/">Moving from Prism to Codex: why a multi-file project will not build, and the fix</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>About</h2>
+      <ul>
+        <li><a href="/tools/privacy/">Privacy</a></li>
+        <li><a href="/tools/">More tools by Peak Apps</a></li>
+        <li><a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
