@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Benchwise: cut list optimizer for iPhone and iPad</title>
+<meta name="description" content="Benchwise lays out plywood sheets and boards from your cut list, counts the saw kerf and says what to buy. With ten woodworking plans and shop calculators.">
+<link rel="canonical" href="https://peakappsstudio.com/apps/benchwise/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Peak Apps Studio">
+<meta property="og:title" content="Benchwise: cut list optimizer for iPhone and iPad">
+<meta property="og:description" content="Benchwise lays out plywood sheets and boards from your cut list, counts the saw kerf and says what to buy. With ten woodworking plans and shop calculators.">
+<meta property="og:url" content="https://peakappsstudio.com/apps/benchwise/">
+<meta property="og:image" content="https://peakappsstudio.com/apps/benchwise/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-itunes-app" content="app-id=6819391412">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/display.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"AppDisplay";src:url(fonts/display.woff2) format("woff2");font-weight:700 800;font-display:swap}
+@font-face{font-family:"AppText";src:url(fonts/text.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"AppText";src:url(fonts/text-bold.woff2) format("woff2");font-weight:600;font-display:swap}
+:root{--band:#0A1824;--band2:#1B3B52;--brand:#F6C026;--link:#1C5E8A;--ink:#0A1824;--soft:#2B4253;
+--muted:#4F6A7C;--page:#EEF3F6;--alt:#FFFFFF;--line:#D3DFE6;--on:#EAF3F8;--on-soft:#B9CEDC;--on-faint:#91ABBE;
+--yes:#1C5E8A;--foot:#071119;--shadow:rgba(10,24,36,.30)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink);font:400 17px/1.6 "AppText",system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:var(--link)}a:focus-visible,summary:focus-visible{outline:3px solid var(--brand);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.top{background:var(--band);color:var(--on)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.top a{color:var(--on-soft);text-decoration:none;font-weight:600;font-size:15px}.top a:hover{color:var(--on)}
+.hero{background:radial-gradient(120% 90% at 78% 70%,var(--band2) 0%,var(--band) 62%);color:var(--on);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:center;padding-top:56px;padding-bottom:0}
+.brandrow{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.brandrow img{width:56px;height:56px;border-radius:13px}
+.brandrow b{font:700 22px/1 "AppDisplay",sans-serif;letter-spacing:-.01em}
+h1,h2{font-family:"AppDisplay",sans-serif;font-weight:700;letter-spacing:-.005em;line-height:1.05;margin:0}
+h1{font-size:clamp(38px,5.2vw,64px);max-width:15ch}
+.hero p.sub{font-size:clamp(17px,1.6vw,20px);color:var(--on-soft);max-width:34em;margin:20px 0 28px}
+.badge{display:inline-block;line-height:0;border-radius:10px}
+.badge img{height:56px;width:auto}
+.note{color:var(--on-faint);font-size:15px;margin:14px 0 0}
+.fan{position:relative;height:620px;perspective:1600px;margin-top:10px}
+.fan img{position:absolute;bottom:-150px;width:300px;height:auto;filter:drop-shadow(0 30px 40px rgba(0,0,0,.45))}
+.fan .c{left:50%;transform:translateX(-50%) translateZ(60px);z-index:3;width:320px}
+.fan .l{left:2%;transform:rotateY(24deg) rotateZ(-6deg) translateY(40px);z-index:2}
+.fan .r{right:2%;transform:rotateY(-24deg) rotateZ(6deg) translateY(40px);z-index:2}
+section{padding:84px 0}
+.split .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.split.rev .shot{order:-1}
+h2{font-size:clamp(28px,3.6vw,46px);max-width:18ch;margin-bottom:18px}
+.lead{font-size:19px;color:var(--ink);max-width:36em}
+ul.facts{padding:0;margin:22px 0 0;list-style:none}
+ul.facts li{padding:12px 0 12px 30px;border-top:1px solid var(--line);position:relative}
+ul.facts li:before{content:"";position:absolute;left:4px;top:21px;width:10px;height:10px;border-radius:50%;background:var(--brand)}
+.prem{color:var(--muted);font-size:15px}
+.shot{display:flex;justify-content:center}
+.shot img{width:min(360px,80vw);height:auto;filter:drop-shadow(0 26px 34px var(--shadow))}
+.alt{background:var(--alt)}
+ol.steps{list-style:none;padding:0;margin:28px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:28px;counter-reset:s}
+ol.steps li{counter-increment:s;border-top:3px solid var(--ink);padding-top:16px;font-size:18px}
+ol.steps li:before{content:counter(s);display:block;font:700 40px/1 "AppDisplay",sans-serif;color:var(--link);margin-bottom:10px}
+.small{color:var(--muted);font-size:15px;max-width:52em;margin-top:26px}
+table{width:100%;border-collapse:collapse;margin-top:26px;font-size:16px;background:#fff}
+th,td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--line)}
+th{font-weight:600}td.y{color:var(--yes);font-weight:600}td.n{color:var(--muted)}
+thead th{background:var(--band);color:var(--on)}thead th:first-child{border-top-left-radius:12px}thead th:last-child{border-top-right-radius:12px}
+details{border-top:1px solid var(--line);padding:18px 0}details:last-child{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;font-weight:600;font-size:18px;list-style:none}summary::-webkit-details-marker{display:none}
+details p{margin:10px 0 0;color:var(--soft);max-width:46em}
+.final{background:var(--band);color:var(--on);text-align:center}
+.final h2{margin:0 auto 26px;max-width:20ch}
+footer{background:var(--foot);color:var(--on-faint);font-size:15px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:18px 28px;padding-top:28px;padding-bottom:28px}
+footer a{color:var(--on-soft)}
+@media (max-width:900px){.hero .wrap,.split .wrap{grid-template-columns:1fr}.fan{height:470px}.fan img{width:220px;bottom:-120px}
+.fan .c{width:240px}.split.rev .shot{order:0}ol.steps{grid-template-columns:1fr}section{padding:64px 0}}
+@media (max-width:420px){.fan{height:400px}.fan img{width:180px;bottom:-110px}.fan .c{width:200px}.badge img{height:52px}}
+@media (prefers-reduced-motion:no-preference){.fan .c{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{transform:translateX(-50%) translateY(60px) translateZ(60px);opacity:0}}}
+</style>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "MobileApplication", "name": "Benchwise: Cut List Optimizer", "alternateName": "Benchwise", "operatingSystem": "iOS, iPadOS", "applicationCategory": "UtilitiesApplication", "inLanguage": "en", "url": "https://peakappsstudio.com/apps/benchwise/", "installUrl": "https://apps.apple.com/us/app/benchwise-cut-list-optimizer/id6819391412", "sameAs": "https://apps.apple.com/us/app/benchwise-cut-list-optimizer/id6819391412", "image": "https://peakappsstudio.com/apps/benchwise/og.jpg", "description": "Benchwise lays out plywood sheets and boards from your cut list, counts the saw kerf and says what to buy. With ten woodworking plans and shop calculators.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@type": "Organization", "name": "Peak Apps Studio", "url": "https://peakappsstudio.com/"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does Benchwise work without signal?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Projects stay on your phone and work in a shop without signal. A backup file carries them to a new phone."}}, {"@type": "Question", "name": "Can I work in inches and in millimeters?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Every plan opens in metric or imperial, and a length can be typed as 24 1/2, 2' 3, 610 or 61 cm."}}, {"@type": "Question", "name": "How does it cut sheet goods?", "acceptedAnswer": {"@type": "Answer", "text": "With straight cuts from edge to edge in two directions, the way a table saw or a track saw cuts, with the kerf counted. Parts marked for grain are never turned."}}, {"@type": "Question", "name": "What does Pro add?", "acceptedAnswer": {"@type": "Answer", "text": "Projects of any size, PDF cut sheets to print and CSV files for a spreadsheet. The calculators, the wood guide, all ten plans and projects of up to 20 pieces are free."}}, {"@type": "Question", "name": "Which languages does Benchwise speak?", "acceptedAnswer": {"@type": "Answer", "text": "English, German, French, Spanish, Italian, Portuguese, Dutch and Polish."}}]}]</script>
+</head>
+<body>
+<header class="top"><div class="wrap"><a href="/">Peak Apps Studio</a><a href="https://apps.apple.com/us/app/benchwise-cut-list-optimizer/id6819391412">App Store</a></div></header>
+<main>
+<div class="hero"><div class="wrap">
+  <div>
+    <div class="brandrow"><img src="img/icon.png" alt="" width="56" height="56"><b>Benchwise</b></div>
+    <h1>Plywood and boards laid out before you cut</h1>
+    <p class="sub">Benchwise is a cut list optimizer for woodworkers. List the parts and the stock, and it draws every sheet and board with numbered parts, counts the saw kerf and tells you how much to buy.</p>
+    <a class="badge" href="https://apps.apple.com/us/app/benchwise-cut-list-optimizer/id6819391412"><img src="/assets/home/badge-app-store.svg" alt="Download on the App Store" width="168" height="56"></a>
+    <p class="note">For iPhone and iPad (iOS 16.4 or later). Free, with an optional Pro upgrade.</p>
+  </div>
+  <div class="fan" aria-hidden="true">
+    <img class="l" src="img/plans.webp" alt="" width="300" height="641" loading="eager">
+    <img class="r" src="img/parts.webp" alt="" width="300" height="641" loading="eager">
+    <img class="c" src="img/layout.webp" alt="" width="320" height="641" fetchpriority="high">
+  </div>
+</div></div>
+
+
+<section class="split" id="cut-layouts"><div class="wrap">
+  <div><h2>Cut layouts a table saw can follow</h2><p class="lead">Sheets are cut in two directions with straight cuts from edge to edge, the way a table saw or a track saw works. Boards are cut along their length, and parts marked for grain are never turned.</p>
+  <ul class="facts"><li>Every sheet and board drawn with numbered parts</li><li>The saw kerf you set is counted between the parts</li><li>A buy list with how many sheets and boards to get and what they cost</li></ul></div>
+  <div class="shot"><img src="img/layout.webp" alt="Benchwise layout for a bookshelf: 8 pieces on two plywood sheets, 16 percent waste, a buy list of two sheets and an estimated cost of 72 dollars" width="360" height="769" loading="lazy"></div>
+</div></section>
+
+
+
+<section class="split rev alt" id="plans"><div class="wrap">
+  <div><h2>Ten plans to start from</h2><p class="lead">A wall shelf, planter box, birdhouse, picture frame, step stool, bookshelf, garden bench, side table, workbench and raised bed. Each one opens in metric or imperial, with steps to tick off as you build.</p>
+  <ul class="facts"><li>Start a plan as your own project, change the width of a shelf and the sheets redraw</li><li>All ten plans are free</li></ul></div>
+  <div class="shot"><img src="img/plans.webp" alt="Benchwise plans: wall shelf, planter box, birdhouse, picture frame, step stool and bookshelf, each with its level and build time" width="360" height="769" loading="lazy"></div>
+</div></section>
+
+
+
+<section class="split" id="lengths"><div class="wrap">
+  <div><h2>Lengths typed the way the tape reads</h2><p class="lead">Type 24 1/2, 2&#39; 3, 610 or 61 cm. Benchwise reads each one, shows it in the other unit underneath and rounds to the nearest sixteenth. The tape calculator adds 24 1/2 and 3/4 to 25 1/4 without a decimal in sight.</p>
+  </div>
+  <div class="shot"><img src="img/parts.webp" alt="Benchwise cut list for a workbench: a saw kerf of 1/8 inch and parts such as legs, long rails and short rails in feet and inches" width="360" height="769" loading="lazy"></div>
+</div></section>
+
+
+
+<section class="split rev alt" id="calculators"><div class="wrap">
+  <div><h2>Shop math before the glue-up</h2><p class="lead">Check how much a tabletop will move between two humidities, for 30 species. The wood guide gives hardness, density, workability, outdoor use and price for the same 30 woods.</p>
+  <ul class="facts"><li>Board feet, equal spacing, miter and slope angles</li><li>Screws and pilot holes, sanding grit order</li><li>How many pieces a board yields</li></ul></div>
+  <div class="shot"><img src="img/movement.webp" alt="Benchwise wood movement calculator: a 12 inch red oak board, flat sawn, from 30 to 65 percent humidity, gets about a quarter inch wider" width="360" height="769" loading="lazy"></div>
+</div></section>
+
+
+
+<section id="free-and-pro"><div class="wrap"><h2>Free and Pro</h2>
+  <table><thead><tr><th scope="col"></th><th scope="col">Free</th><th scope="col">Pro</th></tr></thead><tbody>
+  <tr><th scope="row">Calculators and the wood guide</th><td class="y">Included</td><td class="y">Included</td></tr><tr><th scope="row">The ten plans</th><td class="y">Included</td><td class="y">Included</td></tr><tr><th scope="row">Project size</th><td class="y">Up to 20 pieces</td><td class="y">Any size</td></tr><tr><th scope="row">PDF cut sheets to print</th><td class="n">Not included</td><td class="y">Included</td></tr><tr><th scope="row">CSV files for a spreadsheet</th><td class="n">Not included</td><td class="y">Included</td></tr>
+  </tbody></table><p class="small">Pro is a yearly subscription that begins with three free days, or a single lifetime purchase. The App Store shows the price in your currency before you buy.</p></div></section>
+
+
+
+<section class="alt" id="faq"><div class="wrap"><h2>Questions</h2>
+  <details><summary>Does Benchwise work without signal?</summary><p>Yes. Projects stay on your phone and work in a shop without signal. A backup file carries them to a new phone.</p></details><details><summary>Can I work in inches and in millimeters?</summary><p>Yes. Every plan opens in metric or imperial, and a length can be typed as 24 1/2, 2&#39; 3, 610 or 61 cm.</p></details><details><summary>How does it cut sheet goods?</summary><p>With straight cuts from edge to edge in two directions, the way a table saw or a track saw cuts, with the kerf counted. Parts marked for grain are never turned.</p></details><details><summary>What does Pro add?</summary><p>Projects of any size, PDF cut sheets to print and CSV files for a spreadsheet. The calculators, the wood guide, all ten plans and projects of up to 20 pieces are free.</p></details><details><summary>Which languages does Benchwise speak?</summary><p>English, German, French, Spanish, Italian, Portuguese, Dutch and Polish.</p></details></div></section>
+
+
+<section class="final"><div class="wrap"><h2>Lay out your next build in Benchwise</h2><a class="badge" href="https://apps.apple.com/us/app/benchwise-cut-list-optimizer/id6819391412"><img src="/assets/home/badge-app-store.svg" alt="Download on the App Store" width="168" height="56" loading="lazy"></a>
+<p class="note">For iPhone and iPad (iOS 16.4 or later). Free, with an optional Pro upgrade.</p></div></section>
+</main>
+<footer><div class="wrap"><span>Benchwise is an app by Peak Apps Studio.</span><a href="/">Peak Apps Studio</a>
+<a href="https://benchwise.peakappsstudio.com/privacy/">Privacy policy</a><a href="https://benchwise.peakappsstudio.com/terms/">Terms of use</a>
+<a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></div></footer>
+</body>
+</html>
