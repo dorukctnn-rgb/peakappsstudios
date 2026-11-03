@@ -21,9 +21,9 @@
     if (f.dataset.on) return;
     f.dataset.on = '1';
     var v = f.querySelector('video');
-    var sizes = f.dataset.sizes.split(',');
-    var w = sizes[0];
-    if (sizes.length > 1 && f.getBoundingClientRect().width * Math.min(devicePixelRatio || 1, 2) < 760) w = sizes[1];
+    var sizes = f.dataset.sizes.split(',').map(Number).sort(function (a, b) { return a - b; });
+    var need = Math.max(f.offsetWidth, f.getBoundingClientRect().width) * Math.min(devicePixelRatio || 1, 2), w = sizes[sizes.length - 1];
+    for (var i = 0; i < sizes.length; i++) if (sizes[i] >= need) { w = sizes[i]; break; }
     var base = 'assets/b/clip/' + f.dataset.clip + '-' + w;
     var webm = v.canPlayType('video/webm; codecs="vp9"');
     v.addEventListener('playing', function () { f.classList.add('playing'); });
@@ -86,6 +86,11 @@
     new IntersectionObserver(function (es) { if (es[0].isIntersecting) v.play().catch(function () {}); else v.pause(); }).observe(v);
   }
   function afterLoad(fn) { if (d.readyState === 'complete') fn(); else addEventListener('load', fn, { once: true }); }
+  /* large 2x frames wait for the first paint, so the hero poster gets the bandwidth */
+  afterLoad(function () {
+    $$('[data-srcset]').forEach(function (el) { el.srcset = el.getAttribute('data-srcset'); el.removeAttribute('data-srcset'); });
+    $$('img[data-src]').forEach(function (el) { el.src = el.getAttribute('data-src'); el.removeAttribute('data-src'); });
+  });
   afterLoad(function () {
     setTimeout(ringVideo, 600);
     var idle = window.requestIdleCallback || function (f) { return setTimeout(f, 300); };
@@ -97,34 +102,20 @@
   var world = $('#rope'), win = $('#win'), cardface = $('#cardface'), label = $('#label');
   var frames = $$('#frames .frame'), wtitle = $('#rope-title'), wl = $$('.c', wtitle);
   var rcBursts = $$('.burst', world);
-  var seqCv = $('#rcseq'), seqCtx = null, seq = [], seqN = +seqCv.dataset.count, seqStarted = false, seqShown = -1;
-  function seqLoad() {
-    if (seqStarted) return;
-    seqStarted = true;
-    var phone = mq.matches, base = phone ? seqCv.dataset.phone : seqCv.dataset.desk;
-    var order = [0, seqN - 1, Math.floor(seqN / 2)];
-    for (var step = 8; step >= 1; step = Math.floor(step / 2)) for (var i = 0; i < seqN; i += step) if (order.indexOf(i) < 0) order.push(i);
-    var k = 0;
-    function next() {
-      if (k >= order.length) return;
-      var i = order[k++], im = new Image();
-      im.decoding = 'async';
-      im.onload = function () { seq[i] = im; seqShown = -1; scenes(); next(); };
-      im.onerror = next;
-      im.src = base + (i + 1 < 10 ? '0' : '') + (i + 1) + '.webp';
-    }
-    next(); next();
+  var rcimg = $('#rcimg'), RA = 2752 / 2064;
+  function rcSize() {
+    if (!FX || !G) return;
+    var w = G.winW, h = G.winH, iw = Math.max(w, h * RA), ih = iw / RA;
+    G.rc = { w: w, h: h, iw: iw, ih: ih };
+    rcimg.style.width = iw + 'px'; rcimg.style.height = ih + 'px';
+    rcimg.classList.add('sized');
   }
-  function seqDraw(i) {
-    var j = i, best = null;
-    for (var o = 0; o < seqN; o++) { if (seq[i - o]) { best = seq[i - o]; j = i - o; break; } if (seq[i + o]) { best = seq[i + o]; j = i + o; break; } }
-    if (!best || j === seqShown) return;
-    var dpr = Math.min(devicePixelRatio || 1, 1.5), w = G ? G.winW : win.clientWidth, h = G ? G.winH : win.clientHeight;
-    if (seqCv.width !== Math.round(w * dpr) || seqCv.height !== Math.round(h * dpr)) { seqCv.width = Math.round(w * dpr); seqCv.height = Math.round(h * dpr); }
-    if (!seqCtx) seqCtx = seqCv.getContext('2d');
-    var r = Math.max(seqCv.width / best.width, seqCv.height / best.height), dw = best.width * r, dh = best.height * r;
-    seqCtx.drawImage(best, (seqCv.width - dw) / 2, (seqCv.height - dh) / 2, dw, dh);
-    seqShown = j;
+  function rcPan(pr) {
+    if (!G.rc) return;
+    var r = G.rc, k = ease(clamp((pr - .08) / .8));
+    /* landscape: the camera climbs the rope from the hanging buddy to the friend on the deck; portrait: it slides along it */
+    var fx = r.iw > r.w + 1 ? lerp(.22, .6, k) : .5, fy = r.ih > r.h + 1 ? lerp(1, .06, k) : .5;
+    rcimg.style.transform = 'translate3d(' + (-(r.iw - r.w) * fx).toFixed(1) + 'px,' + (-(r.ih - r.h) * fy).toFixed(1) + 'px,0)';
   }
 
   /* ---------- Trailer Wreck: frames pan sideways and turn ---------- */
@@ -135,6 +126,7 @@
   function box(el) { var r = el.getBoundingClientRect(); return { top: r.top + scrollY, h: el.offsetHeight }; }
   function measure() {
     G = { ih: innerHeight, hero: box(hero), world: box(world), tw: tw ? box(tw) : null, winW: win.clientWidth, winH: win.clientHeight };
+    rcSize();
     if (track) { G.wrapL = trackwrap.getBoundingClientRect().left; G.wrapW = trackwrap.clientWidth; G.trackW = track.scrollWidth; G.figs = figs.map(function (f) { return [f.offsetLeft, f.offsetWidth]; }); }
   }
   function gp(b) { return clamp((scrollY - b.top) / Math.max(1, b.h - G.ih)); }
@@ -150,7 +142,6 @@
       heroLetters.forEach(function (c, i) { c.style.setProperty('--y', (Math.sin(ph * 8 - i * .5) * ph * 12).toFixed(2) + 'px'); });
     }
     if (gnear(G.world, G.ih)) {
-      if (!seqStarted && scrolled) seqLoad();
       var pr = gp(G.world), e = ease(clamp(pr / .3));
       var cw = m ? .12 : .36, ch = .2;
       win.style.setProperty('--t', lerp(ch, 0, e) * 100 + '%'); win.style.setProperty('--b', lerp(ch, 0, e) * 100 + '%');
@@ -158,8 +149,7 @@
       win.style.setProperty('--rad', lerp(44, 0, e) + 'px');
       cardface.style.opacity = 1 - clamp((e - .3) * 4);
       cardface.style.transform = 'scale(' + (1 + e * .5) + ')';
-      seqCv.style.opacity = clamp((e - .15) * 3);
-      seqDraw(Math.round(clamp((pr - .12) / .72) * (seqN - 1)));
+      rcPan(pr);
       framesBox.style.opacity = clamp((e - .4) * 2.5);
       frames.forEach(function (f, i) { var sp = +f.dataset.sp * (m ? .3 : 1); f.style.transform = 'translateY(' + ((1 - e) * 140 - pr * 180 * sp).toFixed(1) + 'px) rotate(' + ((i - 1) * 4 + pr * (i % 2 ? -3 : 3)).toFixed(2) + 'deg)'; });
       wtitle.style.opacity = clamp((e - .5) * 2.4);
@@ -180,7 +170,7 @@
   function onScroll() { scrolled = true; if (ticking) return; ticking = true; requestAnimationFrame(function () { ticking = false; scenes(); }); }
   addEventListener('scroll', onScroll, { passive: true });
   var rz = 0;
-  addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(function () { G = null; seqShown = -1; layoutFlow(); scenes(); }, 120); });
+  addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(function () { G = null; layoutFlow(); scenes(); }, 120); });
   /* nothing moves before the first scroll, so geometry is not read during page load */
   if (d.fonts && d.fonts.ready) d.fonts.ready.then(function () { G = null; if (scrolled) scenes(); });
   afterLoad(function () { G = null; if (scrollY > 0) { scrolled = true; scenes(); } });
@@ -222,6 +212,12 @@
   var sx = null;
   flow.addEventListener('pointerdown', function (e) { sx = e.clientX; });
   flow.addEventListener('pointerup', function (e) { if (sx === null) return; var dx = e.clientX - sx; if (Math.abs(dx) > 40) { cur = clamp(cur + (dx < 0 ? 1 : -1), 0, items.length - 1); layoutFlow(); } sx = null; });
+
+  /* ---------- phones: the device turn and the app screen flows run only on screen ---------- */
+  if ('IntersectionObserver' in window) {
+    var ioTurn = new IntersectionObserver(function (es) { es.forEach(function (e) { e.target.classList.toggle('run', e.isIntersecting); }); }, { rootMargin: '100px 0px' });
+    $$('.turn').forEach(function (t) { ioTurn.observe(t); });
+  }
 
   /* ---------- tilt on hover (mouse only) ---------- */
   if (fine && FX) $$('.tilt').forEach(function (el) {
