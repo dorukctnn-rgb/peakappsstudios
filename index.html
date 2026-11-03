@@ -3,546 +3,603 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Peak Apps Studio: web tools, apps and golf software</title>
-<meta name="description" content="Peak Apps makes small web tools, apps and games: TRAILER WRECK on Google Play, BodyArcade, GetQuotationMaker, Chatbound for Character.AI exports, GolfReserve Pro for golf courses, and more.">
+<title>Peak Apps Studio: games, apps and web tools</title>
+<meta name="description" content="Games, apps and web tools from Peak Apps Studio: TRAILER WRECK, Rope Crew, BodyArcade, Leano, Munchlet, Hearmony, Chatbound, GolfReserve Pro and more.">
 <link rel="canonical" href="https://peakappsstudio.com/">
-<meta name="theme-color" content="#e8ebf0" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0f1218" media="(prefers-color-scheme: dark)">
-<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FFE04A">
+<meta name="color-scheme" content="light">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Peak Apps Studio">
 <meta property="og:url" content="https://peakappsstudio.com/">
-<meta property="og:title" content="Peak Apps Studio: web tools, apps and golf software">
-<meta property="og:description" content="Small web tools that each do one job, readers for the data exports apps leave you with, GolfReserve Pro for golf courses, BodyArcade, our apps and TRAILER WRECK, our demolition derby game for Android.">
-<meta property="og:image" content="https://peakappsstudio.com/assets/home/og.jpg">
+<meta property="og:title" content="Peak Apps Studio: games, apps and web tools">
+<meta property="og:description" content="Rope Crew and TRAILER WRECK, BodyArcade in your browser, apps on the App Store and Google Play, and small web tools that each do one job.">
+<meta property="og:image" content="https://peakappsstudio.com/assets/b/img/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://peakappsstudio.com/assets/home/og.jpg">
+<meta name="twitter:image" content="https://peakappsstudio.com/assets/b/img/og.jpg">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="assets/fonts/hedvig-letters-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" type="image/avif" imagesrcset="assets/home/tw-poster-640.avif 640w, assets/home/tw-poster-960.avif 960w, assets/home/tw-poster-1280.avif 1280w" imagesizes="(max-width: 959px) 92vw, min(56vw, 700px)" fetchpriority="high">
-<link rel="stylesheet" href="assets/css/home.css">
+<link rel="preload" href="assets/b/fonts/bricolage-a.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" type="image/avif" media="(min-width: 761px)" imagesrcset="assets/b/img/ring-d-1100.avif 1100w, assets/b/img/ring-d-1600.avif 1600w" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="image" type="image/avif" media="(max-width: 760px)" imagesrcset="assets/b/img/ring-m-540.avif 540w, assets/b/img/ring-m-720.avif 720w" imagesizes="100vw" fetchpriority="high">
+<link rel="stylesheet" href="assets/b/b.css">
 <script>
-(function () {
-  var d = document.documentElement;
-  d.classList.add('js');
+(function (d) {
   try {
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.CSS && CSS.supports('transform-style', 'preserve-3d')) d.classList.add('d3');
+    var rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    d.classList.add('js');
+    if (!rm) d.classList.add('fx');
   } catch (e) {}
-})();
+})(document.documentElement);
 </script>
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@graph": [
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Organization",
+   "@id": "https://peakappsstudio.com/#org",
+   "name": "Peak Apps Studio",
+   "url": "https://peakappsstudio.com/",
+   "email": "info@peakappsstudio.com",
+   "logo": "https://peakappsstudio.com/assets/favicon.svg"
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://peakappsstudio.com/#website",
+   "name": "Peak Apps Studio",
+   "url": "https://peakappsstudio.com/",
+   "publisher": {
+    "@id": "https://peakappsstudio.com/#org"
+   }
+  },
+  {
+   "@type": "ItemList",
+   "name": "Products by Peak Apps Studio",
+   "itemListElement": [
     {
-      "@type": "Organization",
-      "@id": "https://peakappsstudio.com/#org",
-      "name": "Peak Apps Studio",
-      "url": "https://peakappsstudio.com/",
-      "email": "info@peakappsstudio.com",
-      "logo": "https://peakappsstudio.com/assets/favicon.svg"
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://peakappsstudio.com/#website",
-      "name": "Peak Apps Studio",
-      "url": "https://peakappsstudio.com/",
-      "publisher": {"@id": "https://peakappsstudio.com/#org"}
-    },
-    {
-      "@type": "ItemList",
-      "name": "Products by Peak Apps Studio",
-      "itemListElement": [
-        {"@type": "ListItem", "position": 1, "item": {"@type": "SoftwareApplication", "name": "BodyArcade", "url": "https://bodyarcade.com/", "applicationCategory": "GameApplication", "operatingSystem": "Web browser"}},
-        {"@type": "ListItem", "position": 2, "item": {"@type": "SoftwareApplication", "name": "GetQuotationMaker", "url": "https://www.getquotationmaker.com/", "applicationCategory": "BusinessApplication", "operatingSystem": "Web browser"}},
-        {"@type": "ListItem", "position": 3, "item": {"@type": "SoftwareApplication", "name": "Chatbound", "url": "https://peakappsstudio.com/character-ai-export-viewer/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Web browser"}},
-        {"@type": "ListItem", "position": 4, "item": {"@type": "SoftwareApplication", "name": "ColoringPageMaker", "url": "https://www.coloringpagemaker.app/", "applicationCategory": "DesignApplication", "operatingSystem": "Web browser"}},
-        {"@type": "ListItem", "position": 5, "item": {"@type": "SoftwareApplication", "name": "MileageLogMaker", "url": "https://www.mileagelogmaker.com/", "applicationCategory": "FinanceApplication", "operatingSystem": "Web browser"}},
-        {"@type": "ListItem", "position": 6, "item": {"@type": "SoftwareApplication", "name": "Chicken coop designer", "url": "https://peakappsstudio.com/coop-designer/", "applicationCategory": "DesignApplication", "operatingSystem": "Web browser"}},
-        {"@type": "ListItem", "position": 7, "item": {"@type": "SoftwareApplication", "name": "Notelift", "url": "https://peakappsstudio.com/colornote-viewer/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Web browser"}},
-        {"@type": "ListItem", "position": 8, "item": {"@type": "SoftwareApplication", "name": "Sim rig designer", "url": "https://peakappsstudio.com/sim-rig-designer/", "applicationCategory": "DesignApplication", "operatingSystem": "Web browser"}},
-        {"@type": "ListItem", "position": 9, "item": {"@type": "SoftwareApplication", "name": "GolfReserve Pro", "url": "https://golfreserve.peakappsstudio.com/", "applicationCategory": "BusinessApplication", "operatingSystem": "Web browser"}},
-        {"@type": "ListItem", "position": 10, "item": {"@id": "https://peakappsstudio.com/#trailer-wreck-game"}}
-      ]
-    },
-    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": {
       "@type": "VideoGame",
-      "@id": "https://peakappsstudio.com/#trailer-wreck-game",
-      "name": "TRAILER WRECK: Derby Racing",
-      "alternateName": "TRAILER WRECK",
-      "description": "Multiplayer demolition derby for Android: ten cars fight to stay on one moving trailer in three-minute matches, online with friends or offline against AI.",
-      "url": "https://peakappsstudio.com/#trailer-wreck",
-      "installUrl": "https://play.google.com/store/apps/details?id=com.peakapps.trailerwreck",
-      "sameAs": "https://play.google.com/store/apps/details?id=com.peakapps.trailerwreck",
-      "image": "https://peakappsstudio.com/assets/home/tw-poster-1280.webp",
+      "name": "Rope Crew",
+      "url": "https://ropecrew.peakappsstudio.com/",
+      "description": "Online co-op climbing game for 2 to 4 friends tied together by one rope, with 10-player Knockout races. Coming soon.",
+      "gamePlatform": [
+       "iOS",
+       "Android"
+      ],
       "applicationCategory": "GameApplication",
-      "operatingSystem": "Android",
-      "gamePlatform": "Android",
-      "genre": ["Racing", "Demolition derby"],
-      "playMode": ["MultiPlayer", "SinglePlayer"],
-      "contentRating": "Teen",
-      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
-      "publisher": {"@id": "https://peakappsstudio.com/#org"},
-      "trailer": {
-        "@type": "VideoObject",
-        "name": "TRAILER WRECK trailer",
-        "description": "18 seconds cut from the game's own footage: the moving trailer, ramp crashes, crash damage and night races.",
-        "thumbnailUrl": "https://peakappsstudio.com/assets/home/tw-poster-1280.webp",
-        "contentUrl": "https://peakappsstudio.com/assets/home/tw-trailer-1280.mp4",
-        "uploadDate": "2026-10-30",
-        "duration": "PT18S"
+      "operatingSystem": "iOS, Android",
+      "publisher": {
+       "@id": "https://peakappsstudio.com/#org"
       }
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": {
+      "@id": "https://peakappsstudio.com/#trailer-wreck-game"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": {
+      "@type": "SoftwareApplication",
+      "name": "BodyArcade",
+      "url": "https://bodyarcade.com/",
+      "operatingSystem": "Web browser",
+      "applicationCategory": "GameApplication"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 4,
+     "item": {
+      "@type": "SoftwareApplication",
+      "name": "Leano",
+      "url": "https://apps.apple.com/app/id6761293700",
+      "operatingSystem": "iOS",
+      "applicationCategory": "HealthApplication"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 5,
+     "item": {
+      "@type": "SoftwareApplication",
+      "name": "Munchlet",
+      "url": "https://play.google.com/store/apps/details?id=com.peakapps.munchlet",
+      "operatingSystem": "Android",
+      "applicationCategory": "HealthApplication"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 6,
+     "item": {
+      "@type": "SoftwareApplication",
+      "name": "Hearmony",
+      "url": "https://play.google.com/store/apps/details?id=com.peakapps.hearmony",
+      "operatingSystem": "Android",
+      "applicationCategory": "EducationalApplication"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 7,
+     "item": {
+      "@type": "SoftwareApplication",
+      "name": "Benchwise",
+      "url": "https://apps.apple.com/us/app/benchwise-cut-list-optimizer/id6819391412",
+      "operatingSystem": "iOS",
+      "applicationCategory": "UtilitiesApplication"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 8,
+     "item": {
+      "@type": "SoftwareApplication",
+      "name": "OkulTakip",
+      "url": "https://apps.apple.com/tr/app/id6758399281",
+      "operatingSystem": "iOS",
+      "applicationCategory": "LifestyleApplication"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 9,
+     "item": {
+      "@type": "SoftwareApplication",
+      "name": "Kopilot",
+      "url": "https://apps.apple.com/tr/app/id6779541340",
+      "operatingSystem": "iOS, Android",
+      "applicationCategory": "TravelApplication"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 10,
+     "item": {
+      "@type": "SoftwareApplication",
+      "name": "GolfReserve Pro",
+      "url": "https://golfreserve.peakappsstudio.com/",
+      "operatingSystem": "Web browser",
+      "applicationCategory": "BusinessApplication"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 11,
+     "item": {
+      "@type": "SoftwareApplication",
+      "name": "GetQuotationMaker",
+      "url": "https://www.getquotationmaker.com/",
+      "operatingSystem": "Web browser",
+      "applicationCategory": "BusinessApplication"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 12,
+     "item": {
+      "@type": "SoftwareApplication",
+      "name": "MileageLogMaker",
+      "url": "https://www.mileagelogmaker.com/",
+      "operatingSystem": "Web browser",
+      "applicationCategory": "FinanceApplication"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 13,
+     "item": {
+      "@type": "SoftwareApplication",
+      "name": "Chatbound",
+      "url": "https://peakappsstudio.com/character-ai-export-viewer/",
+      "operatingSystem": "Web browser",
+      "applicationCategory": "UtilitiesApplication"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 14,
+     "item": {
+      "@type": "SoftwareApplication",
+      "name": "ColoringPageMaker",
+      "url": "https://www.coloringpagemaker.app/",
+      "operatingSystem": "Web browser",
+      "applicationCategory": "DesignApplication"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 15,
+     "item": {
+      "@type": "SoftwareApplication",
+      "name": "Chicken coop designer",
+      "url": "https://peakappsstudio.com/coop-designer/",
+      "operatingSystem": "Web browser",
+      "applicationCategory": "DesignApplication"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 16,
+     "item": {
+      "@type": "SoftwareApplication",
+      "name": "Sim rig designer",
+      "url": "https://peakappsstudio.com/sim-rig-designer/",
+      "operatingSystem": "Web browser",
+      "applicationCategory": "DesignApplication"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 17,
+     "item": {
+      "@type": "SoftwareApplication",
+      "name": "Notelift",
+      "url": "https://peakappsstudio.com/colornote-viewer/",
+      "operatingSystem": "Web browser",
+      "applicationCategory": "UtilitiesApplication"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 18,
+     "item": {
+      "@type": "SoftwareApplication",
+      "name": "Lastleaf",
+      "url": "https://peakappsstudio.com/yahoo-notepad/",
+      "operatingSystem": "Web browser",
+      "applicationCategory": "UtilitiesApplication"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 19,
+     "item": {
+      "@type": "SoftwareApplication",
+      "name": "Rehoused",
+      "url": "https://peakappsstudio.com/weebly-archive/",
+      "operatingSystem": "Web browser",
+      "applicationCategory": "UtilitiesApplication"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 20,
+     "item": {
+      "@type": "SoftwareApplication",
+      "name": "Skillcase",
+      "url": "https://peakappsstudio.com/custom-gpt-export/",
+      "operatingSystem": "Web browser",
+      "applicationCategory": "UtilitiesApplication"
+     }
     }
-  ]
+   ]
+  },
+  {
+   "@type": "VideoGame",
+   "@id": "https://peakappsstudio.com/#trailer-wreck-game",
+   "name": "TRAILER WRECK: Derby Racing",
+   "alternateName": "TRAILER WRECK",
+   "description": "Multiplayer demolition derby for Android: ten cars fight to stay on one moving trailer in three-minute matches, online with friends or offline.",
+   "url": "https://peakappsstudio.com/#trailer-wreck",
+   "installUrl": "https://play.google.com/store/apps/details?id=com.peakapps.trailerwreck",
+   "sameAs": "https://play.google.com/store/apps/details?id=com.peakapps.trailerwreck",
+   "image": "https://peakappsstudio.com/assets/home/tw-poster-1280.webp",
+   "applicationCategory": "GameApplication",
+   "operatingSystem": "Android",
+   "gamePlatform": "Android",
+   "genre": [
+    "Racing",
+    "Demolition derby"
+   ],
+   "playMode": [
+    "MultiPlayer",
+    "SinglePlayer"
+   ],
+   "contentRating": "Teen",
+   "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+   },
+   "publisher": {
+    "@id": "https://peakappsstudio.com/#org"
+   },
+   "trailer": {
+    "@type": "VideoObject",
+    "name": "TRAILER WRECK trailer",
+    "description": "18 seconds cut from the game's own footage: the moving trailer, ramp crashes, crash damage and night races.",
+    "thumbnailUrl": "https://peakappsstudio.com/assets/home/tw-poster-1280.webp",
+    "contentUrl": "https://peakappsstudio.com/assets/home/tw-trailer-1280.mp4",
+    "uploadDate": "2026-10-30",
+    "duration": "PT18S"
+   }
+  }
+ ]
 }
 </script>
 </head>
 <body>
-<a class="skip" href="#most-used">Skip to the tools</a>
+<a class="skip" href="#shelf">Skip to every product</a>
 
 <header class="bar">
-  <a class="brand" href="./" aria-label="Peak Apps Studio, home">
-    <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 L14 8 L19 17 L22 12 L28 26 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
-    <span class="brand-word">Peak Apps</span>
-  </a>
-  <nav class="bar-nav" aria-label="Sections">
-    <ul>
-      <li><a href="#trailer-wreck">Trailer Wreck</a></li>
-      <li><a href="#most-used">Most used</a></li>
-      <li><a href="#closing">Closing soon</a></li>
-      <li><a href="#golf">Golf</a></li>
-      <li><a href="#bodyarcade">BodyArcade</a></li>
-      <li><a href="#apps">Apps</a></li>
-      <li><a href="#websites">Websites</a></li>
-      <li><a href="#everything">Everything</a></li>
-    </ul>
+  <a class="brand" href="./" aria-label="Peak Apps Studio, home"><b aria-hidden="true"><i style="background:#18B4F2"></i><i style="background:#FF5C39"></i><i style="background:#7B5CFF"></i><i style="background:#FFC61A"></i></b>Peak Apps Studio</a>
+  <nav aria-label="Sections">
+    <a href="#rope">Games</a>
+    <a href="#apps">Apps</a>
+    <a href="#shelf">Every product</a>
+    <a href="#web">Web tools</a>
   </nav>
-  <a class="bar-mail" href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a>
+  <a class="mail" href="#contact">Write to us</a>
 </header>
 
-<main>
-  <!-- TRAILER WRECK: our Android game, on Google Play since 30 Oct 2026 (listing checked: free, in-app purchases, Teen).
-       The trailer, poster and screens come from the game's own capture frames; facts are from the Play listing. -->
-  <section id="trailer-wreck" class="tw" aria-labelledby="tw-title" data-trailer>
-    <div class="tw-head">
-      <p class="tw-mark"><img src="assets/home/tw-wordmark-468.webp" srcset="assets/home/tw-wordmark-240.webp 240w, assets/home/tw-wordmark-468.webp 468w" sizes="(max-width: 1000px) 150px, 210px" width="234" height="150" alt="TRAILER WRECK" decoding="async"></p>
-      <h2 id="tw-title" class="tw-title">Ten cars fight for one moving trailer.</h2>
-    </div>
-
-    <div class="tw-media">
-      <div class="tw-screen">
-        <picture>
-          <source type="image/avif" srcset="assets/home/tw-poster-640.avif 640w, assets/home/tw-poster-960.avif 960w, assets/home/tw-poster-1280.avif 1280w" sizes="(max-width: 959px) 92vw, min(56vw, 700px)">
-          <img class="tw-poster" src="assets/home/tw-poster-960.webp" srcset="assets/home/tw-poster-640.webp 640w, assets/home/tw-poster-960.webp 960w, assets/home/tw-poster-1280.webp 1280w" sizes="(max-width: 959px) 92vw, min(56vw, 700px)" width="1280" height="720" alt="A red derby car crashes at the trailer&rsquo;s ramp while two cars flip beside it, in front of a full grandstand" fetchpriority="high" decoding="async">
+<main id="top">
+  <section class="hero" aria-labelledby="h1">
+    <div class="stick">
+      <div class="ring-box">
+        <picture class="ring-poster">
+          <source type="image/avif" media="(max-width: 760px)" srcset="assets/b/img/ring-m-540.avif 540w, assets/b/img/ring-m-720.avif 720w" sizes="100vw">
+          <source type="image/webp" media="(max-width: 760px)" srcset="assets/b/img/ring-m-720.webp" sizes="100vw">
+          <source type="image/avif" srcset="assets/b/img/ring-d-1100.avif 1100w, assets/b/img/ring-d-1600.avif 1600w" sizes="100vw">
+          <img src="assets/b/img/ring-d-1600.webp" srcset="assets/b/img/ring-d-1100.webp 1100w, assets/b/img/ring-d-1600.webp 1600w" sizes="100vw" width="1600" height="1000" alt="" fetchpriority="high" decoding="async">
         </picture>
-        <video class="tw-video" muted loop playsinline preload="none" disablepictureinpicture disableremoteplayback aria-hidden="true" tabindex="-1" width="1280" height="720" data-small="assets/home/tw-trailer-960" data-large="assets/home/tw-trailer-1280"></video>
-        <button class="tw-toggle" type="button" aria-label="Pause the trailer" data-trailer-toggle hidden>
-          <svg class="tw-i-pause" viewBox="0 0 20 20" aria-hidden="true"><rect x="5" y="4" width="3.4" height="12" rx="1"/><rect x="11.6" y="4" width="3.4" height="12" rx="1"/></svg>
-          <svg class="tw-i-play" viewBox="0 0 20 20" aria-hidden="true"><path d="M6.5 4.2v11.6c0 .6.7 1 1.2.6l8.4-5.8c.4-.3.4-.9 0-1.2L7.7 3.6c-.5-.4-1.2 0-1.2.6z"/></svg>
-        </button>
+        <video class="ring-vid" muted playsinline loop preload="none" aria-hidden="true" data-src="assets/b/clip/ring-720"></video>
       </div>
-      <p class="tw-caption">An 18-second trailer cut from the game&rsquo;s own footage, without sound.</p>
-    </div>
-
-    <div class="tw-body">
-      <p class="tw-lede">A demolition derby for Android. A tow rig drags a flatbed trailer around the speedway: climb its rear ramp, stay on the deck to score and knock everyone else off before the three minutes run out.</p>
-      <div class="actions">
-        <a class="btn btn--light" href="https://play.google.com/store/apps/details?id=com.peakapps.trailerwreck">Get it on Google Play</a>
+      <canvas id="ring" aria-hidden="true" data-colors="#18B4F2,#FF8A1C,#7B5CFF,#13B5A6,#FF5A36,#14A184,#2D5BE3,#7C6CF2,#E86A92,#F6C026,#1E2A4A,#FF6B2C,#F2A31B,#2E4FA8,#23407A,#D61F69,#FF3D8B,#2196F3,#5E8C3A,#F26A3D,#8B5CFF"></canvas>
+      <div class="copy">
+        <h1 id="h1" aria-label="Games, apps and web tools."><span class="l l1"><span class="c" style="--d:0">G</span><span class="c" style="--d:1">a</span><span class="c" style="--d:2">m</span><span class="c" style="--d:3">e</span><span class="c" style="--d:4">s</span><span class="c" style="--d:5">,</span></span> <span class="l l2"><span class="c" style="--d:6">a</span><span class="c" style="--d:7">p</span><span class="c" style="--d:8">p</span><span class="c" style="--d:9">s</span><span class="c" style="--d:10">&nbsp;</span><span class="c" style="--d:11">a</span><span class="c" style="--d:12">n</span><span class="c" style="--d:13">d</span></span> <span class="l l3"><span class="c" style="--d:14">w</span><span class="c" style="--d:15">e</span><span class="c" style="--d:16">b</span><span class="c" style="--d:17">&nbsp;</span><span class="c" style="--d:18">t</span><span class="c" style="--d:19">o</span><span class="c" style="--d:20">o</span><span class="c" style="--d:21">l</span><span class="c" style="--d:22">s</span><span class="c" style="--d:23">.</span></span></h1>
+        <p class="sub">Made by Peak Apps Studio. Seven are on the App Store or Google Play today, BodyArcade plays in your browser, and Rope Crew and twelve more apps are on their way.</p>
+        <div class="cta"><a class="btn" href="#shelf">See every product</a><a class="btn ghost" href="#rope">Meet Rope Crew</a></div>
       </div>
-      <p class="tw-note">Free and without ads. Optional purchases never sell speed or power. Android only, and online play needs an internet connection.</p>
     </div>
-
-    <ul class="tw-shots" aria-label="Screens from the game">
-      <li>
-        <img src="assets/home/tw-shot-hud-480.webp" srcset="assets/home/tw-shot-hud-272.webp 272w, assets/home/tw-shot-hud-480.webp 480w, assets/home/tw-shot-hud-960.webp 960w" sizes="(max-width: 759px) 136px, (max-width: 1240px) 30vw, 380px" width="480" height="270" alt="A match on a phone: position 1 of 10, a 2:36 timer and the trailer ahead, with a flipped yellow car next to the ramp" loading="lazy" decoding="async">
-        <p>Quick matches online, a room with your friends, or races against AI drivers with no connection.</p>
-      </li>
-      <li>
-        <img src="assets/home/tw-shot-hood-480.webp" srcset="assets/home/tw-shot-hood-272.webp 272w, assets/home/tw-shot-hood-480.webp 480w, assets/home/tw-shot-hood-960.webp 960w" sizes="(max-width: 759px) 136px, (max-width: 1240px) 30vw, 380px" width="480" height="270" alt="A red derby car with its hood torn open after a hit, at sunset" loading="lazy" decoding="async">
-        <p>Panels crumple where you get hit, bumpers fly off and hoods pop open. Each round starts on a fresh car.</p>
-      </li>
-      <li>
-        <img src="assets/home/tw-shot-night-480.webp" srcset="assets/home/tw-shot-night-272.webp 272w, assets/home/tw-shot-night-480.webp 480w, assets/home/tw-shot-night-960.webp 960w" sizes="(max-width: 759px) 136px, (max-width: 1240px) 30vw, 380px" width="480" height="270" alt="A dented red car number 27 at night under the stadium floodlights" loading="lazy" decoding="async">
-        <p>Race at sunset or under the floodlights. 14 cars and 20 paint jobs change the look, never the speed.</p>
-      </li>
-    </ul>
   </section>
 
-  <!-- MOST USED: the card drawer. Order = Search Console clicks (29 Sep to 27 Oct 2026, all language editions) plus 10 per paid sale (Gumroad, 29 Sep to 29 Oct). -->
-  <section id="most-used" class="cat" aria-labelledby="hero-title" data-cat>
-    <div class="cat-pin">
-      <div class="cat-copy">
-        <h1 id="hero-title" class="hero-title">Small web tools and apps, each made for one job.</h1>
-        <p class="hero-sub">These eight got the most visits and sales over the last four weeks. Flip through them, or pick one by name.</p>
-        <ol class="cat-index" aria-label="Most used tools" data-cat-index>
-          <li><button type="button" data-go="0" aria-current="true">BodyArcade</button></li>
-          <li><button type="button" data-go="1">GetQuotationMaker</button></li>
-          <li><button type="button" data-go="2">Chatbound</button></li>
-          <li><button type="button" data-go="3">ColoringPageMaker</button></li>
-          <li><button type="button" data-go="4">MileageLogMaker</button></li>
-          <li><button type="button" data-go="5">Coop designer</button></li>
-          <li><button type="button" data-go="6">Notelift</button></li>
-          <li><button type="button" data-go="7">Sim rig designer</button></li>
-        </ol>
+  <section class="world" id="rope" aria-labelledby="rope-title">
+    <div class="stick">
+      <div class="win" id="win">
+        <picture class="rc-poster">
+          <source type="image/avif" media="(max-width: 760px)" srcset="assets/b/img/rc-rescue-m-540.avif">
+          <source type="image/webp" media="(max-width: 760px)" srcset="assets/b/img/rc-rescue-m-540.webp">
+          <source type="image/avif" srcset="assets/b/img/rc-rescue-960.avif 960w, assets/b/img/rc-rescue-1280.avif 1280w" sizes="100vw">
+          <img src="assets/b/img/rc-rescue-1280.webp" srcset="assets/b/img/rc-rescue-960.webp 960w, assets/b/img/rc-rescue-1280.webp 1280w" sizes="100vw" width="1280" height="720" alt="Rope Crew: a crew member on a high platform hauls his friend back up the rope" loading="lazy" decoding="async">
+        </picture>
+        <canvas id="rcseq" aria-hidden="true" data-count="30" data-desk="assets/b/seq/rc-" data-phone="assets/b/seq/rc-m-"></canvas>
+        <div class="scrim"></div>
+        <div class="frames" id="frames">
+          <div class="frame f1" data-sp="1.0"><figure class="clip" data-clip="rc-climb" data-sizes="960,640"><img src="assets/b/clip/rc-climb.webp" width="960" height="540" alt="Two crew members tied by one rope on a deck high above the city" loading="lazy" decoding="async"><video muted playsinline loop preload="none" aria-hidden="true"></video></figure><span class="tag" style="--rot:-4deg">Crane Row</span></div>
+          <div class="frame f2" data-sp="1.0"><img src="assets/b/img/rc-crowd-640.webp" width="640" height="360" alt="Ten players in hard hats lined up at the start of a Knockout round in the harbour" loading="lazy" decoding="async"><span class="tag" style="--rot:3deg">Harbor Havoc</span></div>
+          <div class="frame f3" data-sp="2.3"><figure class="clip" data-clip="rc-ko" data-sizes="960,640"><img src="assets/b/clip/rc-ko.webp" width="960" height="540" alt="A Knockout race on a construction deck with swinging wrecking balls" loading="lazy" decoding="async"><video muted playsinline loop preload="none" aria-hidden="true"></video></figure><span class="tag" style="--rot:-2deg">Knockout</span></div>
+        </div>
+        <div class="cardface" id="cardface" aria-hidden="true"><div><img class="tile3d" src="assets/b/img/i-ropecrew-256.webp" width="180" height="180" alt="" decoding="async"><div class="nm">Rope Crew</div><span class="chip soon">Coming soon</span></div></div>
+        <h2 class="wtitle xt" id="rope-title" aria-label="Rope Crew"><span class="c" style="--d:0">R</span><span class="c" style="--d:1">o</span><span class="c" style="--d:2">p</span><span class="c" style="--d:3">e</span><span class="c" style="--d:4">&nbsp;</span><span class="c" style="--d:5">C</span><span class="c" style="--d:6">r</span><span class="c" style="--d:7">e</span><span class="c" style="--d:8">w</span></h2>
+        <span class="burst rc-b1" aria-hidden="true"><span><b>2-4</b>friends on one rope</span></span>
+        <span class="burst rc-b2" aria-hidden="true"><span><b>10</b>player Knockout</span></span>
+        <div class="label" id="label">
+          <span class="chip soon">Coming soon</span>
+          <h3>Tied together, all the way to the top.</h3>
+          <p>An online co-op climb for 2 to 4 friends on one rope, up a building site high above the city. Slip off a beam and your crew hauls you back up. Knockout rounds race up to 10 players at once.</p>
+          <a class="btn" href="https://ropecrew.peakappsstudio.com/">See the game</a>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <div class="cat-stage">
-        <div class="drawer" data-drawer>
-          <div class="drawer-wall drawer-wall--l" aria-hidden="true"></div>
-          <div class="drawer-wall drawer-wall--r" aria-hidden="true"></div>
-          <div class="drawer-front">
-            <h2 class="drawer-label">Most used, last four weeks</h2>
-            <span class="drawer-pull" aria-hidden="true"></span>
+  <section class="pan" id="trailer-wreck" aria-labelledby="tw-title">
+    <div class="stick">
+      <div class="head">
+        <img src="assets/home/tw-wordmark-468.webp" srcset="assets/home/tw-wordmark-240.webp 240w, assets/home/tw-wordmark-468.webp 468w" sizes="(max-width: 760px) 190px, 300px" width="468" height="282" alt="TRAILER WRECK" loading="lazy" decoding="async">
+        <span class="chip live">Google Play</span>
+        <h2 id="tw-title">Ten cars fight for one moving trailer.</h2>
+        <p>Climb the ramp, hold the deck and knock the others off before the three minutes run out. Free on Android, without ads.</p>
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.peakapps.trailerwreck">Get it on Google Play</a>
+      </div>
+      <span class="burst tw-b1" aria-hidden="true"><span><b>10</b>cars on one trailer</span></span>
+      <span class="burst tw-b2" aria-hidden="true"><span><b>3</b>minute rounds</span></span>
+      <div class="big xt" aria-hidden="true">WRECK</div>
+      <div class="trackwrap" id="trackwrap"><div class="track" id="track">
+        <figure><figure class="clip" data-clip="tw-ramp" data-sizes="960,640"><img src="assets/b/clip/tw-ramp.webp" width="960" height="540" alt="Derby cars crash into each other next to the trailer ramp" loading="lazy" decoding="async"><video muted playsinline loop preload="none" aria-hidden="true"></video></figure><span class="tag">Real match footage</span></figure>
+        <figure><figure class="clip" data-clip="tw-launch" data-sizes="960,640"><img src="assets/b/clip/tw-launch.webp" width="960" height="540" alt="Cars chase the moving trailer around the speedway" loading="lazy" decoding="async"><video muted playsinline loop preload="none" aria-hidden="true"></video></figure><span class="tag" style="--rot:2deg">The trailer never stops</span></figure>
+        <figure><img src="assets/b/img/tw-hud-960.webp" srcset="assets/b/img/tw-hud-640.webp 640w, assets/b/img/tw-hud-960.webp 960w" sizes="(max-width: 760px) 78vw, 46vw" width="960" height="540" alt="A match on a phone with the trailer ahead" loading="lazy" decoding="async"></figure>
+        <figure><img src="assets/b/img/tw-hood-960.webp" srcset="assets/b/img/tw-hood-640.webp 640w, assets/b/img/tw-hood-960.webp 960w" sizes="(max-width: 760px) 78vw, 46vw" width="960" height="540" alt="A red derby car with its hood torn open" loading="lazy" decoding="async"><span class="tag" style="--rot:-2deg">Every hit leaves a mark</span></figure>
+      </div></div>
+    </div>
+  </section>
+
+  <section class="ba on-dark" id="bodyarcade" aria-labelledby="ba-title">
+    <div class="wrap">
+      <div class="row">
+        <div>
+          <h2 id="ba-title">Squat, jump, punch. The game moves when you do.</h2>
+          <p>BodyArcade is 11 short fitness games for the browser of a phone, tablet or computer. Your camera reads your moves on your device and nothing is uploaded. 8 of the 11 games are free, with no account and no ads.</p>
+          <div class="chips"><span class="chip webc">Open in browser</span><span class="chip soon">Coming soon on Android</span></div>
+          <div class="btns"><a class="btn light" style="--sh:#3E22C9" href="https://bodyarcade.com/">Play BodyArcade</a><a class="btn ghost" style="--sh:#3E22C9" href="/testers/" aria-label="Join the Android test of BodyArcade">Join the Android test</a></div>
+        </div>
+        <div class="stage">
+          <span class="burst ba-b1" aria-hidden="true"><span><b>11</b>games</span></span>
+          <span class="burst ba-b2" aria-hidden="true"><span><b>8</b>are free</span></span>
+          <div class="phone"><figure class="clip" data-clip="ba-play" data-sizes="432"><img src="assets/b/clip/ba-play.webp" width="432" height="768" alt="Squat Flap: the bird rises each time the player stands up from a squat" loading="lazy" decoding="async"><video muted playsinline loop preload="none" aria-hidden="true"></video></figure></div>
+        </div>
+      </div>
+      <div class="grid" id="bagrid">
+        <div class="g tilt"><img src="assets/home/ba-squat-flap-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Squat Flap</span></div>
+        <div class="g tilt"><img src="assets/home/ba-star-catch-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Star Catch</span></div>
+        <div class="g tilt"><img src="assets/home/ba-pad-work-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Pad Work</span></div>
+        <div class="g tilt"><img src="assets/home/ba-firework-jacks-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Firework Jacks</span></div>
+        <div class="g tilt"><img src="assets/home/ba-summit-climb-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Summit Climb</span></div>
+        <div class="g tilt"><img src="assets/home/ba-limbo-bend-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Limbo Bend</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stack" id="apps" aria-labelledby="apps-title">
+    <div class="wrap">
+      <h2 id="apps-title">Apps for the family, the workshop and the music room.</h2>
+      <article class="scard" style="--i:0;--c:#14A184;--on:#06201A"><div class="tx"><img class="ic" src="assets/b/img/i-leano-256.webp" width="84" height="84" alt="" loading="lazy" decoding="async"><h3>Leano</h3><p>Measure up to 14 places with a tape and Leano reshapes a 3D body twin to your numbers.</p><div class="btns"><a class="btn light" style="--sh:rgba(0,0,0,.3)" href="https://apps.apple.com/app/id6761293700" aria-label="Leano on the App Store">App Store</a><a class="btn ghost" style="--sh:rgba(0,0,0,.3)" href="https://leano.peakappsstudio.com/">About Leano</a></div></div><div class="stage"><img class="twin" src="assets/b/img/leano-twin-840.webp" srcset="assets/b/img/leano-twin-440.webp 440w, assets/b/img/leano-twin-840.webp 840w" sizes="(max-width: 760px) 50vw, 30vw" width="840" height="1598" alt="" loading="lazy" decoding="async"><div class="phone"><img src="assets/b/img/s-leano-520.webp" srcset="assets/b/img/s-leano-300.webp 300w, assets/b/img/s-leano-520.webp 520w" sizes="(max-width: 760px) 46vw, 290px" width="520" height="1127" alt="Leano on a phone" loading="lazy" decoding="async"></div></div></article>
+      <article class="scard" style="--i:1;--c:#FF5A36;--on:#1F0B06"><div class="tx"><img class="ic" src="assets/b/img/i-munchlet-256.webp" width="84" height="84" alt="" loading="lazy" decoding="async"><h3>Munchlet</h3><p>When and how to serve 89 first foods for starting solids and baby-led weaning, with a log of what your baby tried.</p><div class="btns"><a class="btn light" style="--sh:rgba(0,0,0,.3)" href="https://play.google.com/store/apps/details?id=com.peakapps.munchlet" aria-label="Munchlet on Google Play">Google Play</a><a class="btn ghost" style="--sh:rgba(0,0,0,.3)" href="/apps/munchlet/">About Munchlet</a></div></div><div class="stage"><div class="phone"><img src="assets/b/img/s-munchlet-520.webp" srcset="assets/b/img/s-munchlet-300.webp 300w, assets/b/img/s-munchlet-520.webp 520w" sizes="(max-width: 760px) 46vw, 290px" width="520" height="1127" alt="Munchlet on a phone" loading="lazy" decoding="async"></div></div></article>
+      <article class="scard on-dark" style="--i:2;--c:#D61F69;--on:#FFFFFF"><div class="tx"><img class="ic" src="assets/b/img/i-hearmony-256.webp" width="84" height="84" alt="" loading="lazy" decoding="async"><h3>Hearmony</h3><p>Intervals, chords, scales and notes on the staff, practised on a ladder that lights up as you listen.</p><div class="btns"><a class="btn light" style="--sh:rgba(0,0,0,.3)" href="https://play.google.com/store/apps/details?id=com.peakapps.hearmony" aria-label="Hearmony on Google Play">Google Play</a><a class="btn ghost" style="--sh:rgba(0,0,0,.3)" href="https://hearmony.peakappsstudio.com/">About Hearmony</a></div></div><div class="stage"><div class="phone hm"><figure class="clip" data-clip="hm-play" data-sizes="432"><img src="assets/b/clip/hm-play.webp" width="432" height="900" alt="Hearmony asking which interval was played, then marking the right answer" loading="lazy" decoding="async"><video muted playsinline loop preload="none" aria-hidden="true"></video></figure></div></div></article>
+      <article class="scard on-dark" style="--i:3;--c:#14213D;--on:#FFFFFF"><div class="tx"><img class="ic" src="assets/b/img/i-benchwise-256.webp" width="84" height="84" alt="" loading="lazy" decoding="async"><h3>Benchwise</h3><p>A cut list optimizer for woodworkers: plywood and boards laid out with the saw kerf counted, plus ten plans.</p><div class="btns"><a class="btn light" style="--sh:rgba(0,0,0,.3)" href="https://apps.apple.com/us/app/benchwise-cut-list-optimizer/id6819391412" aria-label="Benchwise on the App Store">App Store</a><a class="btn ghost" style="--sh:rgba(0,0,0,.3)" href="/apps/benchwise/">About Benchwise</a><a class="btn ghost" style="--sh:rgba(0,0,0,.3)" href="/testers/" aria-label="Join the Android test of Benchwise">Join the Android test</a></div></div><div class="stage"><div class="phone"><img src="assets/b/img/s-benchwise-520.webp" srcset="assets/b/img/s-benchwise-300.webp 300w, assets/b/img/s-benchwise-520.webp 520w" sizes="(max-width: 760px) 46vw, 290px" width="520" height="1127" alt="Benchwise on a phone" loading="lazy" decoding="async"></div></div></article>
+      <article class="scard on-dark" style="--i:4;--c:#2D5BE3;--on:#FFFFFF"><div class="tx"><img class="ic" src="assets/b/img/i-okultakip-256.webp" width="84" height="84" alt="" loading="lazy" decoding="async"><h3>OkulTakip</h3><p>Tells parents in Turkey when their child reaches school, leaves it and gets home.</p><div class="btns"><a class="btn light" style="--sh:rgba(0,0,0,.3)" href="https://apps.apple.com/tr/app/id6758399281" aria-label="OkulTakip on the App Store">App Store</a><a class="btn ghost" style="--sh:rgba(0,0,0,.3)" href="/apps/okultakip/">About OkulTakip</a><a class="btn ghost" style="--sh:rgba(0,0,0,.3)" href="/testers/" aria-label="Join the Android test of OkulTakip">Join the Android test</a></div></div><div class="stage"><div class="phone"><img src="assets/b/img/s-okultakip-520.webp" srcset="assets/b/img/s-okultakip-300.webp 300w, assets/b/img/s-okultakip-520.webp 520w" sizes="(max-width: 760px) 46vw, 290px" width="520" height="1127" alt="OkulTakip on a phone" loading="lazy" decoding="async"></div></div></article>
+    </div>
+  </section>
+
+  <section class="shelf on-dark" id="shelf" aria-labelledby="shelf-title">
+    <div class="wrap">
+      <div class="icols">
+        <div class="ileft">
+          <h2 id="shelf-title">Every product, one shelf.</h2>
+          <p class="intro">Pick a group, then flip through it. Coming soon means a closed test on Google Play: join it, keep the app for 14 days and tell us what breaks.</p>
+          <div class="tabs" id="tabs" role="group" aria-label="Product groups">
+            <button type="button" data-g="games" aria-pressed="true">Games<span>4</span></button>
+            <button type="button" data-g="family" aria-pressed="false">Health & family<span>5</span></button>
+            <button type="button" data-g="work" aria-pressed="false">Tools & productivity<span>6</span></button>
+            <button type="button" data-g="hobby" aria-pressed="false">Hobbies & home<span>6</span></button>
+            <button type="button" data-g="web" aria-pressed="false">Web tools<span>10</span></button>
           </div>
-          <ol class="cards" data-cards>
-            <li class="card" style="--i:0;--tab:#d92d4a;--tab-ink:#ffffff">
-              <a class="card-link" href="https://bodyarcade.com/">
-                <span class="card-tab" aria-hidden="true">BodyArcade</span>
-                <img class="card-img" src="assets/home/c-bodyarcade-600.webp" srcset="assets/home/c-bodyarcade-600.webp 600w, assets/home/c-bodyarcade-900.webp 900w" sizes="(max-width: 959px) 88vw, 540px" width="600" height="210" alt="" decoding="async">
-                <span class="card-body">
-                  <h3 class="card-name">BodyArcade</h3>
-                  <span class="card-what">11 short fitness games you play with your body through the camera. 8 are free, and nothing is uploaded.</span>
-                  <span class="card-foot"><span class="card-kind">Browser game</span><span class="card-go">Play BodyArcade</span></span>
-                </span>
-              </a>
-            </li>
-            <li class="card" style="--i:1;--tab:#0f4c81;--tab-ink:#ffffff">
-              <a class="card-link" href="https://www.getquotationmaker.com/">
-                <span class="card-tab" aria-hidden="true">GetQuotationMaker</span>
-                <img class="card-img" src="assets/home/c-quote-600.webp" srcset="assets/home/c-quote-600.webp 600w, assets/home/c-quote-900.webp 900w" sizes="(max-width: 959px) 88vw, 540px" width="600" height="210" alt="" decoding="async">
-                <span class="card-body">
-                  <h3 class="card-name">GetQuotationMaker</h3>
-                  <span class="card-what">A quote with line items, tax, a discount and a validity date, as a PDF. No signup.</span>
-                  <span class="card-foot"><span class="card-kind">Free, Pro $9</span><span class="card-go">Make a quote</span></span>
-                </span>
-              </a>
-            </li>
-            <li class="card" style="--i:2;--tab:#7b1830;--tab-ink:#f2c14e">
-              <a class="card-link" href="/character-ai-export-viewer/">
-                <span class="card-tab" aria-hidden="true">Chatbound</span>
-                <img class="card-img" src="assets/home/c-chatbound-600.webp" srcset="assets/home/c-chatbound-600.webp 600w, assets/home/c-chatbound-900.webp 900w" sizes="(max-width: 959px) 88vw, 540px" width="600" height="210" alt="" decoding="async">
-                <span class="card-body">
-                  <h3 class="card-name">Chatbound</h3>
-                  <span class="card-what">Open the Character.AI data export ZIP with its password, then read, search and save every chat.</span>
-                  <span class="card-foot"><span class="card-kind">Pro $8 once</span><span class="card-go">Open Chatbound</span></span>
-                </span>
-              </a>
-            </li>
-            <li class="card" style="--i:3;--tab:#f0a81f;--tab-ink:#26211b">
-              <a class="card-link" href="https://www.coloringpagemaker.app/">
-                <span class="card-tab" aria-hidden="true">ColoringPageMaker</span>
-                <img class="card-img" src="assets/home/c-coloring-600.webp" srcset="assets/home/c-coloring-600.webp 600w, assets/home/c-coloring-900.webp 900w" sizes="(max-width: 959px) 88vw, 540px" width="600" height="210" alt="" decoding="async">
-                <span class="card-body">
-                  <h3 class="card-name">ColoringPageMaker</h3>
-                  <span class="card-what">Describe a scene and get a printable black-and-white coloring page in under a minute.</span>
-                  <span class="card-foot"><span class="card-kind">2 free a day, Pro $9 once</span><span class="card-go">Make a page</span></span>
-                </span>
-              </a>
-            </li>
-            <li class="card" style="--i:4;--tab:#635bff;--tab-ink:#ffffff">
-              <a class="card-link" href="https://www.mileagelogmaker.com/">
-                <span class="card-tab" aria-hidden="true">MileageLogMaker</span>
-                <img class="card-img" src="assets/home/c-mileage-600.webp" srcset="assets/home/c-mileage-600.webp 600w, assets/home/c-mileage-900.webp 900w" sizes="(max-width: 959px) 88vw, 540px" width="600" height="210" alt="" decoding="async">
-                <span class="card-body">
-                  <h3 class="card-name">MileageLogMaker</h3>
-                  <span class="card-what">An IRS mileage log PDF with each trip priced at the 2026 rate for its date: 72.5¢, then 76¢ from July 1.</span>
-                  <span class="card-foot"><span class="card-kind">Free, $9 once without watermark</span><span class="card-go">Log my miles</span></span>
-                </span>
-              </a>
-            </li>
-            <li class="card" style="--i:5;--tab:#ffb000;--tab-ink:#2e1a12">
-              <a class="card-link" href="/coop-designer/">
-                <span class="card-tab" aria-hidden="true">Coop designer</span>
-                <img class="card-img" src="assets/home/c-coop-600.webp" srcset="assets/home/c-coop-600.webp 600w, assets/home/c-coop-900.webp 900w" sizes="(max-width: 959px) 88vw, 540px" width="600" height="210" alt="" decoding="async">
-                <span class="card-body">
-                  <h3 class="card-name">Chicken coop designer</h3>
-                  <span class="card-what">A hen house, walk-in coop, A-frame or tractor sized for your flock in 3D, with checks and a material list.</span>
-                  <span class="card-foot"><span class="card-kind">Free 3D plans</span><span class="card-go">Design a coop</span></span>
-                </span>
-              </a>
-            </li>
-            <li class="card" style="--i:6;--tab:#3a2346;--tab-ink:#8fe3b8">
-              <a class="card-link" href="/colornote-viewer/">
-                <span class="card-tab" aria-hidden="true">Notelift</span>
-                <img class="card-img" src="assets/home/c-notelift-600.webp" srcset="assets/home/c-notelift-600.webp 600w, assets/home/c-notelift-900.webp 900w" sizes="(max-width: 959px) 88vw, 540px" width="600" height="210" alt="" decoding="async">
-                <span class="card-body">
-                  <h3 class="card-name">Notelift</h3>
-                  <span class="card-what">Read your ColorNote notes on a computer: open the backup file with its password and search every note.</span>
-                  <span class="card-foot"><span class="card-kind">Free, nothing uploaded</span><span class="card-go">Open Notelift</span></span>
-                </span>
-              </a>
-            </li>
-            <li class="card" style="--i:7;--tab:#6a2ee8;--tab-ink:#ffffff">
-              <a class="card-link" href="/sim-rig-designer/">
-                <span class="card-tab" aria-hidden="true">Sim rig designer</span>
-                <img class="card-img" src="assets/home/c-simrig-600.webp" srcset="assets/home/c-simrig-600.webp 600w, assets/home/c-simrig-900.webp 900w" sizes="(max-width: 959px) 88vw, 540px" width="600" height="210" alt="" decoding="async">
-                <span class="card-body">
-                  <h3 class="card-name">Sim rig designer</h3>
-                  <span class="card-what">A sim racing rig in 3D for your height, seat and gear, in wood or aluminium profile, with a cut list.</span>
-                  <span class="card-foot"><span class="card-kind">Free 3D plans</span><span class="card-go">Design a rig</span></span>
-                </span>
-              </a>
-            </li>
-          </ol>
+          <div class="legend"><span class="chip live">App Store</span><span class="chip live">Google Play</span><span class="chip webc">Open in browser</span><span class="chip soon">Coming soon</span></div>
         </div>
-        <div class="drawer-shadow" aria-hidden="true"></div>
+        <div>
+          <p class="sr" id="flowstat" aria-live="polite"></p>
+          <div class="flow" id="flow">
+            <article class="fcard pk" data-g="games" style="--c:#18B4F2;--on:#0E0B1F"><img class="ic" src="assets/b/img/i-ropecrew-256.webp" width="112" height="112" alt="" loading="lazy" decoding="async"><img class="peek" src="assets/b/img/rc-poster-buddy-300.webp" width="146" height="316" alt="" loading="lazy" decoding="async"><h3>Rope Crew</h3><p>An online co-op climb for 2 to 4 friends tied together by one rope, plus 10-player Knockout races.</p><div class="cfoot"><span class="chip soon">Coming soon</span></div><div class="acts"><a class="go" href="https://ropecrew.peakappsstudio.com/" aria-label="See the Rope Crew game site">See the game</a></div></article>
+            <article class="fcard pk" data-g="games" style="--c:#FF8A1C;--on:#1A1208"><img class="ic" src="assets/b/img/i-trailerwreck-256.webp" width="112" height="112" alt="" loading="lazy" decoding="async"><img class="peek" style="width:230px;right:-30px;bottom:-14px;border-radius:16px" src="assets/b/img/tw-hud-640.webp" width="230" height="129" alt="" loading="lazy" decoding="async"><h3>Trailer Wreck</h3><p>A demolition derby: ten cars fight to stay on one moving trailer.</p><div class="cfoot"><span class="chip live">Google Play</span></div><div class="acts"><a class="go" href="https://play.google.com/store/apps/details?id=com.peakapps.trailerwreck" aria-label="Trailer Wreck on Google Play">Google Play</a></div></article>
+            <article class="fcard pk" data-g="games" style="--c:#6F50FA;--on:#FFFFFF"><img class="ic" src="assets/b/img/i-bodyarcade-256.webp" width="112" height="112" alt="" loading="lazy" decoding="async"><img class="peek" style="width:200px;right:-30px;bottom:-14px;border-radius:16px" src="assets/home/ba-squat-flap-480.webp" width="200" height="150" alt="" loading="lazy" decoding="async"><h3>BodyArcade</h3><p>11 short fitness games you play with your body through the camera.</p><div class="cfoot"><span class="chip webc">Open in browser</span><span class="chip soon">Coming soon on Android</span></div><div class="acts"><a class="go" href="https://bodyarcade.com/" aria-label="BodyArcade in your browser">Open in browser</a><a class="go" href="/testers/" aria-label="Join the Android test of BodyArcade">Join the test</a></div></article>
+            <article class="fcard pk" data-g="games" style="--c:#13B5A6;--on:#0B1F1D"><img class="ic" src="assets/b/img/i-parrotly-256.webp" width="112" height="112" alt="" loading="lazy" decoding="async"><img class="peek" src="assets/b/img/s-parrotly-300.webp" width="146" height="316" alt="" loading="lazy" decoding="async"><h3>Parrotly</h3><p>A voice imitation game to play with friends.</p><div class="cfoot"><span class="chip soon">Coming soon on Android</span></div><div class="acts"><a class="go" href="/testers/" aria-label="Join the Android test of Parrotly">Join the test</a></div></article>
+            <article class="fcard pk" data-g="family" style="--c:#FF5A36;--on:#1F0B06"><img class="ic" src="assets/b/img/i-munchlet-256.webp" width="112" height="112" alt="" loading="lazy" decoding="async"><img class="peek" src="assets/b/img/s-munchlet-300.webp" width="146" height="316" alt="" loading="lazy" decoding="async"><h3>Munchlet</h3><p>When and how to serve 89 first foods for starting solids.</p><div class="cfoot"><span class="chip live">Google Play</span></div><div class="acts"><a class="go" href="https://play.google.com/store/apps/details?id=com.peakapps.munchlet" aria-label="Munchlet on Google Play">Google Play</a></div></article>
+            <article class="fcard pk" data-g="family" style="--c:#14A184;--on:#06201A"><img class="ic" src="assets/b/img/i-leano-256.webp" width="112" height="112" alt="" loading="lazy" decoding="async"><img class="peek" src="assets/b/img/s-leano-300.webp" width="146" height="316" alt="" loading="lazy" decoding="async"><h3>Leano</h3><p>Measure up to 14 places with a tape and a 3D body twin takes your shape.</p><div class="cfoot"><span class="chip live">App Store</span></div><div class="acts"><a class="go" href="https://apps.apple.com/app/id6761293700" aria-label="Leano on the App Store">App Store</a></div></article>
+            <article class="fcard pk" data-g="family" style="--c:#2D5BE3;--on:#FFFFFF"><img class="ic" src="assets/b/img/i-okultakip-256.webp" width="112" height="112" alt="" loading="lazy" decoding="async"><img class="peek" src="assets/b/img/s-okultakip-300.webp" width="146" height="316" alt="" loading="lazy" decoding="async"><h3>OkulTakip</h3><p>Tells parents in Turkey when their child reaches school, leaves it and gets home.</p><div class="cfoot"><span class="chip live">App Store</span><span class="chip soon">Coming soon on Android</span></div><div class="acts"><a class="go" href="https://apps.apple.com/tr/app/id6758399281" aria-label="OkulTakip on the App Store">App Store</a><a class="go" href="/testers/" aria-label="Join the Android test of OkulTakip">Join the test</a></div></article>
+            <article class="fcard" data-g="family" style="--c:#6C5CE0;--on:#FFFFFF"><img class="ic" src="assets/b/img/i-tidelo-256.webp" width="112" height="112" alt="" loading="lazy" decoding="async"><h3>Tidelo</h3><p>A shared custody calendar for parents who live apart.</p><div class="cfoot"><span class="chip soon">Coming soon on Android</span></div><div class="acts"><a class="go" href="/testers/" aria-label="Join the Android test of Tidelo">Join the test</a></div></article>
+            <article class="fcard" data-g="family" style="--c:#E86A92;--on:#22060F"><img class="ic" src="assets/b/img/i-calmwing-256.webp" width="112" height="112" alt="" loading="lazy" decoding="async"><h3>Calmwing</h3><p>A flight-day companion for people afraid of flying.</p><div class="cfoot"><span class="chip soon">Coming soon on Android</span></div><div class="acts"><a class="go" href="/testers/" aria-label="Join the Android test of Calmwing">Join the test</a></div></article>
+            <article class="fcard pk" data-g="work" style="--c:#F6C026;--on:#14213D"><img class="ic" src="assets/b/img/i-benchwise-256.webp" width="112" height="112" alt="" loading="lazy" decoding="async"><img class="peek" src="assets/b/img/s-benchwise-300.webp" width="146" height="316" alt="" loading="lazy" decoding="async"><h3>Benchwise</h3><p>Cut lists and shop calculators for woodworking.</p><div class="cfoot"><span class="chip live">App Store</span><span class="chip soon">Coming soon on Android</span></div><div class="acts"><a class="go" href="https://apps.apple.com/us/app/benchwise-cut-list-optimizer/id6819391412" aria-label="Benchwise on the App Store">App Store</a><a class="go" href="/testers/" aria-label="Join the Android test of Benchwise">Join the test</a></div></article>
+            <article class="fcard" data-g="work" style="--c:#1E2A4A;--on:#FFFFFF"><img class="ic" src="assets/b/img/i-kopilot-256.webp" width="112" height="112" alt="" loading="lazy" decoding="async"><h3>Kopilot</h3><p>Radar and traffic control alerts for drivers in Turkey, with voice navigation.</p><div class="cfoot"><span class="chip live">App Store</span><span class="chip live">Google Play</span></div><div class="acts"><a class="go" href="https://apps.apple.com/tr/app/id6779541340" aria-label="Kopilot on the App Store">App Store</a><a class="go" href="https://play.google.com/store/apps/details?id=com.peakapps.kopilot" aria-label="Kopilot on Google Play">Google Play</a></div></article>
+            <article class="fcard pk" data-g="work" style="--c:#FF6B2C;--on:#1F0C04"><img class="ic" src="assets/b/img/i-glidecue-256.webp" width="112" height="112" alt="" loading="lazy" decoding="async"><img class="peek" src="assets/b/img/s-glidecue-300.webp" width="146" height="316" alt="" loading="lazy" decoding="async"><h3>Glidecue</h3><p>A teleprompter that follows your voice, with a speech coach.</p><div class="cfoot"><span class="chip soon">Coming soon on Android</span></div><div class="acts"><a class="go" href="/testers/" aria-label="Join the Android test of Glidecue">Join the test</a></div></article>
+            <article class="fcard" data-g="work" style="--c:#F2A31B;--on:#1F1403"><img class="ic" src="assets/b/img/i-calendula-256.webp" width="112" height="112" alt="" loading="lazy" decoding="async"><h3>Calendula</h3><p>Appointment book and client reminders for nail techs, hairstylists and barbers.</p><div class="cfoot"><span class="chip soon">Coming soon on Android</span></div><div class="acts"><a class="go" href="/testers/" aria-label="Join the Android test of Calendula">Join the test</a></div></article>
+            <article class="fcard" data-g="work" style="--c:#2E4FA8;--on:#FFFFFF"><img class="ic" src="assets/b/img/i-notaula-256.webp" width="112" height="112" alt="" loading="lazy" decoding="async"><h3>Notaula</h3><p>A classroom notebook for teachers: attendance on a seating plan and a grade sheet.</p><div class="cfoot"><span class="chip soon">Coming soon on Android</span></div><div class="acts"></div></article>
+            <article class="fcard" data-g="work" style="--c:#23407A;--on:#FFFFFF"><img class="ic" src="assets/b/img/i-citizenshipclock-256.webp" width="112" height="112" alt="" loading="lazy" decoding="async"><h3>Citizenship Clock</h3><p>Counts days abroad for the US N-400 application.</p><div class="cfoot"><span class="chip soon">Coming soon on Android</span></div><div class="acts"><a class="go" href="/testers/" aria-label="Join the Android test of Citizenship Clock">Join the test</a></div></article>
+            <article class="fcard pk" data-g="hobby" style="--c:#D61F69;--on:#FFFFFF"><img class="ic" src="assets/b/img/i-hearmony-256.webp" width="112" height="112" alt="" loading="lazy" decoding="async"><img class="peek" src="assets/b/img/s-hearmony-300.webp" width="146" height="316" alt="" loading="lazy" decoding="async"><h3>Hearmony</h3><p>Ear training and sight reading: intervals, chords, scales and notes on the staff.</p><div class="cfoot"><span class="chip live">Google Play</span></div><div class="acts"><a class="go" href="https://play.google.com/store/apps/details?id=com.peakapps.hearmony" aria-label="Hearmony on Google Play">Google Play</a></div></article>
+            <article class="fcard" data-g="hobby" style="--c:#FF3D8B;--on:#24030F"><img class="ic" src="assets/b/img/i-bumpset-256.webp" width="112" height="112" alt="" loading="lazy" decoding="async"><h3>Bumpset</h3><p>A live volleyball scoreboard with rotations, substitutions and match stats.</p><div class="cfoot"><span class="chip soon">Coming soon on Android</span></div><div class="acts"></div></article>
+            <article class="fcard pk" data-g="hobby" style="--c:#2196F3;--on:#03121F"><img class="ic" src="assets/b/img/i-guppi-256.webp" width="112" height="112" alt="" loading="lazy" decoding="async"><img class="peek" src="assets/b/img/s-guppi-300.webp" width="146" height="316" alt="" loading="lazy" decoding="async"><h3>Guppi</h3><p>Aquarium water tests and care reminders.</p><div class="cfoot"><span class="chip soon">Coming soon on Android</span></div><div class="acts"><a class="go" href="/testers/" aria-label="Join the Android test of Guppi">Join the test</a></div></article>
+            <article class="fcard pk" data-g="hobby" style="--c:#4F7A2F;--on:#FFFFFF"><img class="ic" src="assets/b/img/i-barnly-256.webp" width="112" height="112" alt="" loading="lazy" decoding="async"><img class="peek" src="assets/b/img/s-barnly-300.webp" width="146" height="316" alt="" loading="lazy" decoding="async"><h3>Barnly</h3><p>Horse care, feed plans and farrier reminders.</p><div class="cfoot"><span class="chip soon">Coming soon on Android</span></div><div class="acts"><a class="go" href="/testers/" aria-label="Join the Android test of Barnly">Join the test</a></div></article>
+            <article class="fcard pk" data-g="hobby" style="--c:#F26A3D;--on:#200B04"><img class="ic" src="assets/b/img/i-ovenly-256.webp" width="112" height="112" alt="" loading="lazy" decoding="async"><img class="peek" src="assets/b/img/s-ovenly-300.webp" width="146" height="316" alt="" loading="lazy" decoding="async"><h3>Ovenly</h3><p>Recipe keeper, weekly menu and grocery list.</p><div class="cfoot"><span class="chip soon">Coming soon on Android</span></div><div class="acts"><a class="go" href="/testers/" aria-label="Join the Android test of Ovenly">Join the test</a></div></article>
+            <article class="fcard pk" data-g="hobby" style="--c:#7A4BF0;--on:#FFFFFF"><img class="ic" src="assets/b/img/i-holofy-256.webp" width="112" height="112" alt="" loading="lazy" decoding="async"><img class="peek" src="assets/b/img/s-holofy-300.webp" width="146" height="316" alt="" loading="lazy" decoding="async"><h3>Holofy</h3><p>Scans trading cards and shows their current price.</p><div class="cfoot"><span class="chip soon">Coming soon on Android</span></div><div class="acts"><a class="go" href="/testers/" aria-label="Join the Android test of Holofy">Join the test</a></div></article>
+            <article class="fcard" data-g="web" style="--c:#19B45F;--on:#0C2A21"><img class="shot" src="assets/home/golf-hole-720.webp" srcset="assets/home/golf-hole-720.webp 720w, assets/home/golf-hole-1200.webp 1200w" sizes="300px" width="300" height="170" alt="" loading="lazy" decoding="async"><h3>GolfReserve Pro</h3><p>Tee-time requests from tour operators, confirmed on one tee sheet.</p><div class="cfoot"><span class="chip webc">Open in browser</span></div><div class="acts"><a class="go" href="https://golfreserve.peakappsstudio.com/" aria-label="GolfReserve Pro in your browser">Open in browser</a></div></article>
+            <article class="fcard" data-g="web" style="--c:#0F4C81;--on:#FFFFFF"><img class="shot" src="assets/home/c-quote-600.webp" srcset="assets/home/c-quote-600.webp 600w, assets/home/c-quote-900.webp 900w" sizes="300px" width="300" height="170" alt="" loading="lazy" decoding="async"><h3>GetQuotationMaker</h3><p>A quote with line items, tax, a discount and a validity date, as a PDF.</p><div class="cfoot"><span class="chip webc">Open in browser</span></div><div class="acts"><a class="go" href="https://www.getquotationmaker.com/" aria-label="GetQuotationMaker in your browser">Open in browser</a></div></article>
+            <article class="fcard" data-g="web" style="--c:#635BFF;--on:#FFFFFF"><img class="shot" src="assets/home/c-mileage-600.webp" srcset="assets/home/c-mileage-600.webp 600w, assets/home/c-mileage-900.webp 900w" sizes="300px" width="300" height="170" alt="" loading="lazy" decoding="async"><h3>MileageLogMaker</h3><p>An IRS mileage log PDF with each trip priced at the rate for its date.</p><div class="cfoot"><span class="chip webc">Open in browser</span></div><div class="acts"><a class="go" href="https://www.mileagelogmaker.com/" aria-label="MileageLogMaker in your browser">Open in browser</a></div></article>
+            <article class="fcard" data-g="web" style="--c:#7B1830;--on:#FFFFFF"><img class="shot" src="assets/home/c-chatbound-600.webp" srcset="assets/home/c-chatbound-600.webp 600w, assets/home/c-chatbound-900.webp 900w" sizes="300px" width="300" height="170" alt="" loading="lazy" decoding="async"><h3>Chatbound</h3><p>Open the Character.AI export ZIP, then read, search and save every chat.</p><div class="cfoot"><span class="chip webc">Open in browser</span></div><div class="acts"><a class="go" href="/character-ai-export-viewer/" aria-label="Chatbound in your browser">Open in browser</a></div></article>
+            <article class="fcard" data-g="web" style="--c:#FFB000;--on:#2E1A12"><img class="shot" src="assets/home/c-coop-600.webp" srcset="assets/home/c-coop-600.webp 600w, assets/home/c-coop-900.webp 900w" sizes="300px" width="300" height="170" alt="" loading="lazy" decoding="async"><h3>Coop designer</h3><p>A chicken coop sized for your flock in 3D, with checks and a material list.</p><div class="cfoot"><span class="chip webc">Open in browser</span></div><div class="acts"><a class="go" href="/coop-designer/" aria-label="Coop designer in your browser">Open in browser</a></div></article>
+            <article class="fcard" data-g="web" style="--c:#6A2EE8;--on:#FFFFFF"><img class="shot" src="assets/home/c-simrig-600.webp" srcset="assets/home/c-simrig-600.webp 600w, assets/home/c-simrig-900.webp 900w" sizes="300px" width="300" height="170" alt="" loading="lazy" decoding="async"><h3>Sim rig designer</h3><p>A sim racing rig in 3D for your height, seat and gear, with a cut list.</p><div class="cfoot"><span class="chip webc">Open in browser</span></div><div class="acts"><a class="go" href="/sim-rig-designer/" aria-label="Sim rig designer in your browser">Open in browser</a></div></article>
+            <article class="fcard" data-g="web" style="--c:#3A2346;--on:#FFFFFF"><img class="shot" src="assets/home/c-notelift-600.webp" srcset="assets/home/c-notelift-600.webp 600w, assets/home/c-notelift-900.webp 900w" sizes="300px" width="300" height="170" alt="" loading="lazy" decoding="async"><h3>Notelift</h3><p>Read your ColorNote notes on a computer and search every note.</p><div class="cfoot"><span class="chip webc">Open in browser</span></div><div class="acts"><a class="go" href="/colornote-viewer/" aria-label="Notelift in your browser">Open in browser</a></div></article>
+            <article class="fcard" data-g="web" style="--c:#F6E48A;--on:#1D2230"><img class="shot" src="assets/home/t-lastleaf-480.webp" srcset="assets/home/t-lastleaf-480.webp 480w, assets/home/t-lastleaf-960.webp 960w" sizes="300px" width="300" height="170" alt="" loading="lazy" decoding="async"><h3>Lastleaf</h3><p>Opens the Notepad file Yahoo emails you, so you can read and save every note.</p><div class="cfoot"><span class="chip webc">Open in browser</span></div><div class="acts"><a class="go" href="/yahoo-notepad/" aria-label="Lastleaf in your browser">Open in browser</a></div></article>
+            <article class="fcard" data-g="web" style="--c:#1F4E79;--on:#FFFFFF"><img class="shot" src="assets/home/t-rehoused-480.webp" srcset="assets/home/t-rehoused-480.webp 480w, assets/home/t-rehoused-960.webp 960w" sizes="300px" width="300" height="170" alt="" loading="lazy" decoding="async"><h3>Rehoused</h3><p>Turns your Weebly site archive ZIP into a clean website you can host anywhere.</p><div class="cfoot"><span class="chip webc">Open in browser</span></div><div class="acts"><a class="go" href="/weebly-archive/" aria-label="Rehoused in your browser">Open in browser</a></div></article>
+            <article class="fcard" data-g="web" style="--c:#9AA8FF;--on:#12142E"><img class="shot" src="assets/home/t-skillcase-480.webp" srcset="assets/home/t-skillcase-480.webp 480w, assets/home/t-skillcase-960.webp 960w" sizes="300px" width="300" height="170" alt="" loading="lazy" decoding="async"><h3>Skillcase</h3><p>Saves a custom GPT’s instructions, files and action schemas as a backup.</p><div class="cfoot"><span class="chip webc">Open in browser</span></div><div class="acts"><a class="go" href="/custom-gpt-export/" aria-label="Skillcase in your browser">Open in browser</a></div></article>
+          </div>
+          <div class="fnav"><button type="button" id="prev" aria-label="Previous product"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="button" id="next" aria-label="Next product"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- CLOSING SOON: dates from each tool's own page -->
-  <section id="closing" class="closing" aria-labelledby="closing-title">
-    <div class="closing-head">
-      <h2 id="closing-title" class="section-title">Save your copy before these close.</h2>
-      <p class="section-note">Each tool opens the file the service gives you, in your browser, and uploads nothing. They are independent and not affiliated with Reddit, OpenAI, Weebly or Yahoo.</p>
-    </div>
-    <ol class="slip" aria-label="Closing dates">
-      <li class="slip-row" data-stamp>
-        <span class="stamp"><time datetime="2026-11-13">13 Nov 2026</time></span>
-        <span class="slip-what">Reddit ends RSS feeds</span>
-        <a class="slip-tool" href="/reddit-data-export-viewer/">
-          <img src="assets/home/t-threadkeep-480.webp" srcset="assets/home/t-threadkeep-480.webp 480w, assets/home/t-threadkeep-960.webp 960w" sizes="(max-width: 759px) 40vw, 180px" width="480" height="160" alt="" loading="lazy" decoding="async">
-          <span><strong>Threadkeep</strong> reads the ZIP from Reddit&rsquo;s data request: every saved post past 1,000, your comments and chats.</span>
-        </a>
-      </li>
-      <li class="slip-row" data-stamp>
-        <span class="stamp"><time datetime="2026-12-11">11 Dec 2026</time></span>
-        <span class="slip-what">OpenAI retires custom GPTs</span>
-        <a class="slip-tool" href="/custom-gpt-export/">
-          <img src="assets/home/t-skillcase-480.webp" srcset="assets/home/t-skillcase-480.webp 480w, assets/home/t-skillcase-960.webp 960w" sizes="(max-width: 759px) 40vw, 180px" width="480" height="160" alt="" loading="lazy" decoding="async">
-          <span><strong>Skillcase</strong> saves a custom GPT&rsquo;s instructions, files and action schemas as a backup and a skill for Claude and Gemini.</span>
-        </a>
-      </li>
-      <li class="slip-row" data-stamp>
-        <span class="stamp"><time datetime="2026-12-26">26 Dec 2026</time></span>
-        <span class="slip-what">Weebly logins end</span>
-        <a class="slip-tool" href="/weebly-archive/">
-          <img src="assets/home/t-rehoused-480.webp" srcset="assets/home/t-rehoused-480.webp 480w, assets/home/t-rehoused-960.webp 960w" sizes="(max-width: 759px) 40vw, 180px" width="480" height="160" alt="" loading="lazy" decoding="async">
-          <span><strong>Rehoused</strong> turns your Weebly site archive ZIP into a clean website you can host anywhere.</span>
-        </a>
-      </li>
-      <li class="slip-row" data-stamp>
-        <span class="stamp"><time datetime="2027-01-15">15 Jan 2027</time></span>
-        <span class="slip-what">Yahoo Notepad closes</span>
-        <a class="slip-tool" href="/yahoo-notepad/">
-          <img src="assets/home/t-lastleaf-480.webp" srcset="assets/home/t-lastleaf-480.webp 480w, assets/home/t-lastleaf-960.webp 960w" sizes="(max-width: 759px) 40vw, 180px" width="480" height="160" alt="" loading="lazy" decoding="async">
-          <span><strong>Lastleaf</strong> opens the Notepad file Yahoo emails you, so you can read, search, print and save every note.</span>
-        </a>
-      </li>
-    </ol>
-
-    <h3 class="also-title">Also new this month</h3>
-    <ul class="also">
-      <li><a href="/export-fitbit-data/"><img src="assets/home/t-tallyband-480.webp" width="480" height="160" alt="" loading="lazy" decoding="async"><span class="also-name">Tallyband</span><span class="also-what">Fitbit and Google Health steps, sleep, weight and heart rate as CSV or Excel, for any dates.</span></a></li>
-      <li><a href="/messenger-json-viewer/"><img src="assets/home/t-readback-480.webp" width="480" height="160" alt="" loading="lazy" decoding="async"><span class="also-name">Readback</span><span class="also-what">Your Messenger or Instagram download, read as chats again with photos and reactions.</span></a></li>
-      <li><a href="/open-imscc-file/"><img src="assets/home/t-cubby-480.webp" width="480" height="160" alt="" loading="lazy" decoding="async"><span class="also-name">Cubby</span><span class="also-what">A Canvas course export (.imscc): every module, page, assignment and quiz with its answers.</span></a></li>
-      <li><a href="/edge-collections/"><img src="assets/home/t-stashback-480.webp" width="480" height="160" alt="" loading="lazy" decoding="async"><span class="also-name">Stashback</span><span class="also-what">Edge Collections back out of the file Edge left on your PC, saved as bookmarks.</span></a></li>
-      <li><a href="/open-pub-file/"><img src="assets/home/t-unframe-480.webp" width="480" height="160" alt="" loading="lazy" decoding="async"><span class="also-name">Unframe</span><span class="also-what">The text and pictures of a Publisher .pub file, page by page, without Publisher.</span></a></li>
-    </ul>
-  </section>
-
-  <!-- GOLFRESERVE PRO: screens captured from the live demo on 30 Oct 2026 -->
-  <section id="golf" class="golf" aria-labelledby="golf-title" data-depth-scene>
-    <div class="golf-copy">
-      <p class="product-mark">GolfReserve Pro</p>
-      <h2 id="golf-title" class="section-title">Tour operators ask. The golf course confirms.</h2>
-      <p class="lede">For golf courses that take tee-time requests from many tour operators. The requests arrive in one panel and land on the tee sheet, instead of in phone calls, WhatsApp chats and e-mail threads.</p>
-      <dl class="facts">
-        <div><dt>Price</dt><dd>&euro;249 per club per month after the first 30 days, for up to 36 holes. No setup fee and no commission.</dd></div>
-        <div><dt>Tour operators</dt><dd>Free accounts. They send requests from a phone or a computer and print the voucher.</dd></div>
-        <div><dt>Demo</dt><dd>No sign-up. The sample course and its data stay in your browser.</dd></div>
-      </dl>
-      <div class="actions">
-        <a class="btn btn--light" href="https://golfreserve.peakappsstudio.com/demo/?lang=en">Try the demo</a>
-        <a class="btn btn--line-light" href="https://golfreserve.peakappsstudio.com/">See GolfReserve Pro</a>
+  <section class="webw" id="web" aria-labelledby="web-title">
+    <div class="wrap">
+      <h2 id="web-title">Web tools that open in your browser.</h2>
+      <p class="intro" id="most-used">No install. Most of them read a file you already have, and nothing is uploaded. The ones people use most:</p>
+      <div class="wall" id="wall">
+        <a class="wt big tilt" href="https://golfreserve.peakappsstudio.com/" id="golf"><img src="assets/home/golf-hole-720.webp" srcset="assets/home/golf-hole-720.webp 720w, assets/home/golf-hole-1200.webp 1200w" sizes="(max-width: 760px) 92vw, 62vw" width="720" height="450" alt="" loading="lazy" decoding="async"><div class="t"><h3>GolfReserve Pro</h3><p>Tee-time requests from tour operators, confirmed on one tee sheet.</p></div></a>
+        <a class="wt tilt" href="https://www.getquotationmaker.com/"><img src="assets/home/c-quote-600.webp" srcset="assets/home/c-quote-600.webp 600w, assets/home/c-quote-900.webp 900w" sizes="(max-width: 760px) 92vw, 30vw" width="600" height="375" alt="" loading="lazy" decoding="async"><div class="t"><h3>GetQuotationMaker</h3><p>A quote with line items, tax, a discount and a validity date, as a PDF.</p></div></a>
+        <a class="wt tilt" href="https://www.mileagelogmaker.com/"><img src="assets/home/c-mileage-600.webp" srcset="assets/home/c-mileage-600.webp 600w, assets/home/c-mileage-900.webp 900w" sizes="(max-width: 760px) 92vw, 30vw" width="600" height="375" alt="" loading="lazy" decoding="async"><div class="t"><h3>MileageLogMaker</h3><p>An IRS mileage log PDF with each trip priced at the rate for its date.</p></div></a>
+        <a class="wt tilt" href="/character-ai-export-viewer/"><img src="assets/home/c-chatbound-600.webp" srcset="assets/home/c-chatbound-600.webp 600w, assets/home/c-chatbound-900.webp 900w" sizes="(max-width: 760px) 92vw, 30vw" width="600" height="375" alt="" loading="lazy" decoding="async"><div class="t"><h3>Chatbound</h3><p>Open the Character.AI export ZIP, then read, search and save every chat.</p></div></a>
+        <a class="wt tilt" href="/coop-designer/"><img src="assets/home/c-coop-600.webp" srcset="assets/home/c-coop-600.webp 600w, assets/home/c-coop-900.webp 900w" sizes="(max-width: 760px) 92vw, 30vw" width="600" height="375" alt="" loading="lazy" decoding="async"><div class="t"><h3>Coop designer</h3><p>A chicken coop sized for your flock in 3D, with checks and a material list.</p></div></a>
+        <a class="wt tilt" href="/sim-rig-designer/"><img src="assets/home/c-simrig-600.webp" srcset="assets/home/c-simrig-600.webp 600w, assets/home/c-simrig-900.webp 900w" sizes="(max-width: 760px) 92vw, 30vw" width="600" height="375" alt="" loading="lazy" decoding="async"><div class="t"><h3>Sim rig designer</h3><p>A sim racing rig in 3D for your height, seat and gear, with a cut list.</p></div></a>
+        <a class="wt tilt" href="/colornote-viewer/"><img src="assets/home/c-notelift-600.webp" srcset="assets/home/c-notelift-600.webp 600w, assets/home/c-notelift-900.webp 900w" sizes="(max-width: 760px) 92vw, 30vw" width="600" height="375" alt="" loading="lazy" decoding="async"><div class="t"><h3>Notelift</h3><p>Read your ColorNote notes on a computer and search every note.</p></div></a>
+        <a class="wt tilt" href="/weebly-archive/"><img src="assets/home/t-rehoused-480.webp" srcset="assets/home/t-rehoused-480.webp 480w, assets/home/t-rehoused-960.webp 960w" sizes="(max-width: 760px) 92vw, 30vw" width="480" height="300" alt="" loading="lazy" decoding="async"><div class="t"><h3>Rehoused</h3><p>Turns your Weebly site archive ZIP into a clean website you can host anywhere.</p></div></a>
+        <a class="wt tilt" href="/yahoo-notepad/"><img src="assets/home/t-lastleaf-480.webp" srcset="assets/home/t-lastleaf-480.webp 480w, assets/home/t-lastleaf-960.webp 960w" sizes="(max-width: 760px) 92vw, 30vw" width="480" height="300" alt="" loading="lazy" decoding="async"><div class="t"><h3>Lastleaf</h3><p>Opens the Notepad file Yahoo emails you, so you can read and save every note.</p></div></a>
+      </div>
+      <div class="more" id="websites">
+        <a class="btn" style="--sh:#0E7A40" href="/tools/">Every web tool, with its guides</a>
+        <a class="btn light" style="--sh:#0E7A40" href="https://golfreserve.peakappsstudio.com/demo/?lang=en">Try the GolfReserve demo</a>
+        <a class="btn light" style="--sh:#0E7A40" href="/web/">We build websites like this one</a>
+        <a class="btn ghost" style="--sh:#0E7A40" href="/tr/web-sitesi/" hreflang="tr" lang="tr">Türkçe sayfa</a>
+      </div>
+      <div class="idx" id="everything">
+        <h3 id="closing">Save your copy before these close.</h3>
+        <p class="note">Each tool opens the file the service gives you, in your browser, and uploads nothing. They are independent and not affiliated with Reddit, OpenAI, Weebly or Yahoo.</p>
+        <ol class="slips" aria-label="Closing dates">
+          <li><a href="/reddit-data-export-viewer/"><time datetime="2026-11-13">13 Nov 2026</time><span class="what">Reddit ends RSS feeds</span><span class="tool"><strong>Threadkeep</strong> reads the ZIP from Reddit&rsquo;s data request: every saved post past 1,000, your comments and chats.</span></a></li>
+          <li><a href="/custom-gpt-export/"><time datetime="2026-12-11">11 Dec 2026</time><span class="what">OpenAI retires custom GPTs</span><span class="tool"><strong>Skillcase</strong> saves a custom GPT&rsquo;s instructions, files and action schemas as a backup and a skill for Claude and Gemini.</span></a></li>
+          <li><a href="/weebly-archive/"><time datetime="2026-12-26">26 Dec 2026</time><span class="what">Weebly logins end</span><span class="tool"><strong>Rehoused</strong> turns your Weebly site archive ZIP into a clean website you can host anywhere.</span></a></li>
+          <li><a href="/yahoo-notepad/"><time datetime="2027-01-15">15 Jan 2027</time><span class="what">Yahoo Notepad closes</span><span class="tool"><strong>Lastleaf</strong> opens the Notepad file Yahoo emails you, so you can read, search, print and save every note.</span></a></li>
+        </ol>
+        <div class="lists">
+          <div><h4>New this month</h4><ul>
+            <li><a href="/export-fitbit-data/"><span class="n">Tallyband</span><span class="w">Fitbit and Google Health steps, sleep, weight and heart rate as CSV or Excel, for any dates.</span></a></li>
+            <li><a href="/messenger-json-viewer/"><span class="n">Readback</span><span class="w">Your Messenger or Instagram download, read as chats again with photos and reactions.</span></a></li>
+            <li><a href="/open-imscc-file/"><span class="n">Cubby</span><span class="w">A Canvas course export (.imscc): every module, page, assignment and quiz with its answers.</span></a></li>
+            <li><a href="/edge-collections/"><span class="n">Stashback</span><span class="w">Edge Collections back out of the file Edge left on your PC, saved as bookmarks.</span></a></li>
+            <li><a href="/open-pub-file/"><span class="n">Unframe</span><span class="w">The text and pictures of a Publisher .pub file, page by page, without Publisher.</span></a></li>
+            <li><a href="https://www.coloringpagemaker.app/"><span class="n">ColoringPageMaker</span><span class="w">Describe a scene and get a printable black-and-white coloring page in under a minute.</span></a></li>
+          </ul></div>
+          <div><h4>Tools and file readers</h4><ul>
+            <li><a href="/dropped-kerb/"><span class="n">Dropped kerb check</span><span class="w">A driveway checked in 3D against your council&rsquo;s dropped kerb rules and fees</span></a></li>
+            <li><a href="/tumbler-template/"><span class="n">Tumbler templates</span><span class="w">Flat templates for tapered cups, and a design warp</span></a></li>
+            <li><a href="/catio-designer/"><span class="n">Catio designer</span><span class="w">A catio for your window, wall or balcony in 3D, with the lumber and mesh to buy</span></a></li>
+            <li><a href="/fuelio-viewer/"><span class="n">Fillbook</span><span class="w">Fuelio fuel logs on a PC: consumption, cost per km and every entry</span></a></li>
+            <li><a href="/without-planning/"><span class="n">Without planning</span><span class="w">An extension, garden room or heat pump checked in 3D against England&rsquo;s and Ireland&rsquo;s planning rules</span></a></li>
+            <li><a href="/quilt-label-maker/"><span class="n">Quilt labels</span><span class="w">Print-ready fabric labels with quilt-block borders</span></a></li>
+            <li><a href="/sewing-pattern-printer/"><span class="n">Print only your size</span><span class="w">Layered PDF sewing patterns, one size at a time</span></a></li>
+            <li><a href="/spotify-minutes-listened/"><span class="n">Earhours</span><span class="w">Your Spotify minutes listened this year, from the data file Spotify sends you</span></a></li>
+            <li><a href="/kdp-coloring-book/"><span class="n">KDP coloring books</span><span class="w">Interior PDFs with KDP bleed, margins and blank backs</span></a></li>
+            <li><a href="/name-cut-files/"><span class="n">Name cut files</span><span class="w">Welded name SVGs for Cricut and Silhouette, from a list or Etsy orders</span></a></li>
+            <li><a href="/etsy-tax-summary/"><span class="n">Etsy tax summary</span><span class="w">Year totals and Schedule C lines from Etsy statement CSVs</span></a></li>
+            <li><a href="/cone-template/"><span class="n">Cone templates</span><span class="w">Truncated cones and lampshades at true size</span></a></li>
+            <li><a href="/oura-export-viewer/"><span class="n">Nightjar</span><span class="w">Oura sleep, HRV and heart rate from your own export, without a membership</span></a></li>
+            <li><a href="/strava-year-in-review/"><span class="n">Yearlap</span><span class="w">Your Strava or Garmin year in review from your export</span></a></li>
+            <li><a href="/daylio-viewer/"><span class="n">Dayfold</span><span class="w">Daylio backups on a PC: entries, mood charts and the Year in Pixels</span></a></li>
+            <li><a href="/photo-date-fixer/"><span class="n">Photo date fixer</span><span class="w">The real dates and locations back in a Snapchat Memories export</span></a></li>
+            <li><a href="/samsung-health-viewer/"><span class="n">Wristory</span><span class="w">Samsung Health data on a PC, from the app&rsquo;s own download</span></a></li>
+            <li><a href="/play-12-testers/"><span class="n">Day14</span><span class="w">How to get 12 testers for Google Play, with a free 14-day tracker</span></a></li>
+          </ul></div>
+          <div><h4>Quieter for now</h4><ul>
+            <li><a href="https://getinvoicemaker.com/"><span class="n">GetInvoiceMaker</span><span class="w">Invoices with VAT, GST/HST and BTW lines, as a free PDF</span></a></li>
+            <li><a href="https://www.clientguard.app/"><span class="n">ClientGuard</span><span class="w">How exposed an agency is to losing its biggest client</span></a></li>
+            <li><a href="/pay-gap-report/"><span class="n">Pay gap report</span><span class="w">Statutory gender pay gap figures for the UK, Ireland and the EU, from a payroll export</span></a></li>
+            <li><a href="/equality-action-plan/"><span class="n">Equality action plan</span><span class="w">Gender pay gap and menopause action plans from GOV.UK&rsquo;s 18 actions</span></a></li>
+            <li><a href="/pay-transparency/"><span class="n">Pay transparency kit</span><span class="w">Pay information requests and Article 7 answers, for all 27 EU countries</span></a></li>
+            <li><a href="/menopause-adjustments/"><span class="n">Menopause adjustments at work</span><span class="w">Changes the Acas and GOV.UK guidance list, and a letter to your manager</span></a></li>
+            <li><a href="/job-evaluation/"><span class="n">Job evaluation</span><span class="w">Point factor job evaluation on the EU factor plan</span></a></li>
+            <li><a href="https://www.getbriefbase.com/"><span class="n">Briefbase</span><span class="w">A workspace for small UGC agencies, in early access</span></a></li>
+            <li><a href="https://www.saidbyai.com/"><span class="n">Said by AI</span><span class="w">Whether AI answers name your brand in your category</span></a></li>
+            <li><a href="https://www.reviewreply.store/"><span class="n">ReviewReply</span><span class="w">A polite, specific reply to a Google review</span></a></li>
+          </ul></div>
+        </div>
       </div>
     </div>
-    <div class="golf-scene" aria-hidden="true">
-      <img class="golf-hole plane" data-plane="-1" src="assets/home/golf-hole-720.webp" srcset="assets/home/golf-hole-720.webp 720w, assets/home/golf-hole-1200.webp 1200w" sizes="(max-width: 959px) 92vw, 50vw" width="720" height="405" alt="" loading="lazy" decoding="async">
-      <figure class="browser plane" data-plane="0">
-        <span class="browser-bar"><i></i><i></i><i></i><span>golfreserve.peakappsstudio.com/demo</span></span>
-        <img src="assets/home/golf-sheet-800.webp" srcset="assets/home/golf-sheet-800.webp 800w, assets/home/golf-sheet-1440.webp 1440w" sizes="(max-width: 959px) 88vw, 46vw" width="800" height="500" alt="" loading="lazy" decoding="async">
-      </figure>
-      <figure class="phone plane" data-plane="1">
-        <img src="assets/home/golf-phone-300.webp" srcset="assets/home/golf-phone-300.webp 300w, assets/home/golf-phone-520.webp 520w" sizes="(max-width: 959px) 30vw, 200px" width="300" height="649" alt="" loading="lazy" decoding="async">
-      </figure>
-    </div>
-    <p class="scene-caption">The course tee sheet and the tour operator&rsquo;s phone view, from the live demo.</p>
   </section>
 
-  <!-- BODYARCADE: game tiles from bodyarcade.com -->
-  <section id="bodyarcade" class="ba" aria-labelledby="ba-title" data-ring-scene>
-    <div class="ba-copy">
-      <p class="product-mark">BodyArcade</p>
-      <h2 id="ba-title" class="section-title">Squat, jump, punch. The game moves when you do.</h2>
-      <p class="lede">11 short games for legs, arms, core and balance, in the browser of a phone, tablet or computer. Your camera reads your moves on your device and nothing is uploaded. 8 of the 11 games are free, with no account and no ads.</p>
-      <div class="actions">
-        <a class="btn btn--ink" href="https://bodyarcade.com/">Play BodyArcade</a>
-      </div>
-    </div>
-    <div class="ring-stage">
-      <ul class="ring" data-ring aria-label="BodyArcade games">
-        <li style="--k:0"><img src="assets/home/ba-squat-flap-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Squat Flap</span></li>
-        <li style="--k:1"><img src="assets/home/ba-knee-sprint-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Knee Sprint</span></li>
-        <li style="--k:2"><img src="assets/home/ba-star-catch-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Star Catch</span></li>
-        <li style="--k:3"><img src="assets/home/ba-pad-work-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Pad Work</span></li>
-        <li style="--k:4"><img src="assets/home/ba-reaction-tag-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Reaction Tag</span></li>
-        <li style="--k:5"><img src="assets/home/ba-firework-jacks-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Firework Jacks</span></li>
-        <li style="--k:6"><img src="assets/home/ba-twist-turbine-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Twist Turbine</span></li>
-        <li style="--k:7"><img src="assets/home/ba-summit-climb-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Summit Climb</span></li>
-        <li style="--k:8"><img src="assets/home/ba-limbo-bend-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Limbo Bend</span></li>
-        <li style="--k:9"><img src="assets/home/ba-pose-wall-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Pose Wall</span></li>
-        <li style="--k:10"><img src="assets/home/ba-road-run-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"><span>Road Run</span></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- APPS: store links checked for HTTP 200 on 30 Oct 2026 -->
-  <section id="apps" class="apps" aria-labelledby="apps-title">
-    <h2 id="apps-title" class="section-title">Apps on the App Store and Google Play.</h2>
-    <ul class="apps-list">
-      <li class="app">
-        <img class="app-icon" src="assets/home/i-trailerwreck-128.webp" width="128" height="128" alt="" loading="lazy" decoding="async">
-        <div class="app-body">
-          <h3 class="app-name">TRAILER WRECK</h3>
-          <p class="app-desc">A demolition derby game for Android: ten cars fight to stay on one moving trailer, online or offline.</p>
-          <p class="app-links"><a href="https://play.google.com/store/apps/details?id=com.peakapps.trailerwreck">Google Play</a><a href="#trailer-wreck">Watch the trailer</a></p>
-        </div>
-      </li>
-      <li class="app">
-        <img class="app-icon" src="assets/home/i-okultakip-128.webp" width="128" height="128" alt="" loading="lazy" decoding="async">
-        <div class="app-body">
-          <h3 class="app-name">OkulTakip</h3>
-          <p class="app-desc">Tells parents in Turkey when their child reaches school, leaves it and gets home.</p>
-          <p class="app-links"><a href="https://apps.apple.com/tr/app/id6758399281">App Store</a><a href="/apps/okultakip/">About OkulTakip</a></p>
-        </div>
-      </li>
-      <li class="app">
-        <img class="app-icon" src="assets/home/i-leano-128.webp" width="128" height="128" alt="" loading="lazy" decoding="async">
-        <div class="app-body">
-          <h3 class="app-name">Leano</h3>
-          <p class="app-desc">Measure up to 14 places with a tape and Leano reshapes a 3D body twin to your numbers.</p>
-          <p class="app-links"><a href="https://apps.apple.com/app/id6761293700">App Store</a><a href="https://leano.peakappsstudio.com/">About Leano</a></p>
-        </div>
-      </li>
-      <li class="app">
-        <img class="app-icon" src="assets/home/i-kopilot-128.webp" width="128" height="128" alt="" loading="lazy" decoding="async">
-        <div class="app-body">
-          <h3 class="app-name">Kopilot</h3>
-          <p class="app-desc">Radar and traffic control alerts for drivers in Turkey, with voice navigation.</p>
-          <p class="app-links"><a href="https://apps.apple.com/tr/app/id6779541340">App Store</a><a href="https://play.google.com/store/apps/details?id=com.peakapps.kopilot">Google Play</a></p>
-        </div>
-      </li>
-      <li class="app">
-        <img class="app-icon" src="assets/home/i-hearmony-128.webp" width="128" height="128" alt="" loading="lazy" decoding="async">
-        <div class="app-body">
-          <h3 class="app-name">Hearmony</h3>
-          <p class="app-desc">Intervals, chords, scales and notes on the staff, practised on a ladder that lights up as you listen.</p>
-          <p class="app-links"><a href="https://play.google.com/store/apps/details?id=com.peakapps.hearmony">Google Play</a><a href="https://hearmony.peakappsstudio.com/">About Hearmony</a></p>
-        </div>
-      </li>
-      <li class="app">
-        <img class="app-icon" src="assets/home/i-benchwise-128.webp" width="128" height="128" alt="" loading="lazy" decoding="async">
-        <div class="app-body">
-          <h3 class="app-name">Benchwise</h3>
-          <p class="app-desc">A cut list optimizer for woodworkers: plywood and boards laid out with the saw kerf counted, plus ten plans.</p>
-          <p class="app-links"><a href="https://apps.apple.com/us/app/benchwise-cut-list-optimizer/id6819391412">App Store</a><a href="/apps/benchwise/">About Benchwise</a></p>
-        </div>
-      </li>
-      <li class="app">
-        <img class="app-icon" src="assets/home/i-munchlet-128.webp" width="128" height="128" alt="" loading="lazy" decoding="async">
-        <div class="app-body">
-          <h3 class="app-name">Munchlet</h3>
-          <p class="app-desc">When and how to serve 89 first foods for starting solids and baby-led weaning, with a log of what your baby tried.</p>
-          <p class="app-links"><a href="https://play.google.com/store/apps/details?id=com.peakapps.munchlet">Google Play</a><a href="/apps/munchlet/">About Munchlet</a></p>
-        </div>
-      </li>
-    </ul>
-  </section>
-
-  <!-- WEBSITES: the service page at /web/ is built in a separate PR -->
-  <section id="websites" class="web" aria-labelledby="web-title">
-    <div class="web-copy">
-      <p class="product-mark">Websites</p>
-      <h2 id="web-title" class="section-title">We also build websites like this one.</h2>
-      <p class="lede">Scroll-driven pages with real 3D for small businesses, designed for phones first and quick to load. The card drawer at the top of this page is the kind of thing we make.</p>
-      <div class="actions">
-        <a class="btn btn--light" href="/web/">See websites and prices</a>
-        <a class="btn btn--line-light" href="/tr/web-sitesi/" hreflang="tr" lang="tr">Türkçe sayfa</a>
-      </div>
-    </div>
-    <figure class="web-phone" aria-hidden="true">
-      <img src="assets/home/web-phone-300.webp" srcset="assets/home/web-phone-300.webp 300w, assets/home/web-phone-520.webp 520w" sizes="(max-width: 959px) 46vw, 240px" width="300" height="649" alt="" loading="lazy" decoding="async">
-    </figure>
-  </section>
-
-  <!-- EVERYTHING ELSE: most visited first; the products with the fewest visits at the very end -->
-  <section id="everything" class="everything" aria-labelledby="all-title">
-    <div class="all-head">
-      <h2 id="all-title" class="section-title">Everything else we run.</h2>
-      <p class="section-note">Most visited first. Other companies&rsquo; names only say which files a tool opens; none of them is affiliated with us.</p>
-    </div>
-    <h3 class="all-group">Tools and file readers</h3>
-    <ul class="all-list">
-      <li><a href="/dropped-kerb/"><span class="a-name">Dropped kerb check</span><span class="a-what">A driveway checked in 3D against your council&rsquo;s dropped kerb rules and fees</span></a></li>
-      <li><a href="/tumbler-template/"><span class="a-name">Tumbler templates</span><span class="a-what">Flat templates for tapered cups, and a design warp</span></a></li>
-      <li><a href="/catio-designer/"><span class="a-name">Catio designer</span><span class="a-what">A catio for your window, wall or balcony in 3D, with the lumber and mesh to buy</span></a></li>
-      <li><a href="/fuelio-viewer/"><span class="a-name">Fillbook</span><span class="a-what">Fuelio fuel logs on a PC: consumption, cost per km and every entry</span></a></li>
-      <li><a href="/without-planning/"><span class="a-name">Without planning</span><span class="a-what">An extension, garden room or heat pump checked in 3D against England&rsquo;s and Ireland&rsquo;s planning rules</span></a></li>
-      <li><a href="/quilt-label-maker/"><span class="a-name">Quilt labels</span><span class="a-what">Print-ready fabric labels with quilt-block borders</span></a></li>
-      <li><a href="/sewing-pattern-printer/"><span class="a-name">Print only your size</span><span class="a-what">Layered PDF sewing patterns, one size at a time</span></a></li>
-      <li><a href="/spotify-minutes-listened/"><span class="a-name">Earhours</span><span class="a-what">Your Spotify minutes listened this year, from the data file Spotify sends you</span></a></li>
-      <li><a href="/kdp-coloring-book/"><span class="a-name">KDP coloring books</span><span class="a-what">Interior PDFs with KDP bleed, margins and blank backs</span></a></li>
-      <li><a href="/name-cut-files/"><span class="a-name">Name cut files</span><span class="a-what">Welded name SVGs for Cricut and Silhouette, from a list or Etsy orders</span></a></li>
-      <li><a href="/etsy-tax-summary/"><span class="a-name">Etsy tax summary</span><span class="a-what">Year totals and Schedule C lines from Etsy statement CSVs</span></a></li>
-      <li><a href="/cone-template/"><span class="a-name">Cone templates</span><span class="a-what">Truncated cones and lampshades at true size</span></a></li>
-      <li><a href="/oura-export-viewer/"><span class="a-name">Nightjar</span><span class="a-what">Oura sleep, HRV and heart rate from your own export, without a membership</span></a></li>
-      <li><a href="/strava-year-in-review/"><span class="a-name">Yearlap</span><span class="a-what">Your Strava or Garmin year in review from your export</span></a></li>
-      <li><a href="/daylio-viewer/"><span class="a-name">Dayfold</span><span class="a-what">Daylio backups on a PC: entries, mood charts and the Year in Pixels</span></a></li>
-      <li><a href="/photo-date-fixer/"><span class="a-name">Photo date fixer</span><span class="a-what">The real dates and locations back in a Snapchat Memories export</span></a></li>
-      <li><a href="/samsung-health-viewer/"><span class="a-name">Wristory</span><span class="a-what">Samsung Health data on a PC, from the app&rsquo;s own download</span></a></li>
-      <li><a href="/play-12-testers/"><span class="a-name">Day14</span><span class="a-what">How to get 12 testers for Google Play, with a free 14-day tracker</span></a></li>
-    </ul>
-    <h3 class="all-group">Quieter for now</h3>
-    <ul class="all-list all-list--quiet">
-      <li><a href="https://getinvoicemaker.com/"><span class="a-name">GetInvoiceMaker</span><span class="a-what">Invoices with VAT, GST/HST and BTW lines, as a free PDF</span></a></li>
-      <li><a href="https://www.clientguard.app/"><span class="a-name">ClientGuard</span><span class="a-what">How exposed an agency is to losing its biggest client</span></a></li>
-      <li><a href="/pay-gap-report/"><span class="a-name">Pay gap report</span><span class="a-what">Statutory gender pay gap figures for the UK, Ireland and the EU, from a payroll export</span></a></li>
-      <li><a href="/equality-action-plan/"><span class="a-name">Equality action plan</span><span class="a-what">Gender pay gap and menopause action plans from GOV.UK&rsquo;s 18 actions</span></a></li>
-      <li><a href="/pay-transparency/"><span class="a-name">Pay transparency kit</span><span class="a-what">Pay information requests and Article 7 answers, for all 27 EU countries</span></a></li>
-      <li><a href="/menopause-adjustments/"><span class="a-name">Menopause adjustments at work</span><span class="a-what">Changes the Acas and GOV.UK guidance list, and a letter to your manager</span></a></li>
-      <li><a href="/job-evaluation/"><span class="a-name">Job evaluation</span><span class="a-what">Point factor job evaluation on the EU factor plan</span></a></li>
-      <li><a href="https://www.getbriefbase.com/"><span class="a-name">Briefbase</span><span class="a-what">A workspace for small UGC agencies, in early access</span></a></li>
-      <li><a href="https://www.saidbyai.com/"><span class="a-name">Said by AI</span><span class="a-what">Whether AI answers name your brand in your category</span></a></li>
-      <li><a href="https://www.reviewreply.store/"><span class="a-name">ReviewReply</span><span class="a-what">A polite, specific reply to a Google review</span></a></li>
-    </ul>
-    <p class="all-more"><a href="/tools/">See every tool with its guides</a></p>
-  </section>
-
-  <!-- CONTACT -->
-  <section class="contact" aria-labelledby="contact-title">
-    <div class="contact-card">
-      <h2 id="contact-title" class="contact-title">Write to us</h2>
-      <p class="contact-mail"><a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></p>
-      <p class="contact-note">Support, refunds, partnerships and press. One inbox, read by the people who build the products.</p>
+  <section class="close" id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <div class="pile" aria-hidden="true"><img src="assets/b/img/i-ropecrew-256.webp" width="256" height="256" alt="" loading="lazy" decoding="async" style="--x:58%;--y:8%;--r:-9deg;--z:150px;--i:0"><img src="assets/b/img/i-trailerwreck-256.webp" width="256" height="256" alt="" loading="lazy" decoding="async" style="--x:26%;--y:0%;--r:8deg;--z:118px;--i:1"><img src="assets/b/img/i-bodyarcade-256.webp" width="256" height="256" alt="" loading="lazy" decoding="async" style="--x:80%;--y:40%;--r:12deg;--z:104px;--i:2"><img src="assets/b/img/i-leano-256.webp" width="256" height="256" alt="" loading="lazy" decoding="async" style="--x:6%;--y:34%;--r:-6deg;--z:110px;--i:3"><img src="assets/b/img/i-munchlet-256.webp" width="256" height="256" alt="" loading="lazy" decoding="async" style="--x:38%;--y:44%;--r:5deg;--z:132px;--i:4"><img src="assets/b/img/i-hearmony-256.webp" width="256" height="256" alt="" loading="lazy" decoding="async" style="--x:70%;--y:74%;--r:-10deg;--z:96px;--i:5"><img src="assets/b/img/i-benchwise-256.webp" width="256" height="256" alt="" loading="lazy" decoding="async" style="--x:18%;--y:70%;--r:9deg;--z:100px;--i:6"><img src="assets/b/img/i-okultakip-256.webp" width="256" height="256" alt="" loading="lazy" decoding="async" style="--x:48%;--y:84%;--r:-4deg;--z:88px;--i:7"></div>
+      <h2 id="contact-title" class="xt">Write to us.</h2>
+      <a class="mail" href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a>
+      <p class="k">Support, refunds, partnerships and press. One inbox, read by the people who build the products.</p>
+      <footer class="foot">
+        <span>&copy; 2026 Peak Apps Studio</span>
+        <a href="/tools/">All tools</a>
+        <a href="/testers/">Test our apps</a>
+        <a href="/kopilot/privacy.html">Kopilot privacy</a>
+        <a href="https://dorukctnn-rgb.github.io/leano/support.html">Leano support</a>
+        <a href="privacy.html">Travio privacy</a>
+        <a href="terms.html">Travio terms</a>
+      </footer>
     </div>
   </section>
 </main>
-
-<footer class="foot">
-  <p>&copy; 2026 Peak Apps Studio</p>
-  <ul>
-    <li><a href="/tools/">All tools</a></li>
-    <li><a href="/testers/">Test our apps</a></li>
-    <li><a href="/kopilot/privacy.html">Kopilot privacy</a></li>
-    <li><a href="https://dorukctnn-rgb.github.io/leano/support.html">Leano support</a></li>
-    <li><a href="privacy.html">Travio privacy</a></li>
-    <li><a href="terms.html">Travio terms</a></li>
-  </ul>
-</footer>
-
-<script src="assets/js/home.js" defer></script>
+<script src="assets/b/b.js" defer></script>
 </body>
 </html>
