@@ -224,4 +224,14 @@
     el.addEventListener('pointermove', function (e) { var r = el.getBoundingClientRect(); el.style.setProperty('--ry', ((e.clientX - r.left) / r.width - .5) * 14 + 'deg'); el.style.setProperty('--rx', (.5 - (e.clientY - r.top) / r.height) * 14 + 'deg'); });
     el.addEventListener('pointerleave', function () { el.style.setProperty('--rx', '0deg'); el.style.setProperty('--ry', '0deg'); });
   });
+
+  /* ---------- footer switch: motion on by default, a visitor can calm the page (kept per browser) ---------- */
+  var mt = document.getElementById('motion-toggle');
+  if (mt) {
+    mt.textContent = FX ? 'Reduce motion' : 'Turn motion on';
+    mt.addEventListener('click', function () {
+      try { if (FX) localStorage.setItem('pa-motion', 'off'); else localStorage.removeItem('pa-motion'); } catch (e) {}
+      location.reload();
+    });
+  }
 })();

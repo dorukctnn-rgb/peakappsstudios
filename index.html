@@ -26,9 +26,10 @@
 <script>
 (function (d) {
   try {
-    var rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var calm = false;
+    try { calm = localStorage.getItem('pa-motion') === 'off'; } catch (e) {}
     d.classList.add('js');
-    if (!rm) d.classList.add('fx');
+    if (!calm) d.classList.add('fx');
   } catch (e) {}
 })(document.documentElement);
 </script>
@@ -594,6 +595,7 @@
         <a href="https://dorukctnn-rgb.github.io/leano/support.html">Leano support</a>
         <a href="privacy.html">Travio privacy</a>
         <a href="terms.html">Travio terms</a>
+        <button type="button" class="calm" id="motion-toggle">Reduce motion</button>
       </footer>
     </div>
   </section>
