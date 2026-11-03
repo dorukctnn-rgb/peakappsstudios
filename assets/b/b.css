@@ -380,10 +380,8 @@ html:not(.fx) .tw-b2 { left: auto; right: var(--gut); top: 120px; }
   .pile { position: relative; right: auto; top: auto; width: 100%; height: 200px; margin: 0 0 10px; }
   .pile img { --z: 74px !important; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .c, .hero .sub, .hero .cta { animation: none; }
-  .chip.soon::before { animation: none; }
-  .btn, .g, .wt, .phone, .burst, .fcard, .fcard .ic, .fcard .peek, .tabs button, .slips a, .lists li a { transition: none; }
-  .pile img { animation: none; }
-  .turn, .reel .sc, .tap { animation: none !important; }
-}
+/* motion follows the site's own switch (footer "Reduce motion"), not the OS setting: Doruk's laptop reported reduce and the page went still */
+html:not(.fx) .c, html:not(.fx) .hero .sub, html:not(.fx) .hero .cta, html:not(.fx) .chip.soon::before, html:not(.fx) .pile img { animation: none; }
+html:not(.fx) .btn, html:not(.fx) .g, html:not(.fx) .wt, html:not(.fx) .phone, html:not(.fx) .burst, html:not(.fx) .fcard, html:not(.fx) .fcard .ic, html:not(.fx) .fcard .peek, html:not(.fx) .tabs button, html:not(.fx) .slips a, html:not(.fx) .lists li a { transition: none; }
+html:not(.fx) .turn, html:not(.fx) .reel .sc, html:not(.fx) .tap { animation: none !important; }
+.foot .calm { font: inherit; color: inherit; background: none; border: 0; padding: 8px 0; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
