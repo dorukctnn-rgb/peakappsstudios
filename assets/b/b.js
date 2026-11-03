@@ -41,7 +41,9 @@
         else { f.dataset.vis = ''; v.pause(); }
       });
     }, { threshold: .15 });
-    clips.forEach(function (f) { ioNear.observe(f); ioVis.observe(f); });
+    var armed = false;
+    var arm = function () { if (armed) return; armed = true; clips.forEach(function (f) { ioNear.observe(f); ioVis.observe(f); }); };
+    ['scroll', 'pointerdown', 'keydown', 'wheel', 'touchstart'].forEach(function (t) { addEventListener(t, arm, { once: true, passive: true }); });
   }
 
   /* ---------- hero: weight breathes with scroll, ring comes alive ---------- */
@@ -85,7 +87,7 @@
   }
   function afterLoad(fn) { if (d.readyState === 'complete') fn(); else addEventListener('load', fn, { once: true }); }
   afterLoad(function () {
-    ringVideo();
+    setTimeout(ringVideo, 600);
     var idle = window.requestIdleCallback || function (f) { return setTimeout(f, 300); };
     setTimeout(function () { idle(loadRing); }, 700);
   });
@@ -117,7 +119,7 @@
     var j = i, best = null;
     for (var o = 0; o < seqN; o++) { if (seq[i - o]) { best = seq[i - o]; j = i - o; break; } if (seq[i + o]) { best = seq[i + o]; j = i + o; break; } }
     if (!best || j === seqShown) return;
-    var dpr = Math.min(devicePixelRatio || 1, 1.5), w = win.clientWidth, h = win.clientHeight;
+    var dpr = Math.min(devicePixelRatio || 1, 1.5), w = G ? G.winW : win.clientWidth, h = G ? G.winH : win.clientHeight;
     if (seqCv.width !== Math.round(w * dpr) || seqCv.height !== Math.round(h * dpr)) { seqCv.width = Math.round(w * dpr); seqCv.height = Math.round(h * dpr); }
     if (!seqCtx) seqCtx = seqCv.getContext('2d');
     var r = Math.max(seqCv.width / best.width, seqCv.height / best.height), dw = best.width * r, dh = best.height * r;
@@ -127,19 +129,29 @@
 
   /* ---------- Trailer Wreck: frames pan sideways and turn ---------- */
   var tw = $('#trailer-wreck'), track = $('#track'), trackwrap = $('#trackwrap'), figs = track ? $$('figure', track) : [];
-  var cards = $$('.scard');
+
+  /* geometry is measured once (load, resize, font swap) so scrolling only writes styles */
+  var G = null, scrolled = false;
+  function box(el) { var r = el.getBoundingClientRect(); return { top: r.top + scrollY, h: el.offsetHeight }; }
+  function measure() {
+    G = { ih: innerHeight, hero: box(hero), world: box(world), tw: tw ? box(tw) : null, winW: win.clientWidth, winH: win.clientHeight };
+    if (track) { G.wrapL = trackwrap.getBoundingClientRect().left; G.wrapW = trackwrap.clientWidth; G.trackW = track.scrollWidth; G.figs = figs.map(function (f) { return [f.offsetLeft, f.offsetWidth]; }); }
+  }
+  function gp(b) { return clamp((scrollY - b.top) / Math.max(1, b.h - G.ih)); }
+  function gnear(b, m) { var t = b.top - scrollY; return t < G.ih + m && t + b.h > -m; }
 
   function scenes() {
-    var m = mq.matches;
     if (!FX) return;
-    if (!m && near(hero, 0)) {
-      var ph = ease(prog(hero));
+    if (!G) measure();
+    var m = mq.matches;
+    if (!m && gnear(G.hero, 0)) {
+      var ph = ease(gp(G.hero));
       lines.forEach(function (l) { l.style.setProperty('--w', l.classList.contains('l2') ? lerp(250, 700, ph) : lerp(800, 300, ph)); });
       heroLetters.forEach(function (c, i) { c.style.setProperty('--y', (Math.sin(ph * 8 - i * .5) * ph * 12).toFixed(2) + 'px'); });
     }
-    if (near(world, innerHeight)) {
-      if (!seqStarted && near(world, innerHeight * 1.2)) seqLoad();
-      var pr = prog(world), e = ease(clamp(pr / .3));
+    if (gnear(G.world, G.ih)) {
+      if (!seqStarted && scrolled) seqLoad();
+      var pr = gp(G.world), e = ease(clamp(pr / .3));
       var cw = m ? .12 : .36, ch = .2;
       win.style.setProperty('--t', lerp(ch, 0, e) * 100 + '%'); win.style.setProperty('--b', lerp(ch, 0, e) * 100 + '%');
       win.style.setProperty('--l', lerp(cw, 0, e) * 100 + '%'); win.style.setProperty('--r', lerp(cw, 0, e) * 100 + '%');
@@ -148,8 +160,7 @@
       cardface.style.transform = 'scale(' + (1 + e * .5) + ')';
       seqCv.style.opacity = clamp((e - .15) * 3);
       seqDraw(Math.round(clamp((pr - .12) / .72) * (seqN - 1)));
-      var fo = clamp((e - .4) * 2.5);
-      $('#frames').style.opacity = fo;
+      framesBox.style.opacity = clamp((e - .4) * 2.5);
       frames.forEach(function (f, i) { var sp = +f.dataset.sp * (m ? .3 : 1); f.style.transform = 'translateY(' + ((1 - e) * 140 - pr * 180 * sp).toFixed(1) + 'px) rotate(' + ((i - 1) * 4 + pr * (i % 2 ? -3 : 3)).toFixed(2) + 'deg)'; });
       wtitle.style.opacity = clamp((e - .5) * 2.4);
       wl.forEach(function (c, i) { var k = ease(clamp((pr - .2) * 2.2 - i * .05)); c.style.setProperty('--w', Math.round(lerp(200, 800, k))); c.style.setProperty('--y', ((1 - k) * 40).toFixed(1) + 'px'); });
@@ -158,26 +169,21 @@
       label.style.transform = 'rotate(1.5deg) translateY(' + ((1 - lo) * 40).toFixed(1) + 'px)';
       rcBursts.forEach(function (b, i) { var k = ease(clamp((pr - .42 - i * .06) * 5)); b.style.opacity = k; b.style.transform = 'rotate(' + (i ? 9 : -10) + 'deg) scale(' + (.3 + .7 * k) + ')'; });
     }
-    if (tw && near(tw, innerHeight)) {
-      var pt = prog(tw), max = Math.max(0, track.scrollWidth - trackwrap.clientWidth * .8);
-      track.style.transform = 'translateY(-50%) translateX(' + (-pt * max).toFixed(1) + 'px)';
-      var wr = trackwrap.getBoundingClientRect();
-      figs.forEach(function (f) { var r = f.getBoundingClientRect(), c = (r.left + r.width / 2 - wr.left) / wr.width - .5; f.style.transform = 'rotateY(' + (-c * 30).toFixed(2) + 'deg) scale(' + (1 - Math.abs(c) * .1).toFixed(3) + ')'; });
+    if (tw && G.figs && gnear(G.tw, G.ih)) {
+      var pt = gp(G.tw), max = Math.max(0, G.trackW - G.wrapW * .8), x = -pt * max;
+      track.style.transform = 'translateY(-50%) translateX(' + x.toFixed(1) + 'px)';
+      figs.forEach(function (f, i) { var c = (x + G.figs[i][0] + G.figs[i][1] / 2) / G.wrapW - .5; f.style.transform = 'rotateY(' + (-c * 30).toFixed(2) + 'deg) scale(' + (1 - Math.min(1, Math.abs(c)) * .1).toFixed(3) + ')'; });
     }
-    cards.forEach(function (c, i) {
-      var nx = cards[i + 1]; if (!nx) return;
-      var r = nx.getBoundingClientRect();
-      if (r.top > innerHeight * 1.2) { if (c.style.transform) c.style.transform = ''; return; }
-      var k = clamp(1 - (r.top - 84) / (innerHeight * .7));
-      c.style.transform = 'scale(' + (1 - k * .05).toFixed(4) + ')';
-    });
   }
+  var framesBox = $('#frames');
   var ticking = false;
-  function onScroll() { if (ticking) return; ticking = true; requestAnimationFrame(function () { ticking = false; scenes(); }); }
+  function onScroll() { scrolled = true; if (ticking) return; ticking = true; requestAnimationFrame(function () { ticking = false; scenes(); }); }
   addEventListener('scroll', onScroll, { passive: true });
-  addEventListener('resize', function () { seqShown = -1; layoutFlow(); scenes(); });
-  scenes();
-  if (!FX) { /* static composition: the rescue poster is the Rope Crew world */ }
+  var rz = 0;
+  addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(function () { G = null; seqShown = -1; layoutFlow(); scenes(); }, 120); });
+  /* nothing moves before the first scroll, so geometry is not read during page load */
+  if (d.fonts && d.fonts.ready) d.fonts.ready.then(function () { G = null; if (scrolled) scenes(); });
+  afterLoad(function () { G = null; if (scrollY > 0) { scrolled = true; scenes(); } });
 
   /* ---------- shelf: tabs and a 3D card flow ---------- */
   var shelf = $('#shelf'), tabs = $('#tabs'), flow = $('#flow'), stat = $('#flowstat');

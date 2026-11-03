@@ -72,7 +72,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--ink); outline-o
 .ring-vid { display: none; }
 .hero .copy { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); text-align: center; padding: 0 var(--gut); pointer-events: none; }
 .hero h1 { font-size: clamp(54px, 9.6vw, 168px); line-height: .84; letter-spacing: -.035em; }
-.hero h1 .l { display: block; }
+.hero h1 .l { display: block; height: .84em; contain: size layout style; }
 .l1, .l3 { --w: 800; font-stretch: 75%; }
 .l2 { --w: 250; font-stretch: 100%; letter-spacing: -.05em; }
 .c { display: inline-block; font-weight: calc(200 + (var(--w) - 200) * var(--k)); transform: translateY(calc((1 - var(--k)) * .9em + var(--y, 0px))) rotate(calc((1 - var(--k)) * var(--r, 8deg))); opacity: calc(.18 + .82 * var(--k)); animation: kin .95s cubic-bezier(.2, .9, .25, 1.15) calc(120ms + var(--d) * 32ms) both; }
@@ -211,12 +211,15 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--ink); outline-o
 .wt { grid-column: span 4; background: #fff; border-radius: 26px; overflow: hidden; text-decoration: none; color: var(--ink); display: flex; flex-direction: column; transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .4s var(--spring), box-shadow .3s; box-shadow: 8px 10px 0 var(--fairway-d); }
 .wt:hover { transform: translateY(-10px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); box-shadow: 12px 18px 0 var(--fairway-d); }
 .wt:active { transform: translateY(-2px) scale(.985); }
-.wt img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.wt img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; }
 .wt.big { grid-column: span 8; grid-row: span 2; }
 .wt.big img { aspect-ratio: auto; flex: 1; min-height: 0; height: 0; }
-.wt .t { padding: 16px 20px 20px; }
+.wt .t { padding: 16px 20px 20px; background: var(--c, #fff); color: var(--on, var(--ink)); flex: 1; }
 .wt h3 { font-size: 26px; font-stretch: 85%; }
-.wt p { margin-top: 4px; font-size: 15px; line-height: 1.4; color: #3a3550; }
+.wt p { margin-top: 4px; font-size: 15px; line-height: 1.4; }
+.wt.big .t { flex: none; }
+.wt h3 { transition: transform .3s var(--spring); }
+.wt:hover h3 { transform: translateX(4px) rotate(-1deg); }
 .webw .more { margin-top: 34px; display: flex; gap: 12px; flex-wrap: wrap; }
 .idx { margin-top: 90px; background: #fff; color: var(--ink); border-radius: 34px; padding: clamp(24px, 4vw, 52px); box-shadow: 10px 12px 0 var(--fairway-d); }
 .idx h3 { font-size: clamp(30px, 3.4vw, 48px); font-stretch: 80%; line-height: .95; letter-spacing: -.02em; }
@@ -246,9 +249,15 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--ink); outline-o
 .pile { position: absolute; right: var(--gut); top: -80px; width: min(44vw, 560px); height: 440px; pointer-events: none; }
 .pile img { position: absolute; left: var(--x); top: var(--y); width: var(--z, 120px); height: auto; border-radius: 26%; transform: rotate(var(--r)); box-shadow: 0 2px 0 rgba(27, 16, 53, .35), 0 4px 0 rgba(27, 16, 53, .35), 0 6px 0 rgba(27, 16, 53, .35), 0 8px 0 rgba(27, 16, 53, .35), 0 10px 0 rgba(27, 16, 53, .35), 14px 26px 30px rgba(27, 16, 53, .3); }
 .fx .pile img { animation: bob 5s ease-in-out calc(var(--i) * -.7s) infinite alternate; }
-@keyframes bob { to { transform: rotate(calc(var(--r) * -1)) translateY(-16px); } }
+@keyframes bob { to { translate: 0 -16px; } }
 .foot { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 80px; padding-top: 22px; border-top: 2px solid var(--ink); font-size: 15px; }
 .foot a, .foot span { padding: 8px 0; }
+
+/* below-the-fold sections are laid out only when they come close */
+.ba { content-visibility: auto; contain-intrinsic-size: auto 1250px; }
+.shelf { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+.webw { content-visibility: auto; contain-intrinsic-size: auto 2700px; }
+.close { content-visibility: auto; contain-intrinsic-size: auto 760px; }
 
 /* motion on: pinned scenes (script adds .fx when motion is allowed) */
 .fx .hero { height: 165vh; }
@@ -281,7 +290,8 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--ink); outline-o
   .hero h1 { font-size: clamp(46px, 15vw, 64px); }
   .hero .sub { font-size: 15.5px; margin-top: 18px; }
   .hero .cta .ghost { display: none; }
-  .ring-box { position: relative; inset: auto; height: auto; order: 2; margin-top: -10vw; aspect-ratio: 720 / 840; }
+  .ring-box { position: relative; inset: auto; height: auto; order: 2; margin-top: -36px; aspect-ratio: 720 / 840; }
+  .hero .c { font-weight: var(--w); }
   .ring-poster { position: absolute; inset: 0; }
   .ring-poster img { object-fit: contain; object-position: 50% 50%; }
   #ring { display: none; }
