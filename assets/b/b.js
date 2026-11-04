@@ -16,15 +16,17 @@
   function near(el, m) { var r = el.getBoundingClientRect(); return r.bottom > -m && r.top < innerHeight + m; }
 
   /* ---------- looping clips: poster first, video only near the viewport, paused off screen ---------- */
-  var clips = $$('[data-clip]');
+  var clips = $$('[data-clip]').filter(function (f) { return !f.classList.contains('bx-clip'); });
   function startClip(f) {
     if (f.dataset.on) return;
     f.dataset.on = '1';
     var v = f.querySelector('video');
-    var sizes = f.dataset.sizes.split(',').map(Number).sort(function (a, b) { return a - b; });
+    /* phones can get their own cut of the same footage (Trailer Wreck: a native vertical crop) */
+    var mob = mq.matches && f.dataset.mclip, name = mob ? f.dataset.mclip : f.dataset.clip;
+    var sizes = (mob ? f.dataset.msizes : f.dataset.sizes).split(',').map(Number).sort(function (a, b) { return a - b; });
     var need = Math.max(f.offsetWidth, f.getBoundingClientRect().width) * Math.min(devicePixelRatio || 1, 2), w = sizes[sizes.length - 1];
     for (var i = 0; i < sizes.length; i++) if (sizes[i] >= need) { w = sizes[i]; break; }
-    var base = 'assets/b/clip/' + f.dataset.clip + '-' + w;
+    var base = (f.dataset.dir || 'assets/b/clip/') + name + '-' + w;
     var webm = v.canPlayType('video/webm; codecs="vp9"');
     v.addEventListener('playing', function () { f.classList.add('playing'); });
     v.addEventListener('error', function () { if (!f.dataset.mp4) { f.dataset.mp4 = '1'; v.src = base + '.mp4'; v.load(); if (f.dataset.vis) v.play().catch(function () {}); } });
@@ -99,23 +101,46 @@
   ['pointermove', 'keydown', 'wheel'].forEach(function (t) { addEventListener(t, loadRing, { once: true, passive: true }); });
 
   /* ---------- Rope Crew: the app card opens into the game ---------- */
-  var world = $('#rope'), win = $('#win'), cardface = $('#cardface'), label = $('#label');
+  var world = $('#rope'), scene = $('.scene', world), win = $('#win'), cardface = $('#cardface'), label = $('#label');
   var frames = $$('#frames .frame'), wtitle = $('#rope-title'), wl = $$('.c', wtitle);
-  var rcBursts = $$('.burst', world);
-  var rcimg = $('#rcimg'), RA = 2752 / 2064;
+  var rcBursts = $$('.burst', world), rcbg = $('.rc-bg', world), framesBox = $('#frames');
+  /* the frame is the iPad shot with 400 px of its own sky continued above it (2752x2464). Subjects in fractions of it:
+     red worker's head .545-.648 x, .2127-.2946 y; Juno's head .347-.448 x, .6916-.7865 y */
+  var rcimg = $('#rcimg'), RA = 2752 / 2464;
+  var tall = matchMedia('(max-aspect-ratio: 1117/1000)');
+  /* tall screens: the card waits under the scene instead of over the picture; calm page: the frames stand in a row under it */
+  function rcPlace() {
+    var below = tall.matches || mq.matches;
+    if (below && label.parentNode !== world) { world.appendChild(label); label.style.opacity = ''; label.style.transform = ''; }
+    if (!below && label.parentNode !== win) win.appendChild(label);
+    if (!FX && framesBox.parentNode !== world) world.insertBefore(framesBox, scene.nextSibling);
+  }
   function rcSize() {
-    if (!FX || !G) return;
-    var w = G.winW, h = G.winH, iw = Math.max(w, h * RA), ih = iw / RA;
-    G.rc = { w: w, h: h, iw: iw, ih: ih };
+    if (!G) return;
+    var w = G.winW, h = G.winH, iw = Math.max(w, h * RA), ih = iw / RA, navB = G.navB + 16;
+    var r = { w: w, h: h, iw: iw, ih: ih, x0: 0, x1: 0, y0: 0, y1: 0 };
+    if (ih > h + 1) {
+      /* wide: the camera climbs the rope from the hanging buddy to the friend on the deck. It stops with the red worker's head
+         at least 16 px under the nav, and with Juno's head either whole in the picture or wholly below it, never cut */
+      r.y0 = ih - h;
+      var offMax = ih * .2127 - navB, inMin = ih * .7865 - h + 8;
+      r.y1 = inMin <= offMax ? Math.max(0, (inMin + offMax) / 2) : Math.max(0, Math.min(offMax, ih * .6916 - h));
+      r.y1 = Math.min(r.y1, r.y0);
+    } else if (iw > w + 1) {
+      /* tall: it slides along the rope from Juno to the friend on the deck and stops with both of them whole, right of the title */
+      var lo = iw * .648 + 10 - w, hi = Math.min(iw * .347 - 10, iw * .545 - G.titleR - 10);
+      r.x1 = clamp(hi >= lo ? (lo + hi) / 2 : hi, 0, iw - w);
+      r.x0 = clamp(Math.min(iw * .545 - w - 2, r.x1), 0, iw - w);
+    }
+    G.rc = r;
     rcimg.style.width = iw + 'px'; rcimg.style.height = ih + 'px';
     rcimg.classList.add('sized');
+    if (!FX) rcPan(1);
   }
   function rcPan(pr) {
     if (!G.rc) return;
-    var r = G.rc, k = ease(clamp((pr - .08) / .8));
-    /* landscape: the camera climbs the rope from the hanging buddy to the friend on the deck; portrait: it slides along it */
-    var fx = r.iw > r.w + 1 ? lerp(.22, .6, k) : .5, fy = r.ih > r.h + 1 ? lerp(1, .06, k) : .5;
-    rcimg.style.transform = 'translate3d(' + (-(r.iw - r.w) * fx).toFixed(1) + 'px,' + (-(r.ih - r.h) * fy).toFixed(1) + 'px,0)';
+    var r = G.rc, k = ease(clamp((pr - .05) / .8));
+    rcimg.style.transform = 'translate3d(' + (-lerp(r.x0, r.x1, k)).toFixed(1) + 'px,' + (-lerp(r.y0, r.y1, k)).toFixed(1) + 'px,0)';
   }
 
   /* ---------- Trailer Wreck: frames pan sideways and turn ---------- */
@@ -125,8 +150,11 @@
   var G = null, scrolled = false;
   function box(el) { var r = el.getBoundingClientRect(); return { top: r.top + scrollY, h: el.offsetHeight }; }
   function measure() {
-    G = { ih: innerHeight, hero: box(hero), world: box(world), tw: tw ? box(tw) : null, winW: win.clientWidth, winH: win.clientHeight };
+    rcPlace();
+    G = { ih: innerHeight, hero: box(hero), world: box(scene), tw: tw ? box(tw) : null, winW: win.clientWidth, winH: win.clientHeight,
+      navB: $('.bar').getBoundingClientRect().bottom, titleR: wtitle.offsetLeft + wtitle.offsetWidth, bax: bax ? box(bax) : null, stack: box($('#apps')) };
     rcSize();
+    twSticker();
     if (track) { G.wrapL = trackwrap.getBoundingClientRect().left; G.wrapW = trackwrap.clientWidth; G.trackW = track.scrollWidth; G.figs = figs.map(function (f) { return [f.offsetLeft, f.offsetWidth]; }); }
   }
   function gp(b) { return clamp((scrollY - b.top) / Math.max(1, b.h - G.ih)); }
@@ -142,22 +170,41 @@
       heroLetters.forEach(function (c, i) { c.style.setProperty('--y', (Math.sin(ph * 8 - i * .5) * ph * 12).toFixed(2) + 'px'); });
     }
     if (gnear(G.world, G.ih)) {
-      var pr = gp(G.world), e = ease(clamp(pr / .3));
+      /* the app card opens into the world: its face fades, then the picture fades in while the camera climbs; the frames come
+         and go in the side columns; then title, card and stickers settle in the empty parts of the last picture */
+      var pr = gp(G.world), e = ease(clamp(pr / .25));
       var cw = m ? .12 : .36, ch = .2;
       win.style.setProperty('--t', lerp(ch, 0, e) * 100 + '%'); win.style.setProperty('--b', lerp(ch, 0, e) * 100 + '%');
       win.style.setProperty('--l', lerp(cw, 0, e) * 100 + '%'); win.style.setProperty('--r', lerp(cw, 0, e) * 100 + '%');
       win.style.setProperty('--rad', lerp(44, 0, e) + 'px');
-      cardface.style.opacity = 1 - clamp((e - .3) * 4);
+      cardface.style.opacity = 1 - clamp((e - .15) * 4);
       cardface.style.transform = 'scale(' + (1 + e * .5) + ')';
+      rcbg.style.opacity = clamp((e - .45) * 3);
       rcPan(pr);
-      framesBox.style.opacity = clamp((e - .4) * 2.5);
-      frames.forEach(function (f, i) { var sp = +f.dataset.sp * (m ? .3 : 1); f.style.transform = 'translateY(' + ((1 - e) * 140 - pr * 180 * sp).toFixed(1) + 'px) rotate(' + ((i - 1) * 4 + pr * (i % 2 ? -3 : 3)).toFixed(2) + 'deg)'; });
-      wtitle.style.opacity = clamp((e - .5) * 2.4);
-      wl.forEach(function (c, i) { var k = ease(clamp((pr - .2) * 2.2 - i * .05)); c.style.setProperty('--w', Math.round(lerp(200, 800, k))); c.style.setProperty('--y', ((1 - k) * 40).toFixed(1) + 'px'); });
-      var lo = clamp((pr - .32) * 4);
-      label.style.opacity = lo;
-      label.style.transform = 'rotate(1.5deg) translateY(' + ((1 - lo) * 40).toFixed(1) + 'px)';
-      rcBursts.forEach(function (b, i) { var k = ease(clamp((pr - .42 - i * .06) * 5)); b.style.opacity = k; b.style.transform = 'rotate(' + (i ? 9 : -10) + 'deg) scale(' + (.3 + .7 * k) + ')'; });
+      frames.forEach(function (f, i) {
+        var a = [.2, .27, .23][i], t = clamp((pr - a) / .3);
+        f.style.opacity = Math.min(clamp(t * 6), clamp((1 - t) * 6));
+        f.style.transform = 'translateY(' + lerp(40, -24, t).toFixed(1) + 'px) rotate(' + ((i - 1) * 3 + t * (i % 2 ? -2 : 2)).toFixed(2) + 'deg)';
+      });
+      wtitle.style.opacity = clamp((pr - .55) * 7);
+      wl.forEach(function (c, i) { var k = ease(clamp((pr - .53) * 5 - i * .05)); c.style.setProperty('--w', Math.round(lerp(200, 800, k))); c.style.setProperty('--y', ((1 - k) * 40).toFixed(1) + 'px'); });
+      if (label.parentNode === win) {
+        var lo = clamp((pr - .62) * 7);
+        label.style.opacity = lo;
+        label.style.transform = 'rotate(1.5deg) translateY(' + ((1 - lo) * 40).toFixed(1) + 'px)';
+      }
+      rcBursts.forEach(function (b, i) { var k = ease(clamp((pr - .7 - i * .05) * 7)); b.style.opacity = k; b.style.transform = 'rotate(' + (i ? 9 : -10) + 'deg) scale(' + (.3 + .7 * k) + ')'; });
+    }
+    /* app cards: how far the next card covers this one (0..1), for the dimming */
+    if (scards.length && gnear(G.stack, 0)) {
+      for (var k = 0; k < scards.length - 1; k++) {
+        var cr = scards[k].getBoundingClientRect(), nt = scards[k + 1].getBoundingClientRect().top;
+        scards[k].style.setProperty('--cover', clamp((cr.bottom - nt) / cr.height).toFixed(3));
+      }
+    }
+    if (G.bax) {
+      if (gnear(G.bax, 0)) { var pb = gp(G.bax) * (G.bax.h - G.ih) / (G.ih * .92); bxSet(Math.max(0, Math.min(bxs.length - 1, Math.floor(pb)))); }
+      else bxSet(-1);
     }
     if (tw && G.figs && gnear(G.tw, G.ih)) {
       var pt = gp(G.tw), max = Math.max(0, G.trackW - G.wrapW * .8), x = -pt * max;
@@ -165,7 +212,50 @@
       figs.forEach(function (f, i) { var c = (x + G.figs[i][0] + G.figs[i][1] / 2) / G.wrapW - .5; f.style.transform = 'rotateY(' + (-c * 30).toFixed(2) + 'deg) scale(' + (1 - Math.min(1, Math.abs(c)) * .1).toFixed(3) + ')'; });
     }
   }
-  var framesBox = $('#frames');
+  /* BodyArcade: one pinned scene per game. Only the scene on screen plays; its words pulse on the moves of the person
+     (data-beats: seconds inside the loop, measured on the loop itself) */
+  var bax = $('#bax'), bxs = bax ? $$('.bx', bax) : [], bxStage = bax && $('.bax-stage', bax), bxDots = bax ? $$('.bx-dots i', bax) : [];
+  var bxCur = -1, bxRaf = 0, bxLast = 0;
+  if (bax) bax.style.setProperty('--n', bxs.length);
+  function bxSet(i) {
+    if (i === bxCur) return;
+    bxs.forEach(function (li, k) {
+      var on = k === i, f = $('.bx-clip', li), v = $('video', li);
+      li.classList.toggle('on', on);
+      if (i >= 0 && Math.abs(k - i) <= 1 && !SAVE) startClip(f);
+      if (on && !SAVE) { var pr = v.play(); if (pr) pr.catch(function () {}); } else v.pause();
+    });
+    bxDots.forEach(function (dd, k) { dd.classList.toggle('on', k === i); });
+    if (i >= 0) bxStage.style.setProperty('--sbg', bxs[i].style.getPropertyValue('--bg'));
+    bxCur = i; bxLast = 0;
+    if (i >= 0 && !bxRaf) bxRaf = requestAnimationFrame(bxTick);
+  }
+  function bxTick() {
+    bxRaf = 0;
+    if (bxCur < 0) return;
+    var li = bxs[bxCur], v = $('video', li), t = v.currentTime;
+    if (!v.paused && v.readyState > 1) {
+      var b = li._b || (li._b = (li.dataset.beats || '').split(',').filter(Boolean).map(Number));
+      for (var k = 0; k < b.length; k++) {
+        var crossed = t >= bxLast ? (b[k] > bxLast && b[k] <= t) : (b[k] > bxLast || b[k] <= t);
+        if (crossed) { li.classList.remove('hit'); void li.offsetWidth; li.classList.add('hit'); break; }
+      }
+      bxLast = t;
+    }
+    bxRaf = requestAnimationFrame(bxTick);
+  }
+
+  var scards = $$('#apps .scard');
+  /* Trailer Wreck: the second sticker sits above the sliding strip on the right, or is left out when there is no room */
+  var twB2 = $('.tw-b2');
+  function twSticker() {
+    if (!FX || !twB2 || !track) return;
+    var stick = $('.stick', tw), fig = figs[0];
+    var top = stick.clientHeight * .54 - fig.offsetHeight / 2 - twB2.offsetWidth - 26;
+    var room = top >= G.navB + 14 && !mq.matches;
+    twB2.classList.toggle('off', !room);
+    if (room) twB2.style.setProperty('--b2y', Math.round(top) + 'px');
+  }
   var ticking = false;
   function onScroll() { scrolled = true; if (ticking) return; ticking = true; requestAnimationFrame(function () { ticking = false; scenes(); }); }
   addEventListener('scroll', onScroll, { passive: true });
@@ -174,6 +264,8 @@
   /* nothing moves before the first scroll, so geometry is not read during page load */
   if (d.fonts && d.fonts.ready) d.fonts.ready.then(function () { G = null; if (scrolled) scenes(); });
   afterLoad(function () { G = null; if (scrollY > 0) { scrolled = true; scenes(); } });
+  /* calm page: lay the scenes out once, without motion, so the Rope Crew picture shows the end of the camera move */
+  if (!FX) { var calmLayout = function () { G = null; measure(); }; afterLoad(calmLayout); addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(calmLayout, 150); }); }
 
   /* ---------- shelf: tabs and a 3D card flow ---------- */
   var shelf = $('#shelf'), tabs = $('#tabs'), flow = $('#flow'), stat = $('#flowstat');
