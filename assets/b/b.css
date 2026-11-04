@@ -137,32 +137,39 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--ink); outline-o
 }
 .world > .label { position: relative; inset: auto; z-index: 1; width: auto; max-width: 560px; margin: 26px var(--gut) 60px; transform: rotate(1deg); background: #fff; }
 
-/* 3 trailer wreck pan */
-.pan { position: relative; background: linear-gradient(160deg, #FFB12B 0%, #FF6A1F 55%, #E8342A 100%); color: #1A1208; overflow: hidden; }
-.pan .stick { position: relative; min-height: 100vh; padding: 110px 0 60px; }
-/* without the scroll scene (reduced motion, save-data) the big word gets its own room under the frames */
-html:not(.fx) .pan .stick { padding-bottom: calc(min(15vw, 21vh) * .8 + 8vh); }
-/* calm page: the Rope Crew picture holds the end of the camera move and the three frames stand in a row under it (the script
-   moves them there); the second Trailer Wreck sticker stays clear of the headline */
+/* calm page: the Rope Crew picture holds the end of the camera move and the three frames stand in a row under it (the script moves them there) */
 .world > .frames { position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: 22px; padding: 34px var(--gut) 10px; }
 .world > .frames .frame { position: relative; inset: auto; display: block; width: min(400px, 88vw); }
-html:not(.fx) .tw-b2 { left: auto; right: var(--gut); top: 120px; }
-.pan .head { position: relative; z-index: 2; padding: 0 var(--gut); max-width: 560px; }
-.pan .head img { width: 234px; height: auto; filter: drop-shadow(5px 6px 0 rgba(90, 20, 0, .35)); }
-.pan .head h2 { font-size: clamp(36px, 4.4vw, 64px); font-stretch: 78%; line-height: .95; margin: 14px 0 12px; }
-.pan .head p { max-width: 26em; margin-bottom: 20px; }
-.pan .big { position: absolute; z-index: 1; right: var(--gut); bottom: 4vh; --xc: #A3200F; font: 800 min(15vw, 21vh) / .8 var(--display); font-stretch: 75%; letter-spacing: -.035em; pointer-events: none; white-space: nowrap; }
-.trackwrap { position: relative; z-index: 2; margin-top: 34px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; perspective: 1300px; }
-.trackwrap::-webkit-scrollbar { display: none; }
-.track { display: flex; gap: 3vw; padding: 10px var(--gut) 30px; width: max-content; transform-style: preserve-3d; }
-.track figure { position: relative; margin: 0; width: min(46vw, 640px); aspect-ratio: 16 / 9; border-radius: 26px; overflow: hidden; flex: 0 0 auto; box-shadow: 14px 18px 0 rgba(90, 20, 0, .35); border: 5px solid #fff; scroll-snap-align: center; background: #FFB12B; }
-.track .tag { left: 14px; bottom: 14px; }
-.track .tag.tr { left: auto; right: 14px; bottom: auto; top: 14px; }
-.tw-b1 { --s: 140px; --bc: var(--lemon); --rot: -12deg; left: calc(var(--gut) + 238px); top: 100px; }
-.tw-b2 { --s: 116px; --bc: #fff; --rot: 10deg; left: calc(var(--gut) + 420px); top: 300px; }
-/* moving page: the script puts this sticker above the sliding strip on the right and hides it when there is no room */
-.fx .tw-b2 { left: auto; right: var(--gut); top: var(--b2y, 100px); }
-.fx .tw-b2.off { display: none; }
+/* 3 trailer wreck: a real match loops as a full-bleed background (1080p capture, never upscaled); the words sit on a dark
+   gradient on the side where the cars are not. Wide screens: words on the right. Narrower: the video band on top, words under
+   it. Phones: a native 608x1080 vertical crop of the same footage under the words. */
+.pan { position: relative; background: #24120A; color: #fff; overflow: hidden; min-height: max(100vh, 600px); }
+.twbg { position: absolute; inset: 0; }
+.twclip { position: absolute; inset: 0; width: 100%; height: 100%; background: #24120A; }
+.twclip img, .twclip video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 0% 55%; }
+.twshade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(270deg, rgba(30, 12, 4, .9) 0%, rgba(30, 12, 4, .78) 24%, rgba(30, 12, 4, 0) 38%); }
+.pan .head { position: absolute; z-index: 2; right: var(--gut); top: 50%; transform: translateY(-50%); width: min(380px, 28vw); }
+.pan .head img { width: 234px; height: auto; filter: drop-shadow(4px 5px 0 rgba(0, 0, 0, .45)); }
+.pan .head h2 { font-size: clamp(34px, 3.4vw, 60px); font-stretch: 78%; line-height: .95; margin: 14px 0 12px; }
+.pan .head p { margin-bottom: 20px; color: #FBEFE6; }
+.pan .chip.live { background: #fff; color: var(--ink); }
+.pan .btn { background: #FF6A1F; color: #1A0B03; --sh: rgba(0, 0, 0, .45); }
+.pan .big { position: absolute; z-index: 1; right: var(--gut); bottom: 4vh; --xc: #A3200F; color: #FF8A3D; font: 800 min(9vw, 150px) / .8 var(--display); font-stretch: 75%; letter-spacing: -.035em; pointer-events: none; white-space: nowrap; }
+.tw-b1 { --s: 132px; --bc: var(--lemon); --rot: -12deg; left: var(--gut); top: 96px; }
+.tw-b2 { --s: 112px; --bc: #fff; --rot: 10deg; left: calc(var(--gut) + 150px); top: 110px; }
+/* short wide windows: the stickers and the big word would reach the cars or the words, so they stay out */
+@media (min-width: 1100px) and (max-height: 760px) { .tw-b1, .tw-b2, .pan .big { display: none; } }
+/* narrower or squarer screens: the 16:9 video band on top, edge to edge, the words below it on the dark ground */
+@media (max-width: 1099px), (max-aspect-ratio: 3/2) {
+  .pan { min-height: 0; }
+  .twbg { position: relative; inset: auto; aspect-ratio: 16 / 9; }
+  .twclip img, .twclip video { object-position: 50% 50%; }
+  .twshade { background: linear-gradient(180deg, rgba(36, 18, 10, 0) 62%, #24120A 100%); }
+  .pan .head { position: relative; right: auto; top: auto; transform: none; width: auto; max-width: 640px; padding: 8px var(--gut) 90px; margin-top: -40px; }
+  .pan .big { display: none; }
+  .tw-b1 { left: auto; right: calc(var(--gut) + 120px); top: 90px; --s: 120px; }
+  .tw-b2 { left: auto; right: var(--gut); top: 104px; --s: 104px; }
+}
 
 /* 4 bodyarcade: one full-screen scene per game, the person (what the camera saw) and the real round side by side in one video */
 .ba { background: var(--violet); color: #fff; padding: 130px 0 0; position: relative; }
@@ -190,7 +197,7 @@ html:not(.fx) .tw-b2 { left: auto; right: var(--gut); top: 120px; }
 .ba .bx-say { margin: 18px 0 0; max-width: none; font-family: var(--display); font-weight: 800; font-stretch: 75%; line-height: .92; letter-spacing: -.02em; }
 .bx-cause { display: block; font-size: clamp(52px, 7vw, 132px); color: var(--lemon); transform-origin: 0 70%; }
 .bx-arrow, .bx-effect { display: inline-block; font-size: clamp(36px, 3.6vw, 72px); }
-.bx-arrow { color: var(--lemon); }
+.bx-arrow { width: .95em; height: .5em; margin-right: .12em; vertical-align: .08em; color: var(--lemon); overflow: visible; }
 .bx-effect { color: #fff; transform-origin: 0 70%; }
 .ba .bx-line { font-size: 18px; margin-top: 20px; color: #F4F1FF; max-width: 24em; }
 .bx-dots { display: none; }
@@ -229,6 +236,28 @@ html:not(.fx) .tw-b2 { left: auto; right: var(--gut); top: 120px; }
   .bx-g { font-size: 21px; }
 }
 @media (max-height: 620px) and (max-width: 760px) { .fx .bx { padding-top: 72px; padding-bottom: 30px; } .ba .bx-line { display: none; } .bx-clip { width: min(100%, calc((100vh - 250px) * 1.3125)); } .bx-game { left: calc(min(100%, (100vh - 250px) * 1.3125) * .5712 + 10px); } }
+
+/* phones: the device turn and the app screen flows (shared by the app cards) */
+.turn { display: grid; place-items: center; transform: rotateY(-16deg) rotateX(6deg) rotateZ(2deg); }
+.fx .turn { animation: sway 9s ease-in-out infinite alternate; }
+@keyframes sway { from { transform: rotateY(-18deg) rotateX(7deg) rotateZ(2deg); } to { transform: rotateY(-4deg) rotateX(2deg) rotateZ(-1deg) translateY(-10px); } }
+.phone { position: relative; width: min(280px, 64vw); padding: 10px; border-radius: 44px; background: #101014; box-shadow: inset 0 0 0 2px #3a3a44, 16px 22px 0 rgba(0, 0, 0, .22), 0 40px 60px rgba(0, 0, 0, .3); }
+.phone .screen { position: relative; aspect-ratio: var(--ar, 9 / 16); border-radius: 35px; overflow: hidden; background: #0d0d10; }
+.phone .screen .clip { position: absolute; inset: 0; }
+.reel .sc { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: translateX(100%); }
+.reel .sc:first-child { transform: none; }
+.fx .reel .sc { animation: push4 10.4s linear calc(var(--k) * 2.6s - .4s) infinite both; }
+.fx .reel.n3 .sc { animation-name: push3; animation-duration: 7.8s; }
+.tap { position: absolute; z-index: 5; left: var(--x); top: var(--y); width: 46px; height: 46px; margin: -23px 0 0 -23px; border-radius: 50%; background: rgba(255, 255, 255, .6); box-shadow: 0 0 0 3px rgba(27, 16, 53, .55); opacity: 0; pointer-events: none; }
+.fx .reel .tap { animation: tap4 10.4s ease-out calc(var(--k) * 2.6s - .4s) infinite both; }
+.fx .reel.n3 .tap { animation-name: tap3; animation-duration: 7.8s; }
+.turn:not(.run), .turn:not(.run) * { animation-play-state: paused !important; }
+.scard:hover .turn { animation-play-state: paused; }
+@keyframes push4 { 0% { transform: translateX(100%); z-index: 3; animation-timing-function: cubic-bezier(.2, .8, .2, 1); } 3.5% { transform: translateX(0); z-index: 3; } 25% { transform: translateX(0); z-index: 2; filter: none; animation-timing-function: cubic-bezier(.4, 0, .6, 1); } 28.5% { transform: translateX(-28%); z-index: 2; filter: brightness(.75); } 28.6%, 100% { transform: translateX(100%); z-index: 1; filter: none; } }
+@keyframes push3 { 0% { transform: translateX(100%); z-index: 3; animation-timing-function: cubic-bezier(.2, .8, .2, 1); } 4.6% { transform: translateX(0); z-index: 3; } 33.3% { transform: translateX(0); z-index: 2; filter: none; animation-timing-function: cubic-bezier(.4, 0, .6, 1); } 38% { transform: translateX(-28%); z-index: 2; filter: brightness(.75); } 38.1%, 100% { transform: translateX(100%); z-index: 1; filter: none; } }
+@keyframes tap4 { 0%, 17% { opacity: 0; transform: scale(.4); } 19.5% { opacity: 1; transform: scale(.85); } 24.5% { opacity: 0; transform: scale(1.5); } 100% { opacity: 0; } }
+@keyframes tap3 { 0%, 23% { opacity: 0; transform: scale(.4); } 26.5% { opacity: 1; transform: scale(.85); } 32.5% { opacity: 0; transform: scale(1.5); } 100% { opacity: 0; } }
+
 
 /* 5 apps stack */
 .stack { background: #fff; padding: 110px 0 60px; }
@@ -355,11 +384,6 @@ html:not(.fx) .tw-b2 { left: auto; right: var(--gut); top: 120px; }
 .fx .win { clip-path: inset(var(--t, 25%) var(--r, 35%) var(--b, 25%) var(--l, 35%) round var(--rad, 44px)); }
 .fx .world .label, .fx .world .wtitle, .fx .world .frame, .fx .world .burst { opacity: 0; }
 .fx .world > .label { opacity: 1; }
-.fx .pan { height: 300vh; overflow: visible; }
-.fx .pan .stick { position: sticky; top: 0; height: 100vh; overflow: hidden; padding: 0; perspective: 1400px; }
-.fx .pan .head { position: absolute; left: 0; top: 15vh; width: 36vw; max-width: 520px; }
-.fx .trackwrap { position: absolute; left: 39vw; right: 0; top: 0; bottom: 0; margin: 0; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%); mask-image: linear-gradient(90deg, transparent 0, #000 7%); }
-.fx .track { position: absolute; left: 0; top: 54%; padding: 0 0 0 6vw; will-change: transform; transform: translateY(-50%); }
 
 @media (max-width: 1100px) {
   .slips { grid-template-columns: 1fr 1fr; }
@@ -395,14 +419,17 @@ html:not(.fx) .tw-b2 { left: auto; right: var(--gut); top: 120px; }
   .world > .label { margin: 22px 16px 48px; }
   .world > .frames .frame { width: 88vw; }
   .pan .head img { width: 190px; }
-  .fx .pan .head { top: 10vh; width: auto; right: 0; }
-  .fx .pan .head p { display: none; }
-  .fx .trackwrap { left: 0; top: 54vh; -webkit-mask-image: none; mask-image: none; }
-  .fx .track { top: 22vh; padding-left: 8vw; }
-  .track figure { width: 78vw; }
-  .tw-b1 { --s: 104px; left: auto; right: 14px; top: 96px; }
+  /* phones: the words first, then the vertical crop of the match fills the rest of the chapter */
+  .pan { display: flex; flex-direction: column; min-height: max(100svh, 640px); }
+  .twbg { position: relative; inset: auto; aspect-ratio: auto; flex: 1 0 auto; height: max(58vh, 420px); margin-top: -30px; -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 60px); mask-image: linear-gradient(180deg, transparent 0, #000 60px); }
+  .pan .head { order: -1; }
+  .twclip img, .twclip video { object-position: 50% 60%; }
+  .twshade { display: none; }
+  .pan .head { margin-top: 0; padding: 96px 16px 0; }
+  .pan .head p { display: none; }
+  .pan .head h2 { font-size: 32px; }
+  .tw-b1 { --s: 100px; left: auto; right: 14px; top: 92px; }
   .tw-b2 { display: none; }
-  .pan .big { right: 16px; bottom: 3vh; font-size: 21vw; }
   .ba { padding: 100px 0 0; }
   .bx-outro { padding-bottom: 80px; }
   .stack { padding-top: 80px; }

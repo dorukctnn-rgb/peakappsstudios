@@ -21,10 +21,12 @@
     if (f.dataset.on) return;
     f.dataset.on = '1';
     var v = f.querySelector('video');
-    var sizes = f.dataset.sizes.split(',').map(Number).sort(function (a, b) { return a - b; });
+    /* phones can get their own cut of the same footage (Trailer Wreck: a native vertical crop) */
+    var mob = mq.matches && f.dataset.mclip, name = mob ? f.dataset.mclip : f.dataset.clip;
+    var sizes = (mob ? f.dataset.msizes : f.dataset.sizes).split(',').map(Number).sort(function (a, b) { return a - b; });
     var need = Math.max(f.offsetWidth, f.getBoundingClientRect().width) * Math.min(devicePixelRatio || 1, 2), w = sizes[sizes.length - 1];
     for (var i = 0; i < sizes.length; i++) if (sizes[i] >= need) { w = sizes[i]; break; }
-    var base = (f.dataset.dir || 'assets/b/clip/') + f.dataset.clip + '-' + w;
+    var base = (f.dataset.dir || 'assets/b/clip/') + name + '-' + w;
     var webm = v.canPlayType('video/webm; codecs="vp9"');
     v.addEventListener('playing', function () { f.classList.add('playing'); });
     v.addEventListener('error', function () { if (!f.dataset.mp4) { f.dataset.mp4 = '1'; v.src = base + '.mp4'; v.load(); if (f.dataset.vis) v.play().catch(function () {}); } });
