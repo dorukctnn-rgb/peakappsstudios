@@ -172,7 +172,7 @@
   var wallPinned = false, wallOver = 0;
   function wallSize() {
     if (!wall || !track) return;
-    wallPinned = FX && VW >= 1000 && VH >= 620;
+    wallPinned = FX && VW >= 1000 && VH >= 780;
     wall.classList.toggle('pinned', wallPinned);
     if (wallPinned) { wallOver = Math.max(0, track.scrollWidth - VW); wall.style.height = (VH + wallOver) + 'px'; }
     else { wall.style.height = ''; track.style.transform = ''; }
