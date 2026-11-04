@@ -1,0 +1,55 @@
+Photo credits for peakappsstudio.com/web/ and the demos under /web/demo/
+
+All photos below come from Pexels and are used under the Pexels License (https://www.pexels.com/license/): free for commercial use, no attribution required. We credit the photographers anyway. The businesses, people's names, addresses and prices on the demo pages are made up; the people in the photos have no connection to them.
+
+Fonts: Bricolage Grotesque (main page) and, on the demos, Albert Sans, Barlow, Barlow Condensed, Chivo, Unbounded, Onest, Anton, Public Sans, Cormorant Garamond, Jost, Familjen Grotesk, Libre Caslon Text and IBM Plex Sans, all under the SIL Open Font License 1.1 (https://openfontlicense.org), served from this site.
+
+The barber (Üç Koltuk) and café (Kuşluk) demos use only our own 3D scenes and drawings.
+
+/web/demo/dental-clinic/
+- assets/img/hero-*.webp: Bright dental treatment room with a blue patient chair, stool and instrument trolley. Photo by Tima Miroshnichenko, https://www.pexels.com/photo/dental-facility-5355863/ (Pexels License)
+- assets/img/a-*.webp: Dentist in a mask and gloves examining a patient under the treatment lamp. Photo by Pavel Danilyuk, https://www.pexels.com/photo/dentist-working-with-patient-6812524/ (Pexels License)
+- assets/img/b-*.webp: Modern dental clinic reception area with a staff desk and a wide hallway. Photo by Marc Chemla, https://www.pexels.com/photo/modern-dental-office-reception-in-beverly-hills-38055773/ (Pexels License)
+- assets/img/c-*.webp: Colourful toothbrushes standing in a glass against a blue backdrop. Photo by Towfiqu barbhuiya, https://www.pexels.com/photo/toothbrushes-in-clear-glass-13466251/ (Pexels License)
+
+/web/demo/auto-repair/
+- assets/img/hero-*.webp: Mechanic in blue coveralls lifting a wheel beside an orange car on a workshop lift. Photo by Gustavo Fring, https://www.pexels.com/photo/man-in-blue-coveralls-standing-beside-an-orange-car-checking-on-the-tire-6870331/ (Pexels License)
+- assets/img/a-*.webp: Hands working on a car engine bay under the open bonnet. Photo by Anna Shvets, https://www.pexels.com/photo/person-in-black-jacket-working-on-the-engine-of-the-car-4315575/ (Pexels License)
+- assets/img/b-*.webp: Bearded mechanic working on the underside of a car raised on a lift. Photo by Gustavo Fring, https://www.pexels.com/photo/mechanic-fixing-the-under-chassis-of-a-car-6870302/ (Pexels License)
+- assets/img/c-*.webp: Wide, clean and bright car repair workshop with a vehicle on a lift. Photo by Renee Razumov, https://www.pexels.com/photo/modern-car-repair-shop-interior-with-vehicle-33814736/ (Pexels License)
+
+/web/demo/plumber-electrician/
+- assets/img/hero-*.webp: Electrician in hi-vis jacket and helmet working at an open fuse box. Photo by Fatih Yurtman, https://www.pexels.com/photo/electrician-by-fuse-box-17842832/ (Pexels License)
+- assets/img/a-*.webp: Plumber in work gloves fitting a threaded pipe to a radiator with blue wrenches nearby. Photo by Sergei Starostin, https://www.pexels.com/photo/professional-plumber-installing-a-radiator-pipe-29226620/ (Pexels License)
+- assets/img/b-*.webp: Toolboxes and a cordless drill laid out on a stone step near a wooden door. Photo by Anete Lusina, https://www.pexels.com/photo/toolboxes-placed-near-wooden-door-4792489/ (Pexels License)
+- assets/img/c-*.webp: Row of shiny copper pipe fittings in close-up. Photo by Nic Wood, https://www.pexels.com/photo/copper-pluming-fitting-28169591/ (Pexels License)
+
+/web/demo/gym/
+- assets/img/hero-*.webp: Man and woman lifting kettlebells overhead in a bright gym with large windows. Photo by Vitaly Gariev, https://www.pexels.com/photo/man-and-woman-exercising-with-kettlebells-39219695/ (Pexels License)
+- assets/img/a-*.webp: Row of benches and a dumbbell rack along a mirrored wall in a modern gym. Photo by 大 董, https://www.pexels.com/photo/modern-gym-with-dumbbells-and-benches-40371837/ (Pexels License)
+- assets/img/b-*.webp: Trainer leading a small group class on orange mats in front of a wooden wall. Photo by Pavel Danilyuk, https://www.pexels.com/photo/personal-trainer-hosting-a-class-6339323/ (Pexels License)
+- assets/img/c-*.webp: Athlete rubbing lifting chalk onto his hands, powder in the air. Photo by RDNE Stock project, https://www.pexels.com/photo/man-in-gray-shirt-wearing-wrist-straps-with-powder-on-hands-5837215/ (Pexels License)
+
+/web/demo/supply-shop/
+- assets/img/b-*.webp: Three stacks of traffic cones (green, orange, red) against a white wall. Photo by Andreas Hoffmann, https://www.pexels.com/photo/colorful-traffic-cones-against-white-wall-34234966/ (Pexels License)
+- assets/img/a-*.webp: Shopkeeper in an apron helping an older customer at the shelves of a small independent shop. Photo by Kampus Production, https://www.pexels.com/photo/sales-man-helping-a-customer-8422713/ (Pexels License)
+- assets/img/hero-*.webp: Rows of orange hi-vis safety vests and blue hard hats hanging on racks. Photo by Carsten Ruthemann, https://www.pexels.com/photo/orange-safety-vests-and-blue-helmets-hanging-34442873/ (Pexels License)
+- assets/img/c-*.webp: Storage bins full of bolts, washers and fasteners at a hardware stall. Photo by Joaquin Reyes Ramos, https://www.pexels.com/photo/assortment-of-hardware-fasteners-in-storage-bins-38575500/ (Pexels License)
+
+/web/demo/guesthouse/
+- assets/img/hero-*.webp: Sunny hotel terrace with sun loungers, a pool and the sea in the background. Photo by Ahmet ÇÖTÜR, https://www.pexels.com/photo/luxurious-pool-overlooking-the-sea-with-sun-loungers-29702293/ (Pexels License)
+- assets/img/a-*.webp: Bright hotel room with a made bed, towels and a balcony door with sea view. Photo by Ahmet ÇÖTÜR, https://www.pexels.com/photo/modern-hotel-room-with-coastal-view-and-balcony-29702284/ (Pexels License)
+- assets/img/b-*.webp: Breakfast table on a terrace overlooking a Mediterranean bay and mountains. Photo by Jan van der Wolf, https://www.pexels.com/photo/breakfast-at-a-table-on-the-terrace-overlooking-the-sea-18396841/ (Pexels License)
+- assets/img/c-*.webp: Whitewashed island house with blue shutters and pink bougainvillea. Photo by Nikolina Vidic, https://www.pexels.com/photo/charming-greek-island-house-with-bougainvillea-28705631/ (Pexels License)
+
+/web/demo/real-estate/
+- assets/img/hero-*.webp: Modern two-storey house with a covered terrace and a green lawn surrounded by pines. Photo by Max Vakhtbovych, https://www.pexels.com/photo/modern-cottage-with-green-backyard-7061676/ (Pexels License)
+- assets/img/a-*.webp: Bright living room with a sofa, large window and monstera plants. Photo by Stanislav Kondratiev, https://www.pexels.com/photo/interior-of-a-living-room-7836571/ (Pexels License)
+- assets/img/b-*.webp: Modern open kitchen with grey cabinets and a dining table. Photo by Max Vakhtbovych, https://www.pexels.com/photo/interior-of-stylish-kitchen-in-modern-apartment-7214336/ (Pexels License)
+- assets/img/c-*.webp: A house-shaped key fob being handed over from one open hand to another. Photo by RDNE Stock project, https://www.pexels.com/photo/house-key-on-the-people-s-hand-while-standing-next-to-each-other-8293771/ (Pexels License)
+
+/web/demo/accountant-lawyer/
+- assets/img/hero-*.webp: Calm desk with binders, a laptop, a calculator and a payment terminal. Photo by Mikhail Nilov, https://www.pexels.com/photo/gray-laptop-on-the-table-8296950/ (Pexels License)
+- assets/img/a-*.webp: Client signing a contract at a wooden table in the presence of two advisers. Photo by Kampus Production, https://www.pexels.com/photo/woman-signing-a-contract-in-an-office-in-the-presence-of-lawyers-8439700/ (Pexels License)
+- assets/img/b-*.webp: Close-up of antique red leather-bound law books on a library shelf. Photo by Christian Wasserfallen, https://www.pexels.com/photo/antique-legislative-books-in-bern-library-36207460/ (Pexels License)
+- assets/img/c-*.webp: Calculator, red pens and a TAXES folder on a white desk. Photo by Tara Winstead, https://www.pexels.com/photo/calculator-beside-red-pens-7111516/ (Pexels License)
