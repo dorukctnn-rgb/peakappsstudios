@@ -152,7 +152,7 @@
   function measure() {
     rcPlace();
     G = { ih: innerHeight, hero: box(hero), world: box(scene), tw: tw ? box(tw) : null, winW: win.clientWidth, winH: win.clientHeight,
-      navB: $('.bar').getBoundingClientRect().bottom, titleR: wtitle.offsetLeft + wtitle.offsetWidth, bax: bax ? box(bax) : null };
+      navB: $('.bar').getBoundingClientRect().bottom, titleR: wtitle.offsetLeft + wtitle.offsetWidth, bax: bax ? box(bax) : null, stack: box($('#apps')) };
     rcSize();
     twSticker();
     if (track) { G.wrapL = trackwrap.getBoundingClientRect().left; G.wrapW = trackwrap.clientWidth; G.trackW = track.scrollWidth; G.figs = figs.map(function (f) { return [f.offsetLeft, f.offsetWidth]; }); }
@@ -194,6 +194,13 @@
         label.style.transform = 'rotate(1.5deg) translateY(' + ((1 - lo) * 40).toFixed(1) + 'px)';
       }
       rcBursts.forEach(function (b, i) { var k = ease(clamp((pr - .7 - i * .05) * 7)); b.style.opacity = k; b.style.transform = 'rotate(' + (i ? 9 : -10) + 'deg) scale(' + (.3 + .7 * k) + ')'; });
+    }
+    /* app cards: how far the next card covers this one (0..1), for the dimming */
+    if (scards.length && gnear(G.stack, 0)) {
+      for (var k = 0; k < scards.length - 1; k++) {
+        var cr = scards[k].getBoundingClientRect(), nt = scards[k + 1].getBoundingClientRect().top;
+        scards[k].style.setProperty('--cover', clamp((cr.bottom - nt) / cr.height).toFixed(3));
+      }
     }
     if (G.bax) {
       if (gnear(G.bax, 0)) { var pb = gp(G.bax) * (G.bax.h - G.ih) / (G.ih * .92); bxSet(Math.max(0, Math.min(bxs.length - 1, Math.floor(pb)))); }
@@ -238,6 +245,7 @@
     bxRaf = requestAnimationFrame(bxTick);
   }
 
+  var scards = $$('#apps .scard');
   /* Trailer Wreck: the second sticker sits above the sliding strip on the right, or is left out when there is no room */
   var twB2 = $('.tw-b2');
   function twSticker() {
