@@ -175,6 +175,37 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--ink); outline-o
   .tw-b2 { left: auto; right: var(--gut); top: 104px; --s: 104px; }
 }
 
+/* 3b rope crew: the 12 s silent gameplay loop fills the width at its own 16:9, so no head is ever cropped and the baked-in titles stay whole.
+   Wide screens: the words sit on a dark gradient along the bottom of the picture. Narrower: they stand on the dark ground under it. */
+.rcv { --rcn: #06183A; position: relative; background: var(--rcn); color: #fff; overflow: hidden; }
+.rcin { position: relative; max-width: 1920px; margin: 0 auto; }
+.rcbg { position: relative; aspect-ratio: 16 / 9; background: #0B3FA8; }
+.rcbg .clip { position: absolute; inset: 0; }
+.rcshade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(6, 24, 58, 0) 64%, var(--rcn) 100%); }
+.rchead { position: relative; z-index: 2; max-width: 680px; margin-top: -26px; padding: 0 var(--gut) 76px; }
+.rchead h2 { --xc: #0B3FA8; font-size: clamp(56px, 16vw, 92px); line-height: .85; letter-spacing: -.03em; font-stretch: 75%; }
+.rcsub { margin-top: 16px; font: 700 clamp(19px, 5.4vw, 24px)/1.15 var(--display); font-stretch: 85%; color: var(--lemon); }
+.rcr > p:first-child { margin-top: 14px; color: #DCE9FF; text-shadow: 0 1px 3px rgba(6, 24, 58, .75); }
+.rcb { display: flex; flex-wrap: wrap; gap: 12px 14px; margin: 22px 0 16px; }
+.rcv .btn { background: var(--cyan); color: var(--ink); --sh: rgba(0, 0, 0, .5); }
+.rcv .btn.ghost { background: transparent; color: #fff; }
+.rcsoon { font: 600 14px/1.45 var(--text); color: #CFE0F8; text-shadow: 0 1px 3px rgba(6, 24, 58, .75); }
+.rcsoon a { color: #fff; font-weight: 700; text-underline-offset: 3px; white-space: nowrap; }
+@media (min-width: 900px) and (max-width: 1199px) {
+  .rchead { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); gap: 0 4vw; max-width: none; align-items: start; padding-bottom: 64px; }
+  .rchead h2 { font-size: 7.4vw; }
+  .rcr > p:first-child { margin-top: 4px; }
+}
+@media (max-width: 760px) { .rchead { padding-bottom: 48px; } }
+@media (min-width: 1200px) {
+  .rcshade { background: linear-gradient(0deg, rgba(6, 24, 58, .96) 0%, rgba(6, 24, 58, .9) 16%, rgba(6, 24, 58, .62) 31%, rgba(6, 24, 58, 0) 46%); }
+  .rchead { position: absolute; inset: auto 0 0 0; max-width: none; margin: 0; padding: 0 var(--gut) clamp(18px, 2.4vw, 44px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, min(540px, 40vw)); gap: 0 4vw; align-items: end; }
+  .rchead h2 { font-size: clamp(64px, 6.6vw, 124px); }
+  .rcsub { font-size: clamp(20px, 1.9vw, 34px); margin-top: clamp(16px, 1.4vw, 28px); }
+  .rcr > p:first-child { margin-top: 0; font-size: clamp(15px, 1.05vw, 19px); }
+  .rcb { margin: 18px 0 12px; }
+}
+
 /* 4 bodyarcade: one full-screen scene per game, the person (what the camera saw) and the real round side by side in one video */
 /* a deeper violet than the brand tile, so white body text passes AA (5.4:1) */
 .ba { background: #5634DE; color: #fff; padding: 130px 0 0; position: relative; }
