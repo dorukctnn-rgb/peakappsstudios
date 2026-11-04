@@ -1,0 +1,55 @@
+/* The Paddle checkout panel of Peak Apps Tools (peak-pay.js). Loaded only when the panel opens. A bottom sheet on a phone, a
+   window in the middle of a wide screen; the page behind only softens, it never goes dark. Uses the tool's own --accent. */
+.pp-sheet { box-sizing: border-box; position: fixed; inset: auto 0 0 0; margin: 0 auto; width: min(100%, 480px); max-width: 100%; max-height: 96svh; overflow: auto; overscroll-behavior: contain;
+  padding: 18px 16px calc(14px + env(safe-area-inset-bottom, 0px)); border: 1px solid rgba(20, 21, 24, .12); border-bottom: 0; border-radius: 18px 18px 0 0;
+  background: #fbfaf7; color: #141518; font: 15px/1.5 var(--sans, "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif);
+  box-shadow: 0 -12px 40px rgba(20, 21, 24, .14); animation: pp-up .28s cubic-bezier(.16, 1, .3, 1); }
+.pp-sheet::backdrop { background: rgba(245, 243, 238, .55); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); }
+@media (min-width: 700px) and (min-height: 600px) {
+  .pp-sheet { inset: 50% auto auto 50%; transform: translate(-50%, -50%); border-bottom: 1px solid rgba(20, 21, 24, .12); border-radius: 18px; padding: 22px 22px 18px; max-height: 92svh; box-shadow: 0 24px 60px rgba(20, 21, 24, .16); animation-name: pp-in; }
+}
+@keyframes pp-up { from { transform: translateY(24px); opacity: 0; } }
+@keyframes pp-in { from { transform: translate(-50%, -46%); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .pp-sheet { animation: none; } }
+.pp-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.pp-what { min-width: 0; }
+.pp-brand { margin: 0; font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #676b74; }
+.pp-sheet h2 { margin: 2px 0 0; font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -.01em; }
+.pp-close { flex: none; display: grid; place-items: center; width: 40px; height: 40px; margin: -4px -4px 0 0; border: 1px solid rgba(20, 21, 24, .14); border-radius: 50%; background: transparent; color: inherit; cursor: pointer; }
+.pp-close:disabled { opacity: .4; cursor: default; }
+.pp-close:focus-visible, .pp-btn:focus-visible { outline: 2px solid var(--accent, #1f5c4d); outline-offset: 2px; }
+.pp-price { margin: 10px 0 0; }
+.pp-price strong { font-size: 24px; font-variant-numeric: tabular-nums; }
+.pp-price strong:empty { display: none; }
+.pp-tax { color: #676b74; font-size: 14px; }
+.pp-trust { display: flex; align-items: center; gap: 8px; margin: 12px 0 0; padding: 9px 12px; border-radius: 10px; background: color-mix(in oklab, var(--accent, #1f5c4d) 9%, #fbfaf7); font-size: 13px; font-weight: 500; line-height: 1.35; }
+.pp-trust svg { flex: none; }
+.pp-trust a { color: inherit; }
+.pp-status { margin: 12px 0 0; padding: 10px 12px; border-radius: 10px; background: #f0eee8; font-size: 14px; }
+.pp-status[hidden] { display: none; }
+.pp-status[data-tone="ok"] { background: #e3f1e6; color: #1f5a33; font-weight: 500; }
+.pp-status[data-tone="warn"] { background: #f7ead9; color: #7a3c0f; }
+.pp-frame { margin-top: 12px; min-height: 450px; }
+.pp-frame iframe { display: block; width: 100%; }
+.pp-done { display: grid; margin-top: 12px; }
+.pp-done[hidden] { display: none; }
+.pp-btn { min-height: 48px; border: 0; border-radius: 10px; background: var(--accent, #1f5c4d); color: var(--accent-ink, #fff); font: 600 16px/1 inherit; cursor: pointer; }
+@media (prefers-color-scheme: dark) {
+  .pp-sheet { background: #1b1d21; color: #eef0f3; border-color: rgba(238, 240, 243, .14); }
+  .pp-sheet::backdrop { background: rgba(17, 18, 20, .35); }
+  .pp-brand, .pp-tax { color: #8e939c; }
+  .pp-close { border-color: rgba(238, 240, 243, .22); }
+  .pp-trust { background: color-mix(in oklab, var(--accent, #1f5c4d) 22%, #1b1d21); }
+  .pp-status { background: #24272c; }
+  .pp-status[data-tone="ok"] { background: #1d3325; color: #bfeccc; }
+  .pp-status[data-tone="warn"] { background: #3a2b18; color: #f2d6b0; }
+}
+/* the Pro window of license.js on a Paddle page: the e-mail box for buyers on another device */
+.pp-restore { display: grid; gap: 8px; margin: 2px 0 0; padding: 12px; border-radius: 10px; background: rgba(20, 21, 24, .04); }
+.pp-restore p { margin: 0; font-size: 14px; }
+.pp-restore .pp-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.pp-restore input { flex: 1 1 180px; min-height: 42px; padding: 0 12px; border: 1px solid rgba(20, 21, 24, .2); border-radius: 8px; background: transparent; color: inherit; font: inherit; }
+.pp-restore button { min-height: 42px; padding: 0 14px; border: 1px solid rgba(20, 21, 24, .2); border-radius: 8px; background: transparent; color: inherit; font: 600 14px/1 inherit; cursor: pointer; }
+.pp-restore [data-pp-note] { min-height: 1.3em; color: #676b74; }
+@media (prefers-color-scheme: dark) { .pp-restore { background: rgba(238, 240, 243, .05); } .pp-restore input, .pp-restore button { border-color: rgba(238, 240, 243, .22); } }
+.pp-keybox summary { cursor: pointer; font-size: 14px; color: #676b74; }

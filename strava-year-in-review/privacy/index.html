@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, follow">
 <title>Privacy | Yearlap, the Strava year in review</title>
-<meta name="description" content="What Yearlap does with your Strava export: it is read in your browser tab and never uploaded. The only request it makes is the Pro license check, to Gumroad.">
+<meta name="description" content="What Yearlap does with your Strava export: it is read in your browser tab and never uploaded. The only request it makes is the Pro purchase check.">
 <link rel="canonical" href="https://peakappsstudio.com/strava-year-in-review/privacy/">
 <meta name="theme-color" content="#0f1b2d">
 <link rel="icon" href="/strava-year-in-review/img/icon.svg" type="image/svg+xml">
@@ -630,7 +630,7 @@ html[lang="fr"] .yl h1 { max-width: 19ch; }
 <div class="wrap">
 <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/strava-year-in-review/">Yearlap</a></li><li aria-current="page">Privacy</li></ol></nav>
 <h1>Privacy</h1>
-<p class="lede">Last updated 22 October 2026. This page covers Yearlap at peakappsstudio.com/strava-year-in-review, its German and Dutch pages, and the Garmin pages in German, Dutch and French (peakappsstudio.com/de/garmin-jahresrueckblick and its other languages).</p>
+<p class="lede">Last updated 5 November 2026. This page covers Yearlap at peakappsstudio.com/strava-year-in-review, its German and Dutch pages, and the Garmin pages in German, Dutch and French (peakappsstudio.com/de/garmin-jahresrueckblick and its other languages).</p>
 </div>
 </section>
 <article class="wrap yl-guide">
@@ -638,9 +638,9 @@ html[lang="fr"] .yl h1 { max-width: 19ch; }
 <p>When you open a Strava export, the page hands the file to a worker script running in the same browser tab. It reads activities.csv, bikes.csv and shoes.csv, and the route files in the activities folder only when you draw the Pro route poster. Photos, your profile and the other files in the ZIP are not opened. Nothing from the export is sent to a server, ours or anyone else’s, and nothing is stored: closing or reloading the tab discards it. Story cards, the poster and the CSV are drawn in the tab and saved straight to your device.</p>
 <h2>What the page does send</h2>
 <ul>
-<li><strong>The Pro license check.</strong> When you paste a license key, the page sends that key and the product’s number to Gumroad’s license check (api.gumroad.com) and keeps the answer in your browser’s local storage, so Pro stays on. It checks again in the background once a week. No export data goes with it.</li>
+<li><strong>The Pro license check.</strong> After you buy Pro, the page sends the purchase’s number to our license service, which asks Paddle whether it is valid, and keeps the answer in your browser’s local storage, so Pro stays on. When you paste a license key from an earlier Gumroad purchase, the page sends that key and the product’s number to Gumroad’s license check (api.gumroad.com) instead. Either check runs again in the background once a week. No export data goes with it.</li>
 <li><strong>Visit counts.</strong> We count page visits with Cloudflare Web Analytics, which uses no cookies and no personal data. It never sees your files. When you click a Pro button, a counter of our own adds one to a daily total for this tool, with the page and the kind of site that sent you: no cookies, no personal data, no IP address kept, and never your files.</li>
-<li><strong>Buying Pro.</strong> The buy button opens Gumroad, which handles payment under its own privacy policy. We get your email address and the purchase from Gumroad, to answer questions and refunds.</li>
+<li><strong>Buying Pro.</strong> Pro is sold by Paddle.com, the seller of record, on every page of the tool. Your email address, country and payment details go to Paddle, under its own privacy policy; the payment details never reach us. Paddle sends the receipt and handles refunds. Our license service asks Paddle only whether a purchase is valid, and emails a link that turns Pro on in another browser to the address Paddle has for the purchase, or to an address you type to get that link again. For an earlier purchase on Gumroad, Gumroad gave us your email address and the purchase, to answer questions and refunds.</li>
 </ul>
 <h2>Garmin files</h2>
 <p>The Garmin pages read the same way, in the same tab. From the Activities.csv of Garmin Connect they read the activity list. From the archive of Export Your Data they open only the activity summaries, the daily step totals, the sleep records and, when you draw the Pro route poster, the original activity files; your profile, weight, devices and the other files in the archive are not opened. Nothing is sent or stored.</p>
