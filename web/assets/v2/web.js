@@ -93,6 +93,10 @@
     });
     var first = +(stage.getAttribute('data-first') || 0);
     cur = first;
+    // the device screens load after the first paint, so the text paints first on slow phones
+    layoutAll();
+    var go = function () {
+    devs.forEach(function (dev) { var src = srcFor(data[first], dev.getAttribute('data-k')); $$('img', dev).forEach(function (im) { im.src = src; }); });
     layoutAll();
     if (FX) {
       // the intro: the page flies together once the first pictures are decoded
@@ -102,10 +106,16 @@
       cycle();
       setTimeout(function () { preload((first + 1) % data.length); }, 2000);
     }
+    };
+    if (d.readyState === 'complete') requestAnimationFrame(go); else addEventListener('load', function () { requestAnimationFrame(go); });
   }
 
   /* ---------- reel: videos play only on screen; calm mode keeps the poster until a tap ---------- */
-  var vids = $$('video[data-src]');
+  var vids = $$('video[data-poster]');
+  if ('IntersectionObserver' in window) {
+    var pio = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.poster = e.target.getAttribute('data-poster'); pio.unobserve(e.target); } }); }, { rootMargin: '700px 0px' });
+    vids.forEach(function (v) { pio.observe(v); });
+  } else vids.forEach(function (v) { v.poster = v.getAttribute('data-poster'); });
   function loadVid(v) {
     if (v._ok) return; v._ok = 1;
     $$('source', v).forEach(function (s) { s.src = s.getAttribute('data-src'); });
@@ -123,7 +133,7 @@
   }
   $$('.playbtn').forEach(function (b) {
     b.addEventListener('click', function () {
-      var v = $('video', b.parentNode); loadVid(v); v.controls = true; b.remove();
+      var v = $('video', b.parentNode); v.poster = v.getAttribute('data-poster'); loadVid(v); v.controls = true; b.remove();
       var pr = v.play(); if (pr && pr.catch) pr.catch(function () {});
     });
   });
