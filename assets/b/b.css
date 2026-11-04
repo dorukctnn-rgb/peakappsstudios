@@ -175,7 +175,7 @@ html:not(.fx) .tw-b2 { left: auto; right: var(--gut); top: 120px; }
 .chip.pro { background: #fff; color: var(--ink); }
 .bax { position: relative; margin-top: 72px; }
 .bax-list { list-style: none; margin: 0; padding: 0; }
-.bx { position: relative; background: var(--bg); padding: 64px var(--gut); display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 64px); align-items: center; }
+.bx { position: relative; background: var(--bg); padding: 64px var(--gut); display: grid; grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 64px); align-items: center; }
 .bx-media { position: relative; padding-top: 28px; min-width: 0; }
 .bx-clip { aspect-ratio: 1418 / 1080; width: min(100%, calc((100vh - 200px) * 1.3125)); height: auto; border-radius: 22px; background: #120C26; box-shadow: 0 30px 60px rgba(0, 0, 0, .35); }
 .bx-clip img, .bx-clip video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -188,7 +188,7 @@ html:not(.fx) .tw-b2 { left: auto; right: var(--gut); top: 120px; }
 .bx-k { color: #E6E0FF; }
 .bx-g { font: 800 24px/1 var(--display); font-stretch: 85%; }
 .ba .bx-say { margin: 18px 0 0; max-width: none; font-family: var(--display); font-weight: 800; font-stretch: 75%; line-height: .92; letter-spacing: -.02em; }
-.bx-cause { display: block; font-size: clamp(52px, 6.2vw, 124px); color: var(--lemon); transform-origin: 0 70%; }
+.bx-cause { display: block; font-size: clamp(52px, 7vw, 132px); color: var(--lemon); transform-origin: 0 70%; }
 .bx-arrow, .bx-effect { display: inline-block; font-size: clamp(36px, 3.6vw, 72px); }
 .bx-arrow { color: var(--lemon); }
 .bx-effect { color: #fff; transform-origin: 0 70%; }
@@ -361,8 +361,6 @@ html:not(.fx) .tw-b2 { left: auto; right: var(--gut); top: 120px; }
 .fx .trackwrap { position: absolute; left: 39vw; right: 0; top: 0; bottom: 0; margin: 0; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%); mask-image: linear-gradient(90deg, transparent 0, #000 7%); }
 .fx .track { position: absolute; left: 0; top: 54%; padding: 0 0 0 6vw; will-change: transform; transform: translateY(-50%); }
 
-/* narrower desktops: the Knockout clip flies up left of the label card instead of under it */
-@media (min-width: 761px) and (max-width: 1400px) { .f3 { left: 29%; } }
 @media (max-width: 1100px) {
   .slips { grid-template-columns: 1fr 1fr; }
   .lists { grid-template-columns: 1fr; }

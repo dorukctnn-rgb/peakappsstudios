@@ -16,7 +16,7 @@
   function near(el, m) { var r = el.getBoundingClientRect(); return r.bottom > -m && r.top < innerHeight + m; }
 
   /* ---------- looping clips: poster first, video only near the viewport, paused off screen ---------- */
-  var clips = $$('[data-clip]');
+  var clips = $$('[data-clip]').filter(function (f) { return !f.classList.contains('bx-clip'); });
   function startClip(f) {
     if (f.dataset.on) return;
     f.dataset.on = '1';
@@ -24,7 +24,7 @@
     var sizes = f.dataset.sizes.split(',').map(Number).sort(function (a, b) { return a - b; });
     var need = Math.max(f.offsetWidth, f.getBoundingClientRect().width) * Math.min(devicePixelRatio || 1, 2), w = sizes[sizes.length - 1];
     for (var i = 0; i < sizes.length; i++) if (sizes[i] >= need) { w = sizes[i]; break; }
-    var base = 'assets/b/clip/' + f.dataset.clip + '-' + w;
+    var base = (f.dataset.dir || 'assets/b/clip/') + f.dataset.clip + '-' + w;
     var webm = v.canPlayType('video/webm; codecs="vp9"');
     v.addEventListener('playing', function () { f.classList.add('playing'); });
     v.addEventListener('error', function () { if (!f.dataset.mp4) { f.dataset.mp4 = '1'; v.src = base + '.mp4'; v.load(); if (f.dataset.vis) v.play().catch(function () {}); } });
@@ -150,7 +150,7 @@
   function measure() {
     rcPlace();
     G = { ih: innerHeight, hero: box(hero), world: box(scene), tw: tw ? box(tw) : null, winW: win.clientWidth, winH: win.clientHeight,
-      navB: $('.bar').getBoundingClientRect().bottom, titleR: wtitle.offsetLeft + wtitle.offsetWidth };
+      navB: $('.bar').getBoundingClientRect().bottom, titleR: wtitle.offsetLeft + wtitle.offsetWidth, bax: bax ? box(bax) : null };
     rcSize();
     twSticker();
     if (track) { G.wrapL = trackwrap.getBoundingClientRect().left; G.wrapW = trackwrap.clientWidth; G.trackW = track.scrollWidth; G.figs = figs.map(function (f) { return [f.offsetLeft, f.offsetWidth]; }); }
@@ -193,12 +193,49 @@
       }
       rcBursts.forEach(function (b, i) { var k = ease(clamp((pr - .7 - i * .05) * 7)); b.style.opacity = k; b.style.transform = 'rotate(' + (i ? 9 : -10) + 'deg) scale(' + (.3 + .7 * k) + ')'; });
     }
+    if (G.bax) {
+      if (gnear(G.bax, 0)) { var pb = gp(G.bax) * (G.bax.h - G.ih) / (G.ih * .92); bxSet(Math.max(0, Math.min(bxs.length - 1, Math.floor(pb)))); }
+      else bxSet(-1);
+    }
     if (tw && G.figs && gnear(G.tw, G.ih)) {
       var pt = gp(G.tw), max = Math.max(0, G.trackW - G.wrapW * .8), x = -pt * max;
       track.style.transform = 'translateY(-50%) translateX(' + x.toFixed(1) + 'px)';
       figs.forEach(function (f, i) { var c = (x + G.figs[i][0] + G.figs[i][1] / 2) / G.wrapW - .5; f.style.transform = 'rotateY(' + (-c * 30).toFixed(2) + 'deg) scale(' + (1 - Math.min(1, Math.abs(c)) * .1).toFixed(3) + ')'; });
     }
   }
+  /* BodyArcade: one pinned scene per game. Only the scene on screen plays; its words pulse on the moves of the person
+     (data-beats: seconds inside the loop, measured on the loop itself) */
+  var bax = $('#bax'), bxs = bax ? $$('.bx', bax) : [], bxStage = bax && $('.bax-stage', bax), bxDots = bax ? $$('.bx-dots i', bax) : [];
+  var bxCur = -1, bxRaf = 0, bxLast = 0;
+  if (bax) bax.style.setProperty('--n', bxs.length);
+  function bxSet(i) {
+    if (i === bxCur) return;
+    bxs.forEach(function (li, k) {
+      var on = k === i, f = $('.bx-clip', li), v = $('video', li);
+      li.classList.toggle('on', on);
+      if (i >= 0 && Math.abs(k - i) <= 1 && !SAVE) startClip(f);
+      if (on && !SAVE) { var pr = v.play(); if (pr) pr.catch(function () {}); } else v.pause();
+    });
+    bxDots.forEach(function (dd, k) { dd.classList.toggle('on', k === i); });
+    if (i >= 0) bxStage.style.setProperty('--sbg', bxs[i].style.getPropertyValue('--bg'));
+    bxCur = i; bxLast = 0;
+    if (i >= 0 && !bxRaf) bxRaf = requestAnimationFrame(bxTick);
+  }
+  function bxTick() {
+    bxRaf = 0;
+    if (bxCur < 0) return;
+    var li = bxs[bxCur], v = $('video', li), t = v.currentTime;
+    if (!v.paused && v.readyState > 1) {
+      var b = li._b || (li._b = (li.dataset.beats || '').split(',').filter(Boolean).map(Number));
+      for (var k = 0; k < b.length; k++) {
+        var crossed = t >= bxLast ? (b[k] > bxLast && b[k] <= t) : (b[k] > bxLast || b[k] <= t);
+        if (crossed) { li.classList.remove('hit'); void li.offsetWidth; li.classList.add('hit'); break; }
+      }
+      bxLast = t;
+    }
+    bxRaf = requestAnimationFrame(bxTick);
+  }
+
   /* Trailer Wreck: the second sticker sits above the sliding strip on the right, or is left out when there is no room */
   var twB2 = $('.tw-b2');
   function twSticker() {
