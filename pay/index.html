@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Secure payment · Peak Apps Studio</title>
+<meta name="description" content="The payment page of Peak Apps Studio: links in our e-mails (a renewal, a new card for a membership) open the secure checkout of Paddle here.">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/doc.css">
+<style>
+  .pay-box { margin: 24px 0 0; min-height: 120px; }
+  .pay-status { margin: 0 0 16px; padding: 12px 14px; border-radius: 12px; background: #12151a; color: #d7dbe1; font-size: 15px; }
+  .pay-status[data-tone="ok"] { background: #0f2a1d; color: #bfeed2; }
+  .pay-status[data-tone="warn"] { background: #2d2412; color: #f2dfb3; }
+  .pay-frame { border-radius: 14px; overflow: hidden; background: #fff; }
+  .pay-frame:empty { display: none; }
+  .pay-note { font-size: 14px; color: #8b9199; }
+</style>
+</head>
+<body>
+<main>
+<a class="doc-back" href="/">Back to Peak Apps Studio</a>
+<h1>Secure payment</h1>
+<p>This page opens a payment from a link in one of our e-mails, for example a renewal or a new card for a membership. Paddle.com is the seller of record for these payments: it takes the payment and sends the receipt.</p>
+<div class="pay-box">
+  <p class="pay-status" id="pay-status" role="status" aria-live="polite">Looking for the payment in this link.</p>
+  <div class="pay-frame" id="pay-frame"></div>
+</div>
+<p class="pay-note">A question about a payment, a refund or a membership: write to <a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a>. Paddle&rsquo;s own help for buyers is at <a href="https://paddle.net" rel="noopener">paddle.net</a>.</p>
+</main>
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<script src="/pay/pay.js"></script>
+</body>
+</html>
