@@ -22,6 +22,7 @@
 <meta name="theme-color" content="#7c1d2a">
 <link rel="icon" href="/msecure-export/img/icon.svg" type="image/svg+xml">
 <link rel="preload" href="/msecure-export/fonts/rekey-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/msecure-export/fonts/rekey-text.woff2" as="font" type="font/woff2" crossorigin>
 <style data-from="/assets/tools.css">
 /* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
 
@@ -327,7 +328,10 @@ body.rekey {
   --serif: "Rekey Display", "Rekey Fallback", system-ui, sans-serif;
   font-family: var(--sans); color: var(--rk-ink); background: var(--rk-desk);
   font-variant-numeric: lining-nums;
+  --gutter: clamp(16px, 4vw, 64px);
 }
+/* the page uses the whole screen on a desktop (Doruk, 4 and 5 Nov 2026): a fluid container, only running text keeps its measure */
+.rekey .wrap { width: min(100% - 2 * var(--gutter), 2240px); max-width: none; }
 .rekey h1, .rekey h2, .rekey .brand span, .rk-foot-brand { font-family: var(--serif); font-weight: 400; letter-spacing: -0.005em; }
 .rekey h3 { font-family: var(--sans); font-weight: 700; letter-spacing: -0.01em; }
 .rekey a { color: var(--rk-ox); text-decoration-thickness: 1px; text-underline-offset: 2px; }
@@ -487,7 +491,7 @@ body.is-pro .rk-buy, body.is-pro #pro-note { display: none; }
 .rk-faq details { background: var(--rk-card); border: 1px solid var(--rk-line); border-radius: 12px; padding: 12px 14px; margin: 0 0 8px; max-width: 80ch; }
 .rk-faq summary { font-weight: 700; cursor: pointer; }
 .rk-faq p { margin: 8px 0 0; }
-.rk-prose { max-width: 820px; padding-top: 10px; }
+.rekey .rk-prose { max-width: 820px; padding-top: 10px; }
 .rk-prose p, .rk-prose li { max-width: 72ch; }
 .rk-code { background: #231b1c; color: #f3e6d0; border-radius: 10px; padding: 12px 14px; font-size: 13.5px; overflow-x: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
 .rk-facts { padding-left: 20px; display: grid; gap: 8px; }
@@ -524,6 +528,67 @@ body.is-pro .rk-buy, body.is-pro #pro-note { display: none; }
   .rk-table caption { display: block; }
   .rk-hero h1 { font-size: clamp(28px, 8.4vw, 36px); }
 }
+
+/* ---------- the whole screen on a desktop (Doruk, 4 and 5 Nov 2026) ----------
+   From 1024 px a guide stands in columns (text at 72ch, contents and questions beside it); from 1280 px the hero picture grows,
+   the result puts the change list beside the reused passwords and the records in a grid, the how-to sits beside the questions.
+   Phones and tablets keep the single column. */
+.rk-toc, .rk-hero-card { display: none; }
+.rk-toc-title { font-weight: 700; font-size: 14.5px; color: var(--rk-ink); margin: 0 0 6px; }
+.rk-toc ol { list-style: none; margin: 0; padding: 0; border-left: 3px solid var(--rk-brass); }
+.rk-toc a { display: block; padding: 5px 0 5px 14px; font-size: 15px; line-height: 1.45; color: #3a3334; text-decoration: none; }
+.rk-toc a:hover { color: var(--rk-ox); text-decoration: underline; }
+@media (min-width: 1024px) {
+  .rk-hero-guide-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, .5fr); gap: clamp(32px, 4vw, 80px); align-items: center; }
+  .rk-hero-card { display: block; text-align: center; }
+  .rk-hero-card .rk-ring { width: min(100%, clamp(300px, 24vw, 480px)); }
+  .rk-hero-card p { margin: 6px 0 0; }
+  .rekey .rk-guide-grid { max-width: none; display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, .56fr); grid-template-rows: auto 1fr; column-gap: clamp(40px, 4vw, 80px); align-items: start; }
+  .rk-guide-grid > .rk-body { grid-column: 1; grid-row: 1 / span 2; }
+  .rk-guide-grid > .rk-toc { display: block; grid-column: 2; grid-row: 1; margin-top: 34px; padding: 16px 18px; background: var(--rk-card); border: 1px solid var(--rk-line); border-radius: 14px; }
+  .rk-guide-grid > .rk-guide-more { grid-column: 2; grid-row: 2; }
+  .rk-guide-more .rk-faq details { max-width: none; }
+}
+@media (min-width: 1100px) {
+  .rk-how-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(40px, 4vw, 88px); align-items: start; }
+  .rk-how-side .rk-faq details { max-width: none; }
+}
+@media (min-width: 1280px) {
+  .rk-hero-in { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(32px, 4vw, 96px); }
+  .rk-ring { width: min(100%, clamp(420px, 30vw, 640px)); }
+  .rk-result { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); column-gap: clamp(24px, 2.4vw, 48px); align-items: start; }
+  .rk-resbar, .rk-save, .rk-browse, .rk-done { grid-column: 1 / -1; }
+  .rk-change { grid-column: 1; }
+  .rk-reuse { grid-column: 2; }
+  .rk-records { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
+  .rk-done ol { max-width: none; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px 40px; }
+}
+@media (min-width: 1500px) {
+  .rk-panel { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(26px, 2.4vw, 48px); }
+  .rk-panel-side { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 32px; align-content: start; }
+  .rk-panel-side > :not(.rk-privacy) { grid-column: 1; }
+  .rk-panel-side > .rk-privacy { grid-column: 2; grid-row: 1 / span 3; margin: 4px 0 0; padding: 0 0 0 32px; border-top: 0; border-left: 1px solid var(--rk-line); }
+}
+@media (min-width: 1600px) {
+  .rk-hero h1 { font-size: clamp(56px, 3.6vw, 76px); }
+  .rk-hero .lede { font-size: 20px; max-width: 60ch; }
+}
+@media (min-width: 1760px) {
+  .rekey .rk-guide-grid { grid-template-columns: minmax(220px, 280px) minmax(0, 1fr) minmax(380px, .9fr); grid-template-rows: auto; }
+  .rk-guide-grid > .rk-toc { grid-column: 1; grid-row: 1; position: sticky; top: 84px; }
+  .rk-guide-grid > .rk-body { grid-column: 2; grid-row: 1; }
+  .rk-guide-grid > .rk-guide-more { grid-column: 3; grid-row: 1; }
+  .rk-guide-more > .rk-faq:first-child h2 { margin-top: 34px; }
+}
+@media (min-width: 1280px) { .rk-reuse { position: sticky; top: 84px; } }
+/* the sections under the panel are laid out only when they come near the screen (a phone spends its first second on layout); the intrinsic sizes are the measured heights per width, so the page does not grow under the reader */
+.rk-how, .rk-foot { content-visibility: auto; }
+.rk-how { contain-intrinsic-size: auto 2350px; } .rk-foot { contain-intrinsic-size: auto 730px; }
+@media (min-width: 768px) { .rk-how { contain-intrinsic-size: auto 1430px; } .rk-foot { contain-intrinsic-size: auto 710px; } }
+@media (min-width: 1100px) { .rk-how { contain-intrinsic-size: auto 1000px; } .rk-foot { contain-intrinsic-size: auto 300px; } }
+@media (min-width: 1500px) { .rk-how { contain-intrinsic-size: auto 950px; } .rk-foot { contain-intrinsic-size: auto 300px; } }
+/* the line that points to the sister tool */
+.rk-also { margin: 28px 0 0; font-size: 1.0625rem; line-height: 1.5; }
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Move from mSecure to Bitwarden","description":"Bitwarden imports the mSecure CSV, but extra login fields are dropped and each tag becomes a folder. A Rekey Bitwarden file keeps cards, notes and fields.","inLanguage":"en","datePublished":"2026-11-05","dateModified":"2026-11-05","mainEntityOfPage":"https://peakappsstudio.com/msecure-export/bitwarden/","image":"https://peakappsstudio.com/msecure-export/img/og.png","author":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"mSecure export","item":"https://peakappsstudio.com/msecure-export/"},{"@type":"ListItem","position":3,"name":"Bitwarden","item":"https://peakappsstudio.com/msecure-export/bitwarden/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does Bitwarden import mSecure directly?","acceptedAnswer":{"@type":"Answer","text":"Yes. In the Bitwarden web app: Tools > Import, choose mSecure (csv) as the file format, pick the file. Bitwarden’s importer is open source; it reads logins, credit cards and the rest as secure notes."}},{"@type":"Question","name":"What does the built-in importer change?","acceptedAnswer":{"@type":"Answer","text":"In Bitwarden’s code, a login keeps its website, username, password and note; other fields on a login (a second password, a PIN, security questions) are not carried over. Records that are neither logins nor cards become secure notes with their fields pasted into the note text. Each mSecure tag becomes a Bitwarden folder."}},{"@type":"Question","name":"What does the Rekey file do differently?","acceptedAnswer":{"@type":"Answer","text":"It is a Bitwarden JSON export: every extra field stays a named custom field (secrets as hidden fields), cards stay cards with number, expiry, code and name, one-time password secrets go into the TOTP field, and the first tag becomes the folder. It is a Pro feature."}},{"@type":"Question","name":"Can KeePassXC use the same file?","acceptedAnswer":{"@type":"Answer","text":"Yes. KeePassXC imports Bitwarden .json files (Database > Import, then Bitwarden), as its user guide lists."}},{"@type":"Question","name":"Is the JSON file encrypted?","acceptedAnswer":{"@type":"Answer","text":"No, it is plain text, like the mSecure CSV. Import it, check the vault, then delete both files and empty the trash."}}]}]}
@@ -552,15 +617,50 @@ body.is-pro .rk-buy, body.is-pro #pro-note { display: none; }
 </header>
 <main id="main">
 <section class="rk-hero rk-hero-guide" aria-labelledby="h1">
-<div class="wrap">
+<div class="wrap rk-hero-guide-in">
+<div class="rk-hero-text">
 <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/msecure-export/">mSecure export</a></li><li aria-current="page">Bitwarden</li></ol></nav>
 <h1 id="h1">Move from mSecure to Bitwarden</h1>
 <p class="lede">Bitwarden has its own mSecure importer, so the CSV goes in as it is. What it does with the file is worth knowing before you delete mSecure: a few kinds of data change shape on the way.</p>
 <p class="rk-small rk-checked">Checked November 5, 2026</p>
 </div>
+<div class="rk-hero-card"><svg class="rk-ring" viewBox="0 0 420 330" role="img" aria-labelledby="ring-t"><title id="ring-t">A key ring with labelled keys, one key being cut again</title>
+<defs><linearGradient id="rk-brass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0cf78"/><stop offset=".55" stop-color="#d9a640"/><stop offset="1" stop-color="#a87a22"/></linearGradient>
+<linearGradient id="rk-steel" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e9e7e4"/><stop offset=".5" stop-color="#c9c5c0"/><stop offset="1" stop-color="#9d9893"/></linearGradient></defs>
+<circle cx="140" cy="92" r="62" fill="none" stroke="url(#rk-brass)" stroke-width="10"/>
+<circle cx="140" cy="92" r="62" fill="none" stroke="#7a5512" stroke-width="1.2" opacity=".5"/>
+<g transform="translate(92 140) rotate(18)">
+<circle cx="0" cy="0" r="22" fill="url(#rk-steel)" stroke="#6f6a65" stroke-width="1.5"/><circle cx="0" cy="-8" r="6" fill="#eceae7" stroke="#6f6a65" stroke-width="1.5"/>
+<path d="M-7 20h14v96l-7 10-7-10z" fill="url(#rk-steel)" stroke="#6f6a65" stroke-width="1.5"/>
+<path d="M7 40h9v8h-9zM7 58h12v7h-12zM7 76h8v9h-8zM7 96h11v7h-11z" fill="url(#rk-steel)" stroke="#6f6a65" stroke-width="1.5"/>
+</g>
+<g transform="translate(150 154) rotate(-4)">
+<circle cx="0" cy="0" r="22" fill="url(#rk-brass)" stroke="#7a5512" stroke-width="1.5"/><circle cx="0" cy="-8" r="6" fill="#eceae7" stroke="#7a5512" stroke-width="1.5"/>
+<path d="M-7 20h14v100l-7 10-7-10z" fill="url(#rk-brass)" stroke="#7a5512" stroke-width="1.5"/>
+<path d="M7 38h12v8h-12zM7 54h7v9h-7zM7 72h13v7h-13zM7 90h9v10h-9zM7 108h11v6h-11z" fill="#f4d98f" stroke="#7a5512" stroke-width="1.5"/>
+<g stroke="#7c1d2a" stroke-width="2.4" stroke-linecap="round"><path d="M24 40l10-4M24 57l12 0M24 75l10 4"/></g>
+</g>
+<g transform="translate(212 128) rotate(-26)">
+<circle cx="0" cy="0" r="22" fill="url(#rk-steel)" stroke="#6f6a65" stroke-width="1.5"/><circle cx="0" cy="-8" r="6" fill="#eceae7" stroke="#6f6a65" stroke-width="1.5"/>
+<path d="M-7 20h14v88l-7 10-7-10z" fill="url(#rk-steel)" stroke="#6f6a65" stroke-width="1.5"/>
+<path d="M7 42h10v7h-10zM7 60h7v9h-7zM7 80h12v6h-12z" fill="url(#rk-steel)" stroke="#6f6a65" stroke-width="1.5"/>
+</g>
+<g transform="translate(300 70) rotate(9)">
+<path d="M-6 -20c-30 0-30 0-30 14v150c0 10 6 14 14 14h88c8 0 14-4 14-14V-6c0-14 0-14-30-14z" fill="#f6ead0" stroke="#a87a22" stroke-width="1.5"/>
+<circle cx="25" cy="-2" r="7" fill="#7c1d2a" stroke="#a87a22" stroke-width="1.5"/>
+<path d="M25-9C10-40-60-30-115 12" fill="none" stroke="#f0cf78" stroke-width="2"/>
+<text x="25" y="34" text-anchor="middle" fill="#1c1718" font-size="16" class="rk-art-text">E-MAIL</text>
+<text x="25" y="98" text-anchor="middle" fill="#7c1d2a" font-size="58" class="rk-art-text">1</text>
+<rect x="-14" y="112" width="78" height="3" rx="1.5" fill="#a87a22" opacity=".8"/>
+<text x="25" y="138" text-anchor="middle" fill="#5d5552" font-size="13" class="rk-art-small">change first</text>
+</g>
+</svg><p><a class="rk-btn" href="/msecure-export/">Open your mSecure export</a></p></div>
+</div>
 </section>
-<article class="wrap rk-prose">
-<h2>Two ways in</h2>
+<article class="wrap rk-prose rk-guide-grid">
+<nav class="rk-toc" aria-label="On this page"><p class="rk-toc-title">On this page</p><ol><li><a href="#two-ways-in">Two ways in</a></li><li><a href="#import-the-rekey-file">Import the Rekey file</a></li><li><a href="#bitwarden-s-own-importer-is-fine-when">Bitwarden’s own importer is fine when</a></li><li><a href="#changing-the-passwords">Changing the passwords</a></li><li><a href="#faq-h">Questions</a></li></ol></nav>
+<div class="rk-body">
+<h2 id="two-ways-in">Two ways in</h2>
 <div class="rk-table-wrap"><table class="rk-table">
 <caption>The two paths from mSecure to Bitwarden (checked November 5, 2026)</caption>
 <thead><tr><th scope="col"></th><th scope="col">Bitwarden’s mSecure (csv) import</th><th scope="col">Rekey’s Bitwarden (json) file</th></tr></thead>
@@ -575,7 +675,7 @@ body.is-pro .rk-buy, body.is-pro #pro-note { display: none; }
 </tbody></table></div>
 <p>The left column comes from Bitwarden’s importer code (linked below): for a login it reads only the website, username and password columns; a record that is not a login or a card becomes a note with its values pasted in.</p>
 
-<h2>Import the Rekey file</h2>
+<h2 id="import-the-rekey-file">Import the Rekey file</h2>
 <ol class="rk-steps">
 <li><strong>Export from mSecure</strong> on a Mac (<strong>File &gt; Export &gt; CSV</strong>) or Windows (<strong>Settings &gt; Backups</strong>); see <a href="/msecure-export/csv/">export to CSV</a>.</li>
 <li><strong>Open it in Rekey</strong> and choose <strong>Bitwarden and KeePassXC file</strong>. You get <code>bitwarden.json</code>.</li>
@@ -584,11 +684,13 @@ body.is-pro .rk-buy, body.is-pro #pro-note { display: none; }
 </ol>
 <p class="rk-cta"><a class="rk-btn" href="/msecure-export/">Open my mSecure export</a><span>See every record before you import it.</span></p>
 
-<h2>Bitwarden’s own importer is fine when</h2>
+<h2 id="bitwarden-s-own-importer-is-fine-when">Bitwarden’s own importer is fine when</h2>
 <p>Your vault is mostly plain logins with a website, a username and a password, and you do not use mSecure’s extra fields. Then the free path is enough: choose <strong>mSecure (csv)</strong> in Bitwarden and skip the conversion. Rekey still helps afterwards with the order to change those passwords in.</p>
 
-<h2>Changing the passwords</h2>
+<h2 id="changing-the-passwords">Changing the passwords</h2>
 <p>mSecure’s November 3, 2026 notice asked users to protect everything stored in the app (Malwarebytes). The imported passwords are the old ones, so they still need changing. Rekey lists the logins with e-mail and money first and shows which ones share a password; see <a href="/msecure-export/breach/">what to change first</a>.</p>
+</div>
+<div class="rk-guide-more">
 <section class="rk-faq" aria-labelledby="faq-h"><h2 id="faq-h">Questions</h2>
 <details><summary>Does Bitwarden import mSecure directly?</summary><p>Yes. In the Bitwarden web app: Tools &gt; Import, choose mSecure (csv) as the file format, pick the file. Bitwarden’s importer is open source; it reads logins, credit cards and the rest as secure notes.</p></details>
 <details><summary>What does the built-in importer change?</summary><p>In Bitwarden’s code, a login keeps its website, username, password and note; other fields on a login (a second password, a PIN, security questions) are not carried over. Records that are neither logins nor cards become secure notes with their fields pasted into the note text. Each mSecure tag becomes a Bitwarden folder.</p></details>
@@ -611,6 +713,7 @@ body.is-pro .rk-buy, body.is-pro #pro-note { display: none; }
 <li><a href="/msecure-export/breach/">mSecure breach: what to change first</a></li>
 <li><a href="/msecure-export/csv/">Export mSecure to a CSV file</a></li>
 </ul></nav>
+</div>
 </article>
 </main>
 <footer class="site-foot rk-foot" id="guides">

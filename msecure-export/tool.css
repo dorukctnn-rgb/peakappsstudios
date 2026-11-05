@@ -14,7 +14,10 @@ body.rekey {
   --serif: "Rekey Display", "Rekey Fallback", system-ui, sans-serif;
   font-family: var(--sans); color: var(--rk-ink); background: var(--rk-desk);
   font-variant-numeric: lining-nums;
+  --gutter: clamp(16px, 4vw, 64px);
 }
+/* the page uses the whole screen on a desktop (Doruk, 4 and 5 Nov 2026): a fluid container, only running text keeps its measure */
+.rekey .wrap { width: min(100% - 2 * var(--gutter), 2240px); max-width: none; }
 .rekey h1, .rekey h2, .rekey .brand span, .rk-foot-brand { font-family: var(--serif); font-weight: 400; letter-spacing: -0.005em; }
 .rekey h3 { font-family: var(--sans); font-weight: 700; letter-spacing: -0.01em; }
 .rekey a { color: var(--rk-ox); text-decoration-thickness: 1px; text-underline-offset: 2px; }
@@ -174,7 +177,7 @@ body.is-pro .rk-buy, body.is-pro #pro-note { display: none; }
 .rk-faq details { background: var(--rk-card); border: 1px solid var(--rk-line); border-radius: 12px; padding: 12px 14px; margin: 0 0 8px; max-width: 80ch; }
 .rk-faq summary { font-weight: 700; cursor: pointer; }
 .rk-faq p { margin: 8px 0 0; }
-.rk-prose { max-width: 820px; padding-top: 10px; }
+.rekey .rk-prose { max-width: 820px; padding-top: 10px; }
 .rk-prose p, .rk-prose li { max-width: 72ch; }
 .rk-code { background: #231b1c; color: #f3e6d0; border-radius: 10px; padding: 12px 14px; font-size: 13.5px; overflow-x: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
 .rk-facts { padding-left: 20px; display: grid; gap: 8px; }
@@ -211,3 +214,64 @@ body.is-pro .rk-buy, body.is-pro #pro-note { display: none; }
   .rk-table caption { display: block; }
   .rk-hero h1 { font-size: clamp(28px, 8.4vw, 36px); }
 }
+
+/* ---------- the whole screen on a desktop (Doruk, 4 and 5 Nov 2026) ----------
+   From 1024 px a guide stands in columns (text at 72ch, contents and questions beside it); from 1280 px the hero picture grows,
+   the result puts the change list beside the reused passwords and the records in a grid, the how-to sits beside the questions.
+   Phones and tablets keep the single column. */
+.rk-toc, .rk-hero-card { display: none; }
+.rk-toc-title { font-weight: 700; font-size: 14.5px; color: var(--rk-ink); margin: 0 0 6px; }
+.rk-toc ol { list-style: none; margin: 0; padding: 0; border-left: 3px solid var(--rk-brass); }
+.rk-toc a { display: block; padding: 5px 0 5px 14px; font-size: 15px; line-height: 1.45; color: #3a3334; text-decoration: none; }
+.rk-toc a:hover { color: var(--rk-ox); text-decoration: underline; }
+@media (min-width: 1024px) {
+  .rk-hero-guide-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, .5fr); gap: clamp(32px, 4vw, 80px); align-items: center; }
+  .rk-hero-card { display: block; text-align: center; }
+  .rk-hero-card .rk-ring { width: min(100%, clamp(300px, 24vw, 480px)); }
+  .rk-hero-card p { margin: 6px 0 0; }
+  .rekey .rk-guide-grid { max-width: none; display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, .56fr); grid-template-rows: auto 1fr; column-gap: clamp(40px, 4vw, 80px); align-items: start; }
+  .rk-guide-grid > .rk-body { grid-column: 1; grid-row: 1 / span 2; }
+  .rk-guide-grid > .rk-toc { display: block; grid-column: 2; grid-row: 1; margin-top: 34px; padding: 16px 18px; background: var(--rk-card); border: 1px solid var(--rk-line); border-radius: 14px; }
+  .rk-guide-grid > .rk-guide-more { grid-column: 2; grid-row: 2; }
+  .rk-guide-more .rk-faq details { max-width: none; }
+}
+@media (min-width: 1100px) {
+  .rk-how-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(40px, 4vw, 88px); align-items: start; }
+  .rk-how-side .rk-faq details { max-width: none; }
+}
+@media (min-width: 1280px) {
+  .rk-hero-in { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(32px, 4vw, 96px); }
+  .rk-ring { width: min(100%, clamp(420px, 30vw, 640px)); }
+  .rk-result { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); column-gap: clamp(24px, 2.4vw, 48px); align-items: start; }
+  .rk-resbar, .rk-save, .rk-browse, .rk-done { grid-column: 1 / -1; }
+  .rk-change { grid-column: 1; }
+  .rk-reuse { grid-column: 2; }
+  .rk-records { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
+  .rk-done ol { max-width: none; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px 40px; }
+}
+@media (min-width: 1500px) {
+  .rk-panel { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(26px, 2.4vw, 48px); }
+  .rk-panel-side { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 32px; align-content: start; }
+  .rk-panel-side > :not(.rk-privacy) { grid-column: 1; }
+  .rk-panel-side > .rk-privacy { grid-column: 2; grid-row: 1 / span 3; margin: 4px 0 0; padding: 0 0 0 32px; border-top: 0; border-left: 1px solid var(--rk-line); }
+}
+@media (min-width: 1600px) {
+  .rk-hero h1 { font-size: clamp(56px, 3.6vw, 76px); }
+  .rk-hero .lede { font-size: 20px; max-width: 60ch; }
+}
+@media (min-width: 1760px) {
+  .rekey .rk-guide-grid { grid-template-columns: minmax(220px, 280px) minmax(0, 1fr) minmax(380px, .9fr); grid-template-rows: auto; }
+  .rk-guide-grid > .rk-toc { grid-column: 1; grid-row: 1; position: sticky; top: 84px; }
+  .rk-guide-grid > .rk-body { grid-column: 2; grid-row: 1; }
+  .rk-guide-grid > .rk-guide-more { grid-column: 3; grid-row: 1; }
+  .rk-guide-more > .rk-faq:first-child h2 { margin-top: 34px; }
+}
+@media (min-width: 1280px) { .rk-reuse { position: sticky; top: 84px; } }
+/* the sections under the panel are laid out only when they come near the screen (a phone spends its first second on layout); the intrinsic sizes are the measured heights per width, so the page does not grow under the reader */
+.rk-how, .rk-foot { content-visibility: auto; }
+.rk-how { contain-intrinsic-size: auto 2350px; } .rk-foot { contain-intrinsic-size: auto 730px; }
+@media (min-width: 768px) { .rk-how { contain-intrinsic-size: auto 1430px; } .rk-foot { contain-intrinsic-size: auto 710px; } }
+@media (min-width: 1100px) { .rk-how { contain-intrinsic-size: auto 1000px; } .rk-foot { contain-intrinsic-size: auto 300px; } }
+@media (min-width: 1500px) { .rk-how { contain-intrinsic-size: auto 950px; } .rk-foot { contain-intrinsic-size: auto 300px; } }
+/* the line that points to the sister tool */
+.rk-also { margin: 28px 0 0; font-size: 1.0625rem; line-height: 1.5; }
