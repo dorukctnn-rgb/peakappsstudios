@@ -532,6 +532,9 @@ body.yn {
 .yn-related a span { display: block; font-weight: 400; font-size: 16px; color: var(--muted); margin-top: 2px; }
 .yn-related a:hover { color: var(--link); }
 .yn-guide-hero { padding: 6px 0 48px; }
+/* a web address in a heading (mail.yahoo.com/getmydata) has no spaces to wrap at */
+.yn-guide-hero h1, .yn-prose h2, .yn-related a { overflow-wrap: anywhere; }
+.yn .yn-wide-h1 { max-width: 28ch; }
 .yn-checked { margin: 18px 0 0; font-size: 16px; }
 .yn-article { padding-top: clamp(36px, 5vw, 56px); }
 .yn-article table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 17px; }
@@ -590,7 +593,7 @@ body.yn {
 </section>
 <article class="wrap yn-prose yn-article">
 <h2>The steps Yahoo gives</h2>
-<p>Yahoo's shutdown page has one route and no troubleshooting. In its words you "go to the download manager", click Download under "Calendar and Notepad", then "confirm the email address you want the info sent to, and click OK" (<a href="https://help.yahoo.com/kb/SLN37405.html" rel="nofollow noopener">Yahoo Notepad to be discontinued</a>). Yahoo links the download manager to mail.yahoo.com/getmydata. Do it on a computer, signed in to the Yahoo account that holds the notes.</p>
+<p>Yahoo's shutdown page has one route and no troubleshooting. In its words you "go to the download manager", click Download under "Calendar and Notepad", then "confirm the email address you want the info sent to, and click OK" (<a href="https://help.yahoo.com/kb/SLN37405.html" rel="nofollow noopener">Yahoo Notepad to be discontinued</a>). Yahoo links the download manager to <a href="/yahoo-notepad/getmydata/">mail.yahoo.com/getmydata</a>. Do it on a computer, signed in to the Yahoo account that holds the notes.</p>
 <p>Yahoo lists Notepad and Calendar as one item, "Calendar and Notepad", so expect the file to hold calendar events too. Lastleaf shows the notes and sets the calendar apart.</p>
 
 <h2>The download page will not open</h2>
@@ -652,6 +655,7 @@ body.yn {
 <a href="/yahoo-notepad/scam/">Real notice or scam?<span>How to check an email about Notepad</span></a>
 <a href="/yahoo-notepad/open-json-file/">Open the file Yahoo sends<span>What the JSON or ZIP is, and how to read it</span></a>
 <a href="/yahoo-notepad/login/">Yahoo Notepad login<span>Where you sign in, and what to do if you cannot</span></a>
+<a href="/yahoo-notepad/getmydata/">mail.yahoo.com/getmydata<span>What the page is, and how to use it for Notepad</span></a>
 </div>
 </div>
 </section>
@@ -684,6 +688,7 @@ body.yn {
         <li><span aria-current="page">Yahoo Notepad download not working</span></li>
         <li><a href="/yahoo-notepad/open-json-file/">How to open the file Yahoo sends</a></li>
         <li><a href="/yahoo-notepad/login/">Yahoo Notepad login</a></li>
+        <li><a href="/yahoo-notepad/getmydata/">mail.yahoo.com/getmydata</a></li>
       </ul>
     </div>
     <div>

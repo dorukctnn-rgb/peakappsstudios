@@ -532,6 +532,9 @@ body.yn {
 .yn-related a span { display: block; font-weight: 400; font-size: 16px; color: var(--muted); margin-top: 2px; }
 .yn-related a:hover { color: var(--link); }
 .yn-guide-hero { padding: 6px 0 48px; }
+/* a web address in a heading (mail.yahoo.com/getmydata) has no spaces to wrap at */
+.yn-guide-hero h1, .yn-prose h2, .yn-related a { overflow-wrap: anywhere; }
+.yn .yn-wide-h1 { max-width: 28ch; }
 .yn-checked { margin: 18px 0 0; font-size: 16px; }
 .yn-article { padding-top: clamp(36px, 5vw, 56px); }
 .yn-article table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 17px; }
@@ -661,6 +664,7 @@ body.yn {
 <a href="/yahoo-notepad/scam/">Real notice or scam?<span>How to check an email about Notepad</span></a>
 <a href="/yahoo-notepad/download-not-working/">Download not working<span>The link, the email and how long to wait</span></a>
 <a href="/yahoo-notepad/login/">Yahoo Notepad login<span>Where you sign in, and what to do if you cannot</span></a>
+<a href="/yahoo-notepad/getmydata/">mail.yahoo.com/getmydata<span>What the page is, and how to use it for Notepad</span></a>
 </div>
 </div>
 </section>
@@ -693,6 +697,7 @@ body.yn {
         <li><a href="/yahoo-notepad/download-not-working/">Yahoo Notepad download not working</a></li>
         <li><span aria-current="page">How to open the file Yahoo sends</span></li>
         <li><a href="/yahoo-notepad/login/">Yahoo Notepad login</a></li>
+        <li><a href="/yahoo-notepad/getmydata/">mail.yahoo.com/getmydata</a></li>
       </ul>
     </div>
     <div>
