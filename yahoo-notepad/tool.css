@@ -220,6 +220,9 @@ body.yn {
 .yn-related a span { display: block; font-weight: 400; font-size: 16px; color: var(--muted); margin-top: 2px; }
 .yn-related a:hover { color: var(--link); }
 .yn-guide-hero { padding: 6px 0 48px; }
+/* a web address in a heading (mail.yahoo.com/getmydata) has no spaces to wrap at */
+.yn-guide-hero h1, .yn-prose h2, .yn-related a { overflow-wrap: anywhere; }
+.yn .yn-wide-h1 { max-width: 28ch; }
 .yn-checked { margin: 18px 0 0; font-size: 16px; }
 .yn-article { padding-top: clamp(36px, 5vw, 56px); }
 .yn-article table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 17px; }
