@@ -329,7 +329,10 @@ body.decant {
   --serif: "Decant Display", "Decant Fallback", system-ui, sans-serif;
   font-family: var(--sans); color: var(--dc-ink); background: var(--dc-frost);
   font-variant-numeric: lining-nums;
+  --gutter: clamp(16px, 4vw, 64px);
 }
+/* the page uses the whole screen on a desktop (Doruk, 4 and 5 Nov 2026): a fluid container, only running text keeps its measure */
+.decant .wrap { width: min(100% - 2 * var(--gutter), 2240px); max-width: none; }
 .decant h1, .decant h2, .decant .brand span, .dc-foot-brand { font-family: var(--serif); font-weight: 800; letter-spacing: -0.012em; }
 .decant h3 { font-family: var(--sans); font-weight: 700; letter-spacing: -0.005em; }
 .decant a { color: var(--dc-green); text-decoration-thickness: 1px; text-underline-offset: 2px; }
@@ -520,7 +523,7 @@ body.is-pro .dc-buy, body.is-pro #pro-note { display: none; }
 .dc-faq summary { font-weight: 700; cursor: pointer; }
 .dc-faq p { margin: 8px 0 0; }
 .dc-prose { padding-top: 10px; }
-.dc-prose > * { max-width: 800px; }
+.dc-body > *, .dc-guide-more > * { max-width: 800px; }
 .dc-prose p, .dc-prose li { max-width: 72ch; }
 .dc-cta { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; background: var(--dc-rose-soft); border: 1.5px solid var(--dc-rose); border-radius: 14px; padding: 16px 18px; margin: 22px 0; }
 .dc-cta span { font-size: 15px; color: #2a3a31; }
@@ -565,6 +568,70 @@ body.is-pro .dc-buy, body.is-pro #pro-note { display: none; }
   .dc-table caption { display: block; }
   .dc-hero h1 { font-size: clamp(27px, 8vw, 34px); }
 }
+
+/* ---------- the whole screen on a desktop (Doruk, 4 and 5 Nov 2026) ----------
+   From 1024 px a guide stands in columns (text at 72ch, contents and questions beside it); from 1180 px the first two steps
+   stand side by side and the third (the result) runs across under them; from 1280 px the hero picture grows, the result puts
+   the change list beside the reused passwords and the records in a grid, the how-to sits beside the questions.
+   Phones and tablets keep the single column. */
+.dc-toc, .dc-hero-card { display: none; }
+.dc-toc-title { font-weight: 700; font-size: 14.5px; color: var(--dc-ink); margin: 0 0 6px; }
+.dc-toc ol { list-style: none; margin: 0; padding: 0; border-left: 3px solid var(--dc-rose); }
+.dc-toc a { display: block; padding: 5px 0 5px 14px; font-size: 15px; line-height: 1.45; color: #2a3a31; text-decoration: none; }
+.dc-toc a:hover { color: var(--dc-green); text-decoration: underline; }
+@media (min-width: 1024px) {
+  .dc-hero-guide-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, .45fr); gap: clamp(32px, 4vw, 80px); align-items: center; }
+  .dc-hero-card { display: block; text-align: center; }
+  .dc-hero-card .dc-art { width: min(100%, clamp(240px, 18vw, 380px)); margin: 0 auto; }
+  .dc-hero-card p { margin: 14px 0 0; }
+  .dc-guide-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, .56fr); grid-template-rows: auto 1fr; column-gap: clamp(40px, 4vw, 80px); align-items: start; }
+  .dc-guide-grid > .dc-body { grid-column: 1; grid-row: 1 / span 2; }
+  .dc-guide-grid > .dc-toc { display: block; grid-column: 2; grid-row: 1; margin-top: 36px; padding: 16px 18px; background: var(--dc-card); border: 1px solid var(--dc-line); border-radius: 14px; }
+  .dc-guide-grid > .dc-guide-more { grid-column: 2; grid-row: 2; }
+  .dc-guide-more > * { max-width: none; }
+  .dc-guide-more .dc-faq details { max-width: none; }
+}
+@media (min-width: 1100px) {
+  .dc-how-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(40px, 4vw, 88px); align-items: start; }
+  .dc-how-side .dc-faq details { max-width: none; }
+}
+@media (min-width: 1180px) {
+  .dc-rail { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(24px, 2.4vw, 48px); }
+  #step-out { grid-column: 1 / -1; }
+  #step-pass::before { display: none; }
+  .dc-wait { max-width: none; }
+  .dc-pw { max-width: 600px; }
+}
+@media (min-width: 1280px) {
+  .dc-hero-in { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(36px, 4vw, 96px); }
+  .dc-art { width: min(100%, clamp(360px, 26vw, 540px)); }
+  .dc-result { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); column-gap: clamp(24px, 2.4vw, 48px); align-items: start; }
+  .dc-resbar, .dc-label, .dc-warn, .dc-save, .dc-browse, .dc-done { grid-column: 1 / -1; }
+  .dc-change { grid-column: 1; }
+  .dc-reuse { grid-column: 2; }
+  .dc-records { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
+  .dc-done ol { max-width: none; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px 40px; }
+}
+@media (min-width: 1600px) {
+  .dc-hero h1 { font-size: clamp(50px, 3.3vw, 68px); }
+  .dc-lede { font-size: 20px; }
+}
+@media (min-width: 1760px) {
+  .dc-guide-grid { grid-template-columns: minmax(220px, 280px) minmax(0, 1fr) minmax(380px, .9fr); grid-template-rows: auto; }
+  .dc-guide-grid > .dc-toc { grid-column: 1; grid-row: 1; position: sticky; top: 84px; }
+  .dc-guide-grid > .dc-body { grid-column: 2; grid-row: 1; }
+  .dc-guide-grid > .dc-guide-more { grid-column: 3; grid-row: 1; }
+  .dc-guide-more > .dc-faq:first-child h2 { margin-top: 36px; }
+}
+@media (min-width: 1280px) { .dc-reuse { position: sticky; top: 84px; } }
+/* the sections under the steps are laid out only when they come near the screen (a phone spends its first second on layout); the intrinsic sizes are the measured heights per width, so the page does not grow under the reader */
+.dc-how, .dc-foot { content-visibility: auto; }
+.dc-how { contain-intrinsic-size: auto 3300px; } .dc-foot { contain-intrinsic-size: auto 810px; }
+@media (min-width: 768px) { .dc-how { contain-intrinsic-size: auto 2000px; } .dc-foot { contain-intrinsic-size: auto 770px; } }
+@media (min-width: 1100px) { .dc-how { contain-intrinsic-size: auto 1400px; } .dc-foot { contain-intrinsic-size: auto 370px; } }
+@media (min-width: 1500px) { .dc-how { contain-intrinsic-size: auto 1150px; } .dc-foot { contain-intrinsic-size: auto 330px; } }
+/* the line that points to the sister tool */
+.dc-also { margin: 28px 0 0; font-size: 1.0625rem; line-height: 1.5; }
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Move Samsung Pass passwords to an iPhone","description":"Convert a Samsung Pass .spass export and import the CSV on an iPhone with Settings, Apps, Safari, Import, or into Bitwarden, Proton Pass or 1Password.","inLanguage":"en","datePublished":"2026-11-05","dateModified":"2026-11-05","mainEntityOfPage":"https://peakappsstudio.com/spass-to-csv/iphone/","image":"https://peakappsstudio.com/spass-to-csv/img/og.png","author":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Samsung Pass (.spass)","item":"https://peakappsstudio.com/spass-to-csv/"},{"@type":"ListItem","position":3,"name":"iPhone","item":"https://peakappsstudio.com/spass-to-csv/iphone/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I import the .spass file on the iPhone?","acceptedAnswer":{"@type":"Answer","text":"No. The import in Settings, Apps, Safari takes a CSV file (or a ZIP file) from another password manager. The .spass file has to be converted first, and Decant can do that on the Galaxy phone itself, on a computer, or on the iPhone."}},{"@type":"Question","name":"How does the CSV get onto the iPhone?","acceptedAnswer":{"@type":"Answer","text":"The Files app on the iPhone opens files from iCloud Drive and from the cloud drives you have turned on, and a Mac can send it by AirDrop. A CSV is plain text with your passwords in it, so use a route you trust and delete every copy afterwards, including the one in the cloud and in the trash."}},{"@type":"Question","name":"Do my Samsung Pass fingerprint login and autofill come with me?","acceptedAnswer":{"@type":"Answer","text":"No. Samsung Pass the app stays on the Samsung phone. On an iPhone you use Apple Passwords, or the iPhone app of Bitwarden, 1Password, Proton Pass or Google, each with its own autofill."}},{"@type":"Question","name":"What if I have no Mac and no PC?","acceptedAnswer":{"@type":"Answer","text":"Open Decant in the Chrome browser on the Galaxy phone, choose the .spass file from Downloads, and save the CSV there. The page works on a phone, and offline once it has loaded."}},{"@type":"Question","name":"Are cards and addresses moved?","acceptedAnswer":{"@type":"Answer","text":"Not by the iPhone import, which takes logins. Decant lists the cards, addresses and notes of your file; Pro writes a printable sheet and a Bitwarden file that holds them."}}]}]}
@@ -595,18 +662,42 @@ body.is-pro .dc-buy, body.is-pro #pro-note { display: none; }
 </header>
 <main id="main">
 <section class="dc-hero dc-hero-guide" aria-labelledby="h1">
-<div class="wrap">
+<div class="wrap dc-hero-guide-in">
+<div class="dc-hero-text">
 <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/tools/">Tools</a></li><li><a href="/spass-to-csv/">Samsung Pass (.spass)</a></li><li aria-current="page">iPhone</li></ol></nav>
 <h1 id="h1">Move Samsung Pass passwords to an iPhone</h1>
 <p class="dc-lede">Going from a Galaxy to an iPhone, the passwords do not move on their own: Samsung Pass saves an encrypted .spass file and iOS reads CSV. Open the file with your export password, save a CSV, and import it on the iPhone through Apple’s own import in Settings.</p>
 <p class="dc-small dc-checked">Checked November 5, 2026</p>
 </div>
+<div class="dc-hero-card"><svg class="dc-art" viewBox="0 0 360 420" role="img" aria-labelledby="art-t"><title id="art-t">A glass decanter pouring rose wine into a glass, with three tags on its neck that read Apple Passwords, Google and Bitwarden, next to the name Decant.</title>
+<defs><clipPath id="dc-body"><path d="M-22-132H22L16-122V-66C16-46 70-30 84 30C92 66 86 92 74 104Q70 110 60 110H-60Q-70 110-74 104C-86 92-92 66-84 30C-70-30-16-46-16-66V-122Z"/></clipPath>
+<linearGradient id="dc-wine" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e0668a"/><stop offset="1" stop-color="#c63f68"/></linearGradient></defs>
+<path d="M0 420V190C0 85 80 0 180 0s180 85 180 190v230z" fill="#f1a6b8"/>
+<path d="M22 420V192C22 102 92 22 180 22s158 80 158 170v228z" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="2"/>
+<rect x="0" y="360" width="360" height="60" fill="#0f4d3a"/>
+<g transform="translate(244 250)">
+<ellipse cx="0" cy="110" rx="86" ry="7" fill="#000" opacity=".18"/>
+<g clip-path="url(#dc-body)"><rect x="-100" y="-4" width="200" height="130" fill="url(#dc-wine)"/><ellipse cx="0" cy="-4" rx="78" ry="6" fill="#f08aa8"/></g>
+<path d="M-22-132H22L16-122V-66C16-46 70-30 84 30C92 66 86 92 74 104Q70 110 60 110H-60Q-70 110-74 104C-86 92-92 66-84 30C-70-30-16-46-16-66V-122Z" fill="#fff" fill-opacity=".28" stroke="#fff" stroke-width="3" stroke-linejoin="round"/>
+<path d="M-66 40c-6 20-6 40 2 56" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="5" stroke-linecap="round"/>
+<rect x="-7" y="-146" width="14" height="16" rx="3" fill="#0f4d3a"/><circle cx="0" cy="-152" r="14" fill="#0f4d3a"/>
+<ellipse cx="0" cy="-92" rx="19" ry="5.5" fill="none" stroke="#0f4d3a" stroke-width="2.4"/>
+</g>
+<g fill="none" stroke="#0f4d3a" stroke-width="1.6" stroke-linecap="round"><path d="M225 158L138 163"/><path d="M225 158L138 203"/><path d="M225 158L138 243"/></g>
+<g transform="translate(10 150)"><rect width="128" height="26" rx="7" fill="#fff" stroke="#0f4d3a" stroke-width="1.6"/><circle cx="118" cy="13" r="3" fill="#f1a6b8" stroke="#0f4d3a" stroke-width="1"/><text x="9" y="17.2" fill="#0f4d3a" font-size="12" class="dc-art-text">Apple Passwords</text></g>
+<g transform="translate(10 190)"><rect width="128" height="26" rx="7" fill="#fff" stroke="#0f4d3a" stroke-width="1.6"/><circle cx="118" cy="13" r="3" fill="#f1a6b8" stroke="#0f4d3a" stroke-width="1"/><text x="9" y="17.2" fill="#0f4d3a" font-size="12" class="dc-art-text">Google</text></g>
+<g transform="translate(10 230)"><rect width="128" height="26" rx="7" fill="#fff" stroke="#0f4d3a" stroke-width="1.6"/><circle cx="118" cy="13" r="3" fill="#f1a6b8" stroke="#0f4d3a" stroke-width="1"/><text x="9" y="17.2" fill="#0f4d3a" font-size="12" class="dc-art-text">Bitwarden</text></g>
+<g transform="translate(34 300)"><path d="M0 0h50c0 26-10 40-25 40S0 26 0 0z" fill="#fff" fill-opacity=".3" stroke="#fff" stroke-width="2.4"/><path d="M3 10h44c-1 20-9 30-22 30S4 30 3 10z" fill="#c63f68" opacity=".92"/><path d="M25 40v20M10 62h30" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></g>
+</svg><p><a class="dc-btn" href="/spass-to-csv/">Open the .spass file</a></p></div>
+</div>
 </section>
-<article class="wrap dc-prose">
-<h2>What does not move on its own</h2>
+<article class="wrap dc-prose dc-guide-grid">
+<nav class="dc-toc" aria-label="On this page"><p class="dc-toc-title">On this page</p><ol><li><a href="#what-does-not-move-on-its-own">What does not move on its own</a></li><li><a href="#the-route-step-by-step">The route, step by step</a></li><li><a href="#if-you-would-rather-not-use-apple-passwords">If you would rather not use Apple Passwords</a></li><li><a href="#faq-h">Questions</a></li></ol></nav>
+<div class="dc-body">
+<h2 id="what-does-not-move-on-its-own">What does not move on its own</h2>
 <p>Samsung’s export is the only way out of Samsung Pass. A user who tried it described the result in the Samsung Community in December 2022: the only format offered is .spass, and the file is encrypted, so nothing else can read it. Apple’s side asks for a CSV. The two meet in a converter, and the converter needs the export password.</p>
 
-<h2>The route, step by step</h2>
+<h2 id="the-route-step-by-step">The route, step by step</h2>
 <ol class="dc-ol">
 <li><strong>Export from Samsung Pass</strong> and choose an export password (<a href="/spass-to-csv/open-spass-file/">where the setting is</a>). Samsung Pass is part of Samsung Wallet on newer phones; look for <em>Export data</em> in its settings. Menu names differ by phone and app version.</li>
 <li><strong>Open the file in Decant</strong>, on the phone, on a computer or on the iPhone itself, type the export password and choose <strong>Apple Passwords file</strong>.</li>
@@ -616,7 +707,7 @@ body.is-pro .dc-buy, body.is-pro #pro-note { display: none; }
 </ol>
 <p class="dc-cta"><a class="dc-btn" href="/spass-to-csv/">Open my .spass file</a><span>Free for the Apple Passwords and Google files.</span></p>
 
-<h2>If you would rather not use Apple Passwords</h2>
+<h2 id="if-you-would-rather-not-use-apple-passwords">If you would rather not use Apple Passwords</h2>
 <p>The same CSV works elsewhere, and each of these has an iPhone app: <a href="/spass-to-csv/google-password-manager/">Google Password Manager</a>, <a href="/spass-to-csv/bitwarden/">Bitwarden</a> (the Pro file keeps cards and notes), <a href="/spass-to-csv/proton-pass/">Proton Pass</a> and <a href="/spass-to-csv/1password/">1Password</a>.</p>
 <div class="dc-table-wrap"><table class="dc-table">
 <caption>What the iPhone side needs (checked November 5, 2026)</caption>
@@ -627,6 +718,8 @@ body.is-pro .dc-buy, body.is-pro #pro-note { display: none; }
 <tr><th scope="row">Bitwarden</th><td>Google and Chrome file, or the Pro JSON</td><td>Web app: Tools, Import data</td></tr>
 </tbody></table></div>
 <p>A login that belongs to an Android app cannot be used by the app on an iPhone. Decant keeps its name and password and marks it, so you can sign in on the service’s website and save it again.</p>
+</div>
+<div class="dc-guide-more">
 <section class="dc-faq" aria-labelledby="faq-h"><h2 id="faq-h">Questions</h2>
 <details><summary>Can I import the .spass file on the iPhone?</summary><p>No. The import in Settings, Apps, Safari takes a CSV file (or a ZIP file) from another password manager. The .spass file has to be converted first, and Decant can do that on the Galaxy phone itself, on a computer, or on the iPhone.</p></details>
 <details><summary>How does the CSV get onto the iPhone?</summary><p>The Files app on the iPhone opens files from iCloud Drive and from the cloud drives you have turned on, and a Mac can send it by AirDrop. A CSV is plain text with your passwords in it, so use a route you trust and delete every copy afterwards, including the one in the cloud and in the trash.</p></details>
@@ -651,6 +744,7 @@ body.is-pro .dc-buy, body.is-pro #pro-note { display: none; }
 <li><a href="/spass-to-csv/1password/">Move Samsung Pass to 1Password</a></li>
 <li><a href="/spass-to-csv/open-spass-file/">Open a .spass file: what it holds and which password it needs</a></li>
 </ul></nav>
+</div>
 </article>
 </main>
 <footer class="site-foot dc-foot" id="guides">

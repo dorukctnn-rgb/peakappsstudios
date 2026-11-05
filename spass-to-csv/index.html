@@ -334,7 +334,10 @@ body.decant {
   --serif: "Decant Display", "Decant Fallback", system-ui, sans-serif;
   font-family: var(--sans); color: var(--dc-ink); background: var(--dc-frost);
   font-variant-numeric: lining-nums;
+  --gutter: clamp(16px, 4vw, 64px);
 }
+/* the page uses the whole screen on a desktop (Doruk, 4 and 5 Nov 2026): a fluid container, only running text keeps its measure */
+.decant .wrap { width: min(100% - 2 * var(--gutter), 2240px); max-width: none; }
 .decant h1, .decant h2, .decant .brand span, .dc-foot-brand { font-family: var(--serif); font-weight: 800; letter-spacing: -0.012em; }
 .decant h3 { font-family: var(--sans); font-weight: 700; letter-spacing: -0.005em; }
 .decant a { color: var(--dc-green); text-decoration-thickness: 1px; text-underline-offset: 2px; }
@@ -525,7 +528,7 @@ body.is-pro .dc-buy, body.is-pro #pro-note { display: none; }
 .dc-faq summary { font-weight: 700; cursor: pointer; }
 .dc-faq p { margin: 8px 0 0; }
 .dc-prose { padding-top: 10px; }
-.dc-prose > * { max-width: 800px; }
+.dc-body > *, .dc-guide-more > * { max-width: 800px; }
 .dc-prose p, .dc-prose li { max-width: 72ch; }
 .dc-cta { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; background: var(--dc-rose-soft); border: 1.5px solid var(--dc-rose); border-radius: 14px; padding: 16px 18px; margin: 22px 0; }
 .dc-cta span { font-size: 15px; color: #2a3a31; }
@@ -570,6 +573,70 @@ body.is-pro .dc-buy, body.is-pro #pro-note { display: none; }
   .dc-table caption { display: block; }
   .dc-hero h1 { font-size: clamp(27px, 8vw, 34px); }
 }
+
+/* ---------- the whole screen on a desktop (Doruk, 4 and 5 Nov 2026) ----------
+   From 1024 px a guide stands in columns (text at 72ch, contents and questions beside it); from 1180 px the first two steps
+   stand side by side and the third (the result) runs across under them; from 1280 px the hero picture grows, the result puts
+   the change list beside the reused passwords and the records in a grid, the how-to sits beside the questions.
+   Phones and tablets keep the single column. */
+.dc-toc, .dc-hero-card { display: none; }
+.dc-toc-title { font-weight: 700; font-size: 14.5px; color: var(--dc-ink); margin: 0 0 6px; }
+.dc-toc ol { list-style: none; margin: 0; padding: 0; border-left: 3px solid var(--dc-rose); }
+.dc-toc a { display: block; padding: 5px 0 5px 14px; font-size: 15px; line-height: 1.45; color: #2a3a31; text-decoration: none; }
+.dc-toc a:hover { color: var(--dc-green); text-decoration: underline; }
+@media (min-width: 1024px) {
+  .dc-hero-guide-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, .45fr); gap: clamp(32px, 4vw, 80px); align-items: center; }
+  .dc-hero-card { display: block; text-align: center; }
+  .dc-hero-card .dc-art { width: min(100%, clamp(240px, 18vw, 380px)); margin: 0 auto; }
+  .dc-hero-card p { margin: 14px 0 0; }
+  .dc-guide-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, .56fr); grid-template-rows: auto 1fr; column-gap: clamp(40px, 4vw, 80px); align-items: start; }
+  .dc-guide-grid > .dc-body { grid-column: 1; grid-row: 1 / span 2; }
+  .dc-guide-grid > .dc-toc { display: block; grid-column: 2; grid-row: 1; margin-top: 36px; padding: 16px 18px; background: var(--dc-card); border: 1px solid var(--dc-line); border-radius: 14px; }
+  .dc-guide-grid > .dc-guide-more { grid-column: 2; grid-row: 2; }
+  .dc-guide-more > * { max-width: none; }
+  .dc-guide-more .dc-faq details { max-width: none; }
+}
+@media (min-width: 1100px) {
+  .dc-how-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(40px, 4vw, 88px); align-items: start; }
+  .dc-how-side .dc-faq details { max-width: none; }
+}
+@media (min-width: 1180px) {
+  .dc-rail { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(24px, 2.4vw, 48px); }
+  #step-out { grid-column: 1 / -1; }
+  #step-pass::before { display: none; }
+  .dc-wait { max-width: none; }
+  .dc-pw { max-width: 600px; }
+}
+@media (min-width: 1280px) {
+  .dc-hero-in { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(36px, 4vw, 96px); }
+  .dc-art { width: min(100%, clamp(360px, 26vw, 540px)); }
+  .dc-result { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); column-gap: clamp(24px, 2.4vw, 48px); align-items: start; }
+  .dc-resbar, .dc-label, .dc-warn, .dc-save, .dc-browse, .dc-done { grid-column: 1 / -1; }
+  .dc-change { grid-column: 1; }
+  .dc-reuse { grid-column: 2; }
+  .dc-records { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
+  .dc-done ol { max-width: none; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px 40px; }
+}
+@media (min-width: 1600px) {
+  .dc-hero h1 { font-size: clamp(50px, 3.3vw, 68px); }
+  .dc-lede { font-size: 20px; }
+}
+@media (min-width: 1760px) {
+  .dc-guide-grid { grid-template-columns: minmax(220px, 280px) minmax(0, 1fr) minmax(380px, .9fr); grid-template-rows: auto; }
+  .dc-guide-grid > .dc-toc { grid-column: 1; grid-row: 1; position: sticky; top: 84px; }
+  .dc-guide-grid > .dc-body { grid-column: 2; grid-row: 1; }
+  .dc-guide-grid > .dc-guide-more { grid-column: 3; grid-row: 1; }
+  .dc-guide-more > .dc-faq:first-child h2 { margin-top: 36px; }
+}
+@media (min-width: 1280px) { .dc-reuse { position: sticky; top: 84px; } }
+/* the sections under the steps are laid out only when they come near the screen (a phone spends its first second on layout); the intrinsic sizes are the measured heights per width, so the page does not grow under the reader */
+.dc-how, .dc-foot { content-visibility: auto; }
+.dc-how { contain-intrinsic-size: auto 3300px; } .dc-foot { contain-intrinsic-size: auto 810px; }
+@media (min-width: 768px) { .dc-how { contain-intrinsic-size: auto 2000px; } .dc-foot { contain-intrinsic-size: auto 770px; } }
+@media (min-width: 1100px) { .dc-how { contain-intrinsic-size: auto 1400px; } .dc-foot { contain-intrinsic-size: auto 370px; } }
+@media (min-width: 1500px) { .dc-how { contain-intrinsic-size: auto 1150px; } .dc-foot { contain-intrinsic-size: auto 330px; } }
+/* the line that points to the sister tool */
+.dc-also { margin: 28px 0 0; font-size: 1.0625rem; line-height: 1.5; }
 </style>
 <script src="/assets/site.js" defer></script>
 <script src="/assets/license.js" defer></script>
@@ -797,6 +864,8 @@ body.is-pro .dc-buy, body.is-pro #pro-note { display: none; }
 <tr><th scope="row">KeePassXC</th><td>Bitwarden file (Pro)</td><td>Database &gt; Import, Bitwarden</td><td>Everything</td></tr>
 </tbody></table></div>
 
+<div class="dc-how-cols">
+<div class="dc-how-main">
 <h2>The order Decant uses to list your logins</h2>
 <ol class="dc-steps">
 <li><strong>E-mail and account recovery.</strong> Your inbox can reset almost every other password.</li>
@@ -813,7 +882,8 @@ body.is-pro .dc-buy, body.is-pro #pro-note { display: none; }
 <li>The password is held in memory while the file opens and the box is emptied after. Nothing from your file is stored. The change list keeps only a scrambled key per login you tick, in this browser.</li>
 <li>To check it yourself, open your browser’s network panel and then open a file: you will see no request.</li>
 </ul>
-
+</div>
+<div class="dc-how-side">
 <section class="dc-faq" aria-labelledby="faq-h"><h2 id="faq-h">Questions</h2>
 <details><summary>Is my .spass file or password uploaded anywhere?</summary><p>No. Decant decrypts the file inside this page and writes the new files in the same place. Its code makes no request with your file or your password, and you can load the page, switch off Wi-Fi and use it offline.</p></details>
 <details><summary>Which password does it ask for?</summary><p>The export password you typed in Samsung Pass when you exported. It is not your Samsung account password, not your screen lock and not stored in the file. If you lost it, the file cannot be opened; export again from Samsung Pass and write the new password down.</p></details>
@@ -824,6 +894,9 @@ body.is-pro .dc-buy, body.is-pro #pro-note { display: none; }
 <details><summary>Is Decant made by Samsung?</summary><p>No. Decant is an independent tool by Peak Apps Studio and has no connection to Samsung.</p></details>
 </section>
 <p class="dc-small">Decant is an independent tool made by Peak Apps Studio. It is not affiliated with Samsung, Apple, Google, Bitwarden, 1Password or Proton.<br>Checked November 5, 2026. Sources: <a href="https://github.com/0xdeb7ef/spass-manager">spass-manager</a>, <a href="https://github.com/misterpfister8/spasstocsv">spasstocsv</a>, <a href="https://github.com/ArifKobel/spass-decryptor">spass-decryptor</a> (the format of the file as four open-source decryptors read it); <a href="https://support.apple.com/guide/iphone/import-passwords-iph984b8ac1f/ios">Apple Support: Import passwords from another password manager into Passwords on iPhone</a>; <a href="https://support.google.com/chrome/answer/13068232">Google Chrome Help: Import passwords</a>.</p>
+</div>
+</div>
+<p class="dc-also">Moving from mSecure? <a href="/msecure-export/">Convert its CSV</a></p>
 </div>
 </section>
 </main>

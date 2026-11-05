@@ -352,7 +352,9 @@ body.utsushi {
 .utsushi :focus-visible { outline: 3px solid var(--shikon); outline-offset: 2px; }
 .ut-hero :focus-visible, .ut-foot :focus-visible { outline-color: #ffffff; box-shadow: 0 0 0 6px #1b1636; }
 .utsushi [tabindex="-1"]:focus { outline: none; }
-.utsushi .wrap { max-width: 1180px; }
+/* the page uses the whole screen on a desktop (Doruk, 4 and 5 Nov 2026): a fluid container, only running text keeps its measure */
+body.utsushi { --gutter: clamp(16px, 4vw, 64px); }
+.utsushi .wrap { width: min(100% - 2 * var(--gutter), 2240px); max-width: none; }
 .utsushi .crumbs { font-size: 14px; }
 .utsushi .lede { font-size: 19px; line-height: 1.8; color: var(--ink-2); max-width: 36em; margin: 16px 0 0; }
 .utsushi [hidden] { display: none !important; }
@@ -513,7 +515,7 @@ body.is-pro .ut-buy, body.is-pro #pro-note { display: none; }
 
 /* ---------- how, faq, guides ---------- */
 .ut-how { padding: 44px 0 56px; }
-.ut-how .wrap > h2 { margin-top: 30px; }
+.ut-how .wrap > h2, .ut-how-main > h2 { margin-top: 30px; }
 .ut-steps { padding-left: 1.4em; max-width: 46em; }
 .ut-steps li { margin: 10px 0; padding-left: 4px; }
 .ut-table-wrap { overflow-x: auto; max-width: 100%; margin: 14px 0 20px; }
@@ -530,13 +532,74 @@ body.is-pro .ut-buy, body.is-pro #pro-note { display: none; }
 .ut-faq summary { cursor: pointer; font-weight: 700; }
 .ut-faq details p { margin: 8px 0 0; }
 .ut-prose { padding-top: 30px; padding-bottom: 40px; }
-.ut-prose > * { max-width: 46em; }
+.ut-body > *, .ut-guide-more > * { max-width: 46em; }
 .ut-prose .ut-table-wrap { max-width: 56em; }
 .ut-prose h2 { margin-top: 38px; }
 .ut-prose ul { padding-left: 1.3em; }
 .ut-prose li { margin: 6px 0; }
 .ut-sources ul, .ut-related ul { padding-left: 1.2em; }
 .ut-sources li, .ut-related li { margin: 4px 0; overflow-wrap: anywhere; }
+
+/* ---------- the whole screen on a desktop (Doruk, 4 and 5 Nov 2026) ----------
+   At 1280 px and wider the hero, the panel, the result and the sections run across the screen: the picture grows with the
+   hero, the result puts the list beside the save boxes, the how-to sits beside the questions, and a guide stands in columns
+   (text at its 46em measure, contents and questions beside it). Phones and tablets keep the single column. */
+.ut-toc, .ut-hero-card { display: none; }
+.ut-toc-title { font-weight: 700; font-size: 15px; color: var(--ink); margin: 0 0 6px; }
+.ut-toc ol { list-style: none; margin: 0; padding: 0; border-left: 3px solid var(--moegi); }
+.ut-toc li { margin: 0; }
+.ut-toc a { display: block; padding: 5px 0 5px 14px; font-size: 15px; line-height: 1.55; color: var(--ink-2); text-decoration: none; }
+.ut-toc a:hover { color: var(--ink); text-decoration: underline; }
+@media (min-width: 1024px) {
+  .ut-hero-guide-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, .45fr); gap: clamp(32px, 4vw, 80px); align-items: center; }
+  .ut-hero-card { display: block; text-align: center; }
+  .ut-hero-card .ut-bundle { max-width: clamp(240px, 19vw, 400px); }
+  .ut-hero-card p { margin: 12px 0 0; }
+  .ut-guide-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, .56fr); grid-template-rows: auto 1fr; column-gap: clamp(40px, 4vw, 80px); align-items: start; }
+  .ut-guide-grid > .ut-body { grid-column: 1; grid-row: 1 / span 2; }
+  .ut-guide-grid > .ut-toc { display: block; grid-column: 2; grid-row: 1; margin-top: 38px; padding: 18px 20px; background: var(--moegi-soft); border-radius: 6px; }
+  .ut-guide-grid > .ut-guide-more { grid-column: 2; grid-row: 2; }
+  .ut-guide-more > * { max-width: none; }
+}
+@media (min-width: 1100px) {
+  .ut-how-in { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); column-gap: clamp(40px, 4vw, 88px); align-items: start; }
+  .ut-how-side .ut-faq { margin-top: 30px; max-width: none; }
+  .ut-how-note { grid-column: 1 / -1; }
+}
+@media (min-width: 1280px) {
+  .ut-hero-in { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(40px, 4vw, 96px); padding: 44px 0 52px; }
+  .ut-bundle { max-width: clamp(360px, 26vw, 560px); }
+  .ut-work { padding: 44px 0 56px; }
+  .ut-panel { padding: 34px clamp(30px, 2.4vw, 48px) 28px; }
+  .ut-way { padding-left: clamp(22px, 2vw, 40px); padding-right: clamp(22px, 2vw, 40px); }
+  .ut-result { display: grid; grid-template-columns: minmax(0, 1fr) minmax(380px, .5fr); column-gap: clamp(24px, 2.4vw, 48px); align-items: start; }
+  .ut-sitebar { grid-column: 1 / -1; }
+  .ut-browse { grid-column: 1; grid-row: 2; margin-top: 22px; }
+  .ut-save { grid-column: 2; grid-row: 2; grid-template-columns: 1fr; margin: 22px 0 0; }
+  .ut-thumbs { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+}
+@media (min-width: 1760px) {
+  .ut-guide-grid { grid-template-columns: minmax(220px, 280px) minmax(0, 1fr) minmax(380px, .9fr); grid-template-rows: auto; }
+  .ut-guide-grid > .ut-toc { grid-column: 1; grid-row: 1; position: sticky; top: 84px; margin-top: 38px; }
+  .ut-guide-grid > .ut-body { grid-column: 2; grid-row: 1; }
+  .ut-guide-grid > .ut-guide-more { grid-column: 3; grid-row: 1; }
+  .ut-guide-more .ut-faq { margin-top: 38px; }
+}
+.utsushi a.ut-btn, .utsushi a.ut-btn:hover { color: #ffffff; text-decoration: none; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .utsushi a.ut-btn, :root:not([data-theme="light"]) .utsushi a.ut-btn:hover { color: #14121c; } }
+:root[data-theme="dark"] .utsushi a.ut-btn, :root[data-theme="dark"] .utsushi a.ut-btn:hover { color: #14121c; }
+@media (min-width: 1600px) {
+  .ut-hero h1 { font-size: clamp(46px, 3vw, 64px); }
+  .ut-hero .lede { font-size: 21px; max-width: 38em; }
+}
+@media (min-width: 1280px) { .ut-save { position: sticky; top: 84px; } }
+@media (min-width: 1500px) { .ut-list { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 32px; } }
+/* the sections under the panel are laid out only when they come near the screen (a phone spends its first second on layout); the intrinsic sizes are the measured heights per width, so the page does not grow under the reader */
+.ut-how, .ut-foot { content-visibility: auto; }
+.ut-how { contain-intrinsic-size: auto 1800px; } .ut-foot { contain-intrinsic-size: auto 730px; }
+@media (min-width: 768px) { .ut-how { contain-intrinsic-size: auto 1480px; } .ut-foot { contain-intrinsic-size: auto 490px; } }
+@media (min-width: 1100px) { .ut-how { contain-intrinsic-size: auto 1050px; } .ut-foot { contain-intrinsic-size: auto 400px; } }
+@media (min-width: 1500px) { .ut-how { contain-intrinsic-size: auto 960px; } .ut-foot { contain-intrinsic-size: auto 300px; } }
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Ameba Ownd の独自ドメインを新しいサイトに移す","description":"Ameba Ownd で独自ドメインを使っている人は、12月24日 11:00 までに CNAME（custom-domain.amebaowndme.com）を移行先の設定に変えます。順番、注意点、記事のアドレスを保つ方法。","inLanguage":"ja","datePublished":"2026-11-05","dateModified":"2026-11-05","mainEntityOfPage":"https://peakappsstudio.com/ameba-ownd-export/dokuji-domain/","image":"https://peakappsstudio.com/ameba-ownd-export/img/og.png","author":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ツール","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Ameba Ownd の保存","item":"https://peakappsstudio.com/ameba-ownd-export/"},{"@type":"ListItem","position":3,"name":"独自ドメイン","item":"https://peakappsstudio.com/ameba-ownd-export/dokuji-domain/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Ameba Ownd の独自ドメインはどうすればいいですか？","acceptedAnswer":{"@type":"Answer","text":"2026年12月24日 11:00 までに、ドメイン管理会社で CNAME レコード（VALUE は custom-domain.amebaowndme.com）を、移行先のサービスが指定する値に変えます。移行先の準備ができてから変えると、表示されない時間が短くなります。"}},{"@type":"Question","name":"Ameba Ownd 側で解除する必要はありますか？","acceptedAnswer":{"@type":"Answer","text":"ありません。運営のヘルプでは、Ameba Ownd 側での独自ドメインの解除操作は不要とされています。"}},{"@type":"Question","name":"メールに影響はありますか？","acceptedAnswer":{"@type":"Answer","text":"MX レコードなどメールの設定を変えなければ影響はありません。変えるのは Ameba Ownd 用の CNAME だけです。"}},{"@type":"Question","name":"記事のアドレスを変えずに移せますか？","acceptedAnswer":{"@type":"Answer","text":"WordPress に移す場合、パーマリンクを /posts/%post_id%/ にすると、記事のアドレスは Ameba Ownd と同じになります。ページのアドレスは転送設定で新しいページへ送ります。"}}]}]}
@@ -564,15 +627,30 @@ body.is-pro .ut-buy, body.is-pro #pro-note { display: none; }
 </header>
 <main id="main">
 <section class="ut-hero ut-hero-guide" aria-labelledby="h1">
-<div class="wrap">
+<div class="wrap ut-hero-guide-in">
+<div class="ut-hero-text">
 <nav class="crumbs" aria-label="パンくずリスト"><ol><li><a href="/tools/">ツール</a></li><li><a href="/ameba-ownd-export/">Ameba Ownd の保存</a></li><li aria-current="page">独自ドメイン</li></ol></nav>
 <h1 id="h1">Ameba Ownd の独自ドメインを新しいサイトに移す</h1>
 <p class="lede">Ameba Ownd で独自ドメインを使っている場合、2026年12月24日（木）11:00 までに、ドメイン管理会社で DNS の設定を変えます。そうしないと、終了後はそのドメインでサイトが表示されなくなります。</p>
 <p class="ut-small ut-checked">確認日: 2026年11月5日</p>
 </div>
+<div class="ut-hero-card"><svg class="ut-bundle" viewBox="0 0 360 300" role="img" aria-labelledby="bundle-t"><title id="bundle-t">記事とページを包んだ風呂敷</title>
+<g transform="translate(180 176)">
+<rect x="-88" y="-92" width="108" height="132" rx="6" fill="#ffffff" stroke="#2e2350" stroke-width="2" transform="rotate(-10)"/>
+<rect x="-24" y="-98" width="108" height="132" rx="6" fill="#ffffff" stroke="#2e2350" stroke-width="2" transform="rotate(8)"/>
+<g fill="none" stroke="#2e2350" stroke-width="3" stroke-linecap="round" opacity=".5" transform="rotate(8)"><path d="M-6 -72h64M-6 -56h52M-6 -40h58"/></g>
+<path d="M-128 96C-136 34-104-14-58-24h116c46 10 78 58 70 120-1 9-8 16-17 16H-111c-9 0-16-7-17-16z" fill="#2e2350"/>
+<g fill="none" stroke="#a8c95a" stroke-width="2.5" stroke-linecap="round" opacity=".55"><path d="M-92 26c30 18 64 26 92 26s62-8 92-26"/><path d="M-60-16c10 36 30 60 60 70M60-16c-10 36-30 60-60 70"/></g>
+<path d="M-8-26C-30-64-68-82-104-80c10 30 46 54 88 62zM8-26C30-64 68-82 104-80c-10 30-46 54-88 62z" fill="#3d3168" stroke="#a8c95a" stroke-width="2"/>
+<rect x="-22" y="-38" width="44" height="26" rx="12" fill="#3d3168" stroke="#a8c95a" stroke-width="2"/>
+<g transform="translate(70 70) rotate(-6)"><rect x="-21" y="-21" width="42" height="42" rx="5" fill="#b2361a"/><text x="0" y="10" text-anchor="middle" fill="#ffffff" font-size="28" class="ut-seal-text">写</text></g>
+</g></svg><p><a class="ut-btn" href="/ameba-ownd-export/">Ameba Ownd のサイトを保存する</a></p></div>
+</div>
 </section>
-<article class="wrap ut-prose">
-<h2>変えるのは1か所</h2>
+<article class="wrap ut-prose ut-guide-grid">
+<nav class="ut-toc" aria-label="目次"><p class="ut-toc-title">目次</p><ol><li><a href="#sec-1">変えるのは1か所</a></li><li><a href="#sec-2">順番</a></li><li><a href="#sec-3">気をつけること</a></li><li><a href="#sec-4">amebaownd.com のアドレスだった人</a></li><li><a href="#faq-h">よくある質問</a></li></ol></nav>
+<div class="ut-body">
+<h2 id="sec-1">変えるのは1か所</h2>
 <p>Ameba Ownd の独自ドメインは、ドメイン管理会社の DNS に次の CNAME レコードを登録して使っていました（運営のヘルプより）。</p>
 <div class="ut-table-wrap"><table class="ut-table">
 <caption>Ameba Ownd 用に登録した DNS レコード（help.amebaownd.com/posts/875）</caption>
@@ -581,7 +659,7 @@ body.is-pro .ut-buy, body.is-pro #pro-note { display: none; }
 </table></div>
 <p>このレコードを、移行先のサービスが指定する内容（CNAME や A レコード）に変えます。Ameba Ownd 側で独自ドメインを解除する操作は要りません。</p>
 
-<h2>順番</h2>
+<h2 id="sec-2">順番</h2>
 <ol class="ut-steps">
 <li><strong>移行先のサイトを先に作る。</strong>記事とページを入れ、表示を確かめます。WordPress なら<a href="/ameba-ownd-export/wordpress-iko/">WordPress へ移行する手順</a>のとおりです。</li>
 <li><strong>移行先にドメインを登録する。</strong>レンタルサーバーなら「ドメイン設定」などで同じドメイン（www つき）を追加し、無料 SSL も設定します。移行先が案内する DNS の値を控えます。</li>
@@ -590,7 +668,7 @@ body.is-pro .ut-buy, body.is-pro #pro-note { display: none; }
 <li><strong>古いアドレスを転送する。</strong>WordPress でパーマリンクを <code>/posts/%post_id%/</code> にすると記事のアドレスはそのままです。ページ（/pages/番号/…）は Utsushi Pro の htaccess.txt の転送設定で新しいページへ送れます。</li>
 </ol>
 
-<h2>気をつけること</h2>
+<h2 id="sec-3">気をつけること</h2>
 <ul>
 <li>同じドメインでメールを使っている場合、MX レコードなどメールの設定は変えたり消したりしません。</li>
 <li>Amebaブログは独自ドメインに対応していません。独自ドメインを使い続けるなら、WordPress など独自ドメインを使えるサービスを選びます。</li>
@@ -599,9 +677,11 @@ body.is-pro .ut-buy, body.is-pro #pro-note { display: none; }
 <li>11月2日以降、Ameba Ownd で新しく独自ドメインを設定することはできません。</li>
 </ul>
 
-<h2>amebaownd.com のアドレスだった人</h2>
+<h2 id="sec-4">amebaownd.com のアドレスだった人</h2>
 <p>サイトのアドレスが amebaownd.com（themedia.jp、shopinfo.jp なども同じ）のままだった場合、そのアドレスは運営のものなので、終了後に新しいサイトへ転送することはできません。今は旧サイトの編集もできないため、新しいアドレスは SNS や Google ビジネス プロフィールなど、ほかの場所で知らせます。</p>
 <div class="ut-cta"><p><strong>終了前に、今の内容を保存しておく。</strong>Utsushi はサイトのアドレスを入れるだけで新しい記事30件を読み込み、ブックマーク1つで全記事とページを集めます。WordPress 用ファイルは無料です。</p><p><a class="ut-btn" href="/ameba-ownd-export/">Utsushi でサイトを保存する</a></p><p class="ut-small">サイト丸ごと（全記事の WordPress ファイル、画像すべて、ネットなしで開ける写し、転送設定）は Utsushi Pro、8ドル（買い切り）です。</p></div>
+</div>
+<div class="ut-guide-more">
 <section class="ut-faq" aria-labelledby="faq-h"><h2 id="faq-h">よくある質問</h2>
 <details><summary>Ameba Ownd の独自ドメインはどうすればいいですか？</summary><p>2026年12月24日 11:00 までに、ドメイン管理会社で CNAME レコード（VALUE は custom-domain.amebaowndme.com）を、移行先のサービスが指定する値に変えます。移行先の準備ができてから変えると、表示されない時間が短くなります。</p></details>
 <details><summary>Ameba Ownd 側で解除する必要はありますか？</summary><p>ありません。運営のヘルプでは、Ameba Ownd 側での独自ドメインの解除操作は不要とされています。</p></details>
@@ -619,6 +699,7 @@ body.is-pro .ut-buy, body.is-pro #pro-note { display: none; }
 <li><a href="/ameba-ownd-export/export/">Ameba Ownd のエクスポート：公開前でも記事と画像を保存する方法</a></li>
 <li><a href="/ameba-ownd-export/wordpress-iko/">Ameba Ownd から WordPress へ移行する手順</a></li>
 </ul></nav>
+</div>
 </article>
 </main>
 <footer class="site-foot ut-foot" id="guides">

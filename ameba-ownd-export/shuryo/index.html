@@ -352,7 +352,9 @@ body.utsushi {
 .utsushi :focus-visible { outline: 3px solid var(--shikon); outline-offset: 2px; }
 .ut-hero :focus-visible, .ut-foot :focus-visible { outline-color: #ffffff; box-shadow: 0 0 0 6px #1b1636; }
 .utsushi [tabindex="-1"]:focus { outline: none; }
-.utsushi .wrap { max-width: 1180px; }
+/* the page uses the whole screen on a desktop (Doruk, 4 and 5 Nov 2026): a fluid container, only running text keeps its measure */
+body.utsushi { --gutter: clamp(16px, 4vw, 64px); }
+.utsushi .wrap { width: min(100% - 2 * var(--gutter), 2240px); max-width: none; }
 .utsushi .crumbs { font-size: 14px; }
 .utsushi .lede { font-size: 19px; line-height: 1.8; color: var(--ink-2); max-width: 36em; margin: 16px 0 0; }
 .utsushi [hidden] { display: none !important; }
@@ -513,7 +515,7 @@ body.is-pro .ut-buy, body.is-pro #pro-note { display: none; }
 
 /* ---------- how, faq, guides ---------- */
 .ut-how { padding: 44px 0 56px; }
-.ut-how .wrap > h2 { margin-top: 30px; }
+.ut-how .wrap > h2, .ut-how-main > h2 { margin-top: 30px; }
 .ut-steps { padding-left: 1.4em; max-width: 46em; }
 .ut-steps li { margin: 10px 0; padding-left: 4px; }
 .ut-table-wrap { overflow-x: auto; max-width: 100%; margin: 14px 0 20px; }
@@ -530,13 +532,74 @@ body.is-pro .ut-buy, body.is-pro #pro-note { display: none; }
 .ut-faq summary { cursor: pointer; font-weight: 700; }
 .ut-faq details p { margin: 8px 0 0; }
 .ut-prose { padding-top: 30px; padding-bottom: 40px; }
-.ut-prose > * { max-width: 46em; }
+.ut-body > *, .ut-guide-more > * { max-width: 46em; }
 .ut-prose .ut-table-wrap { max-width: 56em; }
 .ut-prose h2 { margin-top: 38px; }
 .ut-prose ul { padding-left: 1.3em; }
 .ut-prose li { margin: 6px 0; }
 .ut-sources ul, .ut-related ul { padding-left: 1.2em; }
 .ut-sources li, .ut-related li { margin: 4px 0; overflow-wrap: anywhere; }
+
+/* ---------- the whole screen on a desktop (Doruk, 4 and 5 Nov 2026) ----------
+   At 1280 px and wider the hero, the panel, the result and the sections run across the screen: the picture grows with the
+   hero, the result puts the list beside the save boxes, the how-to sits beside the questions, and a guide stands in columns
+   (text at its 46em measure, contents and questions beside it). Phones and tablets keep the single column. */
+.ut-toc, .ut-hero-card { display: none; }
+.ut-toc-title { font-weight: 700; font-size: 15px; color: var(--ink); margin: 0 0 6px; }
+.ut-toc ol { list-style: none; margin: 0; padding: 0; border-left: 3px solid var(--moegi); }
+.ut-toc li { margin: 0; }
+.ut-toc a { display: block; padding: 5px 0 5px 14px; font-size: 15px; line-height: 1.55; color: var(--ink-2); text-decoration: none; }
+.ut-toc a:hover { color: var(--ink); text-decoration: underline; }
+@media (min-width: 1024px) {
+  .ut-hero-guide-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, .45fr); gap: clamp(32px, 4vw, 80px); align-items: center; }
+  .ut-hero-card { display: block; text-align: center; }
+  .ut-hero-card .ut-bundle { max-width: clamp(240px, 19vw, 400px); }
+  .ut-hero-card p { margin: 12px 0 0; }
+  .ut-guide-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, .56fr); grid-template-rows: auto 1fr; column-gap: clamp(40px, 4vw, 80px); align-items: start; }
+  .ut-guide-grid > .ut-body { grid-column: 1; grid-row: 1 / span 2; }
+  .ut-guide-grid > .ut-toc { display: block; grid-column: 2; grid-row: 1; margin-top: 38px; padding: 18px 20px; background: var(--moegi-soft); border-radius: 6px; }
+  .ut-guide-grid > .ut-guide-more { grid-column: 2; grid-row: 2; }
+  .ut-guide-more > * { max-width: none; }
+}
+@media (min-width: 1100px) {
+  .ut-how-in { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); column-gap: clamp(40px, 4vw, 88px); align-items: start; }
+  .ut-how-side .ut-faq { margin-top: 30px; max-width: none; }
+  .ut-how-note { grid-column: 1 / -1; }
+}
+@media (min-width: 1280px) {
+  .ut-hero-in { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(40px, 4vw, 96px); padding: 44px 0 52px; }
+  .ut-bundle { max-width: clamp(360px, 26vw, 560px); }
+  .ut-work { padding: 44px 0 56px; }
+  .ut-panel { padding: 34px clamp(30px, 2.4vw, 48px) 28px; }
+  .ut-way { padding-left: clamp(22px, 2vw, 40px); padding-right: clamp(22px, 2vw, 40px); }
+  .ut-result { display: grid; grid-template-columns: minmax(0, 1fr) minmax(380px, .5fr); column-gap: clamp(24px, 2.4vw, 48px); align-items: start; }
+  .ut-sitebar { grid-column: 1 / -1; }
+  .ut-browse { grid-column: 1; grid-row: 2; margin-top: 22px; }
+  .ut-save { grid-column: 2; grid-row: 2; grid-template-columns: 1fr; margin: 22px 0 0; }
+  .ut-thumbs { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+}
+@media (min-width: 1760px) {
+  .ut-guide-grid { grid-template-columns: minmax(220px, 280px) minmax(0, 1fr) minmax(380px, .9fr); grid-template-rows: auto; }
+  .ut-guide-grid > .ut-toc { grid-column: 1; grid-row: 1; position: sticky; top: 84px; margin-top: 38px; }
+  .ut-guide-grid > .ut-body { grid-column: 2; grid-row: 1; }
+  .ut-guide-grid > .ut-guide-more { grid-column: 3; grid-row: 1; }
+  .ut-guide-more .ut-faq { margin-top: 38px; }
+}
+.utsushi a.ut-btn, .utsushi a.ut-btn:hover { color: #ffffff; text-decoration: none; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .utsushi a.ut-btn, :root:not([data-theme="light"]) .utsushi a.ut-btn:hover { color: #14121c; } }
+:root[data-theme="dark"] .utsushi a.ut-btn, :root[data-theme="dark"] .utsushi a.ut-btn:hover { color: #14121c; }
+@media (min-width: 1600px) {
+  .ut-hero h1 { font-size: clamp(46px, 3vw, 64px); }
+  .ut-hero .lede { font-size: 21px; max-width: 38em; }
+}
+@media (min-width: 1280px) { .ut-save { position: sticky; top: 84px; } }
+@media (min-width: 1500px) { .ut-list { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 32px; } }
+/* the sections under the panel are laid out only when they come near the screen (a phone spends its first second on layout); the intrinsic sizes are the measured heights per width, so the page does not grow under the reader */
+.ut-how, .ut-foot { content-visibility: auto; }
+.ut-how { contain-intrinsic-size: auto 1800px; } .ut-foot { contain-intrinsic-size: auto 730px; }
+@media (min-width: 768px) { .ut-how { contain-intrinsic-size: auto 1480px; } .ut-foot { contain-intrinsic-size: auto 490px; } }
+@media (min-width: 1100px) { .ut-how { contain-intrinsic-size: auto 1050px; } .ut-foot { contain-intrinsic-size: auto 400px; } }
+@media (min-width: 1500px) { .ut-how { contain-intrinsic-size: auto 960px; } .ut-foot { contain-intrinsic-size: auto 300px; } }
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Ameba Ownd のサービス終了：いつまでに、何をするか","description":"Ameba Ownd は2026年12月24日（木）11:00 に終了します。11月2日からは閲覧のみ、エクスポートは11月中に提供予定。公式の発表をもとに、日付と今やることを整理しました。","inLanguage":"ja","datePublished":"2026-11-05","dateModified":"2026-11-05","mainEntityOfPage":"https://peakappsstudio.com/ameba-ownd-export/shuryo/","image":"https://peakappsstudio.com/ameba-ownd-export/img/og.png","author":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"},"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ツール","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Ameba Ownd の保存","item":"https://peakappsstudio.com/ameba-ownd-export/"},{"@type":"ListItem","position":3,"name":"いつまで","item":"https://peakappsstudio.com/ameba-ownd-export/shuryo/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Ameba Ownd はいつまで見られますか？","acceptedAnswer":{"@type":"Answer","text":"2026年12月24日（木）11:00 までです。それ以降はサイトの閲覧もエクスポートもできず、データの復元もできないと運営は発表しています。11月5日の時点で、移行期間の延長が検討されています。"}},{"@type":"Question","name":"今は記事を更新できますか？","acceptedAnswer":{"@type":"Answer","text":"できません。11月2日 13:00 からは閲覧のみで、記事やページの投稿・更新は止められています。旧サイトに新しいアドレスを書いて知らせることも、今はできません。"}},{"@type":"Question","name":"amebaownd.com のアドレスは新しいサイトに引き継げますか？","acceptedAnswer":{"@type":"Answer","text":"引き継げません。amebaownd.com などのアドレスは運営のドメインなので、終了後に転送することもできません。独自ドメインを使っている場合は、DNS を変えれば同じアドレスで新しいサイトを公開できます。"}},{"@type":"Question","name":"プレミアムプランの返金は申し込みが必要ですか？","acceptedAnswer":{"@type":"Answer","text":"不要です。運営がプレミアムプランを解約し、12月中に支払ったクレジットカードへ返金します。カードの期限切れなどで返金できない場合は、個別に案内があるとされています。"}}]}]}
@@ -564,15 +627,30 @@ body.is-pro .ut-buy, body.is-pro #pro-note { display: none; }
 </header>
 <main id="main">
 <section class="ut-hero ut-hero-guide" aria-labelledby="h1">
-<div class="wrap">
+<div class="wrap ut-hero-guide-in">
+<div class="ut-hero-text">
 <nav class="crumbs" aria-label="パンくずリスト"><ol><li><a href="/tools/">ツール</a></li><li><a href="/ameba-ownd-export/">Ameba Ownd の保存</a></li><li aria-current="page">いつまで</li></ol></nav>
 <h1 id="h1">Ameba Ownd のサービス終了：いつまでに、何をするか</h1>
 <p class="lede">Ameba Ownd は2026年12月24日（木）11:00 にサービスを終了します。その後はサイトの閲覧も書き出しもできず、データの復元もできません。運営の発表（11月2日と5日）をもとに、日付と、今のうちにやることをまとめました。</p>
 <p class="ut-small ut-checked">確認日: 2026年11月5日</p>
 </div>
+<div class="ut-hero-card"><svg class="ut-bundle" viewBox="0 0 360 300" role="img" aria-labelledby="bundle-t"><title id="bundle-t">記事とページを包んだ風呂敷</title>
+<g transform="translate(180 176)">
+<rect x="-88" y="-92" width="108" height="132" rx="6" fill="#ffffff" stroke="#2e2350" stroke-width="2" transform="rotate(-10)"/>
+<rect x="-24" y="-98" width="108" height="132" rx="6" fill="#ffffff" stroke="#2e2350" stroke-width="2" transform="rotate(8)"/>
+<g fill="none" stroke="#2e2350" stroke-width="3" stroke-linecap="round" opacity=".5" transform="rotate(8)"><path d="M-6 -72h64M-6 -56h52M-6 -40h58"/></g>
+<path d="M-128 96C-136 34-104-14-58-24h116c46 10 78 58 70 120-1 9-8 16-17 16H-111c-9 0-16-7-17-16z" fill="#2e2350"/>
+<g fill="none" stroke="#a8c95a" stroke-width="2.5" stroke-linecap="round" opacity=".55"><path d="M-92 26c30 18 64 26 92 26s62-8 92-26"/><path d="M-60-16c10 36 30 60 60 70M60-16c-10 36-30 60-60 70"/></g>
+<path d="M-8-26C-30-64-68-82-104-80c10 30 46 54 88 62zM8-26C30-64 68-82 104-80c-10 30-46 54-88 62z" fill="#3d3168" stroke="#a8c95a" stroke-width="2"/>
+<rect x="-22" y="-38" width="44" height="26" rx="12" fill="#3d3168" stroke="#a8c95a" stroke-width="2"/>
+<g transform="translate(70 70) rotate(-6)"><rect x="-21" y="-21" width="42" height="42" rx="5" fill="#b2361a"/><text x="0" y="10" text-anchor="middle" fill="#ffffff" font-size="28" class="ut-seal-text">写</text></g>
+</g></svg><p><a class="ut-btn" href="/ameba-ownd-export/">Ameba Ownd のサイトを保存する</a></p></div>
+</div>
 </section>
-<article class="wrap ut-prose">
-<h2>決まっている日付</h2>
+<article class="wrap ut-prose ut-guide-grid">
+<nav class="ut-toc" aria-label="目次"><p class="ut-toc-title">目次</p><ol><li><a href="#sec-1">決まっている日付</a></li><li><a href="#sec-2">今やること</a></li><li><a href="#sec-3">なぜ終わるのか</a></li><li><a href="#faq-h">よくある質問</a></li></ol></nav>
+<div class="ut-body">
+<h2 id="sec-1">決まっている日付</h2>
 <div class="ut-table-wrap"><table class="ut-table">
 <caption>Ameba Ownd の終了までの予定（運営の発表、2026年11月5日確認）</caption>
 <thead><tr><th scope="col">日時</th><th scope="col">内容</th></tr></thead>
@@ -585,7 +663,7 @@ body.is-pro .ut-buy, body.is-pro #pro-note { display: none; }
 </tbody></table></div>
 <p>11月5日の説明では、運営は<strong>移行期間の延長を検討中</strong>としています。延長が決まっても、上の日付で準備しておけば間に合います。</p>
 
-<h2>今やること</h2>
+<h2 id="sec-2">今やること</h2>
 <ol class="ut-steps">
 <li><strong>今の内容を保存する。</strong>投稿も編集もできない状態のまま終了日が来ます。公式のエクスポートは「11月中」で日付が決まっていないため、先に記事と画像を手元に置いておくと安心です。方法は<a href="/ameba-ownd-export/export/">エクスポートを待たずに保存する方法</a>にまとめました。</li>
 <li><strong>移行先を決める。</strong>運営が挙げている移行先は Amebaブログと WordPress です。独自ドメインを使い続けたい場合、Amebaブログは独自ドメインに対応していないため、WordPress などを選びます。WordPress への手順は<a href="/ameba-ownd-export/wordpress-iko/">WordPress へ移行する手順</a>にあります。</li>
@@ -594,9 +672,11 @@ body.is-pro .ut-buy, body.is-pro #pro-note { display: none; }
 <li><strong>返金は待つだけ。</strong>月間プランは10月1日以降の支払いを全額、年間プランは条件に応じて全額か月割りで、12月中に支払ったカードへ返金されます。</li>
 </ol>
 
-<h2>なぜ終わるのか</h2>
+<h2 id="sec-3">なぜ終わるのか</h2>
 <p>運営の説明では、10月22日に対応が必要な脆弱性が見つかり、長期にわたって安全性を保ちながら提供を続けるのは難しいと判断した、とされています。同じ説明で、この脆弱性を使った不正アクセスや個人情報の流出は「現時点で確認されていない」こと、Amebaブログなど他の Ameba のサービスは別のシステムで動いていることも書かれています。</p>
 <div class="ut-cta"><p><strong>終了前に、今の内容を保存しておく。</strong>Utsushi はサイトのアドレスを入れるだけで新しい記事30件を読み込み、ブックマーク1つで全記事とページを集めます。WordPress 用ファイルは無料です。</p><p><a class="ut-btn" href="/ameba-ownd-export/">Utsushi でサイトを保存する</a></p><p class="ut-small">サイト丸ごと（全記事の WordPress ファイル、画像すべて、ネットなしで開ける写し、転送設定）は Utsushi Pro、8ドル（買い切り）です。</p></div>
+</div>
+<div class="ut-guide-more">
 <section class="ut-faq" aria-labelledby="faq-h"><h2 id="faq-h">よくある質問</h2>
 <details><summary>Ameba Ownd はいつまで見られますか？</summary><p>2026年12月24日（木）11:00 までです。それ以降はサイトの閲覧もエクスポートもできず、データの復元もできないと運営は発表しています。11月5日の時点で、移行期間の延長が検討されています。</p></details>
 <details><summary>今は記事を更新できますか？</summary><p>できません。11月2日 13:00 からは閲覧のみで、記事やページの投稿・更新は止められています。旧サイトに新しいアドレスを書いて知らせることも、今はできません。</p></details>
@@ -615,6 +695,7 @@ body.is-pro .ut-buy, body.is-pro #pro-note { display: none; }
 <li><a href="/ameba-ownd-export/wordpress-iko/">Ameba Ownd から WordPress へ移行する手順</a></li>
 <li><a href="/ameba-ownd-export/dokuji-domain/">Ameba Ownd の独自ドメインを新しいサイトに移す</a></li>
 </ul></nav>
+</div>
 </article>
 </main>
 <footer class="site-foot ut-foot" id="guides">
