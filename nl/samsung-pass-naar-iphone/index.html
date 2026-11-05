@@ -1,0 +1,850 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com https://cdn.paddle.com; style-src 'self' 'unsafe-inline' https://cdn.paddle.com; img-src 'self' data: blob: https://*.paddle.com; font-src 'self'; connect-src https://cloudflareinsights.com https://peak-funnel.railer-iot.workers.dev https://peak-pay.railer-iot.workers.dev https://*.paddle.com; object-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'; frame-src https://buy.paddle.com">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="peak-checkout" content="direct">
+<title>Samsung Pass-wachtwoorden overzetten naar iPhone: .spass openen</title>
+<meta name="description" content="Open een Samsung Pass-export (.spass) in je browser met het exportwachtwoord en bewaar een CSV voor Apple Wachtwoorden, Google of Bitwarden. Niets wordt geüpload.">
+<link rel="canonical" href="https://peakappsstudio.com/nl/samsung-pass-naar-iphone/">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/spass-to-csv/">
+<link rel="alternate" hreflang="de" href="https://peakappsstudio.com/de/spass-datei-in-csv-umwandeln/">
+<link rel="alternate" hreflang="nl" href="https://peakappsstudio.com/nl/samsung-pass-naar-iphone/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/spass-to-csv/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="Samsung Pass-wachtwoorden overzetten naar iPhone: .spass openen">
+<meta property="og:description" content="Open een Samsung Pass-export (.spass) in je browser met het exportwachtwoord en bewaar een CSV voor Apple Wachtwoorden, Google of Bitwarden. Niets wordt geüpload.">
+<meta property="og:url" content="https://peakappsstudio.com/nl/samsung-pass-naar-iphone/">
+<meta property="og:image" content="https://peakappsstudio.com/spass-to-csv/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Een glazen karaf die rosé in een glas schenkt, met drie labels aan de hals: Apple Wachtwoorden, Google en Bitwarden, naast de naam Decant.">
+<meta property="og:locale" content="nl_NL">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0f4d3a">
+<link rel="icon" href="/spass-to-csv/img/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/spass-to-csv/fonts/decant-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/spass-to-csv/fonts/decant-text.woff2" as="font" type="font/woff2" crossorigin>
+<style data-from="/assets/tools.css">
+/* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
+
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e1;
+  --card: #fbfaf7;
+  --ink: #141518;
+  --ink-2: #33363d;
+  --muted: #676b74;
+  --line: rgba(20, 21, 24, 0.12);
+  --line-2: rgba(20, 21, 24, 0.22);
+  --accent: #1f5c4d;          /* each tool overrides this on <body style="--accent:..."> */
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  --warn: #9a4a12;
+  --ok: #2c6a3f;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+    --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+  --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; }
+img { display: block; height: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 10px; z-index: 100; background: var(--ink); color: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 10px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-head { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand-sub { font-family: var(--sans); font-size: 14.5px; letter-spacing: 0; color: var(--muted); font-weight: 500; padding-left: 10px; border-left: 1px solid var(--line-2); }
+.head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
+.head-nav a:hover { background: var(--paper-2); color: var(--ink); }
+.head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
+@media (max-width: 640px) { .brand-sub { display: none; } }
+@media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
+
+/* ---------- Type ---------- */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+h1 { font-size: clamp(32px, 4.6vw, 54px); }
+h1 em, h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 19px; letter-spacing: -0.01em; }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; margin: 16px 0 0; }
+.mono { font-family: var(--mono); }
+.muted { color: var(--muted); }
+small, .small { font-size: 13.5px; }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 22px 0 0; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-2); }
+.crumbs a { text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.tool-hero { padding: 28px 0 24px; display: grid; gap: 8px; }
+.tool-hero .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.tool-hero .facts li { display: inline-flex; align-items: center; gap: 8px; }
+.tool-hero .facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Tool shell ---------- */
+.tool { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.tool-panel { padding: 22px; border-right: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.tool-stage { position: relative; min-height: 460px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper); display: grid; place-items: center; padding: 22px; }
+.tool-stage canvas, .tool-stage svg, .tool-stage img { max-height: 70vh; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px -12px rgba(0,0,0,.18); background: #fff; }
+.stage-bar { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.tool-foot { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 14px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--paper); }
+.tool-foot .spacer { flex: 1; }
+@media (max-width: 860px) {
+  .tool { grid-template-columns: 1fr; }
+  .tool-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tool-stage { min-height: 320px; }
+}
+
+/* ---------- Form controls ---------- */
+.group { display: grid; gap: 10px; }
+.group-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > label { font-size: 13px; color: var(--ink-2); }
+.input, .select { width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 8px; padding: 9px 11px; transition: border-color .15s, box-shadow .15s; }
+.input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input-unit { position: relative; }
+.input-unit .input { padding-right: 38px; font-family: var(--mono); font-size: 14.5px; }
+.input-unit i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 3px; flex: none; }
+.seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line-2); border-radius: 9px; padding: 3px; gap: 3px; background: var(--paper); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.warn { font-size: 13.5px; color: var(--warn); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.btn { --b: var(--line-2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 500; line-height: 1; padding: 11px 16px; border-radius: 9px; border: 1px solid var(--b); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; transition: transform .15s var(--ease), background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklab, var(--accent) 86%, #000); color: var(--accent-ink); border-color: transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-ink:hover { color: var(--paper); background: var(--ink-2); }
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.pro-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: var(--ink); color: var(--paper); }
+
+/* ---------- Drop zone ---------- */
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 18px 14px; background: var(--paper); cursor: pointer; transition: border-color .15s, background .15s; font-size: 14.5px; }
+.drop:hover, .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Content ---------- */
+.section { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prose { max-width: 70ch; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose h2 { margin: 1.6em 0 .5em; }
+.prose h3 { margin: 1.4em 0 .4em; }
+.prose code, .prose kbd { font-family: var(--mono); font-size: .9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+.two-col > * { min-width: 0; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: 3px; }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 13px; background: var(--paper); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 15px; }
+.source { font-size: 13px; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--line-2); margin-top: 18px; }
+.faq details { border-bottom: 1px solid var(--line-2); }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 13px; font-family: var(--mono); font-size: 18px; color: var(--muted); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 18px; color: var(--ink-2); max-width: 70ch; }
+
+/* ---------- Pro ---------- */
+.pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--card); }
+.pro-left { padding: clamp(22px, 3vw, 36px); }
+.pro-right { padding: clamp(22px, 3vw, 36px); background: var(--ink); color: var(--paper); display: grid; align-content: center; gap: 14px; }
+.pro-right .price { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pro-right .price small { font-size: 15px; font-weight: 400; color: color-mix(in oklab, var(--paper) 70%, transparent); letter-spacing: 0; }
+.pro-right .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.pro-right .btn-primary:hover { background: #fff; color: var(--ink); }
+.pro-right .fine { font-size: 13px; color: color-mix(in oklab, var(--paper) 65%, transparent); margin: 0; }
+.pro-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.pro-list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.pro-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border: 1.5px solid var(--accent); border-radius: 2px; transform: rotate(45deg); }
+@media (max-width: 760px) { .pro { grid-template-columns: 1fr; } }
+
+/* ---------- A real file, shown ---------- */
+.shot { margin: 22px 0 0; }
+.shot img { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; }
+.shot figcaption { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+.shot figcaption strong { font-weight: 600; color: var(--ink-2); }
+.shot-sm { max-width: 920px; }
+
+/* ---------- Where free stops and Pro starts ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; margin: 26px 0 0; background: var(--card); }
+.split > div { padding: 18px 20px 20px; }
+.split > div + div { border-left: 1px solid var(--line-2); background: var(--accent-soft); }
+.split h3 { font-size: 15.5px; margin: 0; }
+.split > div > p { margin: 5px 0 0; font-size: 13.5px; color: var(--muted); }
+.split ul { list-style: none; margin: 13px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
+.split li { position: relative; padding-left: 18px; }
+.split li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; border-radius: 1px; background: var(--line-2); }
+.split > div + div li::before { background: var(--accent); }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } .split > div + div { border-left: 0; border-top: 1px solid var(--line-2); } }
+
+/* ---------- A file list, as the archive really holds it ---------- */
+.filelist { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 5px; }
+.filelist li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filelist li span { color: var(--muted); }
+
+/* ---------- License dialog ---------- */
+.license-dialog { border: 1px solid var(--line-2); border-radius: 14px; padding: 0; width: min(440px, calc(100% - 32px)); background: var(--card); color: var(--ink); }
+.license-dialog::backdrop { background: rgba(10, 11, 13, .45); }
+.license-dialog form { padding: 22px; display: grid; gap: 14px; }
+.license-status { font-size: 14px; min-height: 1.4em; margin: 0; }
+.license-status[data-state="ok"] { color: var(--ok); }
+.license-status[data-state="err"] { color: var(--warn); }
+
+/* ---------- Related / cards ---------- */
+.related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line-2); margin-top: 22px; }
+.related a { display: grid; gap: 4px; padding: 18px 18px 18px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.related a strong { font-weight: 600; }
+.related a span { font-size: 14px; color: var(--muted); }
+.related a:hover strong { color: var(--accent); }
+
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
+/* ---------- Footer ---------- */
+.site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
+.site-foot h2 { font-size: 15px; font-family: var(--sans); letter-spacing: 0; font-weight: 600; color: var(--ink); margin: 0 0 10px; }
+.site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+@media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- "New from Peak Apps": the cross-promotion card the build puts above the footer (src/crosspromo.json) ---------- */
+.peak-new { margin-top: clamp(56px, 8vw, 104px); }
+.peak-new + .site-foot { margin-top: 28px; }
+.peak-new-card { display: grid; gap: 4px; max-width: 640px; padding: 16px 20px 18px; border: 1px solid var(--line-2); border-left: 4px solid var(--tool, var(--accent)); border-radius: var(--radius); background: var(--card); color: var(--ink); text-decoration: none; transition: border-color .2s var(--ease); }
+.peak-new-card:hover { border-color: var(--tool, var(--accent)); }
+.peak-new-card:focus-visible { outline: 2px solid var(--tool, var(--accent)); outline-offset: 3px; }
+.peak-new-kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.peak-new-card strong { font-size: 17px; font-weight: 600; line-height: 1.3; }
+.peak-new-line { font-size: 14px; line-height: 1.5; color: var(--ink-2); max-width: 62ch; }
+
+/* ---------- Home project tools: the shared block on Without Planning and Dropped Kerb Check ---------- */
+.home-block { margin: clamp(36px, 5vw, 60px) 0 0; border-top: 1px solid var(--line-2); padding-top: 16px; }
+.home-title { margin: 0 0 10px; font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink); }
+.home-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px 24px; }
+.home-list a { display: grid; gap: 3px; padding: 2px 0 2px 14px; border-left: 4px solid var(--tool, var(--accent)); text-decoration: none; color: var(--ink); }
+.home-list a strong { font-weight: 700; font-size: 16px; }
+.home-list a span { color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+.home-list a:hover strong { color: var(--tool, var(--accent)); }
+.home-list a[aria-current="page"] span { color: var(--ink-2); }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .3s var(--ease); z-index: 90; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media print { .site-head, .site-foot, .tool-panel, .tool-foot, .no-print { display: none !important; } body { background: #fff; } }
+
+/* The hidden attribute must win over component display rules. */
+[hidden] { display: none !important; }
+</style>
+<style data-from="/spass-to-csv/tool.css">
+/* Decant (Samsung Pass .spass converter). A decanter on a rose arch: rose wine (#f1a6b8, #c63f68), bottle green (#0f4d3a), a frosted
+   page and a lime cut for Pro. Display: Decant Display (Bricolage Grotesque, OFL); text: Decant Text (Albert Sans, OFL). */
+@font-face { font-family: "Decant Display"; src: url("/spass-to-csv/fonts/decant-display.woff2") format("woff2"); font-weight: 800; font-display: swap; }
+@font-face { font-family: "Decant Text"; src: url("/spass-to-csv/fonts/decant-text.woff2") format("woff2"); font-weight: 400 700; font-display: swap; }
+/* the fallback set to the display face's width, so the swap does not move the heading lines */
+@font-face { font-family: "Decant Fallback"; src: local("Arial Bold"), local("Helvetica Neue Bold"), local("Arial"); size-adjust: 96%; ascent-override: 94%; descent-override: 24%; }
+
+body.decant {
+  --dc-rose: #f1a6b8; --dc-rose-soft: #fbe6ec; --dc-rose-line: #e8bcc8; --dc-rose-deep: #c63f68; --dc-rose-ink: #8e2745;
+  --dc-green: #0f4d3a; --dc-green-deep: #0a3a2b; --dc-green-tint: #e3efe8; --dc-night: #0c2a21;
+  --dc-lime: #d6f06a; --dc-lime-deep: #aac63a;
+  --dc-ink: #14261d; --dc-muted: #566259; --dc-frost: #f4eff1; --dc-frost-2: #ebe3e7; --dc-line: #ddd2d7; --dc-card: #ffffff;
+  --ink: var(--dc-ink); --ink-2: #2a3a31; --muted: var(--dc-muted); --paper: var(--dc-frost); --paper-2: var(--dc-frost-2); --line: var(--dc-line); --line-2: #cbbfc5;
+  --sans: "Decant Text", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Decant Display", "Decant Fallback", system-ui, sans-serif;
+  font-family: var(--sans); color: var(--dc-ink); background: var(--dc-frost);
+  font-variant-numeric: lining-nums;
+}
+.decant h1, .decant h2, .decant .brand span, .dc-foot-brand { font-family: var(--serif); font-weight: 800; letter-spacing: -0.012em; }
+.decant h3 { font-family: var(--sans); font-weight: 700; letter-spacing: -0.005em; }
+.decant a { color: var(--dc-green); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+.decant a:hover { color: var(--dc-green-deep); }
+.decant :focus-visible { outline: 3px solid var(--dc-green); outline-offset: 2px; border-radius: 4px; }
+.dc-art-text { font-family: "Decant Text", system-ui, sans-serif; font-weight: 700; }
+
+/* header: white, a rose rule underneath */
+.dc-head { background: #fff; border-bottom: 3px solid var(--dc-rose); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.dc-head .brand { color: var(--dc-green); font-size: 22px; }
+.dc-head .brand svg { width: 30px; height: 30px; }
+.dc-head .head-nav a, .dc-head .head-nav span { color: var(--dc-ink); font-size: 14.5px; padding: 7px 11px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
+.dc-head .head-nav a:hover { background: var(--dc-rose-soft); color: var(--dc-ink); }
+.dc-head .head-nav [aria-current="page"] { background: var(--dc-rose); color: var(--dc-ink); font-weight: 700; }
+.dc-narrow-only { display: none; }
+@media (max-width: 1120px) { .dc-wide { display: none; } .dc-narrow-only { display: inline-block; } }
+
+/* hero: the page's own frost, the arch at the right */
+.dc-hero { background: var(--dc-frost); padding: 4px 0 40px; }
+.dc-hero-in { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: 36px; align-items: center; }
+.dc-hero h1 { font-size: clamp(30px, 4vw, 50px); line-height: 1.05; margin: 16px 0 0; color: var(--dc-ink); max-width: 21ch; }
+.dc-hero-guide h1 { max-width: 24ch; }
+.dc-lede { font-size: clamp(16.5px, 1.5vw, 18.5px); line-height: 1.55; max-width: 60ch; margin: 16px 0 0; color: #2a3a31; }
+.dc-facts { margin: 22px 0 0; display: grid; gap: 10px; max-width: 72ch; }
+.dc-facts div { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 14px; padding-left: 14px; border-left: 3px solid var(--dc-rose); }
+.dc-facts dt { font-weight: 700; color: var(--dc-green); }
+.dc-facts dd { margin: 0; color: #2a3a31; }
+.dc-hero-art { display: flex; justify-content: center; }
+.dc-art { width: min(100%, 360px); height: auto; display: block; }
+.dc-hero .dc-checked { margin-top: 14px; }
+
+/* the bench: three steps on a rail */
+.dc-bench { padding: 6px 0 12px; }
+.dc-rail { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; }
+.dc-step { position: relative; display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 20px; }
+.dc-step::before { content: ""; position: absolute; left: 22px; top: 50px; bottom: -22px; width: 2px; background: repeating-linear-gradient(to bottom, var(--dc-rose) 0 6px, transparent 6px 12px); }
+.dc-step:last-child::before { display: none; }
+.dc-num { width: 46px; height: 46px; border-radius: 50%; background: var(--dc-green); color: #fff; display: grid; place-items: center; font-family: var(--serif); font-weight: 800; font-size: 22px; box-shadow: 0 0 0 5px var(--dc-frost), 0 0 0 7px var(--dc-rose); position: relative; z-index: 1; }
+.dc-step-body { min-width: 0; }
+#step-file .dc-step-body, #step-pass .dc-step-body { background: var(--dc-card); border: 1px solid var(--dc-line); border-radius: 18px; padding: clamp(18px, 2.6vw, 26px); box-shadow: 0 18px 36px -28px rgba(15, 77, 58, .45); }
+.dc-step h2 { font-size: clamp(22px, 2.4vw, 30px); margin: 4px 0 14px; line-height: 1.1; }
+
+.dc-drop { border: 2px dashed #d39aab; border-radius: 14px; background: var(--dc-rose-soft); padding: 30px 16px; text-align: center; transition: background .15s, border-color .15s; }
+.dc-drop.is-over { background: #f7d3dd; border-color: var(--dc-rose-deep); }
+.dc-drop.has-file { background: var(--dc-green-tint); border: 2px solid var(--dc-green); }
+.dc-drop-text { font-weight: 700; font-size: 18px; margin: 0 0 10px; }
+.dc-drop-sub { margin: 0; color: var(--dc-muted); }
+.dc-file { margin: 12px 0 0; font-weight: 600; color: var(--dc-green); overflow-wrap: anywhere; }
+.dc-error { margin: 12px 0 0; background: #fbe9e6; color: #7a1d12; border-radius: 10px; padding: 10px 12px; font-size: 15.5px; max-width: 70ch; }
+.dc-where { margin: 14px 0 0; border-top: 1px solid var(--dc-line); padding-top: 12px; }
+.dc-where summary { cursor: pointer; font-weight: 700; color: var(--dc-green); }
+.dc-where ol { margin: 10px 0 0; padding-left: 22px; display: grid; gap: 6px; max-width: 72ch; }
+.dc-sample { margin: 14px 0 0; color: var(--dc-muted); font-size: 15px; max-width: 72ch; }
+.dc-small { font-size: 14px; color: var(--dc-muted); }
+.dc-pw-label { display: block; font-weight: 700; margin: 0 0 6px; }
+.dc-pw { display: flex; gap: 8px; max-width: 520px; }
+.dc-pw input { flex: 1; min-width: 0; font: inherit; font-size: 17px; padding: 12px 14px; border: 1.5px solid #bcaeb5; border-radius: 10px; background: #fff; color: var(--dc-ink); }
+.dc-pw input:focus-visible { border-color: var(--dc-green); }
+.dc-hint { margin: 8px 0 0; max-width: 62ch; }
+.dc-open-row { margin: 16px 0 0; }
+.dc-privacy { border-top: 1px solid var(--dc-line); padding-top: 12px; margin: 16px 0 0; max-width: 72ch; }
+.dc-wait { margin: 4px 0 0; padding: 16px 18px; border: 2px dashed var(--dc-line); border-radius: 14px; color: var(--dc-muted); max-width: 70ch; }
+
+/* buttons */
+.dc-btn { font: inherit; font-weight: 700; font-size: 15.5px; background: var(--dc-green); color: #fff; border: 1.5px solid var(--dc-green); border-radius: 10px; padding: 10px 17px; cursor: pointer; line-height: 1.2; text-decoration: none; display: inline-block; white-space: normal; }
+.decant a.dc-btn { color: #fff; }
+.dc-btn:hover, .decant a.dc-btn:hover { background: var(--dc-green-deep); color: #fff; }
+.dc-btn-go { font-size: 16.5px; padding: 13px 26px; box-shadow: 0 4px 0 var(--dc-rose-deep); }
+.dc-btn-go:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--dc-rose-deep); }
+.dc-btn-plain, .decant a.dc-btn-plain { background: var(--dc-card); color: var(--dc-ink); border-color: #bcaeb5; }
+.dc-btn-plain:hover, .decant a.dc-btn-plain:hover { background: var(--dc-frost-2); color: var(--dc-ink); }
+.dc-btn-pro, .decant a.dc-btn-pro { background: var(--dc-lime); color: var(--dc-ink); border-color: var(--dc-lime-deep); }
+.dc-btn-pro:hover, .decant a.dc-btn-pro:hover { background: #c4e24d; color: var(--dc-ink); }
+.dc-btn-sm { font-size: 14px; padding: 7px 12px; }
+.dc-link { font: inherit; background: none; border: 0; padding: 0; color: var(--dc-green); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+.dc-pw .dc-btn { flex: none; }
+
+.dc-busy { display: flex; align-items: center; gap: 10px; margin: 14px 0 0; color: var(--dc-muted); }
+.dc-spin { width: 18px; height: 18px; border: 3px solid var(--dc-line); border-top-color: var(--dc-rose-deep); border-radius: 50%; animation: dc-spin 1s linear infinite; }
+@keyframes dc-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .dc-spin { animation: none; } .dc-drop { transition: none; } .dc-btn-go:active { transform: none; } }
+
+/* the result: a wine label with the counts, then the files */
+.dc-result { margin-top: 4px; }
+.dc-resbar { display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; flex-wrap: wrap; }
+.dc-resbar h3 { font-size: 21px; margin: 0; }
+.dc-counts { margin: 4px 0 0; font-variant-numeric: tabular-nums; color: var(--dc-muted); }
+.dc-label { margin: 16px 6px 22px; padding: 16px 8px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); background: #fff; border: 2px solid var(--dc-green); border-radius: 20px; outline: 1.5px solid var(--dc-green); outline-offset: 5px; }
+.dc-label div { text-align: center; padding: 2px 8px; }
+.dc-label div + div { border-left: 1px solid var(--dc-rose-line); }
+.dc-label dt { font-weight: 600; color: var(--dc-muted); font-size: 14.5px; }
+.dc-label dd { margin: 0; font-family: var(--serif); font-weight: 800; font-size: clamp(30px, 4.2vw, 46px); line-height: 1.1; color: var(--dc-green); font-variant-numeric: lining-nums; }
+.dc-warn { background: var(--dc-rose-soft); border-left: 4px solid var(--dc-rose-deep); border-radius: 4px 10px 10px 4px; padding: 10px 14px; margin: 0 0 16px; font-size: 15px; max-width: 80ch; }
+.dc-save { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; }
+.dc-save > div { border-radius: 18px; padding: 20px; min-width: 0; }
+.dc-save h3 { margin: 0 0 12px; font-size: 18px; }
+.dc-save-free { background: var(--dc-card); border: 1px solid var(--dc-line); }
+.dc-dest { display: grid; gap: 14px; margin-bottom: 12px; }
+.dc-dest-row { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; align-items: start; }
+.dc-dest-row p { margin: 2px 0 0; }
+.dc-save-pro { background: var(--dc-green); color: #eaf3ee; }
+.dc-save-pro h3 { color: #fff; }
+.decant .dc-save-pro a { color: #fff; }
+.dc-pro-tag { font-family: var(--sans); font-size: 12.5px; font-weight: 700; background: var(--dc-lime); color: var(--dc-ink); border-radius: 999px; padding: 2px 9px; vertical-align: 3px; margin-left: 4px; }
+.dc-pro-list { margin: 0 0 14px; padding-left: 18px; display: grid; gap: 5px; font-size: 15px; }
+.dc-pro-list li::marker { color: var(--dc-rose); }
+.dc-pro-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+.dc-save-pro .dc-btn-plain { background: transparent; color: #fff; border-color: #7fa596; }
+.dc-save-pro .dc-btn-plain:hover { background: rgba(255, 255, 255, .12); color: #fff; }
+.dc-pro-row { margin: 14px 0 0; display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; }
+.dc-save-pro .dc-small, .dc-save-pro .dc-link { color: #cfe2d8; }
+.dc-buy { font-weight: 700; }
+body.is-pro .dc-buy, body.is-pro #pro-note { display: none; }
+
+/* the change list */
+.dc-change, .dc-reuse, .dc-browse, .dc-done { margin-top: 30px; }
+.dc-change-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
+.dc-change h3, .dc-reuse h3, .dc-browse h3, .dc-done h3 { font-size: 20px; margin: 0; }
+.dc-toggle { font-size: 14.5px; color: var(--dc-muted); display: inline-flex; gap: 8px; align-items: center; }
+.dc-rows { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 6px; }
+.dc-group-h { font-weight: 700; font-size: 14.5px; color: var(--dc-rose-ink); background: var(--dc-rose-soft); border-radius: 8px; padding: 8px 12px; margin: 12px 0 2px; }
+.dc-group-h small { display: block; font-weight: 400; color: var(--dc-muted); font-size: 13.5px; }
+.dc-row { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; gap: 12px; align-items: center; background: var(--dc-card); border: 1px solid var(--dc-line); border-left: 5px solid var(--dc-rose); border-radius: 6px 12px 12px 6px; padding: 10px 14px 10px 12px; }
+.dc-row-n { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--dc-green); color: var(--dc-green); display: grid; place-items: center; font-weight: 700; font-size: 13.5px; font-variant-numeric: tabular-nums; }
+.dc-row-main { min-width: 0; }
+.dc-row-name { font-weight: 700; overflow-wrap: anywhere; }
+.dc-row-sub { font-size: 13.5px; color: var(--dc-muted); overflow-wrap: anywhere; }
+.dc-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.dc-badge { font-size: 12.5px; font-weight: 600; border-radius: 999px; padding: 1px 9px; background: var(--dc-rose-soft); color: var(--dc-rose-ink); }
+.dc-badge-2fa { background: var(--dc-green-tint); color: var(--dc-green); }
+.dc-badge-app { background: var(--dc-frost-2); color: var(--dc-ink); }
+.dc-row-act { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+.dc-row-act a { font-size: 14px; white-space: nowrap; }
+.dc-tick { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; white-space: nowrap; }
+.dc-tick input { width: 18px; height: 18px; accent-color: var(--dc-green); }
+.dc-row.is-done { background: #f7f4f5; border-left-color: var(--dc-green); }
+.dc-row.is-done .dc-row-name { text-decoration: line-through; text-decoration-color: var(--dc-green); }
+.dc-row.is-done .dc-row-n { background: var(--dc-green); color: #fff; }
+.dc-hide-done .dc-row.is-done { display: none; }
+.dc-locked { margin-top: 12px; background: var(--dc-card); border: 2px dashed var(--dc-lime-deep); border-radius: 14px; padding: 14px 16px; }
+.dc-locked p { margin: 0 0 10px; }
+.dc-locked p:last-child { margin: 0; }
+.dc-reuse-list { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 8px; }
+.dc-reuse-list li { background: var(--dc-card); border: 1px solid var(--dc-line); border-radius: 12px; padding: 10px 14px; overflow-wrap: anywhere; }
+.dc-reuse-list b { color: var(--dc-rose-ink); }
+
+/* every record */
+.dc-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 10px; }
+.dc-tabs [role="tab"] { font: inherit; font-size: 14.5px; font-weight: 600; background: var(--dc-card); border: 1px solid #bcaeb5; border-radius: 999px; padding: 6px 13px; cursor: pointer; color: var(--dc-ink); }
+.dc-tabs [aria-selected="true"] { background: var(--dc-green); color: #fff; border-color: var(--dc-green); }
+.dc-tabs span { font-variant-numeric: tabular-nums; opacity: .85; }
+.dc-search input { width: 100%; font: inherit; font-size: 16px; padding: 10px 12px; border: 1.5px solid #bcaeb5; border-radius: 10px; background: #fff; }
+.dc-records { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 6px; }
+.dc-records button { width: 100%; text-align: left; font: inherit; background: var(--dc-card); border: 1px solid var(--dc-line); border-radius: 10px; padding: 9px 12px; cursor: pointer; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; color: var(--dc-ink); }
+.dc-records button:hover { border-color: var(--dc-green); }
+.dc-rec-name { font-weight: 600; overflow-wrap: anywhere; }
+.dc-rec-sub { display: block; font-size: 13.5px; color: var(--dc-muted); font-weight: 400; overflow-wrap: anywhere; }
+.dc-rec-type { font-size: 13px; color: var(--dc-muted); white-space: nowrap; }
+.dc-done ol { margin: 10px 0 0; padding-left: 20px; display: grid; gap: 6px; max-width: 75ch; }
+
+/* the record window */
+.dc-detail { border: 0; border-radius: 18px; padding: 0; width: min(640px, calc(100vw - 24px)); max-height: calc(100vh - 40px); color: var(--dc-ink); box-shadow: 0 24px 60px rgba(10, 40, 30, .4); }
+.dc-detail::backdrop { background: rgba(12, 42, 33, .55); }
+.dc-detail-bar { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; padding: 16px 18px; background: var(--dc-rose-soft); border-bottom: 1px solid var(--dc-line); flex-wrap: wrap; }
+.dc-detail-bar h2 { font-family: var(--sans); font-weight: 700; font-size: 22px; margin: 0; overflow-wrap: anywhere; letter-spacing: 0; }
+.dc-detail-bar p { margin: 4px 0 0; }
+.dc-detail-actions { display: flex; gap: 8px; }
+.dc-fields { margin: 0; padding: 12px 18px; display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 8px 14px; }
+.dc-fields dt { font-weight: 600; color: var(--dc-muted); overflow-wrap: anywhere; }
+.dc-fields dd { margin: 0; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.dc-fields .dc-masked { letter-spacing: .1em; color: var(--dc-muted); }
+.dc-dt-note { margin: 0 18px 18px; padding: 10px 12px; background: var(--dc-frost); border-radius: 10px; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+/* how, guides */
+.dc-how { padding: 44px 0 0; }
+.dc-how h2, .dc-prose h2 { font-size: clamp(22px, 2.4vw, 30px); margin: 36px 0 12px; line-height: 1.12; }
+.dc-how h2:first-child { margin-top: 0; }
+.dc-table-wrap { overflow-x: auto; background: var(--dc-card); border: 1px solid var(--dc-line); border-radius: 14px; }
+.dc-table { border-collapse: collapse; width: 100%; font-size: 15px; }
+.dc-table caption { caption-side: top; text-align: left; padding: 12px 14px 4px; color: var(--dc-muted); font-size: 13.5px; }
+.dc-table th, .dc-table td { text-align: left; vertical-align: top; padding: 10px 14px; border-top: 1px solid var(--dc-line); }
+.dc-table thead th { border-top: 0; font-size: 13.5px; color: var(--dc-muted); }
+.dc-steps, .dc-ol { padding-left: 0; display: grid; gap: 10px; max-width: 75ch; list-style: none; counter-reset: dc; }
+.dc-steps li, .dc-ol li { counter-increment: dc; position: relative; padding-left: 40px; }
+.dc-steps li::before, .dc-ol li::before { content: counter(dc); position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--dc-rose); color: var(--dc-ink); font-weight: 700; display: grid; place-items: center; font-size: 14px; }
+.dc-plain { padding-left: 20px; display: grid; gap: 8px; max-width: 75ch; }
+.dc-faq details { background: var(--dc-card); border: 1px solid var(--dc-line); border-radius: 12px; padding: 12px 14px; margin: 0 0 8px; max-width: 80ch; }
+.dc-faq summary { font-weight: 700; cursor: pointer; }
+.dc-faq p { margin: 8px 0 0; }
+.dc-prose { padding-top: 10px; }
+.dc-prose > * { max-width: 800px; }
+.dc-prose p, .dc-prose li { max-width: 72ch; }
+.dc-cta { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; background: var(--dc-rose-soft); border: 1.5px solid var(--dc-rose); border-radius: 14px; padding: 16px 18px; margin: 22px 0; }
+.dc-cta span { font-size: 15px; color: #2a3a31; }
+.dc-sources ul, .dc-related ul { padding-left: 20px; display: grid; gap: 6px; }
+.dc-sources, .dc-related { margin-top: 26px; }
+.dc-prose code, .dc-how code { background: var(--dc-frost-2); border-radius: 5px; padding: 1px 5px; font-size: .92em; }
+
+/* footer */
+.dc-foot { background: var(--dc-night); color: #cadcd2; border-top: 0; }
+.dc-foot .cols { grid-template-columns: 1.5fr 1fr 1fr; }
+.dc-foot h2 { color: #fff; font-family: var(--sans); font-weight: 700; }
+.decant .dc-foot a { color: var(--dc-lime); }
+.dc-foot-brand { font-size: 22px; color: #fff; margin: 0 0 8px; }
+.dc-foot-text { margin: 0 0 10px; max-width: 52ch; }
+
+/* phone */
+@media (max-width: 860px) {
+  .dc-hero-in { grid-template-columns: 1fr; }
+  .dc-hero-art { order: 2; }
+  .dc-art { width: min(100%, 280px); }
+  .dc-save { grid-template-columns: 1fr; }
+  .dc-foot .cols { grid-template-columns: 1fr; }
+  .dc-label { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 10px; }
+  .dc-label div:nth-child(3) { border-left: 0; }
+}
+@media (max-width: 600px) {
+  .dc-step { grid-template-columns: 36px minmax(0, 1fr); gap: 12px; }
+  .dc-num { width: 36px; height: 36px; font-size: 18px; box-shadow: 0 0 0 4px var(--dc-frost), 0 0 0 6px var(--dc-rose); }
+  .dc-step::before { left: 17px; top: 42px; }
+  .dc-facts div { grid-template-columns: 1fr; gap: 2px; }
+  .dc-pw { flex-direction: column; }
+  .dc-pw .dc-btn { align-self: flex-start; }
+}
+@media (max-width: 520px) {
+  .dc-head .dc-tool-link { display: none; }
+  .dc-head .head-nav a { padding: 7px 8px; }
+  .dc-dest-row { grid-template-columns: 1fr; }
+  .dc-row { grid-template-columns: 30px minmax(0, 1fr); border-radius: 6px 12px 12px 6px; padding-right: 12px; }
+  .dc-row-act { grid-column: 1 / -1; justify-content: flex-start; }
+  .dc-fields { grid-template-columns: 1fr; }
+  .dc-fields dd { margin-bottom: 6px; }
+  .dc-table caption { display: block; }
+  .dc-hero h1 { font-size: clamp(27px, 8vw, 34px); }
+}
+</style>
+<script src="/assets/site.js" defer></script>
+<script src="/assets/license.js" defer></script>
+<script type="module" src="/spass-to-csv/js/app.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/nl/samsung-pass-naar-iphone/#app","name":"Decant","alternateName":"Samsung Pass .spass converter","url":"https://peakappsstudio.com/nl/samsung-pass-naar-iphone/","description":"Een browsertool die de versleutelde .spass-export van Samsung Pass opent met het exportwachtwoord, importbestanden schrijft voor Apple Wachtwoorden, Google Wachtwoordbeheer, 1Password, Proton Pass, Bitwarden en KeePassXC en de logins in de volgorde om te wijzigen opsomt.","featureList":["Opent een Samsung Pass-export (.spass) in de browser met het exportwachtwoord (Web Crypto, niets wordt geüpload)","CSV voor Apple Wachtwoorden met notities en links voor eenmalige wachtwoorden (gratis)","CSV voor Google Wachtwoordbeheer en Chrome, ook leesbaar voor Bitwarden, 1Password en Proton Pass (gratis)","De eerste 10 logins van de wijzigingslijst, e-mail en geld eerst (gratis)","Pro: de hele wijzigingslijst met bewaarde vinkjes, hergebruikte wachtwoorden gegroepeerd, Bitwarden- en KeePassXC-bestand met kaarten, adressen, notities en eenmalige codes, afdrukbaar overzichtsblad"],"applicationCategory":"SecurityApplication","operatingSystem":"Any (web browser)","inLanguage":"nl","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Decant Pro","price":"8","priceCurrency":"USD","url":"https://peakappsstudio.com/nl/samsung-pass-naar-iphone/"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Tools","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"Samsung Pass (.spass)","item":"https://peakappsstudio.com/nl/samsung-pass-naar-iphone/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Wordt mijn .spass-bestand of wachtwoord ergens geüpload?","acceptedAnswer":{"@type":"Answer","text":"Nee. Decant ontsleutelt het bestand op deze pagina en schrijft de nieuwe bestanden op dezelfde plek. De code stuurt je bestand of wachtwoord niet weg, en je kunt de pagina laden, de wifi uitzetten en offline werken."}},{"@type":"Question","name":"Welk wachtwoord wordt gevraagd?","acceptedAnswer":{"@type":"Answer","text":"Het exportwachtwoord dat je in Samsung Pass typte toen je exporteerde. Het is niet het wachtwoord van je Samsung-account, niet de schermvergrendeling en het staat niet in het bestand. Ben je het kwijt, dan gaat het bestand niet meer open; exporteer opnieuw uit Samsung Pass en schrijf het nieuwe wachtwoord op."}},{"@type":"Question","name":"Waarom niet het .spass-bestand rechtstreeks importeren in Apple Wachtwoorden of Bitwarden?","acceptedAnswer":{"@type":"Answer","text":"Geen van beide leest het. Het bestand is versleuteld en Samsung biedt geen ander exportformaat; Apple neemt een CSV met kolomnamen, en Bitwarden heeft geen Samsung Pass-import. Decant maakt de CSV."}},{"@type":"Question","name":"Wat gebeurt er met logins van Android-apps?","acceptedAnswer":{"@type":"Answer","text":"Ze houden hun naam, gebruikersnaam en wachtwoord. Een iPhone of Mac kan de app zelf niet gebruiken, dus Decant vult bij bekende apps zoals Instagram of Netflix de website in en markeert elke app-login. Die zonder bekende website blijven op de wijzigingslijst en in het Bitwarden-bestand."}},{"@type":"Question","name":"Waarin verschilt dit van de scripts en apps op GitHub?","acceptedAnswer":{"@type":"Answer","text":"Er zijn meerdere open-sourceconverters: scripts voor Python en Go, een Android-app en een browserpagina die een Chrome-CSV schrijft met alleen logins. Decant opent het bestand in de browser, schrijft ook bestanden voor Apple Wachtwoorden en Bitwarden, bewaart kaarten, adressen, notities en eenmalige codes en zet de logins in de volgorde om te wijzigen."}},{"@type":"Question","name":"Wat voegt Pro toe?","acceptedAnswer":{"@type":"Answer","text":"Voor eenmalig $8: de hele wijzigingslijst op volgorde met vinkjes die in deze browser worden onthouden en als CSV, elk hergebruikt wachtwoord gegroepeerd, een Bitwarden- en KeePassXC-bestand met kaarten, adressen, notities en eenmalige codes en een afdrukbaar blad met kaarten, adressen en notities. De bestanden voor Apple Wachtwoorden en Google en de eerste 10 logins van de wijzigingslijst zijn gratis."}},{"@type":"Question","name":"Is Decant van Samsung?","acceptedAnswer":{"@type":"Answer","text":"Nee. Decant is een onafhankelijke tool van Peak Apps Studio en heeft geen band met Samsung."}}]}]}
+</script>
+<script src="/assets/pro-source.js" defer></script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
+<meta name="peak-pay" content="decant">
+</head>
+<body class="decant" style="--accent:#0f4d3a">
+<a class="skip" href="#main">Naar de inhoud</a>
+<header class="site-head dc-head">
+  <div class="wrap">
+    <a class="brand" href="/nl/samsung-pass-naar-iphone/" aria-label="Decant, de Samsung Pass-converter">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="#0f4d3a"/><path d="M13.2 4.6h5.6l-.9 1.5v4.4c3.2 1.8 4.8 4.3 4.8 7.6 0 3.6-2.7 5.5-6.7 5.5s-6.7-1.9-6.7-5.5c0-3.3 1.6-5.8 4.8-7.6V6.1z" fill="none" stroke="#f1a6b8" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.7 19.2c1.4.9 3.6 1.3 6.3 1.3s4.9-.4 6.3-1.3c-.1 2.9-2.4 4.5-6.3 4.5s-6.2-1.6-6.3-4.5z" fill="#f1a6b8"/></svg>
+      <span>Decant</span>
+    </a>
+    <nav class="head-nav" aria-label="Decant">
+      <span class="dc-tool-link" aria-current="page">Bestand openen</span>
+      <a href="/spass-to-csv/" hreflang="en" lang="en">English</a>
+      <a href="/de/spass-datei-in-csv-umwandeln/" hreflang="de" lang="de">Deutsch</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="dc-hero" aria-labelledby="h1">
+<div class="wrap dc-hero-in">
+<div class="dc-hero-text">
+<nav class="crumbs" aria-label="Kruimelpad"><ol><li><a href="/tools/">Tools</a></li><li aria-current="page">Samsung Pass (.spass)</li></ol></nav>
+<h1 id="h1">Samsung Pass-wachtwoorden overzetten naar een iPhone: .spass openen en omzetten naar CSV</h1>
+<p class="dc-lede">Samsung Pass exporteert een versleuteld .spass-bestand dat geen enkele andere wachtwoordmanager leest. Decant opent het in je browser met het exportwachtwoord dat je koos en schrijft het bestand dat je nieuwe manager importeert. Bestand en wachtwoord blijven op deze pagina.</p>
+<dl class="dc-facts">
+<div><dt>Opent met</dt><dd>het exportwachtwoord dat je in Samsung Pass instelde</dd></div>
+<div><dt>Schrijft</dt><dd>bestanden voor Apple Wachtwoorden, Google en Chrome, Bitwarden en KeePassXC</dd></div>
+<div><dt>Bewaart</dt><dd>kaarten, adressen, notities, eenmalige codes en logins van Android-apps</dd></div>
+</dl>
+</div>
+<div class="dc-hero-art"><svg class="dc-art" viewBox="0 0 360 420" role="img" aria-labelledby="art-t"><title id="art-t">Een glazen karaf die rosé in een glas schenkt, met drie labels aan de hals: Apple Wachtwoorden, Google en Bitwarden, naast de naam Decant.</title>
+<defs><clipPath id="dc-body"><path d="M-22-132H22L16-122V-66C16-46 70-30 84 30C92 66 86 92 74 104Q70 110 60 110H-60Q-70 110-74 104C-86 92-92 66-84 30C-70-30-16-46-16-66V-122Z"/></clipPath>
+<linearGradient id="dc-wine" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e0668a"/><stop offset="1" stop-color="#c63f68"/></linearGradient></defs>
+<path d="M0 420V190C0 85 80 0 180 0s180 85 180 190v230z" fill="#f1a6b8"/>
+<path d="M22 420V192C22 102 92 22 180 22s158 80 158 170v228z" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="2"/>
+<rect x="0" y="360" width="360" height="60" fill="#0f4d3a"/>
+<g transform="translate(244 250)">
+<ellipse cx="0" cy="110" rx="86" ry="7" fill="#000" opacity=".18"/>
+<g clip-path="url(#dc-body)"><rect x="-100" y="-4" width="200" height="130" fill="url(#dc-wine)"/><ellipse cx="0" cy="-4" rx="78" ry="6" fill="#f08aa8"/></g>
+<path d="M-22-132H22L16-122V-66C16-46 70-30 84 30C92 66 86 92 74 104Q70 110 60 110H-60Q-70 110-74 104C-86 92-92 66-84 30C-70-30-16-46-16-66V-122Z" fill="#fff" fill-opacity=".28" stroke="#fff" stroke-width="3" stroke-linejoin="round"/>
+<path d="M-66 40c-6 20-6 40 2 56" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="5" stroke-linecap="round"/>
+<rect x="-7" y="-146" width="14" height="16" rx="3" fill="#0f4d3a"/><circle cx="0" cy="-152" r="14" fill="#0f4d3a"/>
+<ellipse cx="0" cy="-92" rx="19" ry="5.5" fill="none" stroke="#0f4d3a" stroke-width="2.4"/>
+</g>
+<g fill="none" stroke="#0f4d3a" stroke-width="1.6" stroke-linecap="round"><path d="M225 158L138 163"/><path d="M225 158L138 203"/><path d="M225 158L138 243"/></g>
+<g transform="translate(10 150)"><rect width="128" height="26" rx="7" fill="#fff" stroke="#0f4d3a" stroke-width="1.6"/><circle cx="118" cy="13" r="3" fill="#f1a6b8" stroke="#0f4d3a" stroke-width="1"/><text x="9" y="17.2" fill="#0f4d3a" font-size="10.5" class="dc-art-text">Apple Wachtwoorden</text></g>
+<g transform="translate(10 190)"><rect width="128" height="26" rx="7" fill="#fff" stroke="#0f4d3a" stroke-width="1.6"/><circle cx="118" cy="13" r="3" fill="#f1a6b8" stroke="#0f4d3a" stroke-width="1"/><text x="9" y="17.2" fill="#0f4d3a" font-size="10.5" class="dc-art-text">Google</text></g>
+<g transform="translate(10 230)"><rect width="128" height="26" rx="7" fill="#fff" stroke="#0f4d3a" stroke-width="1.6"/><circle cx="118" cy="13" r="3" fill="#f1a6b8" stroke="#0f4d3a" stroke-width="1"/><text x="9" y="17.2" fill="#0f4d3a" font-size="10.5" class="dc-art-text">Bitwarden</text></g>
+<g transform="translate(34 300)"><path d="M0 0h50c0 26-10 40-25 40S0 26 0 0z" fill="#fff" fill-opacity=".3" stroke="#fff" stroke-width="2.4"/><path d="M3 10h44c-1 20-9 30-22 30S4 30 3 10z" fill="#c63f68" opacity=".92"/><path d="M25 40v20M10 62h30" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></g>
+</svg></div>
+</div>
+</section>
+
+<section class="dc-bench" aria-label="Decant">
+<div class="wrap">
+<ol class="dc-rail">
+<li class="dc-step" id="step-file">
+<span class="dc-num" aria-hidden="true">1</span>
+<div class="dc-step-body">
+<h2>Kies het .spass-bestand</h2>
+<div class="dc-drop" id="drop">
+<p class="dc-drop-text">Sleep het .spass-bestand hierheen</p>
+<p class="dc-drop-sub">of <button type="button" class="dc-btn" id="btn-files">Bestand kiezen</button></p>
+<input type="file" id="file-input" class="sr-only" tabindex="-1" aria-hidden="true">
+<p class="dc-file" id="file-name" hidden></p>
+</div>
+<p class="dc-error" id="load-error" role="alert" hidden></p>
+<details class="dc-where"><summary>Waar vind ik het .spass-bestand?</summary>
+<ol>
+<li>Open Samsung Pass op de Galaxy-telefoon. Op nieuwere telefoons zit het in Samsung Wallet.</li>
+<li>Open de instellingen en kies Gegevens exporteren (sommige versies zeggen Importeren en exporteren). De menunamen verschillen per telefoon en appversie.</li>
+<li>Kies wat je exporteert (logins, kaarten, adressen, notities) en stel een exportwachtwoord in. Schrijf het op: het wordt één keer gevraagd en staat niet in het bestand.</li>
+<li>Het bestand staat daarna op de telefoon, meestal in Downloads, en eindigt op .spass. Kopieer het naar dit apparaat of open deze pagina op de telefoon.</li>
+</ol>
+</details>
+<p class="dc-sample">Geen bestand bij de hand? <button type="button" class="dc-link" id="btn-sample">Open een voorbeeldbestand</button> (22 verzonnen items, het wachtwoord is al ingevuld) of <button type="button" class="dc-link" id="btn-sample-dl">bewaar de voorbeeld-.spass</button> om de hele route te proberen.</p>
+</div>
+</li>
+<li class="dc-step" id="step-pass">
+<span class="dc-num" aria-hidden="true">2</span>
+<div class="dc-step-body">
+<h2>Typ het exportwachtwoord</h2>
+<label class="dc-pw-label" for="pw">Exportwachtwoord</label>
+<div class="dc-pw"><input id="pw" type="password" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"><button type="button" class="dc-btn dc-btn-plain" id="btn-pw-show" aria-pressed="false" data-show="Tonen" data-hide="Verbergen">Tonen</button></div>
+<p class="dc-small dc-hint">Het wachtwoord dat je instelde bij het exporteren uit Samsung Pass. Het is niet het wachtwoord van je Samsung-account en niet de vergrendeling van je scherm. Het wordt alleen op deze pagina gebruikt en niet bewaard.</p>
+<p class="dc-open-row"><button type="button" class="dc-btn dc-btn-go" id="btn-open">Bestand openen</button></p>
+<div class="dc-busy" id="busy" hidden role="status"><span class="dc-spin" aria-hidden="true"></span><span id="busy-text"></span></div>
+<p class="dc-small dc-privacy" id="privacy">Je bestand en wachtwoord worden op deze pagina gelezen en gebruikt en nooit geüpload. De pagina werkt na het laden ook zonder wifi. We tellen paginabezoeken met Cloudflare Web Analytics: geen cookies, geen persoonsgegevens en nooit je bestanden. Wanneer je op een Pro-knop klikt, telt een eigen teller één op bij een dagtotaal voor deze tool, met de pagina en het soort site dat je stuurde: geen cookies, geen persoonsgegevens, geen bewaard IP-adres en nooit je bestanden.</p>
+</div>
+</li>
+<li class="dc-step" id="step-out">
+<span class="dc-num" aria-hidden="true">3</span>
+<div class="dc-step-body">
+<h2>Bewaar de bestanden voor je nieuwe manager</h2>
+<p class="dc-wait" id="step-wait">Nog niets geopend. Zodra het bestand open is, verschijnen hier de items en de importbestanden.</p>
+
+<section class="dc-result" id="result" hidden aria-labelledby="res-title">
+<div class="dc-resbar">
+<div>
+<h3 id="res-title" tabindex="-1"></h3>
+<p class="dc-counts" id="res-counts"></p>
+</div>
+<button type="button" class="dc-btn dc-btn-plain dc-btn-sm" id="btn-reset">Ander bestand openen</button>
+</div>
+<dl class="dc-label">
+<div><dt>Logins</dt><dd id="big-login">0</dd></div>
+<div><dt>Kaarten</dt><dd id="big-card">0</dd></div>
+<div><dt>Adressen</dt><dd id="big-address">0</dd></div>
+<div><dt>Notities</dt><dd id="big-note">0</dd></div>
+</dl>
+<p class="dc-warn" id="res-warn" hidden></p>
+
+<div class="dc-save">
+<div class="dc-save-free">
+<h3>Bestanden voor je volgende wachtwoordmanager</h3>
+<div class="dc-dest">
+<div class="dc-dest-row"><button type="button" class="dc-btn" id="btn-apple">Bestand voor Apple Wachtwoorden</button><p class="dc-small" id="apple-note"><span id="apple-note-text"></span></p></div>
+<div class="dc-dest-row"><button type="button" class="dc-btn" id="btn-google">Bestand voor Google en Chrome</button><p class="dc-small" id="google-note"><span id="google-note-text">Logins voor Google Wachtwoordbeheer; Bitwarden, 1Password en Proton Pass lezen het als Chrome-bestand. </span></p></div>
+</div>
+<p class="dc-small">Bitwarden en Proton Pass lezen het bestand voor Google en Chrome als Chrome-import: Bitwarden, Proton Pass.</p>
+</div>
+<div class="dc-save-pro" id="pro">
+<h3>Alles, op volgorde <span class="dc-pro-tag">Pro</span></h3>
+<ul class="dc-pro-list">
+<li>De hele wijzigingslijst, met bewaarde vinkjes</li>
+<li>Elk wachtwoord dat je meer dan eens gebruikte, gegroepeerd</li>
+<li>Bitwarden- en KeePassXC-bestand met kaarten, adressen, notities en eenmalige codes</li>
+<li>Een afdrukbaar blad met kaarten, adressen en notities</li>
+</ul>
+<div class="dc-pro-buttons"><button type="button" class="dc-btn dc-btn-pro" id="btn-bitwarden">Bitwarden- en KeePassXC-bestand</button><button type="button" class="dc-btn dc-btn-plain" id="btn-sheet">Overzichtsblad</button><button type="button" class="dc-btn dc-btn-plain" id="btn-checklist">Wijzigingslijst (CSV)</button></div>
+<p class="dc-pro-row"><a class="dc-buy" data-buy-pro href="https://peakappsstudio.com/spass-to-csv/#buy-pro">Pro kopen, eenmalig $8</a> <span class="dc-small" id="pro-note">Al gekocht? <button type="button" class="dc-link" data-enter-key>Pro aanzetten</button></span></p>
+</div>
+</div>
+
+<section class="dc-change" id="change" aria-labelledby="change-h">
+<div class="dc-change-head">
+<div>
+<h3 id="change-h">Wijzig deze eerst</h3>
+<p class="dc-small" id="change-summary"></p>
+</div>
+<label class="dc-toggle"><input type="checkbox" id="hide-done"> Gewijzigde verbergen</label>
+</div>
+<ol class="dc-rows" id="change-list"></ol>
+<div class="dc-locked" id="change-more" hidden>
+<p id="change-more-text"></p>
+<p><a class="dc-btn dc-btn-pro" data-buy-pro href="https://peakappsstudio.com/spass-to-csv/#buy-pro">De hele lijst kopen, eenmalig $8</a></p>
+</div>
+</section>
+
+<section class="dc-reuse" id="reuse" aria-labelledby="reuse-h">
+<h3 id="reuse-h">Wachtwoorden die meer dan eens worden gebruikt</h3>
+<p class="dc-small" id="reuse-summary"></p>
+<ul class="dc-reuse-list" id="reuse-list"></ul>
+</section>
+
+<section class="dc-browse" aria-labelledby="browse-h">
+<h3 id="browse-h">Alle items</h3>
+<div class="dc-tabs" role="tablist" aria-label="Soorten items">
+<button type="button" role="tab" id="tab-all" aria-controls="rec-pane" aria-selected="true">Alles <span id="n-all"></span></button>
+<button type="button" role="tab" id="tab-login" aria-controls="rec-pane" aria-selected="false">Logins <span id="n-login"></span></button>
+<button type="button" role="tab" id="tab-card" aria-controls="rec-pane" aria-selected="false">Kaarten <span id="n-card"></span></button>
+<button type="button" role="tab" id="tab-address" aria-controls="rec-pane" aria-selected="false">Adressen <span id="n-address"></span></button>
+<button type="button" role="tab" id="tab-note" aria-controls="rec-pane" aria-selected="false">Notities <span id="n-note"></span></button>
+</div>
+<div id="rec-pane" role="tabpanel" aria-labelledby="tab-all">
+<label class="dc-search"><span class="sr-only">Doorzoek de items</span><input type="search" id="q" placeholder="Zoek op namen, websites, gebruikersnamen, notities"></label>
+<ul class="dc-records" id="rec-list"></ul>
+<p class="dc-small" id="rec-empty" hidden></p>
+</div>
+</section>
+
+<section class="dc-done" aria-labelledby="done-h">
+<h3 id="done-h">Als de import gelukt is</h3>
+<ol>
+<li>Verwijder het .spass-bestand en elk bestand dat Decant bewaarde en leeg de prullenbak: ze bevatten je wachtwoorden leesbaar of gaan open met het ene wachtwoord dat je typte.</li>
+<li>Wijzig de wachtwoorden in de volgorde hierboven. Verhuizen verandert ze niet, en een verhuizing is de dag om de dubbel gebruikte te vervangen.</li>
+<li>Controleer een login van een Android-app één keer op de website van de dienst en bewaar hem opnieuw waar hij geen adres heeft.</li>
+</ol>
+</section>
+</section>
+</div>
+</li>
+</ol>
+</div>
+</section>
+
+<dialog class="dc-detail" id="detail" aria-labelledby="dt-title">
+<div class="dc-detail-bar">
+<div><h2 id="dt-title"></h2><p class="dc-small" id="dt-meta"></p></div>
+<div class="dc-detail-actions"><button type="button" class="dc-btn dc-btn-plain dc-btn-sm" id="dt-show" aria-pressed="false">Geheimen tonen</button><button type="button" class="dc-btn dc-btn-sm" id="dt-close">Sluiten</button></div>
+</div>
+<dl class="dc-fields" id="dt-fields"></dl>
+<p class="dc-dt-note" id="dt-note" hidden></p>
+</dialog>
+
+<section class="dc-how" aria-labelledby="how-h">
+<div class="wrap">
+<h2 id="how-h">Waar elk bestand heen gaat</h2>
+<div class="dc-table-wrap"><table class="dc-table">
+<caption>Importroutes gecontroleerd op 5 november 2026 (op de helppagina’s van elke manager; de menunamen kunnen per systeemtaal en versie verschillen)</caption>
+<thead><tr><th scope="col">Verhuizen naar</th><th scope="col">Bestand van Decant</th><th scope="col">Waar importeren</th><th scope="col">Wat er binnenkomt</th></tr></thead>
+<tbody>
+<tr><th scope="row">Apple Wachtwoorden, Mac</th><td>Bestand voor Apple Wachtwoorden</td><td>Wachtwoorden, Archief &gt; Wachtwoorden importeren uit bestand</td><td>Logins, notities, eenmalige codes</td></tr>
+<tr><th scope="row">Apple Wachtwoorden, iPhone</th><td>Bestand voor Apple Wachtwoorden</td><td>Instellingen &gt; Apps &gt; Safari &gt; Importeer</td><td>Logins, notities, eenmalige codes</td></tr>
+<tr><th scope="row">Google Wachtwoordbeheer</th><td>Bestand voor Google en Chrome</td><td>Chrome: Wachtwoorden en automatisch invullen, Google Wachtwoordbeheer, Instellingen, Importeren</td><td>Logins en notities, 3.000 per import</td></tr>
+<tr><th scope="row">Bitwarden</th><td>Bestand voor Google en Chrome of het Bitwarden-bestand (Pro)</td><td>Webapp: Extra &gt; Gegevens importeren, Chrome (csv) of Bitwarden (json)</td><td>Logins (CSV); alles (Pro-bestand)</td></tr>
+<tr><th scope="row">1Password</th><td>Bestand voor Google en Chrome</td><td>1Password-app: Archief &gt; Importeren &gt; Chrome</td><td>Logins</td></tr>
+<tr><th scope="row">Proton Pass</th><td>Bestand voor Google en Chrome</td><td>Tabblad Importeren, aanbieder Chrome</td><td>Logins en notities</td></tr>
+<tr><th scope="row">KeePassXC</th><td>Bitwarden-bestand (Pro)</td><td>Database &gt; Importeren, Bitwarden</td><td>Alles</td></tr>
+</tbody></table></div>
+
+<h2>In deze volgorde zet Decant je logins</h2>
+<ol class="dc-steps">
+<li><strong>E-mail en accountherstel.</strong> Je inbox kan bijna elk ander wachtwoord opnieuw instellen.</li>
+<li><strong>Geld.</strong> Banken, kaarten, betalingen, beleggen, belasting.</li>
+<li><strong>Telefoon en de grote accounts.</strong> Je provider, Apple, Google, Microsoft, Amazon.</li>
+<li><strong>Werk en bestanden</strong>, dan <strong>sociale media en berichten</strong>, dan <strong>al het andere</strong>.</li>
+</ol>
+<p>Binnen elke groep komt een wachtwoord dat bij meer logins wordt gebruikt eerst, daarna logins met een eenmalige code. Elke login verwijst naar de pagina <code>/.well-known/change-password</code> van de site (een <a href="https://w3c.github.io/webappsec-change-password-url/">W3C-afspraak</a>) en naar de homepage.</p>
+
+<h2>Wat er met je bestand gebeurt</h2>
+<ul class="dc-plain">
+<li>Het bestand wordt op deze pagina gelezen en ontsleuteld met Web Crypto, de versleuteling die in je browser zit: PBKDF2 met SHA-256 en 70.000 rondes maakt van je exportwachtwoord de sleutel, en AES-256-CBC opent de gegevens.</li>
+<li>Bij het lezen van een bestand gaat er geen netwerkverzoek uit. De pagina laadt alleen haar eigen bestanden en, als je het Pro-venster opent, de kassa van Paddle. Je kunt de pagina laden, de wifi uitzetten en offline verder werken.</li>
+<li>Het wachtwoord staat alleen in het geheugen terwijl het bestand opent en het veld wordt daarna leeggemaakt. Er wordt niets uit je bestand bewaard. De wijzigingslijst onthoudt alleen een versleutelde sleutel per aangevinkte login, in deze browser.</li>
+<li>Zelf controleren: open het netwerkvenster van je browser en open dan een bestand. Je ziet geen verzoek.</li>
+</ul>
+
+<section class="dc-faq" aria-labelledby="faq-h"><h2 id="faq-h">Vragen</h2>
+<details><summary>Wordt mijn .spass-bestand of wachtwoord ergens geüpload?</summary><p>Nee. Decant ontsleutelt het bestand op deze pagina en schrijft de nieuwe bestanden op dezelfde plek. De code stuurt je bestand of wachtwoord niet weg, en je kunt de pagina laden, de wifi uitzetten en offline werken.</p></details>
+<details><summary>Welk wachtwoord wordt gevraagd?</summary><p>Het exportwachtwoord dat je in Samsung Pass typte toen je exporteerde. Het is niet het wachtwoord van je Samsung-account, niet de schermvergrendeling en het staat niet in het bestand. Ben je het kwijt, dan gaat het bestand niet meer open; exporteer opnieuw uit Samsung Pass en schrijf het nieuwe wachtwoord op.</p></details>
+<details><summary>Waarom niet het .spass-bestand rechtstreeks importeren in Apple Wachtwoorden of Bitwarden?</summary><p>Geen van beide leest het. Het bestand is versleuteld en Samsung biedt geen ander exportformaat; Apple neemt een CSV met kolomnamen, en Bitwarden heeft geen Samsung Pass-import. Decant maakt de CSV.</p></details>
+<details><summary>Wat gebeurt er met logins van Android-apps?</summary><p>Ze houden hun naam, gebruikersnaam en wachtwoord. Een iPhone of Mac kan de app zelf niet gebruiken, dus Decant vult bij bekende apps zoals Instagram of Netflix de website in en markeert elke app-login. Die zonder bekende website blijven op de wijzigingslijst en in het Bitwarden-bestand.</p></details>
+<details><summary>Waarin verschilt dit van de scripts en apps op GitHub?</summary><p>Er zijn meerdere open-sourceconverters: scripts voor Python en Go, een Android-app en een browserpagina die een Chrome-CSV schrijft met alleen logins. Decant opent het bestand in de browser, schrijft ook bestanden voor Apple Wachtwoorden en Bitwarden, bewaart kaarten, adressen, notities en eenmalige codes en zet de logins in de volgorde om te wijzigen.</p></details>
+<details><summary>Wat voegt Pro toe?</summary><p>Voor eenmalig $8: de hele wijzigingslijst op volgorde met vinkjes die in deze browser worden onthouden en als CSV, elk hergebruikt wachtwoord gegroepeerd, een Bitwarden- en KeePassXC-bestand met kaarten, adressen, notities en eenmalige codes en een afdrukbaar blad met kaarten, adressen en notities. De bestanden voor Apple Wachtwoorden en Google en de eerste 10 logins van de wijzigingslijst zijn gratis.</p></details>
+<details><summary>Is Decant van Samsung?</summary><p>Nee. Decant is een onafhankelijke tool van Peak Apps Studio en heeft geen band met Samsung.</p></details>
+</section>
+<p class="dc-small">Decant is een onafhankelijke tool van Peak Apps Studio. Het heeft geen band met Samsung, Apple, Google, Bitwarden, 1Password of Proton.<br>Gecontroleerd op 5 november 2026. Bronnen: <a href="https://github.com/0xdeb7ef/spass-manager" lang="en">spass-manager</a>, <a href="https://github.com/misterpfister8/spasstocsv" lang="en">spasstocsv</a>, <a href="https://github.com/ArifKobel/spass-decryptor" lang="en">spass-decryptor</a>, <a href="https://support.apple.com/guide/iphone/import-passwords-iph984b8ac1f/ios" lang="en">Apple Support</a>, <a href="https://support.google.com/chrome/answer/13068232" lang="en">Google Chrome Help</a>.</p>
+</div>
+</section>
+</main>
+<footer class="site-foot dc-foot" id="guides">
+  <div class="wrap cols">
+    <div>
+      <p class="dc-foot-brand">Decant</p>
+      <p class="dc-foot-text">Opent een Samsung Pass-export (.spass) met het exportwachtwoord in je browser en schrijft de bestanden die Apple Wachtwoorden, Google Wachtwoordbeheer, 1Password, Proton Pass, Bitwarden en KeePassXC importeren. Je bestand blijft in je browser.</p>
+      <p class="dc-foot-text">Decant is een onafhankelijke tool van Peak Apps Studio. Het heeft geen band met Samsung, Apple, Google, Bitwarden, 1Password of Proton.</p>
+    </div>
+    <div>
+      <h2>Andere talen</h2>
+      <ul>
+        <li><a href="/spass-to-csv/" hreflang="en" lang="en">English</a></li>
+        <li><a href="/de/spass-datei-in-csv-umwandeln/" hreflang="de" lang="de">Deutsch</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Over ons</h2>
+      <ul>
+        <li><a href="/tools/privacy/">Privacy &amp; licenties</a></li>
+        <li><a href="/legal/terms/">Voorwaarden</a></li>
+        <li><a href="/legal/refund/">Terugbetaling</a></li>
+        <li><a href="/tools/">Meer tools van Peak Apps</a></li>
+        <li><a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
