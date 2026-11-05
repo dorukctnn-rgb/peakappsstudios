@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com https://cdn.paddle.com; style-src 'self' 'unsafe-inline' https://cdn.paddle.com; img-src 'self' data: blob: https://*.paddle.com; font-src 'self'; connect-src https://cloudflareinsights.com https://peak-funnel.railer-iot.workers.dev https://peak-pay.railer-iot.workers.dev https://*.paddle.com; object-src 'none'; manifest-src 'none'; base-uri 'none'; form-action 'none'; frame-src https://buy.paddle.com">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="peak-checkout" content="direct">
+<title>스티커 메모 백업 열기: plum.sqlite와 .snt 파일 보기</title>
+<meta name="description" content="Windows 스티커 메모(Sticky Notes)의 plum.sqlite, StickyNotes.snt 파일을 브라우저에서 엽니다. 메모를 읽고 검색하고 복사하고 저장할 수 있으며 파일은 PC 밖으로 나가지 않습니다.">
+<link rel="canonical" href="https://peakappsstudio.com/ko/sticky-memo-backup/">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/sticky-notes-backup-viewer/">
+<link rel="alternate" hreflang="es" href="https://peakappsstudio.com/es/recuperar-notas-rapidas-windows/">
+<link rel="alternate" hreflang="pt-BR" href="https://peakappsstudio.com/pt-br/backup-notas-autoadesivas-windows/">
+<link rel="alternate" hreflang="ja" href="https://peakappsstudio.com/ja/windows-fusen-backup/">
+<link rel="alternate" hreflang="ko" href="https://peakappsstudio.com/ko/sticky-memo-backup/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/sticky-notes-backup-viewer/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Peak Apps Tools">
+<meta property="og:title" content="스티커 메모 백업 열기: plum.sqlite와 .snt 파일 보기">
+<meta property="og:description" content="Windows 스티커 메모(Sticky Notes)의 plum.sqlite, StickyNotes.snt 파일을 브라우저에서 엽니다. 메모를 읽고 검색하고 복사하고 저장할 수 있으며 파일은 PC 밖으로 나가지 않습니다.">
+<meta property="og:url" content="https://peakappsstudio.com/ko/sticky-memo-backup/">
+<meta property="og:image" content="https://peakappsstudio.com/sticky-notes-backup-viewer/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Peelback: 모서리가 들린 색색의 메모 더미와 plum.sqlite, StickyNotes.snt 파일 이름">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#ffd93d">
+<link rel="icon" href="/sticky-notes-backup-viewer/img/icon.svg" type="image/svg+xml">
+<link rel="preload" href="/sticky-notes-backup-viewer/fonts/peelback-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/sticky-notes-backup-viewer/fonts/peelback-text.woff2" as="font" type="font/woff2" crossorigin>
+<style data-from="/assets/tools.css">
+/* Peak Apps Tools: a quiet workbench. Paper, graphite ink, one accent per tool. */
+
+@font-face { font-family: "Geist"; src: url("/assets/fonts/geist.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Geist Mono"; src: url("/assets/fonts/geist-mono.woff2") format("woff2"); font-weight: 400 500; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url("/assets/fonts/instrument-serif-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --paper: #f5f3ee;
+  --paper-2: #ece9e1;
+  --card: #fbfaf7;
+  --ink: #141518;
+  --ink-2: #33363d;
+  --muted: #676b74;
+  --line: rgba(20, 21, 24, 0.12);
+  --line-2: rgba(20, 21, 24, 0.22);
+  --accent: #1f5c4d;          /* each tool overrides this on <body style="--accent:..."> */
+  --accent-ink: #ffffff;
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper));
+  --warn: #9a4a12;
+  --ok: #2c6a3f;
+  --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1240px;
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+    --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --paper-2: #17191c; --card: #1b1d21; --ink: #eef0f3; --ink-2: #c9ccd2; --muted: #8e939c;
+  --line: rgba(238, 240, 243, 0.12); --line-2: rgba(238, 240, 243, 0.22); --warn: #e3a36b; --ok: #7cc493;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 80px; }
+/* Tools set --accent on <body>, so the derived tint must be computed there too. */
+body { --accent-soft: color-mix(in oklab, var(--accent) 12%, var(--paper)); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg, canvas { max-width: 100%; }
+img { display: block; height: auto; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -9999px; top: 10px; z-index: 100; background: var(--ink); color: var(--paper); padding: 8px 12px; border-radius: 6px; }
+.skip:focus { left: 10px; }
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+/* ---------- Header ---------- */
+.site-head { position: sticky; top: 0; z-index: 40; background: color-mix(in oklab, var(--paper) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; align-items: center; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; flex: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand-sub { font-family: var(--sans); font-size: 14.5px; letter-spacing: 0; color: var(--muted); font-weight: 500; padding-left: 10px; border-left: 1px solid var(--line-2); }
+.head-nav { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+.head-nav a { font-size: 14.5px; text-decoration: none; padding: 7px 10px; border-radius: 8px; color: var(--ink-2); white-space: nowrap; }
+.head-nav a:hover { background: var(--paper-2); color: var(--ink); }
+.head-nav a[aria-current="page"] { color: var(--ink); background: var(--paper-2); }
+/* With ten tools the full list no longer fits beside the brand at any width, so the header shows the current tool and
+   All tools; the footer and the /tools/ hub list every tool. */
+.head-nav .hide-sm { display: none; }
+@media (max-width: 640px) { .brand-sub { display: none; } }
+@media (max-width: 480px) { .site-head .brand, .head-nav a { white-space: nowrap; } .head-nav a[aria-current="page"] { display: none; } }
+
+/* ---------- Type ---------- */
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+h1 { font-size: clamp(32px, 4.6vw, 54px); }
+h1 em, h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+h2 { font-size: clamp(24px, 2.6vw, 32px); }
+h3 { font-size: 19px; letter-spacing: -0.01em; }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); max-width: 62ch; margin: 16px 0 0; }
+.mono { font-family: var(--mono); }
+.muted { color: var(--muted); }
+small, .small { font-size: 13.5px; }
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 22px 0 0; }
+.crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+.crumbs li + li::before { content: "/"; margin-right: 6px; color: var(--line-2); }
+.crumbs a { text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.tool-hero { padding: 28px 0 24px; display: grid; gap: 8px; }
+.tool-hero .facts { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
+.tool-hero .facts li { display: inline-flex; align-items: center; gap: 8px; }
+.tool-hero .facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* ---------- Tool shell ---------- */
+.tool { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 0; border: 1px solid var(--line-2); border-radius: 14px; background: var(--card); overflow: clip; }
+.tool-panel { padding: 22px; border-right: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.tool-stage { position: relative; min-height: 460px; background:
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper); display: grid; place-items: center; padding: 22px; }
+.tool-stage canvas, .tool-stage svg, .tool-stage img { max-height: 70vh; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 12px 32px -12px rgba(0,0,0,.18); background: #fff; }
+.stage-bar { position: absolute; left: 12px; right: 12px; top: 10px; display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.tool-foot { grid-column: 1 / -1; border-top: 1px solid var(--line); padding: 14px 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--paper); }
+.tool-foot .spacer { flex: 1; }
+@media (max-width: 860px) {
+  .tool { grid-template-columns: 1fr; }
+  .tool-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .tool-stage { min-height: 320px; }
+}
+
+/* ---------- Form controls ---------- */
+.group { display: grid; gap: 10px; }
+.group-title { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span, .field > label { font-size: 13px; color: var(--ink-2); }
+.input, .select { width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--paper); border: 1px solid var(--line-2); border-radius: 8px; padding: 9px 11px; transition: border-color .15s, box-shadow .15s; }
+.input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.input-unit { position: relative; }
+.input-unit .input { padding-right: 38px; font-family: var(--mono); font-size: 14.5px; }
+.input-unit i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; }
+.check input { accent-color: var(--accent); width: 17px; height: 17px; margin-top: 3px; flex: none; }
+.seg { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--line-2); border-radius: 9px; padding: 3px; gap: 3px; background: var(--paper); }
+.seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--ink-2); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.warn { font-size: 13.5px; color: var(--warn); margin: 0; }
+
+/* ---------- Buttons ---------- */
+.btn { --b: var(--line-2); display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-size: 15px; font-weight: 500; line-height: 1; padding: 11px 16px; border-radius: 9px; border: 1px solid var(--b); background: var(--card); color: var(--ink); text-decoration: none; cursor: pointer; transition: transform .15s var(--ease), background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { border-color: var(--ink-2); color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklab, var(--accent) 86%, #000); color: var(--accent-ink); border-color: transparent; }
+.btn-ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn-ink:hover { color: var(--paper); background: var(--ink-2); }
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.pro-tag { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 6px; border-radius: 5px; background: var(--ink); color: var(--paper); }
+
+/* ---------- Drop zone ---------- */
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 1.5px dashed var(--line-2); border-radius: 10px; padding: 18px 14px; background: var(--paper); cursor: pointer; transition: border-color .15s, background .15s; font-size: 14.5px; }
+.drop:hover, .drop.is-over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+/* ---------- Content ---------- */
+.section { padding: clamp(48px, 7vw, 88px) 0 0; }
+.prose { max-width: 70ch; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose h2 { margin: 1.6em 0 .5em; }
+.prose h3 { margin: 1.4em 0 .4em; }
+.prose code, .prose kbd { font-family: var(--mono); font-size: .9em; background: var(--paper-2); padding: 1px 5px; border-radius: 4px; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+.two-col > * { min-width: 0; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 18px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: 3px; }
+.table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--line-2); border-radius: 10px; background: var(--card); margin: 18px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; font-size: 13px; background: var(--paper); }
+tbody tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 14px 16px; border-radius: 0 8px 8px 0; margin: 18px 0; font-size: 15px; }
+.source { font-size: 13px; color: var(--muted); }
+
+/* ---------- FAQ ---------- */
+.faq { border-top: 1px solid var(--line-2); margin-top: 18px; }
+.faq details { border-bottom: 1px solid var(--line-2); }
+.faq summary { cursor: pointer; list-style: none; padding: 16px 32px 16px 0; font-weight: 500; position: relative; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 13px; font-family: var(--mono); font-size: 18px; color: var(--muted); transition: transform .2s var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq .answer { padding: 0 0 18px; color: var(--ink-2); max-width: 70ch; }
+
+/* ---------- Pro ---------- */
+.pro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--ink); border-radius: 14px; overflow: hidden; background: var(--card); }
+.pro-left { padding: clamp(22px, 3vw, 36px); }
+.pro-right { padding: clamp(22px, 3vw, 36px); background: var(--ink); color: var(--paper); display: grid; align-content: center; gap: 14px; }
+.pro-right .price { font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+.pro-right .price small { font-size: 15px; font-weight: 400; color: color-mix(in oklab, var(--paper) 70%, transparent); letter-spacing: 0; }
+.pro-right .btn-primary { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.pro-right .btn-primary:hover { background: #fff; color: var(--ink); }
+.pro-right .fine { font-size: 13px; color: color-mix(in oklab, var(--paper) 65%, transparent); margin: 0; }
+.pro-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.pro-list li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 15px; }
+.pro-list li::before { content: ""; width: 10px; height: 10px; margin-top: 7px; border: 1.5px solid var(--accent); border-radius: 2px; transform: rotate(45deg); }
+@media (max-width: 760px) { .pro { grid-template-columns: 1fr; } }
+
+/* ---------- A real file, shown ---------- */
+.shot { margin: 22px 0 0; }
+.shot img { width: 100%; border: 1px solid var(--line-2); border-radius: 10px; background: #fff; }
+.shot figcaption { font-size: 13.5px; color: var(--muted); margin: 10px 0 0; max-width: 80ch; }
+.shot figcaption strong { font-weight: 600; color: var(--ink-2); }
+.shot-sm { max-width: 920px; }
+
+/* ---------- Where free stops and Pro starts ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line-2); border-radius: 12px; overflow: clip; margin: 26px 0 0; background: var(--card); }
+.split > div { padding: 18px 20px 20px; }
+.split > div + div { border-left: 1px solid var(--line-2); background: var(--accent-soft); }
+.split h3 { font-size: 15.5px; margin: 0; }
+.split > div > p { margin: 5px 0 0; font-size: 13.5px; color: var(--muted); }
+.split ul { list-style: none; margin: 13px 0 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; color: var(--ink-2); }
+.split li { position: relative; padding-left: 18px; }
+.split li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; border-radius: 1px; background: var(--line-2); }
+.split > div + div li::before { background: var(--accent); }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } .split > div + div { border-left: 0; border-top: 1px solid var(--line-2); } }
+
+/* ---------- A file list, as the archive really holds it ---------- */
+.filelist { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 5px; }
+.filelist li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.filelist li span { color: var(--muted); }
+
+/* ---------- License dialog ---------- */
+.license-dialog { border: 1px solid var(--line-2); border-radius: 14px; padding: 0; width: min(440px, calc(100% - 32px)); background: var(--card); color: var(--ink); }
+.license-dialog::backdrop { background: rgba(10, 11, 13, .45); }
+.license-dialog form { padding: 22px; display: grid; gap: 14px; }
+.license-status { font-size: 14px; min-height: 1.4em; margin: 0; }
+.license-status[data-state="ok"] { color: var(--ok); }
+.license-status[data-state="err"] { color: var(--warn); }
+
+/* ---------- Related / cards ---------- */
+.related { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line-2); margin-top: 22px; }
+.related a { display: grid; gap: 4px; padding: 18px 18px 18px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.related a strong { font-weight: 600; }
+.related a span { font-size: 14px; color: var(--muted); }
+.related a:hover strong { color: var(--accent); }
+
+/* ---------- Pay equity tools: the shared block on the pages of those tools ---------- */
+.pe-block { margin: 28px 0 0; }
+.pe-title { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.pe-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pe-list a { display: grid; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--line-2); border-left: 3px solid var(--tool, var(--accent)); border-radius: 10px; background: var(--card); text-decoration: none; }
+.pe-list a strong { font-weight: 600; font-size: 15px; }
+.pe-list a span { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.pe-list a:hover strong { color: var(--tool, var(--accent)); }
+.pe-list a[aria-current="page"] { background: var(--paper-2); }
+
+/* ---------- Footer ---------- */
+.site-foot { margin-top: clamp(64px, 9vw, 120px); border-top: 1px solid var(--line-2); padding: 36px 0 44px; font-size: 14px; color: var(--muted); }
+.site-foot .cols { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 28px; }
+@media (max-width: 980px) { .site-foot .cols { grid-template-columns: 1fr 1fr; } }
+.site-foot h2 { font-size: 15px; font-family: var(--sans); letter-spacing: 0; font-weight: 600; color: var(--ink); margin: 0 0 10px; }
+.site-foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
+@media (max-width: 720px) { .site-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- "New from Peak Apps": the cross-promotion card the build puts above the footer (src/crosspromo.json) ---------- */
+.peak-new { margin-top: clamp(56px, 8vw, 104px); }
+.peak-new + .site-foot { margin-top: 28px; }
+.peak-new-card { display: grid; gap: 4px; max-width: 640px; padding: 16px 20px 18px; border: 1px solid var(--line-2); border-left: 4px solid var(--tool, var(--accent)); border-radius: var(--radius); background: var(--card); color: var(--ink); text-decoration: none; transition: border-color .2s var(--ease); }
+.peak-new-card:hover { border-color: var(--tool, var(--accent)); }
+.peak-new-card:focus-visible { outline: 2px solid var(--tool, var(--accent)); outline-offset: 3px; }
+.peak-new-kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.peak-new-card strong { font-size: 17px; font-weight: 600; line-height: 1.3; }
+.peak-new-line { font-size: 14px; line-height: 1.5; color: var(--ink-2); max-width: 62ch; }
+
+/* ---------- Home project tools: the shared block on Without Planning and Dropped Kerb Check ---------- */
+.home-block { margin: clamp(36px, 5vw, 60px) 0 0; border-top: 1px solid var(--line-2); padding-top: 16px; }
+.home-title { margin: 0 0 10px; font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--ink); }
+.home-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px 24px; }
+.home-list a { display: grid; gap: 3px; padding: 2px 0 2px 14px; border-left: 4px solid var(--tool, var(--accent)); text-decoration: none; color: var(--ink); }
+.home-list a strong { font-weight: 700; font-size: 16px; }
+.home-list a span { color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+.home-list a:hover strong { color: var(--tool, var(--accent)); }
+.home-list a[aria-current="page"] span { color: var(--ink-2); }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); opacity: 0; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 9px; font-size: 14px; transition: opacity .2s, transform .3s var(--ease); z-index: 90; pointer-events: none; max-width: calc(100% - 32px); }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; } }
+@media print { .site-head, .site-foot, .tool-panel, .tool-foot, .no-print { display: none !important; } body { background: #fff; } }
+
+/* The hidden attribute must win over component display rules. */
+[hidden] { display: none !important; }
+</style>
+<style data-from="/sticky-notes-backup-viewer/tool.css">
+/* Peelback: the identity. Ink (#1b2233), highlighter yellow (#ffd93d), tomato (#c2371b, buttons for Pro), tinted cool paper (#f1f3f9).
+   The seven colours of a Sticky Note are the page's own palette: they colour the wall of cards and the hero stack.
+   Display: Gabarito 800 ("Peelback Display"); text: Hanken Grotesk ("Peelback Text"). Signature: every card and the drop zone have a
+   peeled lower-right corner. The page uses the whole screen on a desktop (Doruk, 4 and 5 Nov 2026): a fluid container, the tool beside
+   its files, the wall as wide as the screen allows; only running text keeps its measure. */
+@font-face { font-family: "Peelback Display"; src: url("/sticky-notes-backup-viewer/fonts/peelback-display.woff2") format("woff2"); font-weight: 800; font-display: swap; }
+@font-face { font-family: "Peelback Text"; src: url("/sticky-notes-backup-viewer/fonts/peelback-text.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+body.peelback {
+  --pb-ink: #1b2233; --pb-ink-2: #46506a; --pb-paper: #f1f3f9; --pb-card: #ffffff; --pb-line: #d3d9e6; --pb-yellow: #ffd93d; --pb-yellow-soft: #fff3b8;
+  --pb-tomato: #c2371b; --pb-tomato-soft: #fdece7; --pb-focus: #c2371b;
+  --gutter: clamp(16px, 4vw, 64px);
+  --sans: "Peelback Text", system-ui, "Segoe UI", "Hiragino Sans", "Yu Gothic UI", Meiryo, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --display: "Peelback Display", "Peelback Text", system-ui, "Hiragino Sans", "Yu Gothic UI", "Malgun Gothic", sans-serif;
+  font-family: var(--sans); color: var(--pb-ink); background: var(--pb-paper); font-variant-numeric: lining-nums;
+}
+.peelback .wrap { width: min(100% - 2 * var(--gutter), 2240px); max-width: none; }
+.peelback h1, .peelback h2, .pb-foot-brand, .peelback .brand span { font-family: var(--display); font-weight: 800; letter-spacing: -0.01em; }
+.peelback h3 { font-family: var(--sans); font-weight: 700; letter-spacing: 0; }
+:lang(ja) .pb-hero h1, :lang(ko) .pb-hero h1 { line-height: 1.22; letter-spacing: 0; }
+.peelback a { color: #8f2410; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+.peelback :focus-visible { outline: 3px solid var(--pb-focus); outline-offset: 2px; border-radius: 4px; }
+.peelback code { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: .88em; background: #e8ebf4; padding: 1px 5px; border-radius: 5px; overflow-wrap: anywhere; }
+.pb-small { font-size: 14.5px; color: var(--pb-ink-2); margin: 8px 0 0; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- header and footer */
+.pb-head { background: var(--pb-ink); border-bottom: 0; backdrop-filter: none; -webkit-backdrop-filter: none; }
+.pb-head .wrap { min-height: 58px; }
+.pb-head .brand, .pb-head .brand span { color: #fff; }
+.pb-head .brand span { color: var(--pb-yellow); font-size: 21px; }
+.pb-head .head-nav a, .pb-head .head-nav span { color: #dfe4f1; font-size: 14.5px; padding: 7px 10px; border-radius: 8px; white-space: nowrap; }
+.pb-head .head-nav a:hover { background: rgba(255,255,255,.1); color: #fff; }
+.pb-head .head-nav [aria-current="page"] { color: var(--pb-ink); background: var(--pb-yellow); font-weight: 600; }
+.pb-head .head-nav .pb-tool-link { font-weight: 700; color: var(--pb-yellow); }
+.pb-head .head-nav .pb-tool-link[aria-current="page"] { color: var(--pb-ink); }
+.pb-head .pb-wide { display: none; }
+@media (max-width: 720px) { .pb-head .wrap { flex-wrap: wrap; row-gap: 2px; padding-top: 8px; padding-bottom: 8px; } .pb-head .head-nav { flex-wrap: wrap; gap: 2px 4px; min-width: 0; } }
+@media (min-width: 1100px) { .pb-head .pb-wide { display: inline-block; } .pb-head .pb-narrow-only { display: none; } }
+.pb-foot { margin-top: clamp(56px, 7vw, 96px); background: var(--pb-ink); color: #c9d1e4; border-top: 0; padding: 44px 0 52px; }
+.pb-foot .cols { display: grid; grid-template-columns: 1.3fr 1.6fr 1fr; gap: 36px; }
+.pb-foot h2 { font-family: var(--sans); font-size: 15px; letter-spacing: 0; color: #fff; }
+.pb-foot a { color: #ffe680; }
+.pb-foot-brand { font-size: 24px; color: var(--pb-yellow); margin: 0 0 8px; }
+.pb-foot-text { margin: 0 0 8px; max-width: 46ch; }
+@media (max-width: 800px) { .pb-foot .cols { grid-template-columns: 1fr; } }
+
+/* ---------- hero */
+.pb-hero { background: var(--pb-yellow); color: var(--pb-ink); border-bottom: 3px solid var(--pb-ink); padding: clamp(8px, 1.5vw, 24px) 0 clamp(28px, 4vw, 64px); overflow: hidden; }
+.pb-hero .crumbs { margin-top: 18px; color: #3d3a14; }
+.pb-hero .crumbs a { color: var(--pb-ink); }
+.pb-hero .crumbs li + li::before { color: #8a7a10; }
+.pb-hero-in { display: grid; gap: 24px clamp(32px, 4vw, 96px); align-items: center; }
+.pb-hero h1 { font-size: clamp(33px, 5.4vw, 58px); line-height: 1.06; margin: 18px 0 0; max-width: 20ch; text-wrap: balance; }
+.pb-lede { font-size: clamp(17px, 1.5vw, 20px); line-height: 1.55; margin: 18px 0 0; max-width: 62ch; color: #2a2a12; }
+.pb-facts { display: grid; gap: 14px 28px; margin: 28px 0 0; padding: 0; }
+.pb-facts div { border-top: 2px solid var(--pb-ink); padding-top: 8px; }
+.pb-facts dt { font-weight: 800; font-size: 14.5px; margin: 0 0 2px; }
+.pb-facts dd { margin: 0; font-size: 15px; line-height: 1.45; color: #2a2a12; }
+.pb-hero-art { display: none; }
+.pb-art { width: 100%; height: auto; display: block; }
+.pb-art-text { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-weight: 600; }
+@media (min-width: 900px) { .pb-facts { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1000px) {
+  .pb-hero-in { grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); }
+  .pb-hero-art { display: block; justify-self: center; width: min(100%, clamp(340px, 30vw, 560px)); }
+}
+@media (min-width: 1600px) { .pb-hero h1 { font-size: clamp(54px, 3.4vw, 72px); } .pb-lede { font-size: 21px; } }
+
+/* ---------- buttons */
+.pb-btn { font: inherit; font-weight: 700; font-size: 15px; line-height: 1.2; color: var(--pb-ink); background: #fff; border: 2px solid var(--pb-ink); border-radius: 10px; padding: 10px 15px; cursor: pointer; text-decoration: none; display: inline-block; transition: transform .12s ease, box-shadow .12s ease; }
+.pb-btn:hover { transform: translateY(-2px); box-shadow: 0 3px 0 var(--pb-ink); }
+.pb-btn:active { transform: none; box-shadow: none; }
+.pb-btn-go { background: var(--pb-ink); color: var(--pb-yellow) !important; }
+.pb-btn-pro { background: var(--pb-tomato); border-color: var(--pb-tomato); color: #fff; }
+.pb-btn-pro:hover { box-shadow: 0 3px 0 #7b2111; }
+.pb-btn-plain { border-color: var(--pb-line); background: transparent; }
+.pb-btn-sm { padding: 7px 12px; font-size: 14px; }
+.pb-btn[disabled] { opacity: .45; cursor: default; transform: none; box-shadow: none; }
+.pb-link { font: inherit; color: #8f2410; background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; text-underline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .pb-btn { transition: none; } .pb-btn:hover { transform: none; } }
+
+/* ---------- the bench: files and save on one side, the wall on the other */
+.pb-bench { padding: clamp(26px, 3.5vw, 56px) 0 8px; }
+.pb-bench-in { display: grid; gap: 22px clamp(24px, 2.6vw, 56px); align-items: start; }
+@media (min-width: 1100px) { .pb-bench-in { grid-template-columns: clamp(320px, 24vw, 440px) minmax(0, 1fr); } }
+.pb-side, .pb-main { display: grid; gap: 22px; min-width: 0; }
+.pb-step { background: var(--pb-card); border: 1.5px solid var(--pb-ink); border-radius: 18px; padding: clamp(18px, 2vw, 28px); box-shadow: 5px 5px 0 var(--pb-ink); min-width: 0; }
+.pb-step[hidden] { display: none; }
+.pb-step > h2 { font-size: clamp(22px, 1.8vw, 28px); display: flex; align-items: center; gap: 12px; margin: 0 0 16px; }
+.pb-num { flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--pb-yellow); border: 2px solid var(--pb-ink); display: grid; place-items: center; font-size: 17px; }
+.pb-drop { position: relative; border: 2.5px dashed #7d86a1; border-radius: 16px; padding: 24px 18px 22px; text-align: center; background: #fbfcff; transition: background .15s, border-color .15s; }
+.pb-drop.is-over { background: var(--pb-yellow-soft); border-color: var(--pb-ink); }
+.pb-drop::after { content: ""; position: absolute; right: -2px; bottom: -2px; width: 30px; height: 30px; background: linear-gradient(135deg, var(--pb-card) 50%, #dfe3ef 50%); border-top-left-radius: 8px; box-shadow: -3px -3px 6px rgba(27,34,51,.12); border-bottom-right-radius: 14px; }
+.pb-drop-ico { width: 54px; height: 54px; margin: 0 auto 6px; display: block; }
+.pb-drop-text { margin: 0; font-weight: 700; font-size: 17px; line-height: 1.35; }
+.pb-drop-sub { margin: 12px 0 0; display: flex; flex-wrap: wrap; gap: 8px 10px; justify-content: center; align-items: center; color: var(--pb-ink-2); }
+.pb-error { margin: 12px 0 0; padding: 10px 12px; background: var(--pb-tomato-soft); border-left: 4px solid var(--pb-tomato); border-radius: 6px; font-size: 15px; }
+.pb-notice { margin: 12px 0 0; padding: 10px 12px; background: var(--pb-yellow-soft); border-left: 4px solid var(--pb-ink); border-radius: 6px; font-size: 15px; }
+.pb-busy { display: flex; align-items: center; gap: 10px; margin: 12px 0 0; font-weight: 600; }
+.pb-spin { width: 18px; height: 18px; border: 3px solid var(--pb-line); border-top-color: var(--pb-ink); border-radius: 50%; animation: pb-spin .8s linear infinite; }
+@keyframes pb-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .pb-spin { animation-duration: 2.4s; } }
+.pb-where { margin: 14px 0 0; }
+.pb-where summary { cursor: pointer; font-weight: 700; }
+.pb-where ol { margin: 10px 0 0; padding-left: 22px; display: grid; gap: 8px; font-size: 15px; }
+.pb-sample { margin: 14px 0 0; font-size: 15px; color: var(--pb-ink-2); }
+.pb-privacy { margin-top: 12px; }
+
+/* ---------- saving */
+.pb-save h3 { font-size: 16px; margin: 0 0 8px; }
+.pb-save-free { padding-bottom: 16px; border-bottom: 1.5px dashed var(--pb-line); }
+.pb-save-row, .pb-pro-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+.pb-save-pro { padding-top: 16px; }
+.pb-pro-tag { font-size: 12.5px; font-weight: 700; background: var(--pb-tomato-soft); color: var(--pb-tomato); border-radius: 999px; padding: 2px 9px; margin-left: 6px; }
+.pb-pro-list { margin: 0 0 12px; padding-left: 20px; font-size: 15px; display: grid; gap: 3px; }
+.pb-pro-row { margin: 14px 0 0; display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; }
+.pb-buy { display: inline-block; font-weight: 800; color: #fff !important; background: var(--pb-tomato); padding: 10px 16px; border-radius: 10px; text-decoration: none; }
+.pb-buy:hover { background: #a82c14; }
+body.is-pro .pb-buy, body.is-pro #pro-note { display: none; }
+body.is-pro .pb-pro-tag::after { content: " \2713"; }
+.pb-recover { margin-top: 16px; padding-top: 16px; border-top: 1.5px dashed var(--pb-line); }
+.pb-recover[hidden] { display: none; }
+
+/* ---------- the wall */
+.pb-wait { margin: 0; padding: 36px 18px; text-align: center; color: var(--pb-ink-2); border: 2px dashed var(--pb-line); border-radius: 14px; background: repeating-linear-gradient(135deg, transparent 0 14px, rgba(27,34,51,.025) 14px 28px); }
+.pb-resbar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 16px; align-items: start; margin-bottom: 14px; }
+.pb-resbar h3 { font-size: clamp(18px, 1.5vw, 22px); margin: 0; overflow-wrap: anywhere; }
+.pb-resbar h3:focus { outline: none; }
+.pb-tools { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
+.pb-search { flex: 1 1 260px; }
+.pb-search input, .pb-sort select { width: 100%; font: inherit; font-size: 15.5px; color: var(--pb-ink); background: #fff; border: 2px solid var(--pb-ink); border-radius: 10px; padding: 10px 12px; }
+.pb-sort { flex: 0 0 auto; }
+.pb-toggle { font-size: 15px; display: inline-flex; gap: 8px; align-items: center; cursor: pointer; }
+.pb-toggle[hidden] { display: none; }
+.pb-toggle input { width: 18px; height: 18px; accent-color: var(--pb-ink); }
+.pb-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
+.pb-chip { font: inherit; font-size: 14px; font-weight: 600; color: var(--pb-ink); background: #fff; border: 2px solid var(--pb-line); border-radius: 999px; padding: 5px 12px 5px 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; }
+.pb-chip[aria-pressed="true"] { border-color: var(--pb-ink); background: var(--pb-yellow-soft); }
+.pb-chip-dot { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--pb-ink); }
+.pb-chip-n { color: var(--pb-ink-2); font-weight: 500; }
+.pb-count { margin: 14px 0 12px; }
+.pb-wall { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(clamp(180px, 11.5vw, 240px), 1fr)); }
+.pb-note { --corner: 28px; position: relative; display: flex; flex-direction: column; gap: 6px; width: 100%; height: 100%; min-height: 176px; text-align: left; font: inherit; color: var(--pb-ink); background: var(--note); border: 0; padding: 15px 16px 36px; cursor: pointer; clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%, 0 100%); border-radius: 3px 3px 0 3px; filter: drop-shadow(0 6px 8px rgba(27,34,51,.2)); transition: transform .12s ease; }
+.pb-note::after { content: ""; position: absolute; right: 0; bottom: 0; width: var(--corner); height: var(--corner); background: linear-gradient(135deg, transparent 50%, rgba(255,255,255,.82) 50%); }
+.pb-note:hover { transform: translateY(-3px) rotate(-.4deg); }
+.pb-note.is-dark { color: #fff; }
+.pb-note.is-dark::after { background: linear-gradient(135deg, transparent 50%, rgba(255,255,255,.35) 50%); }
+.pb-note-title { font-family: var(--display); font-weight: 800; font-size: 18px; line-height: 1.2; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+.pb-note-body { font-size: 14.5px; line-height: 1.45; white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; opacity: .92; }
+.pb-note-meta { position: absolute; left: 16px; bottom: 11px; font-size: 12.5px; opacity: .75; }
+.pb-note-tag { position: absolute; top: 9px; right: 10px; font-size: 11.5px; font-weight: 800; background: var(--pb-ink); color: #fff; border-radius: 999px; padding: 2px 8px; max-width: 70%; text-align: right; }
+.pb-note.is-deleted { opacity: .8; }
+.pb-note.is-deleted .pb-note-title { padding-right: 62px; }
+.pb-more { text-align: center; margin: 18px 0 0; }
+@media (prefers-reduced-motion: reduce) { .pb-note { transition: none; } .pb-note:hover { transform: none; } }
+
+/* ---------- the reader */
+.pb-reader { width: min(860px, 94vw); max-height: 90vh; border: 2px solid var(--pb-ink); border-radius: 18px; padding: 0; color: var(--pb-ink); background: #fff; box-shadow: 8px 8px 0 var(--pb-ink); }
+.pb-reader::backdrop { background: rgba(27,34,51,.55); }
+.pb-reader[open] { display: flex; flex-direction: column; }
+.pb-reader-bar { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-bottom: 1.5px solid var(--pb-line); }
+.pb-swatch { flex: none; width: 14px; align-self: stretch; border-radius: 4px; border: 1.5px solid var(--pb-ink); }
+.pb-reader-head { flex: 1; min-width: 0; }
+.pb-reader-head h2 { font-size: clamp(20px, 2vw, 26px); margin: 0; overflow-wrap: anywhere; }
+.pb-reader-body { padding: 18px 22px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 17px; line-height: 1.6; max-height: 58vh; min-height: 120px; }
+#rd-pics { padding: 0 22px; }
+.pb-reader-foot { display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center; padding: 14px 18px; border-top: 1.5px solid var(--pb-line); }
+.pb-spacer { flex: 1; }
+.pb-reader-foot .pb-small { margin: 0; }
+
+/* ---------- table, questions, sources */
+.pb-how { padding: clamp(30px, 4vw, 64px) 0 0; }
+.pb-how h2, .pb-faq h2 { font-size: clamp(24px, 2.2vw, 34px); margin: 0 0 16px; }
+.pb-table-wrap { overflow-x: auto; }
+.pb-table { width: 100%; border-collapse: collapse; font-size: 15.5px; background: #fff; border: 1.5px solid var(--pb-ink); border-radius: 12px; overflow: hidden; }
+.pb-table th, .pb-table td { text-align: left; vertical-align: top; padding: 11px 14px; border-bottom: 1px solid var(--pb-line); }
+.pb-table thead th { background: var(--pb-ink); color: #fff; font-size: 14px; }
+.pb-table tbody th { font-weight: 700; white-space: nowrap; }
+.pb-how-cols { margin-top: 36px; display: grid; gap: 28px clamp(32px, 4vw, 88px); align-items: start; }
+@media (min-width: 1100px) { .pb-how-cols { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); } }
+.pb-faq details { background: #fff; border: 1.5px solid var(--pb-line); border-radius: 12px; padding: 12px 16px; margin: 0 0 10px; }
+.pb-faq details[open] { border-color: var(--pb-ink); }
+.pb-faq summary { font-weight: 700; cursor: pointer; }
+.pb-faq p { margin: 8px 0 0; max-width: 78ch; }
+
+/* ---------- guides */
+.pb-hero-guide-in { display: grid; gap: 12px; }
+.pb-hero-card { display: none; }
+.pb-checked { color: #3d3a14; }
+.pb-prose { padding-top: 14px; }
+.pb-body > * { max-width: 800px; }
+.pb-body h2 { font-size: clamp(24px, 2.2vw, 32px); margin: 36px 0 10px; }
+.pb-body p, .pb-body li { max-width: 72ch; }
+.pb-body ol, .pb-body ul { padding-left: 22px; display: grid; gap: 8px; }
+.pb-body pre { background: var(--pb-ink); color: #f4f6fb; border-radius: 12px; padding: 14px 16px; overflow-x: auto; font-size: 14px; }
+.pb-body pre code { background: none; padding: 0; }
+.pb-body .pb-table { max-width: none; }
+.pb-cta { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; background: var(--pb-yellow); border: 2px solid var(--pb-ink); border-radius: 14px; padding: 16px 18px; margin: 30px 0 0; max-width: 800px; box-shadow: 4px 4px 0 var(--pb-ink); }
+.pb-sources ul, .pb-related ul { padding-left: 20px; display: grid; gap: 6px; }
+.pb-sources h2, .pb-related h2 { font-size: 22px; margin: 28px 0 10px; }
+.pb-toc { display: none; }
+.pb-toc-title { font-weight: 800; font-size: 14.5px; margin: 0 0 6px; }
+.pb-toc ol { list-style: none; margin: 0; padding: 0; border-left: 3px solid var(--pb-yellow); }
+.pb-toc a { display: block; padding: 5px 0 5px 14px; font-size: 15px; line-height: 1.45; color: var(--pb-ink); text-decoration: none; }
+.pb-toc a:hover { text-decoration: underline; }
+@media (min-width: 1024px) {
+  .pb-hero-guide-in { grid-template-columns: minmax(0, 1fr) minmax(260px, .42fr); gap: clamp(32px, 4vw, 80px); align-items: center; }
+  .pb-hero-card { display: block; text-align: center; }
+  .pb-hero-card .pb-art { width: min(100%, clamp(220px, 17vw, 360px)); margin: 0 auto; }
+  .pb-hero-card p { margin: 12px 0 0; }
+  .pb-guide-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, .56fr); grid-template-rows: auto 1fr; column-gap: clamp(40px, 4vw, 80px); align-items: start; }
+  .pb-guide-grid > .pb-body { grid-column: 1; grid-row: 1 / span 2; }
+  .pb-guide-grid > .pb-toc { display: block; grid-column: 2; grid-row: 1; margin-top: 36px; padding: 16px 18px; background: #fff; border: 1.5px solid var(--pb-ink); border-radius: 14px; }
+  .pb-guide-grid > .pb-guide-more { grid-column: 2; grid-row: 2; margin-top: 36px; }
+}
+@media (min-width: 1760px) {
+  .pb-guide-grid { grid-template-columns: minmax(220px, 280px) minmax(0, 1fr) minmax(380px, .9fr); grid-template-rows: auto; }
+  .pb-guide-grid > .pb-toc { grid-column: 1; grid-row: 1; position: sticky; top: 84px; }
+  .pb-guide-grid > .pb-body { grid-column: 2; grid-row: 1; }
+  .pb-guide-grid > .pb-guide-more { grid-column: 3; grid-row: 1; }
+}
+
+/* ---------- phones */
+@media (max-width: 640px) {
+  .pb-step { box-shadow: 3px 3px 0 var(--pb-ink); border-radius: 14px; }
+  .pb-wall { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .pb-note { min-height: 150px; padding: 12px 12px 34px; }
+  .pb-note-title { font-size: 16px; }
+  .pb-note-meta { left: 12px; }
+  .pb-table thead { display: none; }
+  .pb-table, .pb-table tbody, .pb-table tr, .pb-table th, .pb-table td { display: block; }
+  .pb-table tr { padding: 8px 0; border-bottom: 1.5px solid var(--pb-line); }
+  .pb-table th, .pb-table td { border: 0; padding: 3px 12px; white-space: normal !important; }
+  .pb-hero h1 { font-size: clamp(28px, 8vw, 34px); }
+}
+@media (max-width: 380px) { .pb-wall { grid-template-columns: minmax(0, 1fr); } }
+</style>
+<script src="/assets/site.js" defer></script>
+<script src="/assets/license.js" defer></script>
+<script type="module" src="/sticky-notes-backup-viewer/js/app.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","@id":"https://peakappsstudio.com/ko/sticky-memo-backup/#app","name":"Peelback","alternateName":"스티커 메모 백업 보기","url":"https://peakappsstudio.com/ko/sticky-memo-backup/","description":"A browser tool that opens the plum.sqlite and StickyNotes.snt files of Windows Sticky Notes, lists the notes with their colours and dates, and saves them as text, Markdown, CSV, JSON, Evernote, Word or PDF files.","featureList":["Opens plum.sqlite (with its -wal file) and StickyNotes.snt of Windows Sticky Notes in the browser; nothing is uploaded","Shows every note with its colour and dates, with search, colour filters and a reader","Copies a note or all notes, saves the first five as a text file (free)","Pro: every note as a ZIP of text or Markdown files, CSV, JSON, an Evernote file, a Word and Google Docs page or a PDF book, and the deleted notes found in unused space"],"applicationCategory":"UtilitiesApplication","operatingSystem":"Any (web browser)","inLanguage":"ko","isAccessibleForFree":true,"offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Peelback Pro","price":"6","priceCurrency":"USD","url":"https://peakappsstudio.com/ko/sticky-memo-backup/"}],"publisher":{"@type":"Organization","name":"Peak Apps Studio","url":"https://peakappsstudio.com/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"도구","item":"https://peakappsstudio.com/tools/"},{"@type":"ListItem","position":2,"name":"스티커 메모 백업 보기","item":"https://peakappsstudio.com/ko/sticky-memo-backup/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"파일이 내 컴퓨터 밖으로 나가나요","acceptedAnswer":{"@type":"Answer","text":"아니요. 페이지는 브라우저 탭 안에서 파일을 읽으며 그동안 어떤 요청도 보내지 않습니다. 페이지를 불러온 뒤에는 네트워크를 꺼도 작동합니다. 페이지와 함께 제공되는 테스트로도 확인합니다."}},{"@type":"Question","name":"왜 -wal 파일도 필요한가요","acceptedAnswer":{"@type":"Answer","text":"스티커 메모는 새 편집을 먼저 plum.sqlite-wal에 쓰고 나중에 plum.sqlite로 합칩니다. plum.sqlite만 복사하면 마지막에 쓴 메모가 빠질 수 있습니다. 두 파일이 있으면 SQLite가 데이터베이스를 열 때처럼 완료된 변경을 반영합니다."}},{"@type":"Question","name":"삭제한 메모를 되살릴 수 있나요","acceptedAnswer":{"@type":"Answer","text":"가끔 가능합니다. Microsoft는 메모 삭제가 영구적이라고 안내합니다. 그래도 삭제된 메모가 한동안 파일에 남을 수 있습니다(삭제 표시된 행으로, 또는 사용하지 않는 페이지에 남은 글로). Pro는 거기서 찾은 것을 목록으로 보여 줍니다. Windows와 디스크가 오래된 데이터를 덮어쓰므로 찾을 수 있다고 약속하지는 않습니다."}},{"@type":"Question","name":"내 스티커 메모가 바뀌나요","acceptedAnswer":{"@type":"Answer","text":"아니요. 파일을 읽기만 합니다. 메모를 앱에 되돌리는 방법은 백업 위치 안내에 있지만 Microsoft가 공식적으로 안내하는 단계는 아니므로 먼저 현재 파일을 복사해 두세요."}},{"@type":"Question","name":"Pro는 무엇을 더해 주나요","acceptedAnswer":{"@type":"Answer","text":"Pro는 6달러 한 번 결제입니다. 모든 메모를 텍스트 또는 Markdown ZIP, CSV, JSON, Mac 메모 앱이 가져올 수 있는 Evernote 파일, Word와 Google 문서용 페이지, PDF 책으로 저장하고 찾은 삭제된 메모도 목록으로 보여 줍니다. 읽기, 검색, 복사와 5개까지 텍스트 저장은 계속 무료입니다."}}]}]}
+</script>
+<script src="/assets/pro-source.js" defer></script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
+<meta name="peak-pay" content="peelback">
+</head>
+<body class="peelback" style="--accent:#1b2233">
+<a class="skip" href="#main">도구로 이동</a>
+<header class="site-head pb-head">
+  <div class="wrap">
+    <a class="brand" href="/ko/sticky-memo-backup/" aria-label="Peelback, 스티커 메모 백업 보기">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="#1b2233"/><path d="M7 6.5h18v12.5l-6.5 6.5H7z" fill="#ffd93d"/><path d="M25 19l-6.5 6.5V21c0-1.1.9-2 2-2z" fill="#ffffff" fill-opacity=".92"/><path d="M10.5 11h11M10.5 15h8" stroke="#1b2233" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span>Peelback</span>
+    </a>
+    <nav class="head-nav" aria-label="Peelback">
+      <span class="pb-tool-link" aria-current="page">파일 열기</span>
+      <a href="/sticky-notes-backup-viewer/" hreflang="en" lang="en">English</a>
+      <a href="/es/recuperar-notas-rapidas-windows/" hreflang="es" lang="es">Español</a>
+      <a href="/pt-br/backup-notas-autoadesivas-windows/" hreflang="pt-BR" lang="pt-BR">Português</a>
+      <a href="/ja/windows-fusen-backup/" hreflang="ja" lang="ja">日本語</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="pb-hero" aria-labelledby="h1">
+<div class="wrap pb-hero-in">
+<div class="pb-hero-text">
+<nav class="crumbs" aria-label="탐색 경로"><ol><li><a href="/tools/">도구</a></li><li aria-current="page">스티커 메모 백업 보기</li></ol></nav>
+<h1 id="h1">plum.sqlite, StickyNotes.snt에서 스티커 메모 읽기</h1>
+<p class="pb-lede">예전 PC나 Windows.old 폴더, 백업 드라이브에서 스티커 메모(Sticky Notes) 파일을 복사했는데 Windows에서 메모가 보이지 않을 때 사용합니다. 파일을 추가하면 메모가 색과 날짜와 함께 브라우저에 열립니다. 글을 복사하거나 파일로 저장할 수 있습니다. 업로드하지 않습니다.</p>
+<dl class="pb-facts">
+<div><dt>읽는 파일</dt><dd>plum.sqlite(Windows 10, 11)와 plum.sqlite-wal, StickyNotes.snt(Windows 7과 초기 Windows 10)</dd></div>
+<div><dt>저장 위치</dt><dd>내 컴퓨터 안에서만 처리합니다. 업로드가 없고 페이지를 불러온 뒤에는 오프라인에서도 작동합니다</dd></div>
+<div><dt>비용</dt><dd>읽기, 검색, 복사는 무료입니다. Pro는 6달러 한 번 결제입니다</dd></div>
+</dl>
+</div>
+<div class="pb-hero-art"><svg class="pb-art" viewBox="0 0 400 400" role="img" aria-labelledby="art-t"><title id="art-t">Peelback: 모서리가 들린 색색의 메모 더미와 plum.sqlite, StickyNotes.snt 파일 이름</title>
+<ellipse cx="200" cy="352" rx="150" ry="14" fill="#1b2233" opacity=".16"/>
+<g transform="translate(176 200) rotate(-13)"><rect x="-84" y="-84" width="168" height="168" rx="7" fill="#495057" stroke="#1b2233" stroke-width="2.4"/></g>
+<g transform="translate(206 197) rotate(9)"><rect x="-84" y="-84" width="168" height="168" rx="7" fill="#ced4da" stroke="#1b2233" stroke-width="2.4"/></g>
+<g transform="translate(176 194) rotate(-6)"><rect x="-84" y="-84" width="168" height="168" rx="7" fill="#c4a7ff" stroke="#1b2233" stroke-width="2.4"/></g>
+<g transform="translate(206 191) rotate(12)"><rect x="-84" y="-84" width="168" height="168" rx="7" fill="#8ce99a" stroke="#1b2233" stroke-width="2.4"/></g>
+<g transform="translate(176 188) rotate(-9)"><rect x="-84" y="-84" width="168" height="168" rx="7" fill="#74c0fc" stroke="#1b2233" stroke-width="2.4"/></g>
+<g transform="translate(206 185) rotate(5)"><rect x="-84" y="-84" width="168" height="168" rx="7" fill="#ff8fb1" stroke="#1b2233" stroke-width="2.4"/></g>
+<g transform="translate(196 192) rotate(-3)">
+<path d="M-90-90H90V30L30 90H-90Z" fill="#ffd93d" stroke="#1b2233" stroke-width="3" stroke-linejoin="round"/>
+<path d="M90 30L30 90V48C30 38 38 30 48 30Z" fill="#ffffff" stroke="#1b2233" stroke-width="3" stroke-linejoin="round"/>
+<g stroke="#1b2233" stroke-width="7" stroke-linecap="round"><path d="M-62-52H58"/><path d="M-62-24H62"/><path d="M-62 4H20"/></g>
+<g fill="#c2371b"><circle cx="-62" cy="46" r="7"/></g><path d="M-44 46H-8" stroke="#1b2233" stroke-width="7" stroke-linecap="round"/>
+</g>
+<g transform="translate(40 330)"><rect width="132" height="30" rx="8" fill="#fff" stroke="#1b2233" stroke-width="2.4"/><text x="12" y="20.5" fill="#1b2233" font-size="14" class="pb-art-text">plum.sqlite</text></g>
+<g transform="translate(206 330)"><rect width="154" height="30" rx="8" fill="#fff" stroke="#1b2233" stroke-width="2.4"/><text x="12" y="20.5" fill="#1b2233" font-size="14" class="pb-art-text">StickyNotes.snt</text></g>
+</svg></div>
+</div>
+</section>
+
+<section class="pb-bench" aria-label="Peelback">
+<div class="wrap pb-bench-in">
+<div class="pb-side">
+<section class="pb-step" id="step-file" aria-labelledby="s1-h">
+<h2 id="s1-h"><span class="pb-num" aria-hidden="true">1</span>파일 추가하기</h2>
+<div class="pb-drop" id="drop">
+<svg class="pb-drop-ico" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 6h32v22l-12 12H8z" fill="#ffd93d" stroke="#1b2233" stroke-width="2.4" stroke-linejoin="round"/><path d="M40 28L28 40V33c0-3 2-5 5-5z" fill="#fff" stroke="#1b2233" stroke-width="2.4" stroke-linejoin="round"/><path d="M15 15h18M15 21h12" stroke="#1b2233" stroke-width="3" stroke-linecap="round"/></svg>
+<p class="pb-drop-text">plum.sqlite, plum.sqlite-wal, StickyNotes.snt를 여기에 끌어 놓으세요</p>
+<p class="pb-drop-sub">또는 <button type="button" class="pb-btn pb-btn-go" id="btn-files">파일 선택</button> <button type="button" class="pb-btn pb-btn-plain" id="btn-folder">폴더 선택</button></p>
+<input type="file" id="file-input" class="sr-only" tabindex="-1" aria-hidden="true" multiple>
+<input type="file" id="folder-input" class="sr-only" tabindex="-1" aria-hidden="true" webkitdirectory>
+</div>
+<p class="pb-error" id="load-error" role="alert" hidden></p>
+<p class="pb-notice" id="load-notice" role="status" hidden></p>
+<div class="pb-busy" id="busy" hidden role="status"><span class="pb-spin" aria-hidden="true"></span><span id="busy-text"></span></div>
+<details class="pb-where"><summary>이 파일들은 어디에 있나요</summary>
+<ol>
+<li>메모가 있는 PC에서 스티커 메모를 닫고 Win + R을 누른 뒤 <code>%LocalAppData%\Packages\Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe\LocalState</code> 를 붙여 넣고 Enter를 누르세요.</li>
+<li>plum.sqlite와, 있다면 plum.sqlite-wal, plum.sqlite-shm을 복사하세요. 함께 복사해야 합니다. -wal 파일에 가장 최근 편집이 들어 있습니다.</li>
+<li>Windows 7이나 초기 Windows 10 PC라면 <code>%AppData%\Microsoft\Sticky Notes</code> 에서 StickyNotes.snt를 복사하세요.</li>
+</ol>
+
+</details>
+<p class="pb-sample">파일이 없다면 샘플 메모로 결과가 어떻게 보이는지 확인할 수 있습니다. <button type="button" class="pb-link" id="btn-sample">샘플 메모 보기</button></p>
+<p class="pb-small pb-privacy" id="privacy">파일은 이 탭 안에서만 읽습니다. 업로드하지 않으며 메모 내용은 브라우저에 저장되지 않습니다. 페이지 방문 수는 Cloudflare Web Analytics로 셉니다. 쿠키도 개인 데이터도 쓰지 않으며 내 파일에는 손대지 않습니다. Pro 버튼을 누르면 자체 카운터가 이 도구의 일일 합계에 1을 더합니다. 기록하는 것은 페이지와 어떤 종류의 사이트에서 왔는지뿐입니다. 쿠키도 개인 데이터도 쓰지 않고 IP 주소도 저장하지 않으며 내 파일에는 손대지 않습니다.</p>
+</section>
+
+<section class="pb-step pb-save" id="save" aria-labelledby="save-h" hidden>
+<h2 id="save-h">연 내용을 저장하기</h2>
+<div class="pb-save-free">
+<h3>무료</h3>
+<div class="pb-save-row"><button type="button" class="pb-btn" id="btn-copyall">모든 텍스트 복사</button><button type="button" class="pb-btn" id="btn-five">처음 5개를 텍스트 파일 하나로 저장</button></div>
+<p class="pb-small">읽기, 검색, 복사와 5개까지 텍스트 저장은 무료입니다.</p>
+</div>
+<div class="pb-save-pro" id="pro">
+<h3>Pro <span class="pb-pro-tag">한 번 결제</span></h3>
+<ul class="pb-pro-list">
+<li>모든 메모를 텍스트 또는 Markdown 파일 ZIP으로</li>
+<li>색과 날짜가 들어간 CSV와 JSON</li>
+<li>Mac 메모 앱이 가져올 수 있는 Evernote 파일</li>
+<li>Word와 Google 문서용 페이지</li>
+<li>모든 메모를 담은 PDF 책</li>
+<li>사용하지 않는 공간에서 찾은 삭제된 메모 전부</li>
+</ul>
+<div class="pb-pro-buttons">
+<button type="button" class="pb-btn pb-btn-pro" id="btn-zip-txt">텍스트 파일 ZIP</button>
+<button type="button" class="pb-btn pb-btn-pro" id="btn-zip-md">Markdown 파일 ZIP</button>
+<button type="button" class="pb-btn pb-btn-pro" id="btn-csv">CSV 파일</button>
+<button type="button" class="pb-btn pb-btn-pro" id="btn-json">JSON 파일</button>
+<button type="button" class="pb-btn pb-btn-pro" id="btn-enex">Mac 메모용 Evernote 파일</button>
+<button type="button" class="pb-btn pb-btn-pro" id="btn-doc">Word와 Google 문서용 페이지</button>
+<button type="button" class="pb-btn pb-btn-pro" id="btn-pdf">PDF 책</button>
+</div>
+<p class="pb-pro-row"><a class="pb-buy" data-buy-pro href="https://peakappsstudio.com/sticky-notes-backup-viewer/#buy-pro">Pro 구매 6달러</a> <span class="pb-small" id="pro-note">이미 구매하셨나요? <button type="button" class="pb-link" data-enter-key>Pro 켜기</button></span></p>
+</div>
+<div class="pb-recover" id="recover" hidden>
+<h3>삭제된 메모</h3>
+<p class="pb-small" id="recover-note">이 방법으로는 plum.sqlite만 찾을 수 있습니다. 찾을 수 있는지는 Windows가 아직 덮어쓰지 않았는지에 달려 있습니다.</p>
+<p><button type="button" class="pb-btn" id="btn-recover">삭제된 메모 찾기</button></p>
+<p class="pb-small" id="recover-result" role="status"></p>
+</div>
+</section>
+</div>
+
+<div class="pb-main">
+<section class="pb-step pb-wallbox" id="step-wall" aria-labelledby="s2-h">
+<h2 id="s2-h"><span class="pb-num" aria-hidden="true">2</span>읽기, 검색, 저장</h2>
+<p class="pb-wait" id="step-wait">파일을 열면 메모가 여기에 나타납니다.</p>
+<div class="pb-result" id="result" hidden>
+<div class="pb-resbar">
+<div><h3 id="res-title" tabindex="-1"></h3><p class="pb-small" id="res-sub"></p></div>
+<button type="button" class="pb-btn pb-btn-plain pb-btn-sm" id="btn-reset">지우기</button>
+</div>
+<div class="pb-tools">
+<label class="pb-search"><span class="sr-only">메모 검색</span><input type="search" id="q" placeholder="메모 검색" autocomplete="off"></label>
+<label class="pb-sort"><span class="sr-only">정렬</span><select id="sort"><option value="new">최신순</option><option value="old">오래된 순</option><option value="az">가나다순</option></select></label>
+<label class="pb-toggle" id="deleted-toggle"><input type="checkbox" id="show-deleted"> 삭제된 메모도 보기</label>
+</div>
+<div class="pb-chips" id="chips" role="group" aria-label="색"></div>
+<p class="pb-small pb-count" id="count" role="status"></p>
+<ul class="pb-wall" id="wall"></ul>
+<p class="pb-small" id="wall-empty" hidden>일치하는 메모가 없습니다.</p>
+<p class="pb-more" id="more-wrap" hidden><button type="button" class="pb-btn" id="btn-more"></button></p>
+</div>
+</section>
+</div>
+</div>
+</section>
+
+<dialog class="pb-reader" id="reader" aria-labelledby="rd-title">
+<div class="pb-reader-bar">
+<span class="pb-swatch" id="rd-swatch" aria-hidden="true"></span>
+<div class="pb-reader-head"><h2 id="rd-title"></h2><p class="pb-small" id="rd-meta"></p></div>
+<button type="button" class="pb-btn pb-btn-plain pb-btn-sm" id="rd-close">닫기</button>
+</div>
+<div class="pb-reader-body" id="rd-body" tabindex="0"></div>
+<p class="pb-small" id="rd-pics" hidden></p>
+<div class="pb-reader-foot">
+<button type="button" class="pb-btn pb-btn-plain pb-btn-sm" id="rd-prev">이전 메모</button>
+<span class="pb-small" id="rd-pos" role="status"></span>
+<button type="button" class="pb-btn pb-btn-plain pb-btn-sm" id="rd-next">다음 메모</button>
+<span class="pb-spacer"></span>
+<button type="button" class="pb-btn pb-btn-sm" id="rd-copy">텍스트 복사</button>
+<button type="button" class="pb-btn pb-btn-sm" id="rd-save">이 메모를 텍스트로 저장</button>
+</div>
+</dialog>
+
+<section class="pb-how" aria-labelledby="how-h">
+<div class="wrap">
+<h2 id="how-h">파일 구분하기</h2>
+<div class="pb-table-wrap"><table class="pb-table">
+<thead><tr><th scope="col">파일</th><th scope="col">Windows</th><th scope="col">폴더</th><th scope="col">들어 있는 내용</th></tr></thead>
+<tbody>
+<tr><th scope="row">plum.sqlite</th><td>Windows 10, 11</td><td><code>%LocalAppData%\Packages\Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe\LocalState</code></td><td>메모 본문, 색, 날짜와 아직 지워지지 않은 삭제된 메모</td></tr>
+<tr><th scope="row">plum.sqlite-wal, plum.sqlite-shm</th><td>Windows 10, 11</td><td>같은 폴더</td><td>아직 plum.sqlite에 합쳐지지 않은 가장 최근 편집. plum.sqlite와 함께 -wal 파일도 추가하세요</td></tr>
+<tr><th scope="row">StickyNotes.snt</th><td>Windows 7, 초기 Windows 10</td><td><code>%AppData%\Microsoft\Sticky Notes</code></td><td>메모마다 항목 하나, 본문은 RTF</td></tr>
+</tbody></table></div>
+<div class="pb-how-cols">
+<section class="pb-faq" aria-labelledby="faq-h"><h2 id="faq-h">자주 묻는 질문</h2>
+<details><summary>파일이 내 컴퓨터 밖으로 나가나요</summary><p>아니요. 페이지는 브라우저 탭 안에서 파일을 읽으며 그동안 어떤 요청도 보내지 않습니다. 페이지를 불러온 뒤에는 네트워크를 꺼도 작동합니다. 페이지와 함께 제공되는 테스트로도 확인합니다.</p></details>
+<details><summary>왜 -wal 파일도 필요한가요</summary><p>스티커 메모는 새 편집을 먼저 plum.sqlite-wal에 쓰고 나중에 plum.sqlite로 합칩니다. plum.sqlite만 복사하면 마지막에 쓴 메모가 빠질 수 있습니다. 두 파일이 있으면 SQLite가 데이터베이스를 열 때처럼 완료된 변경을 반영합니다.</p></details>
+<details><summary>삭제한 메모를 되살릴 수 있나요</summary><p>가끔 가능합니다. Microsoft는 메모 삭제가 영구적이라고 안내합니다. 그래도 삭제된 메모가 한동안 파일에 남을 수 있습니다(삭제 표시된 행으로, 또는 사용하지 않는 페이지에 남은 글로). Pro는 거기서 찾은 것을 목록으로 보여 줍니다. Windows와 디스크가 오래된 데이터를 덮어쓰므로 찾을 수 있다고 약속하지는 않습니다.</p></details>
+<details><summary>내 스티커 메모가 바뀌나요</summary><p>아니요. 파일을 읽기만 합니다. 메모를 앱에 되돌리는 방법은 백업 위치 안내에 있지만 Microsoft가 공식적으로 안내하는 단계는 아니므로 먼저 현재 파일을 복사해 두세요.</p></details>
+<details><summary>Pro는 무엇을 더해 주나요</summary><p>Pro는 6달러 한 번 결제입니다. 모든 메모를 텍스트 또는 Markdown ZIP, CSV, JSON, Mac 메모 앱이 가져올 수 있는 Evernote 파일, Word와 Google 문서용 페이지, PDF 책으로 저장하고 찾은 삭제된 메모도 목록으로 보여 줍니다. 읽기, 검색, 복사와 5개까지 텍스트 저장은 계속 무료입니다.</p></details>
+</section>
+<div class="pb-how-side"><p class="pb-small">Peelback은 Peak Apps Studio가 만들었으며 Microsoft와 관련이 없습니다. Sticky Notes는 Microsoft의 제품입니다.<br>마지막 확인 2026-11-05. 형식 출처: <a href="https://github.com/iamhunggy/StickyParser" lang="en">StickyParser</a>, <a href="https://github.com/JeanTheMan/winotes" lang="en">winotes</a>, <a href="https://github.com/kacos2000/Win10/tree/master/StickyNotes" lang="en">kacos2000/Win10</a>, <a href="https://github.com/BasedHardware/omi/blob/main/desktop/windows/src/main/integrations/stickyNotes.ts" lang="en">omi</a>, <a href="https://sqlite.org/fileformat2.html" lang="en">sqlite.org</a>, <a href="https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-cfb/53989ce4-7b05-4f8d-829b-d08d6148375b" lang="en">MS-CFB</a>.</p></div>
+</div>
+</div>
+</section>
+</main>
+<footer class="site-foot pb-foot" id="guides">
+  <div class="wrap cols">
+    <div>
+      <p class="pb-foot-brand">Peelback</p>
+      <p class="pb-foot-text">Windows 스티커 메모 파일을 브라우저에서 엽니다.</p>
+      <p class="pb-foot-text">Peelback은 Peak Apps Studio가 만들었으며 Microsoft와 관련이 없습니다. Sticky Notes는 Microsoft의 제품입니다.</p>
+    </div>
+    <div>
+      <h2>언어</h2>
+      <ul>
+        <li><a href="/sticky-notes-backup-viewer/" hreflang="en" lang="en">English</a></li>
+        <li><a href="/es/recuperar-notas-rapidas-windows/" hreflang="es" lang="es">Español</a></li>
+        <li><a href="/pt-br/backup-notas-autoadesivas-windows/" hreflang="pt-BR" lang="pt-BR">Português</a></li>
+        <li><a href="/ja/windows-fusen-backup/" hreflang="ja" lang="ja">日本語</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>정보</h2>
+      <ul>
+        <li><a href="/tools/privacy/">개인정보</a></li>
+        <li><a href="/legal/terms/">이용약관</a></li>
+        <li><a href="/legal/refund/">환불</a></li>
+        <li><a href="/tools/">다른 도구</a></li>
+        <li><a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<script type="application/json" id="i18n">{"drop":"파일을 놓으면 엽니다","folderBtn":"폴더 선택","opening":"파일을 여는 중","opened":"{files}에서 메모 {n}개를 열었습니다","walUsed":"-wal 파일의 최근 편집을 반영했습니다(변경 {n}건).","walMissing":"plum.sqlite-wal이 추가되지 않았습니다. 스티커 메모가 열려 있는 상태에서 복사했다면 최근 편집이 들어 있는 이 파일도 추가하세요.","sampleTag":"샘플 메모입니다. 내 컴퓨터의 메모가 아닙니다","sampleName":"샘플 메모","errNofile":"추가된 파일이 없습니다.","errUnknown":"스티커 메모 파일이 아닌 것 같습니다. plum.sqlite(Windows 10, 11) 또는 StickyNotes.snt(Windows 7과 초기 Windows 10)를 찾아 보세요.","errOnlywal":"-wal 파일만 추가되었습니다. plum.sqlite도 추가하세요. -wal에는 최근 편집이, plum.sqlite에는 나머지가 들어 있습니다.","errZip":"ZIP 파일입니다. 먼저 압축을 풀고 안에 있는 plum.sqlite(와 plum.sqlite-wal) 또는 StickyNotes.snt를 추가하세요.","errNonote":"이 데이터베이스에는 Note 테이블이 없어 스티커 메모의 plum.sqlite가 아닙니다(테이블: {tables}).","errDamaged":"파일을 읽을 수 없습니다. 중간에 잘렸거나 손상되었을 수 있습니다. 원래 폴더에서 다시 복사해 보세요.","errBig":"이 파일은 400 MB가 넘어 스티커 메모 파일로는 너무 큽니다.","search":"메모 검색","all":"전체","sortLabel":"정렬","sortNew":"최신순","sortOld":"오래된 순","sortAz":"가나다순","showDeleted":"삭제된 메모도 보기","count":"메모 {n}개","countOf":"메모 {m}개 중 {n}개","none":"일치하는 메모가 없습니다.","empty":"(빈 메모)","deletedTag":"삭제됨","recoveredTag":"사용하지 않는 공간에서 발견","pictures":"그림이 {n}개 있었습니다. 그림은 스티커 메모의 media 폴더에 남아 있습니다","open":"열기","clear":"지우기","readerTitle":"메모","close":"닫기","prev":"이전 메모","next":"다음 메모","copy":"텍스트 복사","copied":"복사했습니다","copyFailed":"브라우저가 복사를 허용하지 않았습니다. 텍스트를 선택하고 Ctrl + C를 누르세요.","saveOne":"이 메모를 텍스트로 저장","created":"만든 날","modified":"수정한 날","color":"색","of":"{i} / {n}","saveH":"연 내용을 저장하기","freeH":"무료","copyAll":"모든 텍스트 복사","copiedAll":"모든 메모를 복사했습니다","saveFive":"처음 5개를 텍스트 파일 하나로 저장","savedFive":"저장했습니다. 처음 5개 메모가 파일에 들어 있습니다.","freeNote":"읽기, 검색, 복사와 5개까지 텍스트 저장은 무료입니다.","proH":"Pro","proTag":"한 번 결제","proList":["모든 메모를 텍스트 또는 Markdown 파일 ZIP으로","색과 날짜가 들어간 CSV와 JSON","Mac 메모 앱이 가져올 수 있는 Evernote 파일","Word와 Google 문서용 페이지","모든 메모를 담은 PDF 책","사용하지 않는 공간에서 찾은 삭제된 메모 전부"],"zipTxt":"텍스트 파일 ZIP","zipMd":"Markdown 파일 ZIP","csv":"CSV 파일","json":"JSON 파일","enex":"Mac 메모용 Evernote 파일","doc":"Word와 Google 문서용 페이지","pdf":"PDF 책","buy":"Pro 구매 6달러","haveIt":"이미 구매하셨나요?","turnOn":"Pro 켜기","proNeeded":"이 기능은 Pro에 포함되어 있습니다(6달러, 한 번 결제).","saved":"저장했습니다","building":"파일을 만드는 중","pdfBusy":"PDF를 만드는 중, {p}쪽","recoverH":"삭제된 메모","recoverBtn":"삭제된 메모 찾기","recoverBusy":"사용하지 않는 페이지를 살펴보는 중","recoverFound":"사용하지 않는 공간에서 삭제된 메모 {n}개를 찾았습니다. 목록에 표시되어 있습니다.","recoverNone":"사용하지 않는 공간에서 읽을 수 있는 내용을 찾지 못했습니다.","recoverFree":"처음 2개만 보여 줍니다. Pro에서는 {n}개를 모두 보여 줍니다.","recoverNote":"이 방법으로는 plum.sqlite만 찾을 수 있습니다. 찾을 수 있는지는 Windows가 아직 덮어쓰지 않았는지에 달려 있습니다.","recoverSnt":"이 기능은 plum.sqlite에서만 작동합니다. StickyNotes.snt에는 삭제된 글이 남지 않습니다.","docTitle":"스티커 메모","bookTitle":"스티커 메모 책","bookCount":"메모 {n}개","bookRange":"{from}부터 {to}까지","untitled":"메모","deletedFolder":"삭제됨","notesFolder":"메모","toastCopied":"복사했습니다","themes":{"Yellow":"노랑","Pink":"분홍","Blue":"파랑","Green":"초록","Purple":"보라","Gray":"회색","Charcoal":"차콜"},"license":{"title":"Pro 구매","buy":"Pro 구매","keyLabel":"이미 구매하셨나요? Pro 키를 붙여 넣으세요","verify":"활성화","close":"닫기","checking":"키를 확인하는 중","badKey":"Pro 키 형식이 아닌 것 같습니다.","network":"키를 확인하지 못했습니다. 인터넷 연결을 확인한 뒤 다시 시도해 주세요.","ok":"이 브라우저에서 Pro가 활성화되었습니다. 감사합니다.","refunded":"환불되었거나 종료된 구매라서 Pro가 꺼졌습니다.","rejected":"이 Pro 키는 사용할 수 없습니다.","active":"이 브라우저에서 Pro가 활성화되어 있습니다."},"pitch":"Pro는 모든 메모를 텍스트 또는 Markdown ZIP, CSV, JSON, Evernote 파일, Word와 Google 문서용 페이지, PDF 책으로 저장하고 찾은 삭제된 메모도 목록으로 보여 줍니다. 6달러, 한 번 결제입니다."}</script>
+</body>
+</html>
