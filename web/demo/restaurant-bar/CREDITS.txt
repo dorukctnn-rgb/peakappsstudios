@@ -1,0 +1,10 @@
+Kehribar restaurant and bar demo (Peak Apps Studio): third-party material
+=========================================================================
+The 3D scene is a small adaptation of the "caustics" example of pmndrs/examples (MIT, Copyright (c) 2024 Poimandres).
+Libraries: three.js, @react-three/fiber, @react-three/drei, maath, React (all MIT).
+Models: "Ikea - Pokal Glass Cups" by CDcruz and "Cute milkshake" by Felix Yadomi, both CC BY 4.0
+(https://creativecommons.org/licenses/by/4.0/), changed (kept glass and straw only, re-saved without Draco).
+Fonts: Noto Serif Display and Host Grotesk, SIL OFL 1.1.
+
+Full licence texts: assets/app/LICENSES.txt and assets/fonts/OFL-*.txt in this folder.
+No credit line is shown on the page itself. These files travel with the site in the bundle.

@@ -1,0 +1,68 @@
+Licences of the third-party material in this bundle (assets/app/scene.js and assets/app/glass-*.glb).
+This file is part of the bundle. Keep it next to scene.js.
+
+=====================================================================
+1. Scene code: pmndrs/examples "caustics" (MIT)
+=====================================================================
+The scene is adapted from the "caustics" example of pmndrs/examples
+(https://github.com/pmndrs/examples/tree/main/examples/caustics, original by Paul Henschel).
+Changes: warm bar light instead of the city HDRI, a liquid and a coaster with the brand name, a dark bar top,
+the cake, flowers and fork removed, camera driven by page scroll and pointer, quality tiers for phones.
+
+MIT License
+
+Copyright (c) 2024 Poimandres
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+=====================================================================
+2. Libraries compiled into scene.js (all MIT)
+=====================================================================
+three (three.js)            MIT   Copyright (c) 2010-2026 three.js authors
+@react-three/fiber          MIT   Copyright (c) Poimandres (Paul Henschel and contributors)
+@react-three/drei           MIT   Copyright (c) 2020 react-spring (Poimandres)
+maath                       MIT   Copyright (c) Poimandres
+react, react-dom            MIT   Copyright (c) Meta Platforms, Inc. and affiliates
+Small helper packages that Vite bundles with them (three-stdlib, zustand, its-fine, react-reconciler,
+scheduler and similar) are MIT-licensed as well.
+
+The MIT licence text above applies to each of them; each copyright line above belongs to the package named on it.
+
+=====================================================================
+3. 3D models in glass-*.glb (Creative Commons Attribution 4.0, CC BY 4.0)
+=====================================================================
+Licence: https://creativecommons.org/licenses/by/4.0/
+
+"Ikea - Pokal Glass Cups" by CDcruz
+  https://sketchfab.com/3d-models/21837e54a14346aa900e1ae719779b86
+  Part of the glass and straw model of the original example.
+
+"Cute milkshake" by Felix Yadomi
+  https://sketchfab.com/3d-models/3ba52a41b4b248df953684861d9e7a20
+  Part of the glass and straw model of the original example.
+
+Changes made: only the glass and the straw were kept (cake, flowers, fork, second straw and cameras were removed),
+and the file was re-saved without Draco compression with glTF-Transform. Colour, material and lighting are
+set by the scene code.
+The cake slice (matousekfoto) and dried flower (Second Studio) models of the original example are NOT used.
+
+=====================================================================
+4. Fonts (SIL Open Font Licence 1.1)
+=====================================================================
+Noto Serif Display and Host Grotesk. Licence texts: assets/fonts/OFL-NotoSerifDisplay.txt, assets/fonts/OFL-HostGrotesk.txt
