@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Önce ve sonra: restoran sitesi (konsept karşılaştırma)</title>
+<meta name="description" content="Peak Apps Studio konsept karşılaştırması: eski Kehribar demosu, yeni Kehribar demosu ve bugünkü bir küçük restoran sitesi, masaüstü ve telefonda yan yana, ölçümlerle.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0d0a08">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d0a08'/%3E%3Cpath d='M9 8h14l-1.4 15.2A2 2 0 0 1 19.6 25h-7.2a2 2 0 0 1-2-1.8Z' fill='none' stroke='%23e9a23b' stroke-width='1.6'/%3E%3C/svg%3E">
+<link rel="preload" href="../assets/fonts/kb-text.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Kb Display";src:url(../assets/fonts/kb-display.woff2) format("woff2");font-weight:300 600;font-display:swap}
+@font-face{font-family:"Kb Display";src:url(../assets/fonts/kb-display-italic.woff2) format("woff2");font-weight:300 500;font-style:italic;font-display:swap}
+@font-face{font-family:"Kb Text";src:url(../assets/fonts/kb-text.woff2) format("woff2");font-weight:400 700;font-display:swap}
+:root{--gut:clamp(18px,4vw,72px);--night:#0d0a08;--char:#130f0c;--smoke:#1c1511;--cream:#f3e9d8;--muted:#bdad96;--amber:#e9a23b;--amber-hi:#f5b655;--ink:#1a1007;--line:rgba(243,233,216,.15);--good:#6fd596;--bad:#e08a6e}
+*{box-sizing:border-box;margin:0}
+html{background:var(--night);scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--night);color:var(--cream);font:400 17px/1.55 "Kb Text",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}a{color:inherit}
+:focus-visible{outline:2px solid var(--amber-hi);outline-offset:3px;border-radius:4px}
+.top{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justify-content:space-between;padding:18px var(--gut);border-bottom:1px solid var(--line)}
+.brand{font:italic 400 28px/1 "Kb Display",Georgia,serif;display:inline-flex;align-items:center;min-height:44px;text-decoration:none}
+.tag{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--amber)}
+.hero{padding:clamp(48px,7vw,110px) var(--gut) clamp(28px,4vw,56px)}
+h1{font:400 clamp(44px,7vw,120px)/.96 "Kb Display",Georgia,serif;letter-spacing:-.012em;max-width:16em}
+h1 em{font-style:italic;color:var(--amber)}
+.lead{margin-top:22px;max-width:44em;color:var(--muted);font-size:clamp(17px,1.4vw,21px)}
+.notice{margin-top:26px;display:inline-block;padding:10px 16px;border:1px solid var(--line);border-radius:10px;background:var(--char);font-size:14.5px;color:var(--muted);max-width:60em}
+.notice b{color:var(--cream)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;min-height:48px;padding:0 1.5em;border-radius:999px;font-weight:600;font-size:15.5px;border:1.5px solid transparent;cursor:pointer;background:none;color:var(--cream)}
+.btn-a{background:var(--amber);color:var(--ink)}.btn-a:hover{background:var(--amber-hi)}
+.btn-g{border-color:rgba(243,233,216,.4)}.btn-g:hover{border-color:var(--cream)}
+.sec{padding:clamp(44px,6vw,96px) var(--gut)}
+.sec h2{font:400 clamp(32px,4vw,64px)/1 "Kb Display",Georgia,serif;letter-spacing:-.01em;margin-bottom:12px}
+.sec>p.sub{color:var(--muted);max-width:46em;margin-bottom:34px}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,36px);align-items:start}
+.col h3{font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.col h3 b{color:var(--cream)}
+.col .cap{font-size:14.5px;color:var(--muted);margin:8px 0 14px;min-height:3.1em}
+.col.after h3 b{color:var(--amber)}
+.shot{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--smoke)}
+.shot .bar{height:26px;display:flex;align-items:center;gap:6px;padding:0 10px;background:#1a1410;border-bottom:1px solid var(--line)}
+.shot .bar i{width:9px;height:9px;border-radius:50%;background:#3a2f27}
+.phones{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,36px);margin-top:clamp(28px,3vw,48px);align-items:start}
+.ph{justify-self:center;width:min(100%,300px);border:8px solid #2a211b;border-radius:34px;overflow:hidden;background:var(--smoke);position:relative;aspect-ratio:390/844}
+.ph img,.ph iframe{width:100%;height:100%;border:0;display:block;object-fit:cover;object-position:top}
+.live{display:block;margin:12px auto 0;width:min(100%,300px);min-height:44px;border:1.5px solid var(--line);border-radius:999px;color:var(--cream);background:none;font-weight:600;font-size:14.5px;cursor:pointer}
+.live:hover{border-color:var(--amber);color:var(--amber-hi)}
+.rowlab{margin-top:clamp(28px,3vw,48px);margin-bottom:14px;font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:16px}
+th,td{text-align:left;padding:13px 14px;border-top:1px solid var(--line);vertical-align:top}
+thead th{border-top:0;font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+thead th:nth-child(4){color:var(--amber)}
+tbody th{font-weight:500;color:var(--cream);width:30%}
+tr.grp th{padding-top:30px;font:italic 400 24px/1.1 "Kb Display",Georgia,serif;color:var(--amber);border-top:1px solid var(--line)}
+td:nth-child(4){background:rgba(233,162,59,.07)}
+small{color:var(--muted);font-size:13px}
+.y{color:var(--good);font-weight:600}.n{color:var(--bad);font-weight:600}
+.table-wrap{overflow-x:auto;margin-inline:calc(var(--gut)*-1);padding-inline:var(--gut)}
+.table-wrap table{min-width:720px}
+.honest{margin-top:26px;padding:20px 24px;border-left:3px solid var(--amber);background:var(--char);max-width:62em;color:var(--muted)}
+.honest b{color:var(--cream)}
+.chg{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(20px,3vw,56px) clamp(24px,4vw,72px);counter-reset:c}
+.chg li{list-style:none;counter-increment:c;padding-top:18px;border-top:1px solid var(--line)}
+.chg li::before{content:counter(c,decimal-leading-zero);display:block;font:italic 400 28px/1 "Kb Display",Georgia,serif;color:var(--amber);margin-bottom:8px}
+.chg b{display:block;font-size:19px;margin-bottom:4px}
+.chg span{color:var(--muted);font-size:16px}
+.res{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.6vw,28px)}
+.res figure{margin:0}
+.res img{border-radius:6px;border:1px solid var(--line)}
+.res figcaption{margin-top:10px;font-size:14.5px;color:var(--muted)}
+.res figcaption b{color:var(--cream);display:block;font-size:16px}
+.foot{padding:36px var(--gut) 56px;border-top:1px solid var(--line);color:var(--muted);font-size:14px;display:flex;flex-wrap:wrap;gap:12px 40px;justify-content:space-between}
+.foot a{border-bottom:1px solid var(--line)}
+@media(max-width:1000px){.cols,.phones,.res{grid-template-columns:1fr}.chg{grid-template-columns:1fr}.col .cap{min-height:0}}
+@media(max-width:700px){body{font-size:16.5px}
+.table-wrap{margin-inline:0;padding-inline:0;overflow:visible}
+.table-wrap table,.table-wrap tbody,.table-wrap tr,.table-wrap th,.table-wrap td{display:block;min-width:0;width:auto}
+.table-wrap thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.table-wrap tr{border-top:1px solid var(--line);padding:12px 0}
+.table-wrap tr.grp{border-top:0;padding:26px 0 0}.table-wrap tr.grp th{border-top:0;padding:0}
+.table-wrap tbody th{padding:0 0 6px;border:0;width:auto}
+.table-wrap td{display:flex;justify-content:space-between;gap:16px;padding:5px 0;border:0;font-size:15.5px;text-align:right}
+.table-wrap td::before{content:attr(data-l);color:var(--muted);text-align:left;flex:none}
+.table-wrap td:nth-child(4){background:rgba(233,162,59,.09);padding:5px 8px;margin-inline:-8px;border-radius:6px}}
+</style>
+</head>
+<body>
+<header class="top"><a class="brand" href="../tr/">Kehribar</a><span class="tag">Konsept karşılaştırma · noindex</span></header>
+
+<section class="hero">
+  <p class="tag">Restoran sitesi, 9 Kasım 2026</p>
+  <h1>Önce ve sonra: <em>aynı bar</em>, iki site</h1>
+  <p class="lead">Solda bugün gördüğümüz küçük bir restoran sitesi, ortada eski Kehribar demomuz, sağda aynı içerikle yeniden yaptığımız Kehribar. Üç site de aynı ekran boyutlarında (masaüstü 1440 piksel, telefon 390 piksel) ve aynı ölçüm düzeneğinde ele alındı.</p>
+  <p class="notice"><b>Konsept.</b> Kehribar kurgusal bir bardır; yemekler, fiyatlar, adres, telefon ve saatler örnektir. Soldaki restoran gerçek bir işletmedir ve yalnızca ölçüt olarak, bugünkü halinin ekran görüntüsüyle gösterilir; kendileriyle bir bağlantımız yoktur ve sitelerine dokunulmamıştır.</p>
+  <div class="cta"><a class="btn btn-a" href="../tr/">Yeni sürümü aç (TR)</a><a class="btn btn-g" href="../">English version</a><a class="btn btn-g" href="../../restaurant-bar/tr/">Eski demo</a></div>
+</section>
+
+<section class="sec" id="yan-yana" aria-labelledby="yy">
+  <h2 id="yy">Yan yana</h2>
+  <p class="sub">İlk ekran, yani ziyaretçinin kaydırmadan gördüğü şey. Telefon görüntüleri canlıdır: "Canlı dene" ile gerçek sayfayı o boyutta kaydırıp dokunabilirsiniz.</p>
+  <p class="rowlab">Masaüstü, 1440 piksel</p>
+  <div class="cols">
+    <div class="col"><h3>1 · <b>Bugünkü küçük restoran</b></h3><p class="cap">Karanlık tema, birden fazla düğme yarışıyor; ilk ekranda saat ve adres yok.</p><div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="img/gercek-1440.webp" width="1200" height="750" alt="Küçük bir restoranın bugünkü sitesi, masaüstü ilk ekran" loading="lazy"></div></div>
+    <div class="col"><h3>2 · <b>Eski Kehribar demosu</b></h3><p class="cap">3 boyutlu bardak ve kısa bir başlık; telefon, adres, saat ve harita yok.</p><div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="img/once-1440.webp" width="1200" height="750" alt="Eski Kehribar demosu, masaüstü ilk ekran" loading="lazy"></div></div>
+    <div class="col after"><h3>3 · <b>Yeni Kehribar</b></h3><p class="cap">Gerçek barmen videosu, canlı "şimdi açık" durumu, saat, adres ve telefon ilk ekranda.</p><div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="img/sonra-1440.webp" width="1200" height="750" alt="Yeni Kehribar, masaüstü ilk ekran" loading="lazy"></div></div>
+  </div>
+  <p class="rowlab">Telefon, 390 piksel</p>
+  <div class="phones">
+    <div><div class="ph" data-live=""><img src="img/gercek-390.webp" width="520" height="1125" alt="Küçük bir restoranın bugünkü sitesi, telefon ilk ekran" loading="lazy"></div></div>
+    <div><div class="ph" data-live="../../restaurant-bar/tr/"><img src="img/once-390.webp" width="520" height="1125" alt="Eski Kehribar demosu, telefon ilk ekran" loading="lazy"></div><button class="live" type="button" data-go>Canlı dene</button></div>
+    <div><div class="ph" data-live="../tr/"><img src="img/sonra-390.webp" width="520" height="1125" alt="Yeni Kehribar, telefon ilk ekran" loading="lazy"></div><button class="live" type="button" data-go>Canlı dene</button></div>
+  </div>
+</section>
+
+<section class="sec" id="olcum" aria-labelledby="ol">
+  <h2 id="ol">Ölçümler</h2>
+  <p class="sub">Hepsi ölçüldü, yorum değil. Üç sütun: bugünkü küçük restoran, eski Kehribar, yeni Kehribar.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>&nbsp;</th><th>Küçük restoran (bugün)</th><th>Eski Kehribar</th><th>Yeni Kehribar</th></tr></thead>
+    <tbody>
+<tr class="grp"><th colspan="4">Telefonda ilk ekranda görünenler</th></tr>
+<tr><th scope="row">Menü düğmesi</th><td data-l="Küçük restoran"><span><span class="y">var</span></span></td><td data-l="Eski Kehribar"><span><span class="y">var</span></span></td><td data-l="Yeni Kehribar"><span><span class="y">var</span></span></td></tr>
+<tr><th scope="row">Masa ayırt düğmesi</th><td data-l="Küçük restoran"><span><span class="n">yok</span></span></td><td data-l="Eski Kehribar"><span><span class="y">var</span></span></td><td data-l="Yeni Kehribar"><span><span class="y">var</span></span></td></tr>
+<tr><th scope="row">Telefon numarası (dokununca arar)</th><td data-l="Küçük restoran"><span><span class="y">var</span> <small>(kayan düğme)</small></span></td><td data-l="Eski Kehribar"><span><span class="n">yok</span></span></td><td data-l="Yeni Kehribar"><span><span class="y">var</span></span></td></tr>
+<tr><th scope="row">Yol tarifi</th><td data-l="Küçük restoran"><span><span class="n">yok</span></span></td><td data-l="Eski Kehribar"><span><span class="n">yok</span></span></td><td data-l="Yeni Kehribar"><span><span class="y">var</span></span></td></tr>
+<tr><th scope="row">Şimdi açık / kapalı</th><td data-l="Küçük restoran"><span><span class="n">yok</span></span></td><td data-l="Eski Kehribar"><span><span class="n">yok</span></span></td><td data-l="Yeni Kehribar"><span><span class="y">var</span></span></td></tr>
+<tr><th scope="row">Çalışma saatleri</th><td data-l="Küçük restoran"><span><span class="n">yok</span></span></td><td data-l="Eski Kehribar"><span><span class="n">yok</span></span></td><td data-l="Yeni Kehribar"><span><span class="y">var</span></span></td></tr>
+<tr class="grp"><th colspan="4">Dokunuş sayısı</th></tr>
+<tr><th scope="row">Menüye</th><td data-l="Küçük restoran"><span>1</span></td><td data-l="Eski Kehribar"><span>1</span></td><td data-l="Yeni Kehribar"><span>1</span></td></tr>
+<tr><th scope="row">Masa ayırtmaya</th><td data-l="Küçük restoran"><span>2 (önce menü açılır)</span></td><td data-l="Eski Kehribar"><span>1</span></td><td data-l="Yeni Kehribar"><span>1</span></td></tr>
+<tr><th scope="row">Aramaya</th><td data-l="Küçük restoran"><span>1</span></td><td data-l="Eski Kehribar"><span>yok</span></td><td data-l="Yeni Kehribar"><span>1</span></td></tr>
+<tr><th scope="row">Yol tarifine</th><td data-l="Küçük restoran"><span>yok</span></td><td data-l="Eski Kehribar"><span>yok</span></td><td data-l="Yeni Kehribar"><span>1</span></td></tr>
+<tr class="grp"><th colspan="4">İçerik</th></tr>
+<tr><th scope="row">Rezervasyon formunda ad ve telefon</th><td data-l="Küçük restoran"><span>-</span></td><td data-l="Eski Kehribar"><span><span class="n">yok</span></span></td><td data-l="Yeni Kehribar"><span><span class="y">var</span></span></td></tr>
+<tr><th scope="row">Gerçek yemek ve içki fotoğrafı</th><td data-l="Küçük restoran"><span>-</span></td><td data-l="Eski Kehribar"><span>0 (3 boyutlu bardak)</span></td><td data-l="Yeni Kehribar"><span>24 adet (menüde her yemeğe bir tane)</span></td></tr>
+<tr><th scope="row">Hareketli görüntü</th><td data-l="Küçük restoran"><span>-</span></td><td data-l="Eski Kehribar"><span>3 boyutlu sahne</span></td><td data-l="Yeni Kehribar"><span>gerçek barmen videosu (yalnız geniş ekranda)</span></td></tr>
+<tr><th scope="row">Arama motoru için yapılandırılmış veri</th><td data-l="Küçük restoran"><span><span class="y">var</span></span></td><td data-l="Eski Kehribar"><span><span class="n">yok</span></span></td><td data-l="Yeni Kehribar"><span><span class="y">var</span></span></td></tr>
+<tr class="grp"><th colspan="4">Hız (telefon: yavaş 4G, 4 kat yavaş işlemci)</th></tr>
+<tr><th scope="row">İlk yükleme boyutu</th><td data-l="Küçük restoran"><span>2,3 MB</span></td><td data-l="Eski Kehribar"><span>144 KB</span></td><td data-l="Yeni Kehribar"><span>364 KB</span></td></tr>
+<tr><th scope="row">En büyük öğe görünene kadar (LCP)</th><td data-l="Küçük restoran"><span>12,6 sn</span></td><td data-l="Eski Kehribar"><span>0,8 sn</span></td><td data-l="Yeni Kehribar"><span>1,2 sn</span></td></tr>
+<tr><th scope="row">Düzen kayması (CLS, 0,1 altı iyi)</th><td data-l="Küçük restoran"><span>0,000</span></td><td data-l="Eski Kehribar"><span>0,000</span></td><td data-l="Yeni Kehribar"><span>0,000</span></td></tr>
+<tr class="grp"><th colspan="4">Hız (masaüstü, ağ sınırı yok)</th></tr>
+<tr><th scope="row">İlk yükleme boyutu</th><td data-l="Küçük restoran"><span>3,5 MB</span></td><td data-l="Eski Kehribar"><span>154 KB</span></td><td data-l="Yeni Kehribar"><span>1,1 MB <small>(video dahil)</small></span></td></tr>
+<tr><th scope="row">En büyük öğe görünene kadar (LCP)</th><td data-l="Küçük restoran"><span>8,2 sn <small>(canlı site)</small></span></td><td data-l="Eski Kehribar"><span>0,2 sn <small>(yerel)</small></span></td><td data-l="Yeni Kehribar"><span>0,2 sn <small>(yerel)</small></span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="honest"><b>Dürüst not.</b> Eski demo hız bakımından zaten hafifti (ilk yükte yaklaşık 144 KB, çünkü 3 boyutlu sahne sonradan yükleniyordu); sorun hız değil, ziyaretçinin ihtiyacı olan bilginin eksikliğiydi. Yeni sürüm fotoğraf ve video eklediği için telefonda 364 KB, masaüstünde video yüklenince 1,1 MB indirir; telefonda video hiç indirilmez. Kehribar'ın iki sürümü aynı bilgisayarda yerel sunucudan ölçüldü (telefonda yapay yavaş ağ ve yavaş işlemci eklendi), küçük restoran canlı sitesinden ölçüldü; bu yüzden masaüstü sürelerini birbirine değil, yalnızca eğilime bakarak okuyun. Her ölçüm üç denemenin ortancasıdır (küçük restoran tek deneme).</div>
+</section>
+
+<section class="sec" id="degisen" aria-labelledby="dg">
+  <h2 id="dg">Ne değişti, neden</h2>
+  <p class="sub">Dünyanın en çok ziyaret alan restoran sitelerine (Chipotle, Shake Shack, Sweetgreen, Wagamama, Dishoom, Eleven Madison Park) ve ödüllü örneklere bakıp küçük bir restoranın sitesinde işe yarayanları aldık.</p>
+  <ol class="chg">
+    <li><b>Ana eylem hep elin altında</b><span>Üstte sabit "Masa ayırtın". Telefonda altta dört düğmelik çubuk: Masa ayırt, Menü, Yol tarifi, Ara. Büyük zincirlerin hepsinde sipariş ya da rezervasyon düğmesi kaydırmadan görünüyor.</span></li>
+    <li><b>Gerçek fotoğraf ve video</b><span>3 boyutlu bardak yerine gerçek bir barmen videosu (yalnız geniş ekranda, sayfa yüklendikten sonra) ve menüdeki her yemek ve içki için bir fotoğraf. Chipotle, Sweetgreen, Qissa ve Dishoom ilk ekranda gerçek yemek ya da çekim kullanıyor.</span></li>
+    <li><b>Menü sayfada, fotoğraflı, fiyatlı</b><span>Bardan ve Mutfaktan sekmeleri; masaüstünde yemeğin üstüne gelince büyük fotoğraf değişiyor, telefonda her satırda küçük fotoğraf. Vejetaryen ve alkolsüz etiketi.</span></li>
+    <li><b>Saat, adres, telefon ilk ekranda</b><span>İlk ekranda saatler, adres (harita bağlantılı), telefon (arama bağlantılı). Eski demoda hiçbiri yoktu.</span></li>
+    <li><b>Canlı "şimdi açık" satırı</b><span>İstanbul saatine göre hesaplanır: "Şimdi açık · 01:00'e kadar" ya da "Yarın 17:00'de açılıyor". Arama sonucundaki bilgiyi sitede de verir.</span></li>
+    <li><b>Geri dönülebilen rezervasyon</b><span>Kişi, gün, saat çiple seçilir; ad ve telefon zorunlu; "aynı akşam cevap veririz" sözü yazılı. Eski formda iletişim bilgisi yoktu, istek kime gidecek belli değildi.</span></li>
+    <li><b>Telefonda önce</b><span>390 pikselde ilk ekran: başlık, iki büyük düğme, durum satırı, alt çubuk. Dokunma hedefleri 44 pikselin altına inmiyor; yatay kayma yok.</span></li>
+    <li><b>Sade, hızlı, anlaşılır</b><span>Çerçeve kütüphanesi yok; yazı tipleri ve görseller kendi sunucumuzda; "azaltılmış hareket" ayarına saygı; arama motoru için yapılandırılmış veri (işletme türü, saatler).</span></li>
+  </ol>
+</section>
+
+<section class="sec" id="devam" aria-labelledby="dv">
+  <h2 id="dv">Yeni sürümün devamı</h2>
+  <p class="sub">İlk ekranın altında ziyaretçiyi karşılayanlar: menü, mekân ve rezervasyon. Hepsi yeni sürümden masaüstü görüntüsü.</p>
+  <div class="res">
+    <figure><img src="img/yeni-menu.webp" width="960" height="600" loading="lazy" alt="Yeni Kehribar, menü bölümü"><figcaption><b>Menü</b>Bardan ve Mutfaktan sekmeleri, fiyat, etiket ve her kalem için fotoğraf.</figcaption></figure>
+    <figure><img src="img/yeni-mekan.webp" width="960" height="600" loading="lazy" alt="Yeni Kehribar, mekân bölümü"><figcaption><b>Mekân</b>Gerçek fotoğraflarla kısa, somut anlatım.</figcaption></figure>
+    <figure><img src="img/yeni-rezervasyon.webp" width="960" height="600" loading="lazy" alt="Yeni Kehribar, rezervasyon formu"><figcaption><b>Rezervasyon</b>Kişi, gün, saat çiple; ad ve telefon zorunlu; cevap sözü yazılı.</figcaption></figure>
+  </div>
+</section>
+
+<section class="sec" id="arastirma" aria-labelledby="ar">
+  <h2 id="ar">Araştırmadan görüntüler</h2>
+  <p class="sub">Trafik sıralaması (Similarweb ücretsiz sayfaları, Eylül 2026, tahmin): Domino's #945, Chipotle #4.410, Shake Shack #19.703, Nando's #23.504, Sweetgreen #37.773, Wagamama #43.046, In-N-Out #90.220, Dishoom #96.940, Katz's #156.016, Noma #379.982, Eleven Madison Park #486.656 (küresel sıra, küçük sayı daha çok trafik). Aşağıdakiler yalnızca karşılaştırma amaçlı ekran görüntüleridir.</p>
+  <div class="res">
+    <figure><img src="img/ar-chipotle.webp" width="640" height="400" loading="lazy" alt="Chipotle ana sayfa, masaüstü"><figcaption><b>Chipotle · #4.410</b>Tam ekran yemek fotoğrafı, tek "ORDER NOW", sabit üst çubuk.</figcaption></figure>
+    <figure><img src="img/ar-shakeshack.webp" width="640" height="400" loading="lazy" alt="Shake Shack ana sayfa, masaüstü"><figcaption><b>Shake Shack · #19.703</b>Üstte hep görünen yeşil "Order Now", konum seçici, tekrar sipariş.</figcaption></figure>
+    <figure><img src="img/ar-sweetgreen.webp" width="640" height="400" loading="lazy" alt="Sweetgreen ana sayfa, masaüstü"><figcaption><b>Sweetgreen · #37.773</b>Tek tabak fotoğrafı, tek düğme, çok az bağlantı.</figcaption></figure>
+    <figure><img src="img/ar-wagamama.webp" width="640" height="400" loading="lazy" alt="Wagamama ana sayfa, masaüstü"><figcaption><b>Wagamama · #43.046</b>Sağ üstte "book a table", büyük yemek slaytı, telefonda hızlı.</figcaption></figure>
+    <figure><img src="img/ar-dishoom.webp" width="640" height="400" loading="lazy" alt="Dishoom ana sayfa, masaüstü"><figcaption><b>Dishoom · #96.940</b>Sinematik açılış, marka sesi, hep "Book a table".</figcaption></figure>
+    <figure><img src="img/ar-qissa.webp" width="640" height="400" loading="lazy" alt="Qissa ana sayfa, masaüstü"><figcaption><b>Qissa (Awwwards listesi)</b>İlk ekranda iki düğme: menü ve rezervasyon, hem masaüstü hem telefonda.</figcaption></figure>
+  </div>
+</section>
+
+<footer class="foot"><p>Peak Apps Studio konsept karşılaştırması. Kehribar kurgusaldır. Fotoğraflar Pexels lisansıyla kullanılmıştır (<a href="../CREDITS.txt">künye</a>). Araştırma görüntüleri yalnızca ölçüt olarak gösterilir.</p><p><a href="../tr/">Yeni Kehribar (TR)</a> · <a href="../">Yeni Kehribar (EN)</a> · <a href="../../restaurant-bar/tr/">Eski demo</a></p></footer>
+
+<script>
+document.querySelectorAll('[data-go]').forEach(function(b){
+  b.addEventListener('click',function(){
+    var ph=b.parentNode.querySelector('.ph'),u=ph.getAttribute('data-live');
+    if(!u)return;
+    var f=document.createElement('iframe');f.src=u;f.title='Canlı sayfa';f.setAttribute('loading','lazy');
+    ph.innerHTML='';ph.appendChild(f);b.textContent='Canlı gösteriliyor';b.disabled=true;
+  });
+});
+</script>
+</body>
+</html>
