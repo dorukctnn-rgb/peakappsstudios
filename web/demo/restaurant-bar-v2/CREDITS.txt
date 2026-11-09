@@ -1,0 +1,24 @@
+Kehribar concept v2 (Peak Apps Studio): third-party material
+===========================================================
+Kehribar is a fictional bar. Every dish, price, address, phone number and opening time on these pages is made up. The people and places in the photos have no connection to it.
+
+Photos and video: Pexels (https://www.pexels.com), used under the Pexels License (https://www.pexels.com/license/): free for commercial use, no attribution required. We credit the creators anyway. Files were resized, cropped and re-saved as WebP; the video was re-encoded without sound.
+
+assets/img/of-*.webp          Old Fashioned on dark marble. Photo by dextarstudio, https://www.pexels.com/photo/alcohol-beverage-in-glass-16444385/
+assets/img/neg-*.webp         Negroni on a bar top with a lamp behind. Photo by barmagazine, https://www.pexels.com/photo/elegant-negroni-cocktail-on-bar-counter-28636003/
+assets/img/hb-*.webp          Gin highball with cucumber in a dim bar. Photo by Amar, https://www.pexels.com/photo/close-up-of-a-glass-with-a-cold-cocktail-standing-on-a-table-16550820/
+assets/img/em-*.webp          Espresso martini in a coupe with coffee beans. Photo by ahrphotography, https://www.pexels.com/photo/coupe-glass-with-coffee-cocktail-15389024/
+assets/img/sp-*.webp          Spritz with an orange slice at a bar. Photo by Daroon, https://www.pexels.com/photo/aperol-spritz-cocktail-with-orange-slice-at-bar-31057722/
+assets/img/oct-*.webp         Octopus on mashed potatoes with herbs. Photo by Aleyna Yetkin, https://www.pexels.com/photo/gourmet-octopus-dish-with-herb-garnish-37888966/
+assets/img/bur-*.webp         Burrata on a red sauce with basil. Photo by Valeriya, https://www.pexels.com/photo/gourmet-burrata-with-tomato-sauce-dish-29380175/
+assets/img/rib-*.webp         Slow-cooked beef ribs with spiced sauce. Photo by Mrasyadindra, https://www.pexels.com/photo/slow-cooked-beef-ribs-with-savory-sauce-37051568/
+assets/img/leek-*.webp        A leek side dish with sesame. Photo by makafood, https://www.pexels.com/photo/a-leek-side-dish-on-a-saucer-9348475/
+assets/img/choc-*.webp        Chocolate tart slice with caramel and a brittle. Photo by Meryem, https://www.pexels.com/photo/decadent-chocolate-tart-with-caramel-centre-30181075/
+assets/img/room1-*.webp       Bar counter under hanging drop lights. Photo by Pavel Danilyuk, https://www.pexels.com/photo/drop-lights-hanging-from-the-ceiling-7518774/
+assets/img/room2-*.webp       Bartender stirring a drink in a mixing glass. Photo by airamdphoto, https://www.pexels.com/photo/man-preparing-cocktails-in-a-bar-16807989/
+assets/img/room3-*.webp       Bar stools and counter in evening light. Photo by Rachel Claire, https://www.pexels.com/photo/stools-bar-counter-and-bartender-in-restaurant-5531106/
+assets/video/hero-1600.*      "Squeezing a Lemon into a Cocktail", video by Kelly (@kelly), https://www.pexels.com/video/squeezing-a-lemon-into-a-cocktail-6758576/
+assets/img/poster-*.webp      Frames taken from the video above.
+
+Fonts: Noto Serif Display and Host Grotesk, SIL Open Font License 1.1 (assets/fonts/OFL-*.txt), subsets served from this site.
+No code from other projects is used on these pages: the HTML, CSS and JavaScript were written for this demo.
