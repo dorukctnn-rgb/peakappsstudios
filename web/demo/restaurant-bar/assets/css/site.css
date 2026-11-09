@@ -62,7 +62,7 @@ a { color: inherit; }
 .stage__pin { position: sticky; top: 0; height: 100vh; height: 100svh; margin-bottom: -100vh; margin-bottom: -100svh; overflow: hidden; z-index: 0; background: #0b0807; }
 .stage__poster, .stage__poster img, .stage__gl { position: absolute; inset: 0; width: 100%; height: 100%; }
 .stage__poster img { object-fit: cover; object-position: 70% 50%; }
-.stage__gl { opacity: 0; transition: opacity 1s ease; touch-action: pan-y; }
+.stage__gl { width: 100% !important; height: 100% !important; opacity: 0; transition: opacity 1s ease; touch-action: pan-y; }
 .gl-on .stage__gl { opacity: 1; }
 .stage__veil { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(13, 10, 8, 0.82) 0%, rgba(13, 10, 8, 0.5) 30%, rgba(13, 10, 8, 0) 55%), linear-gradient(0deg, rgba(13, 10, 8, 0.55) 0%, rgba(13, 10, 8, 0) 26%); }
 
@@ -169,7 +169,7 @@ a { color: inherit; }
   .room__head .lede { justify-self: end; }
   .room__grid { grid-template-columns: 7fr 5fr; grid-template-rows: 1fr 1fr; }
   .shot--0 { grid-row: span 2; }
-  .shot--0 img { height: calc(100% - 34px); aspect-ratio: auto; }
+  .shot img { height: calc(100% - 34px); aspect-ratio: auto; }
   .book { grid-template-columns: 5fr 7fr; }
   .visit__grid { grid-template-columns: 5fr 7fr; }
   .map { min-height: 460px; }

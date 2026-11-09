@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Kehribar: kokteyl bar ve mutfak (tasarım demosu)</title>
-<meta name="description" content="Peak Apps Studio tasarım demosu, kurgusal bir kokteyl barı. Taş tezgâhta tek bir lambanın aydınlattığı bir içki: ışık bardakta kırılır ve siz hareket ettikçe masaya düşer.">
+<meta name="description" content="Peak Apps Studio tasarım demosu, kurgusal bir kokteyl barı. Koyu bir bar tezgâhında tek bir lambanın aydınlattığı bir içki: ışık bardakta kırılır ve bakış açınızı çevirdikçe masaya düşer.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#0d0a08">
 <meta name="color-scheme" content="dark">
@@ -80,7 +80,7 @@ a { color: inherit; }
 .stage__pin { position: sticky; top: 0; height: 100vh; height: 100svh; margin-bottom: -100vh; margin-bottom: -100svh; overflow: hidden; z-index: 0; background: #0b0807; }
 .stage__poster, .stage__poster img, .stage__gl { position: absolute; inset: 0; width: 100%; height: 100%; }
 .stage__poster img { object-fit: cover; object-position: 70% 50%; }
-.stage__gl { opacity: 0; transition: opacity 1s ease; touch-action: pan-y; }
+.stage__gl { width: 100% !important; height: 100% !important; opacity: 0; transition: opacity 1s ease; touch-action: pan-y; }
 .gl-on .stage__gl { opacity: 1; }
 .stage__veil { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(13, 10, 8, 0.82) 0%, rgba(13, 10, 8, 0.5) 30%, rgba(13, 10, 8, 0) 55%), linear-gradient(0deg, rgba(13, 10, 8, 0.55) 0%, rgba(13, 10, 8, 0) 26%); }
 .hero { position: relative; z-index: 1; min-height: 100vh; min-height: 100svh; display: grid; align-content: end; padding: 120px var(--gut) clamp(64px, 11vh, 120px); pointer-events: none; }
@@ -174,7 +174,7 @@ a { color: inherit; }
 .room__head .lede { justify-self: end; }
 .room__grid { grid-template-columns: 7fr 5fr; grid-template-rows: 1fr 1fr; }
 .shot--0 { grid-row: span 2; }
-.shot--0 img { height: calc(100% - 34px); aspect-ratio: auto; }
+.shot img { height: calc(100% - 34px); aspect-ratio: auto; }
 .book { grid-template-columns: 5fr 7fr; }
 .visit__grid { grid-template-columns: 5fr 7fr; }
 .map { min-height: 460px; }
@@ -210,9 +210,6 @@ html { scroll-behavior: auto; }
 .sig__item { opacity: 1; }
 }
 .is-bare .bar, .is-bare .flag, .is-bare .hero, .is-bare .sig, .is-bare .band, .is-bare .stage__veil, .is-bare .stage__poster { visibility: hidden; }</style>
-<script type="importmap">
-{ "imports": { "three": "/web/demo/_lib/three-0.180.0/three.module.min.js" } }
-</script>
 <script type="application/json" id="i18n">
 {
  "locale": "tr",
@@ -297,14 +294,14 @@ html { scroll-behavior: auto; }
           <a class="btn btn--ghost" href="#menu">Menüye bakın</a>
         </div>
       </div>
-      <p class="hero__hint" data-hint data-touch="Bardağa dokunun.">İmleci gezdirin, lamba sallansın. Bardağa tıklayın.</p>
+      <p class="hero__hint" data-hint data-touch="Bardağa dokunun.">İmleci gezdirerek bakış açısını çevirin. Bardağa tıklayın.</p>
     </section>
 
     <section class="sig" id="drinks" aria-labelledby="sig-title">
       <h2 class="sig__title" id="sig-title" data-sig-title>Bardan</h2>
       <article class="sig__item" data-i="0">
         <h3 class="sig__name" data-sig-name>Kehribar Old Fashioned</h3>
-        <p class="sig__desc" data-sig-desc>Burbon, isli esmer şeker ve portakal yağı. Karıştırılır, oluklu bir rocks bardağında buzsuz gelir.</p>
+        <p class="sig__desc" data-sig-desc>Burbon, isli esmer şeker ve portakal yağı. Karıştırılır, rocks bardağında buzsuz gelir.</p>
         <p class="sig__price" data-sig-price>640</p>
       </article>
       <article class="sig__item" data-i="1">
@@ -314,7 +311,7 @@ html { scroll-behavior: auto; }
       </article>
       <article class="sig__item" data-i="2">
         <h3 class="sig__name" data-sig-name>Bahçe Highball</h3>
-        <p class="sig__desc" data-sig-desc>Cin, salatalık ve mürver çiçeği, uzun oluklu bardakta üstüne soğuk soda.</p>
+        <p class="sig__desc" data-sig-desc>Cin, salatalık ve mürver çiçeği, uzun bardakta üstüne soğuk soda.</p>
         <p class="sig__price" data-sig-price>560</p>
       </article>
       <p class="sig__note" data-sig-note>Bu demo için örnek içkiler.</p>
