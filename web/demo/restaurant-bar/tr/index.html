@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kehribar: kokteyl bar ve mutfak (tasarım demosu)</title>
+<meta name="description" content="Peak Apps Studio tasarım demosu, kurgusal bir kokteyl barı. Taş tezgâhta tek bir lambanın aydınlattığı bir içki: ışık bardakta kırılır ve siz hareket ettikçe masaya düşer.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0d0a08">
+<meta name="color-scheme" content="dark">
+<meta property="og:title" content="Kehribar: kokteyl bar ve mutfak (tasarım demosu)">
+<meta property="og:description" content="Peak Apps Studio tasarım demosu. Kurgusal bar.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://peakappsstudio.com/web/demo/restaurant-bar/tr/">
+<meta property="og:image" content="https://peakappsstudio.com/web/demo/restaurant-bar/share/card-1600x1000.webp">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="1000">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" hreflang="en" href="https://peakappsstudio.com/web/demo/restaurant-bar/">
+<link rel="alternate" hreflang="tr" href="https://peakappsstudio.com/web/demo/restaurant-bar/tr/">
+<link rel="alternate" hreflang="x-default" href="https://peakappsstudio.com/web/demo/restaurant-bar/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d0a08'/%3E%3Cpath d='M9 8h14l-1.4 15.2A2 2 0 0 1 19.6 25h-7.2a2 2 0 0 1-2-1.8Z' fill='none' stroke='%23e9a23b' stroke-width='1.6'/%3E%3Cpath d='M10.3 15h11.4l-.8 8.1a1 1 0 0 1-1 .9h-7.8a1 1 0 0 1-1-.9Z' fill='%23e9a23b'/%3E%3C/svg%3E">
+<link rel="preload" as="image" href="../assets/img/poster-phone.webp" media="(max-width: 759px)" fetchpriority="high">
+<link rel="preload" as="image" href="../assets/img/poster-desktop.webp" media="(min-width: 760px)" fetchpriority="high">
+<link rel="preload" href="../assets/fonts/kb-display-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/kb-text.woff2" as="font" type="font/woff2" crossorigin>
+<style>@font-face { font-family: "Kb Display"; src: url(../assets/fonts/kb-display.woff2) format("woff2"); font-weight: 300 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Kb Display"; src: url(../assets/fonts/kb-display-italic.woff2) format("woff2"); font-weight: 300 500; font-style: italic; font-display: swap; }
+@font-face { font-family: "Kb Text"; src: url(../assets/fonts/kb-text.woff2) format("woff2"); font-weight: 400 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Kb Display Fallback"; src: local("Georgia"); size-adjust: 88%; ascent-override: 104%; descent-override: 28%; }
+@font-face { font-family: "Kb Text Fallback"; src: local("Arial"); size-adjust: 100%; ascent-override: 96%; descent-override: 26%; }
+:root {
+--gut: clamp(16px, 4vw, 64px);
+--night: #0d0a08;
+--char: #130f0c;
+--smoke: #1c1511;
+--line: rgba(243, 234, 219, 0.13);
+--paper: #f3eadb;
+--muted: #b9a995;
+--faint: #8f8170;
+--accent: #e9a23b;
+--accent-ink: #1a1006;
+--accent-text: #f0b45a;
+--display: "Kb Display", "Kb Display Fallback", Georgia, serif;
+--text: "Kb Text", "Kb Text Fallback", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--night); color: var(--paper); -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body { margin: 0; font: 400 17px/1.6 var(--text); background: var(--night); overflow-x: clip; }
+img, svg, canvas { display: block; max-width: 100%; }
+[hidden] { display: none !important; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.skip { position: absolute; left: 12px; top: -60px; z-index: 50; background: var(--accent); color: var(--accent-ink); padding: 10px 14px; border-radius: 8px; text-decoration: none; font-weight: 600; }
+.skip:focus { top: 12px; }
+.bar { position: fixed; inset: 0 0 auto 0; z-index: 20; display: flex; align-items: center; gap: clamp(16px, 3vw, 48px); padding: 14px var(--gut); transition: background-color .35s ease, border-color .35s ease; border-bottom: 1px solid transparent; }
+.bar.is-scrolled { background: rgba(13, 10, 8, 0.78); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom-color: var(--line); }
+.brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; min-height: 44px; }
+.brand__name { font: italic 400 27px/1 var(--display); letter-spacing: -0.01em; white-space: nowrap; max-width: 46vw; overflow: hidden; text-overflow: ellipsis; }
+.brand__logo { height: 36px; width: auto; max-width: 170px; object-fit: contain; }
+.brand.has-logo .brand__name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.brand.is-plate .brand__logo { background: #f3eadb; padding: 5px 10px; border-radius: 9px; height: 40px; }
+.nav { display: flex; gap: clamp(18px, 2.4vw, 36px); margin-left: auto; font-size: 15px; }
+.nav a { text-decoration: none; color: var(--muted); padding: 10px 0; }
+.nav a:hover { color: var(--paper); }
+.bar__end { display: flex; align-items: center; gap: 14px; }
+.lang { text-decoration: none; font-size: 14px; color: var(--muted); padding: 10px 6px; }
+.lang abbr { text-decoration: none; }
+.flag { position: fixed; left: var(--gut); bottom: 14px; z-index: 19; margin: 0; max-width: calc(100vw - 2 * var(--gut)); }
+.flag a { display: inline-block; font-size: 12.5px; line-height: 1.35; text-decoration: none; color: var(--muted); background: rgba(13, 10, 8, 0.74); border: 1px solid var(--line); border-radius: 999px; padding: 7px 13px; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.flag a:hover { color: var(--paper); }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 0 24px; border-radius: 999px; background: var(--accent); color: var(--accent-ink); font: 600 16px/1 var(--text); text-decoration: none; border: 1px solid transparent; cursor: pointer; transition: transform .2s ease, background-color .2s ease, border-color .2s ease; white-space: nowrap; }
+.btn:hover { transform: translateY(-1px); }
+.btn--ghost { background: transparent; color: var(--paper); border-color: rgba(243, 234, 219, 0.34); }
+.btn--ghost:hover { border-color: var(--paper); }
+.btn--small { min-height: 42px; padding: 0 18px; font-size: 14.5px; }
+.is-disabled { opacity: .5; pointer-events: none; }
+.stage { position: relative; }
+.stage__pin { position: sticky; top: 0; height: 100vh; height: 100svh; margin-bottom: -100vh; margin-bottom: -100svh; overflow: hidden; z-index: 0; background: #0b0807; }
+.stage__poster, .stage__poster img, .stage__gl { position: absolute; inset: 0; width: 100%; height: 100%; }
+.stage__poster img { object-fit: cover; object-position: 70% 50%; }
+.stage__gl { opacity: 0; transition: opacity 1s ease; touch-action: pan-y; }
+.gl-on .stage__gl { opacity: 1; }
+.stage__veil { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(13, 10, 8, 0.82) 0%, rgba(13, 10, 8, 0.5) 30%, rgba(13, 10, 8, 0) 55%), linear-gradient(0deg, rgba(13, 10, 8, 0.55) 0%, rgba(13, 10, 8, 0) 26%); }
+.hero { position: relative; z-index: 1; min-height: 100vh; min-height: 100svh; display: grid; align-content: end; padding: 120px var(--gut) clamp(64px, 11vh, 120px); pointer-events: none; }
+.hero__copy { max-width: min(48vw, 820px); pointer-events: auto; }
+.hero__name { font: italic 300 clamp(76px, 12.6vw, 248px)/0.84 var(--display); letter-spacing: -0.028em; margin: 0 0 0.14em -0.04em; overflow-wrap: anywhere; }
+.hero__name.is-long { font-size: clamp(56px, 7.6vw, 150px); line-height: .9; }
+.hero__kind { margin: 0 0 10px; font-size: clamp(18px, 1.5vw, 23px); color: var(--accent-text); }
+.hero__line { margin: 0; color: var(--muted); max-width: 34ch; font-size: clamp(17px, 1.25vw, 20px); }
+.hero__line.is-ph { color: var(--faint); font-style: italic; }
+.hero__cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.hero__hint { position: absolute; right: var(--gut); bottom: clamp(64px, 11vh, 120px); margin: 0; font-size: 13.5px; color: var(--muted); max-width: 30ch; text-align: right; opacity: 0; transition: opacity .8s ease .4s; }
+.gl-on .hero__hint { opacity: 1; }
+.sig { position: relative; z-index: 1; padding: 0 var(--gut); pointer-events: none; }
+.sig__title { margin: 0; padding-top: 14vh; font: italic 400 clamp(26px, 2.2vw, 36px)/1 var(--display); color: var(--accent-text); }
+.sig__item { min-height: 88vh; min-height: 88svh; display: grid; align-content: center; max-width: min(42vw, 640px); }
+.sig__name { margin: 0 0 18px; font: italic 300 clamp(46px, 6.2vw, 112px)/0.95 var(--display); letter-spacing: -0.02em; }
+.sig__desc { margin: 0 0 18px; color: var(--muted); font-size: clamp(17px, 1.3vw, 20px); max-width: 36ch; }
+.sig__price { margin: 0; font: 400 26px/1 var(--display); color: var(--accent-text); font-variant-numeric: tabular-nums; }
+.sig__note { margin: 0; padding: 0 0 14vh; font-size: 13.5px; color: var(--faint); }
+.is-ph-item .sig__name { color: rgba(243, 234, 219, 0.82); }
+.is-ph-item .sig__price { color: var(--faint); }
+.band { position: relative; z-index: 2; background: var(--night); padding: clamp(80px, 10vw, 168px) var(--gut); }
+.menu::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 22vh; background: linear-gradient(180deg, rgba(13, 10, 8, 0), var(--night)); pointer-events: none; }
+.h2 { margin: 0 0 22px; font: italic 300 clamp(52px, 6.6vw, 128px)/0.9 var(--display); letter-spacing: -0.024em; }
+.h3 { margin: 0 0 14px; font: italic 400 clamp(24px, 1.9vw, 32px)/1.1 var(--display); color: var(--accent-text); }
+.lede { margin: 0; font-size: clamp(18px, 1.35vw, 22px); color: var(--muted); max-width: 40ch; }
+.note { margin: 22px 0 0; font-size: 13.5px; color: var(--faint); max-width: 52ch; }
+.menu { display: grid; gap: clamp(32px, 5vw, 96px); }
+.menu__cols { display: grid; gap: clamp(32px, 4vw, 72px); }
+.dishes { list-style: none; margin: 0; padding: 0; }
+.dish { display: grid; grid-template-columns: auto 1fr auto; align-items: baseline; gap: 2px 12px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.dish:first-child { border-top: 1px solid var(--line); }
+.dish__name { font: 400 clamp(21px, 1.55vw, 26px)/1.25 var(--display); }
+.dish__lead { border-bottom: 1px dotted rgba(243, 234, 219, 0.24); transform: translateY(-6px); min-width: 16px; }
+.dish__price { font: 500 18px/1 var(--text); color: var(--accent-text); font-variant-numeric: tabular-nums; }
+.dish__desc { grid-column: 1 / -1; color: var(--muted); font-size: 15.5px; }
+.dish.is-ph .dish__name { color: var(--faint); font-style: italic; }
+.dish.is-ph .dish__price { color: var(--faint); }
+.dish.is-ph .dish__desc { color: #8a7c6b; }
+.dish.is-real .dish__desc:empty { display: none; }
+.room { display: grid; gap: clamp(32px, 4vw, 64px); }
+.room__head { display: grid; gap: 16px; align-items: end; }
+.room__grid { display: grid; gap: clamp(12px, 1.4vw, 22px); }
+.shot { position: relative; margin: 0; }
+.shot img { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; background: var(--smoke); aspect-ratio: 16 / 10; }
+.shot--0 img { aspect-ratio: 4 / 3; }
+.shot figcaption { margin-top: 10px; font-size: 14px; color: var(--faint); }
+.room.is-ph figcaption { visibility: hidden; }
+.room.is-ph .shot::after { content: attr(data-ph); position: absolute; inset: 0 0 34px 0; display: grid; place-items: center; text-align: center; padding: 16px; background: rgba(13, 10, 8, 0.66); border: 1px dashed rgba(243, 234, 219, 0.4); border-radius: 16px; font: italic 400 clamp(24px, 2.2vw, 36px)/1.1 var(--display); color: var(--paper); }
+.book { display: grid; gap: clamp(32px, 5vw, 96px); align-items: start; }
+.composer { background: var(--smoke); border: 1px solid var(--line); border-radius: 22px; padding: clamp(20px, 3vw, 44px); display: grid; gap: 24px; }
+.chips { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; min-width: 0; }
+.chips legend { padding: 0; margin-bottom: 10px; font-size: 14px; color: var(--muted); }
+.chips label { position: relative; }
+.chips input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.chips span { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 48px; padding: 0 16px; border-radius: 999px; border: 1px solid rgba(243, 234, 219, 0.2); font-size: 15.5px; cursor: pointer; font-variant-numeric: tabular-nums; transition: background-color .2s ease, color .2s ease, border-color .2s ease; }
+.chips span:hover { border-color: rgba(243, 234, 219, 0.5); }
+.chips input:checked + span { background: var(--accent); color: var(--accent-ink); border-color: transparent; font-weight: 600; }
+.chips input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+.composer__out { display: grid; gap: 16px; padding-top: 22px; border-top: 1px solid var(--line); justify-items: start; }
+.composer__label { margin: 0; font-size: 14px; color: var(--muted); }
+.composer__msg { margin: 0; font: italic 400 clamp(22px, 2vw, 32px)/1.3 var(--display); min-height: 2.6em; }
+.composer__toast { margin: 0; background: rgba(233, 162, 59, 0.1); border: 1px solid rgba(233, 162, 59, 0.38); padding: 12px 16px; border-radius: 12px; font-size: 15px; color: var(--paper); }
+.visit__grid { display: grid; gap: clamp(32px, 4vw, 72px); margin-top: clamp(16px, 2vw, 32px); }
+.hours__list { margin: 0; }
+.hours__list div { display: flex; justify-content: space-between; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.hours__list div:first-child { border-top: 1px solid var(--line); }
+.hours__list dt { color: var(--paper); }
+.hours__list dd { margin: 0; color: var(--muted); font-variant-numeric: tabular-nums; }
+.hours.is-ph dd { color: #8a7c6b; }
+.map { position: relative; border-radius: 22px; overflow: hidden; min-height: 380px; border: 1px solid var(--line); }
+.map__art { position: absolute; inset: 0; width: 100%; height: 100%; }
+.map__pin circle:first-child { transform-origin: 440px 236px; animation: pulse 3.2s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { transform: scale(0.8); opacity: .9; } 50% { transform: scale(1.25); opacity: .35; } }
+.map__card { position: absolute; left: clamp(16px, 2vw, 28px); bottom: clamp(16px, 2vw, 28px); right: clamp(16px, 2vw, 28px); max-width: 380px; background: rgba(13, 10, 8, 0.84); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); padding: 22px 24px; border-radius: 16px; border: 1px solid var(--line); }
+.map__text { margin: 0 0 16px; color: var(--muted); }
+.foot { border-top: 1px solid var(--line); padding-bottom: 96px; }
+.foot__name { margin: 0 0 40px; font: italic 300 clamp(84px, 16vw, 320px)/0.82 var(--display); letter-spacing: -0.035em; color: #7a6452; overflow-wrap: anywhere; }
+.foot__name.is-long { font-size: clamp(56px, 9vw, 180px); }
+.foot__cols { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px 64px; }
+.foot__note { margin: 0; max-width: 64ch; color: var(--muted); font-size: 15px; }
+.foot__links { list-style: none; margin: 0; padding: 0; display: flex; gap: 28px; flex-wrap: wrap; }
+.foot__links a { color: var(--paper); text-underline-offset: 4px; display: inline-block; padding: 8px 0; }
+.menu, .menu__cols, .room, .room__head, .room__grid, .book, .visit__grid { grid-template-columns: minmax(0, 1fr); }
+.shot, .menu__col, .composer, .hours, .map { min-width: 0; }
+@media (min-width: 1024px) {
+.menu { grid-template-columns: minmax(280px, 4fr) 8fr; align-items: start; }
+.menu__head { position: sticky; top: 120px; }
+.menu__cols { grid-template-columns: 1fr 1fr; }
+.room__head { grid-template-columns: 5fr 7fr; }
+.room__head .lede { justify-self: end; }
+.room__grid { grid-template-columns: 7fr 5fr; grid-template-rows: 1fr 1fr; }
+.shot--0 { grid-row: span 2; }
+.shot--0 img { height: calc(100% - 34px); aspect-ratio: auto; }
+.book { grid-template-columns: 5fr 7fr; }
+.visit__grid { grid-template-columns: 5fr 7fr; }
+.map { min-height: 460px; }
+}
+@media (min-width: 1600px) {
+.menu__cols { gap: 112px; }
+}
+@media (max-width: 859px) {
+.nav { display: none; }
+.bar__end { margin-left: auto; }
+}
+@media (max-width: 759px) {
+body { font-size: 16.5px; }
+.bar { padding-top: 10px; padding-bottom: 10px; }
+.brand__name { font-size: 24px; }
+.bar .btn--small { min-height: 40px; padding: 0 14px; font-size: 14px; }
+.stage__poster img { object-position: 50% 30%; }
+.stage__veil { background: linear-gradient(0deg, rgba(13, 10, 8, 0.94) 0%, rgba(13, 10, 8, 0.72) 30%, rgba(13, 10, 8, 0) 56%); }
+.hero { padding-bottom: 72px; }
+.hero__copy { max-width: none; }
+.hero__name { font-size: clamp(60px, 19vw, 120px); }
+.hero__name.is-long { font-size: clamp(42px, 11vw, 72px); }
+.hero__hint { position: static; text-align: left; margin-top: 18px; max-width: none; }
+.sig__title { padding-top: 10vh; }
+.sig__item { max-width: none; align-content: end; padding-bottom: 14vh; min-height: 92svh; }
+.sig__name { font-size: clamp(40px, 12vw, 68px); }
+.flag { bottom: 10px; }
+.flag a { font-size: 11.5px; padding: 6px 11px; }
+}
+@media (prefers-reduced-motion: reduce) {
+html { scroll-behavior: auto; }
+*, *::before, *::after { transition: none !important; animation: none !important; }
+.sig__item { opacity: 1; }
+}
+.is-bare .bar, .is-bare .flag, .is-bare .hero, .is-bare .sig, .is-bare .band, .is-bare .stage__veil, .is-bare .stage__poster { visibility: hidden; }</style>
+<script type="importmap">
+{ "imports": { "three": "/web/demo/_lib/three-0.180.0/three.module.min.js" } }
+</script>
+<script type="application/json" id="i18n">
+{
+ "locale": "tr",
+ "kinds": {
+  "restaurant-bar": "Restoran ve bar",
+  "restaurant": "Restoran",
+  "bar": "Bar",
+  "cocktail-bar": "Kokteyl bar",
+  "wine-bar": "Şarap barı",
+  "pub": "Pub",
+  "cafe": "Kafe",
+  "bistro": "Bistro"
+ },
+ "msg": "Merhaba {name}, {day} saat {time} için {n} kişilik bir masa ayırabilir misiniz?",
+ "dayWords": {
+  "tonight": "bu akşam",
+  "tomorrow": "yarın",
+  "friday": "cuma",
+  "saturday": "cumartesi"
+ },
+ "toast": "Yalnızca demo. Kendi sitenizde bu istek doğrudan WhatsApp’ınıza ya da e-posta kutunuza düşer.",
+ "flag": "{name} için taslak. Tasarım: Peak Apps Studio.",
+ "title": "{name}: Peak Apps Studio web sitesi taslağı",
+ "sigTitle": "İmza içkileriniz",
+ "sigItem": "İmza içkiniz",
+ "sigText": "Sizin renklerinizle dökülür. Adı, tarifi ve fiyatı menünüzden gelir.",
+ "sigNote": "Yer tutucular. Menünüzden doldururuz.",
+ "menuNoteReal": "Bu yemekler kendi sitenizden ({site}) alındı. Kalanı tam menünüzden doldurulur.",
+ "menuNoteNone": "Yemekleriniz burada yer alır. Menünüzden alırız, hiçbir şey uydurulmaz.",
+ "menuReal": "Menünüzden",
+ "dishHere": "Yemeğiniz burada",
+ "dishDesc": "Kısa bir açıklama",
+ "more": "Menünüzden diğer yemekler",
+ "photos": "Fotoğraflarınız burada",
+ "roomText": "Sizin mekânınız, sizin ışığınız. Buraya kendi fotoğraflarınızı koyarız.",
+ "hoursHere": "Çalışma saatleriniz burada",
+ "hoursNote": "Yer tutucu saatler.",
+ "lead": "Açılış cümleniz burada yer alır.",
+ "menuLede": "Menünüz, sizin yazdığınız gibi ve kendi fiyatlarınızla.",
+ "bookText": "Bir saat seçin ve isteğinizi gönderin.",
+ "foot": "Bu taslak {name} için Peak Apps Studio tarafından hazırlandı. Yer tutucu olarak işaretlenen her şey sizin bilgilerinizle doldurulur. {name} ile bir bağımız yoktur.",
+ "footReal": "Bu taslak {name} için Peak Apps Studio tarafından hazırlandı. Menüdeki kalemler {site} adresinden alındı; yer tutucu olarak işaretlenen her şey sizin bilgilerinizle doldurulur. {name} ile bir bağımız yoktur."
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">İçeriğe geç</a>
+
+<header class="bar" id="bar">
+  <a class="brand" href="#top" data-brand><img class="brand__logo" alt="" width="120" height="36" hidden><span class="brand__name" data-name>Kehribar</span></a>
+  <nav class="nav" aria-label="Bölümler">
+    <a href="#drinks">İçkiler</a>
+    <a href="#menu">Menü</a>
+    <a href="#room">Mekân</a>
+    <a href="#visit">Ziyaret</a>
+  </nav>
+  <div class="bar__end">
+    <a class="lang" href="../" hreflang="en" lang="en" data-keep-hash><abbr title="English">EN</abbr></a>
+    <a class="btn btn--small" href="#book">Masa ayırtın</a>
+  </div>
+</header>
+<p class="flag"><a href="/tr/web-sitesi/" data-flag>Peak Apps Studio tasarım demosu. Kurgusal bar.</a></p>
+
+<main id="main">
+  <div class="stage" id="stage">
+    <div class="stage__pin">
+      <picture class="stage__poster">
+        <source media="(max-width: 759px)" srcset="../assets/img/poster-phone.webp" width="780" height="1688">
+        <img src="../assets/img/poster-desktop.webp" alt="" width="1920" height="1200" fetchpriority="high" decoding="async">
+      </picture>
+      <canvas class="stage__gl" aria-hidden="true"></canvas>
+      <div class="stage__veil" aria-hidden="true"></div>
+    </div>
+
+    <section class="hero" id="top" aria-labelledby="hero-name">
+      <div class="hero__copy">
+        <h1 class="hero__name" id="hero-name" data-name>Kehribar</h1>
+        <p class="hero__kind" data-kind>Kokteyl bar ve mutfak</p>
+        <p class="hero__line" data-line>Geç saat tabakları ve karıştırılmış içkiler, tek bir sıcak lambanın altında.</p>
+        <div class="hero__cta">
+          <a class="btn" href="#book">Masa ayırtın</a>
+          <a class="btn btn--ghost" href="#menu">Menüye bakın</a>
+        </div>
+      </div>
+      <p class="hero__hint" data-hint data-touch="Bardağa dokunun.">İmleci gezdirin, lamba sallansın. Bardağa tıklayın.</p>
+    </section>
+
+    <section class="sig" id="drinks" aria-labelledby="sig-title">
+      <h2 class="sig__title" id="sig-title" data-sig-title>Bardan</h2>
+      <article class="sig__item" data-i="0">
+        <h3 class="sig__name" data-sig-name>Kehribar Old Fashioned</h3>
+        <p class="sig__desc" data-sig-desc>Burbon, isli esmer şeker ve portakal yağı. Karıştırılır, oluklu bir rocks bardağında buzsuz gelir.</p>
+        <p class="sig__price" data-sig-price>640</p>
+      </article>
+      <article class="sig__item" data-i="1">
+        <h3 class="sig__name" data-sig-name>Köz Negroni</h3>
+        <p class="sig__desc" data-sig-desc>Cin, acı kırmızı aperatif ve kırmızı vermut, eşit ölçüde, uzun ve soğuk karıştırılır.</p>
+        <p class="sig__price" data-sig-price>600</p>
+      </article>
+      <article class="sig__item" data-i="2">
+        <h3 class="sig__name" data-sig-name>Bahçe Highball</h3>
+        <p class="sig__desc" data-sig-desc>Cin, salatalık ve mürver çiçeği, uzun oluklu bardakta üstüne soğuk soda.</p>
+        <p class="sig__price" data-sig-price>560</p>
+      </article>
+      <p class="sig__note" data-sig-note>Bu demo için örnek içkiler.</p>
+    </section>
+  </div>
+
+  <section class="menu band" id="menu" aria-labelledby="menu-title">
+    <div class="menu__head">
+      <h2 class="h2" id="menu-title">Menü</h2>
+      <p class="lede" data-menu-lede>Mevsimle değişen kısa bir kart. Tabaklar hazır oldukça gelir.</p>
+      <p class="note" data-menu-note>Bu demo için örnek menü. Fiyatlar örnektir.</p>
+    </div>
+    <div class="menu__cols" data-menu>
+      <div class="menu__col">
+        <h3 class="h3" data-col-title>Bardan</h3>
+        <ul class="dishes"><li class="dish" data-bar="0"><span class="dish__name">Old Fashioned</span><span class="dish__lead" aria-hidden="true"></span><span class="dish__price">640</span><span class="dish__desc">Burbon, isli esmer şeker, portakal yağı</span></li><li class="dish" data-bar="1"><span class="dish__name">Köz Negroni</span><span class="dish__lead" aria-hidden="true"></span><span class="dish__price">600</span><span class="dish__desc">Cin, kırmızı aperatif, kırmızı vermut</span></li><li class="dish" data-bar="2"><span class="dish__name">Bahçe Highball</span><span class="dish__lead" aria-hidden="true"></span><span class="dish__price">560</span><span class="dish__desc">Cin, salatalık, mürver çiçeği, soda</span></li><li class="dish" data-bar="3"><span class="dish__name">Espresso Martini</span><span class="dish__lead" aria-hidden="true"></span><span class="dish__price">640</span><span class="dish__desc">Votka, soğuk demleme kahve, kahve likörü</span></li><li class="dish" data-bar="4"><span class="dish__name">Alkolsüz Spritz</span><span class="dish__lead" aria-hidden="true"></span><span class="dish__price">380</span><span class="dish__desc">Acı portakal, koruk suyu, tonik</span></li></ul>
+      </div>
+      <div class="menu__col">
+        <h3 class="h3" data-col-title>Mutfaktan</h3>
+        <ul class="dishes"><li class="dish" data-kitchen="0"><span class="dish__name">Közlenmiş pırasa</span><span class="dish__lead" aria-hidden="true"></span><span class="dish__price">480</span><span class="dish__desc">Fındık, kızarmış tereyağı</span></li><li class="dish" data-kitchen="1"><span class="dish__name">Izgara ahtapot</span><span class="dish__lead" aria-hidden="true"></span><span class="dish__price">920</span><span class="dish__desc">İsli kırmızıbiber, ezilmiş patates</span></li><li class="dish" data-kitchen="2"><span class="dish__name">Burrata</span><span class="dish__lead" aria-hidden="true"></span><span class="dish__price">540</span><span class="dish__desc">Kan portakalı, fesleğen yağı</span></li><li class="dish" data-kitchen="3"><span class="dish__name">Dana kaburga</span><span class="dish__lead" aria-hidden="true"></span><span class="dish__price">1.100</span><span class="dish__desc">Karabiber sosu</span></li><li class="dish" data-kitchen="4"><span class="dish__name">Bitter çikolata</span><span class="dish__lead" aria-hidden="true"></span><span class="dish__price">380</span><span class="dish__desc">Zeytinyağı, deniz tuzu</span></li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="room band" id="room" aria-labelledby="room-title">
+    <div class="room__head">
+      <h2 class="h2" id="room-title">Mekân</h2>
+      <p class="lede" data-room-text>Loş ışık, uzun bir taş bar ve yirmi iki sandalye. Saat ona kadar rezervasyonsuz gelebilirsiniz.</p>
+    </div>
+    <div class="room__grid">
+      <figure class="shot shot--0">
+        <img src="../assets/img/still-top-960.webp" srcset="../assets/img/still-top-960.webp 960w, ../assets/img/still-top-1600.webp 1600w" sizes="(min-width: 1024px) 50vw, 100vw" alt="Bar tezgâhında lamba ışığı" width="1600" height="1200" loading="lazy" decoding="async">
+        <figcaption>Bar tezgâhında lamba ışığı</figcaption>
+      </figure>
+      <figure class="shot shot--1">
+        <img src="../assets/img/still-side-960.webp" srcset="../assets/img/still-side-960.webp 960w, ../assets/img/still-side-1600.webp 1600w" sizes="(min-width: 1024px) 50vw, 100vw" alt="Tezgâhın ucunda bekleyen bir içki" width="1600" height="1000" loading="lazy" decoding="async">
+        <figcaption>Tezgâhın ucunda bekleyen bir içki</figcaption>
+      </figure>
+      <figure class="shot shot--2">
+        <img src="../assets/img/still-tall-960.webp" srcset="../assets/img/still-tall-960.webp 960w, ../assets/img/still-tall-1600.webp 1600w" sizes="(min-width: 1024px) 50vw, 100vw" alt="Gecenin son servisi" width="1600" height="1000" loading="lazy" decoding="async">
+        <figcaption>Gecenin son servisi</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="book band" id="book" aria-labelledby="book-title">
+    <div class="book__head">
+      <h2 class="h2" id="book-title">Masa ayırtın</h2>
+      <p class="lede" data-book-text>Bir saat seçin ve isteğinizi gönderin. Her isteğe aynı akşam cevap verilir.</p>
+    </div>
+    <form class="composer" data-composer onsubmit="return false">
+      <fieldset class="chips" data-group="n">
+        <legend>Kişi</legend>
+        <label><input type="radio" name="n" value="1"><span>1</span></label><label><input type="radio" name="n" value="2" checked><span>2</span></label><label><input type="radio" name="n" value="3"><span>3</span></label><label><input type="radio" name="n" value="4"><span>4</span></label><label><input type="radio" name="n" value="5"><span>5</span></label><label><input type="radio" name="n" value="6"><span>6</span></label><label><input type="radio" name="n" value="7"><span>7</span></label><label><input type="radio" name="n" value="8"><span>8</span></label>
+      </fieldset>
+      <fieldset class="chips" data-group="day">
+        <legend>Gün</legend>
+        <label><input type="radio" name="day" value="tonight" checked><span>Bu akşam</span></label><label><input type="radio" name="day" value="tomorrow"><span>Yarın</span></label><label><input type="radio" name="day" value="friday"><span>Cuma</span></label><label><input type="radio" name="day" value="saturday"><span>Cumartesi</span></label>
+      </fieldset>
+      <fieldset class="chips" data-group="time">
+        <legend>Saat</legend>
+        <label><input type="radio" name="time" value="18:00"><span>18:00</span></label><label><input type="radio" name="time" value="19:00"><span>19:00</span></label><label><input type="radio" name="time" value="20:00" checked><span>20:00</span></label><label><input type="radio" name="time" value="20:30"><span>20:30</span></label><label><input type="radio" name="time" value="21:30"><span>21:30</span></label><label><input type="radio" name="time" value="22:30"><span>22:30</span></label>
+      </fieldset>
+      <div class="composer__out">
+        <p class="composer__label">Mesajınız</p>
+        <p class="composer__msg" data-msg aria-live="polite"></p>
+        <button class="btn" type="button" data-send>İsteği gönder</button>
+        <p class="composer__toast" data-toast role="status" hidden></p>
+      </div>
+    </form>
+  </section>
+
+  <section class="visit band" id="visit" aria-labelledby="visit-title">
+    <h2 class="h2" id="visit-title">Ziyaret</h2>
+    <div class="visit__grid">
+      <div class="hours">
+        <h3 class="h3">Saatler</h3>
+        <dl class="hours__list" data-hours>
+          <div><dt>Pazartesi</dt><dd>Kapalı</dd></div>
+          <div><dt>Salıdan perşembeye</dt><dd>17:00–00:00</dd></div>
+          <div><dt>Cuma ve cumartesi</dt><dd>17:00–01:00</dd></div>
+          <div><dt>Pazar</dt><dd>16:00–23:00</dd></div>
+        </dl>
+        <p class="note" data-hours-note>Örnek saatler.</p>
+      </div>
+      <div class="map">
+        <svg class="map__art" viewBox="0 0 800 460" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+          <rect width="800" height="460" fill="#16110e"/>
+          <g fill="none" stroke="#2a201a" stroke-width="14" stroke-linecap="round">
+            <path d="M-20 120 C 180 90 300 160 470 140 S 720 70 840 100"/><path d="M-20 330 C 160 300 260 360 420 350 S 700 290 840 320"/>
+            <path d="M160 -20 C 190 120 150 260 210 480"/><path d="M520 -20 C 500 140 560 260 540 480"/>
+          </g>
+          <g fill="none" stroke="#221a15" stroke-width="6"><path d="M-20 230 H 840"/><path d="M360 -20 V 480"/><path d="M660 -20 C 640 200 700 300 680 480"/></g>
+          <g class="map__pin"><circle cx="440" cy="236" r="46" fill="rgba(233,162,59,.12)"/><circle cx="440" cy="236" r="12" fill="#e9a23b"/></g>
+        </svg>
+        <div class="map__card">
+          <h3 class="h3">Bizi bulun</h3>
+          <p class="map__text">Adresiniz ve haritanız burada yer alır.</p>
+          <span class="btn btn--ghost btn--small is-disabled" aria-disabled="true">Yol tarifi alın</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot band">
+  <p class="foot__name" data-name>Kehribar</p>
+  <div class="foot__cols">
+    <p class="foot__note" data-foot>Peak Apps Studio tasarım demosu. Kehribar kurgusal bir bardır; bu sayfadaki her yemek, fiyat ve saat örnektir.</p>
+    <ul class="foot__links">
+      <li><a href="/tr/web-sitesi/">Peak Apps Studio web siteleri</a></li>
+      <li><a href="../" hreflang="en" lang="en" data-keep-hash>English</a></li>
+    </ul>
+  </div>
+</footer>
+<script type="module" src="../assets/js/page.js"></script>
+</body>
+</html>

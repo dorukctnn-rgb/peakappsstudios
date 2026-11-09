@@ -53,3 +53,9 @@ The barber (Üç Koltuk) and café (Kuşluk) demos use only our own 3D scenes an
 - assets/img/a-*.webp: Client signing a contract at a wooden table in the presence of two advisers. Photo by Kampus Production, https://www.pexels.com/photo/woman-signing-a-contract-in-an-office-in-the-presence-of-lawyers-8439700/ (Pexels License)
 - assets/img/b-*.webp: Close-up of antique red leather-bound law books on a library shelf. Photo by Christian Wasserfallen, https://www.pexels.com/photo/antique-legislative-books-in-bern-library-36207460/ (Pexels License)
 - assets/img/c-*.webp: Calculator, red pens and a TAXES folder on a white desk. Photo by Tara Winstead, https://www.pexels.com/photo/calculator-beside-red-pens-7111516/ (Pexels License)
+
+/web/demo/restaurant-bar/ (Kehribar, fictional cocktail bar)
+- No photos. Every image (posters, the three stills in "The room", the share card) is rendered from the page's own three.js scene: the glass, the drink, the stone bar top and the light are drawn in code, nothing is a photograph.
+- three.js r180 (MIT License, https://github.com/mrdoob/three.js), served from /web/demo/_lib/three-0.180.0/.
+- The glass and caustics shaders are our own. The look was inspired by the pmndrs caustics example and drei's Caustics and MeshTransmissionMaterial (MIT License, https://github.com/pmndrs); no code or 3D model from them is used. The caustics follow Evan Wallace's published method of measuring how a refracted grid of light rays stretches on a surface.
+- Fonts: Noto Serif Display (Google, SIL Open Font License 1.1) and Host Grotesk (The Host Grotesk Project Authors, SIL Open Font License 1.1), subset and served from this site; licence texts in assets/fonts/.
