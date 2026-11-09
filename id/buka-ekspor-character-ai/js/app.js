@@ -517,7 +517,7 @@
   function proState() {
     const el = $('cb-pro-state');
     if (!el) return;
-    el.textContent = !PRO_READY ? 'Pro akan tersedia dalam beberapa hari. Semua yang ada di atasnya sudah gratis sekarang.' : pro ? 'Pro aktif di browser ini.' : 'Bayar sekali di Gumroad, lalu tempel kunci lisensi dari tanda terima Anda di sini.';
+    el.textContent = !PRO_READY ? 'Pro akan tersedia dalam beberapa hari. Semua yang ada di atasnya sudah gratis sekarang.' : pro ? 'Pro aktif di browser ini.' : 'Bayar sekali lewat Paddle.com. Pro aktif di browser ini setelah Anda membayar.';
   }
   function setupPro() {
     if (!window.PeakLicense) return;

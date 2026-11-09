@@ -517,7 +517,7 @@
   function proState() {
     const el = $('cb-pro-state');
     if (!el) return;
-    el.textContent = !PRO_READY ? 'O Pro chega em poucos dias. Tudo o que está acima dele já é gratuito.' : pro ? 'O Pro está ativo neste navegador.' : 'Pague uma vez no Gumroad e cole aqui a chave de licença que está no recibo.';
+    el.textContent = !PRO_READY ? 'O Pro chega em poucos dias. Tudo o que está acima dele já é gratuito.' : pro ? 'O Pro está ativo neste navegador.' : 'Pague uma vez no Paddle.com. O Pro é ativado neste navegador quando você paga.';
   }
   function setupPro() {
     if (!window.PeakLicense) return;
