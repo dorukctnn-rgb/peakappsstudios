@@ -229,11 +229,10 @@ async function startGL() {
   if (booting) return; booting = true;
   if (!webgl2() || (navigator.connection && navigator.connection.saveData)) return;
   try {
-    const mod = await import('./scene.js');
+    const mod = await import('../app/scene.js');
     try { await Promise.race([document.fonts.ready, new Promise((r) => setTimeout(r, 1500))]); } catch { /* ignore */ }
-    const drinks = DRINKS.map((x) => ({ ...x, sigma: mod.sigmaFrom(x.colour) }));
     sc = await mod.createScene({
-      canvas, quality: pickQuality(), drinks, reduced: reduced || (capture && !params.has('video')), bokehColours: brand.bokeh,
+      canvas, quality: pickQuality(), drinks: DRINKS, reduced: reduced || (capture && !params.has('video')), bokehColours: brand.bokeh,
       coaster: { text: data ? data.name : 'Kehribar', ink: brand.coasterInk, base: brand.coasterBase, font: '"Kb Display", Georgia, serif' },
       autoSway: coarse,
     });
