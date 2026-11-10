@@ -1,0 +1,47 @@
+/* Lisboa Pastelaria: kendi sitesinden alinan renkler ve fontlar. Font: Playfair Display (ayni), Playfair Display (ayni). Logo: orijinal dosya, filtre yok. */
+@font-face{font-family:"Playfair Display";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/playfair-display-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Playfair Display";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/playfair-display-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Playfair Display";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/playfair-display-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Playfair Display";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/playfair-display-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Playfair Display";font-style:normal;font-weight:600;font-display:swap;src:url(../../_uyarla/fonts/playfair-display-latin-600.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Playfair Display";font-style:normal;font-weight:600;font-display:swap;src:url(../../_uyarla/fonts/playfair-display-latin-ext-600.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{
+--bg:#fff2eb;
+--bg-rgb:255,242,235;
+--bg2:#ffe3d4;
+--ink:#000000;
+--muted:#524d4b;
+--line:#d6cbc5;
+--accent:#222462;
+--accent-ink:#d4c6b7;
+--accent-hi:#222462;
+--accent-text:#222462;
+--accent2:#222462;
+--accent2-rgb:34,36,98;
+--accent2-text:#222462;
+--deep:#222462;
+--on-deep:#ededf2;
+--on-deep-muted:#b0b1c7;
+--accent-on-deep:#8d8fd7;
+--hero-ink:#000000;
+--hero-muted:#524d4b;
+--hero-accent:#222462;
+--hero-line:#d6cbc5;
+--shade-rgb:19,20,54;
+--shade-a:0.94;
+--shade-m:0.72;
+--head-bg:#222462;
+--head-bg-rgb:34,36,98;
+--head-ink:#ededf2;
+--display:"Playfair Display",Georgia, "Times New Roman", serif;--text:"Playfair Display",Georgia, "Times New Roman", serif;
+--d-weight:400;--d-style:normal;--d-case:none;--d-ls:-0.005em;--em-style:italic;
+--h1-size:clamp(34px, min(3.92vw, 17.6vh), 138px);--h1-max:11.2em;--h2-size:clamp(32px, 4.9vw, 84px);--h3-size:clamp(21px, 2.05vw, 31px);--h1-lh:1.02;--btn-r:0px;--r:2px;
+--kb-step:7s;--kb-total:28s;--kb-ov:1.4s;
+--map-bg:#ffe3d4;--map-road:#e6ccbf;--map-fine:#f1d7c8;
+--lg-h:64px;--lg-h-m:48px;--head:92px;--head-m:70px;--intro-w:min(38vw, 230px);
+}
+@keyframes kb-fade{0%{opacity:0}5%{opacity:1}25%{opacity:1}30%{opacity:0}100%{opacity:0}}
+@keyframes kb-zoom-a{0%{transform:scale(1.02) translate3d(0,0,0)}30%{transform:scale(1.16) translate3d(-1.6%,-1%,0)}100%{transform:scale(1.16) translate3d(-1.6%,-1%,0)}}
+@keyframes kb-zoom-b{0%{transform:scale(1.15) translate3d(0,0,0)}30%{transform:scale(1.03) translate3d(1.8%,-0.8%,0)}100%{transform:scale(1.03) translate3d(1.8%,-0.8%,0)}}
+@keyframes kb-zoom-c{0%{transform:scale(1.02) translate3d(0,0,0)}30%{transform:scale(1.14) translate3d(-1.2%,1.2%,0)}100%{transform:scale(1.14) translate3d(-1.2%,1.2%,0)}}
+@media (max-width:899px){:root{--h1-size:clamp(30px,13.50vw,64px)}}

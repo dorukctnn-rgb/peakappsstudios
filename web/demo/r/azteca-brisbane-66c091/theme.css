@@ -1,0 +1,47 @@
+/* Azteca Brisbane: kendi sitesinden alinan renkler ve fontlar. Font: Vollkorn (ayni), Heebo (ayni). Logo: orijinal dosya, filtre yok. */
+@font-face{font-family:"Vollkorn";font-style:normal;font-weight:500;font-display:swap;src:url(../../_uyarla/fonts/vollkorn-latin-500.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Vollkorn";font-style:normal;font-weight:500;font-display:swap;src:url(../../_uyarla/fonts/vollkorn-latin-ext-500.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Heebo";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/heebo-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Heebo";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/heebo-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Heebo";font-style:normal;font-weight:600;font-display:swap;src:url(../../_uyarla/fonts/heebo-latin-600.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Heebo";font-style:normal;font-weight:600;font-display:swap;src:url(../../_uyarla/fonts/heebo-latin-ext-600.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{
+--bg:#eae9e9;
+--bg-rgb:234,233,233;
+--bg2:#e6e2e2;
+--ink:#131e28;
+--muted:#585f66;
+--line:#c8c9ca;
+--accent:#ae7540;
+--accent-ink:#1d140c;
+--accent-hi:#986637;
+--accent-text:#82572f;
+--accent2:#ae7540;
+--accent2-rgb:174,117,64;
+--accent2-text:#ae7540;
+--deep:#131e28;
+--on-deep:#edf0f2;
+--on-deep-muted:#acb1b5;
+--accent-on-deep:#b57a43;
+--hero-ink:#131e28;
+--hero-muted:#585f66;
+--hero-accent:#82572f;
+--hero-line:#c8c9ca;
+--shade-rgb:10,17,22;
+--shade-a:0.94;
+--shade-m:0.72;
+--head-bg:#ffffff;
+--head-bg-rgb:255,255,255;
+--head-ink:#131e28;
+--display:"Vollkorn",Georgia, "Times New Roman", serif;--text:"Heebo",system-ui, -apple-system, "Segoe UI", sans-serif;
+--d-weight:500;--d-style:normal;--d-case:none;--d-ls:-0.005em;--em-style:italic;
+--h1-size:clamp(34px, min(3.92vw, 11.8vh), 138px);--h1-max:11.2em;--h2-size:clamp(32px, 4.9vw, 84px);--h3-size:clamp(21px, 2.05vw, 31px);--h1-lh:1.02;--btn-r:0px;--r:2px;
+--kb-step:7s;--kb-total:28s;--kb-ov:1.4s;
+--map-bg:#e6e2e2;--map-road:#d1cecf;--map-fine:#dad7d8;
+--lg-h:64px;--lg-h-m:48px;--head:92px;--head-m:70px;--intro-w:min(38vw, 230px);
+}
+@keyframes kb-fade{0%{opacity:0}5%{opacity:1}25%{opacity:1}30%{opacity:0}100%{opacity:0}}
+@keyframes kb-zoom-a{0%{transform:scale(1.02) translate3d(0,0,0)}30%{transform:scale(1.16) translate3d(-1.6%,-1%,0)}100%{transform:scale(1.16) translate3d(-1.6%,-1%,0)}}
+@keyframes kb-zoom-b{0%{transform:scale(1.15) translate3d(0,0,0)}30%{transform:scale(1.03) translate3d(1.8%,-0.8%,0)}100%{transform:scale(1.03) translate3d(1.8%,-0.8%,0)}}
+@keyframes kb-zoom-c{0%{transform:scale(1.02) translate3d(0,0,0)}30%{transform:scale(1.14) translate3d(-1.2%,1.2%,0)}100%{transform:scale(1.14) translate3d(-1.2%,1.2%,0)}}
+@media (max-width:899px){:root{--h1-size:clamp(30px,11.70vw,64px)}}

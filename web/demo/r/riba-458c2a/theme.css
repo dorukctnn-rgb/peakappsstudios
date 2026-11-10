@@ -1,0 +1,47 @@
+/* Riba: kendi sitesinden alinan renkler ve fontlar. Font: Josefin Sans (ayni), Montserrat (ayni). Logo: orijinal dosya, filtre yok. */
+@font-face{font-family:"Josefin Sans";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/josefin-sans-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Josefin Sans";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/josefin-sans-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Montserrat";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/montserrat-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Montserrat";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/montserrat-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Montserrat";font-style:normal;font-weight:600;font-display:swap;src:url(../../_uyarla/fonts/montserrat-latin-600.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Montserrat";font-style:normal;font-weight:600;font-display:swap;src:url(../../_uyarla/fonts/montserrat-latin-ext-600.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{
+--bg:#fff3e1;
+--bg-rgb:255,243,225;
+--bg2:#ffecd0;
+--ink:#222222;
+--muted:#69655f;
+--line:#dcd2c2;
+--accent:#009cff;
+--accent-ink:#0c161d;
+--accent-hi:#0089e0;
+--accent-text:#0070b8;
+--accent2:#009cff;
+--accent2-rgb:0,156,255;
+--accent2-text:#0090eb;
+--deep:#000000;
+--on-deep:#f2eded;
+--on-deep-muted:#a9a6a6;
+--accent-on-deep:#009cff;
+--hero-ink:#222222;
+--hero-muted:#69655f;
+--hero-accent:#0070b8;
+--hero-line:#dcd2c2;
+--shade-rgb:0,0,0;
+--shade-a:0.94;
+--shade-m:0.72;
+--head-bg:#ffffff;
+--head-bg-rgb:255,255,255;
+--head-ink:#077dba;
+--display:"Josefin Sans",system-ui, -apple-system, "Segoe UI", sans-serif;--text:"Montserrat",system-ui, -apple-system, "Segoe UI", sans-serif;
+--d-weight:400;--d-style:normal;--d-case:none;--d-ls:-0.012em;--em-style:italic;
+--h1-size:clamp(34px, min(4.63vw, 12.2vh), 138px);--h1-max:9.5em;--h2-size:clamp(32px, 4.9vw, 84px);--h3-size:clamp(21px, 2.05vw, 31px);--h1-lh:0.98;--btn-r:0px;--r:2px;
+--kb-step:7s;--kb-total:21s;--kb-ov:1.4s;
+--map-bg:#ffecd0;--map-road:#e9d8bf;--map-fine:#f3e1c6;
+--lg-h:64px;--lg-h-m:48px;--head:92px;--head-m:70px;--intro-w:min(38vw, 230px);
+}
+@keyframes kb-fade{0%{opacity:0}6.667%{opacity:1}33.333%{opacity:1}40%{opacity:0}100%{opacity:0}}
+@keyframes kb-zoom-a{0%{transform:scale(1.02) translate3d(0,0,0)}40%{transform:scale(1.16) translate3d(-1.6%,-1%,0)}100%{transform:scale(1.16) translate3d(-1.6%,-1%,0)}}
+@keyframes kb-zoom-b{0%{transform:scale(1.15) translate3d(0,0,0)}40%{transform:scale(1.03) translate3d(1.8%,-0.8%,0)}100%{transform:scale(1.03) translate3d(1.8%,-0.8%,0)}}
+@keyframes kb-zoom-c{0%{transform:scale(1.02) translate3d(0,0,0)}40%{transform:scale(1.14) translate3d(-1.2%,1.2%,0)}100%{transform:scale(1.14) translate3d(-1.2%,1.2%,0)}}
+@media (max-width:899px){:root{--h1-size:clamp(26px,11.88vw,64px)}}
