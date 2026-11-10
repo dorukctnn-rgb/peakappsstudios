@@ -1,4 +1,4 @@
-/* Riverbar & Kitchen: kendi sitesinden alinan renkler ve (ucretsiz es) fontlar. Font: Overpass (ayni), DM Mono (ayni). */
+/* Riverbar & Kitchen: kendi sitesinden alinan renkler ve fontlar. Font: Overpass (ayni), DM Mono (ayni). Logo: orijinal dosya, filtre yok. */
 @font-face{font-family:"Overpass";font-style:normal;font-weight:700;font-display:swap;src:url(../../_uyarla/fonts/overpass-latin-700.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:"Overpass";font-style:normal;font-weight:700;font-display:swap;src:url(../../_uyarla/fonts/overpass-latin-ext-700.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:"DM Mono";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/dm-mono-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
@@ -14,27 +14,34 @@
 --line:#d1cfc4;
 --accent:#c07b36;
 --accent-ink:#1d140c;
---accent-hi:#a86c2f;
+--accent-hi:#c07b36;
 --accent-text:#905c29;
+--accent2:#c07b36;
+--accent2-rgb:192,123,54;
+--accent2-text:#b87634;
 --deep:#143318;
 --on-deep:#edf2ee;
 --on-deep-muted:#acb9ae;
 --accent-on-deep:#ca8541;
---hero-ink:#ffffff;
---hero-accent:#ca8541;
+--hero-ink:#333d2c;
+--hero-muted:#5f6558;
+--hero-accent:#905c29;
+--hero-line:#d1cfc4;
 --shade-rgb:11,28,13;
 --shade-a:0.94;
---shade-m:0.802;
+--shade-m:0.72;
+--head-bg:#efebe1;
+--head-bg-rgb:239,235,225;
+--head-ink:#333d2c;
 --display:"Overpass",system-ui, -apple-system, "Segoe UI", sans-serif;--text:"DM Mono",ui-monospace, Consolas, monospace;
 --d-weight:700;--d-style:normal;--d-case:uppercase;--d-ls:0.02em;--em-style:normal;
---h1-size:clamp(44px, min(12.50vw, 15.0vh), 214px);--h2-size:clamp(34px, 4.6vw, 76px);--h3-size:clamp(22px, 1.8vw, 27px);--h1-lh:1;--btn-r:4px;--r:6px;
+--h1-size:clamp(34px, min(4.06vw, 17.6vh), 138px);--h1-max:10.8em;--h2-size:clamp(32px, 4.2vw, 72px);--h3-size:clamp(21px, 1.7vw, 26px);--h1-lh:1.02;--btn-r:4px;--r:6px;
 --kb-step:7s;--kb-total:28s;--kb-ov:1.4s;
 --map-bg:#ece7dc;--map-road:#dad6ca;--map-fine:#e2ded2;
---lg-hero:brightness(0) invert(1);--lg-solid:none;
+--lg-h:56px;--lg-h-m:40px;--head:84px;--head-m:62px;--intro-w:min(62vw, 380px);
 }
-.brand img{filter:var(--lg-hero)}.top.solid .brand img,.foot .brand img{filter:var(--lg-solid)}.brand img.lg-plate,.top.solid .brand img.lg-plate{filter:none}
 @keyframes kb-fade{0%{opacity:0}5%{opacity:1}25%{opacity:1}30%{opacity:0}100%{opacity:0}}
 @keyframes kb-zoom-a{0%{transform:scale(1.02) translate3d(0,0,0)}30%{transform:scale(1.16) translate3d(-1.6%,-1%,0)}100%{transform:scale(1.16) translate3d(-1.6%,-1%,0)}}
 @keyframes kb-zoom-b{0%{transform:scale(1.15) translate3d(0,0,0)}30%{transform:scale(1.03) translate3d(1.8%,-0.8%,0)}100%{transform:scale(1.03) translate3d(1.8%,-0.8%,0)}}
 @keyframes kb-zoom-c{0%{transform:scale(1.02) translate3d(0,0,0)}30%{transform:scale(1.14) translate3d(-1.2%,1.2%,0)}100%{transform:scale(1.14) translate3d(-1.2%,1.2%,0)}}
-@media (max-width:899px){:root{--h1-size:clamp(40px,16.00vw,112px)}}
+@media (max-width:899px){:root{--h1-size:clamp(30px,9.54vw,64px)}}
