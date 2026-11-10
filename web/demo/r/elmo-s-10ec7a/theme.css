@@ -1,0 +1,47 @@
+/* Elmo's: kendi sitesinden alinan renkler ve fontlar. Font: Inter (esdeger), Albert Sans (sinif). Logo: orijinal dosya, filtre yok. */
+@font-face{font-family:"Inter";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/inter-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Inter";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/inter-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Albert Sans";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/albert-sans-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Albert Sans";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/albert-sans-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Albert Sans";font-style:normal;font-weight:600;font-display:swap;src:url(../../_uyarla/fonts/albert-sans-latin-600.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Albert Sans";font-style:normal;font-weight:600;font-display:swap;src:url(../../_uyarla/fonts/albert-sans-latin-ext-600.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{
+--bg:#f2f0e4;
+--bg-rgb:242,240,228;
+--bg2:#eeecdc;
+--ink:#000000;
+--muted:#4d4d49;
+--line:#cbcac0;
+--accent:#b50200;
+--accent-ink:#ffffff;
+--accent-hi:#b50200;
+--accent-text:#b50200;
+--accent2:#b50200;
+--accent2-rgb:181,2,0;
+--accent2-text:#b50200;
+--deep:#000000;
+--on-deep:#f2eded;
+--on-deep-muted:#a9a6a6;
+--accent-on-deep:#f20300;
+--hero-ink:#000000;
+--hero-muted:#4d4d49;
+--hero-accent:#b50200;
+--hero-line:#cbcac0;
+--shade-rgb:0,0,0;
+--shade-a:0.94;
+--shade-m:0.72;
+--head-bg:#ffffff;
+--head-bg-rgb:255,255,255;
+--head-ink:#000000;
+--display:"Inter",system-ui, -apple-system, "Segoe UI", sans-serif;--text:"Albert Sans",system-ui, -apple-system, "Segoe UI", sans-serif;
+--d-weight:400;--d-style:normal;--d-case:none;--d-ls:-0.012em;--em-style:italic;
+--h1-size:clamp(34px, min(4.41vw, 12.2vh), 138px);--h1-max:10.0em;--h2-size:clamp(32px, 4.9vw, 84px);--h3-size:clamp(21px, 2.05vw, 31px);--h1-lh:0.98;--btn-r:0px;--r:2px;
+--kb-step:7s;--kb-total:21s;--kb-ov:1.4s;
+--map-bg:#eeecdc;--map-road:#d6d4c6;--map-fine:#e1dfd0;
+--lg-h:56px;--lg-h-m:40px;--head:84px;--head-m:62px;--intro-w:min(62vw, 380px);
+}
+@keyframes kb-fade{0%{opacity:0}6.667%{opacity:1}33.333%{opacity:1}40%{opacity:0}100%{opacity:0}}
+@keyframes kb-zoom-a{0%{transform:scale(1.02) translate3d(0,0,0)}40%{transform:scale(1.16) translate3d(-1.6%,-1%,0)}100%{transform:scale(1.16) translate3d(-1.6%,-1%,0)}}
+@keyframes kb-zoom-b{0%{transform:scale(1.15) translate3d(0,0,0)}40%{transform:scale(1.03) translate3d(1.8%,-0.8%,0)}100%{transform:scale(1.03) translate3d(1.8%,-0.8%,0)}}
+@keyframes kb-zoom-c{0%{transform:scale(1.02) translate3d(0,0,0)}40%{transform:scale(1.14) translate3d(-1.2%,1.2%,0)}100%{transform:scale(1.14) translate3d(-1.2%,1.2%,0)}}
+@media (max-width:899px){:root{--h1-size:clamp(30px,10.31vw,64px)}}

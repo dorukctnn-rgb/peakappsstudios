@@ -1,0 +1,47 @@
+/* Yak & Fern: kendi sitesinden alinan renkler ve fontlar. Font: Poppins (ayni), Poppins (ayni). Logo: orijinal dosya, filtre yok. */
+@font-face{font-family:"Poppins";font-style:normal;font-weight:700;font-display:swap;src:url(../../_uyarla/fonts/poppins-latin-700.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Poppins";font-style:normal;font-weight:700;font-display:swap;src:url(../../_uyarla/fonts/poppins-latin-ext-700.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Poppins";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/poppins-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Poppins";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/poppins-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Poppins";font-style:normal;font-weight:600;font-display:swap;src:url(../../_uyarla/fonts/poppins-latin-600.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Poppins";font-style:normal;font-weight:600;font-display:swap;src:url(../../_uyarla/fonts/poppins-latin-ext-600.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{
+--bg:#faf7f2;
+--bg-rgb:250,247,242;
+--bg2:#f9f5ee;
+--ink:#1d1d23;
+--muted:#646365;
+--line:#d7d4d1;
+--accent:#db9423;
+--accent-ink:#1d160c;
+--accent-hi:#c1821f;
+--accent-text:#956418;
+--accent2:#db9423;
+--accent2-rgb:219,148,35;
+--accent2-text:#c1821f;
+--deep:#212121;
+--on-deep:#f2eded;
+--on-deep-muted:#b3b0b0;
+--accent-on-deep:#db9423;
+--hero-ink:#1d1d23;
+--hero-muted:#646365;
+--hero-accent:#956418;
+--hero-line:#d7d4d1;
+--shade-rgb:18,18,18;
+--shade-a:0.94;
+--shade-m:0.72;
+--head-bg:#15120f;
+--head-bg-rgb:21,18,15;
+--head-ink:#f2eded;
+--display:"Poppins",system-ui, -apple-system, "Segoe UI", sans-serif;--text:"Poppins",system-ui, -apple-system, "Segoe UI", sans-serif;
+--d-weight:700;--d-style:normal;--d-case:none;--d-ls:-0.012em;--em-style:italic;
+--h1-size:clamp(34px, min(3.67vw, 12.2vh), 138px);--h1-max:12.0em;--h2-size:clamp(32px, 4.9vw, 84px);--h3-size:clamp(21px, 2.05vw, 31px);--h1-lh:0.98;--btn-r:5px;--r:7px;
+--kb-step:7s;--kb-total:28s;--kb-ov:1.4s;
+--map-bg:#f9f5ee;--map-road:#e3dfda;--map-fine:#ede9e3;
+--lg-h:64px;--lg-h-m:48px;--head:92px;--head-m:70px;--intro-w:min(38vw, 230px);
+}
+@keyframes kb-fade{0%{opacity:0}5%{opacity:1}25%{opacity:1}30%{opacity:0}100%{opacity:0}}
+@keyframes kb-zoom-a{0%{transform:scale(1.02) translate3d(0,0,0)}30%{transform:scale(1.16) translate3d(-1.6%,-1%,0)}100%{transform:scale(1.16) translate3d(-1.6%,-1%,0)}}
+@keyframes kb-zoom-b{0%{transform:scale(1.15) translate3d(0,0,0)}30%{transform:scale(1.03) translate3d(1.8%,-0.8%,0)}100%{transform:scale(1.03) translate3d(1.8%,-0.8%,0)}}
+@keyframes kb-zoom-c{0%{transform:scale(1.02) translate3d(0,0,0)}30%{transform:scale(1.14) translate3d(-1.2%,1.2%,0)}100%{transform:scale(1.14) translate3d(-1.2%,1.2%,0)}}
+@media (max-width:899px){:root{--h1-size:clamp(24px,8.49vw,64px)}}

@@ -1,0 +1,47 @@
+/* The Quarters: kendi sitesinden alinan renkler ve fontlar. Font: Roboto (ayni), Onest (sinif). Logo: orijinal dosya, filtre yok. */
+@font-face{font-family:"Roboto";font-style:normal;font-weight:300;font-display:swap;src:url(../../_uyarla/fonts/roboto-latin-300.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Roboto";font-style:normal;font-weight:300;font-display:swap;src:url(../../_uyarla/fonts/roboto-latin-ext-300.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Onest";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/onest-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Onest";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/onest-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Onest";font-style:normal;font-weight:600;font-display:swap;src:url(../../_uyarla/fonts/onest-latin-600.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Onest";font-style:normal;font-weight:600;font-display:swap;src:url(../../_uyarla/fonts/onest-latin-ext-600.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{
+--bg:#fffcf7;
+--bg-rgb:255,252,247;
+--bg2:#f0f7f6;
+--ink:#12211f;
+--muted:#5e6764;
+--line:#d9d9d4;
+--accent:#3e6f69;
+--accent-ink:#ffffff;
+--accent-hi:#3e6f69;
+--accent-text:#3e6f69;
+--accent2:#3e6f69;
+--accent2-rgb:62,111,105;
+--accent2-text:#3e6f69;
+--deep:#192423;
+--on-deep:#edf2f2;
+--on-deep-muted:#adb4b4;
+--accent-on-deep:#54968e;
+--hero-ink:#12211f;
+--hero-muted:#5e6764;
+--hero-accent:#3e6f69;
+--hero-line:#d9d9d4;
+--shade-rgb:14,20,19;
+--shade-a:0.94;
+--shade-m:0.72;
+--head-bg:#fffcf7;
+--head-bg-rgb:255,252,247;
+--head-ink:#12211f;
+--display:"Roboto",system-ui, -apple-system, "Segoe UI", sans-serif;--text:"Onest",system-ui, -apple-system, "Segoe UI", sans-serif;
+--d-weight:300;--d-style:normal;--d-case:uppercase;--d-ls:0.02em;--em-style:normal;
+--h1-size:clamp(34px, min(4.17vw, 11.8vh), 138px);--h1-max:10.5em;--h2-size:clamp(32px, 4.2vw, 72px);--h3-size:clamp(21px, 1.7vw, 26px);--h1-lh:1.02;--btn-r:999px;--r:14px;
+--kb-step:7s;--kb-total:28s;--kb-ov:1.4s;
+--map-bg:#f0f7f6;--map-road:#dae2e1;--map-fine:#e4ebea;
+--lg-h:56px;--lg-h-m:40px;--head:84px;--head-m:62px;--intro-w:min(62vw, 380px);
+}
+@keyframes kb-fade{0%{opacity:0}5%{opacity:1}25%{opacity:1}30%{opacity:0}100%{opacity:0}}
+@keyframes kb-zoom-a{0%{transform:scale(1.02) translate3d(0,0,0)}30%{transform:scale(1.16) translate3d(-1.6%,-1%,0)}100%{transform:scale(1.16) translate3d(-1.6%,-1%,0)}}
+@keyframes kb-zoom-b{0%{transform:scale(1.15) translate3d(0,0,0)}30%{transform:scale(1.03) translate3d(1.8%,-0.8%,0)}100%{transform:scale(1.03) translate3d(1.8%,-0.8%,0)}}
+@keyframes kb-zoom-c{0%{transform:scale(1.02) translate3d(0,0,0)}30%{transform:scale(1.14) translate3d(-1.2%,1.2%,0)}100%{transform:scale(1.14) translate3d(-1.2%,1.2%,0)}}
+@media (max-width:899px){:root{--h1-size:clamp(30px,9.84vw,64px)}}
