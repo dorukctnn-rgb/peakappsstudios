@@ -21,6 +21,9 @@ Each tool page explains what the tool does, how to use it and its limits; the gu
 - [Dayfold](https://peakappsstudio.com/daylio-viewer/): Open a Daylio backup on a PC, Mac or any browser: calendar, search, mood charts and the Year in Pixels. Nothing is uploaded.
 - [Wristory](https://peakappsstudio.com/samsung-health-viewer/): See your Samsung Health data on a PC, from the app's own Download personal data files: steps, sleep stages, heart rate, weight, workouts, stress and blood oxygen, in the browser. Nothing is uploaded.
 - [Notelift](https://peakappsstudio.com/colornote-viewer/): Open a ColorNote backup on a PC or in any browser: read, search and save every note, with your backup password. Nothing is uploaded.
+- [Rekey](https://peakappsstudio.com/msecure-export/): Open the CSV exported by mSecure and get files that Apple Passwords, Google Password Manager, 1Password, Bitwarden and KeePassXC import, with the order to change your logins in after mSecure's notice of November 3, 2026. In the browser, nothing is uploaded.
+- [Decant](https://peakappsstudio.com/spass-to-csv/): Open the encrypted .spass export of Samsung Pass with its export password and get files that Apple Passwords, Google, Bitwarden, 1Password and Proton Pass import, with the order to change your logins in. In the browser, nothing is uploaded.
+- [Peelback](https://peakappsstudio.com/sticky-notes-backup-viewer/): Open the Windows Sticky Notes files (plum.sqlite, or StickyNotes.snt from older versions) in the browser: read, search and copy the notes with their colours and dates, and save them as files. Nothing is uploaded.
 
 ## Home project tools (3D)
 
@@ -70,6 +73,12 @@ Each tool page explains what the tool does, how to use it and its limits; the gu
 - [カラーノートのメモを、PCのブラウザで読む (Japanese)](https://peakappsstudio.com/ja/colornote-pc/): カラーノート（ColorNote）のバックアップファイルをパソコンのブラウザで開き、パスワードで復号してメモを読む・検索する・保存する。無料、アップロードなし。
 - [컬러노트 메모를 PC 브라우저에서 읽기 (Korean)](https://peakappsstudio.com/ko/colornote-pc/): 컬러노트(ColorNote) 백업 파일을 PC 브라우저에서 비밀번호로 열고, 모든 메모를 읽고 검색하고 저장하세요. 무료이며 파일은 업로드되지 않습니다.
 - [Abra suas notas do ColorNote no PC (Brazilian Portuguese)](https://peakappsstudio.com/pt-br/abrir-colornote-no-pc/): Leia suas notas do ColorNote no computador: abra o arquivo .backup do celular com a senha, pesquise todas as notas e salve. Grátis, sem enviar nada.
+- [.spass-Datei in CSV umwandeln: Samsung Pass für Apple Passwörter und Bitwarden (German)](https://peakappsstudio.com/de/spass-datei-in-csv-umwandeln/): Samsung-Pass-Export (.spass) im Browser mit dem Exportpasswort öffnen, als CSV für Apple Passwörter, Google oder Bitwarden speichern. Nichts wird hochgeladen.
+- [Samsung Pass-wachtwoorden overzetten naar een iPhone: .spass openen en omzetten naar CSV (Dutch)](https://peakappsstudio.com/nl/samsung-pass-naar-iphone/): Open een Samsung Pass-export (.spass) in je browser met het exportwachtwoord en bewaar een CSV voor Apple Wachtwoorden, Google of Bitwarden. Niets wordt geüpload.
+- [Lee tus Notas rápidas desde plum.sqlite o StickyNotes.snt (Spanish)](https://peakappsstudio.com/es/recuperar-notas-rapidas-windows/): Abre en el navegador el plum.sqlite o StickyNotes.snt de las Notas rápidas de Windows. Lee, busca, copia y guarda tus notas sin subir el archivo.
+- [Leia suas Notas Autoadesivas a partir de plum.sqlite ou StickyNotes.snt (Brazilian Portuguese)](https://peakappsstudio.com/pt-br/backup-notas-autoadesivas-windows/): Abra no navegador o plum.sqlite ou StickyNotes.snt das Notas Autoadesivas do Windows. Leia, pesquise, copie e salve as notas sem enviar o arquivo.
+- [plum.sqlite と StickyNotes.snt から付箋を読む (Japanese)](https://peakappsstudio.com/ja/windows-fusen-backup/): Windows「付箋」(Sticky Notes)のplum.sqliteやStickyNotes.sntをブラウザで開きます。メモの閲覧・検索・コピー・保存ができ、ファイルはパソコンの外に出ません。
+- [plum.sqlite, StickyNotes.snt에서 스티커 메모 읽기 (Korean)](https://peakappsstudio.com/ko/sticky-memo-backup/): Windows 스티커 메모(Sticky Notes)의 plum.sqlite, StickyNotes.snt 파일을 브라우저에서 엽니다. 메모를 읽고 검색하고 복사하고 저장할 수 있으며 파일은 PC 밖으로 나가지 않습니다.
 
 ## Websites for small businesses
 
