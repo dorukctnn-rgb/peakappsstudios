@@ -1,0 +1,6 @@
+DM Mono: OFL-1.1 (fontsource / Google Fonts)
+Inter: OFL-1.1 (fontsource / Google Fonts)
+Jost: OFL-1.1 (fontsource / Google Fonts)
+Montserrat: OFL-1.1 (fontsource / Google Fonts)
+Overpass: OFL-1.1 (fontsource / Google Fonts)
+Playfair Display: OFL-1.1 (fontsource / Google Fonts)
