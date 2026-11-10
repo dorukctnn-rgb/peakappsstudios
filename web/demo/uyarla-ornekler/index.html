@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Önce ve sonra: işletmenin kendi görseliyle restoran siteleri</title>
+<meta name="description" content="Üç gerçek restoranın bugünkü sitesi ile kendi fotoğraf, renk ve fontlarıyla üretilen taslak, masaüstü ve telefonda yan yana.">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="theme-color" content="#101214">
+<meta name="color-scheme" content="dark">
+<style>
+:root{--gut:clamp(18px,4vw,72px);--bg:#101214;--panel:#171a1d;--ink:#eceae4;--muted:#a9ada9;--line:rgba(236,234,228,.14);--acc:#e0b15a;--acc-ink:#1b1408;--good:#7fd6a0}
+*{box-sizing:border-box;margin:0}
+html{background:var(--bg);-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}a{color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:4px}
+.top{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;justify-content:space-between;padding:16px var(--gut);border-bottom:1px solid var(--line);font-size:14px;color:var(--muted)}
+.top b{color:var(--ink);letter-spacing:.02em}
+.hero{padding:clamp(40px,6vw,96px) var(--gut) clamp(24px,3vw,44px)}
+h1{font-weight:650;font-size:clamp(34px,5.6vw,92px);line-height:1.02;letter-spacing:-.025em;max-width:18em}
+.lead{margin-top:20px;max-width:56em;color:var(--muted);font-size:clamp(17px,1.35vw,21px)}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:30px}
+.how div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;font-size:15px;color:var(--muted)}
+.how b{display:block;color:var(--ink);margin-bottom:4px;font-size:15.5px}
+.note{margin-top:22px;font-size:13.5px;color:var(--muted);max-width:70em}
+.ex{padding:clamp(34px,5vw,80px) var(--gut);border-top:1px solid var(--line)}
+.ex-h{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:flex-end;justify-content:space-between;margin-bottom:22px}
+h2{font-weight:650;font-size:clamp(28px,3.6vw,56px);line-height:1.05;letter-spacing:-.02em}
+.meta{margin-top:8px;color:var(--muted);font-size:15px}.meta a{text-underline-offset:3px}
+.btn{display:inline-flex;align-items:center;min-height:46px;padding:0 1.4em;border-radius:999px;background:var(--acc);color:var(--acc-ink);font-weight:650;font-size:15.5px;text-decoration:none}
+.btn:hover{filter:brightness(1.08)}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,1.6vw,26px)}
+.cmp figure{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.cmp figcaption{display:flex;gap:10px;align-items:center;padding:12px 16px;font-size:14px;color:var(--muted);border-bottom:1px solid var(--line)}
+.chip{display:inline-block;padding:3px 11px;border-radius:999px;border:1px solid var(--line);font-size:12px;font-weight:650;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.chip-a{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+.cmp-m{margin-top:clamp(12px,1.6vw,26px);grid-template-columns:minmax(0,.62fr) minmax(0,.62fr) minmax(0,1.6fr);align-items:start}
+.cmp-m figure img{width:100%}
+.facts{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px 20px}
+.facts div{display:grid;grid-template-columns:7.5em 1fr;gap:6px 16px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
+.facts div:last-child{border-bottom:0}
+.facts dt{color:var(--muted);font-weight:600}
+.facts dd{min-width:0;overflow-wrap:anywhere}.facts ul{padding-left:1.1em}.facts li{margin:2px 0}
+.sw{display:inline-block;width:.95em;height:.95em;border-radius:3px;vertical-align:-.12em;border:1px solid rgba(255,255,255,.35);margin-left:.5em}
+.sw:first-child{margin-left:0}.sub{display:block;color:var(--muted);font-size:13.5px;margin-top:3px}
+.ok{color:var(--good)}.q{font-size:17px;letter-spacing:-.01em}
+.rec{margin-top:clamp(12px,1.6vw,26px);background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.rec figcaption{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px 16px;font-size:14px;color:var(--muted);border-bottom:1px solid var(--line)}
+.rec video{display:block;width:100%;height:auto;max-height:82vh;background:#000}
+.rules{padding:clamp(34px,5vw,80px) var(--gut);border-top:1px solid var(--line)}
+.rules h2{margin-bottom:18px}
+.rules ul{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px 28px;list-style:none;padding:0}
+.rules li{padding:12px 0;border-bottom:1px solid var(--line);color:var(--muted);font-size:15.5px}
+.rules li b{color:var(--ink)}
+footer{padding:26px var(--gut) 40px;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px}
+@media (max-width:900px){.cmp{grid-template-columns:1fr}.cmp-m{grid-template-columns:1fr 1fr}.cmp-m .facts{grid-column:1/-1}.facts div{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="top"><b>Peak Apps Studio · taslak karşılaştırması</b><span>Yalnız iç inceleme: herkese açık değil, hiçbir yerden bağlantısı yok</span></div>
+<section class="hero">
+  <h1>Kendi fotoğrafı, rengi ve fontuyla restoran siteleri</h1>
+  <p class="lead">Aşağıdaki üç sayfa, işletmelerin bugünkü sitelerindeki logo, fotoğraf, renk ve yazı tiplerinden üretildi. Logo dosyası olduğu gibi kalır; büyük başlık işletme adı değil, kendi sözlerine dayanan bir slogandır; kahramandaki derinlik, geçiş ve 3D kartlar işletmenin kendi fotoğraflarından yapılır. Üretim betikle yapılır, işletme başına model kotası harcanmaz.</p>
+  <div class="how">
+    <div><b>1. Okuma</b>Herkese açık sitesinden logo, fotoğraf, renk, font, menü, saat, adres, telefon. robots.txt'e uyulur, istekler sırayla ve aralıklıdır.</div>
+    <div><b>2. Eşleme</b>Font Google Fonts'ta varsa aynısı; ticariyse en yakın ücretsiz eş. Renkler işletmenin kendi paletinden (koyu ya da açık korunur), tüm yazı çiftleri 4,5:1 kontrastı geçer.</div>
+    <div><b>3. Üretim</b>Şablon kendi fotoğrafları, menüsü ve saatleriyle dolar. Kahraman WebGL katmanı: fotoğraftan derinlik (2.5D), konsepte göre ısı / su / fırça geçişi, imleçle 3D eğilen kartlar, açılış. Zayıf cihaz ve azaltılmış hareket için CSS yedeği.</div>
+    <div><b>4. Kapı</b>Gerçek tarayıcıda 1440, 1920 ve 390 px'te ölçülür: kontrast, taşma, logo bozulmamış mı, ilk ekranda slogan + ana eylem + saat/adres/telefon. Eksik olan "gözden geçir" listesine düşer ve maile girmez.</div>
+  </div>
+  <p class="note">"Önce" ekran görüntüleri işletmenin herkese açık sitesinden alınmıştır. Taslaklardaki metin, fiyat ve fotoğraflar işletmenin kendi sitesinden gelir; taslaktaki hiçbir şey yayında değildir.</p>
+</section>
+<article class="ex" id="riverbar-kitchen">
+  <header class="ex-h"><div><h2>Riverbar &amp; Kitchen</h2><p class="meta">Avustralya · Brisbane · bar · <a href="https://riverbarandkitchen.com.au/" rel="noopener noreferrer nofollow" target="_blank">şimdiki site</a></p></div>
+  <a class="btn" href="../r/riverbar-kitchen-97f724/">Taslağı aç</a></header>
+  <div class="cmp">
+    <figure><figcaption><span class="chip">Önce</span> Bugünkü site</figcaption><img src="img/o1-o1440.webp" width="1440" height="900" alt="Riverbar &amp; Kitchen bugünkü sitesi, masaüstü ilk ekran" loading="eager" decoding="async"></figure>
+    <figure><figcaption><span class="chip chip-a">Sonra</span> Kendi logosu, fotoğrafı, rengi ve fontuyla taslak</figcaption><img src="img/o1-s1440.webp" width="1440" height="900" alt="Riverbar &amp; Kitchen için üretilen taslak, masaüstü ilk ekran" loading="eager" decoding="async"></figure>
+  </div>
+  <figure class="rec"><figcaption><span class="chip chip-a">Hareketli</span> Taslağın kaydı: açılış, slogan, imleçle derinlik, geçiş, kaydırma (15.9 sn, 2.3 MB, sessiz)</figcaption>
+    <video src="vid/riverbar-kitchen.mp4" poster="img/o1-s1440.webp" width="1280" height="800" controls muted loop playsinline preload="none"></video></figure>
+  <div class="cmp cmp-m">
+    <figure><figcaption><span class="chip">Önce</span> Telefon</figcaption><img src="img/o1-o390.webp" width="780" height="1688" alt="Riverbar &amp; Kitchen bugünkü sitesi, telefon ilk ekran" loading="lazy" decoding="async"></figure>
+    <figure><figcaption><span class="chip chip-a">Sonra</span> Telefon</figcaption><img src="img/o1-s390.webp" width="780" height="1688" alt="Riverbar &amp; Kitchen için üretilen taslak, telefon ilk ekran" loading="lazy" decoding="async"></figure>
+    <dl class="facts"><div><dt>Slogan</dt><dd><b class="q">“Day to night, on the river.”</b><span class="sub">elle (kendi başlığı (sitede h1: DAY TO NIGHT, ON THE RIVER)) — Kendi başlığı zaten çok iyi: kısa, somut, doğru (07:00'den gece yarısına açık, nehir kıyısında). Değiştirilmedi.</span></dd></div><div><dt>Fotoğraf</dt><dd>İşletmenin kendi sitesinden 5 fotoğraf; arka planda akan görüntü de bunlar</dd></div><div><dt>Logo</dt><dd>Kendi logosu, dosya olduğu gibi (logo.png, 1247×440; renk, kırpma, filtre ve oran değişmedi)</dd></div><div><dt>Hareket</dt><dd><b>Açılış:</b> logo belirir, slogan sözcük sözcük gelir<br><b>Kahraman (WebGL, su: fotoğraflar arası geçiş dalga kırılmasıyla, aşağı kaydırdıkça gün batımı tonu (nehir kıyısı))</b>; her fotoğrafın derinlik haritası var: imleç gezince yakın plan uzak plandan daha çok oynar (2.5D), telefonda yavaşça kendiliğinden döner<br><b>Kaydırınca:</b> hikâye satır satır yanar, menü fotoğrafı sekmeyle değişir<br><b>Yedek:</b> WebGL yoksa, zayıf cihazda ya da azaltılmış harekette aynı fotoğraflarla sakin CSS akışı (ölçüldü: azaltılmış harekette katman kapalı, hata 0)<span class="sub">WebGL katmanı gerçek GPU'da açıldı (ANGLE (Intel, Intel(R) UHD Graphics (0x000046A3)).</span></dd></div><div><dt>Renk</dt><dd><span class="sw" style="background:#c07b36"></span> #c07b36 vurgu <span class="sw" style="background:#efebe1"></span> #efebe1 zemin <span class="sw" style="background:#333d2c"></span> #333d2c yazı <span class="sub">(sitenin düğme rengi; tüm yazı çiftleri WCAG kontrastını geçer)</span></dd></div><div><dt>Font</dt><dd>Başlık: Overpass → <b>Overpass</b> (aynı font, Google Fonts); metin: DM Mono → <b>DM Mono</b></dd></div><div><dt>Menü</dt><dd>42 kalem, kendi adları ve fiyatlarıyla</dd></div><div><dt>Saat</dt><dd>Kendi saatleri; "şimdi açık" rozeti dahil</dd></div><div><dt>Kapı</dt><dd><b class="ok">hazır</b> · masaüstü ve telefonda yatay taşma yok · bozuk görsel yok · ilk ekran yazı kontrastı yeterli · dış istek yok</dd></div></dl>
+  </div>
+</article>
+<article class="ex" id="lahmacun-prime">
+  <header class="ex-h"><div><h2>Lahmacun Prime</h2><p class="meta">Türkiye · Antalya · restoran · <a href="https://lahmacunprime.com/" rel="noopener noreferrer nofollow" target="_blank">şimdiki site</a></p></div>
+  <a class="btn" href="../r/lahmacun-prime-488d43/">Taslağı aç</a></header>
+  <div class="cmp">
+    <figure><figcaption><span class="chip">Önce</span> Bugünkü site</figcaption><img src="img/o2-o1440.webp" width="1440" height="900" alt="Lahmacun Prime bugünkü sitesi, masaüstü ilk ekran" loading="lazy" decoding="async"></figure>
+    <figure><figcaption><span class="chip chip-a">Sonra</span> Kendi logosu, fotoğrafı, rengi ve fontuyla taslak</figcaption><img src="img/o2-s1440.webp" width="1440" height="900" alt="Lahmacun Prime için üretilen taslak, masaüstü ilk ekran" loading="lazy" decoding="async"></figure>
+  </div>
+  <figure class="rec"><figcaption><span class="chip chip-a">Hareketli</span> Taslağın kaydı: açılış, slogan, imleçle derinlik, geçiş, kaydırma (16.1 sn, 2.7 MB, sessiz)</figcaption>
+    <video src="vid/lahmacun-prime.mp4" poster="img/o2-s1440.webp" width="1280" height="800" controls muted loop playsinline preload="none"></video></figure>
+  <div class="cmp cmp-m">
+    <figure><figcaption><span class="chip">Önce</span> Telefon</figcaption><img src="img/o2-o390.webp" width="780" height="1688" alt="Lahmacun Prime bugünkü sitesi, telefon ilk ekran" loading="lazy" decoding="async"></figure>
+    <figure><figcaption><span class="chip chip-a">Sonra</span> Telefon</figcaption><img src="img/o2-s390.webp" width="780" height="1688" alt="Lahmacun Prime için üretilen taslak, telefon ilk ekran" loading="lazy" decoding="async"></figure>
+    <dl class="facts"><div><dt>Slogan</dt><dd><b class="q">“Odun ateşinde, incecik ve çıtır.”</b><span class="sub">elle (yazıldı; dayanak kendi cümlesi: &quot;İncecik açılmış çıtır çıtır hamurlarımız, odun ateşinde taş fırında pişirilerek…&quot;) — Sitedeki büyük başlık &quot;Antalya’nın en iyi lahmacun menüsü&quot; doğrulanamayan bir iddia; alt başlığı genel kalıyor. Seçilen cümle ne sattıklarını ve nasıl pişirdiklerini kendi sözcükleriyle söylüyor.</span></dd></div><div><dt>Fotoğraf</dt><dd>İşletmenin kendi sitesinden 7 fotoğraf; arka planda akan görüntü de bunlar</dd></div><div><dt>Logo</dt><dd>Kendi logosu, dosya olduğu gibi (logo.png, 368×71; renk, kırpma, filtre ve oran değişmedi)</dd></div><div><dt>Hareket</dt><dd><b>Açılış:</b> logo belirir, slogan sözcük sözcük gelir<br><b>Kahraman (WebGL, ısı: fotoğraflar arası geçiş kor gibi yanarak açılır, üstte sıcak hava titremesi ve seyrek kıvılcım (odun ateşi))</b>; her fotoğrafın derinlik haritası var: imleç gezince yakın plan uzak plandan daha çok oynar (2.5D), telefonda yavaşça kendiliğinden döner<br><b>Kaydırınca:</b> öne çıkanlar kartları imleçle 3D eğilir ve parlar, hikâye satır satır yanar, menü fotoğrafı sekmeyle değişir<br><b>Yedek:</b> WebGL yoksa, zayıf cihazda ya da azaltılmış harekette aynı fotoğraflarla sakin CSS akışı (ölçüldü: azaltılmış harekette katman kapalı, hata 0)<span class="sub">WebGL katmanı gerçek GPU'da açıldı (ANGLE (Intel, Intel(R) UHD Graphics (0x000046A3)).</span></dd></div><div><dt>Renk</dt><dd><span class="sw" style="background:#c19d60"></span> #c19d60 vurgu <span class="sw" style="background:#232032"></span> #232032 zemin <span class="sw" style="background:#ffffff"></span> #ffffff yazı <span class="sub">(sitenin düğme rengi; tüm yazı çiftleri WCAG kontrastını geçer)</span></dd></div><div><dt>Font</dt><dd>Başlık: Playfair → <b>Playfair</b> (aynı font, Google Fonts); metin: Jost → <b>Jost</b></dd></div><div><dt>Menü</dt><dd>29 kalem, kendi adları ve fiyatlarıyla</dd></div><div><dt>Saat</dt><dd>Kendi saatleri; "şimdi açık" rozeti dahil</dd></div><div><dt>Kapı</dt><dd><b class="ok">hazır</b> · masaüstü ve telefonda yatay taşma yok · bozuk görsel yok · ilk ekran yazı kontrastı yeterli · dış istek yok</dd></div><div><dt>Not</dt><dd><ul><li>rezervasyon bağlantısı yok (demo form gösterilir)</li></ul></dd></div></dl>
+  </div>
+</article>
+<article class="ex" id="winona-forever">
+  <header class="ex-h"><div><h2>Winona Forever</h2><p class="meta">Yeni Zelanda · Auckland · restoran · <a href="https://winonaforever.co.nz/" rel="noopener noreferrer nofollow" target="_blank">şimdiki site</a></p></div>
+  <a class="btn" href="../r/winona-forever-e6c38a/">Taslağı aç</a></header>
+  <div class="cmp">
+    <figure><figcaption><span class="chip">Önce</span> Bugünkü site</figcaption><img src="img/o3-o1440.webp" width="1440" height="900" alt="Winona Forever bugünkü sitesi, masaüstü ilk ekran" loading="lazy" decoding="async"></figure>
+    <figure><figcaption><span class="chip chip-a">Sonra</span> Kendi logosu, fotoğrafı, rengi ve fontuyla taslak</figcaption><img src="img/o3-s1440.webp" width="1440" height="900" alt="Winona Forever için üretilen taslak, masaüstü ilk ekran" loading="lazy" decoding="async"></figure>
+  </div>
+  <figure class="rec"><figcaption><span class="chip chip-a">Hareketli</span> Taslağın kaydı: açılış, slogan, imleçle derinlik, geçiş, kaydırma (16.5 sn, 2.9 MB, sessiz)</figcaption>
+    <video src="vid/winona-forever.mp4" poster="img/o3-s1440.webp" width="1280" height="800" controls muted loop playsinline preload="none"></video></figure>
+  <div class="cmp cmp-m">
+    <figure><figcaption><span class="chip">Önce</span> Telefon</figcaption><img src="img/o3-o390.webp" width="780" height="1688" alt="Winona Forever bugünkü sitesi, telefon ilk ekran" loading="lazy" decoding="async"></figure>
+    <figure><figcaption><span class="chip chip-a">Sonra</span> Telefon</figcaption><img src="img/o3-s390.webp" width="780" height="1688" alt="Winona Forever için üretilen taslak, telefon ilk ekran" loading="lazy" decoding="async"></figure>
+    <dl class="facts"><div><dt>Slogan</dt><dd><b class="q">“Food should be a celebration, not a chore.”</b><span class="sub">elle (kendi cümlesi (About Us: &quot;we truly believe food should be a celebration, not a chore&quot;)) — Sitenin ilk ekranında slogan yok (yalnız &quot;Cafe &amp; Bakery&quot;). En iyi cümle zaten kendi Hakkımızda yazısında gömülüydü; öne çıkarıldı.</span></dd></div><div><dt>Fotoğraf</dt><dd>İşletmenin kendi sitesinden 6 fotoğraf; arka planda akan görüntü de bunlar</dd></div><div><dt>Logo</dt><dd>Kendi logosu, dosya olduğu gibi (logo.svg, 130×128; renk, kırpma, filtre ve oran değişmedi; açılışta ve kahramanda yine kendi dosyası: logo-hero.svg)</dd></div><div><dt>Hareket</dt><dd><b>Açılış:</b> logo belirir, slogan sözcük sözcük gelir<br><b>Kahraman (WebGL, fırça: fotoğraflar arası geçiş fırça darbesiyle açılır (el yazısı logo))</b>; her fotoğrafın derinlik haritası var: imleç gezince yakın plan uzak plandan daha çok oynar (2.5D), telefonda yavaşça kendiliğinden döner<br><b>Kaydırınca:</b> öne çıkanlar kartları imleçle 3D eğilir ve parlar, hikâye satır satır yanar, menü fotoğrafı sekmeyle değişir<br><b>Yedek:</b> WebGL yoksa, zayıf cihazda ya da azaltılmış harekette aynı fotoğraflarla sakin CSS akışı (ölçüldü: azaltılmış harekette katman kapalı, hata 0)<span class="sub">WebGL katmanı gerçek GPU'da açıldı (ANGLE (Intel, Intel(R) UHD Graphics (0x000046A3)).</span></dd></div><div><dt>Renk</dt><dd><span class="sw" style="background:#4ccede"></span> #4ccede vurgu <span class="sw" style="background:#273546"></span> #273546 zemin <span class="sw" style="background:#ffffff"></span> #ffffff yazı <span class="sub">(sitenin düğme rengi; tüm yazı çiftleri WCAG kontrastını geçer)</span></dd></div><div><dt>Font</dt><dd>Başlık: Montserrat → <b>Montserrat</b> (aynı font, Google Fonts); metin: Muli → <b>Mulish</b></dd></div><div><dt>Menü</dt><dd>33 kalem, kendi adları ve fiyatlarıyla</dd></div><div><dt>Saat</dt><dd>Kendi saatleri; "şimdi açık" rozeti dahil</dd></div><div><dt>Kapı</dt><dd><b class="ok">hazır</b> · masaüstü ve telefonda yatay taşma yok · bozuk görsel yok · ilk ekran yazı kontrastı yeterli · dış istek yok</dd></div><div><dt>Not</dt><dd><ul><li>rezervasyon bağlantısı yok (demo form gösterilir)</li></ul></dd></div></dl>
+  </div>
+</article>
+<section class="rules">
+  <h2>"Gözden geçir" listesinin kuralları</h2>
+  <ul>
+    <li><b>Fotoğraf</b> sayısı 3'ten azsa</li>
+    <li><b>Logo</b> bulunamadıysa</li>
+    <li><b>Menü</b> hiç yoksa (kalem de, menü bağlantısı da)</li>
+    <li><b>Marka rengi</b> bulunamadıysa ya da kontrast sağlanamadıysa</li>
+    <li><b>Adres ve telefon</b> ikisi de yoksa</li>
+    <li>İlk ekranda yazı kontrastı yetersizse, görsel bozuksa, yatay taşma ya da sığmayan başlık varsa, font yüklenmediyse</li>
+    <li><b>Logo</b> değişmişse (filtre, oran) ya da büyük başlık slogan değil işletme adıysa</li>
+    <li>İlk ekranda ana eylem, slogan ve saat/adres/telefon satırı tam görünmüyorsa (telefonda alt çubuk payı düşülür)</li>
+    <li>Site açılmıyorsa, boşsa ya da robots.txt izin vermiyorsa "elendi"</li>
+    <li>Gözden geçir ve elenenler <b>maile girmez</b>; mailler yalnız onayla gider</li>
+  </ul>
+</section>
+<footer>Sayfalar noindex'tir. Fontlar yalnız ücretsiz lisanslıdır (OFL); ticari font dosyası kopyalanmaz.</footer>
+</body>
+</html>

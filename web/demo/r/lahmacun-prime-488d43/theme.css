@@ -1,0 +1,47 @@
+/* Lahmacun Prime: kendi sitesinden alinan renkler ve fontlar. Font: Playfair (ayni), Jost (ayni). Logo: orijinal dosya, filtre yok. */
+@font-face{font-family:"Playfair";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/playfair-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Playfair";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/playfair-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Jost";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/jost-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Jost";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/jost-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Jost";font-style:normal;font-weight:600;font-display:swap;src:url(../../_uyarla/fonts/jost-latin-600.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Jost";font-style:normal;font-weight:600;font-display:swap;src:url(../../_uyarla/fonts/jost-latin-ext-600.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{
+--bg:#232032;
+--bg-rgb:35,32,50;
+--bg2:#272535;
+--ink:#ffffff;
+--muted:#bdbcc2;
+--line:#4f4d5b;
+--accent:#c19d60;
+--accent-ink:#222222;
+--accent-hi:#c19d60;
+--accent-text:#c19d60;
+--accent2:#b43f3f;
+--accent2-rgb:180,63,63;
+--accent2-text:#bc4242;
+--deep:#1a1826;
+--on-deep:#eeedf2;
+--on-deep-muted:#aeadb5;
+--accent-on-deep:#c19d60;
+--hero-ink:#ffffff;
+--hero-muted:rgba(255,255,255,.9);
+--hero-accent:#c19d60;
+--hero-line:rgba(255,255,255,.26);
+--shade-rgb:14,13,21;
+--shade-a:0.940;
+--shade-m:0.882;
+--head-bg:#232032;
+--head-bg-rgb:35,32,50;
+--head-ink:#c19d60;
+--display:"Playfair",Georgia, "Times New Roman", serif;--text:"Jost",system-ui, -apple-system, "Segoe UI", sans-serif;
+--d-weight:400;--d-style:normal;--d-case:uppercase;--d-ls:0.02em;--em-style:normal;
+--h1-size:clamp(34px, min(5.39vw, 17.6vh), 138px);--h1-max:12.7em;--h2-size:clamp(32px, 4.2vw, 72px);--h3-size:clamp(21px, 1.7vw, 26px);--h1-lh:1.02;--btn-r:4px;--r:6px;
+--kb-step:7s;--kb-total:28s;--kb-ov:1.4s;
+--map-bg:#272535;--map-road:#3d3b49;--map-fine:#333140;
+--lg-h:40px;--lg-h-m:36px;--head:72px;--head-m:58px;--intro-w:min(62vw, 380px);
+}
+@keyframes kb-fade{0%{opacity:0}5%{opacity:1}25%{opacity:1}30%{opacity:0}100%{opacity:0}}
+@keyframes kb-zoom-a{0%{transform:scale(1.02) translate3d(0,0,0)}30%{transform:scale(1.16) translate3d(-1.6%,-1%,0)}100%{transform:scale(1.16) translate3d(-1.6%,-1%,0)}}
+@keyframes kb-zoom-b{0%{transform:scale(1.15) translate3d(0,0,0)}30%{transform:scale(1.03) translate3d(1.8%,-0.8%,0)}100%{transform:scale(1.03) translate3d(1.8%,-0.8%,0)}}
+@keyframes kb-zoom-c{0%{transform:scale(1.02) translate3d(0,0,0)}30%{transform:scale(1.14) translate3d(-1.2%,1.2%,0)}100%{transform:scale(1.14) translate3d(-1.2%,1.2%,0)}}
+@media (max-width:899px){:root{--h1-size:clamp(30px,11.48vw,64px)}}

@@ -1,0 +1,47 @@
+/* Winona Forever: kendi sitesinden alinan renkler ve fontlar. Font: Montserrat (ayni), Mulish (esdeger). Logo: orijinal dosya, filtre yok. */
+@font-face{font-family:"Montserrat";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/montserrat-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Montserrat";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/montserrat-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Mulish";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/mulish-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Mulish";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/mulish-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Mulish";font-style:normal;font-weight:600;font-display:swap;src:url(../../_uyarla/fonts/mulish-latin-600.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Mulish";font-style:normal;font-weight:600;font-display:swap;src:url(../../_uyarla/fonts/mulish-latin-ext-600.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{
+--bg:#273546;
+--bg-rgb:39,53,70;
+--bg2:#2c3c50;
+--ink:#ffffff;
+--muted:#bec2c8;
+--line:#525d6b;
+--accent:#4ccede;
+--accent-ink:#273546;
+--accent-hi:#4ccede;
+--accent-text:#4ccede;
+--accent2:#4ccede;
+--accent2-rgb:76,206,222;
+--accent2-text:#4ccede;
+--deep:#1d2835;
+--on-deep:#edeff2;
+--on-deep-muted:#afb3b9;
+--accent-on-deep:#4ccede;
+--hero-ink:#ffffff;
+--hero-muted:rgba(255,255,255,.9);
+--hero-accent:#4ccede;
+--hero-line:rgba(255,255,255,.26);
+--shade-rgb:16,22,29;
+--shade-a:0.94;
+--shade-m:0.802;
+--head-bg:#2c3c50;
+--head-bg-rgb:44,60,80;
+--head-ink:#ffffff;
+--display:"Montserrat",system-ui, -apple-system, "Segoe UI", sans-serif;--text:"Mulish",system-ui, -apple-system, "Segoe UI", sans-serif;
+--d-weight:400;--d-style:normal;--d-case:none;--d-ls:-0.012em;--em-style:italic;
+--h1-size:clamp(34px, min(4.40vw, 18.4vh), 71px);--h1-max:15.0em;--h2-size:clamp(32px, 4.9vw, 84px);--h3-size:clamp(21px, 2.05vw, 31px);--h1-lh:0.98;--btn-r:999px;--r:14px;
+--kb-step:7s;--kb-total:21s;--kb-ov:1.4s;
+--map-bg:#2c3c50;--map-road:#415062;--map-fine:#38475a;
+--lg-h:60px;--lg-h-m:46px;--head:88px;--head-m:68px;--intro-w:min(38vw, 230px);
+}
+@keyframes kb-fade{0%{opacity:0}6.667%{opacity:1}33.333%{opacity:1}40%{opacity:0}100%{opacity:0}}
+@keyframes kb-zoom-a{0%{transform:scale(1.02) translate3d(0,0,0)}40%{transform:scale(1.16) translate3d(-1.6%,-1%,0)}100%{transform:scale(1.16) translate3d(-1.6%,-1%,0)}}
+@keyframes kb-zoom-b{0%{transform:scale(1.15) translate3d(0,0,0)}40%{transform:scale(1.03) translate3d(1.8%,-0.8%,0)}100%{transform:scale(1.03) translate3d(1.8%,-0.8%,0)}}
+@keyframes kb-zoom-c{0%{transform:scale(1.02) translate3d(0,0,0)}40%{transform:scale(1.14) translate3d(-1.2%,1.2%,0)}100%{transform:scale(1.14) translate3d(-1.2%,1.2%,0)}}
+@media (max-width:899px){:root{--h1-size:clamp(30px,8.55vw,64px)}}
