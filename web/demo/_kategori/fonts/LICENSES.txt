@@ -2,4 +2,6 @@ Fonts in this folder (all SIL Open Font License 1.1, https://openfontlicense.org
 - Mouse Memoirs: Copyright (c) 2011, Vernon Adams. Served from Google Fonts / Fontsource files.
 - Modak: Copyright (c) 2015, Ek Type. Served from Google Fonts / Fontsource files.
 - Barlow Semi Condensed: Copyright (c) 2017, Jeremy Tribby. Served from Google Fonts / Fontsource files.
+- Archivo Black: Copyright (c) 2017, The Archivo Black Project Authors (Omnibus-Type). Served from Google Fonts / Fontsource files.
+- Figtree: Copyright (c) 2022, The Figtree Project Authors (Erik Kennedy). Served from Google Fonts / Fontsource files.
 The fonts may be used, bundled and redistributed with these pages under the OFL; they are not sold on their own.

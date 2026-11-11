@@ -1,0 +1,46 @@
+/* Bay City Burrito: renkler isletmenin kendi sitesinden (zemin #fbefe3, vurgu #d6302b). Fontlar: Archivo Black (başlık, dev slogan, fiyat), Figtree (gövde), Figtree (gövde yarı kalın, etiket), Figtree (düğme, menü adı, kutu adı). Logo: orijinal dosya, filtre yok. */
+@font-face{font-family:"Archivo Black";font-style:normal;font-weight:400;font-display:swap;src:url(../../_kategori/fonts/archivo-black-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Archivo Black";font-style:normal;font-weight:400;font-display:swap;src:url(../../_kategori/fonts/archivo-black-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:400;font-display:swap;src:url(../../_kategori/fonts/figtree-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:400;font-display:swap;src:url(../../_kategori/fonts/figtree-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:600;font-display:swap;src:url(../../_kategori/fonts/figtree-latin-600.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:600;font-display:swap;src:url(../../_kategori/fonts/figtree-latin-ext-600.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:700;font-display:swap;src:url(../../_kategori/fonts/figtree-latin-700.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:700;font-display:swap;src:url(../../_kategori/fonts/figtree-latin-ext-700.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{
+--bg:#fbefe3;
+--bg-rgb:251,239,227;
+--bg2:#f5e1cc;
+--ink:#2e1410;
+--muted:#6b4a40;
+--line:#d2c3b9;
+--accent:#d6302b;
+--accent-ink:#ffffff;
+--accent-hi:#e8443d;
+--accent-on-bg:#cd2e29;
+--accent-text:#d6302b;
+--paper:#ffffff;
+--paper-ink:#2e1410;
+--paper-muted:#796966;
+--head-bg:#fbefe3;
+--head-bg-rgb:251,239,227;
+--head-ink:#2e1410;
+--display:"Archivo Black","Arial Black",system-ui,sans-serif;
+--text:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+--teal:#01b29c;
+--teal-deep:#0b3d37;
+--teal-ink:#e9fbf7;
+--orange:#f59a2a;
+--sky:#68ccd1;
+--logo-red:#fe3b36;
+--h1a:min(5.43vw, 15svh, 150px);
+--h1b:min(9.36vw, 21svh, 210px);
+--h1ma:min(calc((100vw - 40px) / 8.650), 64px);
+--h1mb:min(calc((100vw - 40px) / 5.017), 96px);
+--roll-fs:min(13.98vw, 240px);
+--ac-fs:min(11.67vw, 200px);
+--foot-fs:17.28vw;
+--lg-h:64px;
+--hero-max:1000px;
+--hero-ar:1.2500;
+}
