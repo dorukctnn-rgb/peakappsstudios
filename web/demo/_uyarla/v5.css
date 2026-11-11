@@ -212,9 +212,10 @@ b, strong { font-weight: var(--t-strong, 600); }
 /* hikaye: kendi cumlesi, kaydirdikca sozcuk sozcuk gelir; yaninda kendi fotografi */
 .story { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 80px); align-items: stretch; }
 .story > div:first-child { align-self: center; }
+@media (min-width: 1280px) { .story { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); } .sec.story .h2 { font-size: clamp(30px, 3.1vw, 72px); } .sec.story .p { font-size: clamp(15px, .95vw, 19px); } }
 .story .h2 { font-size: var(--h2s-size, clamp(26px, 2.6vw, 48px)); line-height: 1.12; letter-spacing: var(--d-ls); max-width: 24em; }
 .story .p { margin-top: 24px; max-width: 36em; }
-.story-pic { position: relative; overflow: hidden; background: var(--bg2); min-height: clamp(380px, 26vw, 640px); max-height: 74svh; justify-self: stretch; width: 100%; }
+.story-pic { position: relative; overflow: hidden; background: var(--bg2); min-height: clamp(340px, 20vw, 460px); max-height: 74svh; justify-self: stretch; width: 100%; }
 .story-pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 50%) var(--fy, 50%); transform: translate3d(0, calc((var(--p, .5) - .5) * -8%), 0) scale(1.1); }
 .d-mekan .story .h2 { text-transform: none; letter-spacing: -.012em; }
 .d-sicak .card figcaption b { display: block; font-size: 11.5px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; }

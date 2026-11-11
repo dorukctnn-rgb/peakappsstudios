@@ -355,13 +355,14 @@ p + p { margin-top: .9em; }
 @media (min-width: 1280px) {
   .tiles { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 20px 12px; }
   .plate { width: min(9vw, 150px); }
-  .roll { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: center; column-gap: clamp(32px, 4vw, 90px); }
+  .roll { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: start; column-gap: clamp(32px, 4vw, 90px); }
   .roll > .roll-big { font-size: calc(var(--roll-fs) * .52); margin-bottom: 0; justify-self: start; }
-  .roll > .story { columns: auto; max-width: 44em; margin-left: 0; justify-self: start; }
+  .roll > .story { columns: auto; max-width: 26em; margin-left: 0; justify-self: start; }
+  .roll > .story p { font-size: clamp(18px, 1.25vw, 24px); }
   .ac-big { margin-bottom: clamp(16px, 2vw, 32px); }
 }
-@media (min-width: 1800px) { .roll > .roll-big { font-size: calc(var(--roll-fs) * .58); } .roll > .story p { font-size: clamp(19px, 1.05vw, 23px); } }
-@media (min-width: 2200px) { .roll > .roll-big { font-size: calc(var(--roll-fs) * .75); } }
+@media (min-width: 1800px) { .roll > .roll-big { font-size: calc(var(--roll-fs) * .58); } }
+@media (min-width: 2200px) { .roll > .roll-big { font-size: calc(var(--roll-fs) * .6); } }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .intro { display: none; }
