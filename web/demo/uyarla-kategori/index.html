@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Önce ve sonra: kategori şablonlarıyla restoran siteleri</title>
+<meta name="description" content="Burger, burrito ve pizza işletmeleri için referans sitelerin dilinde, işletmenin kendi logo, fotoğraf ve menüsüyle hazırlanan taslaklar.">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="theme-color" content="#121212">
+<meta name="color-scheme" content="dark">
+<style>
+:root{--gut:clamp(16px,4vw,72px);--bg:#121212;--panel:#1b1b1b;--ink:#efebe4;--muted:#a9a49c;--line:rgba(239,235,228,.14);--acc:#f78d1e;--acc-ink:#1b1206;--good:#7fd6a0;--bad:#ff8a7a}
+*{box-sizing:border-box;margin:0}
+html{background:var(--bg);-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,video{display:block;max-width:100%;height:auto}a{color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:4px}
+.top{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center;justify-content:space-between;padding:16px var(--gut);border-bottom:1px solid var(--line);font-size:14px;color:var(--muted)}
+.top b{color:var(--ink)}
+.hero{padding:clamp(36px,6vw,96px) var(--gut) clamp(24px,3vw,44px)}
+h1{font-weight:650;font-size:clamp(32px,5.4vw,88px);line-height:1.03;letter-spacing:-.025em;max-width:20em}
+.lead{margin-top:20px;max-width:60em;color:var(--muted);font-size:clamp(17px,1.3vw,21px)}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:30px}
+.how div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;font-size:15px;color:var(--muted)}
+.how b{display:block;color:var(--ink);margin-bottom:4px;font-size:15.5px}
+.note{margin-top:22px;font-size:13.5px;color:var(--muted);max-width:76em}
+.ex{padding:clamp(34px,5vw,80px) var(--gut);border-top:1px solid var(--line)}
+.ex-h{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:flex-end;justify-content:space-between;margin-bottom:22px}
+h2{font-weight:650;font-size:clamp(28px,3.6vw,56px);line-height:1.05;letter-spacing:-.02em}
+.meta{margin-top:8px;color:var(--muted);font-size:15px;max-width:70em}.meta a{text-underline-offset:3px}
+.btn{display:inline-flex;align-items:center;min-height:46px;padding:0 1.4em;border-radius:999px;background:var(--acc);color:var(--acc-ink);font-weight:650;font-size:15.5px;text-decoration:none}
+.btn:hover{filter:brightness(1.08)}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,1.6vw,26px)}
+figure{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;min-width:0}
+figcaption{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px 16px;font-size:14px;color:var(--muted);border-bottom:1px solid var(--line)}
+.chip{display:inline-block;padding:3px 11px;border-radius:999px;border:1px solid var(--line);font-size:12px;font-weight:650;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.chip-a{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+.rec{margin-top:clamp(12px,1.6vw,26px)}
+.rec video{width:100%;max-height:82vh;background:#000}
+.fx3{display:grid;grid-template-columns:1.4fr .55fr 1.6fr;gap:clamp(12px,1.6vw,26px);margin-top:clamp(12px,1.6vw,26px);align-items:start}
+.fx3 img{width:100%}
+.cmp-m{margin-top:clamp(12px,1.6vw,26px);grid-template-columns:minmax(0,.6fr) minmax(0,.6fr) minmax(0,1.7fr);align-items:start}
+.cmp-w{margin-top:clamp(12px,1.6vw,26px);grid-template-columns:minmax(0,2.2fr) minmax(0,.6fr);align-items:start}
+.facts{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px 20px;margin:0}
+.facts div{display:grid;grid-template-columns:7.5em 1fr;gap:6px 16px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
+.facts div:last-child{border-bottom:0}
+.facts dt{color:var(--muted);font-weight:600}
+.facts dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.sub{display:block;color:var(--muted);font-size:13.5px;margin-top:4px}
+.ok{color:var(--good)}.bad{color:var(--bad)}.q{font-size:17px;letter-spacing:-.01em}
+@media (max-width:1100px){.cmp-m{grid-template-columns:1fr 1fr}.cmp-m .facts{grid-column:1/-1}.fx3{grid-template-columns:1fr 1fr}.fx3 figure:last-child{grid-column:1/-1}}
+@media (max-width:700px){.cmp,.cmp-w{grid-template-columns:1fr}.facts div{grid-template-columns:1fr}.fx3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="top"><b>Peak Apps Studio: kategori taslakları</b><span>Yalnız iç inceleme. Herkese açık değil, hiçbir yerden bağlantısı yok.</span></div>
+<section class="hero">
+  <h1>Referans sitenin dilinde, işletmenin kendi logosu ve menüsüyle</h1>
+  <p class="lead">Gösterilen referanslar kategori şablonu oldu: burger için cravburgers.shop. Şablon referansın sayfa grameriyle, hareket tekniğiyle ve fontlarıyla kuruldu; içeriğin tamamı işletmenin kendi sitesinden geliyor. Referansın kodu, çizimi, fotoğrafı ve metni kopyalanmadı. Aynı şablon başka burgercilere de betikle uygulanır (uret-kategori.mjs), işletme başına model kotası harcanmaz.</p>
+  <div class="how">
+    <div><b>Referanstan alınan</b>Poster kahraman (dev slogan, ortada ürün karesi, dönük etiketler), akan menü şeridi, eğik fotoğraf kartları, dalga kenarlı marka bandı, ekrana sabitlenen tam fotoğraf, dev dış çizgili altbilgi yazısı, imleç zinciri tekniği ve fontlar.</div>
+    <div><b>Referanstan iyi olan</b>İlk ekranda şimdi açık rozeti, bugünün saati, adres, telefon ve tek ana eylem (gerçek sipariş bağlantısı). Sayfada fiyatlı menü. İmleç efekti 3D döner, durunca burger olur, telefonda dokunmayla da çalışır. Kütüphane yok, telefonda alt çubuk.</div>
+    <div><b>Değişmeyen</b>Logo dosyası olduğu gibi. İşletmenin paleti (koyu zemin, kendi turuncusu), fotoğrafları ve dili korunur; büyük başlık uydurma değil, kendi cümlesi.</div>
+    <div><b>Kapı</b>Gerçek tarayıcıda 1440, 1920 ve 390 px: konsol hatası, dış istek, taşma, büyütülmüş (bulanık) görsel, boş bölüm, ilk ekran bilgileri, azaltılmış hareket, parçacık sınırı ve kare süresi ölçülür.</div>
+  </div>
+  <p class="note">“Önce” görüntüleri işletmenin herkese açık sitesinden alınmıştır. Taslaklardaki metin, fiyat ve fotoğraflar işletmenin kendi sitesinden gelir; taslaktaki hiçbir şey yayında değildir.</p>
+</section>
+<article class="ex" id="botown">
+  <header class="ex-h"><div><h2>BóTOWN</h2><p class="meta">İrlanda, Galway. burger şablonu. Referans: <a href="https://www.cravburgers.shop/" rel="noopener noreferrer nofollow" target="_blank">cravburgers.shop</a>. Bugünkü site: <a href="https://botown.ie/" rel="noopener noreferrer nofollow" target="_blank">botown.ie</a></p></div>
+  <a class="btn" href="../r/botown-9492c6/">Taslağı aç</a></header>
+  <div class="cmp">
+    <figure><figcaption><span class="chip">Önce</span> Bugünkü site, masaüstü ilk ekran</figcaption><img src="img/botown-o1440.webp" width="1440" height="900" alt="BóTOWN bugünkü sitesi, masaüstü ilk ekran" loading="eager" decoding="async"></figure>
+    <figure><figcaption><span class="chip chip-a">Sonra</span> Taslak, masaüstü ilk ekran (1440 px)</figcaption><img src="img/botown-s1440.webp" width="1440" height="900" alt="BóTOWN için hazırlanan taslak, masaüstü ilk ekran" loading="eager" decoding="async"></figure>
+  </div>
+  <figure class="rec"><figcaption><span class="chip chip-a">Hareketli</span> İmleç efekti: zincir, durunca üst üste burger, hızlı harekette ve tıklamada saçılma (7,7 sn, 272 KB, sessiz)</figcaption>
+    <video src="vid/botown.mp4" poster="img/botown-s1440.webp" width="960" height="600" controls muted loop playsinline preload="none"></video></figure>
+  <div class="fx3">
+    <figure><figcaption>Hareket ederken: malzemeler zincir olup 3D döner</figcaption><img src="img/botown-iz1.webp" width="760" height="520" alt="İmlecin peşindeki malzeme zinciri" loading="lazy" decoding="async"></figure>
+    <figure><figcaption>Durunca: yayla zıplayıp burger olur</figcaption><img src="img/botown-iz2.webp" width="260" height="240" alt="İmleç durunca üst üste dizilen burger" loading="lazy" decoding="async"></figure>
+    <figure><figcaption>Hızlı hareket ve tıklama: saçılır, düşer, bir kez seker</figcaption><img src="img/botown-iz3.webp" width="900" height="760" alt="Saçılan malzemeler" loading="lazy" decoding="async"></figure>
+  </div>
+  <div class="cmp cmp-m">
+    <figure><figcaption><span class="chip">Önce</span> Telefon</figcaption><img src="img/botown-o390.webp" width="780" height="1688" alt="BóTOWN bugünkü sitesi, telefon ilk ekran" loading="lazy" decoding="async"></figure>
+    <figure><figcaption><span class="chip chip-a">Sonra</span> Telefon (390 px)</figcaption><img src="img/botown-s390.webp" width="780" height="1688" alt="BóTOWN için hazırlanan taslak, telefon ilk ekran" loading="lazy" decoding="async"></figure>
+    <dl class="facts">
+      <div><dt>Slogan</dt><dd><b class="q">“Burgers and beers bring people together.”</b><span class="sub">kendi cümlesi (ana sayfa, Frank &amp; David mektubu): &quot;Burgers and beers bring people together and the seeds for BóTOWN were first sown during one of our summer barbecue parties.&quot;. Kendi sloganı &quot;Craft Burgers &amp; Beers in Galway&quot; doğru ama tanımlayıcı; üst etikette duruyor. Büyük başlık, kurucuların kendi cümlesi: ne sattıklarını ve mekânın ruhunu tek cümlede söylüyor, iddia içermiyor.</span></dd></div>
+      <div><dt>Logo</dt><dd>Kendi dosyası, bayt bayt aynı (PNG, 600×339; sha256 eşleşiyor). Renk, kırpma, filtre ve oran değişmedi.</dd></div>
+      <div><dt>Fontlar</dt><dd><b>Mouse Memoirs</b>: başlık, düğme, menü adı ve fiyat<br><b>Modak</b>: etiket (sticker)<br><b>Barlow Semi Condensed</b>: gövde<span class="sub">Başlık ve etiket fontları referansın kendi fontları (ikisi de SIL OFL, ücretsiz, birebir aynısı). İşletmenin sitesi gövdede Roboto kullanıyor; o, kurallarımızda jenerik sayılıyor, yerine okunaklı dar grotesk Barlow Semi Condensed. Dosyalar kendi sunucumuzdan woff2.</span></dd></div>
+      <div><dt>Ana fotoğraf</dt><dd>Kendi sitesinin ilk ekran karesi: tek imza burger, poster düzeni tek ürün ister. 1:1 kırpmada burger keskin; düşük keskinlik puanı arkadaki bulanık tabeladan geliyor. Puanlayıcının birincisi (masa üstü yayılım, 09) tam genişlik bantta. Kaynak orijinal dosya, 1864×1114 px.<span class="sub">1440 px ekranda 581×387 css px (dosya 800×478, ölçek 0,87); 1920 px ekranda 763×509 css px (dosya 1200×717, ölçek 0,77); 390 px ekranda 354×221 css px (dosya 800×478, ölçek 0,98). Sayfadaki hiçbir görsel büyütülmüyor (ölçülen en büyük ölçek 0,98; 1 üstü bulanıklık demek).</span></dd></div>
+      <div><dt>İlk ekran</dt><dd>Şimdi açık rozeti (“Closed, opens today at 5:30 pm”, işletmenin saat diliminde), bugünün saati (“5:30 pm to 10 pm”), adres (haritaya), telefon (aranır), tek ana eylem: <a href="https://botown.orderyoyo.ie/" rel="noopener noreferrer nofollow" target="_blank">Order YoYo</a> gerçek sipariş bağlantısı.</dd></div>
+      <div><dt>Menü</dt><dd>40 kalem, kendi adları ve fiyatlarıyla; 6 sekme (Burgers, Fries, Sides, Beers, Wines, Shakes).</dd></div>
+      <div><dt>İmleç</dt><dd>Tek tuval, kütüphane yok. Malzemeler (Peak Apps Studio'nun kendi 3D çizimi, 16 karelik dönüş atlası) imlecin peşinden yaylarla gelir ve 3D takla atar; imleç durunca zıplayarak üst üste oturup burger olur; hızlı harekette ve tıklamada saçılır, yer çekimiyle düşer, ekranın altında bir kez seker. Bağlantı ve düğme üstünde zincir solar. Telefonda dokununca patlar, hızlı kaydırmada üstten seyrek yağar. En çok 40 parçacık, sabit havuz; döngü yalnız bir şey hareket ederken döner. Azaltılmış harekette, veri tasarrufunda ve zayıf cihazda yüklenmez.<span class="sub">Ölçüm (1440, headless GPU): ortalama kare 7,36 ms, 24 ms üstü kare 4 / 1063; parçacık tepe 40 (üst sınır 40); 2,6 sn sonra 0; telefonda dokunmada 12 parçacık; azaltılmış harekette efekt kapalı.</span></dd></div>
+      <div><dt>Kapı</dt><dd><b class="ok">sorun yok</b>. 1440, 1920 ve 390 px'te: konsol hatası 0, dış istek 0, yatay taşma yok, kutusundan taşan yazı yok, boş bölüm yok, yasak sözcük ve karakter yok; premium-web-style lint-copy 0 bulgu.</dd></div>
+    </dl>
+  </div>
+  <div class="cmp cmp-w"><figure><figcaption><span class="chip chip-a">Sonra</span> Geniş masaüstü (1920 px)</figcaption><img src="img/botown-s1920.webp" width="1920" height="1080" alt="BóTOWN için hazırlanan taslak, 1920 px ilk ekran" loading="lazy" decoding="async"></figure><figure><figcaption><span class="chip chip-a">Sonra</span> Telefonda dokunma patlaması</figcaption><img src="img/botown-iz4.webp" width="780" height="1688" alt="Telefonda dokununca saçılan malzemeler" loading="lazy" decoding="async"></figure></div>
+</article>
+</body>
+</html>

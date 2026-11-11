@@ -1,0 +1,22 @@
+Category drafts (burger, burrito, pizza): credits and licences
+
+Code
+- <category>.css, <category>.js and imlec.js were written for these drafts by Peak Apps Studio. No third-party runtime library is shipped
+  (no GSAP, Lenis, three.js or any framework). Techniques only; no code was taken from any other site.
+- imlec.js: one 2D canvas over the page. A chain of ingredients follows the pointer and tumbles in 3D as it moves; when the pointer rests
+  the chain drops into a stacked product with a springy bounce. Fast movement and clicks throw ingredients that spin, fall with gravity
+  and bounce once off the bottom edge. On touch screens a tap bursts ingredients and a fast scroll lets a few fall from the top.
+  At most 40 particles from a fixed pool (no allocation while running); the animation loop only runs while something moves.
+  Off under prefers-reduced-motion, Save-Data, low device memory and in capture mode.
+
+Art
+- <category>-3d.webp: ingredient sprite sheet (rows = ingredients, columns = 16 steps of one full turn), modelled procedurally in three.js
+  and rendered offline by Peak Apps Studio. No outside models or textures. Released as CC0.
+
+Fonts (see fonts/LICENSES.txt)
+- Display and sticker faces are the typefaces of each category's reference page when they are free (SIL Open Font License 1.1),
+  self-hosted WOFF2. The business's logo is always its own file, unchanged.
+
+Photos, logos, menu text
+- Belong to each business and come from its own public website. Logos are the original files, byte for byte.
+- Photos are downsized copies used only inside that business's own unlisted draft (noindex). Nothing is enlarged.
