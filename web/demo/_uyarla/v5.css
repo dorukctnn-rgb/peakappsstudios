@@ -164,7 +164,7 @@ b, strong { font-weight: var(--t-strong, 600); }
 
 /* sessiz fotograf: yalniz gorsel, sol ustte kicker + h2 (ballena), kaydirinca .95 -> 1 buyur (amrit). Gorsel kendi genisliginde kalir, kenarlar marka zemini. */
 .quiet { padding: 0; background: var(--bg); }
-.quiet-in { position: relative; margin-inline: auto; max-width: var(--q-w, 1600px); aspect-ratio: var(--q-ar, 3 / 2); max-height: 82svh; overflow: hidden; background: rgb(var(--shade-rgb)); transform: scale(calc(.95 + .05 * var(--p, 1))); transform-origin: 50% 50%; }
+.quiet-in { position: relative; margin-inline: auto; width: 100%; max-width: min(var(--q-w, 1600px), 1600px); aspect-ratio: auto; height: min(82svh, calc(min(100vw, 1600px) / 1.5)); overflow: hidden; background: rgb(var(--shade-rgb)); transform: scale(calc(.95 + .05 * var(--p, 1))); transform-origin: 50% 50%; }
 .quiet-in img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 50%) var(--fy, 50%); transform: translate3d(0, calc((var(--p, .5) - .5) * -6%), 0) scale(1.08); }
 .quiet-t { position: absolute; left: clamp(18px, 3vw, 56px); bottom: clamp(18px, 3vw, 56px); max-width: min(52%, 760px); color: #fff; text-shadow: 0 2px 30px rgba(0, 0, 0, .35); }
 .quiet-t .kicker { color: rgba(255, 255, 255, .78); }
@@ -322,7 +322,7 @@ b, strong { font-weight: var(--t-strong, 600); }
   .v-bolme .hero-in { grid-column: 1; grid-row: 2; padding: 18px var(--gut) calc(var(--bar) + 18px); }
   .v-bolme .lede { display: none; }
   /* telefonda yazi fotografin ustunde degil: baslik ustte, fotograf, sonra paragraf (acik fotografta okunurluk) */
-  .quiet-in { aspect-ratio: auto; max-height: none; display: flex; flex-direction: column; background: var(--bg); transform: none; }
+  .quiet-in { aspect-ratio: auto; max-height: none; height: auto; display: flex; flex-direction: column; background: var(--bg); transform: none; }
   .quiet-in img { position: relative; inset: auto; order: 2; height: auto; aspect-ratio: 4 / 5; max-height: 78svh; transform: none; }
   .quiet-t { position: static; order: 1; max-width: none; color: var(--ink); text-shadow: none; padding: 40px var(--gut) 20px; }
   .quiet-t .kicker { color: var(--accent-text); }
