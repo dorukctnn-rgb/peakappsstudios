@@ -109,7 +109,7 @@ ul, ol { list-style: none; padding: 0; }
 .ticker span::after { content: ""; display: inline-block; width: .34em; height: .34em; margin-left: 1.1em; border-radius: 50%; background: var(--dough); vertical-align: .16em; }
 @keyframes tick { to { transform: translateX(-50%); } }
 
-.sec { position: relative; padding: clamp(64px, 8vw, 140px) var(--gut); }
+.sec { position: relative; padding: clamp(48px, 5vw, 96px) var(--gut); }
 .sec-h { max-width: 60em; margin: 0 auto clamp(26px, 3.4vw, 50px); text-align: center; }
 .sec-h .sub { margin: 14px auto 0; }
 .js .rv { opacity: 0; transform: translateY(24px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
@@ -140,6 +140,15 @@ ul, ol { list-style: none; padding: 0; }
 .has-f .slide:not(.slide-foto) .slide-m { order: -1; position: relative; z-index: 1; aspect-ratio: 5 / 4; margin: -12px -10px 6px; align-content: center; justify-content: center; gap: 0 4px; padding: 4%; }
 .has-f .slide:not(.slide-foto) .m-spr { --s: clamp(92px, 9vw, 136px); background-image: url(pizza-buyuk.webp); }
 .has-f .slide:not(.slide-foto) .slide-m:has(> .m-spr:nth-child(4)) .m-spr { --s: clamp(70px, 6.6vw, 112px); }
+/* beyaz zeminli urun fotograflari cogunluktaysa (f-acik) fotografli kartlar acik kart: fotograf koyu sayfada blok gibi durmaz, dosya degismez */
+.v-w { background: var(--dough); color: #1b1410; box-shadow: inset 0 0 0 1.5px rgba(27, 20, 16, .22); }
+.f-acik .slide-foto { background: var(--paper); color: var(--paper-ink); border-color: color-mix(in srgb, var(--paper-ink) 10%, transparent); }
+.f-acik .slide-foto::before { opacity: .32; }
+.f-acik .slide-foto.on { border-color: var(--accent); box-shadow: 0 0 40px -16px var(--neon); }
+.f-acik .slide-foto .no { color: var(--accent-text); }
+.f-acik .slide-foto .slide-d { color: var(--paper-muted); }
+.f-acik .slide-foto .slide-p { color: var(--paper-ink); }
+.f-acik .slide-foto .slide-f { background: #fff; box-shadow: none; }
 .pick-nav { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 10px; }
 .pick-nav[hidden] { display: none; }
 .nb { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; border: 2px solid color-mix(in srgb, var(--ink) 30%, transparent); background: transparent; cursor: pointer; transition: border-color .2s, background .2s, transform .2s; }
@@ -149,7 +158,7 @@ ul, ol { list-style: none; padding: 0; }
 .count { font-size: 22px; min-width: 5ch; text-align: center; } .count b { font-weight: 400; color: var(--neon); }
 
 /* oyunsu hikaye: duragan (JS yok / hareket azaltilmis) = adim listesi; .story-on = yapiskan sahne */
-.story { position: relative; overflow-x: clip; padding: clamp(64px, 8vw, 120px) var(--gut); background: linear-gradient(180deg, var(--bg), #1a0d0e 50%, var(--bg)); }
+.story { position: relative; overflow-x: clip; padding: clamp(48px, 5vw, 96px) var(--gut); background: linear-gradient(180deg, var(--bg), #1a0d0e 50%, var(--bg)); }
 .stage { display: grid; gap: 26px; }
 .hud, .scene { min-width: 0; }
 .kick { font: 600 13px/1.2 var(--text); letter-spacing: .16em; text-transform: uppercase; color: var(--dough); }
@@ -175,7 +184,7 @@ html:not(.story-on) .steps { counter-reset: st; } html:not(.story-on) .st-t::bef
 .sc { position: relative; border-radius: var(--r); overflow: hidden; aspect-ratio: 4 / 3; background: var(--bg2); }
 .sc img { width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 50%) var(--fy, 50%); }
 .rain, .glow { display: none; }
-.story-on .story { height: calc((var(--n) + 1.2) * 100svh); padding: 0 var(--gut); }
+.story-on .story { height: calc((var(--n) * .28 + 1) * 100svh); padding: 0 var(--gut); }
 .story-on .stage { position: sticky; top: 0; height: 100svh; padding: calc(var(--head) + 12px) 0 calc(var(--bar) + 14px); grid-template-rows: auto minmax(0, 1fr); align-content: stretch; gap: 14px; }
 .story-on .step-no { font-size: clamp(48px, 7vw, 132px); margin: 2px 0 6px; }
 .story-on .gauges { margin: 12px 0 10px; }
@@ -192,18 +201,18 @@ html:not(.story-on) .steps { counter-reset: st; } html:not(.story-on) .st-t::bef
 .story-on .glow { display: block; position: absolute; inset: 0; margin: auto; width: min(100%, 64svh); aspect-ratio: 1; border-radius: 50%; pointer-events: none; z-index: 2; box-shadow: 0 0 calc(var(--heat, 0) * 120px) calc(var(--heat, 0) * 26px) color-mix(in srgb, var(--ember) 80%, transparent); opacity: var(--heat, 0); }
 
 /* teslim seridi */
-.go-in { display: grid; gap: 34px; max-width: 1320px; margin: 0 auto; align-items: center; }
+.go-in { display: grid; gap: 34px; max-width: 1760px; margin: 0 auto; align-items: center; }
 .go-steps { display: grid; gap: 14px; margin: 26px 0; }
 .go-steps li { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: start; padding: 16px; border-radius: 18px; background: var(--bg2); }
 .go-n { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 24px; padding-top: 3px; box-shadow: 0 0 18px -4px var(--neon); }
 .go-steps h3 { font: 600 17px/1.3 var(--text); }
 .go-steps p { color: var(--muted); font-size: 15px; margin-top: 2px; }
 .btns { display: flex; flex-wrap: wrap; gap: 10px; }
-.go-pic { border-radius: var(--r); overflow: hidden; aspect-ratio: 3 / 4; max-width: 520px; justify-self: center; width: 100%; }
+.go-pic { border-radius: var(--r); overflow: hidden; aspect-ratio: 4 / 5; max-height: 62svh; max-width: 560px; justify-self: stretch; width: 100%; }
 .go-pic img { width: 100%; height: 100%; object-fit: cover; }
 
 /* menu */
-.menu { background: var(--paper); color: var(--paper-ink); border-radius: 30px 30px 0 0; }
+.menu { background: var(--paper); color: var(--paper-ink); border-radius: 30px; }
 .menu .sec-h .sub { color: var(--paper-muted); }
 .menu .h2 { color: var(--paper-ink); }
 .tabs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin: 0 calc(-1 * var(--gut)) clamp(22px, 3vw, 36px); padding: 4px var(--gut) 8px; }
@@ -211,12 +220,12 @@ html:not(.story-on) .steps { counter-reset: st; } html:not(.story-on) .st-t::bef
 .tab { flex: none; min-height: 44px; padding: 0 1.1em; border-radius: 999px; border: 2px solid color-mix(in srgb, var(--paper-ink) 18%, transparent); background: transparent; font: 600 14.5px/1 var(--text); cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
 .tab:hover { border-color: var(--paper-ink); }
 .tab[aria-selected="true"] { background: var(--accent); color: #fff; border-color: var(--accent); }
-.panel { max-width: 1320px; margin: 0 auto; } .panel[hidden] { display: none; }
+.panel { max-width: 1760px; margin: 0 auto; } .panel[hidden] { display: none; }
 .panel-note { text-align: center; font-size: 14.5px; color: var(--paper-muted); margin: -6px auto 16px; }
 .panel ul { columns: 1; column-gap: clamp(30px, 5vw, 90px); }
 .panel.swap .mi { animation: mi-in .45s var(--ease) both; animation-delay: calc(var(--i) * 26ms); }
 @keyframes mi-in { from { opacity: 0; transform: translateY(8px); } }
-.mi { break-inside: avoid; padding: 14px 0 13px; border-bottom: 1.5px dashed color-mix(in srgb, var(--paper-ink) 16%, transparent); }
+.mi { break-inside: avoid; padding: 11px 0 10px; border-bottom: 1.5px dashed color-mix(in srgb, var(--paper-ink) 16%, transparent); }
 .mi-r { display: flex; align-items: baseline; gap: 10px; }
 .mi-n { font: 600 17px/1.25 var(--text); min-width: 0; }
 .mi-r i { flex: 1; min-width: 14px; border-bottom: 2px dotted color-mix(in srgb, var(--paper-ink) 28%, transparent); transform: translateY(-4px); }
@@ -225,8 +234,8 @@ html:not(.story-on) .steps { counter-reset: st; } html:not(.story-on) .st-t::bef
 .menu-note { text-align: center; margin: 26px auto 0; font-size: 14px; color: var(--paper-muted); max-width: 52em; }
 
 /* ziyaret */
-.visit-sec { background: var(--paper); color: var(--paper-ink); padding-top: 0; }
-.visit { display: grid; gap: 34px; max-width: 1320px; margin: 0 auto; align-items: center; padding-top: clamp(40px, 5vw, 80px); border-top: 1.5px solid color-mix(in srgb, var(--paper-ink) 12%, transparent); }
+.visit-sec { background: var(--paper); color: var(--paper-ink); border-radius: 30px 30px 0 0; }
+.visit { display: grid; gap: 34px; max-width: 1760px; margin: 0 auto; align-items: stretch; }
 .visit .h2 { color: var(--paper-ink); }
 .hours { width: 100%; max-width: 480px; border-collapse: collapse; margin: 22px 0; font-size: 16px; line-height: 1.2; }
 .hours th, .hours td { padding: 10px 0 9px; border-bottom: 1.5px dashed color-mix(in srgb, var(--paper-ink) 16%, transparent); text-align: left; font-weight: 600; }
@@ -239,11 +248,12 @@ html:not(.story-on) .steps { counter-reset: st; } html:not(.story-on) .st-t::bef
 .social { display: flex; gap: 18px; margin-top: 20px; font: 600 14px/1 var(--text); }
 .social a { text-decoration: underline; text-underline-offset: 5px; }
 .neon { border-radius: var(--r); overflow: hidden; aspect-ratio: 4 / 3; background: #000; }
+.neon.n2 { display: none; }
 .neon img { width: 100%; height: 100%; object-fit: cover; }
 
 /* altbilgi */
-.foot { padding: clamp(60px, 7vw, 110px) var(--gut) calc(26px + var(--bar)); overflow: hidden; background: var(--bg); }
-.foot-cta { display: grid; justify-items: center; gap: 22px; text-align: center; margin-bottom: clamp(40px, 5vw, 80px); }
+.foot { padding: clamp(44px, 5vw, 80px) var(--gut) calc(26px + var(--bar)); overflow: hidden; background: var(--bg); }
+.foot-cta { display: grid; justify-items: center; gap: 22px; text-align: center; margin-bottom: clamp(28px, 3.4vw, 56px); }
 .foot-q { font-size: clamp(56px, 9vw, 150px); line-height: .9; text-transform: uppercase; color: var(--neon); text-shadow: 0 0 22px color-mix(in srgb, var(--neon) 60%, transparent), 0 0 60px color-mix(in srgb, var(--neon) 30%, transparent); }
 .foot-big { font-size: var(--foot-fs, 16vw); line-height: .85; color: transparent; -webkit-text-stroke: 1.5px color-mix(in srgb, var(--ink) 26%, transparent); white-space: nowrap; text-transform: uppercase; margin-bottom: 30px; }
 .foot-row { display: grid; gap: 18px; font-size: 14px; color: var(--muted); align-items: center; }
@@ -258,6 +268,24 @@ html:not(.story-on) .steps { counter-reset: st; } html:not(.story-on) .st-t::bef
 .bar svg { width: 20px; height: 20px; }
 .iz { position: fixed; inset: 0; z-index: 10000; pointer-events: none; } .iz canvas { position: absolute; inset: 0; }
 
+/* pizza cizimi (11 Kas): hamur tabani + sos + mozzarella + o pizzanin malzemeleri (3D atlas); fotograf gibi sunulmaz */
+.slide-c { position: relative; z-index: 1; order: -1; aspect-ratio: 5 / 4; margin: -12px -10px 6px; border-radius: calc(var(--r) - 10px); overflow: hidden; display: grid; place-items: center; background: radial-gradient(circle at 50% 46%, color-mix(in srgb, var(--neon) 16%, var(--bg2)), var(--bg2) 72%); }
+.cz { position: relative; display: block; width: 78%; aspect-ratio: 1; container-type: inline-size; filter: drop-shadow(0 18px 22px rgba(0, 0, 0, .45)); transition: transform .7s var(--ease); }
+.slide-c .cz { width: auto; height: 86%; }
+.slide-cizim:hover .cz { transform: rotate(-8deg) scale(1.02); }
+.cz-top { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 42% 36%, #f7dca4 0 44%, #e9b56a 60%, #d38d3f 68%, #b8722c 71%, #f1c98a 74%, #c98236 86%, #8f531d 100%); box-shadow: inset 0 -10px 22px rgba(90, 40, 8, .45), inset 0 8px 16px rgba(255, 236, 196, .55); }
+.cz-sos { position: absolute; inset: 11%; border-radius: 50%; background: radial-gradient(circle at 40% 34%, #e2462c, #c22d1a 58%, #9e2213 100%); box-shadow: 0 0 0 3px rgba(150, 40, 18, .35), inset 0 6px 14px rgba(255, 150, 110, .35); }
+.cz-beyaz .cz-sos { background: radial-gradient(circle at 40% 34%, #fff7e6, #f3e4c4 60%, #e2cc9e 100%); box-shadow: 0 0 0 3px rgba(190, 150, 90, .3), inset 0 6px 14px rgba(255, 255, 255, .5); }
+.cz-s { position: absolute; --s: 21cqi; margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2); background-image: url(pizza-buyuk.webp); filter: drop-shadow(0 4px 4px rgba(0, 0, 0, .35)); }
+.cz-peynir { --s: 25cqi; }
+.cz-hamur .cz-top { inset: 6%; background: radial-gradient(circle at 38% 30%, #fff8e8 0 18%, #f6e2b8 46%, #e6c58a 74%, #c99e5c 100%); box-shadow: inset 0 -18px 30px rgba(120, 80, 30, .35), inset 0 12px 20px rgba(255, 255, 255, .6); }
+.cz-un { position: absolute; width: 16cqi; height: 9cqi; margin: -4.5cqi 0 0 -8cqi; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 255, 255, .8), rgba(255, 255, 255, 0)); }
+.ill { position: absolute; z-index: 2; right: 12px; bottom: 10px; padding: 4px 9px; border-radius: 999px; background: rgba(0, 0, 0, .5); color: rgba(255, 255, 255, .86); font: 600 10.5px/1.2 var(--text); letter-spacing: .08em; text-transform: uppercase; }
+.sc-cizim { display: grid; place-items: center; background: radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--neon) 22%, #1a0d0e), #120809 70%); }
+.sc-cizim .cz { width: 74%; }
+.sc-cizim .ill { right: 50%; transform: translateX(50%); bottom: 7%; }
+html:not(.story-on) .sc-cizim { aspect-ratio: 4 / 3; }
+@media (prefers-reduced-motion: reduce) { .cz { transition: none; } .slide-cizim:hover .cz { transform: none; } }
 @media (max-width: 899px) {
   .story-on .st-p { font-size: 14.5px; line-height: 1.5; }
   .story-on .g { padding: 8px 12px; } .story-on .g b { font-size: 26px; }
@@ -290,22 +318,55 @@ html:not(.story-on) .steps { counter-reset: st; } html:not(.story-on) .st-t::bef
   .stk { font-size: 19px; }
   .pick-h { grid-template-columns: auto minmax(0, 32em); justify-content: space-between; align-items: end; }
   .slides { grid-auto-columns: calc((100% - 2 * var(--gut) - 32px) / 3); }
-  .slide { min-height: 440px; padding: 32px 30px 28px; }
+  .slide { min-height: 400px; padding: 28px 28px 24px; }
   .m-spr { --s: 72px; }
   html:not(.story-on) .steps { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 26px; margin-top: 14px; }
   html:not(.story-on) .scene { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 26px; }
-  html:not(.story-on) .sc { aspect-ratio: 3 / 4; }
-  .story-on .stage { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); grid-template-rows: none; align-items: center; gap: clamp(30px, 5vw, 90px); }
-  .story-on .scene { height: min(70svh, 100%); }
-  .go-in { grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: clamp(30px, 6vw, 110px); }
+  html:not(.story-on) .sc { aspect-ratio: 4 / 3; }
+  /* genis ekran (11 Kas): sahne sutunu dairenin kendisi kadar; yazi kalan alanin ortasinda; arada bos orta kalmaz. Daire en kucuk adim karesinin kisa kenarini gecmez (buyutme yok). */
+  .story-on .stage { grid-template-columns: minmax(0, 1fr) min(76svh, 52vw, var(--scw, 1400px)); grid-template-rows: none; align-items: center; gap: clamp(30px, 4vw, 80px); }
+  .story-on .hud { justify-self: center; width: min(100%, 780px); }
+  .story-on .scene { height: auto; aspect-ratio: 1; }
+  .story-on .sc, .story-on .glow { width: 100%; }
+  .go-in { grid-template-columns: minmax(0, 1.5fr) minmax(0, .7fr); gap: clamp(24px, 3vw, 56px); align-items: stretch; }
+  .go-pic { position: relative; aspect-ratio: auto; max-height: none; min-height: 300px; max-width: none; }
+  .go-pic img { position: absolute; inset: 0; }
   .panel ul { columns: 2; }
   .tabs { flex-wrap: wrap; justify-content: center; overflow: visible; margin-inline: auto; padding-inline: 0; }
-  .visit { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(30px, 6vw, 110px); }
+  .visit { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: clamp(20px, 2.4vw, 44px); }
+  .visit .neon { position: relative; aspect-ratio: auto; min-height: 380px; }
+  .visit .neon img { position: absolute; inset: 0; height: 100%; }
   .bar { display: none; }
   .foot-row { grid-template-columns: auto minmax(0, 1fr) auto; gap: 18px 32px; }
 }
-@media (min-width: 1700px) { .panel ul { columns: 3; } }
+@media (min-width: 1280px) { .panel ul { columns: 3; } }
+@media (min-width: 1280px) {
+  .visit.v3 { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr) minmax(0, 1fr); }
+  .visit.v3 .neon.n2 { display: block; }
+  .hours { max-width: none; }
+}
+@media (min-width: 1800px) {
+  .story-on .st-t { font-size: clamp(42px, 2.6vw, 64px); }
+  .story-on .st-p { font-size: clamp(17px, .95vw, 22px); max-width: 30em; }
+  .story-on .gauges { max-width: 560px; } .story-on .g b { font-size: 44px; }
+  .story-on .hud { width: min(100%, 980px); }
+}
 @media (min-resolution: 1.5dppx) { .spr { background-image: url(pizza-buyuk.webp); } }
+/* genis ekran (11 Kas, Doruk: "ortasi bos kalmasin", "scroll ne kadar az o kadar iyi"):
+   menu basligi solda, sekmeler sagda (tek satir); ziyaret bilgisinde saat tablosunun altinda adres solda, dugmeler sagda */
+@media (min-width: 1280px) {
+  .menu { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); column-gap: clamp(24px, 3vw, 64px); align-items: end; padding-inline: max(var(--gut), calc((100% - 1760px) / 2)); }
+  .menu > * { grid-column: 1 / -1; }
+  .menu > .sec-h { grid-column: 1; text-align: left; margin: 0 0 clamp(18px, 2vw, 30px); max-width: none; }
+  .menu > .sec-h .sub { margin-left: 0; }
+  .menu > .tabs { grid-column: 2; justify-content: flex-end; margin: 0 0 clamp(18px, 2vw, 30px); max-width: none; }
+  .menu > .panel { width: 100%; max-width: none; }
+  .visit > .rv:first-child { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(16px, 2vw, 40px); align-content: center; }
+  .visit > .rv:first-child > .h2, .visit > .rv:first-child > .hours { grid-column: 1 / -1; }
+  .visit > .rv:first-child > .addr { grid-column: 1; grid-row: 3 / span 2; margin-bottom: 0; }
+  .visit > .rv:first-child > :not(.h2):not(.hours):not(.addr) { grid-column: 2; margin-top: 0; align-self: start; }
+  .visit > .rv:first-child > .social { margin-top: 14px; }
+}
 @media (prefers-reduced-motion: reduce) {
   html, .slides { scroll-behavior: auto; }
   .intro { display: none; }

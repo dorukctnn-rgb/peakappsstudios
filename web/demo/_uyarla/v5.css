@@ -152,7 +152,7 @@ b, strong { font-weight: var(--t-strong, 600); }
 .d-sahil .eyebrow { font-size: 11.5px; letter-spacing: .05em; }
 
 /* bolumler: kenardan kenara, her biri yaklasik bir ekran */
-.sec { position: relative; padding: clamp(72px, 9vw, 140px) var(--gut); background: var(--bg); color: var(--ink); }
+.sec { position: relative; padding: clamp(52px, 5.6vw, 104px) var(--gut); background: var(--bg); color: var(--ink); }
 .kicker { display: block; font-size: 11px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: var(--accent-text); margin-bottom: 18px; }
 .h2 { font: var(--d-style) var(--d-weight) var(--h2-size)/var(--h2-lh, .98) var(--display); text-transform: var(--d-case); letter-spacing: var(--d-ls); text-wrap: balance; }
 .h3 { font: var(--d-style) var(--d-weight) var(--h3-size)/1.12 var(--display); text-transform: var(--d-case); letter-spacing: var(--d-ls); }
@@ -164,7 +164,7 @@ b, strong { font-weight: var(--t-strong, 600); }
 
 /* sessiz fotograf: yalniz gorsel, sol ustte kicker + h2 (ballena), kaydirinca .95 -> 1 buyur (amrit). Gorsel kendi genisliginde kalir, kenarlar marka zemini. */
 .quiet { padding: 0; background: var(--bg); }
-.quiet-in { position: relative; margin-inline: auto; max-width: var(--q-w, 1600px); aspect-ratio: var(--q-ar, 3 / 2); max-height: 100svh; overflow: hidden; background: rgb(var(--shade-rgb)); transform: scale(calc(.95 + .05 * var(--p, 1))); transform-origin: 50% 50%; }
+.quiet-in { position: relative; margin-inline: auto; max-width: var(--q-w, 1600px); aspect-ratio: var(--q-ar, 3 / 2); max-height: 82svh; overflow: hidden; background: rgb(var(--shade-rgb)); transform: scale(calc(.95 + .05 * var(--p, 1))); transform-origin: 50% 50%; }
 .quiet-in img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 50%) var(--fy, 50%); transform: translate3d(0, calc((var(--p, .5) - .5) * -6%), 0) scale(1.08); }
 .quiet-t { position: absolute; left: clamp(18px, 3vw, 56px); bottom: clamp(18px, 3vw, 56px); max-width: min(52%, 760px); color: #fff; text-shadow: 0 2px 30px rgba(0, 0, 0, .35); }
 .quiet-t .kicker { color: rgba(255, 255, 255, .78); }
@@ -173,7 +173,7 @@ b, strong { font-weight: var(--t-strong, 600); }
 .quiet-shade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(var(--shade-rgb), .55) 0%, rgba(var(--shade-rgb), 0) 55%), linear-gradient(180deg, rgba(var(--shade-rgb), .28), rgba(var(--shade-rgb), 0) 30%, rgba(var(--shade-rgb), 0) 48%, rgba(var(--shade-rgb), .66)); }
 
 /* bolunmus blok: yarim fotograf + yarim renk paneli (ballena terrakota / amrit turuncu): menu */
-.split { display: grid; grid-template-columns: 1fr 1fr; padding: 0; min-height: 86svh; }
+.split { display: grid; grid-template-columns: 1fr 1fr; padding: 0; min-height: min(76svh, 860px); }
 .split-pic { position: relative; overflow: hidden; background: var(--bg2); min-height: 420px; }
 .split-pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 50%) var(--fy, 50%); transform: translate3d(0, calc((var(--p, .5) - .5) * -5%), 0) scale(1.08); }
 .split-panel { background: var(--panel); color: var(--panel-ink); padding: clamp(40px, 6vw, 96px) clamp(28px, 5vw, 90px); display: flex; flex-direction: column; justify-content: center; gap: 22px; }
@@ -182,18 +182,24 @@ b, strong { font-weight: var(--t-strong, 600); }
 .split-panel .btn-ghost { border-color: color-mix(in srgb, var(--panel-ink) 55%, transparent); color: var(--panel-ink); align-self: flex-start; }
 .split-panel .btn-ghost:hover { border-color: var(--panel-ink); background: color-mix(in srgb, var(--panel-ink) 10%, transparent); }
 .dishes { display: grid; gap: 0; margin-block: 6px 10px; max-width: 36em; }
-.dish { display: grid; grid-template-columns: 1fr auto; gap: 2px 20px; align-items: baseline; padding: 13px 0; border-top: 1px solid color-mix(in srgb, var(--panel-ink) 22%, transparent); }
+.dish { display: grid; grid-template-columns: 1fr auto; gap: 2px 20px; align-items: baseline; padding: 10px 0; border-top: 1px solid color-mix(in srgb, var(--panel-ink) 22%, transparent); }
 .dish:last-child { border-bottom: 1px solid color-mix(in srgb, var(--panel-ink) 22%, transparent); }
 .dish h3 { font: var(--d-style) var(--d-weight) var(--h3-size)/1.15 var(--display); text-transform: var(--d-case); letter-spacing: var(--d-ls); grid-column: 1; }
 .dish .dd { grid-column: 1; font-size: 14px; color: var(--panel-muted); max-width: 30em; }
 .dish .pr { grid-column: 2; grid-row: 1; font: 500 15px/1.2 var(--text); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .legend { font-size: 13px; color: var(--panel-muted); max-width: 40em; }
+/* genis ekran (11 Kas): panel yarim ekrandan genisse yemekler iki sutun; panelin sag yarisi bos kalmaz, sayfa kisalir */
+@media (min-width: 1600px) {
+  .dishes { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(28px, 3vw, 64px); max-width: none; }
+  .dish, .dish:last-child { border-top: 0; border-bottom: 1px solid color-mix(in srgb, var(--panel-ink) 22%, transparent); }
+  .dish:nth-child(-n+2) { border-top: 1px solid color-mix(in srgb, var(--panel-ink) 22%, transparent); }
+}
 
 /* kartlar: 3-5 dik fotograf (khufus), imlecle hafif 3D egilir; sicak dilde farkli hizda kayar (data-speed) */
 .cards { background: var(--bg2); }
 .cards .sec-h { display: flex; align-items: end; justify-content: space-between; gap: 20px 40px; flex-wrap: wrap; margin-bottom: clamp(28px, 4vw, 56px); }
 .deck { display: grid; grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); gap: clamp(14px, 1.8vw, 32px); perspective: 1600px; }
-.card { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--deep); transform: translate3d(0, calc((var(--p, .5) - .5) * var(--spd, 0) * 1px), 0) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .5s var(--ease); will-change: transform; }
+.card { position: relative; aspect-ratio: 4 / 5; max-height: min(72svh, 860px); overflow: hidden; background: var(--deep); transform: translate3d(0, calc((var(--p, .5) - .5) * var(--spd, 0) * 1px), 0) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .5s var(--ease); will-change: transform; }
 .card.live { transition: transform .12s linear; }
 .card img { position: absolute; inset: -4%; width: 108%; height: 108%; max-width: none; object-fit: cover; object-position: var(--fx, 50%) var(--fy, 50%); transform: translate3d(calc(var(--px, 0) * -10px), calc(var(--py, 0) * -10px), 0); transition: transform .5s var(--ease); }
 .card figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 60px 20px 18px; color: #fff; font-size: 13px; letter-spacing: .04em; background: linear-gradient(0deg, rgba(0, 0, 0, .55), rgba(0, 0, 0, 0)); }
@@ -204,17 +210,17 @@ b, strong { font-weight: var(--t-strong, 600); }
 .card-sub { display: block; margin-top: 6px; font: 400 clamp(20px, 1.6vw, 26px)/1.1 var(--script, var(--display)); text-transform: none; letter-spacing: 0; color: rgba(255, 255, 255, .92); }
 
 /* hikaye: kendi cumlesi, kaydirdikca sozcuk sozcuk gelir; yaninda kendi fotografi */
-.story { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(32px, 6vw, 120px); align-items: center; }
+.story { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 80px); align-items: stretch; }
+.story > div:first-child { align-self: center; }
 .story .h2 { font-size: var(--h2s-size, clamp(26px, 2.6vw, 48px)); line-height: 1.12; letter-spacing: var(--d-ls); max-width: 24em; }
 .story .p { margin-top: 24px; max-width: 36em; }
-.story-pic { position: relative; overflow: hidden; background: var(--bg2); aspect-ratio: 4 / 5; max-width: 560px; justify-self: end; width: 100%; }
+.story-pic { position: relative; overflow: hidden; background: var(--bg2); min-height: clamp(380px, 26vw, 640px); max-height: 74svh; justify-self: stretch; width: 100%; }
 .story-pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 50%) var(--fy, 50%); transform: translate3d(0, calc((var(--p, .5) - .5) * -8%), 0) scale(1.1); }
 .d-mekan .story .h2 { text-transform: none; letter-spacing: -.012em; }
 .d-sicak .card figcaption b { display: block; font-size: 11.5px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; }
 .foot-plate .foot .brand { background: var(--head-bg); padding: 10px 14px; border-radius: 4px; }
-.d-sicak .story { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+.d-sicak .story { text-align: center; }
 .d-sicak .story .h2, .d-sicak .story .p { margin-inline: auto; }
-.d-sicak .story-pic { justify-self: center; max-width: 480px; }
 .rule { width: 72px; height: 1px; background: color-mix(in srgb, currentColor 40%, transparent); margin: 26px auto 0; }
 
 /* soz seridi (mekan dili): isletmenin kendi aciklamasindaki ozellikler yatay akar */
@@ -226,8 +232,11 @@ b, strong { font-weight: var(--t-strong, 600); }
 .marquee:hover .marquee-in { animation-play-state: paused; }
 
 /* iletisim ve konum: ballena karti (koyu zemin ustunde renkli kart) + yanda kendi fotografi */
-.contact { background: var(--deep); color: var(--on-deep); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 110px); align-items: center; }
-.contact-card { background: var(--card, var(--bg2)); color: var(--card-ink, var(--ink)); padding: clamp(28px, 3.6vw, 56px); display: grid; gap: 22px; align-content: start; max-width: 640px; }
+/* genis ekran (11 Kas): kart ve kendi fotograflari yan yana, ayni boyda; orta bos kalmaz */
+.contact { background: var(--deep); color: var(--on-deep); display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(14px, 1.6vw, 28px); align-items: stretch; }
+.contact-pic.p2 { display: none; }
+@media (min-width: 1600px) { .contact.trio { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 1fr); } .contact.trio .contact-pic.p2 { display: block; } }
+.contact-card { background: var(--card, var(--bg2)); color: var(--card-ink, var(--ink)); padding: clamp(28px, 3.6vw, 56px); display: grid; gap: 22px; align-content: center; max-width: none; }
 .contact-card .kicker { color: var(--card-muted, var(--card-ink)); margin-bottom: 0; }
 .contact-card .notes { display: grid; gap: 6px; font-size: 14px; color: var(--card-muted, var(--card-ink)); }
 .contact-card .notes li { padding-left: 14px; position: relative; }
@@ -243,7 +252,7 @@ b, strong { font-weight: var(--t-strong, 600); }
 .addr a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .contact-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
 .contact-card .btn-ghost { border-color: color-mix(in srgb, currentColor 45%, transparent); }
-.contact-pic { position: relative; overflow: hidden; aspect-ratio: 4 / 5; max-width: 560px; max-height: 80svh; width: 100%; justify-self: end; background: var(--bg2); }
+.contact-pic { position: relative; overflow: hidden; min-height: 420px; width: 100%; height: 100%; background: var(--bg2); }
 .contact-pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 50%) var(--fy, 50%); transform: translate3d(0, calc((var(--p, .5) - .5) * -8%), 0) scale(1.1); }
 .contact.solo { grid-template-columns: 1fr; }
 .contact.solo .contact-card { max-width: 760px; margin-inline: auto; }
@@ -276,8 +285,8 @@ b, strong { font-weight: var(--t-strong, 600); }
 @media (min-width: 900px) { .nav { display: flex; } .top .btn { display: inline-flex; } .d-sicak .nav { justify-self: start; } .d-sahil .nav { display: none; } }
 @media (max-width: 1100px) {
   .facts { grid-template-columns: repeat(2, auto); }
-  .story, .contact { grid-template-columns: 1fr; }
-  .story-pic, .contact-pic { justify-self: start; max-width: 100%; aspect-ratio: 3 / 2; }
+  .story, .contact, .contact.trio, .d-sicak .story { grid-template-columns: 1fr; }
+  .story-pic, .contact-pic { justify-self: start; max-width: 100%; aspect-ratio: 3 / 2; min-height: 0; height: auto; }
   .foot-grid { grid-template-columns: 1fr 1fr; }
   .d-mekan .hero-foot { grid-template-columns: 1fr; }
 }
@@ -326,7 +335,7 @@ b, strong { font-weight: var(--t-strong, 600); }
   .deck::-webkit-scrollbar { display: none; }
   .card { flex: 0 0 76%; scroll-snap-align: center; --spd: 0; }
   .story { gap: 28px; }
-  .story-pic { aspect-ratio: 4 / 5; max-height: 70svh; }
+  .story-pic { aspect-ratio: 4 / 3; max-height: 60svh; }
   .contact { gap: 24px; }
   .contact-card { padding: 24px var(--gut); margin-inline: calc(var(--gut) * -1); max-width: none; }
   .contact-pic { aspect-ratio: 4 / 3; }

@@ -122,14 +122,14 @@ p + p { margin-top: .9em; }
 @keyframes tick { to { transform: translateX(-50%); } }
 
 /* bolumler */
-.sec { position: relative; padding: clamp(64px, 8vw, 140px) var(--gut); }
+.sec { position: relative; padding: clamp(48px, 5vw, 96px) var(--gut); }
 .sec-h { max-width: 60em; margin: 0 auto clamp(28px, 3.6vw, 54px); text-align: center; }
 .sec-h .sub { margin: 16px auto 0; }
 .js .rv { opacity: 0; transform: translateY(24px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
 .js .rv.in { opacity: 1; transform: none; }
 
 /* kategori izgarasi: 8 kutu, her biri menude kendi sekmesine gider */
-.tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 14px; max-width: 1320px; margin: 0 auto; }
+.tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 14px; max-width: 1760px; margin: 0 auto; }
 .tile a { display: grid; justify-items: center; text-align: center; gap: 6px; padding: 6px 4px 10px; border-radius: 20px; transition: transform .35s var(--ease); }
 .plate { position: relative; display: grid; place-items: center; width: min(34vw, 132px); aspect-ratio: 1; margin-bottom: 6px; border-radius: 48% 52% 44% 56% / 55% 45% 55% 45%; background: var(--bg2); transition: border-radius .6s var(--ease), background .3s, transform .35s var(--ease); }
 .tile:nth-child(4n+2) .plate { border-radius: 56% 44% 50% 50% / 46% 55% 45% 54%; }
@@ -146,7 +146,7 @@ p + p { margin-top: .9em; }
 
 /* dev slogan: iki sabit satir + donen sozcuk */
 .roll { padding-top: clamp(30px, 4vw, 60px); }
-.roll-big { font-size: var(--roll-fs); line-height: .86; color: var(--logo-red); margin-bottom: clamp(30px, 5vw, 80px); }
+.roll-big { font-size: var(--roll-fs); line-height: .86; color: var(--logo-red); margin-bottom: clamp(24px, 3vw, 52px); }
 .rl { display: block; }
 .rot { position: relative; display: inline-grid; overflow: hidden; vertical-align: top; padding: .04em .02em .06em; margin: -.04em -.02em -.06em; }
 .rw { grid-area: 1 / 1; transform: translateY(104%); transition: transform .75s var(--ease); }
@@ -163,8 +163,8 @@ p + p { margin-top: .9em; }
 
 /* iki buyuk kart */
 .duo { padding-top: 0; }
-.cards { display: grid; gap: 18px; max-width: 1440px; margin: 0 auto; }
-.card { position: relative; display: grid; align-content: space-between; min-height: 420px; border-radius: var(--r); overflow: hidden; padding: 28px 24px 24px; isolation: isolate; }
+.cards { display: grid; gap: 18px; max-width: 1760px; margin: 0 auto; }
+.card { position: relative; display: grid; align-content: space-between; min-height: 340px; border-radius: var(--r); overflow: hidden; padding: 28px 24px 24px; isolation: isolate; }
 .card-accent { background: var(--sky, #68ccd1); color: var(--ink); }
 .card-teal { background: var(--teal-deep); color: var(--teal-ink); }
 .card-t { position: relative; z-index: 2; max-width: 22em; }
@@ -187,7 +187,7 @@ p + p { margin-top: .9em; }
 .js .cards.in .card { opacity: 1; transform: none; }
 
 /* marka bandi: organik lekeler kaydirdikca kayar/doner; dev yazi kaydirdikca bulaniktan nete gelir */
-.band { position: relative; overflow: hidden; isolation: isolate; background: var(--accent); color: #fff; border-radius: 28px 28px 0 0; padding: clamp(70px, 9vw, 150px) var(--gut) clamp(60px, 7vw, 120px); margin-top: clamp(30px, 4vw, 60px); }
+.band { position: relative; overflow: hidden; isolation: isolate; background: var(--accent); color: #fff; border-radius: 28px 28px 0 0; padding: clamp(52px, 5.6vw, 100px) var(--gut) clamp(48px, 5vw, 90px); margin-top: clamp(30px, 4vw, 60px); }
 .lk-layer { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
 .lk { position: absolute; left: var(--x); top: var(--y); width: calc(var(--s) * 30vw); height: auto; transform: translate(-50%, -50%) translate3d(0, var(--ly, 0px), 0) rotate(var(--lr, 0deg)); }
 .lk path { fill: var(--logo-red); }
@@ -215,7 +215,7 @@ p + p { margin-top: .9em; }
 .tab { flex: none; min-height: 44px; padding: 0 1.05em; border-radius: 999px; border: 2px solid color-mix(in srgb, var(--paper-ink) 18%, transparent); background: transparent; font: 700 14.5px/1 var(--text); text-transform: uppercase; letter-spacing: .02em; cursor: pointer; transition: background .2s, color .2s, border-color .2s, transform .25s var(--ease); }
 .tab:hover { border-color: var(--paper-ink); }
 .tab[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
-.panel { max-width: 1320px; margin: 0 auto; }
+.panel { max-width: 1760px; margin: 0 auto; }
 .panel[hidden] { display: none; }
 .panel-note { text-align: center; font-size: 15px; color: var(--paper-muted); margin: -8px auto 16px; max-width: 46em; }
 .panel ul { columns: 1; column-gap: clamp(30px, 5vw, 90px); }
@@ -232,10 +232,10 @@ p + p { margin-top: .9em; }
 
 /* ziyaret + siparis */
 .visit-sec { padding-top: clamp(40px, 5vw, 80px); }
-.strip { max-width: min(var(--wmax), 100%); margin: 0 auto clamp(40px, 5vw, 80px); border-radius: var(--r); overflow: hidden; aspect-ratio: 1920 / 485; }
+.strip { max-width: min(var(--wmax), 100%); margin: 0 auto clamp(24px, 3vw, 48px); border-radius: var(--r); overflow: hidden; aspect-ratio: 1920 / 485; }
 .strip img { width: 100%; height: 100%; object-fit: cover; }
 .visit .h2 { font-size: clamp(38px, 4.4vw, 72px); }
-.visit { display: grid; gap: 34px; max-width: 1320px; margin: 0 auto; align-items: start; }
+.visit { display: grid; gap: 34px; max-width: 1760px; margin: 0 auto; align-items: stretch; }
 .hours { width: 100%; max-width: 480px; border-collapse: collapse; margin: 22px 0; font-size: 16.5px; line-height: 1.2; }
 .hours th, .hours td { padding: 10px 0 9px; border-bottom: 1.5px dashed var(--line); text-align: left; font-weight: 600; }
 .hours td { text-align: right; white-space: nowrap; font-weight: 400; }
@@ -319,17 +319,49 @@ p + p { margin-top: .9em; }
   .band-t { padding: 34px 34px 30px; }
   .panel ul { columns: 2; }
   .tabs { flex-wrap: wrap; justify-content: center; overflow: visible; margin-inline: auto; max-width: 70em; padding-inline: 0; }
-  .visit { grid-template-columns: minmax(0, 1fr) minmax(0, .95fr); gap: clamp(30px, 6vw, 110px); }
+  /* genis ekran (11 Kas): bilgi ve siparis kutusu yan yana, ayni boyda; hikaye metni iki sutun; orta bos kalmaz */
+  .visit { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(20px, 2.6vw, 48px); }
+  .visit .hours { max-width: none; }
+  .take { display: flex; flex-direction: column; justify-content: center; }
+  .story { max-width: 1760px; columns: 2; column-gap: clamp(32px, 4vw, 80px); }
+  .story .h2s { column-span: all; }
+  .story p { break-inside: avoid; }
   .take { padding: 40px 38px 36px; margin-top: 12px; }
   .take-spr { --s: 112px; right: 22px; top: 18px; }
   .bar { display: none; }
   .foot-row { grid-template-columns: auto auto minmax(0, 1fr) auto; gap: 18px 32px; }
 }
-@media (min-width: 1700px) { .panel ul { columns: 3; } }
+@media (min-width: 1280px) { .panel ul { columns: 3; } }
 /* 1.5x ve ustu: buyuk atlas (224 px hucre); ekrandaki boyut ayni, keskinlik iki kat */
 @media (min-resolution: 1.5dppx) { .spr { background-image: url(burrito-buyuk.webp); } }
 
 /* azaltilmis hareket: her sey duragan ve net, imlec katmani yuklenmez */
+/* genis ekran (11 Kas, Doruk: "ortasi bos kalmasin", "scroll ne kadar az o kadar iyi"):
+   menu basligi solda, sekmeler sagda (tek satir); ziyaret bilgisinde saat tablosunun altinda adres solda, dugmeler sagda */
+@media (min-width: 1280px) {
+  .menu { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); column-gap: clamp(24px, 3vw, 64px); align-items: end; padding-inline: max(var(--gut), calc((100% - 1760px) / 2)); }
+  .menu > * { grid-column: 1 / -1; }
+  .menu > .sec-h { grid-column: 1; text-align: left; margin: 0 0 clamp(18px, 2vw, 30px); max-width: none; }
+  .menu > .sec-h .sub { margin-left: 0; }
+  .menu > .tabs { grid-column: 2; justify-content: flex-end; margin: 0 0 clamp(18px, 2vw, 30px); max-width: none; }
+  .menu > .panel { width: 100%; max-width: none; }
+  .visit > .rv:first-child { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(16px, 2vw, 40px); align-content: center; }
+  .visit > .rv:first-child > .h2, .visit > .rv:first-child > .hours { grid-column: 1 / -1; }
+  .visit > .rv:first-child > .addr { grid-column: 1; grid-row: 3 / span 2; margin-bottom: 0; }
+  .visit > .rv:first-child > :not(.h2):not(.hours):not(.addr) { grid-column: 2; margin-top: 0; align-self: start; }
+  .visit > .rv:first-child > .social { margin-top: 14px; }
+}
+/* genis ekran (11 Kas): kategori kutulari tek sira; dev slogan ile hikaye yan yana (sayfa kisalir, sag yari bos kalmaz) */
+@media (min-width: 1280px) {
+  .tiles { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 20px 12px; }
+  .plate { width: min(9vw, 150px); }
+  .roll { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: center; column-gap: clamp(32px, 4vw, 90px); }
+  .roll > .roll-big { font-size: calc(var(--roll-fs) * .52); margin-bottom: 0; justify-self: start; }
+  .roll > .story { columns: auto; max-width: 44em; margin-left: 0; justify-self: start; }
+  .ac-big { margin-bottom: clamp(16px, 2vw, 32px); }
+}
+@media (min-width: 1800px) { .roll > .roll-big { font-size: calc(var(--roll-fs) * .58); } .roll > .story p { font-size: clamp(19px, 1.05vw, 23px); } }
+@media (min-width: 2200px) { .roll > .roll-big { font-size: calc(var(--roll-fs) * .75); } }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .intro { display: none; }
