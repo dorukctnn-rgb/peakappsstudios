@@ -131,6 +131,15 @@ ul, ol { list-style: none; padding: 0; }
 .slide:hover .m-spr { transform: translateY(-4px) rotate(-6deg); }
 .slide-p { font-size: 38px; line-height: 1; color: var(--dough); margin-top: auto; }
 .slide .btn { align-self: flex-start; }
+/* kart fotografi: YALNIZ o pizzanin isletmenin kendi sitesindeki fotografi (5:4 kirpilmis dosya, srcset, tembel).  Kaydiricida fotografli kart
+   varsa kartlar ayni boyda; fotografsiz kartin kendi 3D malzemeleri ayni ust alanda iri ve ortali durur (zemin kutusu yok, yeni icerik yok). */
+.slides.has-f { align-items: stretch; }
+.slide-f { position: relative; z-index: 1; order: -1; aspect-ratio: 5 / 4; margin: -12px -10px 6px; border-radius: calc(var(--r) - 10px); overflow: hidden; background: color-mix(in srgb, var(--ink) 6%, var(--bg2)); box-shadow: 0 22px 36px -26px rgba(0, 0, 0, .8); }
+.slide-f img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease); }
+.slide-foto:hover .slide-f img { transform: scale(1.04); }
+.has-f .slide:not(.slide-foto) .slide-m { order: -1; position: relative; z-index: 1; aspect-ratio: 5 / 4; margin: -12px -10px 6px; align-content: center; justify-content: center; gap: 0 4px; padding: 4%; }
+.has-f .slide:not(.slide-foto) .m-spr { --s: clamp(92px, 9vw, 136px); background-image: url(pizza-buyuk.webp); }
+.has-f .slide:not(.slide-foto) .slide-m:has(> .m-spr:nth-child(4)) .m-spr { --s: clamp(70px, 6.6vw, 112px); }
 .pick-nav { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 10px; }
 .pick-nav[hidden] { display: none; }
 .nb { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; border: 2px solid color-mix(in srgb, var(--ink) 30%, transparent); background: transparent; cursor: pointer; transition: border-color .2s, background .2s, transform .2s; }
@@ -302,7 +311,8 @@ html:not(.story-on) .steps { counter-reset: st; } html:not(.story-on) .st-t::bef
   .intro { display: none; }
   .h1 .w > span, .pie, .stk, .hero-foot, .status.open i, .ticker-in, .orb { animation: none !important; }
   .js .rv { opacity: 1; transform: none; transition: none; }
-  .slide, .tab, .btn, .nb, .m-spr { transition: none; }
+  .slide, .tab, .btn, .nb, .m-spr, .slide-f img { transition: none; }
+  .slide-foto:hover .slide-f img { transform: none; }
 }
 .still .h1 .w > span, .still .pie, .still .stk, .still .hero-foot, .still .ticker-in, .still .status.open i, .still .orb { animation: none; }
 .still .rv { opacity: 1; transform: none; transition: none; }
