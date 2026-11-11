@@ -140,6 +140,15 @@ ul, ol { list-style: none; padding: 0; }
 .has-f .slide:not(.slide-foto) .slide-m { order: -1; position: relative; z-index: 1; aspect-ratio: 5 / 4; margin: -12px -10px 6px; align-content: center; justify-content: center; gap: 0 4px; padding: 4%; }
 .has-f .slide:not(.slide-foto) .m-spr { --s: clamp(92px, 9vw, 136px); background-image: url(pizza-buyuk.webp); }
 .has-f .slide:not(.slide-foto) .slide-m:has(> .m-spr:nth-child(4)) .m-spr { --s: clamp(70px, 6.6vw, 112px); }
+/* beyaz zeminli urun fotograflari cogunluktaysa (f-acik) fotografli kartlar acik kart: fotograf koyu sayfada blok gibi durmaz, dosya degismez */
+.v-w { background: var(--dough); color: #1b1410; box-shadow: inset 0 0 0 1.5px rgba(27, 20, 16, .22); }
+.f-acik .slide-foto { background: var(--paper); color: var(--paper-ink); border-color: color-mix(in srgb, var(--paper-ink) 10%, transparent); }
+.f-acik .slide-foto::before { opacity: .32; }
+.f-acik .slide-foto.on { border-color: var(--accent); box-shadow: 0 0 40px -16px var(--neon); }
+.f-acik .slide-foto .no { color: var(--accent-text); }
+.f-acik .slide-foto .slide-d { color: var(--paper-muted); }
+.f-acik .slide-foto .slide-p { color: var(--paper-ink); }
+.f-acik .slide-foto .slide-f { background: #fff; box-shadow: none; }
 .pick-nav { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 10px; }
 .pick-nav[hidden] { display: none; }
 .nb { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; border: 2px solid color-mix(in srgb, var(--ink) 30%, transparent); background: transparent; cursor: pointer; transition: border-color .2s, background .2s, transform .2s; }
