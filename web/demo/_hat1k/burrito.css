@@ -115,11 +115,7 @@ p + p { margin-top: .9em; }
 @keyframes orb-in { from { opacity: 0; transform: translate3d(0, 30px, 0) scale(.6); } }
 
 /* serit: kendi burrito adlari akar */
-.ticker { overflow: hidden; background: var(--teal); color: var(--teal-deep); padding: 13px 0 11px; font: 400 clamp(20px, 1.9vw, 30px)/1 var(--display); text-transform: uppercase; letter-spacing: -.005em; white-space: nowrap; }
-.ticker-in { display: inline-flex; width: max-content; animation: tick 50s linear infinite; }
-.ticker span { padding-right: 1em; }
-.ticker span::after { content: ""; display: inline-block; width: .34em; height: .34em; margin-left: 1em; border-radius: 50%; background: var(--logo-red); vertical-align: .16em; }
-@keyframes tick { to { transform: translateX(-50%); } }
+.ticker { display: none; } /* 12 Kas 2026 (Doruk, kalici): kayan yazi seridi yok; sayfa kodu seridi artik uretmiyor, eski sayfalarda gizli */
 
 /* bolumler */
 .sec { position: relative; padding: clamp(64px, 8vw, 140px) var(--gut); }

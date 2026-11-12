@@ -114,12 +114,7 @@ p + p { margin-top: .9em; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* serit: kendi urun adlari akar */
-.ticker { overflow: hidden; border-block: 1px solid var(--line); padding: 16px 0 14px; font: var(--d-w) clamp(22px, 2.1vw, 34px)/1 var(--display); letter-spacing: var(--d-ls); white-space: nowrap; color: var(--ink); }
-.ticker-in { display: inline-flex; width: max-content; animation: tick 60s linear infinite; }
-.ticker span { padding-right: .9em; }
-.ticker span::after { content: ""; display: inline-block; width: .3em; height: .3em; margin-left: .9em; border-radius: 50%; background: var(--accent-on-bg); vertical-align: .18em; }
-.ticker span:nth-child(2n) { font-style: italic; }
-@keyframes tick { to { transform: translateX(-50%); } }
+.ticker { display: none; } /* 12 Kas 2026 (Doruk, kalici): kayan yazi seridi yok; sayfa kodu seridi artik uretmiyor, eski sayfalarda gizli */
 
 /* bolumler */
 .sec { position: relative; padding: clamp(64px, 7.4vw, 132px) var(--gut); }

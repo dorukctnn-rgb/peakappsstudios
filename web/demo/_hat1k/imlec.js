@@ -8,7 +8,10 @@
    - Telefon (fare yok): dokunusta patlama, hizli kaydirmada ustten seyrek yagmur.
    - Azaltilmis harekette ve "still" (ekran goruntusu) modunda hic calismaz; sayfa betigi bu dosyayi o durumda yuklemez, burada ikinci kez denetlenir.
    - Istege bagli (pastane, 12 Kas): cfg.yer = durunca her parcanin yeri [dx, dy] (boy biriminde; dikey yigin yerine kucuk bir tepsi dizilisi, arkadaki once cizilir),
-     cfg.boy = boy carpani (fotograf kesitleri biraz buyuk).  Verilmezse davranis eskisiyle ayni (burger, burrito, pizza degismez). */
+     cfg.boy = boy carpani (fotograf kesitleri biraz buyuk).  Verilmezse davranis eskisiyle ayni (burger, burrito, pizza degismez).
+   - Istege bagli (sokak, 12 Kas): cfg.tepsi = { x, y, r, ry, renk, kenar } -> imlec durunca parcalarin altinda yuvarlak bir servis tepsisi belirir ve urunler
+     ustune dizilir ("tabak dolar"); hareket edince tepsi solar.  Olculer boy biriminde (SZ).  Verilmezse hic cizilmez.
+   - [data-iz-yok] isaretli ogenin ustunde zincir baglanti ustundeki gibi solar (or. fare ustunde urun fotografi acan menu satirlari). */
 (function () {
   'use strict';
   var d = document, w = window, root = d.documentElement;
@@ -32,6 +35,7 @@
   var YER = (cfg.yer && cfg.yer.length >= NB) ? cfg.yer.slice(0, NB) : null;
   var ORD = []; for (var oi = NB - 1; oi >= 0; oi--) ORD.push(oi);
   if (YER) ORD.sort(function (a, b) { return YER[a][1] - YER[b][1] || b - a; }); // durunca arkadaki (ustteki) once cizilir
+  var TP = cfg.tepsi && cfg.tepsi.r > 0 ? cfg.tepsi : null, trayA = 0;
 
   var layer = d.createElement('div'); layer.className = 'iz'; layer.setAttribute('aria-hidden', 'true');
   var cv = d.createElement('canvas'); layer.appendChild(cv);
@@ -43,6 +47,20 @@
   atlas.decoding = 'async'; atlas.src = cfg.src;
   w.addEventListener('resize', function () { if (ready) { size(); kick(); } }, { passive: true });
 
+  // servis tepsisi (cfg.tepsi): golge, govde (ustten hafif parlak), ic kenar.  Tek elips, yalniz imlec dururken.
+  function tray(cx, cy, al) {
+    if (al <= 0.01) return;
+    var rx = TP.r * SZ, ry = rx * (TP.ry || 0.42);
+    ctx.globalAlpha = al > 1 ? 1 : al; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.save(); ctx.translate(cx, cy + ry * 0.32); ctx.scale(1, ry / rx);
+    var g = ctx.createRadialGradient(0, 0, rx * 0.55, 0, 0, rx * 1.12); g.addColorStop(0, 'rgba(0,0,0,.26)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, rx * 1.12, 0, TAU); ctx.fill(); ctx.restore();
+    ctx.save(); ctx.translate(cx, cy); ctx.scale(1, ry / rx);
+    var b = ctx.createLinearGradient(0, -rx, 0, rx); b.addColorStop(0, TP.parlak || 'rgba(255,255,255,.98)'); b.addColorStop(1, TP.renk || 'rgba(236,230,222,.98)');
+    ctx.fillStyle = b; ctx.beginPath(); ctx.arc(0, 0, rx, 0, TAU); ctx.fill();
+    ctx.lineWidth = 2 * PS; ctx.strokeStyle = TP.kenar || 'rgba(0,0,0,.14)'; ctx.beginPath(); ctx.arc(0, 0, rx * 0.84, 0, TAU); ctx.stroke();
+    ctx.restore();
+  }
   function draw(row, ph, x, y, s, rot, al) {
     if (al <= 0.01) return;
     var f = Math.floor(((ph % TAU) + TAU) % TAU / TAU * NF + 0.5) % NF;
@@ -90,7 +108,7 @@
   if (FINE) {
     w.addEventListener('pointermove', onMove, { passive: true });
     d.documentElement.addEventListener('mouseleave', function () { lastMove = 0; kick(); });
-    d.addEventListener('pointerover', function (e) { var o = !!(e.target && e.target.closest && e.target.closest('a,button,input,label,select,textarea,[role="tab"]')); if (o !== overUi) { overUi = o; kick(); } }, { passive: true });
+    d.addEventListener('pointerover', function (e) { var o = !!(e.target && e.target.closest && e.target.closest('a,button,input,label,select,textarea,[role="tab"],[data-iz-yok]')); if (o !== overUi) { overUi = o; kick(); } }, { passive: true });
     w.addEventListener('pointerdown', function (e) { if (e.pointerType === 'mouse' && e.button === 0 && !overUi) burst(e.clientX, e.clientY, 10, 9); }, { passive: true });
   }
   /* ---- dokunma: patlama; hizli kaydirma: yagmur ---- */
@@ -138,6 +156,8 @@
           }
           if (mv > 0.05 || Math.abs(T.vph) > 0.002 || (idle && Math.abs(T.a) > 0.005)) busy = true;
         }
+        // tepsi (istege bagli): imlec durunca belirir, hareket edince solar; urunlerden once cizilir
+        if (TP) { var tg = idle ? 1 : 0; trayA += (tg - trayA) * (1 - Math.pow(idle ? 0.86 : 0.7, f)); if (Math.abs(tg - trayA) > 0.01) busy = true; tray(ax + (TP.x || 0) * SZ, ay + (TP.y || 0) * SZ, trayA * chainA); }
         // cizim: alttaki once (alt ekmek), ustteki en son (ust ekmek)
         for (var jj = 0; jj < NB; jj++) { var j = idle && YER ? ORD[jj] : NB - 1 - jj; var Q = tail[j]; draw(STACK[j], Q.ph, Q.x, Q.y, idle ? SZ : SZ - j * 3 * PS, idle ? Q.a * 0.4 : Q.a, chainA); }
       }
