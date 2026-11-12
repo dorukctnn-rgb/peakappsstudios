@@ -1,0 +1,38 @@
+/* Three Brothers Burgers: renkler isletmenin kendi sitesinden (zemin #171312, vurgu #d63c33). Fontlar: Mouse Memoirs (başlık, düğme, menü adı ve fiyat), Modak (etiket (sticker)), Barlow Semi Condensed (gövde), Barlow Semi Condensed (gövde kalın). Logo: orijinal dosya, filtre yok. */
+@font-face{font-family:"Mouse Memoirs";font-style:normal;font-weight:400;font-display:swap;src:url(../../_kategori/fonts/mouse-memoirs-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Mouse Memoirs";font-style:normal;font-weight:400;font-display:swap;src:url(../../_kategori/fonts/mouse-memoirs-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Modak";font-style:normal;font-weight:400;font-display:swap;src:url(../../_kategori/fonts/modak-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Modak";font-style:normal;font-weight:400;font-display:swap;src:url(../../_kategori/fonts/modak-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Barlow Semi Condensed";font-style:normal;font-weight:400;font-display:swap;src:url(../../_kategori/fonts/barlow-semi-condensed-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Barlow Semi Condensed";font-style:normal;font-weight:400;font-display:swap;src:url(../../_kategori/fonts/barlow-semi-condensed-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Barlow Semi Condensed";font-style:normal;font-weight:600;font-display:swap;src:url(../../_kategori/fonts/barlow-semi-condensed-latin-600.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Barlow Semi Condensed";font-style:normal;font-weight:600;font-display:swap;src:url(../../_kategori/fonts/barlow-semi-condensed-latin-ext-600.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{
+--bg:#171312;
+--bg-rgb:23,19,18;
+--bg2:#211b19;
+--ink:#f7efe6;
+--muted:#c4b6aa;
+--line:#443f3c;
+--accent:#d63c33;
+--accent-ink:#ffffff;
+--accent-hi:#dc5750;
+--accent-on-bg:#db534b;
+--accent-text:#c5372f;
+--paper:#f7efe6;
+--paper-ink:#1d1715;
+--paper-muted:#6b6560;
+--head-bg:#171312;
+--head-bg-rgb:23,19,18;
+--head-ink:#f7efe6;
+--display:"Mouse Memoirs","Arial Narrow",sans-serif;
+--sticker:"Modak","Mouse Memoirs",sans-serif;
+--text:"Barlow Semi Condensed","Arial Narrow",system-ui,sans-serif;
+--h1a:min(22.51vw, 21svh);
+--h1b:min(14.06vw, 17svh);
+--h1m:min(calc((100vw - 40px) / 2.327), 17vw, 70px);
+--foot-fs:26.54vw;
+--lg-h:32px;
+--hero-max:1988px;
+--hero-ar:1.5004;
+}
