@@ -1,0 +1,49 @@
+/* Oda Restoran: v5, sahil dili (ballenacabo.com grameri). Renkler isletmenin kendi sitesinden; fontlar referans dilin fontlari: Jost, Jost. Logo: orijinal dosya, filtre yok. Ana fotograf 1600x900 px, buyutme yok. */
+@font-face{font-family:"Jost";font-style:normal;font-weight:400;font-display:swap;src:url(../../_hat1v5/fonts/jost-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Jost";font-style:normal;font-weight:400;font-display:swap;src:url(../../_hat1v5/fonts/jost-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Jost";font-style:normal;font-weight:500;font-display:swap;src:url(../../_hat1v5/fonts/jost-latin-500.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Jost";font-style:normal;font-weight:500;font-display:swap;src:url(../../_hat1v5/fonts/jost-latin-ext-500.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Jost";font-style:normal;font-weight:300;font-display:swap;src:url(../../_hat1v5/fonts/jost-latin-300.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Jost";font-style:normal;font-weight:300;font-display:swap;src:url(../../_hat1v5/fonts/jost-latin-ext-300.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{
+--bg:#fff9f6;
+--bg-rgb:255,249,246;
+--bg2:#f9eeef;
+--ink:#211214;
+--muted:#685c5c;
+--line:#dbd4d2;
+--accent:#a7192e;
+--accent-ink:#ffffff;
+--accent-hi:#8c1527;
+--accent-text:#a7192e;
+--deep:#080808;
+--on-deep:#f2eded;
+--on-deep-muted:#aca8a8;
+--accent-on-deep:#e23a53;
+--hero-ink:#ffffff;
+--hero-muted:rgba(255,255,255,.9);
+--hero-accent:#e75e72;
+--hero-line:rgba(255,255,255,.28);
+--shade-rgb:4,4,4;
+--shade-a:0.94;
+--shade-m:0.6;
+--head-bg:#080808;
+--head-bg-rgb:8,8,8;
+--head-ink:#f2eded;
+--panel:#a7192e;
+--panel-ink:#ffffff;
+--panel-muted:#eac8cd;
+--card:#f9eeef;
+--card-ink:#211214;
+--card-muted:#554749;
+--wm-size:clamp(28px, 12.00vw, 240px);
+--display:"Jost",system-ui, -apple-system, "Segoe UI", sans-serif;--text:"Jost",system-ui, -apple-system, "Segoe UI", sans-serif;
+--d-weight:400;--d-style:normal;--d-case:uppercase;--d-ls:0.025em;--em-style:normal;--em-weight:inherit;
+--t-weight:400;--t-strong:500;--t-size:15.5px;--lede-size:16px;
+--h1-size:clamp(34px, min(6.20vw, 12vh), 132px);--h1-max:9.07em;--h1-lh:0.9;--h2-size:clamp(32px, 4vw, 72px);--h2-lh:0.95;--h3-size:clamp(15px, 1.12vw, 19px);--h2s-size:clamp(24px, 2.3vw, 40px);
+--hero-w:1600px;--hero-h:900px;--fx:50.4%;--fy:52.9%;
+--lg-h:64px;--lg-h-m:48px;--head:92px;--head-m:70px;--intro-w:min(38vw, 230px);
+}
+@media (min-width:1601px){.v-cerceve .hero-media{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%)}}
+@media (max-width:899px){:root{--h1-size:clamp(30px,12.00vw,64px)}}
+@media (max-width:899px){:root{--wm-size:clamp(24px,12.40vw,96px)}}
