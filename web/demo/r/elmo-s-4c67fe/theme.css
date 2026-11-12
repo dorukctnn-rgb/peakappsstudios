@@ -1,0 +1,52 @@
+/* Elmo's: v5, mekan dili (amritpalace.com grameri). Renkler isletmenin kendi sitesinden; fontlar referans dilin fontlari: Noto Serif Display, Albert Sans. Logo: orijinal dosya, filtre yok. Ana fotograf 2400x1600 px, buyutme yok. */
+@font-face{font-family:"Noto Serif Display";font-style:normal;font-weight:300;font-display:swap;src:url(../../_uyarla/fonts/noto-serif-display-latin-300.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Noto Serif Display";font-style:normal;font-weight:300;font-display:swap;src:url(../../_uyarla/fonts/noto-serif-display-latin-ext-300.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Albert Sans";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/albert-sans-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Albert Sans";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/albert-sans-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Albert Sans";font-style:normal;font-weight:600;font-display:swap;src:url(../../_uyarla/fonts/albert-sans-latin-600.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Albert Sans";font-style:normal;font-weight:600;font-display:swap;src:url(../../_uyarla/fonts/albert-sans-latin-ext-600.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Noto Serif Display";font-style:italic;font-weight:300;font-display:swap;src:url(../../_uyarla/fonts/noto-serif-display-latin-300i.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Noto Serif Display";font-style:italic;font-weight:300;font-display:swap;src:url(../../_uyarla/fonts/noto-serif-display-latin-ext-300i.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{
+--bg:#f2f0e4;
+--bg-rgb:242,240,228;
+--bg2:#eeecdc;
+--ink:#000000;
+--muted:#4d4d49;
+--line:#cbcac0;
+--accent:#b50200;
+--accent-ink:#ffffff;
+--accent-hi:#b50200;
+--accent-text:#b50200;
+--deep:#000000;
+--on-deep:#f2eded;
+--on-deep-muted:#a9a6a6;
+--accent-on-deep:#f20300;
+--hero-ink:#ffffff;
+--hero-muted:rgba(255,255,255,.9);
+--hero-accent:#ff3d3b;
+--hero-line:rgba(255,255,255,.28);
+--shade-rgb:0,0,0;
+--shade-a:0.94;
+--shade-m:0.645;
+--head-bg:#ffffff;
+--head-bg-rgb:255,255,255;
+--head-ink:#000000;
+--panel:#b50200;
+--panel-ink:#ffffff;
+--panel-muted:#f3d7d6;
+--card:#eeecdc;
+--card-ink:#000000;
+--card-muted:#393935;
+--wm-size:clamp(28px, 12.00vw, 240px);
+--display:"Noto Serif Display",Georgia, "Times New Roman", serif;--text:"Albert Sans",system-ui, -apple-system, "Segoe UI", sans-serif;
+--d-weight:300;--d-style:normal;--d-case:uppercase;--d-ls:-0.035em;--em-style:normal;--em-weight:inherit;
+--t-weight:400;--t-strong:600;--t-size:15px;--lede-size:16px;
+--h1-size:clamp(34px, min(8.00vw, 15vh), 150px);--h1-max:10.82em;--h1-lh:0.86;--h2-size:clamp(36px, 4.6vw, 88px);--h2-lh:0.9;--h3-size:clamp(19px, 1.5vw, 25px);--h2s-size:clamp(26px, 2.5vw, 44px);
+--hero-w:2400px;--hero-h:1600px;--fx:54.3%;--fy:55.2%;
+--lg-h:56px;--lg-h-m:40px;--head:84px;--head-m:62px;--intro-w:min(62vw, 380px);
+}
+@media (max-width:899px){:root{--h1-size:clamp(30px,13.00vw,64px)}}
+@media (max-width:899px){:root{--wm-size:clamp(24px,15.00vw,96px)}}
+/* w9: baslik arkasinda eliptik golge (kapi h1 kontrasti, masaustu) */
+@media (min-width: 900px) { .d-mekan.v-tam .hero-shade { background: radial-gradient(ellipse 58% 30% at 50% 51%, rgba(var(--shade-rgb), .5) 0%, rgba(var(--shade-rgb), .42) 45%, rgba(var(--shade-rgb), 0) 100%), linear-gradient(180deg, rgba(var(--shade-rgb), .55) 0%, rgba(var(--shade-rgb), .14) 26%, rgba(var(--shade-rgb), .14) 50%, rgba(var(--shade-rgb), var(--shade-m)) 80%, rgba(var(--shade-rgb), var(--shade-a)) 100%); } }
