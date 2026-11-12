@@ -6,7 +6,9 @@
    - Sacilma: imlec hizlandikca ve tiklamada malzemeler firlar, 3D doner, yer cekimiyle duser, ekranin altinda bir kez seker, solar.
      En cok 40 parcacik, sabit havuzdan yeniden kullanim (calisirken nesne uretilmez); rAF yalniz is varken doner.
    - Telefon (fare yok): dokunusta patlama, hizli kaydirmada ustten seyrek yagmur.
-   - Azaltilmis harekette ve "still" (ekran goruntusu) modunda hic calismaz; sayfa betigi bu dosyayi o durumda yuklemez, burada ikinci kez denetlenir. */
+   - Azaltilmis harekette ve "still" (ekran goruntusu) modunda hic calismaz; sayfa betigi bu dosyayi o durumda yuklemez, burada ikinci kez denetlenir.
+   - Istege bagli (pastane, 12 Kas): cfg.yer = durunca her parcanin yeri [dx, dy] (boy biriminde; dikey yigin yerine kucuk bir tepsi dizilisi, arkadaki once cizilir),
+     cfg.boy = boy carpani (fotograf kesitleri biraz buyuk).  Verilmezse davranis eskisiyle ayni (burger, burrito, pizza degismez). */
 (function () {
   'use strict';
   var d = document, w = window, root = d.documentElement;
@@ -24,8 +26,12 @@
   // durunca ust uste dizilis: her parcanin bir ustundekine uzakligi (60 px boyda); urune gore (cfg.gap) ya da esit
   var dpr = Math.min(w.devicePixelRatio || 1, 2);
   // boy: atlas hucresi 112 px; 1x ekranda 84 px (kucultme, keskin), 1.5x ve ustunde 66 px (en cok 1.2 kat)
-  var SZ = dpr >= 1.5 ? 66 : 84, PS = SZ / 60;
+  var BOY = cfg.boy > 0 ? Math.min(1.6, cfg.boy) : 1;
+  var SZ = Math.round((dpr >= 1.5 ? 66 : 84) * BOY), PS = SZ / 60;
   var GAP = ((cfg.gap && cfg.gap.length === NB) ? cfg.gap : STACK.map(function (r, i) { return i ? 8 : 0; })).map(function (g) { return g * PS; });
+  var YER = (cfg.yer && cfg.yer.length >= NB) ? cfg.yer.slice(0, NB) : null;
+  var ORD = []; for (var oi = NB - 1; oi >= 0; oi--) ORD.push(oi);
+  if (YER) ORD.sort(function (a, b) { return YER[a][1] - YER[b][1] || b - a; }); // durunca arkadaki (ustteki) once cizilir
 
   var layer = d.createElement('div'); layer.className = 'iz'; layer.setAttribute('aria-hidden', 'true');
   var cv = d.createElement('canvas'); layer.appendChild(cv);
@@ -118,7 +124,7 @@
           var T = tail[i], gx, gy;
           cum += GAP[i];
           for (var s = 0; s < n; s++) {
-            if (idle) { gx = ax; gy = ay + cum; spring(T, gx, gy, 0.09 - i * 0.004, 0.17, h); }
+            if (idle) { if (YER) { gx = ax + YER[i][0] * SZ; gy = ay + YER[i][1] * SZ; } else { gx = ax; gy = ay + cum; } spring(T, gx, gy, 0.09 - i * 0.004, 0.17, h); }
             else { gx = i ? tail[i - 1].x : mx; gy = i ? tail[i - 1].y : my; spring(T, gx, gy, 0.34 - i * 0.03, 0.46, h); }
           }
           var mv = Math.sqrt(T.vx * T.vx + T.vy * T.vy);
@@ -133,7 +139,7 @@
           if (mv > 0.05 || Math.abs(T.vph) > 0.002 || (idle && Math.abs(T.a) > 0.005)) busy = true;
         }
         // cizim: alttaki once (alt ekmek), ustteki en son (ust ekmek)
-        for (var j = NB - 1; j >= 0; j--) { var Q = tail[j]; draw(STACK[j], Q.ph, Q.x, Q.y, idle ? SZ : SZ - j * 3 * PS, idle ? Q.a * 0.4 : Q.a, chainA); }
+        for (var jj = 0; jj < NB; jj++) { var j = idle && YER ? ORD[jj] : NB - 1 - jj; var Q = tail[j]; draw(STACK[j], Q.ph, Q.x, Q.y, idle ? SZ : SZ - j * 3 * PS, idle ? Q.a * 0.4 : Q.a, chainA); }
       }
       if (Math.abs((active ? 1 : 0) - chainA) > 0.01) busy = true;
     }

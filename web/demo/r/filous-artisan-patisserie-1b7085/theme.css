@@ -1,0 +1,47 @@
+/* Filou's Artisan Patisserie: renkler isletmenin kendi sitesinden (zemin #faf6ef, vurgu #108474). Fontlar: Montserrat (başlık), Montserrat (slogan vurgusu (italik)), Montserrat (gövde), Montserrat (gövde kalın, düğme). Logo: orijinal dosya, filtre yok. */
+@font-face{font-family:"Montserrat";font-style:normal;font-weight:700;font-display:swap;src:url(../../_hat1k/fonts/montserrat-latin-700.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Montserrat";font-style:normal;font-weight:700;font-display:swap;src:url(../../_hat1k/fonts/montserrat-latin-ext-700.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Montserrat";font-style:italic;font-weight:700;font-display:swap;src:url(../../_hat1k/fonts/montserrat-latin-700i.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Montserrat";font-style:italic;font-weight:700;font-display:swap;src:url(../../_hat1k/fonts/montserrat-latin-ext-700i.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Montserrat";font-style:normal;font-weight:400;font-display:swap;src:url(../../_hat1k/fonts/montserrat-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Montserrat";font-style:normal;font-weight:400;font-display:swap;src:url(../../_hat1k/fonts/montserrat-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Montserrat";font-style:normal;font-weight:600;font-display:swap;src:url(../../_hat1k/fonts/montserrat-latin-600.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Montserrat";font-style:normal;font-weight:600;font-display:swap;src:url(../../_hat1k/fonts/montserrat-latin-ext-600.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{
+--bg:#faf6ef;
+--bg-rgb:250,246,239;
+--bg2:#f1e8da;
+--ink:#1c2a24;
+--muted:#56645d;
+--line:#cecdc6;
+--accent:#108474;
+--accent-ink:#ffffff;
+--accent-hi:#0c6e61;
+--accent-on-bg:#0f7f6f;
+--accent-text:#108474;
+--paper:#ffffff;
+--paper-ink:#1c2a24;
+--paper-muted:#6e7773;
+--head-bg:#faf6ef;
+--head-bg-rgb:250,246,239;
+--head-ink:#1c2a24;
+--display:"Montserrat",system-ui, -apple-system, "Segoe UI", sans-serif;
+--text:"Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif;
+--d-w:700;
+--t-strong:600;
+--d-ls:-0.025em;
+--lg-top:54px;
+--plate:#108474;
+--plate-ink:#ffffff;
+--cream:var(--paper);
+--deep:#0f3d36;
+--deep-ink:#e8f3ef;
+--h1:min(4.22vw, 11svh, 132px);
+--h1m:min(calc((100vw - 40px) / 8.983), 62px);
+--foot-fs:min(10.61vw, 260px);
+--nf:12;
+--nr:5;
+--lg-h:66px;
+--hero-max:1800px;
+--hero-ar:1.0000;
+}
