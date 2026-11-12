@@ -1,2 +1,2 @@
-Arimo: OFL-1.1 (fontsource / Google Fonts)
-Lobster Two: OFL-1.1 (fontsource / Google Fonts)
+Hind Siliguri: OFL-1.1 (fontsource / Google Fonts)
+Open Sans: OFL-1.1 (fontsource / Google Fonts)
