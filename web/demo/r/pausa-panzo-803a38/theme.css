@@ -45,3 +45,7 @@
 @keyframes kb-zoom-b{0%{transform:scale(1.15) translate3d(0,0,0)}30%{transform:scale(1.03) translate3d(1.8%,-0.8%,0)}100%{transform:scale(1.03) translate3d(1.8%,-0.8%,0)}}
 @keyframes kb-zoom-c{0%{transform:scale(1.02) translate3d(0,0,0)}30%{transform:scale(1.14) translate3d(-1.2%,1.2%,0)}100%{transform:scale(1.14) translate3d(-1.2%,1.2%,0)}}
 @media (max-width:899px){:root{--h1-size:clamp(30px,11.78vw,64px)}}
+
+/* acilis: isletmenin koyu zemin logosu (Wix asil 756x756, sha256 6d19fdce), koyu zeminde; baslik ve alt bilgide siyah surum (180 px, 2x ustu) */
+.intro{background:var(--deep)}
+.intro-in i{background:var(--on-deep)}

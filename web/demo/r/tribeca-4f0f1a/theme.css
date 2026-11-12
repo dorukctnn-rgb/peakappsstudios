@@ -38,7 +38,7 @@
 --h1-size:clamp(34px, min(6.19vw, 12.2vh), 138px);--h1-max:7.1em;--h2-size:clamp(32px, 4.9vw, 84px);--h3-size:clamp(21px, 2.05vw, 31px);--h1-lh:0.98;--btn-r:0px;--r:2px;
 --kb-step:7s;--kb-total:28s;--kb-ov:1.4s;
 --map-bg:#f9f4ee;--map-road:#e0dcd6;--map-fine:#ebe7e1;
---lg-h:56px;--lg-h-m:40px;--head:84px;--head-m:62px;--intro-w:min(62vw, 380px);
+--lg-h:56px;--lg-h-m:40px;--head:84px;--head-m:62px;--intro-w:min(62vw, 270px);
 }
 @keyframes kb-fade{0%{opacity:0}5%{opacity:1}25%{opacity:1}30%{opacity:0}100%{opacity:0}}
 @keyframes kb-zoom-a{0%{transform:scale(1.02) translate3d(0,0,0)}30%{transform:scale(1.16) translate3d(-1.6%,-1%,0)}100%{transform:scale(1.16) translate3d(-1.6%,-1%,0)}}
