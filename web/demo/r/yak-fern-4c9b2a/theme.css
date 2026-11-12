@@ -1,0 +1,59 @@
+/* Yak & Fern: v5, sicak dili (khufus.com grameri). Renkler isletmenin kendi sitesinden; fontlar referans dilin fontlari: Cormorant Garamond, Bricolage Grotesque, Sacramento. Logo: orijinal dosya, filtre yok. Ana fotograf 1600x1200 px, buyutme yok. */
+@font-face{font-family:"Cormorant Garamond";font-style:normal;font-weight:300;font-display:swap;src:url(../../_uyarla/fonts/cormorant-garamond-latin-300.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Cormorant Garamond";font-style:normal;font-weight:300;font-display:swap;src:url(../../_uyarla/fonts/cormorant-garamond-latin-ext-300.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Cormorant Garamond";font-style:italic;font-weight:600;font-display:swap;src:url(../../_uyarla/fonts/cormorant-garamond-latin-600i.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Cormorant Garamond";font-style:italic;font-weight:600;font-display:swap;src:url(../../_uyarla/fonts/cormorant-garamond-latin-ext-600i.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Bricolage Grotesque";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/bricolage-grotesque-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Bricolage Grotesque";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/bricolage-grotesque-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Bricolage Grotesque";font-style:normal;font-weight:600;font-display:swap;src:url(../../_uyarla/fonts/bricolage-grotesque-latin-600.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Bricolage Grotesque";font-style:normal;font-weight:600;font-display:swap;src:url(../../_uyarla/fonts/bricolage-grotesque-latin-ext-600.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Bricolage Grotesque";font-style:normal;font-weight:300;font-display:swap;src:url(../../_uyarla/fonts/bricolage-grotesque-latin-300.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Bricolage Grotesque";font-style:normal;font-weight:300;font-display:swap;src:url(../../_uyarla/fonts/bricolage-grotesque-latin-ext-300.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Sacramento";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/sacramento-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Sacramento";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/sacramento-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Cormorant Garamond";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/cormorant-garamond-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Cormorant Garamond";font-style:normal;font-weight:400;font-display:swap;src:url(../../_uyarla/fonts/cormorant-garamond-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{
+--bg:#faf7f2;
+--bg-rgb:250,247,242;
+--bg2:#f9f5ee;
+--ink:#1d1d23;
+--muted:#646365;
+--line:#d7d4d1;
+--accent:#db9423;
+--accent-ink:#1d160c;
+--accent-hi:#c1821f;
+--accent-text:#956418;
+--deep:#212121;
+--on-deep:#f2eded;
+--on-deep-muted:#b3b0b0;
+--accent-on-deep:#db9423;
+--hero-ink:#ffffff;
+--hero-muted:rgba(255,255,255,.9);
+--hero-accent:#db9423;
+--hero-line:rgba(255,255,255,.28);
+--shade-rgb:18,18,18;
+--shade-a:0.94;
+--shade-m:0.672;
+--head-bg:#15120f;
+--head-bg-rgb:21,18,15;
+--head-ink:#f2eded;
+--panel:#db9423;
+--panel-ink:#1d160c;
+--panel-muted:#3b2a10;
+--card:#f9f5ee;
+--card-ink:#1d1d23;
+--card-muted:#525154;
+--wm-size:clamp(28px, 12.00vw, 240px);
+--display:"Cormorant Garamond",Georgia, "Times New Roman", serif;--text:"Bricolage Grotesque",system-ui, -apple-system, "Segoe UI", sans-serif;--script:"Sacramento",cursive;
+--d-weight:300;--d-style:normal;--d-case:none;--d-ls:0.01em;--em-style:italic;--em-weight:600;
+--t-weight:400;--t-strong:600;--t-size:15.5px;--lede-size:16px;
+--h1-size:clamp(34px, min(6.60vw, 12vh), 128px);--h1-max:9.33em;--h1-lh:1.03;--h2-size:clamp(34px, 3.8vw, 70px);--h2-lh:1.04;--h3-size:clamp(20px, 1.6vw, 27px);--h2s-size:clamp(26px, 2.6vw, 46px);
+--hero-w:1600px;--hero-h:1200px;--fx:60.1%;--fy:52.8%;
+--lg-h:64px;--lg-h-m:48px;--head:92px;--head-m:70px;--intro-w:min(38vw, 230px);
+}
+@media (min-width:1601px){.v-cerceve .hero-media{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%)}}
+@media (max-width:899px){:root{--h1-size:clamp(30px,13.00vw,64px)}}
+@media (max-width:899px){:root{--wm-size:clamp(24px,15.00vw,96px)}}
+/* w9: baslik arkasinda eliptik golge (kapi h1 kontrasti, masaustu) */
+@media (min-width: 900px) { .d-sicak.v-cerceve .hero-shade { background: radial-gradient(ellipse 58% 30% at 50% 51%, rgba(var(--shade-rgb), .5) 0%, rgba(var(--shade-rgb), .42) 45%, rgba(var(--shade-rgb), 0) 100%), linear-gradient(180deg, rgba(var(--shade-rgb), .38) 0%, rgba(var(--shade-rgb), 0) 22%), linear-gradient(0deg, rgba(var(--shade-rgb), var(--shade-a)) 0%, rgba(var(--shade-rgb), var(--shade-m)) 30%, rgba(var(--shade-rgb), 0) 62%); } }
