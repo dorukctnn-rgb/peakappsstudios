@@ -1,4 +1,4 @@
-Category drafts (burger, burrito, pizza): credits and licences
+Category drafts (burger, burrito, pizza, bakery): credits and licences
 
 Code
 - <category>.css, <category>.js and imlec.js were written for these drafts by Peak Apps Studio. No third-party runtime library is shipped
@@ -10,6 +10,8 @@ Code
   Off under prefers-reduced-motion, Save-Data, low device memory and in capture mode.
 
 Art
+- Bakery pages: the cursor trail is the bakery's OWN products. Each page has its own sprite sheet (img/iz-*.webp) cut out from the bakery's
+  own product photos (rows = products, columns = 12 steps of a turn, drawn from the cut-out photo). No outside art.
 - <category>-3d.webp: ingredient sprite sheet (rows = ingredients, columns = 16 steps of one full turn), modelled procedurally in three.js
   and rendered offline by Peak Apps Studio. No outside models or textures. Released as CC0.
 
