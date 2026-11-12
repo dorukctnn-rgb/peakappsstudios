@@ -1,0 +1,16 @@
+Restaurant drafts: credits and licences
+
+Code
+- site.css, page.js, sahne.js: written for these drafts by Peak Apps Studio. No third-party runtime library is shipped.
+- sahne.js uses the WebGL 1 API directly. Techniques (not code) follow well-known public patterns:
+  depth-map parallax ("fake 3D" photo: displace texture lookups by a greyscale depth map),
+  value-noise / fBm dissolve transitions, and object-fit: cover computed in the shader.
+- Depth maps (img/pNN-d.webp) are computed offline from each photo by a rule-based script (ground plane + sharpness + saturation), using sharp (Apache-2.0, build tool only, not shipped).
+
+Fonts
+- Self-hosted WOFF2 files from Fontsource / Google Fonts, SIL Open Font License 1.1. Per-family list: fonts/LICENSES.txt.
+- Commercial typefaces used by a business are never copied; the closest OFL family is used and noted in the report.
+
+Photos, logos, menu text
+- Belong to each business and come from its own public website. Logos are the original files, byte for byte.
+- Photos are downsized copies used only inside that business's own unlisted draft (noindex).
