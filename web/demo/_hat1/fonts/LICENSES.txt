@@ -1,1 +1,2 @@
-Oleo Script: OFL-1.1 (fontsource / Google Fonts)
+Arimo: OFL-1.1 (fontsource / Google Fonts)
+Lobster Two: OFL-1.1 (fontsource / Google Fonts)
