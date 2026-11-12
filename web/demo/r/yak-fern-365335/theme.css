@@ -30,15 +30,15 @@
 --shade-rgb:18,18,18;
 --shade-a:0.94;
 --shade-m:0.72;
---head-bg:#15120f;
---head-bg-rgb:21,18,15;
---head-ink:#f2eded;
+--head-bg:#faf7f2;
+--head-bg-rgb:250,247,242;
+--head-ink:#1d1d23;
 --display:"Poppins",system-ui, -apple-system, "Segoe UI", sans-serif;--text:"Poppins",system-ui, -apple-system, "Segoe UI", sans-serif;
 --d-weight:700;--d-style:normal;--d-case:none;--d-ls:-0.012em;--em-style:italic;
 --h1-size:clamp(34px, min(3.67vw, 12.2vh), 138px);--h1-max:12.0em;--h2-size:clamp(32px, 4.9vw, 84px);--h3-size:clamp(21px, 2.05vw, 31px);--h1-lh:0.98;--btn-r:5px;--r:7px;
 --kb-step:7s;--kb-total:28s;--kb-ov:1.4s;
 --map-bg:#f9f5ee;--map-road:#e3dfda;--map-fine:#ede9e3;
---lg-h:64px;--lg-h-m:48px;--head:92px;--head-m:70px;--intro-w:min(38vw, 230px);
+--lg-h:64px;--lg-h-m:48px;--head:92px;--head-m:70px;--intro-w:min(38vw, 200px);
 }
 @keyframes kb-fade{0%{opacity:0}5%{opacity:1}25%{opacity:1}30%{opacity:0}100%{opacity:0}}
 @keyframes kb-zoom-a{0%{transform:scale(1.02) translate3d(0,0,0)}30%{transform:scale(1.16) translate3d(-1.6%,-1%,0)}100%{transform:scale(1.16) translate3d(-1.6%,-1%,0)}}

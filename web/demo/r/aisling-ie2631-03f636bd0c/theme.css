@@ -38,7 +38,7 @@
 --h1-size:clamp(34px, min(7.75vw, 18.4vh), 138px);--h1-max:8.8em;--h2-size:clamp(32px, 4.9vw, 84px);--h3-size:clamp(21px, 2.05vw, 31px);--h1-lh:0.98;--btn-r:3px;--r:5px;
 --kb-step:7s;--kb-total:21s;--kb-ov:1.4s;
 --map-bg:#242424;--map-road:#3a3a3a;--map-fine:#303030;
---lg-h:48px;--lg-h-m:40px;--head:76px;--head-m:62px;--intro-w:min(38vw, 230px);
+--lg-h:35px;--lg-h-m:35px;--head:76px;--head-m:62px;--intro-w:min(62vw, 300px);
 }
 @keyframes kb-fade{0%{opacity:0}6.667%{opacity:1}33.333%{opacity:1}40%{opacity:0}100%{opacity:0}}
 @keyframes kb-zoom-a{0%{transform:scale(1.02) translate3d(0,0,0)}40%{transform:scale(1.16) translate3d(-1.6%,-1%,0)}100%{transform:scale(1.16) translate3d(-1.6%,-1%,0)}}
@@ -47,3 +47,6 @@
 @media (max-width:899px){:root{--h1-size:clamp(30px,11.78vw,64px)}}
 
 /*eyebrow-notr*/.hero .eyebrow{color:var(--hero-ink)}
+
+/* acilis: isletmenin renkli logosu beyaz zeminde (logo-renkli.png, aislingguesthouse.ie logo_loader.png) */
+.intro{background:#ffffff}

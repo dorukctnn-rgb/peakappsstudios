@@ -54,3 +54,7 @@
 }
 @media (max-width:899px){:root{--h1-size:clamp(30px,13.00vw,64px)}}
 @media (max-width:899px){:root{--wm-size:clamp(24px,15.00vw,96px)}}
+
+/* acilis: isletmenin koyu zemin logosu (Wix asil 756x756, sha256 6d19fdce), koyu zeminde; baslik ve alt bilgide siyah surum (180 px, 2x ustu) */
+.intro{background:var(--deep)}
+.intro-in i{background:var(--on-deep)}
