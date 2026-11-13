@@ -49,4 +49,4 @@
 @media (max-width:899px){:root{--h1-size:clamp(30px,13.00vw,64px)}}
 @media (max-width:899px){:root{--wm-size:clamp(24px,10.54vw,96px)}}
 /* w9: baslik arkasinda eliptik golge (kapi h1 kontrasti, masaustu) */
-@media (min-width: 900px) { .d-mekan.v-tam .hero-shade { background: radial-gradient(ellipse 58% 30% at 50% 51%, rgba(var(--shade-rgb), .5) 0%, rgba(var(--shade-rgb), .42) 45%, rgba(var(--shade-rgb), 0) 100%), linear-gradient(180deg, rgba(var(--shade-rgb), .55) 0%, rgba(var(--shade-rgb), .14) 26%, rgba(var(--shade-rgb), .14) 50%, rgba(var(--shade-rgb), var(--shade-m)) 80%, rgba(var(--shade-rgb), var(--shade-a)) 100%); } }
+@media (min-width: 900px) { .d-mekan.v-tam .hero-shade, .d-mekan.v-cerceve .hero-shade { background: radial-gradient(ellipse 58% 30% at 50% 51%, rgba(var(--shade-rgb), .5) 0%, rgba(var(--shade-rgb), .42) 45%, rgba(var(--shade-rgb), 0) 100%), linear-gradient(180deg, rgba(var(--shade-rgb), .55) 0%, rgba(var(--shade-rgb), .14) 26%, rgba(var(--shade-rgb), .14) 50%, rgba(var(--shade-rgb), var(--shade-m)) 80%, rgba(var(--shade-rgb), var(--shade-a)) 100%); } }

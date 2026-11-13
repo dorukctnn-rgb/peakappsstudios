@@ -57,3 +57,7 @@
 @media (max-width:899px){:root{--wm-size:clamp(24px,15.00vw,96px)}}
 /* w9: baslik arkasinda eliptik golge (kapi h1 kontrasti, masaustu) */
 @media (min-width: 900px) { .d-sicak.v-cerceve .hero-shade { background: radial-gradient(ellipse 58% 30% at 50% 51%, rgba(var(--shade-rgb), .5) 0%, rgba(var(--shade-rgb), .42) 45%, rgba(var(--shade-rgb), 0) 100%), linear-gradient(180deg, rgba(var(--shade-rgb), .38) 0%, rgba(var(--shade-rgb), 0) 22%), linear-gradient(0deg, rgba(var(--shade-rgb), var(--shade-a)) 0%, rgba(var(--shade-rgb), var(--shade-m)) 30%, rgba(var(--shade-rgb), 0) 62%); } }
+/* v5 ust: telefonda kahraman yazisi (kapi kontrasti >= 3, parlak vitrin) */
+@media (max-width: 899px) { .v-cerceve .hero-shade { background-color: rgba(var(--shade-rgb), .24); } }
+/* v5 ust: ziyaret bolumunun ucuncu fotografi (buhar momo, olcu: yumusak) gosterilmez, iki sutun kalir */
+@media (min-width: 1600px) { .contact.trio { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); } .contact.trio .contact-pic.p2 { display: none; } }
