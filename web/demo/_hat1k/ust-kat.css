@@ -1,0 +1,57 @@
+/* KATEGORI UST KATMANI (12 Kas 2026): pizza ve pastane sayfalarina, sokak sablonunda onaylanan yeni ozellikler.  Yalniz html.ust sayfalarinda gecerli;
+   ust-uygula.mjs ekler (sayfa.css ve sablonun kendi CSS'inden SONRA yuklenir).  Referanslardan (prettypatty, bavet, misterpio, bigmamma) yalniz ortak fikir:
+   kod, cizim ve metin alinmadi.  KAYAN YAZI YOK (Doruk 12 Kas, kalici).
+   1) kahramanda isletmenin kendi kareleri arasinda yuvarlak maske gecisi   2) kaydiricinin bolumu renk blogu
+   3) pastane kaydiricisinda oklar ve klavye   4) menude urunun kendi fotografi (farede imlecin yaninda, dokunmatikte "Fotograf" dugmesiyle)
+   5) netlik: genis ekranda pizza kartlari dort sutun (kart fotografi kaynagin yarisini gecmez).  Hareket azaltilmis harekette ve "still" kipinde durur. */
+
+/* ---- 1) kahraman gecisi ---- */
+.ust [data-hx] .hx { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 50%) var(--fy, 50%); clip-path: circle(0% at 50% 56%); transition: clip-path 1.1s cubic-bezier(.7, 0, .2, 1); z-index: 1; }
+.ust [data-hx] .hx.on { clip-path: circle(76% at 50% 56%); z-index: 2; }
+.ust [data-hx] .hx.alt { clip-path: circle(76% at 50% 56%); z-index: 1; transition: none; }
+.ust .pie[data-hx] .hx { transform: scale(1.04); }
+.ust .arch[data-hx]::after { z-index: 3; }
+.still.ust [data-hx] .hx { display: none; }
+
+/* ---- 2) renk blogu: kaydiricinin bolumu isletmenin kendi vurgu renginde ---- */
+.ust .ust-blok { background: var(--ub-bg); color: var(--ub-ink); }
+.ust .ust-blok .h2, .ust .ust-blok .sub, .ust .ust-blok .slides-hint, .ust .ust-blok .count { color: var(--ub-ink); }
+.ust .ust-blok .sub { opacity: .86; }
+.ust.k-pastane .ust-blok .slide-n, .ust.k-pastane .ust-blok .slide-d, .ust.k-pastane .ust-blok .slide-p { color: var(--ub-ink); }
+.ust.k-pastane .ust-blok .slide-k { color: var(--ub-ink); opacity: .7; }
+.ust.k-pastane .ust-blok .slide-f { box-shadow: 0 26px 44px -30px rgba(0, 0, 0, .55); }
+.ust.k-pizza .ust-blok .count b { color: var(--ub-ink); }
+.ust.k-pizza .ust-blok .nb { color: var(--ub-ink); border-color: color-mix(in srgb, var(--ub-ink) 42%, transparent); }
+.ust.k-pizza .ust-blok .nb:hover { border-color: var(--ub-ink); background: color-mix(in srgb, var(--ub-ink) 14%, transparent); }
+.ust.k-pizza .ust-blok .slide { box-shadow: 0 30px 50px -34px rgba(0, 0, 0, .7); }
+.ust.k-pizza .ust-blok .slide.on { border-color: var(--ub-ink); }
+
+/* ---- 3) pastane kaydiricisi: oklar ---- */
+.ust-ok { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 8px; }
+.ust-ok .slides-hint { margin: 0 6px; }
+.ust-btn { display: inline-grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid color-mix(in srgb, currentColor 42%, transparent); background: transparent; color: inherit; cursor: pointer; transition: background .2s, color .2s, transform .2s, border-color .2s; }
+.ust-btn svg { width: 20px; height: 20px; }
+.ust-btn:hover:not(:disabled) { background: var(--ub-ink, var(--ink)); border-color: var(--ub-ink, var(--ink)); color: var(--ub-bg, var(--bg)); transform: scale(1.06); }
+.ust-btn:disabled { opacity: .32; cursor: default; }
+.ust-btn:focus-visible, .ust .slides:focus-visible { outline: 3px solid var(--ub-ink, var(--accent)); outline-offset: 3px; }
+
+/* ---- 4) menude urun fotografi ---- */
+.ust .mi.ust-f .mi-n::after { content: ""; display: inline-block; width: .36em; height: .36em; margin-left: .4em; border-radius: 50%; background: var(--accent-text, var(--accent)); vertical-align: .2em; opacity: .85; }
+.ust-pop { position: fixed; left: 0; top: 0; z-index: 60; width: 240px; pointer-events: none; opacity: 0; transform: translate3d(-999px, -999px, 0) scale(.6) rotate(-6deg); transition: opacity .22s, transform .38s cubic-bezier(.2, .9, .3, 1.25); }
+.ust-pop img { display: block; width: 100%; height: auto; border-radius: 16px; border: 5px solid #fff; box-shadow: 0 26px 44px -18px rgba(0, 0, 0, .5); background: #fff; }
+.ust-pop.on { opacity: 1; }
+.ust .mi .ust-ac { display: none; }
+.ust .mi.ust-acik .ust-ac { display: block; width: min(64vw, 240px); margin: 10px 0 2px; animation: ust-ac .45s cubic-bezier(.2, .7, .2, 1) both; }
+.ust .mi.ust-acik .ust-ac img { display: block; width: 100%; height: auto; border-radius: 14px; box-shadow: 0 18px 30px -18px rgba(0, 0, 0, .45); }
+@keyframes ust-ac { from { opacity: 0; transform: translateY(8px) scale(.92) rotate(-3deg); } }
+.ust-dokun { display: inline-flex; align-items: center; margin-top: 8px; padding: 6px 12px; border-radius: 999px; border: 1.5px solid color-mix(in srgb, currentColor 30%, transparent); background: transparent; color: inherit; font: 600 12.5px/1 var(--text); letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
+@media (hover: hover) and (pointer: fine) { .ust-dokun { display: none; } }
+
+/* ---- 5) netlik: genis ekranda pizza kartlari dort sutun ---- */
+@media (min-width: 1600px) { .ust.k-pizza .slides { grid-auto-columns: calc((100% - 2 * var(--gut) - 48px) / 4); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .ust [data-hx] .hx { display: none; }
+  .ust-pop { display: none; }
+  .ust-btn { transition: none; }
+}

@@ -51,7 +51,7 @@ p + p { margin-top: 1em; }
 .nav a:hover::after { transform: scaleX(1); transform-origin: 0 50%; }
 .top-r { display: flex; align-items: center; gap: 12px; min-width: 0; }
 .status { display: inline-flex; align-items: center; gap: 8px; font-size: 17px; line-height: 1; letter-spacing: .04em; padding: 8px 13px 7px 11px; border: 1.5px solid color-mix(in srgb, var(--head-ink) 28%, transparent); border-radius: 999px; white-space: nowrap; min-width: 0; }
-.status b { font-weight: 400; overflow: hidden; text-overflow: ellipsis; }
+.status b { font-weight: 400; overflow: hidden; text-overflow: ellipsis; padding: .3em 0 .24em; margin: -.3em 0 -.24em; } /* Turkish dotted capital I and cedilla (Ç, Ş) need room: the box grows and the negative margin cancels it, so layout is unchanged */
 .status[data-empty] { display: none; }
 .status i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #8f877d; flex: none; }
 .status.open i { background: #45c277; box-shadow: 0 0 0 0 rgba(69, 194, 119, .55); animation: pulse 2.4s infinite; }
@@ -67,10 +67,10 @@ p + p { margin-top: 1em; }
 .l1, .l2 { display: block; font-size: var(--h1m); line-height: .86; }
 .l2 { color: var(--accent-on-bg); }
 .l2 em { font-style: normal; }
-.h1 .w { display: inline-block; overflow: hidden; vertical-align: bottom; padding: .08em .03em .02em; margin: -.08em -.03em -.02em; }
+.h1 .w { display: inline-block; overflow: hidden; vertical-align: bottom; padding: .16em .03em .1em; margin: -.16em -.03em -.1em; }
 .h1 .w > span { display: inline-block; animation: w-up .85s var(--ease) both; animation-delay: calc(1s + var(--i) * 55ms); }
 .no-intro .h1 .w > span { animation-delay: calc(.05s + var(--i) * 50ms); }
-@keyframes w-up { from { transform: translateY(110%) rotate(4deg); } }
+@keyframes w-up { from { transform: translateY(135%) rotate(4deg); } }
 .blob-row { display: block; position: relative; margin: 12px 0 10px; }
 .blob-w { position: relative; display: block; width: 100%; aspect-ratio: 16 / 10; }
 .blob { position: absolute; inset: 0; display: block; border-radius: 46% 54% 42% 58% / 56% 44% 56% 44%; overflow: hidden; background: var(--bg2); box-shadow: 0 40px 70px -34px rgba(0, 0, 0, .75); transform: rotate(-2deg); animation: blob-in 1s var(--ease) 1.1s both; }
@@ -97,11 +97,7 @@ p + p { margin-top: 1em; }
 .still .h1 .w > span, .still .blob, .still .stk, .still .hero-foot { animation: none; }
 
 /* serit: isletmenin kendi menu adlari akar */
-.ticker { overflow: hidden; background: var(--accent); color: var(--accent-ink); padding: 12px 0 9px; font-family: var(--display); text-transform: uppercase; font-size: clamp(24px, 2.2vw, 34px); line-height: 1; letter-spacing: .03em; white-space: nowrap; border-block: 3px solid var(--bg); }
-.ticker-in { display: inline-flex; width: max-content; animation: tick 46s linear infinite; }
-.ticker span { padding-right: 1.1em; }
-.ticker span::after { content: ""; display: inline-block; width: .32em; height: .32em; margin-left: 1.1em; border-radius: 50%; background: currentColor; opacity: .5; vertical-align: .18em; }
-@keyframes tick { to { transform: translateX(-50%); } }
+.ticker { display: none; } /* 12 Kas 2026 (Doruk, kalici): kayan yazi seridi yok; sayfa kodu seridi artik uretmiyor, eski sayfalarda gizli */
 
 /* bolumler */
 .sec { position: relative; padding: clamp(48px, 5vw, 100px) var(--gut); }
