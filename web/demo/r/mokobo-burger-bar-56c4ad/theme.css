@@ -36,3 +36,8 @@
 --hero-max:1800px;
 --hero-ar:1.3333;
 }
+
+/* Cards: the caption is part of the card's flow (not pinned to the bottom edge), so a two-line title gets its own room and never slides under the photo; the photo takes the height that is left. */
+.card { display: flex; flex-direction: column; padding: 10px 10px 14px; }
+.card img { flex: 1 1 0; min-height: 0; height: auto; }
+.card figcaption { position: static; flex: none; padding: 12px 6px 0; }
