@@ -231,6 +231,7 @@ b, strong { font-weight: var(--t-strong, 600); }
 .marquee span::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); margin-right: 2.2em; }
 @keyframes marquee { to { transform: translate3d(-50%, 0, 0); } }
 .marquee:hover .marquee-in { animation-play-state: paused; }
+.ayrac { height: 1px; margin: 0 var(--gut); background: var(--line); }
 
 /* iletisim ve konum: ballena karti (koyu zemin ustunde renkli kart) + yanda kendi fotografi */
 /* genis ekran (11 Kas): kart ve kendi fotograflari yan yana, ayni boyda; orta bos kalmaz */
