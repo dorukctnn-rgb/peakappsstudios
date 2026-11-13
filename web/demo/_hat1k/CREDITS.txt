@@ -1,4 +1,4 @@
-Category drafts (burger, burrito, pizza, bakery): credits and licences
+Category drafts (burger, burrito, pizza, bakery, street food): credits and licences
 
 Code
 - <category>.css, <category>.js and imlec.js were written for these drafts by Peak Apps Studio. No third-party runtime library is shipped
@@ -10,6 +10,9 @@ Code
   Off under prefers-reduced-motion, Save-Data, low device memory and in capture mode.
 
 Art
+- Street-food pages (kebab, doner, pide, lahmacun ...): the same as bakery pages, the cursor trail is the business's OWN products cut out from
+  its own photos; when the pointer rests they settle on a round serving tray drawn on the canvas. The product slider and the menu photos use
+  the same cut-outs. sokak.css and sokak.js only add these sections on top of the unchanged burger.css and burger.js.
 - Bakery pages: the cursor trail is the bakery's OWN products. Each page has its own sprite sheet (img/iz-*.webp) cut out from the bakery's
   own product photos (rows = products, columns = 12 steps of a turn, drawn from the cut-out photo). No outside art.
 - <category>-3d.webp: ingredient sprite sheet (rows = ingredients, columns = 16 steps of one full turn), modelled procedurally in three.js

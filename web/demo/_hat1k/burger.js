@@ -55,7 +55,7 @@
     if (TZ && H) {
       var n = nowIn(), t = H[n.wd];
       each('.hours tr', function (r) { r.classList.toggle('today', +r.getAttribute('data-day') === n.wd); });
-      each('[data-today]', function (el) { el.textContent = t ? hhmm(t[0]) + ' to ' + hhmm(t[1]) : 'Closed today'; });
+      each('[data-today]', function (el) { el.textContent = t ? hhmm(t[0]) + (T.to || ' to ') + hhmm(t[1]) : (T.closedToday || 'Closed today'); });
     }
   }
   paintStatus(); setInterval(paintStatus, 60000);

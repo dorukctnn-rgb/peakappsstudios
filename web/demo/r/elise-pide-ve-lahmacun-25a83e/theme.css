@@ -1,0 +1,45 @@
+/* Elise Pide ve Lahmacun: renkler isletmenin kendi sitesinden (zemin #ffffff, vurgu #e2571e). Fontlar: Archivo (başlık), Cabin (gövde), Cabin (gövde kalın, düğme). Logo: orijinal dosya, filtre yok. */
+@font-face{font-family:"Archivo";font-style:normal;font-weight:800;font-display:swap;src:url(../../_hat1k/fonts/archivo-latin-800.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Archivo";font-style:normal;font-weight:800;font-display:swap;src:url(../../_hat1k/fonts/archivo-latin-ext-800.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Cabin";font-style:normal;font-weight:400;font-display:swap;src:url(../../_hat1k/fonts/cabin-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Cabin";font-style:normal;font-weight:400;font-display:swap;src:url(../../_hat1k/fonts/cabin-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Cabin";font-style:normal;font-weight:600;font-display:swap;src:url(../../_hat1k/fonts/cabin-latin-600.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Cabin";font-style:normal;font-weight:600;font-display:swap;src:url(../../_hat1k/fonts/cabin-latin-ext-600.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{
+--bg:#ffffff;
+--bg-rgb:255,255,255;
+--bg2:#f6f1ea;
+--ink:#14110f;
+--muted:#5e5751;
+--line:#d0cfcf;
+--accent:#e2571e;
+--accent-ink:#14110f;
+--accent-hi:#e66f3e;
+--accent-on-bg:#c74d1a;
+--accent-text:#be4919;
+--paper:#f7f1ea;
+--paper-ink:#14110f;
+--paper-muted:#66625e;
+--head-bg:#ffffff;
+--head-bg-rgb:255,255,255;
+--head-ink:#14110f;
+--display:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+--sticker:"Archivo",system-ui,sans-serif;
+--text:"Cabin",system-ui,-apple-system,"Segoe UI",sans-serif;
+--d-w:800;
+--t-strong:600;
+--dk:0.502;
+--h1a:min(14.17vw, 21svh);
+--h1b:min(6.07vw, 17svh);
+--h1m:min(calc((100vw - 40px) / 7.722), 15vw, 64px);
+--foot-fs:18.42vw;
+--sk-blok:#14110f;
+--sk-blok-ink:#f7f1ea;
+--sk-blok-vurgu:#e2571e;
+--lg-h:44px;
+--hero-max:1600px;
+--hero-ar:1.4995;
+}
+.k-sokak .fl{background-image:url(img/iz-f84ac67c.webp)}
+:root{--hero-max:740px}
+.k-sokak .visit-pic{max-width:820px;justify-self:end}
