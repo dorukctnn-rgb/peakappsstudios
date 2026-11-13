@@ -1,0 +1,52 @@
+/* Tequila n Tacos: renkler isletmenin kendi sitesinden (zemin #fff3e3, vurgu #cf2a1f). Fontlar: Archivo Black (başlık, dev slogan, fiyat), Figtree (gövde), Figtree (gövde yarı kalın, etiket), Figtree (düğme, menü adı, kutu adı). Logo: orijinal dosya, filtre yok. */
+@font-face{font-family:"Archivo Black";font-style:normal;font-weight:400;font-display:swap;src:url(../../_kategori/fonts/archivo-black-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Archivo Black";font-style:normal;font-weight:400;font-display:swap;src:url(../../_kategori/fonts/archivo-black-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:400;font-display:swap;src:url(../../_kategori/fonts/figtree-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:400;font-display:swap;src:url(../../_kategori/fonts/figtree-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:600;font-display:swap;src:url(../../_kategori/fonts/figtree-latin-600.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:600;font-display:swap;src:url(../../_kategori/fonts/figtree-latin-ext-600.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:700;font-display:swap;src:url(../../_kategori/fonts/figtree-latin-700.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:700;font-display:swap;src:url(../../_kategori/fonts/figtree-latin-ext-700.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{
+--bg:#fff3e3;
+--bg-rgb:255,243,227;
+--bg2:#fbe3c6;
+--ink:#2a1612;
+--muted:#6e4a3f;
+--line:#d4c7b9;
+--accent:#cf2a1f;
+--accent-ink:#ffffff;
+--accent-hi:#e23d31;
+--accent-on-bg:#cf2a1f;
+--accent-text:#cf2a1f;
+--paper:#ffffff;
+--paper-ink:#2a1612;
+--paper-muted:#776a67;
+--head-bg:#fff3e3;
+--head-bg-rgb:255,243,227;
+--head-ink:#2a1612;
+--display:"Archivo Black","Arial Black",system-ui,sans-serif;
+--text:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+--teal:#0e7a47;
+--teal-deep:#093f26;
+--teal-ink:#eafaf1;
+--orange:#f5a623;
+--sky:#68ccd1;
+--logo-red:#cf2a1f;
+--h1a:min(3.34vw, 15svh, 150px);
+--h1b:min(4.13vw, 21svh, 210px);
+--h1ma:min(calc((100vw - 40px) / 14.065), 64px);
+--h1mb:min(calc((100vw - 40px) / 11.386), 96px);
+--roll-fs:min(9.66vw, 240px);
+--ac-fs:min(10.28vw, 200px);
+--foot-fs:8.53vw;
+--lg-h:51px;
+--hero-max:1290px;
+--hero-ar:1.0287;
+}
+
+@media (min-width: 900px) { .visit .h2 { font-size: clamp(38px, 5.7vw, 100px); } }
+@media (min-width: 2200px) { .roll > .roll-big { font-size: calc(var(--roll-fs) * .64); } }
+/* 430 px and below: the status text (Closed, opens Wednesday at 5 pm) stays whole next to the logo; a little smaller on the narrowest phones */
+@media (max-width:430px){.status{font-size:12px;gap:6px;padding:7px 9px 6px 8px}.top-r{gap:8px}.top .badge img{height:26px}}
+@media (max-width:380px){.status{font-size:11px;padding:7px 8px 6px 7px}}
