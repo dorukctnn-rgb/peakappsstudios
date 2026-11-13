@@ -45,3 +45,14 @@
 
 /* 380 px and below: the status text (Closed, opens tomorrow at noon) stays whole */
 @media (max-width:380px){.status{font-size:12px}}
+
+/* how we make it: their four principles (their own words) beside their own oven photo, no template drawings */
+.oven{background:linear-gradient(180deg,var(--bg),#1a0d0e 50%,var(--bg))}
+.oven-in{max-width:1240px;margin:0 auto;display:grid;gap:28px;align-items:center}
+.oven-t .steps{margin-top:22px;gap:22px}
+.oven-f{margin:0;border-radius:var(--r);overflow:hidden;aspect-ratio:1/1;background:var(--bg2)}
+.oven-f img{display:block;width:100%;height:100%;object-fit:cover;object-position:var(--fx,50%) var(--fy,50%)}
+@media (min-width:900px){.oven-in{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(36px,5vw,90px)}.oven-f{max-height:78svh;justify-self:end;width:100%}}
+html:not(.story-on) .oven-t .steps{grid-template-columns:minmax(0,1fr);gap:22px;margin-top:22px}
+.oven-t .st-t{font-size:clamp(26px,2.2vw,36px)}
+.oven-t .st-p{max-width:32em;font-size:15.5px;line-height:1.55}
