@@ -1,0 +1,48 @@
+/* Melis Pasta & Bistro: renkler isletmenin kendi sitesinden (zemin #f8f3ea, vurgu #66231b). Fontlar: Libre Baskerville (başlık), Libre Baskerville (slogan vurgusu (italik)), Varela Round (gövde). Logo: orijinal dosya, filtre yok. */
+@font-face{font-family:"Libre Baskerville";font-style:normal;font-weight:400;font-display:swap;src:url(../../_hat1k/fonts/libre-baskerville-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Libre Baskerville";font-style:normal;font-weight:400;font-display:swap;src:url(../../_hat1k/fonts/libre-baskerville-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Libre Baskerville";font-style:italic;font-weight:400;font-display:swap;src:url(../../_hat1k/fonts/libre-baskerville-latin-400i.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Libre Baskerville";font-style:italic;font-weight:400;font-display:swap;src:url(../../_hat1k/fonts/libre-baskerville-latin-ext-400i.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Varela Round";font-style:normal;font-weight:400;font-display:swap;src:url(../../_hat1k/fonts/varela-round-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Varela Round";font-style:normal;font-weight:400;font-display:swap;src:url(../../_hat1k/fonts/varela-round-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{
+--bg:#f8f3ea;
+--bg-rgb:248,243,234;
+--bg2:#efe5d6;
+--ink:#2a1512;
+--muted:#6a5550;
+--line:#cfc7bf;
+--accent:#66231b;
+--accent-ink:#fff6ea;
+--accent-hi:#7d2e24;
+--accent-on-bg:#66231b;
+--accent-text:#66231b;
+--paper:#ffffff;
+--paper-ink:#2a1512;
+--paper-muted:#776967;
+--head-bg:#f8f3ea;
+--head-bg-rgb:248,243,234;
+--head-ink:#2a1512;
+--display:"Libre Baskerville",Georgia, "Times New Roman", serif;
+--text:"Varela Round",system-ui,-apple-system,"Segoe UI",sans-serif;
+--d-w:400;
+--t-strong:400;
+--d-ls:-0.012em;
+--lg-top:54px;
+--plate:#f8f3ea;
+--plate-ink:#66231b;
+--cream:var(--paper);
+--deep:#2a0f0b;
+--deep-ink:#f6e9d8;
+--h1:min(6.37vw, 17svh, 132px);
+--h1m:min(calc((100vw - 40px) / 5.451), 62px);
+--foot-fs:min(26.04vw, 260px);
+--nf:12;
+--nr:7;
+--lg-h:66px;
+--hero-max:2129px;
+--hero-ar:0.8697;
+}
+/* ust katman (12 Kas 2026): renk blogu ve netlik siniri */
+:root{--ub-bg:#66231b;--ub-ink:#fff4e4}
+@media(min-width:900px){html .story-f{max-width:460px}}
