@@ -1,0 +1,52 @@
+/* Halswell Bakery: renkler isletmenin kendi sitesinden (zemin #f7efe2, vurgu #a8481a). Fontlar: Playfair Display (başlık), Playfair Display (slogan vurgusu (italik)), Open Sans (gövde), Open Sans (gövde kalın, düğme). Logo: orijinal dosya, filtre yok. */
+@font-face{font-family:"Playfair Display";font-style:normal;font-weight:600;font-display:swap;src:url(../../_hat1k/fonts/playfair-display-latin-600.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Playfair Display";font-style:normal;font-weight:600;font-display:swap;src:url(../../_hat1k/fonts/playfair-display-latin-ext-600.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Playfair Display";font-style:italic;font-weight:600;font-display:swap;src:url(../../_hat1k/fonts/playfair-display-latin-600i.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Playfair Display";font-style:italic;font-weight:600;font-display:swap;src:url(../../_hat1k/fonts/playfair-display-latin-ext-600i.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Open Sans";font-style:normal;font-weight:400;font-display:swap;src:url(../../_hat1k/fonts/open-sans-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Open Sans";font-style:normal;font-weight:400;font-display:swap;src:url(../../_hat1k/fonts/open-sans-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Open Sans";font-style:normal;font-weight:600;font-display:swap;src:url(../../_hat1k/fonts/open-sans-latin-600.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Open Sans";font-style:normal;font-weight:600;font-display:swap;src:url(../../_hat1k/fonts/open-sans-latin-ext-600.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{
+--bg:#f7efe2;
+--bg-rgb:247,239,226;
+--bg2:#efe3d0;
+--ink:#2a1a12;
+--muted:#6b5748;
+--line:#cec4b8;
+--accent:#a8481a;
+--accent-ink:#ffffff;
+--accent-hi:#8f3c14;
+--accent-on-bg:#a8481a;
+--accent-text:#a8481a;
+--paper:#fffaf1;
+--paper-ink:#2a1a12;
+--paper-muted:#776b62;
+--head-bg:#f7efe2;
+--head-bg-rgb:247,239,226;
+--head-ink:#2a1a12;
+--display:"Playfair Display",Georgia, "Times New Roman", serif;
+--text:"Open Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+--d-w:600;
+--t-strong:600;
+--d-ls:-0.012em;
+--lg-top:54px;
+--plate:#3a2318;
+--plate-ink:#ffffff;
+--cream:var(--paper);
+--deep:#24160f;
+--deep-ink:#f3e8d6;
+--h1:min(5.17vw, 14svh, 132px);
+--h1m:min(calc((100vw - 40px) / 7.332), 62px);
+--foot-fs:min(20.25vw, 260px);
+--nf:12;
+--nr:6;
+--lg-h:45px;
+--hero-max:1800px;
+--hero-ar:1.0363;
+}
+/* logo netlik: hicbir logo dogal boyutunun yarisindan buyuk cizilmez (2x) */
+:root img[src="img/logo.png"]{max-width:275px;max-height:65px}
+/* ust katman (12 Kas 2026): renk blogu ve netlik siniri */
+:root{--ub-bg:#a8481a;--ub-ink:#ffffff}
+@media(min-width:900px){html .story-f{max-width:530px}}

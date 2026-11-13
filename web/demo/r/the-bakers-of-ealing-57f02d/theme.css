@@ -1,0 +1,51 @@
+/* The Bakers of Ealing: renkler isletmenin kendi sitesinden (zemin #fbf5ea, vurgu #b72137). Fontlar: Noticia Text (başlık), Noticia Text (slogan vurgusu (italik)), Figtree (gövde), Figtree (gövde kalın, düğme). Logo: orijinal dosya, filtre yok. */
+@font-face{font-family:"Noticia Text";font-style:normal;font-weight:700;font-display:swap;src:url(../../_hat1k/fonts/noticia-text-latin-700.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Noticia Text";font-style:normal;font-weight:700;font-display:swap;src:url(../../_hat1k/fonts/noticia-text-latin-ext-700.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Noticia Text";font-style:italic;font-weight:700;font-display:swap;src:url(../../_hat1k/fonts/noticia-text-latin-700i.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Noticia Text";font-style:italic;font-weight:700;font-display:swap;src:url(../../_hat1k/fonts/noticia-text-latin-ext-700i.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:400;font-display:swap;src:url(../../_hat1k/fonts/figtree-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:400;font-display:swap;src:url(../../_hat1k/fonts/figtree-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:600;font-display:swap;src:url(../../_hat1k/fonts/figtree-latin-600.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:600;font-display:swap;src:url(../../_hat1k/fonts/figtree-latin-ext-600.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{
+--bg:#fbf5ea;
+--bg-rgb:251,245,234;
+--bg2:#f3e7d3;
+--ink:#3a1c13;
+--muted:#735a4d;
+--line:#d4cabf;
+--accent:#b72137;
+--accent-ink:#ffffff;
+--accent-hi:#971b2d;
+--accent-on-bg:#b72137;
+--accent-text:#b72137;
+--paper:#ffffff;
+--paper-ink:#3a1c13;
+--paper-muted:#816e68;
+--head-bg:#fbf5ea;
+--head-bg-rgb:251,245,234;
+--head-ink:#3a1c13;
+--display:"Noticia Text",Georgia, "Times New Roman", serif;
+--text:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+--d-w:700;
+--t-strong:600;
+--d-ls:-0.012em;
+--lg-top:54px;
+--plate:#fbf5ea;
+--plate-ink:#b72137;
+--cream:var(--paper);
+--deep:#2d130c;
+--deep-ink:#f8ecdc;
+--h1:min(8.81vw, 17svh, 132px);
+--h1m:min(calc((100vw - 40px) / 3.744), 62px);
+--foot-fs:min(27.01vw, 260px);
+--nf:12;
+--nr:7;
+--lg-h:42px;
+--hero-max:1247px;
+--hero-ar:0.8696;
+}
+/* logo netlik: hicbir logo dogal boyutunun yarisindan buyuk cizilmez (2x) */
+:root img[src="img/logo.png"]{max-width:626px;max-height:139px}
+/* ust katman (12 Kas 2026): renk blogu ve netlik siniri */
+:root{--ub-bg:#b72137;--ub-ink:#ffffff}

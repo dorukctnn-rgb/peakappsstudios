@@ -14,5 +14,7 @@ Fonts in this folder (all SIL Open Font License 1.1, https://openfontlicense.org
 - Anton: Copyright 2020 The Anton Project Authors (Vernon Adams). Served from Google Fonts / Fontsource files.
 - Lato: Copyright (c) 2010-2014, Lukasz Dziedzic (tyPoland). Served from Google Fonts / Fontsource files.
 - Open Sans: Copyright 2020 The Open Sans Project Authors (https://github.com/googlefonts/opensans). Served from Google Fonts / Fontsource files.
+- Barlow: Copyright 2017 The Barlow Project Authors (https://github.com/jpt/barlow). Served from Google Fonts / Fontsource files.
+- Noticia Text: Copyright 2011 The Noticia Project Authors (Jorge de Buen). Served from Google Fonts / Fontsource files.
 - Bakery and street-food pages use the business's own web fonts when they are free (the files above are those); a commercial face is replaced by the nearest free one.
 The fonts may be used, bundled and redistributed with these pages under the OFL; they are not sold on their own.

@@ -1,0 +1,52 @@
+/* Kelly Lou Cakes: renkler isletmenin kendi sitesinden (zemin #fff7ec, vurgu #d3387a). Fontlar: Figtree (başlık), Figtree (slogan vurgusu (italik)), Figtree (gövde), Figtree (gövde kalın, düğme). Logo: orijinal dosya, filtre yok. */
+@font-face{font-family:"Figtree";font-style:normal;font-weight:800;font-display:swap;src:url(../../_hat1k/fonts/figtree-latin-800.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:800;font-display:swap;src:url(../../_hat1k/fonts/figtree-latin-ext-800.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Figtree";font-style:italic;font-weight:800;font-display:swap;src:url(../../_hat1k/fonts/figtree-latin-800i.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Figtree";font-style:italic;font-weight:800;font-display:swap;src:url(../../_hat1k/fonts/figtree-latin-ext-800i.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:400;font-display:swap;src:url(../../_hat1k/fonts/figtree-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:400;font-display:swap;src:url(../../_hat1k/fonts/figtree-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:600;font-display:swap;src:url(../../_hat1k/fonts/figtree-latin-600.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Figtree";font-style:normal;font-weight:600;font-display:swap;src:url(../../_hat1k/fonts/figtree-latin-ext-600.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{
+--bg:#fff7ec;
+--bg-rgb:255,247,236;
+--bg2:#fbe8dc;
+--ink:#2e2429;
+--muted:#6e5a63;
+--line:#d5cdc5;
+--accent:#d3387a;
+--accent-ink:#ffffff;
+--accent-hi:#b92c68;
+--accent-on-bg:#cb3675;
+--accent-text:#d3387a;
+--paper:#ffffff;
+--paper-ink:#2e2429;
+--paper-muted:#797376;
+--head-bg:#fff7ec;
+--head-bg-rgb:255,247,236;
+--head-ink:#2e2429;
+--display:"Figtree",system-ui, -apple-system, "Segoe UI", sans-serif;
+--text:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+--d-w:800;
+--t-strong:600;
+--d-ls:-0.025em;
+--lg-top:64px;
+--plate:transparent;
+--plate-ink:#d3387a;
+--cream:var(--paper);
+--deep:#2b1422;
+--deep-ink:#fbeee3;
+--h1:min(6.29vw, 17svh, 132px);
+--h1m:min(calc((100vw - 40px) / 5.949), 62px);
+--foot-fs:min(15.91vw, 260px);
+--nf:12;
+--nr:7;
+--lg-h:54px;
+--hero-max:1800px;
+--hero-ar:1.0000;
+}
+/* logo netlik: hicbir logo dogal boyutunun yarisindan buyuk cizilmez (2x) */
+:root img[src="img/logo.webp"]{max-width:960px;max-height:275px}
+/* ust katman (12 Kas 2026): renk blogu ve netlik siniri */
+:root{--ub-bg:#d3387a;--ub-ink:#ffffff}
+.l2 em{font-style:normal}
