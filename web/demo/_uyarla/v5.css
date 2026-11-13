@@ -319,6 +319,8 @@ b, strong { font-weight: var(--t-strong, 600); }
   .cta .btn { flex: 1; padding: 0 .8em; min-height: 50px; }
   .facts, .v-bolme .facts, .d-mekan .hero-foot .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 16px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--hero-line); font-size: 13px; line-height: 1.4; }
   .facts small { font-size: 10px; }
+  /* cerceve (1920 px altindaki kahraman) telefonda: foto yuksekligi dosyanin yarisi (2x ekranda 1:1), ustte durur ve altta marka zeminine erir; yazi altta (TR-10, 12 Kas: tam yukseklikte 390'da x1.9 buyutme) */
+  .v-cerceve .hero-media { inset: 0 0 auto 0; margin: 0; max-width: none; max-height: none; height: min(100%, calc(var(--hero-h) * .5)); -webkit-mask-image: linear-gradient(180deg, #000 0, #000 70%, transparent 100%); mask-image: linear-gradient(180deg, #000 0, #000 70%, transparent 100%); }
   .v-bolme .hero { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto; min-height: 0; }
   .v-bolme .hero-media { grid-column: 1; grid-row: 1; min-height: 0; height: 40svh; max-width: 100%; }
   .v-bolme .hero-in { grid-column: 1; grid-row: 2; padding: 18px var(--gut) calc(var(--bar) + 18px); }
