@@ -14,7 +14,7 @@
   var raf = w.requestAnimationFrame.bind(w);
 
   /* ---- 1) kahraman gecisi ---- */
-  var kap = d.querySelector('[data-hx]');
+  var kap = d.querySelector('.pie[data-hx], .arch[data-hx]'); // pizza sablonunun yagmur tuvali de data-hx tasir (sayi degerli): yalniz kahraman cercevesi
   if (kap && !still && !reduced && !saveData) {
     var hx = [].slice.call(kap.querySelectorAll('.hx')), k = 0, gor = true;
     if ('IntersectionObserver' in w) new IntersectionObserver(function (es) { gor = es[0].isIntersecting; }).observe(kap);
