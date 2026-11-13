@@ -42,3 +42,6 @@
 .tab[aria-selected="true"],.pill.on,.go-n,.bar a.main,.stk-a{color:var(--accent-ink)}
 .pill.on span{background:rgba(0,0,0,.14)}
 :root{--lg-h:52px}
+
+/* 380 px and below: the status text (Closed, opens tomorrow at noon) stays whole */
+@media (max-width:380px){.status{font-size:12px}}

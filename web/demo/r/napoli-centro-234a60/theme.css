@@ -44,3 +44,8 @@
 .h1,.h1 *,.foot-q{text-shadow:none}
 .story{--bg:#1b1511;--bg2:#251d17;--ink:#f6efe4;--muted:#cfc4b4;background:#1b1511;color:#f6efe4}
 .foot-logo{width:150px}
+
+/* 430 px and below: the status text (Closed, opens tomorrow at ...) stays whole next to the wide wordmark; the wordmark gets a little smaller on the narrowest phones */
+@media (max-width:430px){.status{font-size:11px;gap:5px;padding:8px 8px 8px 7px}.top-r{gap:8px}:root{--lg-h:33px}}
+@media (max-width:380px){:root{--lg-h:30px}}
+@media (max-width:365px){:root{--lg-h:27px}.status{font-size:10.5px}}
