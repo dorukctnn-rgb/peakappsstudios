@@ -45,3 +45,5 @@
 --hero-max:1800px;
 --hero-ar:1.0000;
 }
+/* ust katman (12 Kas 2026): renk blogu ve netlik siniri */
+:root{--ub-bg:#108474;--ub-ink:#ffffff}
