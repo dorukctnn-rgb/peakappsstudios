@@ -1,0 +1,44 @@
+/* Ofano's Pizza: renkler isletmenin kendi sitesinden (zemin #121110, vurgu #fbd54c). Fontlar: Luckiest Guy (başlık, sayaç, pizza adı, fiyat), Poppins (gövde), Poppins (gövde yarı kalın, düğme, etiket). Logo: orijinal dosya, filtre yok. */
+@font-face{font-family:"Luckiest Guy";font-style:normal;font-weight:400;font-display:swap;src:url(../../_kategori/fonts/luckiest-guy-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Luckiest Guy";font-style:normal;font-weight:400;font-display:swap;src:url(../../_kategori/fonts/luckiest-guy-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Poppins";font-style:normal;font-weight:400;font-display:swap;src:url(../../_kategori/fonts/poppins-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Poppins";font-style:normal;font-weight:400;font-display:swap;src:url(../../_kategori/fonts/poppins-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Poppins";font-style:normal;font-weight:600;font-display:swap;src:url(../../_kategori/fonts/poppins-latin-600.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Poppins";font-style:normal;font-weight:600;font-display:swap;src:url(../../_kategori/fonts/poppins-latin-ext-600.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{
+--bg:#121110;
+--bg-rgb:18,17,16;
+--bg2:#1c1a17;
+--ink:#f7f3e8;
+--muted:#c9c1ad;
+--line:#403e3b;
+--accent:#fbd54c;
+--accent-ink:#141210;
+--accent-hi:#ffe27a;
+--accent-on-bg:#fbd54c;
+--accent-text:#786624;
+--paper:#f7f1df;
+--paper-ink:#171512;
+--paper-muted:#68645c;
+--head-bg:#121110;
+--head-bg-rgb:18,17,16;
+--head-ink:#f7f3e8;
+--display:"Luckiest Guy","Arial Black",system-ui,sans-serif;
+--text:"Poppins",system-ui,-apple-system,"Segoe UI",sans-serif;
+--neon:#fbd54c;
+--dough:#f3dfb7;
+--basil:#33b668;
+--ember:#fb8e28;
+--h1a:min(8.31vw, 15svh, 150px);
+--h1b:min(3.78vw, 19svh, 190px);
+--h1ma:min(calc((100vw - 40px) / 5.534), 62px);
+--h1mb:min(calc((100vw - 40px) / 12.171), 80px);
+--foot-fs:12.64vw;
+--lg-h:72px;
+--hero-max:1340px;
+--hero-ar:1.0000;
+}
+/* ofanos-pizza: sari vurgu uzerinde okunur yazi */
+.tab[aria-selected="true"],.pill.on,.go-n,.bar a.main,.stk-a{color:var(--accent-ink)}
+.pill.on span{background:rgba(0,0,0,.14)}
+:root{--lg-h:62px}

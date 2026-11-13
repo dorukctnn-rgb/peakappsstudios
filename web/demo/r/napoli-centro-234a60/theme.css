@@ -1,0 +1,51 @@
+/* Napoli Centro: renkler isletmenin kendi sitesinden (zemin #f4efe6, vurgu #c0202f). Fontlar: Luckiest Guy (başlık, sayaç, pizza adı, fiyat), Poppins (gövde), Poppins (gövde yarı kalın, düğme, etiket). Logo: orijinal dosya, filtre yok. */
+@font-face{font-family:"Luckiest Guy";font-style:normal;font-weight:400;font-display:swap;src:url(../../_kategori/fonts/luckiest-guy-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Luckiest Guy";font-style:normal;font-weight:400;font-display:swap;src:url(../../_kategori/fonts/luckiest-guy-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Poppins";font-style:normal;font-weight:400;font-display:swap;src:url(../../_kategori/fonts/poppins-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Poppins";font-style:normal;font-weight:400;font-display:swap;src:url(../../_kategori/fonts/poppins-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Poppins";font-style:normal;font-weight:600;font-display:swap;src:url(../../_kategori/fonts/poppins-latin-600.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Poppins";font-style:normal;font-weight:600;font-display:swap;src:url(../../_kategori/fonts/poppins-latin-ext-600.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{
+--bg:#f4efe6;
+--bg-rgb:244,239,230;
+--bg2:#ebe4d6;
+--ink:#17120f;
+--muted:#5b524a;
+--line:#c8c3bb;
+--accent:#c0202f;
+--accent-ink:#ffffff;
+--accent-hi:#d62f3f;
+--accent-on-bg:#c0202f;
+--accent-text:#c0202f;
+--paper:#fffaf0;
+--paper-ink:#17120f;
+--paper-muted:#6b6660;
+--head-bg:#f4efe6;
+--head-bg-rgb:244,239,230;
+--head-ink:#17120f;
+--display:"Luckiest Guy","Arial Black",system-ui,sans-serif;
+--text:"Poppins",system-ui,-apple-system,"Segoe UI",sans-serif;
+--neon:#c0202f;
+--dough:#f3dfb7;
+--basil:#2f7d3a;
+--ember:#e9822a;
+--h1a:min(6.91vw, 15svh, 150px);
+--h1b:min(4.48vw, 19svh, 190px);
+--h1ma:min(calc((100vw - 40px) / 6.650), 62px);
+--h1mb:min(calc((100vw - 40px) / 10.267), 80px);
+--foot-fs:13.34vw;
+--lg-h:72px;
+--hero-max:1800px;
+--hero-ar:1.0000;
+}
+/* napoli-centro: acik tema duzeltmeleri */
+:root{--lg-h:40px}
+.eyebrow,.slide-p{color:var(--accent-text)}
+.h1,.h1 *,.foot-q{text-shadow:none}
+.story{--bg:#1b1511;--bg2:#251d17;--ink:#f6efe4;--muted:#cfc4b4;background:#1b1511;color:#f6efe4}
+.foot-logo{width:150px}
+
+/* 430 px and below: the status text (Closed, opens tomorrow at ...) stays whole next to the wide wordmark; the wordmark gets a little smaller on the narrowest phones */
+@media (max-width:430px){.status{font-size:11px;gap:5px;padding:8px 8px 8px 7px}.top-r{gap:8px}:root{--lg-h:33px}}
+@media (max-width:380px){:root{--lg-h:30px}}
+@media (max-width:365px){:root{--lg-h:27px}.status{font-size:10.5px}}
