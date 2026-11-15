@@ -58,7 +58,7 @@ p + p { margin-top: .9em; }
 .top-r { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .status .st-x { white-space: pre; }
 .status { display: inline-flex; align-items: center; gap: 8px; font: var(--t-strong) 13px/1 var(--text); padding: 8px 12px 8px 10px; background: color-mix(in srgb, var(--bg) 70%, transparent); border: 1px solid color-mix(in srgb, var(--head-ink) 18%, transparent); border-radius: 999px; white-space: nowrap; min-width: 0; }
-.status b { font-weight: var(--t-strong); overflow: hidden; text-overflow: ellipsis; padding: .3em 0 .24em; margin: -.3em 0 -.24em; } /* Turkish dotted capital I and cedilla (Ç, Ş) need room: the box grows and the negative margin cancels it, so layout is unchanged */
+.status b { font-weight: var(--t-strong); overflow: hidden; text-overflow: ellipsis; padding: .3em 0 .24em; margin: -.3em 0 -.24em; } /* Turkce buyuk I noktasi ve C, S kuyrugu icin yer: kutu buyur, esit negatif kenar boslugu duzeni korur */
 .status[data-empty] { display: none; }
 .status i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #8f877d; flex: none; }
 .status.open i { background: #2fae67; box-shadow: 0 0 0 0 rgba(47, 174, 103, .5); animation: pulse 2.4s infinite; }
