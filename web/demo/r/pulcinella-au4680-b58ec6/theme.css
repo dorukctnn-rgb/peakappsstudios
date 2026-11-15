@@ -1,0 +1,49 @@
+/* Pulcinella: renkler isletmenin kendi sitesinden (zemin #f7f2eb, vurgu #c8302b). Fontlar: Raleway (başlık), Raleway (slogan vurgusu (italik)), Raleway (gövde), Raleway (gövde kalın, düğme). Logo: orijinal dosya, filtre yok. */
+@font-face{font-family:"Raleway";font-style:normal;font-weight:700;font-display:swap;src:url(../../_hat1k/fonts/raleway-latin-700.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Raleway";font-style:normal;font-weight:700;font-display:swap;src:url(../../_hat1k/fonts/raleway-latin-ext-700.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Raleway";font-style:italic;font-weight:700;font-display:swap;src:url(../../_hat1k/fonts/raleway-latin-700i.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Raleway";font-style:italic;font-weight:700;font-display:swap;src:url(../../_hat1k/fonts/raleway-latin-ext-700i.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Raleway";font-style:normal;font-weight:400;font-display:swap;src:url(../../_hat1k/fonts/raleway-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Raleway";font-style:normal;font-weight:400;font-display:swap;src:url(../../_hat1k/fonts/raleway-latin-ext-400.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Raleway";font-style:normal;font-weight:600;font-display:swap;src:url(../../_hat1k/fonts/raleway-latin-600.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Raleway";font-style:normal;font-weight:600;font-display:swap;src:url(../../_hat1k/fonts/raleway-latin-ext-600.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root{
+--bg:#f7f2eb;
+--bg-rgb:247,242,235;
+--bg2:#ede4d8;
+--ink:#1c1a19;
+--muted:#625a55;
+--line:#cbc7c1;
+--accent:#c8302b;
+--accent-ink:#ffffff;
+--accent-hi:#d9433d;
+--accent-on-bg:#c8302b;
+--accent-text:#c8302b;
+--paper:#ffffff;
+--paper-ink:#1c1a19;
+--paper-muted:#6e6c6c;
+--head-bg:#f7f2eb;
+--head-bg-rgb:247,242,235;
+--head-ink:#1c1a19;
+--display:"Raleway",system-ui, -apple-system, "Segoe UI", sans-serif;
+--text:"Raleway",system-ui,-apple-system,"Segoe UI",sans-serif;
+--d-w:700;
+--t-strong:600;
+--d-ls:-0.025em;
+--lg-top:54px;
+--plate:#c8302b;
+--plate-ink:#ffffff;
+--cream:var(--paper);
+--deep:#241512;
+--deep-ink:#f7e9e3;
+--h1:min(5.41vw, 15svh, 132px);
+--h1m:min(calc((100vw - 40px) / 6.105), 62px);
+--foot-fs:min(17.02vw, 260px);
+--nf:12;
+--nr:3;
+--lg-h:66px;
+--hero-max:1800px;
+--hero-ar:1.5000;
+}
+/* logo netlik: hicbir logo dogal boyutunun yarisindan buyuk cizilmez (2x) */
+:root img[src="img/logo.png"]{max-width:815px;max-height:409px}
