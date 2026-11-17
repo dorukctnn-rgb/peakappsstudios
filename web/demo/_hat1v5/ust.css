@@ -27,6 +27,13 @@
 @keyframes ust-perde { from { clip-path: inset(11% 8% 11% 8% round 26px); } to { clip-path: inset(0 0 0 0 round 0); } }
 @keyframes ust-kb { from { transform: scale(1) translate3d(0, 0, 0); } to { transform: scale(1.075) translate3d(-1.1%, -.9%, 0); } }
 .ust-on.v-bolme .hero-media { transform: none; }
+/* telefon (<= 599 px): kahraman ayni fotografin DIK kesitiyle gelir (lib/ust-v5.mjs heroTelefon, kendi pikseli, kucuk dosya).  Dik ekran yatay fotografi yukseklikten kirpip buyutur;
+   kutu = kesit yuksekligi / 2 (2x ekran) / 1.2 (Ken Burns ve parallax payi): fotograf hicbir zaman kendi pikselinden buyumez, altta marka zeminine erir. */
+.hero-pic { display: contents; }
+@media (max-width: 599px) {
+  .hero-m .hero-media { bottom: auto; height: min(100%, calc(var(--hero-mh) * .4167)); -webkit-mask-image: linear-gradient(180deg, #000 0, #000 70%, transparent 100%); mask-image: linear-gradient(180deg, #000 0, #000 70%, transparent 100%); }
+  .hero-m .hero-img { object-position: 50% 50%; }
+}
 
 /* ---------- 2. menu: sabitlenen fotograf + sekmeler + yemek satirlari (urun gibi) ---------- */
 .mx { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; background: var(--panel); color: var(--panel-ink); }
@@ -66,8 +73,7 @@
 .mx-hit:focus-visible { outline: 2px solid var(--panel-ink); outline-offset: 2px; }
 .mx-note { font-size: 13px; color: var(--panel-muted); margin: 14px 0 2px; }
 .mx-fig[data-fit="contain"] { background: rgb(var(--shade-rgb)); }
-.mx-fig .mx-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: blur(26px) brightness(.5) saturate(1.1); transform: scale(1.15) !important; }
-.mx-fig[data-fit="contain"] img:not(.mx-bg) { position: absolute; inset: 0; margin: auto; width: auto; height: auto; max-width: min(calc(100% - 64px), var(--nw, 100%)); max-height: min(calc(100% - 96px), var(--nh, 100%)); object-fit: contain; }
+.mx-fig[data-fit="contain"] img { position: absolute; inset: 0; margin: auto; width: auto; height: auto; max-width: min(calc(100% - 64px), var(--nw, 100%)); max-height: min(calc(100% - 96px), var(--nh, 100%)); object-fit: contain; }
 @media (min-width: 900px) and (max-width: 2048px) { .v-cerceve .hero-xl .hero-media { -webkit-mask-image: none; mask-image: none; } }
 @media (min-width: 2049px) { .v-cerceve .hero-xl .hero-media { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%) !important; mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%) !important; } }
 .mx-legend { font-size: 13px; color: var(--panel-muted); max-width: 44em; }
@@ -105,7 +111,7 @@
 .sahne { position: relative; background: var(--bg); color: var(--ink); }
 .sahne-pin { position: relative; height: min(78svh, 820px); min-height: 480px; overflow: hidden; }
 .sahne-foto { position: absolute; inset: 0; margin: 0; z-index: 1; clip-path: circle(min(28vmin, 250px) at 50% 50%); }
-.sahne-foto img { width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 50%) var(--fy, 50%); transform: scale(1.12); }
+.sahne-foto img { width: 100%; height: 100%; object-fit: cover; object-position: var(--fx, 50%) var(--fy, 50%); transform: scale(1.06); }
 .sahne-halka { position: absolute; z-index: 0; left: 50%; top: 50%; width: calc(min(28vmin, 250px) * 2 + 36px); aspect-ratio: 1; margin: calc(min(28vmin, 250px) * -1 - 18px) 0 0 calc(min(28vmin, 250px) * -1 - 18px); border: 1px solid color-mix(in srgb, var(--ink) 22%, transparent); border-radius: 50%; pointer-events: none; }
 .sahne-not { position: absolute; z-index: 2; left: var(--gut); bottom: clamp(20px, 5vh, 52px); display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; padding: 12px 18px 13px; color: #fff; background: rgba(var(--shade-rgb), .62); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border-radius: 2px; opacity: 0; transform: translateY(10px); transition: opacity .6s, transform .6s var(--ust-ease); }
 .sahne-not b { font: var(--d-style) var(--d-weight) clamp(18px, 1.6vw, 26px)/1.1 var(--display); text-transform: var(--d-case); letter-spacing: var(--d-ls); }
@@ -119,7 +125,10 @@
 .ust-on .ust-sahne .sahne-halka { margin: 0; left: 0; top: 0; will-change: transform, opacity; }
 
 /* kelime seridinin yerinde sahne yoksa: ince ayirici (Doruk 12 Kas: kayan yazi yok) */
-.ayrac { height: 1px; margin: 0 var(--gut); background: var(--line); }
+.ayrac, .ayrac-m { height: 1px; margin: 0 var(--gut); background: var(--line); }
+/* telefonda sahne: dik ekran yatay fotografi buyutmeden dolduramaz (kaynak yuksekligi yetmiyorsa ust-v5 sahne-m0 ekler); yerinde ince ayirici */
+.ayrac-m { display: none; }
+@media (max-width: 599px) { .sahne-m0 { display: none; } .sahne-m0 + .ayrac-m { display: block; } }
 
 /* ---------- 8. yemek kaydiricisi (Big Mamma / Pretty Patty): kendi stuyo cekimleri, fiyatla; parmakla ya da fareyle surukle ---------- */
 .kd { position: relative; background: var(--bg2); color: var(--ink); padding: clamp(60px, 6.5vw, 120px) 0 clamp(56px, 6vw, 108px); overflow: hidden; }
@@ -174,7 +183,8 @@
   .gal-track { width: auto; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 6px; }
   .gal-track::-webkit-scrollbar { display: none; }
   .ust-on .gal-track { transform: none; }
-  .gal-item { height: auto; width: 78vw; max-width: none; aspect-ratio: 4 / 5; scroll-snap-align: center; }
+  .gal-item { height: auto; width: 78vw; max-width: none; aspect-ratio: var(--am, 4 / 3); scroll-snap-align: center; } /* --am: foto orani, en cok 4:3 (dik hucreye kirpip buyutmek yok) */
+  .story-pic img, .contact-pic img { transform: none; } /* parallax payi telefonda dosyayi kendi pikselinden buyutuyordu */
   .gal-item:nth-child(even) { margin-top: 0; }
   .ust-on .gal-item img { transform: none; }
   .ust-on .hero-media { transform: translate3d(0, calc(var(--hp) * 18vh), 0) scale(calc(1.03 + var(--hp) * .06)); }
@@ -191,3 +201,10 @@
   .mx-panel { animation: none; }
   .mx-dish h3, .mx-tab::after { transition: none; }
 }
+
+/* bulut (12 Kas): menu fotografi yok ya da netlik kapisindan gecmediyse menu yalnız metin olarak tek sutunda kalir (bos yuva yok, yumusak gorsel yok) */
+.mx-yalin { grid-template-columns: minmax(0, 1fr); }
+.mx-yalin .mx-media { display: none; }
+.mx-yalin .mx-body { max-width: min(100%, 880px); margin-inline: auto; }
+/* tek bolumlu menude sekme cubugu cizilmez */
+.mx-tek .mx-tabs { display: none; }

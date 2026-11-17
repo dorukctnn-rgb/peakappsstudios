@@ -69,7 +69,7 @@
       var fx = M.W >= 900 ? sFx : 50, fy = M.W >= 900 ? sFy : 50;
       // baslangic dairesi ust cubugun altinda ve ekranin icinde kalir
       var X0 = clamp(fx / 100 * W0, rmin + 12, W0 - rmin - 12), Y0 = clamp(fy / 100 * H0, (M.top || 0) + rmin + 12, H0 - rmin - 12);
-      var X = X0 + (W0 / 2 - X0) * ge, Y = Y0 + (H0 / 2 - Y0) * ge, sc = 1.22 - 0.2 * ge;
+      var X = X0 + (W0 / 2 - X0) * ge, Y = Y0 + (H0 / 2 - Y0) * ge, sc = 1.06 - 0.04 * ge;
       if (sFoto) sFoto.style.transform = 'translate3d(' + (X - R).toFixed(1) + 'px,' + (Y - R).toFixed(1) + 'px,0) scale(' + k.toFixed(5) + ')';
       if (sImg) sImg.style.transform = 'translate3d(' + ((W0 / 2 * (1 - sc) - X) / k + R).toFixed(2) + 'px,' + ((H0 / 2 * (1 - sc) - Y) / k + R).toFixed(2) + 'px,0) scale(' + (sc / k).toFixed(5) + ')';
       // ince halka: daire buyumeye baslayinca soner (sabit boyut, yalniz opaklik ve konum)
@@ -137,7 +137,7 @@
         if (cur) { cur.classList.remove('on'); cur.classList.add('was'); }
         f.classList.add('on'); cur = f;
       };
-      var im = f.querySelector('img:not(.mx-bg)');
+      var im = f.querySelector('img');
       clearTimeout(swapT);
       if (im && !im.complete) { im.addEventListener('load', go, { once: true }); swapT = setTimeout(go, 700); } else go();
     };
