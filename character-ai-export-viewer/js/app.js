@@ -517,7 +517,7 @@
   function proState() {
     const el = $('cb-pro-state');
     if (!el) return;
-    el.textContent = !PRO_READY ? 'Pro arrives in a few days. Everything above it is free now.' : pro ? 'Pro is active on this browser.' : 'Pay once on Gumroad, then paste the licence key from your receipt here.';
+    el.textContent = !PRO_READY ? 'Pro arrives in a few days. Everything above it is free now.' : pro ? 'Pro is active on this browser.' : 'Pay once with Paddle.com. Pro turns on in this browser when you pay.';
   }
   function setupPro() {
     if (!window.PeakLicense) return;
