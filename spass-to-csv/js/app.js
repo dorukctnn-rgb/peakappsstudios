@@ -45,13 +45,48 @@ function setupPro() {
   PeakLicense.setup({ tool: 'decant', productId: PRO.productId, permalink: PRO.permalink, buyUrl: PRO.url, pitch: PRO_PITCH[L] || PRO_PITCH.en });
   pro = PeakLicense.isPro();
   document.body.classList.toggle('is-pro', pro);
-  PeakLicense.onChange(p => { pro = p; document.body.classList.toggle('is-pro', p); if (vault) { renderChange(); renderReuse(); } });
+  PeakLicense.onChange(p => { pro = p; document.body.classList.toggle('is-pro', p); if (p && offer) offer.proOn(); if (vault) { renderChange(); renderReuse(); } });
 }
-function needPro(why) {
+// The Pro offer at the moment of need (offer.js, assets/pro-offer.js). It loads after the page is ready; until it has, and if it
+// cannot load, the page behaves as it always did: free saves go straight through and a Pro button opens the Pro window.
+let offer = null;
+async function setupOffer() {
+  try {
+    const { installOffer } = await import('./offer.js');
+    offer = installOffer({
+      S, L, n,
+      state: () => (vault ? { c: counts(vault.records), list: checklist(vault.records), groups: reuseGroups(vault.records) } : null),
+      isPro: () => !!(window.PeakLicense && PeakLicense.isPro()),
+      buy: () => PeakLicense.buy(),
+      turnOn: () => { const b = document.querySelector('[data-enter-key]'); if (b) b.click(); else PeakLicense.open(); },
+      labelOf: kind => $(kind === 'apple' ? 'btn-apple' : 'btn-google').textContent.trim(),
+    });
+    offer.tagButtons(['btn-bitwarden', 'btn-sheet', 'btn-checklist']);
+  } catch (e) { offer = null; }
+}
+// the Pro buttons of this page on a Paddle page are not Gumroad links, so the Pro click counter (pro-source.js) does not see them
+// by itself: one note per press, with the part of the page it was in (the same words as everywhere: a Pro button pressed)
+function countProLinks() {
+  const mark = (id, place) => { const e = $(id); if (e) e.setAttribute('data-pro-place', place); };
+  mark('pro', 'panel'); mark('change-more', 'list');
+  document.addEventListener('click', e => {
+    const a = e.target && e.target.closest ? e.target.closest('a[data-buy-pro]') : null;
+    if (!a || /^https:\/\/dorukctn\.gumroad\.com\/l\//.test(a.href)) return;
+    try { if (window.PeakSource && PeakSource.count) PeakSource.count('click', PeakSource.place(a)); } catch (err) { /* the link works the same */ }
+  }, true);
+}
+function needPro(why, id) {
   if (window.PeakLicense && PeakLicense.isPro()) return true;
+  if (offer) { offer.gate(id); return false; }
   if (window.PeakLicense) PeakLicense.open(why);
   return false;
 }
+// a free save is about to start: false when the visitor closed the offer window instead of saving
+async function beforeFree(kind) {
+  if (!offer) return true;
+  try { return (await offer.beforeFree(kind)) === 'free'; } catch (e) { return true; }
+}
+function afterFree(kind, name) { if (offer) { try { offer.afterFree(kind, name); } catch (e) { /* the file is saved either way */ } } }
 
 /* ------------------------------------------------------------------ choose a file, then open it with the password */
 async function chooseFile(file) {
@@ -250,15 +285,23 @@ function fillDetail() {
 
 /* ------------------------------------------------------------------ saves */
 const stamp = () => new Date().toISOString().slice(0, 10);
-function saveApple() { download(`apple-passwords-${stamp()}.csv`, appleCsv(vault.records), 'text/csv;charset=utf-8'); toast(S.toastApple); }
-function saveGoogle() {
-  const parts = googleCsvParts(vault.records);
-  parts.forEach((p, i) => download(`google-passwords-${stamp()}${parts.length > 1 ? `-part${i + 1}` : ''}.csv`, p, 'text/csv;charset=utf-8'));
-  toast(parts.length > 1 ? S.toastGoogleParts(L, parts.length, GOOGLE_LIMIT) : S.toastGoogle);
+async function saveApple() {
+  if (!(await beforeFree('apple'))) return;
+  const name = `apple-passwords-${stamp()}.csv`;
+  download(name, appleCsv(vault.records), 'text/csv;charset=utf-8'); toast(S.toastApple);
+  afterFree('apple', name);
 }
-function saveBitwarden() { if (!needPro(S.proBitwarden)) return; download(`bitwarden-${stamp()}.json`, bitwardenJson(vault.records), 'application/json'); toast(S.toastBw); }
-function saveSheet() { if (!needPro(S.proSheet)) return; download(`records-${stamp()}.html`, recordSheet(vault.records), 'text/html;charset=utf-8'); toast(S.toastSheet); }
-function saveChecklist() { if (!needPro(S.proList)) return; download(`change-list-${stamp()}.csv`, checklistCsv(vault.records, done, keys), 'text/csv;charset=utf-8'); toast(S.toastList); }
+async function saveGoogle() {
+  if (!(await beforeFree('google'))) return;
+  const parts = googleCsvParts(vault.records);
+  const names = parts.map((p, i) => `google-passwords-${stamp()}${parts.length > 1 ? `-part${i + 1}` : ''}.csv`);
+  parts.forEach((p, i) => download(names[i], p, 'text/csv;charset=utf-8'));
+  toast(parts.length > 1 ? S.toastGoogleParts(L, parts.length, GOOGLE_LIMIT) : S.toastGoogle);
+  afterFree('google', names[0]);
+}
+function saveBitwarden() { if (!needPro(S.proBitwarden, 'bitwarden')) return; download(`bitwarden-${stamp()}.json`, bitwardenJson(vault.records), 'application/json'); toast(S.toastBw); }
+function saveSheet() { if (!needPro(S.proSheet, 'sheet')) return; download(`records-${stamp()}.html`, recordSheet(vault.records), 'text/html;charset=utf-8'); toast(S.toastSheet); }
+function saveChecklist() { if (!needPro(S.proList, 'list')) return; download(`change-list-${stamp()}.csv`, checklistCsv(vault.records, done, keys), 'text/csv;charset=utf-8'); toast(S.toastList); }
 
 /* ------------------------------------------------------------------ wiring */
 const TABS = ['all', 'login', 'card', 'address', 'note'];
@@ -286,6 +329,8 @@ function reset() {
 
 function init() {
   setupPro();
+  countProLinks();
+  setupOffer();
   const drop = $('drop');
   $('btn-files').addEventListener('click', () => $('file-input').click());
   $('file-input').addEventListener('change', e => chooseFile(e.target.files[0]));

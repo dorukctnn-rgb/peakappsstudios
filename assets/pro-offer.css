@@ -1,0 +1,90 @@
+/* The Pro offer at the moment of need (assets/pro-offer.js). Loaded by the script on first use, never by a page, so the pages that
+ * pull search traffic keep their bytes. Everything is themed by custom properties that each tool sets on the window (the tool's own
+ * colours and fonts); the fallbacks below keep it readable if a tool sets none. */
+.po {
+  --po-bg: #fff; --po-ink: #1c1724; --po-muted: #5b5566; --po-line: #d9dbe3;
+  --po-accent: #1f3a5f; --po-accent-ink: #fff; --po-tint: #f2f5fa;
+  --po-chip-bg: #f2c14e; --po-chip-ink: #2a1a05;
+  --po-btn-bg: var(--po-accent); --po-btn-ink: var(--po-accent-ink); --po-btn-line: var(--po-accent);
+  --po-radius: 12px;
+  border: 0; padding: 0; margin: auto;
+  width: min(780px, calc(100vw - 24px)); max-height: calc(100vh - 24px); max-height: calc(100dvh - 24px); overflow: auto;
+  background: var(--po-bg); color: var(--po-ink); border-radius: var(--po-radius);
+  box-shadow: 0 24px 70px rgba(18, 10, 24, .38);
+  padding: 26px 28px 22px;
+  font-size: 16px; line-height: 1.5;
+}
+.po::backdrop { background: rgba(18, 10, 24, .55); }
+.po * { box-sizing: border-box; }
+.po h2 { margin: 0 44px 8px 0; font-family: var(--po-display, inherit); font-size: clamp(22px, 3.2vw, 28px); line-height: 1.2; font-weight: 700; color: var(--po-ink); letter-spacing: -0.005em; }
+.po-lede { margin: 0 0 16px; color: var(--po-ink); max-width: 62ch; }
+.po-x { position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid var(--po-line); border-radius: 50%; background: var(--po-bg); color: var(--po-ink); cursor: pointer; padding: 0; }
+.po-x:hover { border-color: var(--po-accent); }
+.po-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* the two results side by side: one table, one row per thing the visitor's file holds */
+.po-scroll { overflow-x: auto; margin: 0 0 18px; border-radius: 10px; }
+.po-ledger { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 15px; line-height: 1.4; font-variant-numeric: tabular-nums; }
+.po .po-ledger th, .po .po-ledger td { padding: 10px 12px; text-align: left; vertical-align: top; border: 0; border-top: 1px solid var(--po-line); background: var(--po-bg); color: var(--po-ink); }
+.po .po-ledger thead th { border-top: 0; font-weight: 700; padding-top: 12px; padding-bottom: 12px; }
+.po .po-ledger tbody th { font-weight: 600; width: 34%; }
+.po .po-ledger .po-h-free { border-bottom: 2px solid var(--po-ink); }
+.po .po-ledger .po-h-pro { background: var(--po-accent); color: var(--po-accent-ink); border-radius: 10px 10px 0 0; }
+.po-price { display: inline-block; padding: 1px 8px; border-radius: 999px; background: var(--po-chip-bg); color: var(--po-chip-ink); font-weight: 800; }
+.po-once { font-weight: 500; font-size: 13.5px; opacity: .92; }
+.po .po-ledger .po-c-pro { background: var(--po-tint); font-weight: 600; }
+.po .po-ledger tbody tr:last-child .po-c-pro { border-radius: 0 0 10px 10px; }
+.po .po-ledger .po-hot th, .po .po-ledger .po-hot td { background: color-mix(in srgb, var(--po-chip-bg) 28%, var(--po-bg)); }
+.po .po-ledger .po-hot th { box-shadow: inset 4px 0 0 var(--po-accent); }
+
+.po-actions { display: flex; flex-wrap: wrap; gap: 10px 12px; align-items: stretch; }
+.po-btn { flex: 1 1 220px; min-height: 48px; padding: 11px 18px; border-radius: 8px; font: inherit; font-weight: 700; font-size: 16px; line-height: 1.2; cursor: pointer; text-align: center; }
+.po-btn-free { background: var(--po-bg); color: var(--po-ink); border: 2px solid var(--po-ink); }
+.po-btn-free:hover { background: var(--po-tint); }
+.po-btn-pro { background: var(--po-btn-bg); color: var(--po-btn-ink); border: 2px solid var(--po-btn-line); }
+.po-btn-pro:hover { filter: brightness(.94); }
+.po :focus-visible, .po-next :focus-visible { outline: 3px solid var(--po-accent); outline-offset: 2px; }
+
+.po-trust { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 4px; font-size: 14px; color: var(--po-muted); }
+.po-trust a { color: var(--po-ink); }
+.po-already { margin: 12px 0 0; font-size: 14px; color: var(--po-muted); }
+.po-link { border: 0; background: none; padding: 0; font: inherit; color: var(--po-ink); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+
+/* the Pro tag on a button that only Pro unlocks */
+.po-tag { display: inline-block; font-size: .78em; font-weight: 800; line-height: 1; padding: 3px 6px; border-radius: 4px; background: var(--po-chip-bg, #f2c14e); color: var(--po-chip-ink, #2a1a05); letter-spacing: .02em; vertical-align: .08em; }
+body.is-pro .po-tag { display: none; }
+
+/* the panel after a free save */
+.po-next { --po-bg: #fff; --po-ink: #1c1724; --po-muted: #5b5566; --po-line: #d9dbe3; --po-accent: #1f3a5f; --po-accent-ink: #fff; --po-tint: #f2f5fa; --po-btn-bg: var(--po-accent); --po-btn-ink: var(--po-accent-ink); --po-btn-line: var(--po-accent);
+  position: relative; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); grid-column: 1 / -1; gap: 14px 28px; align-items: start;
+  margin: 18px 0 0; padding: 18px 56px 18px 20px; background: var(--po-tint); border: 1px solid var(--po-line); border-left: 5px solid var(--po-accent); border-radius: 10px; color: var(--po-ink); font-size: 15.5px; line-height: 1.5; box-sizing: border-box; }
+.po-next * { box-sizing: border-box; }
+.po-next p { margin: 0; }
+.po-next-title { font-weight: 800; font-size: 17px; margin-bottom: 6px !important; overflow-wrap: anywhere; }
+.po-next-steps { margin: 0; padding-left: 1.25em; display: grid; gap: 4px; }
+.po-next a { color: var(--po-ink); }
+.po-next-pro { display: grid; gap: 10px; justify-items: start; padding-left: 24px; border-left: 1px solid var(--po-line); }
+.po-next-pro .po-btn { flex: none; min-height: 44px; }
+.po-next-x { position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; display: grid; place-items: center; border: 0; border-radius: 50%; background: transparent; color: var(--po-ink); cursor: pointer; padding: 0; }
+.po-next-x:hover { background: var(--po-line); }
+@media (max-width: 700px) {
+  .po-next { grid-template-columns: minmax(0, 1fr); padding: 16px 50px 16px 16px; }
+  .po-next-pro { padding-left: 0; border-left: 0; padding-top: 12px; border-top: 1px solid var(--po-line); width: 100%; }
+  .po-next-pro .po-btn { width: 100%; }
+}
+
+@media (max-width: 560px) {
+  .po { padding: 20px 16px 18px; width: calc(100vw - 16px); max-height: calc(100vh - 16px); max-height: calc(100dvh - 16px); }
+  .po h2 { margin-right: 40px; }
+  .po .po-ledger { font-size: 14px; }
+  .po .po-ledger th, .po .po-ledger td { padding: 8px 8px; }
+  .po .po-ledger tbody th { width: 30%; }
+  .po-once { display: block; font-size: 12.5px; }
+  .po-actions { flex-direction: column; }
+  .po-btn { flex: none; width: 100%; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .po[open] { animation: po-in .16s ease-out; }
+  @keyframes po-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+}
+@media print { .po, .po-next { display: none; } }

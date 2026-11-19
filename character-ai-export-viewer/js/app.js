@@ -78,6 +78,7 @@
   let allowMerge = false;
   let passFor = null;
   let pro = false;
+  let offerApi = null;   // the Pro offer at the moment of need (js/offer.js), once it has loaded
   const hooks = { open: [], close: [] };
 
   const ERRORS = {
@@ -183,7 +184,7 @@
     const appOpen = !$('cb-app-wrap').hidden;
     const list = await entriesFromDrop(e.dataTransfer);
     if (appOpen) {
-      if (!(PRO_READY && PeakLicense.requirePro('Adding a second export to the open one, with repeated messages removed, is part of Pro.'))) return;
+      if (!needPro('Adding a second export to the open one, with repeated messages removed, is part of Pro.', 'merge')) return;
       take(list, true);
     } else take(list, false);
   });
@@ -213,12 +214,12 @@
     openItems();
   });
   $('cb-merge-pro').addEventListener('click', () => {
-    if (!(PRO_READY && PeakLicense.requirePro('Merging several exports into one archive is part of Pro.'))) return;
+    if (!needPro('Merging several exports into one archive is part of Pro.', 'merge')) return;
     allowMerge = true;
     openItems();
   });
   $('cb-add').addEventListener('click', () => {
-    if (!(PRO_READY && PeakLicense.requirePro('Adding another export to this one, with repeated messages removed, is part of Pro.'))) return;
+    if (!needPro('Adding another export to this one, with repeated messages removed, is part of Pro.', 'merge')) return;
     fileInput.dataset.add = '1';
     fileInput.click();
   });
@@ -392,16 +393,25 @@
   const exportOpts = () => ({ names, locale: LOCALE, lang: 'en', owner: owner(), title: owner() ? `${owner()}’s chats` : 'Chat archive' });
   async function saveChat(kind) {
     if (kind === 'pdf') return pdfDialog();
+    // a free save: once per session the Pro offer (offer.js) puts this chat and Pro side by side first; closing it saves nothing
+    if (offerApi && (await offerApi.beforeFree(`chat-${kind}`)) !== 'free') return;
     const r = await call('export', { kind, id: current.id, opts: exportOpts() });
     download(r.blob, r.name);
     toast(`Saved ${r.name}`);
+    if (offerApi) offerApi.afterFree('chat', { id: `chat-${kind}`, name: r.name });
   }
-  const needPro = (why) => PRO_READY && PeakLicense.requirePro(why);
+  // a button that only Pro unlocks: true for a Pro visitor, otherwise the offer window (offer.js) or, without it, the Pro window
+  const needPro = (why, id) => {
+    if (!PRO_READY) return false;
+    if (pro || PeakLicense.isPro()) return true;
+    if (offerApi) { offerApi.gate(id, why); return false; }
+    return PeakLicense.requirePro(why);
+  };
   document.querySelectorAll('[data-cb-all]').forEach((b) => b.addEventListener('click', async () => {
     const kind = b.dataset.cbAll;
     if (!OV) return;
     if (kind === 'print') return pdfDialog(true);
-    if (!needPro(kind === 'book' ? 'The offline book of every chat is part of Pro.' : 'The EPUB of every chat is part of Pro.')) return;
+    if (!needPro(kind === 'book' ? 'The offline book of every chat is part of Pro.' : 'The EPUB of every chat is part of Pro.', kind)) return;
     b.disabled = true;
     const label = b.innerHTML;
     b.textContent = 'Writing…';
@@ -414,7 +424,7 @@
   }));
 
   function pdfDialog(all) {
-    if (!needPro('Saving chats as a PDF is part of Pro.')) return;
+    if (!needPro('Saving chats as a PDF is part of Pro.', 'pdf')) return;
     const d = $('cb-pdf-dialog');
     const total = OV.counts.messages;
     const s = current ? OV.chats.find((x) => x.id === current.id) : null;
@@ -524,7 +534,7 @@
     if (!PRO_READY) document.querySelectorAll('[data-buy-pro], [data-enter-key]').forEach((b) => { b.setAttribute('aria-disabled', 'true'); b.addEventListener('click', (e) => { e.preventDefault(); toast('Pro arrives in a few days.'); }, true); });
     PeakLicense.setup(LICENSE);
     pro = PRO_READY && PeakLicense.isPro();
-    PeakLicense.onChange((p) => { pro = PRO_READY && p; proState(); document.body.classList.toggle('is-pro', pro); });
+    PeakLicense.onChange((p) => { pro = PRO_READY && p; proState(); document.body.classList.toggle('is-pro', pro); if (pro && offerApi) offerApi.proOn(); });
     proState();
   }
 
@@ -534,7 +544,21 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setupPro); else setupPro();
   window.Chatbound = {
     call, toast, download, esc, owner: () => (OV ? owner() : ''), names: () => names, selectTab,
-    needPro: (why) => needPro(why), get pro() { return pro; }, get overview() { return OV; },
+    needPro: (why, id) => needPro(why, id), get pro() { return pro; }, get overview() { return OV; },
     onOpen: (fn) => hooks.open.push(fn), onClose: (fn) => hooks.close.push(fn),
+    facts: {},                                  // numbers the other scripts of the page leave for the offer (move.js: people)
+    get offer() { return offerApi; },
   };
+  // the Pro offer at the moment of need loads after the page is ready; until it has (or if it cannot), saves go straight
+  // through and a Pro button opens the Pro window, as before
+  const loadOffer = () => import('/character-ai-export-viewer/js/offer.js').then((m) => {
+    offerApi = m.installOffer(window.Chatbound, {
+      isPro: () => !!(window.PeakLicense && PeakLicense.isPro()),
+      buy: () => PeakLicense.buy(),
+      turnOn: () => { const b = document.querySelector('[data-enter-key]'); if (b) b.click(); else PeakLicense.open(); },
+    });
+  }).catch(() => { offerApi = null; });
+  // the English page only: the Portuguese, Spanish and Indonesian editions are written from this file (_build/world.mjs) and their
+  // words are not in the offer, so they keep the Pro window they always had
+  if (/^en\b/i.test(document.documentElement.lang || 'en')) loadOffer();
 })();

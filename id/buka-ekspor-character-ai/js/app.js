@@ -78,6 +78,7 @@
   let allowMerge = false;
   let passFor = null;
   let pro = false;
+  let offerApi = null;   // the Pro offer at the moment of need (js/offer.js), once it has loaded
   const hooks = { open: [], close: [] };
 
   const ERRORS = {
@@ -183,7 +184,7 @@
     const appOpen = !$('cb-app-wrap').hidden;
     const list = await entriesFromDrop(e.dataTransfer);
     if (appOpen) {
-      if (!(PRO_READY && PeakLicense.requirePro('Menambahkan ekspor kedua ke yang sedang dibuka, tanpa pesan ganda, adalah bagian dari Pro.'))) return;
+      if (!needPro('Menambahkan ekspor kedua ke yang sedang dibuka, tanpa pesan ganda, adalah bagian dari Pro.', 'merge')) return;
       take(list, true);
     } else take(list, false);
   });
@@ -213,12 +214,12 @@
     openItems();
   });
   $('cb-merge-pro').addEventListener('click', () => {
-    if (!(PRO_READY && PeakLicense.requirePro('Menggabungkan beberapa ekspor menjadi satu arsip adalah bagian dari Pro.'))) return;
+    if (!needPro('Menggabungkan beberapa ekspor menjadi satu arsip adalah bagian dari Pro.', 'merge')) return;
     allowMerge = true;
     openItems();
   });
   $('cb-add').addEventListener('click', () => {
-    if (!(PRO_READY && PeakLicense.requirePro('Menambahkan ekspor lain ke ekspor ini, tanpa pesan ganda, adalah bagian dari Pro.'))) return;
+    if (!needPro('Menambahkan ekspor lain ke ekspor ini, tanpa pesan ganda, adalah bagian dari Pro.', 'merge')) return;
     fileInput.dataset.add = '1';
     fileInput.click();
   });
@@ -392,16 +393,25 @@
   const exportOpts = () => ({ names, locale: LOCALE, lang: 'id', owner: owner(), title: owner() ? `Chat milik ${owner()}` : 'Arsip chat' });
   async function saveChat(kind) {
     if (kind === 'pdf') return pdfDialog();
+    // a free save: once per session the Pro offer (offer.js) puts this chat and Pro side by side first; closing it saves nothing
+    if (offerApi && (await offerApi.beforeFree(`chat-${kind}`)) !== 'free') return;
     const r = await call('export', { kind, id: current.id, opts: exportOpts() });
     download(r.blob, r.name);
     toast(`Tersimpan: ${r.name}`);
+    if (offerApi) offerApi.afterFree('chat', { id: `chat-${kind}`, name: r.name });
   }
-  const needPro = (why) => PRO_READY && PeakLicense.requirePro(why);
+  // a button that only Pro unlocks: true for a Pro visitor, otherwise the offer window (offer.js) or, without it, the Pro window
+  const needPro = (why, id) => {
+    if (!PRO_READY) return false;
+    if (pro || PeakLicense.isPro()) return true;
+    if (offerApi) { offerApi.gate(id, why); return false; }
+    return PeakLicense.requirePro(why);
+  };
   document.querySelectorAll('[data-cb-all]').forEach((b) => b.addEventListener('click', async () => {
     const kind = b.dataset.cbAll;
     if (!OV) return;
     if (kind === 'print') return pdfDialog(true);
-    if (!needPro(kind === 'book' ? 'Buku offline berisi semua chat adalah bagian dari Pro.' : 'EPUB berisi semua chat adalah bagian dari Pro.')) return;
+    if (!needPro(kind === 'book' ? 'Buku offline berisi semua chat adalah bagian dari Pro.' : 'EPUB berisi semua chat adalah bagian dari Pro.', kind)) return;
     b.disabled = true;
     const label = b.innerHTML;
     b.textContent = 'Membuat…';
@@ -414,7 +424,7 @@
   }));
 
   function pdfDialog(all) {
-    if (!needPro('Menyimpan chat sebagai PDF adalah bagian dari Pro.')) return;
+    if (!needPro('Menyimpan chat sebagai PDF adalah bagian dari Pro.', 'pdf')) return;
     const d = $('cb-pdf-dialog');
     const total = OV.counts.messages;
     const s = current ? OV.chats.find((x) => x.id === current.id) : null;
@@ -524,7 +534,7 @@
     if (!PRO_READY) document.querySelectorAll('[data-buy-pro], [data-enter-key]').forEach((b) => { b.setAttribute('aria-disabled', 'true'); b.addEventListener('click', (e) => { e.preventDefault(); toast('Pro akan tersedia dalam beberapa hari.'); }, true); });
     PeakLicense.setup(LICENSE);
     pro = PRO_READY && PeakLicense.isPro();
-    PeakLicense.onChange((p) => { pro = PRO_READY && p; proState(); document.body.classList.toggle('is-pro', pro); });
+    PeakLicense.onChange((p) => { pro = PRO_READY && p; proState(); document.body.classList.toggle('is-pro', pro); if (pro && offerApi) offerApi.proOn(); });
     proState();
   }
 
@@ -534,7 +544,21 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setupPro); else setupPro();
   window.Chatbound = {
     call, toast, download, esc, owner: () => (OV ? owner() : ''), names: () => names, selectTab,
-    needPro: (why) => needPro(why), get pro() { return pro; }, get overview() { return OV; },
+    needPro: (why, id) => needPro(why, id), get pro() { return pro; }, get overview() { return OV; },
     onOpen: (fn) => hooks.open.push(fn), onClose: (fn) => hooks.close.push(fn),
+    facts: {},                                  // numbers the other scripts of the page leave for the offer (move.js: people)
+    get offer() { return offerApi; },
   };
+  // the Pro offer at the moment of need loads after the page is ready; until it has (or if it cannot), saves go straight
+  // through and a Pro button opens the Pro window, as before
+  const loadOffer = () => import('/character-ai-export-viewer/js/offer.js').then((m) => {
+    offerApi = m.installOffer(window.Chatbound, {
+      isPro: () => !!(window.PeakLicense && PeakLicense.isPro()),
+      buy: () => PeakLicense.buy(),
+      turnOn: () => { const b = document.querySelector('[data-enter-key]'); if (b) b.click(); else PeakLicense.open(); },
+    });
+  }).catch(() => { offerApi = null; });
+  // the English page only: the Portuguese, Spanish and Indonesian editions are written from this file (_build/world.mjs) and their
+  // words are not in the offer, so they keep the Pro window they always had
+  if (/^en\b/i.test(document.documentElement.lang || 'en')) loadOffer();
 })();

@@ -44,6 +44,7 @@
     userName = (ov.user && ov.user.first_name) || '';
     try { IDX = await CB.call('moveIndex', {}); } catch (e) { IDX = { people: [] }; }
     $('tab-move').textContent = `Move to another app (${fmtN(IDX.people.length)})`;
+    if (CB.facts) CB.facts.people = IDX.people.length; // for the Pro offer (offer.js)
     renderList();
     if (IDX.people.length) pick(IDX.people[0].key, false); else $('cb-mv-detail').innerHTML = '<p class="cb-empty" style="padding:0">There are no characters or chats in this file to move.</p>';
   });
@@ -319,11 +320,13 @@
     if (CB.pro) return true;
     if (!free) { free = { key: person.key, name: nameOf(person) }; store.set('chatbound:free-character', free); renderFree(); return true; }
     if (free.key === person.key) return true;
-    return CB.needPro(`Your free character is ${free.name || 'already chosen'}. Converting more characters, or all of them at once, is part of Pro.`);
+    return CB.needPro(`Your free character is ${free.name || 'already chosen'}. Converting more characters, or all of them at once, is part of Pro.`, 'character');
   }
   async function save(what, b) {
     const name = nameOf(person);
     if (!name) { CB.toast('Type the character’s name first.'); $('cb-mv-name').focus(); return; }
+    // the save that would spend the free character: once per session the Pro offer says so first (offer.js); closing it saves nothing
+    if (!CB.pro && !free && CB.offer && (await CB.offer.beforeFree(what === 'jsonl' ? 'chat-file' : `card-${what}`, { name })) !== 'free') return;
     if (!allowed()) return;
     b.disabled = true;
     try {
@@ -331,6 +334,7 @@
         const r = await CB.call('moveChat', { id: chatId, layout: layoutOf(chatId), charName: name, userName: userName || 'You', fileName: name });
         CB.download(r.blob, r.name);
         CB.toast(`Saved ${r.name}`);
+        if (CB.offer) CB.offer.afterFree('card', { name: r.name, free: free && free.name });
       } else {
         const c = cardFor(person, firstMesOf(person));
         const errs = M.validateCard(c);
@@ -339,6 +343,7 @@
         if (what === 'json') CB.download(new Blob([JSON.stringify(c, null, 2)], { type: 'application/json' }), `${stem}.json`);
         else CB.download(new Blob([M.pngWithCard(await pictureFor(person), JSON.stringify(c))], { type: 'image/png' }), `${stem}.png`);
         CB.toast(`Saved ${stem}.${what}`);
+        if (CB.offer) CB.offer.afterFree('card', { name: `${stem}.${what}`, free: free && free.name });
       }
     } catch (err) { CB.toast(`That didn’t work: ${err.message}`); }
     b.disabled = false;
@@ -349,7 +354,7 @@
   $('cb-mv-all').addEventListener('click', async (e) => {
     const b = e.currentTarget;
     if (!IDX || !IDX.people.length) return;
-    if (!CB.needPro('Every character and every chat at once, as one ZIP of cards and chat files, is part of Pro.')) return;
+    if (!CB.needPro('Every character and every chat at once, as one ZIP of cards and chat files, is part of Pro.', 'zip')) return;
     b.disabled = true;
     const label0 = b.innerHTML;
     b.textContent = 'Making the cards…';

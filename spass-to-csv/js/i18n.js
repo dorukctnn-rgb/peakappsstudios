@@ -3,6 +3,8 @@
 const num = (lang, v) => Number(v).toLocaleString(lang === 'de' ? 'de-DE' : lang === 'nl' ? 'nl-NL' : 'en-US');
 const pl = (lang, k, one, many) => `${num(lang, k)} ${k === 1 ? one : many}`;
 
+const joinList = (lang, a) => (a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' ' + (lang === 'de' ? 'und' : lang === 'nl' ? 'en' : 'and') + ' ' + a[a.length - 1]);
+
 export const GROUP_TEXT = {
   en: {
     email: ['E-mail and account recovery', 'Whoever holds your e-mail can reset the password of almost every other account.'],
@@ -76,6 +78,31 @@ export const STR = {
     toastBw: 'Saved. Bitwarden: Tools > Import, Bitwarden (json).', toastSheet: 'Saved. Print it or save it as a PDF, then delete the file.', toastList: 'Saved. It holds no passwords.',
     proBitwarden: 'Bitwarden and KeePassXC file', proSheet: 'Record sheet', proList: 'Change list',
     noMsg: 'No password, no file name and no record is stored by this page.',
+    // the Pro offer at the moment of need (assets/pro-offer.js; built in offer.js)
+    offer: {
+      words: { free: 'Free', pro: 'Pro', once: 'once', columnWhat: 'What your file holds', buy: 'Get Pro, $8 once', notNow: 'Not now', close: 'Close', dismiss: 'Dismiss', already: 'Bought Pro already?', turnOn: 'Turn Pro on', trustPay: 'Paid once through Paddle, no subscription.', refund: 'Refund policy', trustLocal: 'Your file and password stay on this page. Pro does not upload them either.' },
+      price: '$8',
+      freeLabel: 'Save the free file',
+      chooseTitle: label => `Save the ${label}`,
+      rLogins: 'Logins', rCards: 'Cards', rAddresses: 'Addresses', rNotes: 'Notes', rChange: 'Change list', rReuse: 'Reused passwords',
+      left: 'left out', firstN: (lang, k) => `first ${num(lang, k)}`, allN: (lang, k) => `all ${num(lang, k)}, in order`,
+      reuseFree: (lang, g) => `${num(lang, g)} counted`, reuseByLogin: 'grouped by login',
+      parts: (lang, c) => joinList(lang, [c.card && pl(lang, c.card, 'card', 'cards'), c.address && pl(lang, c.address, 'address', 'addresses'), c.note && pl(lang, c.note, 'note', 'notes')].filter(Boolean)),
+      ledeLeft: (lang, parts) => `Your file also holds ${parts}. The free files carry logins only.`,
+      ledeList: (lang, k) => `The free file carries all ${pl(lang, k, 'login', 'logins')}. Pro adds the whole change list and groups the reused passwords by login.`,
+      gate: {
+        bitwarden: ['The Bitwarden and KeePassXC file is part of Pro', 'One file with logins, cards, addresses, notes and one-time codes, for Bitwarden and KeePassXC.'],
+        sheet: ['The record sheet is part of Pro', 'A printable sheet of your cards, addresses and notes.'],
+        list: ['The change list as CSV is part of Pro', 'Your logins in the order to change them, as a CSV with no passwords in it.'],
+      },
+      saved: name => `Saved ${name}.`,
+      stepApple: 'Import it on a Mac: Passwords, File > Import Passwords from File.',
+      stepGoogle: 'Import it into Google Password Manager, or as a Chrome file into Bitwarden, 1Password or Proton Pass.',
+      stepDelete: 'Delete the file afterwards. It holds your passwords in plain text.',
+      steps: 'Steps',
+      hookLeft: (lang, parts) => `Still in your Samsung Pass file: ${parts}. Pro writes them into one Bitwarden and KeePassXC file.`,
+      hookList: (lang, k) => `Pro adds the whole change list, ${pl(lang, k, 'login', 'logins')} in order, and the reused passwords grouped by login.`,
+    },
   },
   de: {
     busyOpen: 'Datei wird mit deinem Passwort entsperrt',
@@ -122,6 +149,30 @@ export const STR = {
     toastBw: 'Gespeichert. Bitwarden: Tools > Daten importieren, Bitwarden (json).', toastSheet: 'Gespeichert. Drucke sie oder speichere sie als PDF und lösche dann die Datei.', toastList: 'Gespeichert. Sie enthält keine Passwörter.',
     proBitwarden: 'Bitwarden- und KeePassXC-Datei', proSheet: 'Übersichtsblatt', proList: 'Änderungsliste',
     noMsg: 'Diese Seite speichert kein Passwort, keinen Dateinamen und keinen Eintrag.',
+    offer: {
+      words: { free: 'Gratis', pro: 'Pro', once: 'einmalig', columnWhat: 'Was deine Datei enthält', buy: 'Pro holen, einmal $8', notNow: 'Jetzt nicht', close: 'Schließen', dismiss: 'Ausblenden', already: 'Pro schon gekauft?', turnOn: 'Pro einschalten', trustPay: 'Einmal über Paddle bezahlt, kein Abo.', refund: 'Rückerstattung', trustLocal: 'Deine Datei und dein Passwort bleiben auf dieser Seite. Pro lädt sie auch nicht hoch.' },
+      price: '$8',
+      freeLabel: 'Gratis-Datei speichern',
+      chooseTitle: label => `${label} speichern`,
+      rLogins: 'Logins', rCards: 'Karten', rAddresses: 'Adressen', rNotes: 'Notizen', rChange: 'Änderungsliste', rReuse: 'Mehrfach benutzte Passwörter',
+      left: 'fehlt', firstN: (lang, k) => `die ersten ${num(lang, k)}`, allN: (lang, k) => `alle ${num(lang, k)}, in Reihenfolge`,
+      reuseFree: (lang, g) => `${num(lang, g)} gezählt`, reuseByLogin: 'nach Login gruppiert',
+      parts: (lang, c) => joinList(lang, [c.card && pl(lang, c.card, 'Karte', 'Karten'), c.address && pl(lang, c.address, 'Adresse', 'Adressen'), c.note && pl(lang, c.note, 'Notiz', 'Notizen')].filter(Boolean)),
+      ledeLeft: (lang, parts) => `Deine Datei enthält außerdem ${parts}. Die Gratis-Dateien enthalten nur Logins.`,
+      ledeList: (lang, k) => `Die Gratis-Datei enthält alle ${pl(lang, k, 'Login', 'Logins')}. Pro ergänzt die ganze Änderungsliste und gruppiert die mehrfach benutzten Passwörter nach Login.`,
+      gate: {
+        bitwarden: ['Die Bitwarden- und KeePassXC-Datei gehört zu Pro', 'Eine Datei mit Logins, Karten, Adressen, Notizen und Einmalcodes für Bitwarden und KeePassXC.'],
+        sheet: ['Das Übersichtsblatt gehört zu Pro', 'Ein druckbares Blatt mit deinen Karten, Adressen und Notizen.'],
+        list: ['Die Änderungsliste als CSV gehört zu Pro', 'Deine Logins in der Reihenfolge, in der du sie ändern solltest, als CSV ohne Passwörter.'],
+      },
+      saved: name => `Gespeichert: ${name}.`,
+      stepApple: 'Importiere sie auf einem Mac: Passwörter, Ablage > Passwörter aus Datei importieren.',
+      stepGoogle: 'Importiere sie in den Google Passwortmanager oder als Chrome-Datei in Bitwarden, 1Password oder Proton Pass.',
+      stepDelete: 'Lösche die Datei danach. Sie enthält deine Passwörter im Klartext.',
+      steps: 'Schritte',
+      hookLeft: (lang, parts) => `Noch in deiner Samsung-Pass-Datei: ${parts}. Pro schreibt sie in eine Bitwarden- und KeePassXC-Datei.`,
+      hookList: (lang, k) => `Pro ergänzt die ganze Änderungsliste (${pl(lang, k, 'Login', 'Logins')} in Reihenfolge) und die mehrfach benutzten Passwörter nach Login gruppiert.`,
+    },
   },
   nl: {
     busyOpen: 'Bestand wordt ontgrendeld met je wachtwoord',
@@ -168,6 +219,30 @@ export const STR = {
     toastBw: 'Opgeslagen. Bitwarden: Extra > Gegevens importeren, Bitwarden (json).', toastSheet: 'Opgeslagen. Print het of bewaar het als pdf en verwijder daarna het bestand.', toastList: 'Opgeslagen. Er staan geen wachtwoorden in.',
     proBitwarden: 'Bitwarden- en KeePassXC-bestand', proSheet: 'Overzichtsblad', proList: 'Wijzigingslijst',
     noMsg: 'Deze pagina bewaart geen wachtwoord, geen bestandsnaam en geen item.',
+    offer: {
+      words: { free: 'Gratis', pro: 'Pro', once: 'eenmalig', columnWhat: 'Wat je bestand bevat', buy: 'Pro kopen, eenmalig $8', notNow: 'Nu niet', close: 'Sluiten', dismiss: 'Verbergen', already: 'Pro al gekocht?', turnOn: 'Pro aanzetten', trustPay: 'Eenmalig betaald via Paddle, geen abonnement.', refund: 'Terugbetaling', trustLocal: 'Je bestand en wachtwoord blijven op deze pagina. Pro uploadt ze ook niet.' },
+      price: '$8',
+      freeLabel: 'Gratis bestand opslaan',
+      chooseTitle: label => `${label} opslaan`,
+      rLogins: 'Logins', rCards: 'Kaarten', rAddresses: 'Adressen', rNotes: 'Notities', rChange: 'Wijzigingslijst', rReuse: 'Hergebruikte wachtwoorden',
+      left: 'ontbreekt', firstN: (lang, k) => `de eerste ${num(lang, k)}`, allN: (lang, k) => `alle ${num(lang, k)}, op volgorde`,
+      reuseFree: (lang, g) => `${num(lang, g)} geteld`, reuseByLogin: 'per login gegroepeerd',
+      parts: (lang, c) => joinList(lang, [c.card && pl(lang, c.card, 'kaart', 'kaarten'), c.address && pl(lang, c.address, 'adres', 'adressen'), c.note && pl(lang, c.note, 'notitie', 'notities')].filter(Boolean)),
+      ledeLeft: (lang, parts) => `Je bestand bevat ook ${parts}. De gratis bestanden bevatten alleen logins.`,
+      ledeList: (lang, k) => `Het gratis bestand bevat alle ${pl(lang, k, 'login', 'logins')}. Pro voegt de hele wijzigingslijst toe en groepeert de hergebruikte wachtwoorden per login.`,
+      gate: {
+        bitwarden: ['Het Bitwarden- en KeePassXC-bestand hoort bij Pro', 'Eén bestand met logins, kaarten, adressen, notities en eenmalige codes, voor Bitwarden en KeePassXC.'],
+        sheet: ['Het overzichtsblad hoort bij Pro', 'Een afdrukbaar blad met je kaarten, adressen en notities.'],
+        list: ['De wijzigingslijst als CSV hoort bij Pro', 'Je logins in de volgorde waarin je ze wijzigt, als CSV zonder wachtwoorden.'],
+      },
+      saved: name => `Opgeslagen: ${name}.`,
+      stepApple: 'Importeer het op een Mac: Wachtwoorden, Archief > Wachtwoorden importeren uit bestand.',
+      stepGoogle: 'Importeer het in Google Wachtwoordbeheer of als Chrome-bestand in Bitwarden, 1Password of Proton Pass.',
+      stepDelete: 'Verwijder het bestand daarna. Het bevat je wachtwoorden in leesbare tekst.',
+      steps: 'Stappen',
+      hookLeft: (lang, parts) => `Nog in je Samsung Pass-bestand: ${parts}. Pro schrijft ze naar één Bitwarden- en KeePassXC-bestand.`,
+      hookList: (lang, k) => `Pro voegt de hele wijzigingslijst toe (${pl(lang, k, 'login', 'logins')} op volgorde) en de hergebruikte wachtwoorden per login gegroepeerd.`,
+    },
   },
 };
 
