@@ -9,6 +9,8 @@ const q = v => { const s = v == null ? '' : String(v); return /[",\r\n]/.test(s)
 const line = cells => cells.map(q).join(',');
 // a row from the columns it fills; every other column stays empty
 const row = o => line(C2_COLUMNS.map(c => (c === 'Others' && o.Others && typeof o.Others === 'object' ? JSON.stringify(o.Others) : o[c])));
+// one entry of the Custom list: the value sits under a key named after the entry's own type
+const custom = (type, title, value) => ({ Type: type, [`${type}_Title`]: title, [type]: value });
 const login = (name, urls, user, pw, notes = '', extra = {}) => row({ Display_Name: name, Login_URLs: urls, Login_Username: user, Login_Password: pw, Notes: notes, Favorite: 'false', ...extra });
 
 export const SAMPLE_NAME = 'c2-password-sample-export.csv';
@@ -28,7 +30,7 @@ export function sampleCsv() {
     login('Discord', 'discord.com', 'alexr_sample', 'sample-Pebble-77'),
     login('Garden forum', 'gardenforum.example.org', 'alexgrows', 'sample,"q",pass', 'Password has a comma and quotes, kept as typed: sample,"q",pass'),
     login('Çiçek Sepeti İstanbul', 'cicek.example.com', 'ğüşiöç.sample@example.com', 'sample-ığüş-Straße', 'Teslimat notu: kapıcıya bırakın.'),
-    login('Bank app', 'androidapp://com.example.bank', 'arivera_app', 'sample-Ledger-60', 'Saved from the phone app: no website.', { Others: { Custom: [{ Type: 'Password', Password_Title: 'Phone banking PIN', Password: 'sample-4821' }, { Type: 'Text', Text_Title: 'Branch', Text: 'Main Street' }] } }),
+    login('Bank app', 'androidapp://com.example.bank', 'arivera_app', 'sample-Ledger-60', 'Saved from the phone app: no website.', { Others: { Custom: [custom('Password', 'Phone banking PIN', 'sample-4821'), custom('Text', 'Branch', 'Main Street')] } }),
     row({ Display_Name: 'Everyday Visa', Notes: 'Bank: call the number on the back.', Favorite: 'false', Others: { Type: 'card', Card_Name: 'Alex Rivera', Card_Type: 'visa', Card_Number: '4111 1111 1111 1111', Card_Expiry: '08/29', Card_CVV: '123', Card_PIN: '0000', Card_Phone: '555-0101', Card_URL: 'https://bank.example.com' } }),
     row({ Display_Name: 'Travel card', Favorite: 'false', Others: { Type: 'card', Card_Name: 'Alex Rivera', Card_Type: 'mastercard', Card_Number: '5555555555554444', Card_Expiry: '11/28', Card_CVV: '456' } }),
     row({ Display_Name: 'Passport renewal', Notes: 'Renewal form DS-82; photos from the pharmacy.', Favorite: 'false', Others: { Type: 'secure', Secure_Note: 'Passport expires in 2031.\n"Expedite" costs extra.' } }),

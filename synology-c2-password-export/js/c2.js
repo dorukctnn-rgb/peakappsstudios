@@ -76,7 +76,7 @@ const ROLE_OF = new Map(Object.entries({
   type: 'type',
 }));
 // a header that only C2 writes
-const C2_ONLY = new Set(['displayname', 'loginurls', 'loginusername', 'loginpassword', 'logintotp', 'loginurlmatchrules', 'tagcolor', 'others']);
+const C2_ONLY = new Set(C2_COLUMNS.map(norm).filter(h => !['notes', 'tag', 'favorite'].includes(h)));
 
 // keys inside the Others text and flat columns that belong to a typed record (prefixes C2 uses)
 const TYPED_KEY = /^(card|id|bank|driver|router|contact|secure)/;
