@@ -1,0 +1,19 @@
+/* Rekey, C2 Password page: the few rules this page needs on top of /msecure-export/tool.css (the same brand, the same files) */
+.rk-routes { grid-column: 1 / -1; margin: 22px 0 0; }
+.rk-routes h3 { margin: 0 0 8px; }
+.rk-routes .rk-table th[scope="row"] { overflow-wrap: anywhere; }
+.rk-routes .rk-pro-tag { margin-left: 6px; }
+.rk-gap { margin-top: 24px; }
+
+/* a phone: a table of four or five columns becomes one block per row, each value labelled with its column (the labels are the
+   data-label attributes that _build/pages.mjs writes from the header row, and app.js writes on the rows it adds) */
+@media (max-width: 520px) {
+  .rekey .rk-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .rekey .rk-table, .rekey .rk-table tbody, .rekey .rk-table tr, .rekey .rk-table th, .rekey .rk-table td { display: block; width: auto; }
+  .rekey .rk-table tr { border-top: 1px solid var(--rk-line); padding: 8px 0 6px; }
+  .rekey .rk-table tbody tr:first-child { border-top: 0; }
+  .rekey .rk-table th, .rekey .rk-table td { border: 0; padding: 3px 14px; }
+  .rekey .rk-table td[data-label]::before { content: attr(data-label) ": "; font-weight: 600; color: var(--rk-muted); }
+}
+.rk-help { margin: 8px 0 0; }
+.rk-pro-buttons { flex-wrap: wrap; }

@@ -99,7 +99,9 @@ export function routes(records, googleLimit = 3000) {
     counts: { login, card, identity, note, other, rest, withOtp },
     apple: { file: 'Apple Passwords file', takes: login, left: rest, pro: false },
     google: { file: 'Google and Chrome file (also for 1Password)', takes: login, left: rest, pro: false, parts: Math.max(1, Math.ceil(login / googleLimit)) },
+    proton: { file: 'Proton Pass file', takes: login, left: rest, pro: false },
     bitwarden: { file: 'Bitwarden and KeePassXC file', takes: records.length, left: 0, pro: true },
+    protonFull: { file: 'Proton Pass file with cards, identities and notes', takes: records.length, left: 0, pro: true },
     sheet: { file: 'Record sheet', takes: rest, left: 0, pro: true },
   };
 }

@@ -10,6 +10,7 @@ import { appleCsv, googleCsvParts, checklistCsv, GOOGLE_LIMIT } from '../../msec
 import { readEsetVault, countsEset, sniff } from './eset.js';
 import { bitwardenJson, recordSheet, routes } from './export.js';
 import { sampleCsv, SAMPLE_NAME } from './sample.js';
+import { protonLoginsCsv, protonFullCsv } from '../../synology-c2-password-export/js/proton.js';
 import { PRO, PRO_PITCH, FREE_ROWS } from './pro.js';
 
 const $ = id => document.getElementById(id);
@@ -104,6 +105,7 @@ function render() {
   $('res-warn').textContent = warn.join(' ');
   $('res-warn').hidden = !warn.length;
   $('apple-note').firstChild.textContent = `${plural(c.login, 'login')} with notes${c.withOtp ? ' and one-time codes' : ''}. Mac: Passwords, File > Import Passwords from File. `;
+  $('proton-note').firstChild.textContent = `${plural(c.login, 'login')}${c.withOtp ? ' with one-time codes' : ''}. Proton Pass: Settings, Import, Generic CSV. `;
   for (const k of TABS) { $(`n-${k}`).textContent = n(k === 'all' ? c.all : c[k]); $(`tab-${k}`).hidden = k === 'other' && !c.other; }
   if (tab === 'other' && !c.other) tab = 'all';
   selectTab(tab);
@@ -124,10 +126,12 @@ function renderRoutes(c) {
   const add = (file, inFile, left, isPro) => body.append(el('tr', {}, el('th', { scope: 'row', textContent: file }, isPro ? el('span', { className: 'rk-pro-tag', textContent: 'Pro' }) : null), td(inFile, 'What goes in'), td(left, 'What is left out')));
   add('Apple Passwords file', `${plural(r.counts.login, 'login')}` + (r.counts.withOtp ? `, ${n(r.counts.withOtp)} with a one-time code` : ''), r.counts.rest ? `${rest}: Passwords imports logins only` : 'Nothing', false);
   add('Google and Chrome file, also for 1Password', `${plural(r.counts.login, 'login')}` + (r.google.parts > 1 ? ` in ${r.google.parts} files` : ''), r.counts.rest ? `${rest}: Chrome imports logins only` : 'Nothing', false);
+  add('Proton Pass file', `${plural(r.counts.login, 'login')}` + (r.counts.withOtp ? `, ${n(r.counts.withOtp)} with a one-time code` : ''), r.counts.rest ? `${rest}: this file is logins only` : 'Nothing', false);
   add('Bitwarden and KeePassXC file', `All ${plural(c.all, 'record')}: logins, cards, identities and notes`, 'Nothing', true);
+  add('Proton Pass file with cards, identities and notes', `All ${plural(c.all, 'record')}`, 'Nothing', true);
   add('Record sheet', r.counts.rest ? `${rest}, on printable pages` : 'No records besides logins', 'The logins (they are in the files above)', true);
   $('routes-note').textContent = r.counts.rest
-    ? `${plural(r.counts.rest, 'record')} cannot go into the Apple or Google file. Without Pro they stay in ESET's own CSV, which you keep until the import has worked.`
+    ? `${plural(r.counts.rest, 'record')} cannot go into the Apple, Google or free Proton Pass file. Without Pro they stay in ESET's own CSV, which you keep until the import has worked.`
     : 'Every record in this file is a login, so the free files take all of it.';
 }
 
@@ -268,6 +272,8 @@ function saveGoogle() {
   parts.forEach((p, i) => download(`eset-google-passwords-${stamp()}${parts.length > 1 ? `-part${i + 1}` : ''}.csv`, p, 'text/csv;charset=utf-8'));
   toast(parts.length > 1 ? `Saved in ${parts.length} parts of up to ${n(GOOGLE_LIMIT)}.` : 'Saved. Import it, then delete it.');
 }
+function saveProton() { download(`eset-proton-pass-${stamp()}.csv`, protonLoginsCsv(vault.records), 'text/csv;charset=utf-8'); toast('Saved. Proton Pass: Settings, Import, Generic CSV.'); }
+function saveProtonAll() { if (!needPro('Proton Pass file with cards, identities and notes')) return; download(`eset-proton-pass-all-${stamp()}.csv`, protonFullCsv(vault.records), 'text/csv;charset=utf-8'); toast('Saved. Proton Pass: Settings, Import, Generic CSV.'); }
 function saveBitwarden() { if (!needPro('Bitwarden and KeePassXC file')) return; download(`eset-bitwarden-${stamp()}.json`, bitwardenJson(vault.records), 'application/json'); toast('Saved. Bitwarden: Tools > Import, Bitwarden (json).'); }
 function saveSheet() { if (!needPro('Record sheet')) return; download(`eset-records-${stamp()}.html`, recordSheet(vault.records), 'text/html;charset=utf-8'); toast('Saved. Print it or save it as a PDF, then delete the file.'); }
 function saveChecklist() { if (!needPro('Change list')) return; download(`eset-change-checklist-${stamp()}.csv`, checklistCsv(vault.records, done, keys), 'text/csv;charset=utf-8'); toast('Saved. It holds no passwords.'); }
@@ -303,7 +309,9 @@ function init() {
   $('btn-reset').addEventListener('click', reset);
   $('btn-apple').addEventListener('click', saveApple);
   $('btn-google').addEventListener('click', saveGoogle);
+  $('btn-proton').addEventListener('click', saveProton);
   $('btn-bitwarden').addEventListener('click', saveBitwarden);
+  $('btn-proton-all').addEventListener('click', saveProtonAll);
   $('btn-sheet').addEventListener('click', saveSheet);
   $('btn-checklist').addEventListener('click', saveChecklist);
   $('hide-done').addEventListener('change', e => $('change-list').classList.toggle('rk-hide-done', e.target.checked));
