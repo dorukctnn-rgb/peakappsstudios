@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src https://cloudflareinsights.com; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sesli radar uyarısı ve ortalama hız koridoru (EDS) | Kopilot</title>
+<meta name="description" content="iPhone için radar uyarı uygulaması: hız kamerasına yaklaşırken sesli uyarı, ortalama hız koridorunda (EDS) limit ve ortalama, yol durumu, şarj istasyonları.">
+<link rel="canonical" href="https://peakappsstudio.com/kopilot/">
+<meta name="apple-itunes-app" content="app-id=6779541340">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Peak Apps Studio">
+<meta property="og:title" content="Kopilot: sesli radar uyarısı ve ortalama hız koridoru takibi">
+<meta property="og:description" content="Hız kamerasına yaklaşırken sesli uyarı, ortalama hız koridorunda limit ve ortalama hız, yol durumu ve şarj istasyonları. iPhone için.">
+<meta property="og:url" content="https://peakappsstudio.com/kopilot/">
+<meta property="og:image" content="https://peakappsstudio.com/kopilot/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Kopilot simgesi ve 12 kilometrelik, hız limiti 90 olan bir ortalama hız koridorunun şeması: giriş ve çıkış kapıları, ilerleyen araç.">
+<meta property="og:locale" content="tr_TR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kopilot: sesli radar uyarısı ve ortalama hız koridoru takibi">
+<meta name="twitter:description" content="Hız kamerasına yaklaşırken sesli uyarı, ortalama hız koridorunda limit ve ortalama hız, yol durumu ve şarj istasyonları. iPhone için.">
+<meta name="twitter:image" content="https://peakappsstudio.com/kopilot/img/og.png">
+<meta name="theme-color" content="#07313e">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/assets/b/img/i-kopilot-256.webp" type="image/webp" sizes="256x256">
+<link rel="preload" href="/kopilot/fonts/titillium-web-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/kopilot/fonts/titillium-web-700-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/kopilot/fonts/titillium-web-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/kopilot/fonts/titillium-web-400-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/kopilot/kopilot.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "MobileApplication",
+      "@id": "https://peakappsstudio.com/kopilot/#uygulama",
+      "name": "Kopilot",
+      "operatingSystem": "iOS",
+      "applicationCategory": "NavigationApplication",
+      "inLanguage": [
+        "tr",
+        "en",
+        "ru",
+        "de"
+      ],
+      "url": "https://peakappsstudio.com/kopilot/",
+      "downloadUrl": "https://apps.apple.com/tr/app/id6779541340",
+      "installUrl": "https://apps.apple.com/tr/app/id6779541340",
+      "image": "https://peakappsstudio.com/assets/b/img/i-kopilot-256.webp",
+      "description": "iPhone için radar uyarı uygulaması: hız kamerasına yaklaşırken sesli uyarı, ortalama hız koridorunda (EDS) limit ve ortalama, yol durumu, şarj istasyonları.",
+      "featureList": [
+        "Sabit hız kamerası noktaları için sesli uyarı",
+        "Ortalama hız koridoru (EDS) takibi: koridor, hız limiti, uzunluk, ortalama hız ve tutulması gereken hız, sesli de",
+        "Resmî yol durumu verisiyle kapalı yollar, yol çalışmaları ve riskli yol havası",
+        "Canlı trafik ve yağmur radarı",
+        "Anlık hız ve hız limiti göstergesi, limit aşıldığında sesli uyarı",
+        "Aktif rota varken rota üzerindeki topluluk yol uyarıları",
+        "Yakındaki şarj istasyonları, en yakına ya da şarj hızına göre sıralı",
+        "Türkçe, İngilizce, Rusça ve Almanca arayüz"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "TRY",
+        "description": "Uygulamayı indirmek için ödeme gerekmez. Premium abonelik, uygulama içinden satın alınır."
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Peak Apps Studio",
+        "url": "https://peakappsstudio.com/"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://peakappsstudio.com/kopilot/#sss",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Hız kamerası uyarısı nasıl çalışıyor?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Kopilot konumunu izler ve haritada işaretli sabit bir hız kamerasına yaklaştığında sesle haber verir. Kamera noktaları OpenStreetMap verisinden gelir. Bu veriyi gönüllüler güncellediği için eksik ya da eski bir nokta olabilir. Uyarı bir yardımcıdır; hız limitine uymak her zaman sürücünün sorumluluğundadır."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Ortalama hız koridoru (EDS) nedir, nasıl hesaplanır?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ortalama hız koridoru, iki nokta arasında anlık hıza değil ortalama hıza bakılan yol bölümüdür. Koridorun uzunluğu, girişten çıkışa geçen süreye bölünür; çıkan sayı koridorun limitini geçmemelidir. Örneğin 12 km uzunluğunda, limiti 90 km/sa olan bir koridoru 8 dakikadan kısa sürede geçmek ortalamanın limiti aşması demektir."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "EDS nerede var, koridorları tek tek aramam gerekiyor mu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hayır. Resmî koridor listesindeki bir koridora girdiğinde Kopilot bunu fark eder ve koridoru, hız limitini ve uzunluğunu, o ana kadarki ortalamanı ve tutman gereken hızı gösterir. Aynı bilgileri sesle de söyler."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Yola çıkmadan kapalı yolları ve yol çalışmalarını görebilir miyim?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Evet. Resmî yol durumu verisindeki kapalı yollar, yol çalışmaları ve riskli yol havası Kopilot’ta görünür. Canlı trafik haritada görünür, yağmur radarı da uygulamada var; böylece rotanı yola çıkmadan buna göre seçebilirsin."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Topluluk yol uyarıları ne zaman görünür?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yalnızca aktif bir rotan olduğunda. O zaman da rotanın üzerindeki ya da çok yakınındaki ve ilerinde kalan uyarılar gelir. Rota yoksa uyarı gösterilmez, listelenmez ve sesli okunmaz."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Yakındaki şarj istasyonlarını nasıl bulurum?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Kopilot yakındaki şarj istasyonlarını haritada gösterir. İstasyonları en yakından başlayarak ya da şarj hızına göre sıralayabilirsin. Veri OpenStreetMap’ten gelir ve gönüllüler tarafından güncellenir."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Kopilot pili ve mobil veriyi ne kadar kullanır?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Konumu izleyen ve haritayı gösteren her uygulama gibi pil harcar, uzun yolda telefonu araç şarjına takman iyi olur. Harita ve katmanlar internetten yüklendiği için mobil veri de kullanır. Miktar yolculuğun süresine ve açtığın katmanlara göre değişir."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Ekran kapalıyken de uyarı verir mi?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "iPhone’da Kopilot’a konum iznini Her Zaman olarak verirsen ekran kapalıyken de sesli uyarı alabilirsin. Uygulama izni isterken nedenini de yazar."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Hangi dilleri destekliyor?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Kopilot Türkçe, İngilizce, Rusça ve Almanca olarak kullanılır."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Konumum ve rotam saklanıyor mu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hız kamerası ve koridor uyarıları telefonunda hesaplanır. Yakındaki koridorları, yol durumunu ve şarj istasyonlarını getirmek için yaklaşık konumun sunucumuza gönderilir ve kimliğinle ilişkilendirilmez. Rota çizgin yalnızca rota aktifken, rota üzerindeki yol uyarılarını gösterebilmek için şifreli bağlantıyla gönderilir; saklanmaz, kaydedilmez ve üçüncü kişilerle paylaşılmaz. Ayrıntılar gizlilik politikasında."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Premium gerekli mi, deneme süresi var mı?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Kopilot’ta Premium abonelik vardır ve ilk kez abone olanlara deneme süresi sunulur. Fiyat ve süre değişebildiği için burada yazmıyoruz; güncel bilgiyi abonelik ekranında görürsün."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#icerik">İçeriğe geç</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-kapali" viewBox="0 0 64 64"><circle cx="32" cy="32" r="29" fill="#e8394d"/><rect x="13" y="26" width="38" height="12" rx="2" fill="#fff"/></symbol>
+    <symbol id="i-calisma" viewBox="0 0 64 64"><path d="M32 5 61 57H3Z" fill="#ffc21a" stroke="#10242f" stroke-width="3" stroke-linejoin="round"/><path d="M32 21l7.5 25h-15Z" fill="#e8394d"/><path d="M28.6 32h6.8l1.1 4h-9Z" fill="#fff"/><rect x="21" y="45" width="22" height="4.5" rx="1.5" fill="#10242f"/></symbol>
+    <symbol id="i-hava" viewBox="0 0 64 64"><circle cx="32" cy="32" r="29" fill="#1d6fa5"/><circle cx="25" cy="30" r="7" fill="#fff"/><circle cx="34" cy="25" r="9" fill="#fff"/><circle cx="43" cy="31" r="6" fill="#fff"/><rect x="20" y="30" width="29" height="8" rx="4" fill="#fff"/><path d="M26 43l-2.5 6M34 43l-2.5 6M42 43l-2.5 6" stroke="#fff" stroke-width="3" stroke-linecap="round"/></symbol>
+    <symbol id="i-trafik" viewBox="0 0 64 64"><rect x="3" y="3" width="58" height="58" rx="15" fill="#0f3a49"/><path d="M12 47 26 34" stroke="#2fbf71" stroke-width="7" stroke-linecap="round"/><path d="M26 34 40 38" stroke="#ffc21a" stroke-width="7" stroke-linecap="round"/><path d="M40 38 52 17" stroke="#e8394d" stroke-width="7" stroke-linecap="round"/></symbol>
+    <symbol id="i-yagmur" viewBox="0 0 64 64"><circle cx="32" cy="32" r="29" fill="#0f3a49"/><circle cx="32" cy="32" r="19" fill="none" stroke="#22e5e0" stroke-opacity=".5" stroke-width="2"/><circle cx="32" cy="32" r="9" fill="none" stroke="#22e5e0" stroke-opacity=".5" stroke-width="2"/><path d="M32 32V3a29 29 0 0 1 25 14.5Z" fill="#22e5e0" fill-opacity=".28"/><ellipse cx="42" cy="22" rx="7" ry="4.5" fill="#4aa8ff"/><ellipse cx="22" cy="40" rx="6" ry="4" fill="#4aa8ff" fill-opacity=".7"/><ellipse cx="45" cy="42" rx="5" ry="3.5" fill="#ffc21a" fill-opacity=".85"/></symbol>
+    <symbol id="i-uyari" viewBox="0 0 32 32"><circle cx="16" cy="16" r="13" fill="#ffc21a" stroke="#10242f" stroke-width="2.5"/><path d="M16 9v9" stroke="#10242f" stroke-width="3" stroke-linecap="round"/><circle cx="16" cy="22.5" r="1.9" fill="#10242f"/></symbol>
+    <symbol id="i-gizli" viewBox="0 0 32 32"><circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="4 4" opacity=".75"/><path d="M16 9v9" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".75"/><circle cx="16" cy="22.5" r="1.9" fill="currentColor" opacity=".75"/></symbol>
+  </defs>
+</svg>
+
+<header class="top night">
+  <div class="wrap">
+    <a class="brand" href="/kopilot/"><img src="/assets/b/img/i-kopilot-256.webp" width="40" height="40" alt=""><span>Kopilot</span></a>
+    <nav aria-label="Sayfa bölümleri">
+      <a href="#hiz-kamerasi">Hız kamerası</a>
+      <a href="#ortalama-hiz-koridoru">Ortalama hız koridoru</a>
+      <a href="#yol-durumu">Yol durumu</a>
+      <a href="#sarj-istasyonlari">Şarj istasyonları</a>
+      <a href="#sss">Sorular</a>
+    </nav>
+    <a class="store" href="https://apps.apple.com/tr/app/id6779541340">App Store’da aç</a>
+  </div>
+</header>
+
+<main id="icerik">
+
+<section class="hero night" aria-labelledby="baslik">
+  <div class="wrap">
+    <div>
+      <h1 id="baslik">Sesli hız kamerası uyarısı ve ortalama hız koridoru takibi</h1>
+      <p class="sub">Kopilot, Türkiye yollarında bir hız kamerasına yaklaşırken sesle haber verir. Ortalama hız koridoruna girdiğinde koridoru, hız limitini ve ortalamanı gösterir; limitin içinde kalman için tutman gereken hızı da söyler.</p>
+      <p class="sub">Yol durumu, canlı trafik, yağmur radarı ve şarj istasyonları aynı uygulamada.</p>
+      <div class="cta">
+        <a class="badge" href="https://apps.apple.com/tr/app/id6779541340"><img src="/assets/home/badge-app-store.svg" width="168" height="56" alt="App Store’dan indirin"></a>
+        <p class="cta-note">iPhone için. Arayüz Türkçe, İngilizce, Rusça ve Almanca.</p>
+      </div>
+    </div>
+    <figure class="fig">
+      <svg class="dg dg--night" viewBox="0 0 720 292" role="img" aria-labelledby="f1t f1d">
+        <title id="f1t">Ortalama hız koridoru şeması</title>
+        <desc id="f1d">Giriş ve çıkış kapıları arasında 12 kilometre uzunluğunda, hız limiti 90 olan bir koridor. Araç koridorun içinde ilerliyor.</desc>
+        <rect class="road" x="16" y="92" width="688" height="96" rx="48"/>
+        <line class="lanes" x1="52" y1="140" x2="668" y2="140"/>
+        <rect class="gate" x="128" y="72" width="8" height="136" rx="4"/>
+        <rect class="gate" x="584" y="72" width="8" height="136" rx="4"/>
+        <g transform="translate(132 34)"><circle r="26" fill="#fff" stroke="#e8394d" stroke-width="8"/><text class="limit" y="10" text-anchor="middle">90</text></g>
+        <line class="trail" pathLength="1" x1="132" y1="164" x2="360" y2="164"/>
+        <line class="rest" x1="372" y1="164" x2="588" y2="164"/>
+        <g class="car"><path d="M0 -16 34 0 0 16 9 0Z" transform="translate(344 164)"/></g>
+        <path class="dim" d="M132 236H296M424 236H588M132 226V246M588 226V246"/>
+        <text class="lbl big" x="360" y="246" text-anchor="middle">12 km</text>
+        <text class="lbl" x="132" y="280" text-anchor="middle">Giriş</text>
+        <text class="lbl" x="588" y="280" text-anchor="middle">Çıkış</text>
+      </svg>
+      <dl class="read read--4">
+        <div><dt>Hız limiti</dt><dd>90<small>km/sa</small></dd></div>
+        <div><dt>Koridor uzunluğu</dt><dd>12<small>km</small></dd></div>
+        <div><dt>Ortalaman</dt><dd>90,4<small>km/sa</small></dd></div>
+        <div><dt>Tutman gereken hız</dt><dd>89,6<small>km/sa</small></dd></div>
+      </dl>
+      <figcaption class="cap">Şema: Kopilot’un koridora girince gösterdiği bilgiler. Sayılar örnektir.</figcaption>
+    </figure>
+  </div>
+</section>
+<div class="lane" aria-hidden="true"></div>
+
+<section class="sec" id="hiz-kamerasi" aria-labelledby="h-kamera">
+  <div class="wrap split">
+    <div class="prose">
+      <h2 id="h-kamera">Hız kamerası uyarısı nasıl çalışır?</h2>
+      <p>Kopilot konumunu izler ve haritada işaretli sabit bir hız kamerasına ya da radar noktasına yaklaştığında sesle haber verir. Ekrana bakman gerekmez, gözün yolda kalır.</p>
+      <p>Ekranda anlık hızın ve o yolun hız limiti durur. Limiti aştığında sesli bir uyarı daha alırsın. Amaç, hızını her an bilmen ve limitin içinde sakin sürmendir.</p>
+      <ul class="ticks">
+        <li>Kameraya yaklaşırken sesli uyarı</li>
+        <li>Anlık hız ve hız limiti ekranda</li>
+        <li>Limit aşıldığında sesli uyarı</li>
+      </ul>
+      <p class="small">Kamera noktaları OpenStreetMap verisinden gelir. Bu veriyi gönüllüler günceller, bu yüzden haritada olmayan ya da yeri değişmiş bir nokta olabilir. Uyarı bir yardımcıdır; hız limitine ve yol işaretlerine uymak her zaman sürücünün sorumluluğundadır.</p>
+    </div>
+    <figure class="fig">
+      <svg class="dg dg--day" viewBox="0 0 720 316" role="img" aria-labelledby="f2t f2d">
+        <title id="f2t">Hız kamerasına yaklaşma şeması</title>
+        <desc id="f2d">Yolda ilerleyen araç, yolun kenarındaki kamera noktasına yaklaşırken sesli uyarı veriyor.</desc>
+        <rect class="road" x="16" y="172" width="688" height="96" rx="48"/>
+        <line class="lanes" x1="52" y1="220" x2="668" y2="220"/>
+        <rect x="552" y="70" width="8" height="102" rx="3" fill="var(--ink)"/>
+        <rect x="512" y="34" width="84" height="40" rx="9" fill="var(--ink)"/>
+        <circle cx="554" cy="54" r="12" fill="var(--paper)"/>
+        <circle cx="554" cy="54" r="6" fill="var(--ink)"/>
+        <circle cx="612" cy="40" r="7" fill="#e8394d"/>
+        <path d="M624 28a20 20 0 0 1 8 12M634 20a32 32 0 0 1 12 20" fill="none" stroke="#e8394d" stroke-width="3.5" stroke-linecap="round"/>
+        <g transform="translate(170 244)"><path class="car" d="M0 -16 34 0 0 16 9 0Z"/></g>
+        <line x1="222" y1="244" x2="496" y2="244" stroke="var(--route)" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 13"/>
+        <g transform="translate(110 70)">
+          <rect x="0" y="0" width="172" height="54" rx="27" fill="var(--paper)" stroke="var(--route)" stroke-width="3"/>
+          <text class="lbl" x="86" y="35" text-anchor="middle">Sesli uyarı</text>
+          <path d="M44 54l16 22 6-22" fill="var(--paper)" stroke="var(--route)" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M45 52h20" stroke="var(--paper)" stroke-width="6"/>
+        </g>
+        <text class="lbl" x="554" y="304" text-anchor="middle">Kamera noktası</text>
+      </svg>
+      <dl class="read read--day">
+        <div><dt>Anlık hız</dt><dd>62<small>km/sa</small></dd></div>
+        <div><dt>Hız limiti</dt><dd>70<small>km/sa</small></dd></div>
+      </dl>
+      <figcaption class="cap">Şema: sayılar örnektir.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="sec sec--paper" id="ortalama-hiz-koridoru" aria-labelledby="h-eds">
+  <div class="wrap split split--rev">
+    <div class="prose">
+      <h2 id="h-eds">Ortalama hız koridoru (EDS) nedir?</h2>
+      <p>Ortalama hız koridoru, iki nokta arasında anlık hızına değil ortalama hızına bakılan yol bölümüdür. Koridorun girişinden çıkışına kadar geçen süre ölçülür ve koridorun uzunluğu bu süreye bölünür. Çıkan sayı koridorun hız limitini geçmemelidir.</p>
+      <p>Bu yüzden önemli olan tek bir anki hız değil, bütün koridorun ortalamasıdır. Koridorun içinde de her noktada yazılı hız limiti geçerlidir; ortalamanın düşük kalması limiti aşmak için bir neden değildir.</p>
+      <h3>Kopilot koridoru senin için izler</h3>
+      <p>Resmî koridor listesindeki bir koridora girdiğinde Kopilot bunu fark eder ve koridoru ekrana getirir: koridorun hız limiti ve uzunluğu, o ana kadarki ortalaman ve ortalamayı limitin içinde tutman için gereken hız. Aynı bilgileri sesle de duyarsın.</p>
+    </div>
+    <div class="stack">
+      <aside class="calc" aria-labelledby="calc-h">
+        <p class="calc-h" id="calc-h">Örnek hesap</p>
+        <dl>
+          <div class="row"><dt>Koridor uzunluğu</dt><dd>12 km</dd></div>
+          <div class="row"><dt>Hız limiti</dt><dd>90 km/sa</dd></div>
+          <div class="row"><dt>Süre = uzunluk / limit</dt><dd>12 / 90 = 0,133 saat</dd></div>
+        </dl>
+        <div class="calc-out">
+          <p class="out">8<small>dk</small></p>
+          <p class="why">Bu koridoru 8 dakikadan kısa sürede geçmek, ortalamanın limiti aşması demektir.</p>
+        </div>
+      </aside>
+      <div class="prose">
+        <h3>EDS nerede?</h3>
+        <p>Koridorların yerlerini tek tek aramana gerek yok. Listedeki bir koridora girdiğinde Kopilot kendisi gösterir. Uzunluğu da ekranda olduğu için koridorun ne kadar süreceğini bilirsin.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="yol-durumu" aria-labelledby="h-yol">
+  <div class="wrap split">
+    <div class="prose">
+      <h2 id="h-yol">Yol durumu: kapalı yollar ve yol çalışmaları, yola çıkmadan önce</h2>
+      <p>Yola çıkmadan önce kapalı yolları, yol çalışmalarını ve riskli yol havasını Kopilot’ta görürsün. Rotanı baştan buna göre seçersin. Bu bilgiler resmî yol durumu verisinden gelir.</p>
+      <p>Canlı trafik haritada görünür, yağmur radarı da uygulamada var. Böylece güzergâhına bakarken yoğunluğu ve yağışı birlikte görürsün.</p>
+    </div>
+    <ul class="rows">
+      <li><svg aria-hidden="true"><use href="#i-kapali"/></svg><div><h3>Kapalı yollar</h3><p>Kapanan yolları yola çıkmadan görürsün, başka bir güzergâh seçmek için vakit kalır.</p></div></li>
+      <li><svg aria-hidden="true"><use href="#i-calisma"/></svg><div><h3>Yol çalışmaları</h3><p>Çalışma olan bölümleri önceden bilirsin, süreni ve hızını ona göre ayarlarsın.</p></div></li>
+      <li><svg aria-hidden="true"><use href="#i-hava"/></svg><div><h3>Riskli yol havası</h3><p>Hava nedeniyle sürüşün zorlaşabileceği yol bölümleri aynı yol durumu verisinde yer alır.</p></div></li>
+      <li><svg aria-hidden="true"><use href="#i-trafik"/></svg><div><h3>Canlı trafik</h3><p>Haritada trafik yoğunluğunu görür, güzergâhına ona göre karar verirsin.</p></div></li>
+      <li><svg aria-hidden="true"><use href="#i-yagmur"/></svg><div><h3>Yağmur radarı</h3><p>Yağışın nerede olduğunu radar görüntüsünden izlersin.</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec sec--paper" id="topluluk-uyarilari" aria-labelledby="h-topluluk">
+  <div class="wrap split">
+    <div class="prose">
+      <h2 id="h-topluluk">Rota üzerindeki topluluk yol uyarıları</h2>
+      <p>Topluluk yol uyarıları Kopilot’ta yalnızca aktif bir rotan olduğunda görünür. Rota yoksa haritada uyarı çıkmaz, liste açılmaz, sesli okunmaz.</p>
+      <p>Rota varken de her şeyi görmezsin. Yalnızca rotanın üzerindeki ya da çok yakınındaki ve ilerinde kalan uyarılar gelir. Geride bıraktığın ya da rotandan uzakta olan uyarılar gösterilmez.</p>
+      <p>Böylece harita sakin kalır ve yalnızca yolculuğunla ilgili olanı öğrenirsin. Uyarıları topluluk bildirir, bu yüzden her zaman güncel ya da eksiksiz olmayabilir. Yine de dikkatli sür.</p>
+    </div>
+    <figure class="fig">
+      <svg class="dg dg--day" viewBox="0 0 720 400" role="img" aria-labelledby="f3t f3d">
+        <title id="f3t">Rota üzerindeki uyarıların şeması</title>
+        <desc id="f3d">Kıvrılan bir rota ve rotadaki araç. Rotanın üzerinde ve yakınında, ilerideki uyarılar gösterilir. Rotadan uzaktaki ve geride kalan uyarılar gösterilmez.</desc>
+        <path d="M70 352C215 352 255 232 380 212S570 130 660 52" fill="none" stroke="var(--route)" stroke-opacity=".16" stroke-width="88" stroke-linecap="round"/>
+        <path d="M70 352C215 352 255 232 380 212S570 130 660 52" fill="none" stroke="var(--route)" stroke-width="8" stroke-linecap="round"/>
+        <g transform="translate(152 337) rotate(-21)"><path class="car" d="M0 -22 46 0 0 22 13 0Z"/></g>
+        <use href="#i-uyari" x="231" y="252" width="44" height="44"/>
+        <use href="#i-uyari" x="323" y="163" width="44" height="44"/>
+        <use href="#i-uyari" x="498" y="140" width="44" height="44"/>
+        <use href="#i-gizli" x="69" y="329" width="44" height="44" style="color:var(--soft)"/>
+        <use href="#i-gizli" x="178" y="68" width="44" height="44" style="color:var(--soft)"/>
+        <use href="#i-gizli" x="568" y="258" width="44" height="44" style="color:var(--soft)"/>
+        <text class="lbl" x="150" y="392" text-anchor="middle">Rotan</text>
+      </svg>
+      <ul class="legend">
+        <li><svg aria-hidden="true"><use href="#i-uyari"/></svg><span>Gösterilir: rotanın üzerinde ya da yakınında, ilerinde.</span></li>
+        <li><svg aria-hidden="true" style="color:var(--soft)"><use href="#i-gizli"/></svg><span>Gösterilmez: rotadan uzakta ya da geride kaldı. Rota yoksa hiçbiri gösterilmez.</span></li>
+      </ul>
+      <figcaption class="cap">Şema: uyarıların konumları örnektir.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="sec" id="sarj-istasyonlari" aria-labelledby="h-sarj">
+  <div class="wrap split">
+    <div class="prose">
+      <h2 id="h-sarj">Şarj istasyonu haritası: yakındaki istasyonları bul</h2>
+      <p>Elektrikli araçla yola çıkıyorsan Kopilot yakındaki şarj istasyonlarını gösterir. İstasyonları en yakından başlayarak ya da şarj hızına göre sıralayabilirsin.</p>
+      <p class="small">İstasyon verisi OpenStreetMap’ten gelir ve gönüllüler tarafından güncellenir. Yola çıkmadan önce istasyonun açık olduğunu operatörün kendi kaynağından doğrulamak iyi olur.</p>
+    </div>
+    <ul class="rows rows--plain">
+      <li><h3>Yakınlığa göre</h3><p>Bulunduğun yere en yakın istasyon en üstte durur. Şarjın azaldığında ve vaktin dar olduğunda işine yarar.</p></li>
+      <li><h3>Şarj hızına göre</h3><p>Hızlı şarj veren istasyonlar öne çıkar. Uzun yolda şarj molasını kısa tutmak istediğinde işine yarar.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec sec--paper" id="pil-veri" aria-labelledby="h-pil">
+  <div class="wrap">
+    <h2 id="h-pil">Pil, mobil veri ve ekran kapalıyken kullanım</h2>
+    <div class="trio">
+      <div><h3>Pil</h3><p>Konumu izleyen ve haritayı gösteren her uygulama gibi Kopilot da pil harcar. Uzun yolda telefonu araç şarjına takman iyi olur.</p></div>
+      <div><h3>Mobil veri</h3><p>Harita, canlı trafik, yağmur radarı, yol durumu ve şarj istasyonları internetten yüklenir. Kullanılan veri miktarı yolculuğun süresine ve açtığın katmanlara göre değişir.</p></div>
+      <div><h3>Ekran kapalıyken</h3><p>Ekran kapalıyken de sesli uyarı alabilmen için iPhone’da Kopilot’a konum iznini Her Zaman olarak vermen gerekir. Uygulama izni isterken nedenini de yazar.</p></div>
+    </div>
+    <p class="safety">Sesli uyarılar, sürerken ekrana bakmaman için var. Telefonu sürüş sırasında elinde kullanma; rotanı ve katmanları yola çıkmadan ayarla.</p>
+  </div>
+</section>
+
+<section class="sec sec--night night" id="gizlilik" aria-labelledby="h-gizlilik">
+  <div class="wrap two">
+    <div>
+      <h2 id="h-gizlilik">Konumun ve rotan nasıl kullanılır?</h2>
+      <ul class="ticks">
+        <li>Hız kamerası ve koridor uyarıları telefonunda hesaplanır. Yakındaki koridorları, yol durumunu ve şarj istasyonlarını getirmek için yaklaşık konumun sunucumuza gönderilir ve kimliğinle ilişkilendirilmez.</li>
+        <li>Rota çizgin yalnızca rota aktifken, rota üzerindeki yol uyarılarını gösterebilmek için şifreli bağlantıyla sunucuya gönderilir. Rota yoksa gönderilmez.</li>
+        <li>Konumun kimliğinle ilişkilendirilip sunucularımızda saklanmaz. Rota bilgisi de saklanmaz, kaydedilmez ve üçüncü kişilerle paylaşılmaz.</li>
+      </ul>
+      <p class="small"><a href="/kopilot/privacy.html">Gizlilik politikasının tamamını oku</a></p>
+    </div>
+    <div>
+      <h2>Dört dilde</h2>
+      <ul class="langs">
+        <li>Türkçe</li>
+        <li>İngilizce</li>
+        <li>Rusça</li>
+        <li>Almanca</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--paper" id="premium" aria-labelledby="h-premium">
+  <div class="wrap side-grid">
+    <h2 id="h-premium">Premium abonelik</h2>
+    <div class="prose">
+      <p>Kopilot’ta Premium abonelik vardır. Abonelik uygulama içinden, App Store üzerinden alınır ve ilk kez abone olanlara deneme süresi sunulur.</p>
+      <p>Güncel fiyatı ve deneme süresini abonelik ekranında görürsün. İkisi de değişebildiği için burada yazmıyoruz.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="sss" aria-labelledby="h-sss">
+  <div class="wrap side-grid">
+    <div>
+      <h2 id="h-sss">Sık sorulan sorular</h2>
+      <p class="small">Aradığını bulamazsan <a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a> adresine yaz.</p>
+    </div>
+    <div class="faq">
+      <!--FAQ-START-->
+      <details><summary>Hız kamerası uyarısı nasıl çalışıyor?</summary><p>Kopilot konumunu izler ve haritada işaretli sabit bir hız kamerasına yaklaştığında sesle haber verir. Kamera noktaları OpenStreetMap verisinden gelir. Bu veriyi gönüllüler güncellediği için eksik ya da eski bir nokta olabilir. Uyarı bir yardımcıdır; hız limitine uymak her zaman sürücünün sorumluluğundadır.</p></details>
+      <details><summary>Ortalama hız koridoru (EDS) nedir, nasıl hesaplanır?</summary><p>Ortalama hız koridoru, iki nokta arasında anlık hıza değil ortalama hıza bakılan yol bölümüdür. Koridorun uzunluğu, girişten çıkışa geçen süreye bölünür; çıkan sayı koridorun limitini geçmemelidir. Örneğin 12 km uzunluğunda, limiti 90 km/sa olan bir koridoru 8 dakikadan kısa sürede geçmek ortalamanın limiti aşması demektir.</p></details>
+      <details><summary>EDS nerede var, koridorları tek tek aramam gerekiyor mu?</summary><p>Hayır. Resmî koridor listesindeki bir koridora girdiğinde Kopilot bunu fark eder ve koridoru, hız limitini ve uzunluğunu, o ana kadarki ortalamanı ve tutman gereken hızı gösterir. Aynı bilgileri sesle de söyler.</p></details>
+      <details><summary>Yola çıkmadan kapalı yolları ve yol çalışmalarını görebilir miyim?</summary><p>Evet. Resmî yol durumu verisindeki kapalı yollar, yol çalışmaları ve riskli yol havası Kopilot’ta görünür. Canlı trafik haritada görünür, yağmur radarı da uygulamada var; böylece rotanı yola çıkmadan buna göre seçebilirsin.</p></details>
+      <details><summary>Topluluk yol uyarıları ne zaman görünür?</summary><p>Yalnızca aktif bir rotan olduğunda. O zaman da rotanın üzerindeki ya da çok yakınındaki ve ilerinde kalan uyarılar gelir. Rota yoksa uyarı gösterilmez, listelenmez ve sesli okunmaz.</p></details>
+      <details><summary>Yakındaki şarj istasyonlarını nasıl bulurum?</summary><p>Kopilot yakındaki şarj istasyonlarını gösterir. İstasyonları en yakından başlayarak ya da şarj hızına göre sıralayabilirsin. Veri OpenStreetMap’ten gelir ve gönüllüler tarafından güncellenir.</p></details>
+      <details><summary>Kopilot pili ve mobil veriyi ne kadar kullanır?</summary><p>Konumu izleyen ve haritayı gösteren her uygulama gibi pil harcar, uzun yolda telefonu araç şarjına takman iyi olur. Harita ve katmanlar internetten yüklendiği için mobil veri de kullanır. Miktar yolculuğun süresine ve açtığın katmanlara göre değişir.</p></details>
+      <details><summary>Ekran kapalıyken de uyarı verir mi?</summary><p>iPhone’da Kopilot’a konum iznini Her Zaman olarak verirsen ekran kapalıyken de sesli uyarı alabilirsin. Uygulama izni isterken nedenini de yazar.</p></details>
+      <details><summary>Hangi dilleri destekliyor?</summary><p>Kopilot Türkçe, İngilizce, Rusça ve Almanca olarak kullanılır.</p></details>
+      <details><summary>Konumum ve rotam saklanıyor mu?</summary><p>Hız kamerası ve koridor uyarıları telefonunda hesaplanır. Yakındaki koridorları, yol durumunu ve şarj istasyonlarını getirmek için yaklaşık konumun sunucumuza gönderilir ve kimliğinle ilişkilendirilmez. Rota çizgin yalnızca rota aktifken, rota üzerindeki yol uyarılarını gösterebilmek için şifreli bağlantıyla gönderilir; saklanmaz, kaydedilmez ve üçüncü kişilerle paylaşılmaz. Ayrıntılar <a href="/kopilot/privacy.html">gizlilik politikasında</a>.</p></details>
+      <details><summary>Premium gerekli mi, deneme süresi var mı?</summary><p>Kopilot’ta Premium abonelik vardır ve ilk kez abone olanlara deneme süresi sunulur. Fiyat ve süre değişebildiği için burada yazmıyoruz; güncel bilgiyi abonelik ekranında görürsün.</p></details>
+      <!--FAQ-END-->
+    </div>
+  </div>
+</section>
+
+<div class="lane" aria-hidden="true"></div>
+<section class="final night" aria-labelledby="h-son">
+  <div class="wrap">
+    <div>
+      <h2 id="h-son">Kopilot’u App Store’dan indir</h2>
+      <p>Limitin içinde, sakin bir sürüş için.</p>
+    </div>
+    <a class="badge" href="https://apps.apple.com/tr/app/id6779541340"><img src="/assets/home/badge-app-store.svg" width="192" height="64" alt="App Store’dan indirin" loading="lazy"></a>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="wrap">
+    <span>Kopilot, Peak Apps Studio’nun bir iPhone uygulamasıdır.</span>
+    <a href="/">Peak Apps Studio</a>
+    <a href="/kopilot/privacy.html">Gizlilik politikası</a>
+    <a href="/kopilot/terms.html">Kullanım koşulları</a>
+    <a href="mailto:info@peakappsstudio.com">info@peakappsstudio.com</a>
+  </div>
+</footer>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a69d7469238f42fa90186f68b7e41f23"}'></script>
+</body>
+</html>
